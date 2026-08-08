@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.1.20"
     application
 }
 
@@ -8,10 +8,11 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("org.http4k:http4k-bom:5.35.0.0"))
+    implementation(platform("org.http4k:http4k-bom:6.15.0.1"))
     implementation("org.http4k:http4k-core")
     implementation("org.http4k:http4k-server-jetty")
     implementation("org.http4k:http4k-client-okhttp")
+    implementation("org.http4k:http4k-tools-traffic-capture")
 
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-kotest")
