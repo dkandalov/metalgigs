@@ -16,6 +16,8 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-kotest")
+    testImplementation("org.jsoup:jsoup:1.18.1")
+    testImplementation("io.strikt:strikt-core:0.34.1")
 }
 
 application {
