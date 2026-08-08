@@ -11,6 +11,7 @@ dependencies {
     implementation(platform("org.http4k:http4k-bom:5.35.0.0"))
     implementation("org.http4k:http4k-core")
     implementation("org.http4k:http4k-server-jetty")
+    implementation("org.http4k:http4k-client-okhttp")
 
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-kotest")
