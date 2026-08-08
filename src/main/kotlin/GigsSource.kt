@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
 
-data class GigEvent(val title: String, val year: Int, val month: String, val day: String, val url: String)
+data class GigEvent(val title: String, val venue: String, val year: Int, val month: String, val day: String, val url: String)
 
 interface GigsSource {
     fun latestGigs(): List<GigEvent>
@@ -12,6 +12,7 @@ interface GigsSource {
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://www.cartandhorses.london/news-offers-events/"
+    private val venue = "Cart & Horses"
 
     override fun latestGigs(): List<GigEvent> =
         Jsoup.parse(fetchPage(client, url), url)
@@ -20,6 +21,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
             .map { item ->
                 GigEvent(
                     title = item.select(".news-carousel__link").text(),
+                    venue = venue,
                     year = year,
                     month = item.select(".news-carousel__month").text(),
                     day = item.select(".news-carousel__day").text(),
@@ -30,6 +32,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
 
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.newcrossinn.com/gigs/"
+    private val venue = "New Cross Inn"
 
     private val datePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
 
@@ -40,6 +43,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                 val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
                 GigEvent(
                     title = item.select("h3.nci-event-name").text(),
+                    venue = venue,
                     year = year.toInt(),
                     month = month,
                     day = day,
@@ -50,6 +54,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 
 class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.ourblackheart.com/events"
+    private val venue = "Our Black Heart"
 
     override fun latestGigs(): List<GigEvent> =
         Jsoup.parse(fetchPage(client, url), url)
@@ -58,6 +63,7 @@ class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
                 val date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime"))
                 GigEvent(
                     title = item.select(".eventlist-title-link").text(),
+                    venue = venue,
                     year = date.year,
                     month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
                     day = "%02d".format(date.dayOfMonth),

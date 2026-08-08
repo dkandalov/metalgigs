@@ -28,6 +28,7 @@ class AppTest {
         expectThat(events.first()).isEqualTo(
             GigEvent(
                 title = "THREE BIRDS WHISPER - The Positive Rebellion Tour UK 2026 + PSYCHEDELIC SKIES + BORDERLINE",
+                venue = "Cart & Horses",
                 year = 2026,
                 month = "Aug",
                 day = "08",
@@ -37,6 +38,7 @@ class AppTest {
         expectThat(events.last()).isEqualTo(
             GigEvent(
                 title = "Jbm presents SMELLS LIKE NIRVANA",
+                venue = "Cart & Horses",
                 year = 2026,
                 month = "Oct",
                 day = "10",
@@ -52,6 +54,7 @@ class AppTest {
             .forEach { band -> expectThat(titles.any { it.contains(band) }).isTrue() }
 
         expectThat(events.all { it.url.startsWith("https://www.cartandhorses.london/") }).isTrue()
+        expectThat(events.all { it.venue == "Cart & Horses" }).isTrue()
     }
 
     @Test
@@ -64,6 +67,7 @@ class AppTest {
         expectThat(events.first()).isEqualTo(
             GigEvent(
                 title = "GREENHAT",
+                venue = "New Cross Inn",
                 year = 2026,
                 month = "Aug",
                 day = "08",
@@ -73,6 +77,7 @@ class AppTest {
         expectThat(events.last()).isEqualTo(
             GigEvent(
                 title = "Rudies Resurrection",
+                venue = "New Cross Inn",
                 year = 2026,
                 month = "Sep",
                 day = "05",
@@ -81,6 +86,7 @@ class AppTest {
         )
 
         expectThat(events.all { it.url.startsWith("https://pit.live/events/") }).isTrue()
+        expectThat(events.all { it.venue == "New Cross Inn" }).isTrue()
     }
 
     @Test
@@ -93,6 +99,7 @@ class AppTest {
         expectThat(events.first()).isEqualTo(
             GigEvent(
                 title = "YOU WIN AGAIN GRAVITY",
+                venue = "Our Black Heart",
                 year = 2026,
                 month = "Aug",
                 day = "08",
@@ -102,6 +109,7 @@ class AppTest {
         expectThat(events.last()).isEqualTo(
             GigEvent(
                 title = "NECROPOLIS VOL. III",
+                venue = "Our Black Heart",
                 year = 2027,
                 month = "Mar",
                 day = "19",
@@ -110,13 +118,14 @@ class AppTest {
         )
 
         expectThat(events.all { it.url.startsWith("https://www.ourblackheart.com/events/") }).isTrue()
+        expectThat(events.all { it.venue == "Our Black Heart" }).isTrue()
     }
 
     @Test
     fun `persists gigs as ndjson`() {
         val gigs = listOf(
-            GigEvent(title = "Test Gig", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig"),
-            GigEvent(title = "Another Gig", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/another-gig"),
+            GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig"),
+            GigEvent(title = "Another Gig", venue = "Test Venue", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/another-gig"),
         )
         val file = File.createTempFile("gigs", ".ndjson").apply { deleteOnExit() }
 

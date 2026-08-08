@@ -8,6 +8,7 @@ import java.io.File
 
 object JGigEvent : JAny<GigEvent>() {
     private val title by str(GigEvent::title)
+    private val venue by str(GigEvent::venue)
     private val year by num(GigEvent::year)
     private val month by str(GigEvent::month)
     private val day by str(GigEvent::day)
@@ -15,6 +16,7 @@ object JGigEvent : JAny<GigEvent>() {
 
     override fun JsonNodeObject.deserializeOrThrow() = GigEvent(
         title = +title,
+        venue = +venue,
         year = +year,
         month = +month,
         day = +day,
