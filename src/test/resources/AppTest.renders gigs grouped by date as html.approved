@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Metal Gigs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
 </head>
 <body>
-<h1>Metal Gigs</h1>
-
-<h2>Saturday, 8 August 2026</h2>
-<ul>
+<main>
+    <h1>Metal Gigs</h1>
     
-    <li><strong>Venue A</strong>: <a href="https://example.com/gigs/early-gig-one">Early Gig One</a></li>
+    <h2>Saturday, 8 August 2026</h2>
+    <ul>
+        
+        <li><strong>Venue A</strong>: <a href="https://example.com/gigs/early-gig-one">Early Gig One</a></li>
+        
+        <li><strong>Venue B</strong>: <a href="https://example.com/gigs/early-gig-two">Early Gig Two</a></li>
+        
+    </ul>
     
-    <li><strong>Venue B</strong>: <a href="https://example.com/gigs/early-gig-two">Early Gig Two</a></li>
+    <h2>Tuesday, 1 September 2026</h2>
+    <ul>
+        
+        <li><strong>Venue A</strong>: <a href="https://example.com/gigs/late-gig">Late Gig</a></li>
+        
+    </ul>
     
-</ul>
-
-<h2>Tuesday, 1 September 2026</h2>
-<ul>
-    
-    <li><strong>Venue A</strong>: <a href="https://example.com/gigs/late-gig">Late Gig</a></li>
-    
-</ul>
-
+</main>
 </body>
 </html>
