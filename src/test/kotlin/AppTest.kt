@@ -28,6 +28,22 @@ fun parseGigEvents(html: String, baseUri: String, year: Int): List<GigEvent> =
             )
         }
 
+private val newCrossInnDatePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
+
+fun parseNewCrossInnGigEvents(html: String, baseUri: String): List<GigEvent> =
+    Jsoup.parse(html, baseUri)
+        .select("li:has(h3.nci-event-name)")
+        .map { item ->
+            val (day, month, year) = newCrossInnDatePattern.find(item.select("dd").text())!!.destructured
+            GigEvent(
+                title = item.select("h3.nci-event-name").text(),
+                year = year.toInt(),
+                month = month,
+                day = day,
+                url = item.select("a").first()!!.attr("abs:href"),
+            )
+        }
+
 class AppTest {
     private val fixtures = File("src/test/resources/traffic")
 
@@ -79,5 +95,36 @@ class AppTest {
             .forEach { band -> expectThat(titles.any { it.contains(band) }).isTrue() }
 
         expectThat(events.all { it.url.startsWith("https://www.cartandhorses.london/") }).isTrue()
+    }
+
+    @Test
+    fun `extracts gig events from New Cross Inn gigs page`() {
+        val body = fetchPage(cachedClient(), gigsUrl)
+
+        val events = parseNewCrossInnGigEvents(body, gigsUrl)
+        events.forEach { println(it) }
+
+        expectThat(events).hasSize(28)
+
+        expectThat(events.first()).isEqualTo(
+            GigEvent(
+                title = "GREENHAT",
+                year = 2026,
+                month = "Aug",
+                day = "08",
+                url = "https://pit.live/events/greenhat",
+            ),
+        )
+        expectThat(events.last()).isEqualTo(
+            GigEvent(
+                title = "Rudies Resurrection",
+                year = 2026,
+                month = "Sep",
+                day = "05",
+                url = "https://pit.live/events/rudies-resurrection",
+            ),
+        )
+
+        expectThat(events.all { it.url.startsWith("https://pit.live/events/") }).isTrue()
     }
 }

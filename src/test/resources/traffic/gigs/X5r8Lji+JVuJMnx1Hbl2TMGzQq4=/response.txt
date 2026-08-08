@@ -1,0 +1,1036 @@
+HTTP/1.1 200 OK
+connection: Keep-Alive
+content-type: text/html; charset=UTF-8
+date: Sat, 08 Aug 2026 15:19:50 GMT
+keep-alive: timeout=2, max=100
+link: <https://www.newcrossinn.com/wp-json/>; rel="https://api.w.org/", <https://www.newcrossinn.com/wp-json/wp/v2/pages/31272>; rel="alternate"; title="JSON"; type="application/json", <https://www.newcrossinn.com/?p=31272>; rel=shortlink
+referrer-policy: 
+server: Apache
+set-cookie: pbid=78ec4ce73a5a9fd99ed2178606d9eb43bfe25bf747507c2164c4ec90cf46d978; expires=Thu, 04 Feb 2027 15:19:50 GMT; Max-Age=15552000; path=/
+vary: Accept-Encoding
+
+<!doctype html>
+<html lang="en-GB">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.min.css">
+	<meta name="facebook-domain-verification" content="fnky1y8nqq93mqrlk7vsm8urfjo1nt" />
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	
+	<!-- This site is optimized with the Yoast SEO plugin v28.2 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<title>Gigs - New Cross Inn - Live Music Venue - London</title>
+	<meta name="description" content="Full list of upcoming gigs and live events at New Cross Inn, south east London&#039;s premier 350 capacity live music venue." />
+	<link rel="canonical" href="https://www.newcrossinn.com/gigs/" />
+	<meta property="og:locale" content="en_GB" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Gigs - New Cross Inn - Live Music Venue - London" />
+	<meta property="og:description" content="Full list of upcoming gigs and live events at New Cross Inn, south east London&#039;s premier 350 capacity live music venue." />
+	<meta property="og:url" content="https://www.newcrossinn.com/gigs/" />
+	<meta property="og:site_name" content="New Cross Inn" />
+	<meta property="article:modified_time" content="2025-06-30T12:39:31+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Estimated reading time" />
+	<meta name="twitter:data1" content="1 minute" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/www.newcrossinn.com\/gigs\/","url":"https:\/\/www.newcrossinn.com\/gigs\/","name":"Gigs - New Cross Inn - Live Music Venue - London","isPartOf":{"@id":"https:\/\/prod.newcrossinn.com\/#website"},"datePublished":"2018-09-13T15:09:41+00:00","dateModified":"2025-06-30T12:39:31+00:00","description":"Full list of upcoming gigs and live events at New Cross Inn, south east London's premier 350 capacity live music venue.","breadcrumb":{"@id":"https:\/\/www.newcrossinn.com\/gigs\/#breadcrumb"},"inLanguage":"en-GB","potentialAction":[{"@type":"ReadAction","target":["https:\/\/www.newcrossinn.com\/gigs\/"]}]},{"@type":"BreadcrumbList","@id":"https:\/\/www.newcrossinn.com\/gigs\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/www.newcrossinn.com\/"},{"@type":"ListItem","position":2,"name":"Gigs"}]},{"@type":"WebSite","@id":"https:\/\/prod.newcrossinn.com\/#website","url":"https:\/\/prod.newcrossinn.com\/","name":"New Cross Inn","description":"Live Music Venue - SE London","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/prod.newcrossinn.com\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-GB"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<script type='application/javascript'>console.log('PixelYourSite Free version 9.4.7.1');</script>
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link rel="alternate" type="application/rss+xml" title="New Cross Inn &raquo; Feed" href="https://www.newcrossinn.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="New Cross Inn &raquo; Comments Feed" href="https://www.newcrossinn.com/comments/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.newcrossinn.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.7"}};
+/*! This file is auto-generated */
+!function(s,n){var o,i,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),a=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===a[t]})}function u(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);for(var n=e.getImageData(16,16,1,1),a=0;a<n.data.length;a++)if(0!==n.data[a])return!1;return!0}function f(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\udedf")}return!1}function g(e,t,n,a){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):s.createElement("canvas"),o=r.getContext("2d",{willReadFrequently:!0}),i=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(function(e){i[e]=t(o,e,n,a)}),i}function t(e){var t=s.createElement("script");t.src=e,t.defer=!0,s.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",i=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){s.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+g.toString()+"("+[JSON.stringify(i),f.toString(),p.toString(),u.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"}),r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=function(e){c(n=e.data),r.terminate(),t(n)})}catch(e){}c(n=g(i,f,p,u))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.newcrossinn.com/wp-includes/css/dist/block-library/style.min.css?ver=6.8.7' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='newcrossinn_public-css' href='https://www.newcrossinn.com/wp-content/plugins/BetterWebSpace-newcrossinn-wordpress-915ed5387324/public/css/newcrossinn-public.css?ver=1.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css' href='https://www.newcrossinn.com/wp-includes/css/dashicons.min.css?ver=6.8.7' type='text/css' media='all' />
+<link rel='stylesheet' id='tailwindcss-framework-css' href='https://www.newcrossinn.com/wp-content/themes/tailwindcss/tailwind.clrs.css?ver=6.8.7' type='text/css' media='all' />
+<link rel='stylesheet' id='tailwindcss-style-css' href='https://www.newcrossinn.com/wp-content/themes/tailwindcss/style.css?ver=6.8.7' type='text/css' media='all' />
+<!--n2css--><script type="text/javascript" src="https://www.newcrossinn.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-content/plugins/BetterWebSpace-newcrossinn-wordpress-915ed5387324/public/js/newcrossinn-public.js?ver=1.0.0" id="newcrossinn_public-js"></script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-content/plugins/pixelyoursite/dist/scripts/jquery.bind-first-0.2.3.min.js?ver=6.8.7" id="jquery-bind-first-js"></script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-content/plugins/pixelyoursite/dist/scripts/js.cookie-2.1.3.min.js?ver=2.1.3" id="js-cookie-pys-js"></script>
+<script type="text/javascript" id="pys-js-extra">
+/* <![CDATA[ */
+var pysOptions = {"staticEvents":{"facebook":{"init_event":[{"delay":0,"type":"static","name":"PageView","pixelIds":["293014741119425"],"eventID":"645c15d9-bb90-4a00-aa44-f50333c8a346","params":{"page_title":"Gigs","post_type":"page","post_id":31272,"plugin":"PixelYourSite","user_role":"guest","event_url":"www.newcrossinn.com\/gigs\/"},"e_id":"init_event","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}]}},"dynamicEvents":{"automatic_event_form":{"facebook":{"delay":0,"type":"dyn","name":"Form","pixelIds":["293014741119425"],"eventID":"c77ba637-20c8-4e89-867c-bc8c1a501ff2","params":{"page_title":"Gigs","post_type":"page","post_id":31272,"plugin":"PixelYourSite","user_role":"guest","event_url":"www.newcrossinn.com\/gigs\/"},"e_id":"automatic_event_form","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"Form","trackingIds":["G-VWF0NB5MLW"],"params":{"non_interaction":false,"page_title":"Gigs","post_type":"page","post_id":31272,"plugin":"PixelYourSite","user_role":"guest","event_url":"www.newcrossinn.com\/gigs\/"},"e_id":"automatic_event_form","ids":[],"hasTimeWindow":false,"timeWindow":0,"pixelIds":[],"eventID":"","woo_order":"","edd_order":""}},"automatic_event_download":{"facebook":{"delay":0,"type":"dyn","name":"Download","extensions":["","doc","exe","js","pdf","ppt","tgz","zip","xls"],"pixelIds":["293014741119425"],"eventID":"1951d3d8-bed0-4125-9767-3a38e19e0baf","params":{"page_title":"Gigs","post_type":"page","post_id":31272,"plugin":"PixelYourSite","user_role":"guest","event_url":"www.newcrossinn.com\/gigs\/"},"e_id":"automatic_event_download","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"Download","extensions":["","doc","exe","js","pdf","ppt","tgz","zip","xls"],"trackingIds":["G-VWF0NB5MLW"],"params":{"non_interaction":false,"page_title":"Gigs","post_type":"page","post_id":31272,"plugin":"PixelYourSite","user_role":"guest","event_url":"www.newcrossinn.com\/gigs\/"},"e_id":"automatic_event_download","ids":[],"hasTimeWindow":false,"timeWindow":0,"pixelIds":[],"eventID":"","woo_order":"","edd_order":""}},"automatic_event_comment":{"facebook":{"delay":0,"type":"dyn","name":"Comment","pixelIds":["293014741119425"],"eventID":"ff072fb8-c45f-400e-bca2-05d0486e05a1","params":{"page_title":"Gigs","post_type":"page","post_id":31272,"plugin":"PixelYourSite","user_role":"guest","event_url":"www.newcrossinn.com\/gigs\/"},"e_id":"automatic_event_comment","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"Comment","trackingIds":["G-VWF0NB5MLW"],"params":{"non_interaction":false,"page_title":"Gigs","post_type":"page","post_id":31272,"plugin":"PixelYourSite","user_role":"guest","event_url":"www.newcrossinn.com\/gigs\/"},"e_id":"automatic_event_comment","ids":[],"hasTimeWindow":false,"timeWindow":0,"pixelIds":[],"eventID":"","woo_order":"","edd_order":""}}},"triggerEvents":[],"triggerEventTypes":[],"facebook":{"pixelIds":["293014741119425"],"advancedMatching":[],"advancedMatchingEnabled":true,"removeMetadata":false,"contentParams":{"post_type":"page","post_id":31272,"content_name":"Gigs"},"commentEventEnabled":true,"wooVariableAsSimple":false,"downloadEnabled":true,"formEventEnabled":true,"serverApiEnabled":true,"wooCRSendFromServer":false,"send_external_id":null},"ga":{"trackingIds":["G-VWF0NB5MLW"],"enhanceLinkAttr":false,"anonimizeIP":false,"commentEventEnabled":true,"commentEventNonInteractive":false,"downloadEnabled":true,"downloadEventNonInteractive":false,"formEventEnabled":true,"crossDomainEnabled":false,"crossDomainAcceptIncoming":false,"crossDomainDomains":[],"isDebugEnabled":[false],"disableAdvertisingFeatures":false,"disableAdvertisingPersonalization":false,"wooVariableAsSimple":false},"debug":"","siteUrl":"https:\/\/www.newcrossinn.com","ajaxUrl":"https:\/\/www.newcrossinn.com\/wp-admin\/admin-ajax.php","ajax_event":"812d449ca7","enable_remove_download_url_param":"1","cookie_duration":"7","last_visit_duration":"60","enable_success_send_form":"","ajaxForServerEvent":"1","send_external_id":"1","external_id_expire":"180","gdpr":{"ajax_enabled":false,"all_disabled_by_api":false,"facebook_disabled_by_api":false,"analytics_disabled_by_api":false,"google_ads_disabled_by_api":false,"pinterest_disabled_by_api":false,"bing_disabled_by_api":false,"externalID_disabled_by_api":false,"facebook_prior_consent_enabled":false,"analytics_prior_consent_enabled":true,"google_ads_prior_consent_enabled":null,"pinterest_prior_consent_enabled":true,"bing_prior_consent_enabled":true,"cookiebot_integration_enabled":false,"cookiebot_facebook_consent_category":"marketing","cookiebot_analytics_consent_category":"statistics","cookiebot_tiktok_consent_category":"marketing","cookiebot_google_ads_consent_category":null,"cookiebot_pinterest_consent_category":"marketing","cookiebot_bing_consent_category":"marketing","consent_magic_integration_enabled":false,"real_cookie_banner_integration_enabled":false,"cookie_notice_integration_enabled":false,"cookie_law_info_integration_enabled":false},"cookie":{"disabled_all_cookie":false,"disabled_advanced_form_data_cookie":false,"disabled_landing_page_cookie":false,"disabled_first_visit_cookie":false,"disabled_trafficsource_cookie":false,"disabled_utmTerms_cookie":false,"disabled_utmId_cookie":false},"woo":{"enabled":false},"edd":{"enabled":false}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-content/plugins/pixelyoursite/dist/scripts/public.js?ver=9.4.7.1" id="pys-js"></script>
+<link rel="https://api.w.org/" href="https://www.newcrossinn.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.newcrossinn.com/wp-json/wp/v2/pages/31272" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.newcrossinn.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.8.7" />
+<link rel='shortlink' href='https://www.newcrossinn.com/?p=31272' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.newcrossinn.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.newcrossinn.com%2Fgigs%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.newcrossinn.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.newcrossinn.com%2Fgigs%2F&#038;format=xml" />
+<meta name="generator" content="Site Kit by Google 1.147.0" />
+<!-- Google Tag Manager snippet added by Site Kit -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+			( function( w, d, s, l, i ) {
+				w[l] = w[l] || [];
+				w[l].push( {'gtm.start': new Date().getTime(), event: 'gtm.js'} );
+				var f = d.getElementsByTagName( s )[0],
+					j = d.createElement( s ), dl = l != 'dataLayer' ? '&l=' + l : '';
+				j.async = true;
+				j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+				f.parentNode.insertBefore( j, f );
+			} )( window, document, 'script', 'dataLayer', 'GTM-5NSG64PQ' );
+			
+/* ]]> */
+</script>
+
+<!-- End Google Tag Manager snippet added by Site Kit -->
+<link rel="icon" href="https://www.newcrossinn.com/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1-100x100.png" sizes="32x32" />
+<link rel="icon" href="https://www.newcrossinn.com/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.newcrossinn.com/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1.png" />
+<meta name="msapplication-TileImage" content="https://www.newcrossinn.com/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1.png" />
+<style type="text/css">/** Mega Menu CSS: fs **/</style>
+
+</head>
+
+<body >
+<div class="bg-gray-200">
+    <nav class="flex flex-wrap mb-2 text-center pt-2 pb-0">
+        <div class="w-full lg:w-1/3 items-center pt-6 font-bold">
+
+            <a href="https://twitter.com/NewCrossInn" target="_blank" rel="noopener" class="block inline-block mr-2"><i class="fa fa-twitter" style="font-size:28px;"></i></a>
+
+            <a href="https://www.facebook.com/newcrossinnlondon?fref=ts" target="_blank" rel="noopener" class="block inline-block mr-2"><i class="fa fa-facebook" style="font-size:28px;"></i></a>
+
+            <a href="https://www.instagram.com/newcrossinn/" target="_blank" rel="noopener" class="block inline-block mr-2"><i class="fa fa-instagram" style="font-size:28px;"></i></a>
+
+
+
+		</div>
+
+        <div class="w-full lg:w-1/3 text-center">
+            <a href="/"><img class="" src="https://www.newcrossinn.com/wp-content/themes/newcross/images/logo.png" alt="New Cross Inn"></a>
+        </div>
+
+        <div class="w-full lg:w-1/3 items-center pt-6">
+            <a href="https://goo.gl/maps/Z7ei2v4CLfQ2" target="_blank" class="font-bold text-black">
+
+            <svg class="w-6 h-6 block inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg> 323 New Cross Rd, SE14 6AS</a>
+
+
+        </div>
+
+
+    </nav>
+    <div class="flex">
+        <div class="w-full bg-black text-center h-10">
+            <a class="text-gray-200 hover:bg-gray-600 hover:text-white block inline-block px-4 py-2 mx-4 text-white" href="/">Home</a>
+            <a class="text-gray-200 hover:bg-gray-600 hover:text-white block inline-block px-4 py-2 mx-4 text-white" href="/about/">About</a>
+            <a class="text-gray-200 hover:bg-gray-600 hover:text-white block inline-block px-4 py-2 mx-4 text-white" href="/gigs/">Gigs</a>
+
+
+        </div>
+    </div>
+     
+    </div> <!-- #header -->
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<div id="content" class="site-content bg-black">
+	<div id="primary" class="content-area bg-black text-gray-400">
+		<main id="main" class="site-main">
+
+
+
+		
+<article id="post-31272" class="post-31272 page type-page status-publish hentry">
+	<header class="entry-header">
+			</header><!-- .entry-header -->
+
+	
+	<div class="entry-content">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css" crossorigin="anonymous" />
+<style>
+    .entry-content>*:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .nci-container dd.leading-5 {
+        padding: 0px;
+    }
+
+    li>ul {
+        transform: translatex(100%) scale(0)
+    }
+
+    li:hover>ul {
+        transform: translatex(101%) scale(1)
+    }
+
+    li>button svg {
+        transform: rotate(-90deg)
+    }
+
+    li:hover>button svg {
+        transform: rotate(-270deg)
+    }
+
+    .group:hover .group-hover\:scale-100 {
+        transform: scale(1)
+    }
+
+    .group:hover .group-hover\:-rotate-180 {
+        transform: rotate(180deg)
+    }
+
+    .scale-0 {
+        transform: scale(0)
+    }
+
+    .min-w-32 {
+        min-width: 8rem
+    }
+
+    .next_month_label li,
+    .prev_month_label li {
+        cursor: pointer;
+    }
+
+    @media screen and (min-width: 600px) {
+        .nci-event-name {
+            height: 55px;
+            overflow: hidden;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .right-12 {
+            right: 2rem;
+            top: 29px;
+            width: 13px !important;
+        }
+
+        .px-8 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .w-1\/2 {
+            width: 39%;
+        }
+
+        .w-60 {
+            width: 10rem;
+        }
+
+        .px-3 {
+            padding-left: 6px;
+            padding-right: 6px;
+            font-size: 15px;
+        }
+
+        .text-sm {
+            font-size: 12px;
+            line-height: 1.25rem;
+        }
+    }
+</style>
+    <section class="nci-container" id="nci_search_results" style="background-color:#000000;">
+        <h1 class="text-gray-300 font-bold text-xl pb-8 pt-8 text-center nci_month_title">Upcoming Events (August 2026)</h1>
+        <div class="w-full relative float-left px-8 pt-5">
+            <div class="w-60 float-right">
+                <input type="" id="nci_title" name="nci_title" placeholder="Band Search" class="float-left w-60 px-3 py-1 rounded-sm mb-5 border-red-800 text-m">
+                <button id="nci_search"><img src="https://www.newcrossinn.com/wp-content/plugins/BetterWebSpace-newcrossinn-wordpress-915ed5387324/admin/img/search-inn.png" alt="Band Search" class="absolute right-12 top-8"></button>
+            </div>
+        </div>
+        <div class="w-full float-left px-8 pb-8">
+
+            <div class="w-1/2 float-left">
+                <!--<div class="group inline-block">
+                    <button class="outline-none bg-gray-800 border-gray-800 text-gray-300 focus:outline-none border px-3 py-2 bg-white rounded-sm flex items-center w-60" style="background-color:#1f2937;">
+                        <span class="pr-1 font-semibold flex-1 text-sm prev_month">Past Months</span>
+                        <span>
+                            <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+					  transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </span>
+                    </button>
+                    <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top w-60 prev_month_label">
+                                            </ul>
+                </div>-->
+            </div>
+            <div class="w-1/2 float-right">
+                <div class="group inline-block float-right">
+                    <button class="outline-none focus:outline-none border px-3 py-2 bg-gray-800 border-gray-800 text-gray-300 bg-white rounded-sm flex items-center w-60" style="background-color:#1f2937;">
+                        <span class="pr-1 font-semibold flex-1 text-sm next_month">Upcoming Months</span>
+                        <span>
+                            <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+					  transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </span>
+                    </button>
+                    <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top w-60 bg-gray-200 next_month_label">
+                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="09" data-year="2026">September 2026</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="10" data-year="2026">October 2026</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="11" data-year="2026">November 2026</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="12" data-year="2026">December 2026</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="01" data-year="2027">January 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="02" data-year="2027">February 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="03" data-year="2027">March 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="04" data-year="2027">April 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="05" data-year="2027">May 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="06" data-year="2027">June 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="07" data-year="2027">July 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="08" data-year="2027">August 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="09" data-year="2027">September 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="10" data-year="2027">October 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="11" data-year="2027">November 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="12" data-year="2027">December 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="01" data-year="2028">January 2028</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="02" data-year="2028">February 2028</li>                    </ul>
+                </div>
+            </div>
+            </li>
+            </ul>
+        </div>
+        <div class="w-full pb-8">
+            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 px-8">
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/greenhat"><img src="https://pit.live/uploads/user/2026/07/07/640x480/5d05ygXA94bMG95I.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/greenhat">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">GREENHAT</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">08 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/greenhat" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/king-punch-4"><img src="https://pit.live/uploads/user/2026/06/15/640x480/sLqgT9ixbBG7aZzE.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/king-punch-4">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">King Punch</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">09 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/king-punch-4" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/mdc-3"><img src="https://pit.live/uploads/user/2025/12/18/640x480/HwXJLda1DpR5pUbS.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/mdc-3">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">MDC</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">10 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/mdc-3" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/stage-door-guy"><img src="https://pit.live/uploads/user/2026/07/07/640x480/mMdDF07qbEvOyGoi.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/stage-door-guy">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Stage Door Guy</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">11 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/stage-door-guy" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/forgotten-sentiment"><img src="https://pit.live/uploads/user/2026/06/24/640x480/tqhorXP2kDKFNZxV.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/forgotten-sentiment">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Forgotten Sentiment</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">12 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/forgotten-sentiment" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/mishikui-1"><img src="https://pit.live/uploads/user/2026/05/26/640x480/MNTZe4oAcJQ93XIx.png" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/mishikui-1">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Mishikui</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">13 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/mishikui-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/kodiak-bears-2"><img src="https://pit.live/uploads/user/2026/07/14/640x480/tSKmVvaETRDsp70k.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/kodiak-bears-2">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Kodiak Bears</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">14 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/kodiak-bears-2" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/never-a-phase"><img src="https://pit.live/uploads/user/2026/07/07/640x480/JMpjYHwPC67z3Llh.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/never-a-phase">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Never A Phase</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">15 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/never-a-phase" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/meiotempo"><img src="https://pit.live/uploads/user/2026/06/16/640x480/ILgdGSuYPOzOIbA4.JPG" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/meiotempo">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Meiotempo</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">16 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/meiotempo" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/temple-king"><img src="https://pit.live/uploads/user/2026/08/06/640x480/R2Kx75jgqnrbNK4q.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/temple-king">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Temple King</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">17 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/temple-king" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/zu-1"><img src="https://pit.live/uploads/user/2026/03/17/640x480/mi7F5WDB1N7cpy9o.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/zu-1">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Zu</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">18 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/zu-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/killtaker"><img src="https://pit.live/uploads/user/2026/08/03/640x480/QHdNsfc9sGTeaQmS.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/killtaker">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Killtaker</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">19 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/killtaker" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/zahn"><img src="https://pit.live/uploads/user/2026/05/20/640x480/Z6UfwqY3dRFBJfhk.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/zahn">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Zahn</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">20 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/zahn" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/jean-1"><img src="https://pit.live/uploads/user/2026/07/29/640x480/PIGyd1Bd97KNpV4m.jpeg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/jean-1">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Jean</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">21 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/jean-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/crushed-veneer-1"><img src="https://pit.live/uploads/user/2026/03/24/640x480/zzXlOo5sEKfubFe6.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/crushed-veneer-1">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Crushed Veneer</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">22 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/crushed-veneer-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/dead-fish-1"><img src="https://pit.live/uploads/user/2026/05/07/640x480/rIpDwctoNPnqsrQl.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/dead-fish-1">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Dead Fish</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">23 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/dead-fish-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/plastersun"><img src="https://pit.live/uploads/user/2026/07/08/640x480/18kHlnatuLu3j38O.jpeg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/plastersun">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Plastersun</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">24 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/plastersun" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/downcast"><img src="https://pit.live/uploads/user/2026/01/20/640x480/SL5fg1QK4PfiXLeb.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/downcast">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Downcast</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">25 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/downcast" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/call-to-the-void"><img src="https://pit.live/uploads/user/2026/05/21/640x480/JmIW3UShleAuHWuF.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/call-to-the-void">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Call To The Void</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">26 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/call-to-the-void" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/the-toasters-4"><img src="https://pit.live/uploads/user/2026/03/11/640x480/7fDVgTEW4BzTCjbt.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/the-toasters-4">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">The Toasters</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">27 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/the-toasters-4" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/ratm-experience-rage-against-the-machine-tribute"><img src="https://pit.live/uploads/user/2026/06/24/640x480/aivs3OojDxG9t4LK.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/ratm-experience-rage-against-the-machine-tribute">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">RATM Experience (Rage Against The Machine Tribute)</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">28 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/ratm-experience-rage-against-the-machine-tribute" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/cerebral-incubation-1"><img src="https://pit.live/uploads/user/2026/05/26/640x480/thviofpuWuesjDCz.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/cerebral-incubation-1">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Cerebral Incubation</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">29 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/cerebral-incubation-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/25th-hour"><img src="https://pit.live/uploads/user/2026/07/16/640x480/yGxO7Ro5XQdpsDJa.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/25th-hour">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">25th Hour</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">30 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/25th-hour" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/hazy-waters"><img src="https://pit.live/uploads/user/2026/07/06/640x480/9T0FYafZrZGIeK64.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/hazy-waters">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Hazy Waters</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">31 Aug 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/hazy-waters" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/hearing-tests-1"><img src="https://pit.live/uploads/user/2026/07/20/640x480/ySZGAP1WFw2UvzQC.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/hearing-tests-1">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Hearing Tests</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">01 Sep 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/hearing-tests-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/autocopy"><img src="https://pit.live/uploads/user/2026/07/02/640x480/JbIiu8AFDf7mPU62.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/autocopy">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Autocopy</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">02 Sep 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/autocopy" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/the-pogue-traders-2"><img src="https://pit.live/uploads/user/2026/03/07/640x480/PeS2rFqplPXGlXao.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/the-pogue-traders-2">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">The Pogue Traders</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">04 Sep 2026 @ 18:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/the-pogue-traders-2" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                                    <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                        <div class="flex-1 flex flex-col p-8">
+                                                            <a href="https://pit.live/events/rudies-resurrection"><img src="https://pit.live/uploads/user/2026/07/29/640x480/P8wpWnfgGUUPDWcA.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                        <a href="https://pit.live/events/rudies-resurrection">
+                                <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Rudies Resurrection</h3>
+                            </a>
+                            <dl class="mt-1 flex-grow flex flex-col justify-between">
+                                <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">05 Sep 2026 @ 14:00</dd>
+                            </dl>
+                        </div>
+                        <div class="border-t border-gray-200 py-4">
+                            <div class="mx-auto text-center">
+
+                                
+                                                                            <a href="https://pit.live/events/rudies-resurrection" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                                            Book Now
+                                        </a>
+                                                                                                </div>
+                    </li>
+                            </ul>
+        </div>
+    </section>
+    <script>
+        (function($) {
+            'use strict';
+            /* Search monthly/yearly results */
+            $('body').on('click', '.month_label', function() {
+                $('.nci_month_title').text('Loading...');
+                var month = $(this).data('month');
+                var year = $(this).data('year');
+                //alert(month);
+                //alert(year);
+
+
+                var url = "https://www.newcrossinn.com/wp-admin/admin-ajax.php";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        action: 'nci_monthly_events_results',
+                        month: month,
+                        year: year,
+                    },
+                    success: function(response) {
+                        //console.log(response);
+                        $('#nci_search_results').html(response);
+                        return false;
+                    }
+                });
+            });
+            /* Search title results */
+            $('body').on('click', '#nci_search', function() {
+
+                var title = $('#nci_title').val();
+                if (title) {
+                    //alert(title);
+                    $('.nci_month_title').text('Loading...');
+                    var url = "https://www.newcrossinn.com/wp-admin/admin-ajax.php";
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {
+                            action: 'nci_search_events_results',
+                            title: title,
+                        },
+                        success: function(response) {
+                            //console.log(response);
+                            $('#nci_search_results').html(response);
+                            return false;
+                        }
+                    });
+                }
+            });
+            $('body').on('keypress', '#nci_title', function(event) {
+                if (event.which == 13) {
+
+                    var title = $('#nci_title').val();
+                    if (title) {
+                        $('.nci_month_title').text('Loading...');
+                        //alert(title);
+
+                        var url = "https://www.newcrossinn.com/wp-admin/admin-ajax.php";
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: {
+                                action: 'nci_search_events_results',
+                                title: title,
+                            },
+                            success: function(response) {
+                                //console.log(response);
+                                $('#nci_search_results').html(response);
+                                return false;
+                            }
+                        });
+                    }
+                }
+            })
+        })(jQuery);
+    </script>
+
+<p><!-- Google tag (gtag.js) --><br />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VWF0NB5MLW"></script><br />
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());</p>
+<p>  gtag('config', 'G-VWF0NB5MLW');
+</script></p>
+<ul>
+<p><!-- Google Tag Manager (noscript) --><br />
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5NSG64PQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><br />
+<!-- End Google Tag Manager (noscript) --></p>
+	</div><!-- .entry-content -->
+
+	</article><!-- #post-31272 -->
+
+		</main><!-- #main -->
+	</div><!-- #primary -->
+    <div class="clear">
+    </div><!-- .clear-->
+
+
+    </div><!-- #content -->
+
+    <div id="footer" class="flex flex-wrap bg-black pt-4">
+
+					<div class="w-full md:w-1/3 text-center">
+						<p class="color" style="color: white;">
+							New Cross Inn<br>
+							323 New Cross Road<br>
+							London, SE14 6AS<br></p>
+
+					</div>
+
+					<div class="w-full md:w-1/3 text-center">
+						<a href="https://twitter.com/NewCrossInn" target="_blank" rel="noopener" class="block inline-block mr-4"><i class="fa fa-twitter" style="font-size:36px;color:white !important;"></i></a>
+
+						<a href="https://www.facebook.com/newcrossinnlondon?fref=ts" target="_blank" rel="noopener" class="block inline-block mr-4"><i class="fa fa-facebook" style="font-size:36px;color:white !important;"></i></a>
+
+						<a href="https://www.instagram.com/newcrossinn/" target="_blank" rel="noopener" class="block inline-block mr-4"><i class="fa fa-instagram" style="font-size:36px;color:white !important;"></i></a>
+
+					</div>
+					<div class="w-full md:w-1/3 text-center text-bold text-gray-300  ">
+
+
+
+							<a class="hover:text-white" href="/stocks-bar" rel="noopener">Stocks</a><br />
+
+							<a class="hover:text-white" href="/contact" rel="noopener">Contact</a><br />
+
+						</ul>
+
+					</div>
+					<div class="w-full text-center text-gray-400 text-sm">
+						&copy; 2018-2026 New Cross Inn. All Rights Reserved.
+					</div>
+
+				<div id="worldpay" class="w-full bg-gray-300 text-white text-center ">
+					<p class="text-2xl">We accept the following card payment methods:</p>
+
+							<img src="https://www.newcrossinn.com/wp-content/uploads/2018/04/pic_logo_03.gif" class="block inline-block">
+
+							<img src="https://www.newcrossinn.com/wp-content/uploads/2018/04/mc_vrt_opt_pos_53_2x-e1524061338540.png" class="block inline-block">
+
+							<img src="https://www.newcrossinn.com/wp-content/uploads/2018/04/ms_vrt_opt_pos_45_2x-e1524061276700.png" class="block inline-block">
+
+							<img src="https://www.newcrossinn.com/wp-content/uploads/2018/04/visa_pos_fc-e1524061251950.png" class="block inline-block">
+
+						</div>
+
+				<div>
+
+			</div>
+
+
+		</div>
+
+    <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/tailwindcss\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<noscript><img height="1" width="1" style="display: none;" src="https://www.facebook.com/tr?id=293014741119425&ev=PageView&noscript=1&cd%5Bpage_title%5D=Gigs&cd%5Bpost_type%5D=page&cd%5Bpost_id%5D=31272&cd%5Bplugin%5D=PixelYourSite&cd%5Buser_role%5D=guest&cd%5Bevent_url%5D=www.newcrossinn.com%2Fgigs%2F" alt=""></noscript>
+		<!-- Google Tag Manager (noscript) snippet added by Site Kit -->
+		<noscript>
+			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5NSG64PQ" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<!-- End Google Tag Manager (noscript) snippet added by Site Kit -->
+		<script type="text/javascript" src="https://www.newcrossinn.com/wp-content/themes/tailwindcss/js/navigation.js?ver=20151215" id="tailwindcss-navigation-js"></script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-content/themes/tailwindcss/js/skip-link-focus-fix.js?ver=20151215" id="tailwindcss-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-includes/js/hoverIntent.min.js?ver=1.10.2" id="hoverIntent-js"></script>
+<script type="text/javascript" id="megamenu-js-extra">
+/* <![CDATA[ */
+var megamenu = {"timeout":"300","interval":"100"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.newcrossinn.com/wp-content/plugins/megamenu/js/maxmegamenu.js?ver=3.3" id="megamenu-js"></script>
+	</body>
+
+</html>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+
+Object Caching 33/39 objects using Disk
+Page Caching using Disk: Enhanced (Requested URI is rejected) 
+
+Served from: www.newcrossinn.com @ 2026-08-08 16:19:51 by W3 Total Cache
+-->
