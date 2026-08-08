@@ -111,4 +111,17 @@ class AppTest {
 
         expectThat(events.all { it.url.startsWith("https://www.ourblackheart.com/events/") }).isTrue()
     }
+
+    @Test
+    fun `persists gigs as ndjson`() {
+        val gigs = listOf(
+            GigEvent(title = "Test Gig", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig"),
+            GigEvent(title = "Another Gig", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/another-gig"),
+        )
+        val file = File.createTempFile("gigs", ".ndjson").apply { deleteOnExit() }
+
+        writeGigsNdJson(file, gigs)
+
+        expectThat(readGigsNdJson(file)).isEqualTo(gigs)
+    }
 }
