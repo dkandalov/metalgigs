@@ -1,0 +1,67 @@
+import org.http4k.core.HttpHandler
+import org.jsoup.Jsoup
+import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.Locale
+
+data class GigEvent(val title: String, val year: Int, val month: String, val day: String, val url: String)
+
+interface GigsSource {
+    fun latestGigs(): List<GigEvent>
+}
+
+class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
+    private val url = "https://www.cartandhorses.london/news-offers-events/"
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select(".news-carousel__item")
+            .filter { it.select(".news-carousel__date-wrap").isNotEmpty() }
+            .map { item ->
+                GigEvent(
+                    title = item.select(".news-carousel__link").text(),
+                    year = year,
+                    month = item.select(".news-carousel__month").text(),
+                    day = item.select(".news-carousel__day").text(),
+                    url = item.select(".news-carousel__link").attr("abs:href"),
+                )
+            }
+}
+
+class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://www.newcrossinn.com/gigs/"
+
+    private val datePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select("li:has(h3.nci-event-name)")
+            .map { item ->
+                val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
+                GigEvent(
+                    title = item.select("h3.nci-event-name").text(),
+                    year = year.toInt(),
+                    month = month,
+                    day = day,
+                    url = item.select("a").first()!!.attr("abs:href"),
+                )
+            }
+}
+
+class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://www.ourblackheart.com/events"
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select("article.eventlist-event--upcoming")
+            .map { item ->
+                val date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime"))
+                GigEvent(
+                    title = item.select(".eventlist-title-link").text(),
+                    year = date.year,
+                    month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
+                    day = "%02d".format(date.dayOfMonth),
+                    url = item.select(".eventlist-title-link").attr("abs:href"),
+                )
+            }
+}

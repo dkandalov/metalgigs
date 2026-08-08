@@ -13,10 +13,10 @@ dependencies {
     implementation("org.http4k:http4k-server-jetty")
     implementation("org.http4k:http4k-client-okhttp")
     implementation("org.http4k:http4k-tools-traffic-capture")
+    implementation("org.jsoup:jsoup:1.18.1")
 
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-kotest")
-    testImplementation("org.jsoup:jsoup:1.18.1")
     testImplementation("io.strikt:strikt-core:0.34.1")
 }
 
