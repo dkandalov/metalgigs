@@ -1,8 +1,14 @@
 import org.http4k.client.OkHttp
 import org.http4k.core.HttpHandler
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
 import org.http4k.core.then
 import org.http4k.filter.TrafficFilters
+import org.http4k.template.HandlebarsTemplates
+import org.http4k.testing.ApprovalTest
+import org.http4k.testing.Approver
 import org.http4k.traffic.ReadWriteCache
+import org.junit.jupiter.api.extension.ExtendWith
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
@@ -11,6 +17,7 @@ import strikt.assertions.isTrue
 import java.io.File
 import kotlin.test.Test
 
+@ExtendWith(ApprovalTest::class)
 class AppTest {
     private val fixtures = File("src/test/resources/traffic")
 
@@ -132,5 +139,19 @@ class AppTest {
         writeGigsNdJson(file, gigs)
 
         expectThat(readGigsNdJson(file)).isEqualTo(gigs)
+    }
+
+    @Test
+    fun `renders gigs grouped by date as html`(approver: Approver) {
+        val gigs = listOf(
+            GigEvent(title = "Late Gig", venue = "Venue A", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/late-gig"),
+            GigEvent(title = "Early Gig One", venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-one"),
+            GigEvent(title = "Early Gig Two", venue = "Venue B", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-two"),
+        )
+        val renderer = HandlebarsTemplates().CachingClasspath()
+
+        val html = renderer(GigsView(groupGigsByDate(gigs)))
+
+        approver.assertApproved(Response(OK).body(html))
     }
 }

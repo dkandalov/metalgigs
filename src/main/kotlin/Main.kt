@@ -2,6 +2,7 @@ import org.http4k.client.OkHttp
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
+import org.http4k.template.HandlebarsTemplates
 import java.io.File
 import java.time.LocalDate
 
@@ -19,4 +20,7 @@ fun main() {
     val gigs = sources.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
     writeGigsNdJson(File("gigs.ndjson"), gigs)
+
+    val renderer = HandlebarsTemplates().CachingClasspath()
+    File("gigs.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }

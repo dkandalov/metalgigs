@@ -15,9 +15,11 @@ dependencies {
     implementation("org.http4k:http4k-tools-traffic-capture")
     implementation("org.jsoup:jsoup:1.18.1")
     implementation("com.ubertob.kondor:kondor-core:3.5.2")
+    implementation("org.http4k:http4k-template-handlebars")
 
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-kotest")
+    testImplementation("org.http4k:http4k-testing-approval")
     testImplementation("io.strikt:strikt-core:0.34.1")
 }
 
