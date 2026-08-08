@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Metal Gigs</title>
+    <title>London Metal Gigs</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
 </head>
 <body>
 <main>
-    <h1>Metal Gigs</h1>
+    <h1>London Metal Gigs</h1>
     
     <h2>Saturday, 8 August 2026</h2>
     <ul>
