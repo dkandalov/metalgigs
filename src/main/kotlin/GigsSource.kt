@@ -66,7 +66,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                     year = year.toInt(),
                     month = month,
                     day = day,
-                    url = item.select("a").first()!!.attr("abs:href"),
+                    url = item.select("a:has(h3.nci-event-name)").attr("abs:href"),
                 )
             }
 }
