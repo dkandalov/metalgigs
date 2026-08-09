@@ -71,3 +71,27 @@ class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
                 )
             }
 }
+
+class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://www.theunderworldcamden.co.uk/search-events/"
+    private val venue = "The Underworld"
+
+    // the site blocks requests without a browser-like User-Agent
+    private val browserUserAgent =
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
+            .select("#gigs article.list")
+            .map { item ->
+                val date = LocalDate.parse(item.select("time").first()!!.attr("datetime"))
+                GigEvent(
+                    title = item.select(".list-header-title").text(),
+                    venue = venue,
+                    year = date.year,
+                    month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
+                    day = "%02d".format(date.dayOfMonth),
+                    url = item.select(".list-header-title a").attr("abs:href"),
+                )
+            }
+}

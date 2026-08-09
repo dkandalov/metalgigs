@@ -129,6 +129,38 @@ class AppTest {
     }
 
     @Test
+    fun `extracts gig events from The Underworld search-events page`() {
+        val events = TheUnderworldGigsSource(cachedClient()).latestGigs()
+        events.forEach { println(it) }
+
+        expectThat(events).hasSize(74)
+
+        expectThat(events.first()).isEqualTo(
+            GigEvent(
+                title = "THE PARTISANS",
+                venue = "The Underworld",
+                year = 2026,
+                month = "Aug",
+                day = "08",
+                url = "https://www.theunderworldcamden.co.uk/event/the-partisans-8th-aug-the-underworld-london-tickets/",
+            ),
+        )
+        expectThat(events.last()).isEqualTo(
+            GigEvent(
+                title = "ALIVE, A TRIBUTE TO PEARL JAM",
+                venue = "The Underworld",
+                year = 2027,
+                month = "Dec",
+                day = "04",
+                url = "https://www.theunderworldcamden.co.uk/event/alive-a-tribute-to-pearl-jam-20th-nov-the-underworld-london-tickets/",
+            ),
+        )
+
+        expectThat(events.all { it.url.startsWith("https://www.theunderworldcamden.co.uk/event/") }).isTrue()
+        expectThat(events.all { it.venue == "The Underworld" }).isTrue()
+    }
+
+    @Test
     fun `persists gigs as ndjson`() {
         val gigs = listOf(
             GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig"),

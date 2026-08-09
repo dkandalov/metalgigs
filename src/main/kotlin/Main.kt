@@ -6,8 +6,8 @@ import org.http4k.template.HandlebarsTemplates
 import java.io.File
 import java.time.LocalDate
 
-fun fetchPage(client: HttpHandler, url: String): String =
-    client(Request(GET, url)).bodyString()
+fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, String>> = emptyList()): String =
+    client(headers.fold(Request(GET, url)) { request, (name, value) -> request.header(name, value) }).bodyString()
 
 private val gigsFile = File("gigs.ndjson")
 
@@ -17,6 +17,7 @@ fun scrapeGigs() {
         CartAndHorsesGigsSource(client, year = LocalDate.now().year),
         NewCrossInnGigsSource(client),
         OurBlackHeartGigsSource(client),
+        TheUnderworldGigsSource(client),
     )
 
     val gigs = sources.flatMap { it.latestGigs() }
