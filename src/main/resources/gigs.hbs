@@ -43,11 +43,21 @@
             background: #18181b;
             border: 1px solid #26262a;
             border-radius: 10px;
-            padding: 1rem;
+            overflow: hidden;
+        }
+        .gig-image {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #26262a;
+        }
+        .gig-info {
+            padding: 0.85rem 1rem 1rem;
         }
         .gig-card a {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             color: #f2f2f2;
             font-weight: 600;
             text-decoration: none;
@@ -69,8 +79,11 @@
     <ul class="gigs-grid">
         {{#each gigs}}
         <li class="gig-card">
-            <a href="{{url}}">{{title}}</a>
-            <div class="gig-venue">{{venue}}</div>
+            <a href="{{url}}"><img class="gig-image" src="{{imageUrl}}" alt="{{title}}" loading="lazy"></a>
+            <div class="gig-info">
+                <a href="{{url}}">{{title}}</a>
+                <div class="gig-venue">{{venue}}</div>
+            </div>
         </li>
         {{/each}}
     </ul>

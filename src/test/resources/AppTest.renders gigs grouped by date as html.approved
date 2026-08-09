@@ -43,11 +43,21 @@
             background: #18181b;
             border: 1px solid #26262a;
             border-radius: 10px;
-            padding: 1rem;
+            overflow: hidden;
+        }
+        .gig-image {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #26262a;
+        }
+        .gig-info {
+            padding: 0.85rem 1rem 1rem;
         }
         .gig-card a {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             color: #f2f2f2;
             font-weight: 600;
             text-decoration: none;
@@ -69,13 +79,19 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-one">Early Gig One</a>
-            <div class="gig-venue">Venue A</div>
+            <a href="https://example.com/gigs/early-gig-one"><img class="gig-image" src="https://example.com/images/early-gig-one.jpg" alt="Early Gig One" loading="lazy"></a>
+            <div class="gig-info">
+                <a href="https://example.com/gigs/early-gig-one">Early Gig One</a>
+                <div class="gig-venue">Venue A</div>
+            </div>
         </li>
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-two">Early Gig Two</a>
-            <div class="gig-venue">Venue B</div>
+            <a href="https://example.com/gigs/early-gig-two"><img class="gig-image" src="https://example.com/images/early-gig-two.jpg" alt="Early Gig Two" loading="lazy"></a>
+            <div class="gig-info">
+                <a href="https://example.com/gigs/early-gig-two">Early Gig Two</a>
+                <div class="gig-venue">Venue B</div>
+            </div>
         </li>
         
     </ul>
@@ -84,8 +100,11 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/late-gig">Late Gig</a>
-            <div class="gig-venue">Venue A</div>
+            <a href="https://example.com/gigs/late-gig"><img class="gig-image" src="https://example.com/images/late-gig.jpg" alt="Late Gig" loading="lazy"></a>
+            <div class="gig-info">
+                <a href="https://example.com/gigs/late-gig">Late Gig</a>
+                <div class="gig-venue">Venue A</div>
+            </div>
         </li>
         
     </ul>
