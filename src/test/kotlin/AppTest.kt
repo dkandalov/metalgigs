@@ -65,6 +65,38 @@ class AppTest {
     }
 
     @Test
+    fun `rolls over the year when Cart and Horses gigs cross into January`() {
+        val html = """
+            <div class="news-carousel__item">
+                <a class="news-carousel__link" href="/news-offers-events/1-dec-gig/">DEC GIG</a>
+                <div class="news-carousel__date-wrap">
+                    <div class="news-carousel__month">Dec</div>
+                    <div class="news-carousel__day">20</div>
+                </div>
+            </div>
+            <div class="news-carousel__item">
+                <a class="news-carousel__link" href="/news-offers-events/2-jan-gig/">JAN GIG</a>
+                <div class="news-carousel__date-wrap">
+                    <div class="news-carousel__month">Jan</div>
+                    <div class="news-carousel__day">10</div>
+                </div>
+            </div>
+            <div class="news-carousel__item">
+                <a class="news-carousel__link" href="/news-offers-events/3-feb-gig/">FEB GIG</a>
+                <div class="news-carousel__date-wrap">
+                    <div class="news-carousel__month">Feb</div>
+                    <div class="news-carousel__day">01</div>
+                </div>
+            </div>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+
+        val events = CartAndHorsesGigsSource(fakeClient, year = 2026).latestGigs()
+
+        expectThat(events.map { it.year }).containsExactly(2026, 2027, 2027)
+    }
+
+    @Test
     fun `extracts gig events from New Cross Inn gigs page`() {
         val events = NewCrossInnGigsSource(cachedClient()).latestGigs()
         events.forEach { println(it) }

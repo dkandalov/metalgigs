@@ -25,20 +25,28 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
     private val url = "https://www.cartandhorses.london/news-offers-events/"
     private val venue = "Cart & Horses"
 
-    override fun latestGigs(): List<GigEvent> =
-        Jsoup.parse(fetchPage(client, url), url)
+    override fun latestGigs(): List<GigEvent> {
+        var currentYear = year
+        var previousMonth: String? = null
+
+        return Jsoup.parse(fetchPage(client, url), url)
             .select(".news-carousel__item")
             .filter { it.select(".news-carousel__date-wrap").isNotEmpty() }
             .map { item ->
+                val month = item.select(".news-carousel__month").text()
+                if (month == "Jan" && previousMonth != null && previousMonth != "Jan") currentYear++
+                previousMonth = month
+
                 GigEvent(
                     title = item.select(".news-carousel__link").text(),
                     venue = venue,
-                    year = year,
-                    month = item.select(".news-carousel__month").text(),
+                    year = currentYear,
+                    month = month,
                     day = item.select(".news-carousel__day").text(),
                     url = item.select(".news-carousel__link").attr("abs:href"),
                 )
             }
+    }
 }
 
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
