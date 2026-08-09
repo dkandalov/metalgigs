@@ -3,5 +3,6 @@ build/
 .idea/
 *.iml
 .DS_Store
+.kotlin/
 gigs.ndjson
 gigs.html

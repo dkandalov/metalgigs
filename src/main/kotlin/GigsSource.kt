@@ -4,7 +4,18 @@ import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
 
-data class GigEvent(val title: String, val venue: String, val year: Int, val month: String, val day: String, val url: String)
+data class GigEvent(val title: String, val venue: String, val year: Int, val month: String, val day: String, val url: String) {
+    companion object {
+        fun of(title: String, venue: String, date: LocalDate, url: String) = GigEvent(
+            title = title,
+            venue = venue,
+            year = date.year,
+            month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
+            day = "%02d".format(date.dayOfMonth),
+            url = url,
+        )
+    }
+}
 
 interface GigsSource {
     fun latestGigs(): List<GigEvent>
@@ -60,13 +71,10 @@ class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
         Jsoup.parse(fetchPage(client, url), url)
             .select("article.eventlist-event--upcoming")
             .map { item ->
-                val date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime"))
-                GigEvent(
+                GigEvent.of(
                     title = item.select(".eventlist-title-link").text(),
                     venue = venue,
-                    year = date.year,
-                    month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
-                    day = "%02d".format(date.dayOfMonth),
+                    date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
                     url = item.select(".eventlist-title-link").attr("abs:href"),
                 )
             }
@@ -84,13 +92,10 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
             .select("#gigs article.list")
             .map { item ->
-                val date = LocalDate.parse(item.select("time").first()!!.attr("datetime"))
-                GigEvent(
+                GigEvent.of(
                     title = item.select(".list-header-title").text(),
                     venue = venue,
-                    year = date.year,
-                    month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
-                    day = "%02d".format(date.dayOfMonth),
+                    date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
                     url = item.select(".list-header-title a").attr("abs:href"),
                 )
             }
