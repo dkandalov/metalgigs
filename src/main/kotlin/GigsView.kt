@@ -1,8 +1,5 @@
 import org.http4k.template.ViewModel
-import java.time.LocalDate
-import java.time.Month
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
 import java.util.Locale
 
 data class GigCardView(val title: String, val venue: String, val url: String, val imageUrl: String)
@@ -13,15 +10,11 @@ data class GigsView(val dateGroups: List<DateGroup>) : ViewModel {
     override fun template() = "gigs"
 }
 
-private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
-
-private fun GigEvent.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
-
 private fun GigEvent.toCardView() = GigCardView(
     title = title,
     venue = venue,
     url = url,
-    imageUrl = "images/${localImageFileName(imageUrl)}",
+    imageUrl = "images/${localImageFileName(this)}",
 )
 
 fun groupGigsByDate(gigs: List<GigEvent>): List<DateGroup> =

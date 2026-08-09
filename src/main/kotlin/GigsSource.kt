@@ -1,6 +1,7 @@
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import java.time.LocalDate
+import java.time.Month
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -25,6 +26,10 @@ data class GigEvent(
         )
     }
 }
+
+private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
+
+fun GigEvent.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
 
 interface GigsSource {
     fun latestGigs(): List<GigEvent>
