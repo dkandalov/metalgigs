@@ -40,6 +40,7 @@ class AppTest {
                 month = "Aug",
                 day = "08",
                 url = "https://www.cartandhorses.london/news-offers-events/523846-three-birds-whisper-the-positive-rebellion-tour-uk-2026-psychedelic-skies-borderline/",
+                imageUrl = "https://www.useyourlocal.com/imgs/pub_events/sr@1x/240726-012017_threebirds-upd.jpg",
             ),
         )
         expectThat(events.last()).isEqualTo(
@@ -50,6 +51,7 @@ class AppTest {
                 month = "Oct",
                 day = "10",
                 url = "https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/",
+                imageUrl = "https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg",
             ),
         )
 
@@ -111,6 +113,7 @@ class AppTest {
                 month = "Aug",
                 day = "08",
                 url = "https://pit.live/events/greenhat",
+                imageUrl = "https://pit.live/uploads/user/2026/07/07/640x480/5d05ygXA94bMG95I.jpg",
             ),
         )
         expectThat(events.last()).isEqualTo(
@@ -121,6 +124,7 @@ class AppTest {
                 month = "Sep",
                 day = "05",
                 url = "https://pit.live/events/rudies-resurrection",
+                imageUrl = "https://pit.live/uploads/user/2026/07/29/640x480/P8wpWnfgGUUPDWcA.jpg",
             ),
         )
 
@@ -143,6 +147,7 @@ class AppTest {
                 month = "Aug",
                 day = "08",
                 url = "https://www.ourblackheart.com/events/2026/8/8/you-win-again-gravity",
+                imageUrl = "https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1782745761879-UVSUIG341XJIY3MEB9MI/LBPHOTO%2B-%2B%2BYou%2BWin%2BAgain%2BGravity%2B-%2BPromo%2B-%2B20.10.2024%2B6.jpg",
             ),
         )
         expectThat(events.last()).isEqualTo(
@@ -153,6 +158,7 @@ class AppTest {
                 month = "Mar",
                 day = "19",
                 url = "https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii",
+                imageUrl = "https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1781025655512-MHR6PMWPOOE3TJFOSWAB/Necropolis_2027_IG_Feed_Poster_2nd_announcement%2B%25281%2529.jpg",
             ),
         )
 
@@ -175,6 +181,7 @@ class AppTest {
                 month = "Aug",
                 day = "08",
                 url = "https://www.theunderworldcamden.co.uk/event/the-partisans-8th-aug-the-underworld-london-tickets/",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-04-15/644411f7-5f86-484c-b29b-b71dc309b89e.jpg?rect=734%2C0%2C2682%2C2682&w=200",
             ),
         )
         expectThat(events.last()).isEqualTo(
@@ -185,6 +192,7 @@ class AppTest {
                 month = "Dec",
                 day = "04",
                 url = "https://www.theunderworldcamden.co.uk/event/alive-a-tribute-to-pearl-jam-20th-nov-the-underworld-london-tickets/",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-02-10/cf613856-3e58-41a8-b0f0-af044c77c97b.jpg?rect=228%2C0%2C2045%2C2045&w=200",
             ),
         )
 
@@ -195,8 +203,8 @@ class AppTest {
     @Test
     fun `persists gigs as ndjson`() {
         val gigs = listOf(
-            GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig"),
-            GigEvent(title = "Another Gig", venue = "Test Venue", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/another-gig"),
+            GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg"),
+            GigEvent(title = "Another Gig", venue = "Test Venue", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/another-gig", imageUrl = "https://example.com/images/another-gig.jpg"),
         )
         val file = File.createTempFile("gigs", ".ndjson").apply { deleteOnExit() }
 
@@ -208,9 +216,9 @@ class AppTest {
     @Test
     fun `renders gigs grouped by date as html`(approver: Approver) {
         val gigs = listOf(
-            GigEvent(title = "Late Gig", venue = "Venue A", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/late-gig"),
-            GigEvent(title = "Early Gig One", venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-one"),
-            GigEvent(title = "Early Gig Two", venue = "Venue B", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-two"),
+            GigEvent(title = "Late Gig", venue = "Venue A", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/late-gig", imageUrl = "https://example.com/images/late-gig.jpg"),
+            GigEvent(title = "Early Gig One", venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-one", imageUrl = "https://example.com/images/early-gig-one.jpg"),
+            GigEvent(title = "Early Gig Two", venue = "Venue B", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-two", imageUrl = "https://example.com/images/early-gig-two.jpg"),
         )
         val renderer = HandlebarsTemplates().CachingClasspath()
 

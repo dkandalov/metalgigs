@@ -4,15 +4,24 @@ import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
 
-data class GigEvent(val title: String, val venue: String, val year: Int, val month: String, val day: String, val url: String) {
+data class GigEvent(
+    val title: String,
+    val venue: String,
+    val year: Int,
+    val month: String,
+    val day: String,
+    val url: String,
+    val imageUrl: String,
+) {
     companion object {
-        fun of(title: String, venue: String, date: LocalDate, url: String) = GigEvent(
+        fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String) = GigEvent(
             title = title,
             venue = venue,
             year = date.year,
             month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
             day = "%02d".format(date.dayOfMonth),
             url = url,
+            imageUrl = imageUrl,
         )
     }
 }
@@ -44,6 +53,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                     month = month,
                     day = item.select(".news-carousel__day").text(),
                     url = item.select(".news-carousel__link").attr("abs:href"),
+                    imageUrl = item.select(".news-carousel__image").attr("abs:src"),
                 )
             }
     }
@@ -67,6 +77,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                     month = month,
                     day = day,
                     url = item.select("a:has(h3.nci-event-name)").attr("abs:href"),
+                    imageUrl = item.select("img").attr("abs:src"),
                 )
             }
 }
@@ -84,6 +95,7 @@ class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
                     venue = venue,
                     date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
                     url = item.select(".eventlist-title-link").attr("abs:href"),
+                    imageUrl = item.select(".eventlist-thumbnail").attr("abs:data-image"),
                 )
             }
 }
@@ -105,6 +117,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
                     venue = venue,
                     date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
                     url = item.select(".list-header-title a").attr("abs:href"),
+                    imageUrl = item.select(".list-image img").attr("abs:src"),
                 )
             }
 }

@@ -13,6 +13,7 @@ object JGigEvent : JAny<GigEvent>() {
     private val month by str(GigEvent::month)
     private val day by str(GigEvent::day)
     private val url by str(GigEvent::url)
+    private val imageUrl by str(GigEvent::imageUrl)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigEvent(
         title = +title,
@@ -21,6 +22,7 @@ object JGigEvent : JAny<GigEvent>() {
         month = +month,
         day = +day,
         url = +url,
+        imageUrl = +imageUrl,
     )
 }
 
