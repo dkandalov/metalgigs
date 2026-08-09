@@ -203,6 +203,40 @@ class AppTest {
     }
 
     @Test
+    fun `extracts gig events from The Dome whatson page`() {
+        val events = DomeLondonGigsSource(cachedClient()).latestGigs()
+        events.forEach { println(it) }
+
+        expectThat(events).hasSize(70)
+
+        expectThat(events.first()).isEqualTo(
+            GigEvent(
+                title = "BATTLESNAKE",
+                venue = "The Dome",
+                year = 2026,
+                month = "Aug",
+                day = "08",
+                url = "https://www.domelondon.co.uk/whatson/08/08-battlesnake",
+                imageUrl = "https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1777381588492-CAQQZA5RRSD026668882/Cathedral%2BColour.jpg",
+            ),
+        )
+        expectThat(events.last()).isEqualTo(
+            GigEvent(
+                title = "DRACONIAN",
+                venue = "The Dome",
+                year = 2027,
+                month = "Mar",
+                day = "07",
+                url = "https://www.domelondon.co.uk/whatson/03/07-draconian",
+                imageUrl = "https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1771509016965-K3W9K2G4J853EZ97RETL/Draconian+done-56+%28low+res%29.jpg",
+            ),
+        )
+
+        expectThat(events.all { it.url.startsWith("https://www.domelondon.co.uk/whatson/") }).isTrue()
+        expectThat(events.all { it.venue == "The Dome" }).isTrue()
+    }
+
+    @Test
     fun `persists gigs as ndjson`() {
         val gigs = listOf(
             GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg"),

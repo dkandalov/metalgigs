@@ -1,5 +1,6 @@
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.TextStyle
@@ -30,6 +31,13 @@ data class GigEvent(
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
 fun GigEvent.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
+
+// Squarespace's "Events List" block sometimes resolves the thumbnail's `src` eagerly and sometimes
+// leaves it lazy-loaded with only `data-image` set, depending on the site
+private fun Element.squarespaceThumbnailUrl(): String {
+    val img = select(".eventlist-column-thumbnail img")
+    return img.attr("abs:src").ifBlank { img.attr("abs:data-image") }
+}
 
 interface GigsSource {
     fun latestGigs(): List<GigEvent>
@@ -100,7 +108,25 @@ class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
                     venue = venue,
                     date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
                     url = item.select(".eventlist-title-link").attr("abs:href"),
-                    imageUrl = item.select(".eventlist-thumbnail").attr("abs:data-image"),
+                    imageUrl = item.squarespaceThumbnailUrl(),
+                )
+            }
+}
+
+class DomeLondonGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://www.domelondon.co.uk/whatson"
+    private val venue = "The Dome"
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select("article.eventlist-event--upcoming")
+            .map { item ->
+                GigEvent.of(
+                    title = item.select(".eventlist-title-link").text(),
+                    venue = venue,
+                    date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
+                    url = item.select(".eventlist-title-link").attr("abs:href"),
+                    imageUrl = item.squarespaceThumbnailUrl(),
                 )
             }
 }
