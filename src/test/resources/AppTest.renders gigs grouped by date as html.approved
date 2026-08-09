@@ -79,7 +79,7 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-one"><img class="gig-image" src="https://example.com/images/early-gig-one.jpg" alt="Early Gig One" loading="lazy"></a>
+            <a href="https://example.com/gigs/early-gig-one"><img class="gig-image" src="images/e8f74dd64c2e4320d49d803d62d878fb52a695939482e8cb93d690358f37b793.jpg" alt="Early Gig One" loading="lazy"></a>
             <div class="gig-info">
                 <a href="https://example.com/gigs/early-gig-one">Early Gig One</a>
                 <div class="gig-venue">Venue A</div>
@@ -87,7 +87,7 @@
         </li>
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-two"><img class="gig-image" src="https://example.com/images/early-gig-two.jpg" alt="Early Gig Two" loading="lazy"></a>
+            <a href="https://example.com/gigs/early-gig-two"><img class="gig-image" src="images/40b1a885f648ddee0e33d5eac27835297c70ca118d08b14a2a5dd0bd6fae2c8f.jpg" alt="Early Gig Two" loading="lazy"></a>
             <div class="gig-info">
                 <a href="https://example.com/gigs/early-gig-two">Early Gig Two</a>
                 <div class="gig-venue">Venue B</div>
@@ -100,7 +100,7 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/late-gig"><img class="gig-image" src="https://example.com/images/late-gig.jpg" alt="Late Gig" loading="lazy"></a>
+            <a href="https://example.com/gigs/late-gig"><img class="gig-image" src="images/1c8f1c8297019b2b5d59b3a2eefba84098b99844b8eede1ba546fc9e2b3d1eb8.jpg" alt="Late Gig" loading="lazy"></a>
             <div class="gig-info">
                 <a href="https://example.com/gigs/late-gig">Late Gig</a>
                 <div class="gig-venue">Venue A</div>

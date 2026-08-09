@@ -226,4 +226,19 @@ class AppTest {
 
         approver.assertApproved(Response(OK).body(html))
     }
+
+    @Test
+    fun `caches downloaded images and skips re-downloading on cache hit`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
+        val cacheDir = File.createTempFile("images", "").apply { delete(); deleteOnExit() }
+
+        val first = cacheImage(fakeClient, "https://example.com/images/some-gig.jpg?w=200", cacheDir)
+        val second = cacheImage(fakeClient, "https://example.com/images/some-gig.jpg?w=200", cacheDir)
+
+        expectThat(requestCount).isEqualTo(1)
+        expectThat(first).isEqualTo(second)
+        expectThat(first.readText()).isEqualTo("fake-image-bytes")
+        expectThat(first.extension).isEqualTo("jpg")
+    }
 }
