@@ -41,17 +41,20 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
     val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
     val newOrChanged = newOrChangedGigs(existingEntries, gigs)
     appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, Instant.now()) })
-    cacheGigImages(client, gigs, imagesDir)
 }
 
 fun classifyUnclassifiedGigs() {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
     val currentGigs = projectCurrentGigs(existingEntries)
+    val currentGigByKey = currentGigs.associateBy { it.venue to it.url }
     val alreadyClassified = existingEntries.filterIsInstance<GigClassified>().map { it.venue to it.url }.toSet()
 
     val classifications = classifyGigs(client, currentGigs, alreadyClassified, recordedAt = Instant.now())
     appendGigLogEntries(eventsFile, classifications)
+
+    val newlyMetalGigs = classifications.filter { it.genre == Genre.Metal }.mapNotNull { currentGigByKey[it.venue to it.url] }
+    cacheGigImages(client, newlyMetalGigs, imagesDir)
 }
 
 fun overrideGigGenre(url: String, genre: Genre) {
@@ -62,6 +65,11 @@ fun overrideGigGenre(url: String, genre: Genre) {
     appendGigLogEntries(eventsFile, listOf(
         GigClassified(venue = gig.venue, url = gig.url, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
     ))
+
+    if (genre == Genre.Metal) {
+        val client = ClientFilters.FollowRedirects().then(OkHttp())
+        cacheGigImages(client, listOf(gig), imagesDir)
+    }
 }
 
 fun reportUnclassifiedGigs(limit: Int? = null) {
