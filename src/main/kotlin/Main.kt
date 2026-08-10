@@ -28,14 +28,18 @@ fun scrapeGigs() {
     val gigs = sources.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
 
-    val scrapedAt = Instant.now()
-    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
-    val alreadyClassified = existingEntries.filterIsInstance<GigClassified>().map { it.venue to it.url }.toSet()
-    val observations = gigs.map { GigObserved(it, scrapedAt) }
-    val classifications = classifyGigs(client, gigs, alreadyClassified, scrapedAt)
-
-    appendGigLogEntries(eventsFile, observations + classifications)
+    appendGigLogEntries(eventsFile, gigs.map { GigObserved(it, Instant.now()) })
     cacheGigImages(client, gigs, imagesDir)
+}
+
+fun classifyUnclassifiedGigs() {
+    val client = ClientFilters.FollowRedirects().then(OkHttp())
+    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+    val currentGigs = projectCurrentGigs(existingEntries)
+    val alreadyClassified = existingEntries.filterIsInstance<GigClassified>().map { it.venue to it.url }.toSet()
+
+    val classifications = classifyGigs(client, currentGigs, alreadyClassified, scrapedAt = Instant.now())
+    appendGigLogEntries(eventsFile, classifications)
 }
 
 fun renderGigsHtml() {
@@ -49,11 +53,13 @@ fun main(args: Array<String>) {
 
     when (mode) {
         "scrape" -> scrapeGigs()
+        "classify" -> classifyUnclassifiedGigs()
         "render" -> renderGigsHtml()
         "all" -> {
             scrapeGigs()
+            classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape|render|all]")
+        else -> println("Usage: [scrape|classify|render|all]")
     }
 }
