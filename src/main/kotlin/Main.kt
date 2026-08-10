@@ -15,16 +15,22 @@ fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, Strin
 private val eventsFile = File("events.ndjson")
 private val imagesDir = File("images")
 
-fun scrapeGigs() {
+private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
+    "cart-and-horses" to CartAndHorsesGigsSource(client, year = LocalDate.now().year),
+    "new-cross-inn" to NewCrossInnGigsSource(client),
+    "our-black-heart" to OurBlackHeartGigsSource(client),
+    "underworld" to TheUnderworldGigsSource(client),
+    "dome" to DomeLondonGigsSource(client),
+    "blondies" to BlondiesBreweryTaproomGigsSource(client),
+)
+
+fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val sources: List<GigsSource> = listOf(
-        CartAndHorsesGigsSource(client, year = LocalDate.now().year),
-        NewCrossInnGigsSource(client),
-        OurBlackHeartGigsSource(client),
-        TheUnderworldGigsSource(client),
-        DomeLondonGigsSource(client),
-        BlondiesBreweryTaproomGigsSource(client),
-    )
+    val sourcesByKey = sourcesByKey(client)
+
+    val unknownKeys = venueKeys - sourcesByKey.keys
+    check(unknownKeys.isEmpty()) { "Unknown venue key(s): $unknownKeys. Known venue keys: ${sourcesByKey.keys}" }
+    val sources = if (venueKeys.isEmpty()) sourcesByKey.values.toList() else venueKeys.map { sourcesByKey.getValue(it) }
 
     val gigs = sources.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
@@ -77,7 +83,7 @@ fun main(args: Array<String>) {
     val mode = args.firstOrNull() ?: "all"
 
     when (mode) {
-        "scrape" -> scrapeGigs()
+        "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
         "classify" -> classifyUnclassifiedGigs()
         "render" -> renderGigsHtml()
         "unclassified" -> reportUnclassifiedGigs()
@@ -95,6 +101,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape|classify|render|unclassified|override|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify|render|unclassified|override <url> <genre>|all]")
     }
 }
