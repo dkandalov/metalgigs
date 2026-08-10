@@ -4,5 +4,5 @@ build/
 *.iml
 .DS_Store
 .kotlin/
-gigs.html
+index.html
 images/

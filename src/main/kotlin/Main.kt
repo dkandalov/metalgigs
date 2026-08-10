@@ -78,7 +78,7 @@ fun renderGigsHtml(includeNonMetal: Boolean = false, today: LocalDate = LocalDat
     val entries = readGigLogEntries(eventsFile)
     val currentGigs = if (includeNonMetal) projectCurrentGigs(entries) else projectMetalGigs(entries)
     val gigs = excludeGigsInThePast(currentGigs, today)
-    File("gigs.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
+    File("index.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 
 fun main(args: Array<String>) {
