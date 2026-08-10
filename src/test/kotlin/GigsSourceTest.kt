@@ -331,4 +331,33 @@ class GigsSourceTest {
             urlPrefix = "https://dingwalls.com/gig/",
         )
     }
+
+    @Test
+    fun `extracts gig events from The Garage live page`() {
+        val events = assertScrapesGigs(
+            source = TheGarageGigsSource(cachedClient()),
+            size = 43,
+            first = GigEvent(
+                title = "WHEN CHAI MET TOAST",
+                venue = "The Garage",
+                year = 2026,
+                month = "Aug",
+                day = "14",
+                url = "https://www.thegarage.london/gigs/when-chai-met-toast/",
+                imageUrl = "",
+            ),
+            last = GigEvent(
+                title = "BLACK ALTAR - XXX ANNIVERSARY SHOW",
+                venue = "The Garage",
+                year = 2026,
+                month = "Oct",
+                day = "31",
+                url = "https://www.thegarage.london/gigs/black-altar-xxx-anniversary-show-the-garage-london-tickets-2026/",
+                imageUrl = "https://www.thegarage.london/wp-content/uploads/2026/07/XXXYears-Poster-4-insta-819x1024.jpg",
+            ),
+            urlPrefix = "https://www.thegarage.london/gigs/",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
+    }
 }

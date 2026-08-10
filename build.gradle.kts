@@ -24,6 +24,9 @@ dependencies {
 
 application {
     mainClass.set("MainKt")
+    // some venues' sites (e.g. The Garage) omit their intermediate CA cert from the TLS handshake;
+    // this lets the JVM fetch it automatically instead of failing the connection, same as browsers do
+    applicationDefaultJvmArgs = listOf("-Dcom.sun.security.enableAIAcaIssuers=true")
 }
 
 kotlin {
@@ -32,4 +35,5 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty("com.sun.security.enableAIAcaIssuers", "true")
 }

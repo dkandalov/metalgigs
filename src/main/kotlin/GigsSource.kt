@@ -235,3 +235,27 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
                 )
             }
 }
+
+class TheGarageGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://www.thegarage.london/live/"
+    private val venue = "The Garage"
+
+    // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
+    private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select(".card.card--full")
+            .map { item ->
+                val (day, monthName, year) = datePattern.find(item.select(".card__strip-heading").text())!!.destructured
+                val img = item.select(".card__grid-media img")
+
+                GigEvent.of(
+                    title = item.select(".card__heading").text(),
+                    venue = venue,
+                    date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
+                    url = item.select(".card__heading").attr("abs:href"),
+                    imageUrl = img.attr("abs:data-lazy-src").ifBlank { img.attr("abs:src") },
+                )
+            }
+}
