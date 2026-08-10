@@ -82,3 +82,14 @@ fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
         .groupBy { it.venue to it.url }
         .values
         .map { observations -> observations.maxBy { it.scrapedAt }.gig }
+
+// current gigs with no matched keywords, including ones never classified at all
+fun projectUnclassifiedGigs(entries: List<GigLogEntry>): List<GigEvent> {
+    val latestClassificationByGig = entries.filterIsInstance<GigClassified>()
+        .groupBy { it.venue to it.url }
+        .mapValues { (_, classifications) -> classifications.maxBy { it.scrapedAt } }
+
+    return projectCurrentGigs(entries).filter { gig ->
+        latestClassificationByGig[gig.venue to gig.url]?.genre() != Genre.Metal
+    }
+}

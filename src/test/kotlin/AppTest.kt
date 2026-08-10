@@ -287,6 +287,35 @@ class AppTest {
     }
 
     @Test
+    fun `projects unclassified gigs, including ones never classified at all`() {
+        val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/never-classified", imageUrl = "")
+        val classifiedMetal = GigEvent(title = "Classified Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/classified-metal", imageUrl = "")
+        val classifiedUnmatched = GigEvent(title = "Classified Unmatched", venue = "Test Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/classified-unmatched", imageUrl = "")
+        val scrapedAt = Instant.parse("2026-07-01T00:00:00Z")
+        val events: List<GigLogEntry> = listOf(
+            GigObserved(neverClassified, scrapedAt),
+            GigObserved(classifiedMetal, scrapedAt),
+            GigClassified(classifiedMetal.venue, classifiedMetal.url, scrapedAt, matchedKeywords = listOf("doom")),
+            GigObserved(classifiedUnmatched, scrapedAt),
+            GigClassified(classifiedUnmatched.venue, classifiedUnmatched.url, scrapedAt, matchedKeywords = emptyList()),
+        )
+
+        expectThat(projectUnclassifiedGigs(events)).containsExactlyInAnyOrder(neverClassified, classifiedUnmatched)
+    }
+
+    @Test
+    fun `projects unclassified gigs using only the latest classification per gig`() {
+        val gig = GigEvent(title = "Reclassified Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/reclassified", imageUrl = "")
+        val events: List<GigLogEntry> = listOf(
+            GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")),
+            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-01T00:00:00Z"), matchedKeywords = emptyList()),
+            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-15T00:00:00Z"), matchedKeywords = listOf("thrash")),
+        )
+
+        expectThat(projectUnclassifiedGigs(events)).isEqualTo(emptyList())
+    }
+
+    @Test
     fun `classifies gigs by scanning their event pages, skipping already classified ones`() {
         var requestCount = 0
         val fakeClient: HttpHandler = { request ->

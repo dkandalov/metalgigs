@@ -42,6 +42,12 @@ fun classifyUnclassifiedGigs() {
     appendGigLogEntries(eventsFile, classifications)
 }
 
+fun reportUnclassifiedGigs() {
+    val gigs = projectUnclassifiedGigs(readGigLogEntries(eventsFile))
+    gigs.forEach { println("${it.venue} | ${it.day} ${it.month} ${it.year} | ${it.title} | ${it.url}") }
+    println("${gigs.size} unclassified gig(s)")
+}
+
 fun renderGigsHtml() {
     val renderer = HandlebarsTemplates().CachingClasspath()
     val gigs = projectCurrentGigs(readGigLogEntries(eventsFile))
@@ -55,11 +61,12 @@ fun main(args: Array<String>) {
         "scrape" -> scrapeGigs()
         "classify" -> classifyUnclassifiedGigs()
         "render" -> renderGigsHtml()
+        "unclassified" -> reportUnclassifiedGigs()
         "all" -> {
             scrapeGigs()
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape|classify|render|all]")
+        else -> println("Usage: [scrape|classify|render|unclassified|all]")
     }
 }
