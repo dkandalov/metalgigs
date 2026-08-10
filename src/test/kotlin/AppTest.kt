@@ -274,6 +274,40 @@ class AppTest {
     }
 
     @Test
+    fun `extracts gig events from Blondies Bar's dice_fm venue page`() {
+        val events = BlondiesBarGigsSource(cachedClient()).latestGigs()
+        events.forEach { println(it) }
+
+        expectThat(events).hasSize(26)
+
+        expectThat(events.first()).isEqualTo(
+            GigEvent(
+                title = "Midweek Mayhem – £4 Pints All Night",
+                venue = "Blondies Bar",
+                year = 2026,
+                month = "Aug",
+                day = "12",
+                url = "https://dice.fm/event/av57g7-midweek-mayhem-4-pints-all-night-12th-aug-blondies-london-tickets",
+                imageUrl = "https://dice-media.imgix.net/attachments/2025-07-23/03c4258d-44cc-4c61-8612-5d5495f6684b.jpg?rect=0%2C0%2C4385%2C4385",
+            ),
+        )
+        expectThat(events.last()).isEqualTo(
+            GigEvent(
+                title = "1986 + Support",
+                venue = "Blondies Bar",
+                year = 2026,
+                month = "Dec",
+                day = "05",
+                url = "https://dice.fm/event/bboxdm-1986-support-5th-dec-blondies-london-tickets",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-04-27/4c005268-bc5b-43c7-a69f-8117623d0232.jpg?rect=0%2C0%2C2048%2C2048",
+            ),
+        )
+
+        expectThat(events.all { it.url.startsWith("https://dice.fm/event/") }).isTrue()
+        expectThat(events.all { it.venue == "Blondies Bar" }).isTrue()
+    }
+
+    @Test
     fun `appends and reads back gig log entries of different kinds`() {
         val gig = GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg")
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")

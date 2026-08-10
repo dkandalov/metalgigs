@@ -66,9 +66,8 @@ private object JDiceNextData : JAny<DiceNextData>() {
     override fun JsonNodeObject.deserializeOrThrow() = DiceNextData(props = +props)
 }
 
-class BlondiesBreweryTaproomGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en"
-    private val venue = "Blondies Brewery Taproom"
+// shared by every dice.fm venue page; the venue-specific classes below just supply url/venue
+class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, private val venue: String) : GigsSource {
 
     // dice.fm blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -91,3 +90,9 @@ class BlondiesBreweryTaproomGigsSource(private val client: HttpHandler) : GigsSo
         }
     }
 }
+
+class BlondiesBreweryTaproomGigsSource(client: HttpHandler) :
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en", venue = "Blondies Brewery Taproom")
+
+class BlondiesBarGigsSource(client: HttpHandler) :
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-rmvw?lng=en", venue = "Blondies Bar")
