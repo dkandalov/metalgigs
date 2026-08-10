@@ -6,12 +6,13 @@ import org.http4k.core.then
 import org.http4k.filter.ClientFilters
 import org.http4k.template.HandlebarsTemplates
 import java.io.File
+import java.time.Instant
 import java.time.LocalDate
 
 fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, String>> = emptyList()): String =
     client(headers.fold(Request(GET, url)) { request, (name, value) -> request.header(name, value) }).bodyString()
 
-private val gigsFile = File("gigs.ndjson")
+private val eventsFile = File("events.ndjson")
 private val imagesDir = File("images")
 
 fun scrapeGigs() {
@@ -26,13 +27,14 @@ fun scrapeGigs() {
 
     val gigs = sources.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
-    writeGigsNdJson(gigsFile, gigs)
+    appendGigObservations(eventsFile, gigs, scrapedAt = Instant.now())
     cacheGigImages(client, gigs, imagesDir)
 }
 
 fun renderGigsHtml() {
     val renderer = HandlebarsTemplates().CachingClasspath()
-    File("gigs.html").writeText(renderer(GigsView(groupGigsByDate(readGigsNdJson(gigsFile)))))
+    val gigs = projectCurrentGigs(readGigObservations(eventsFile))
+    File("gigs.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 
 fun main(args: Array<String>) {

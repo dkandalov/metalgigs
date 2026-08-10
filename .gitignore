@@ -4,6 +4,5 @@ build/
 *.iml
 .DS_Store
 .kotlin/
-gigs.ndjson
 gigs.html
 images/

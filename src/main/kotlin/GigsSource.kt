@@ -1,6 +1,7 @@
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
+import java.time.Instant
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.TextStyle
@@ -27,6 +28,10 @@ data class GigEvent(
         )
     }
 }
+
+// a single sighting of a gig at scrape time; the append-only source of truth,
+// with (gig.venue, gig.url) as the stable identity across scrapes
+data class GigObserved(val gig: GigEvent, val scrapedAt: Instant)
 
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 

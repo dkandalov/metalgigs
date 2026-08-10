@@ -12,10 +12,12 @@ import org.http4k.traffic.ReadWriteCache
 import org.junit.jupiter.api.extension.ExtendWith
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
+import strikt.assertions.containsExactlyInAnyOrder
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.io.File
+import java.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -237,16 +239,39 @@ class AppTest {
     }
 
     @Test
-    fun `persists gigs as ndjson`() {
+    fun `appends and reads back gig observations`() {
         val gigs = listOf(
             GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg"),
             GigEvent(title = "Another Gig", venue = "Test Venue", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/another-gig", imageUrl = "https://example.com/images/another-gig.jpg"),
         )
-        val file = File.createTempFile("gigs", ".ndjson").apply { deleteOnExit() }
+        val scrapedAt = Instant.parse("2026-08-01T12:00:00Z")
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
-        writeGigsNdJson(file, gigs)
+        appendGigObservations(file, gigs, scrapedAt)
 
-        expectThat(readGigsNdJson(file)).isEqualTo(gigs)
+        expectThat(readGigObservations(file)).isEqualTo(gigs.map { GigObserved(it, scrapedAt) })
+    }
+
+    @Test
+    fun `projects the latest observation per gig`() {
+        val firstSeen = GigEvent(title = "Some Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/some-gig", imageUrl = "https://example.com/images/some-gig.jpg")
+        val soldOut = firstSeen.copy(title = "Some Gig - SOLD OUT")
+        val events = listOf(
+            GigObserved(firstSeen, Instant.parse("2026-07-01T00:00:00Z")),
+            GigObserved(soldOut, Instant.parse("2026-07-15T00:00:00Z")),
+        )
+
+        expectThat(projectCurrentGigs(events)).isEqualTo(listOf(soldOut))
+    }
+
+    @Test
+    fun `keeps separate gigs from different venues distinct`() {
+        val gigA = GigEvent(title = "Gig A", venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/same-slug", imageUrl = "https://example.com/images/gig-a.jpg")
+        val gigB = GigEvent(title = "Gig B", venue = "Venue B", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/same-slug", imageUrl = "https://example.com/images/gig-b.jpg")
+        val scrapedAt = Instant.parse("2026-07-01T00:00:00Z")
+        val events = listOf(GigObserved(gigA, scrapedAt), GigObserved(gigB, scrapedAt))
+
+        expectThat(projectCurrentGigs(events)).containsExactlyInAnyOrder(gigA, gigB)
     }
 
     @Test

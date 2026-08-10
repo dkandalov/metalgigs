@@ -1,10 +1,14 @@
 import com.ubertob.kondor.json.JAny
+import com.ubertob.kondor.json.datetime.str
 import com.ubertob.kondor.json.fromNdJsonToList
 import com.ubertob.kondor.json.jsonnode.JsonNodeObject
 import com.ubertob.kondor.json.num
+import com.ubertob.kondor.json.obj
 import com.ubertob.kondor.json.str
 import com.ubertob.kondor.json.toNdJson
 import java.io.File
+import java.io.FileWriter
+import java.time.Instant
 
 object JGigEvent : JAny<GigEvent>() {
     private val title by str(GigEvent::title)
@@ -26,10 +30,27 @@ object JGigEvent : JAny<GigEvent>() {
     )
 }
 
-fun writeGigsNdJson(file: File, gigs: List<GigEvent>) =
-    file.bufferedWriter().use { writer ->
-        toNdJson(JGigEvent)(gigs).forEach { writer.appendLine(it) }
-    }
+object JGigObserved : JAny<GigObserved>() {
+    private val gig by obj(JGigEvent, GigObserved::gig)
+    private val scrapedAt by str(GigObserved::scrapedAt)
 
-fun readGigsNdJson(file: File): List<GigEvent> =
-    fromNdJsonToList(JGigEvent)(file.readLines().asSequence()).orThrow()
+    override fun JsonNodeObject.deserializeOrThrow() = GigObserved(
+        gig = +gig,
+        scrapedAt = +scrapedAt,
+    )
+}
+
+fun appendGigObservations(file: File, gigs: List<GigEvent>, scrapedAt: Instant) {
+    val observations = gigs.map { GigObserved(it, scrapedAt) }
+    FileWriter(file, true).buffered().use { writer ->
+        toNdJson(JGigObserved)(observations).forEach { writer.appendLine(it) }
+    }
+}
+
+fun readGigObservations(file: File): List<GigObserved> =
+    fromNdJsonToList(JGigObserved)(file.readLines().asSequence()).orThrow()
+
+fun projectCurrentGigs(events: List<GigObserved>): List<GigEvent> =
+    events.groupBy { it.gig.venue to it.gig.url }
+        .values
+        .map { observations -> observations.maxBy { it.scrapedAt }.gig }
