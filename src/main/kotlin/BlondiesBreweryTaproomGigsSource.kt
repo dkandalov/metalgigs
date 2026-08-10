@@ -66,9 +66,9 @@ private object JDiceNextData : JAny<DiceNextData>() {
     override fun JsonNodeObject.deserializeOrThrow() = DiceNextData(props = +props)
 }
 
-class BlondiesBreweryGigsSource(private val client: HttpHandler) : GigsSource {
+class BlondiesBreweryTaproomGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en"
-    private val venue = "Blondies Brewery"
+    private val venue = "Blondies Brewery Taproom"
 
     // dice.fm blocks requests without a browser-like User-Agent
     private val browserUserAgent =

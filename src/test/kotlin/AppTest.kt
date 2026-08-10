@@ -239,8 +239,8 @@ class AppTest {
     }
 
     @Test
-    fun `extracts gig events from Blondies Brewery's dice_fm venue page`() {
-        val events = BlondiesBreweryGigsSource(cachedClient()).latestGigs()
+    fun `extracts gig events from Blondies Brewery Taproom's dice_fm venue page`() {
+        val events = BlondiesBreweryTaproomGigsSource(cachedClient()).latestGigs()
         events.forEach { println(it) }
 
         expectThat(events).hasSize(9)
@@ -248,7 +248,7 @@ class AppTest {
         expectThat(events.first()).isEqualTo(
             GigEvent(
                 title = "It's Never Over, Jeff Buckley > Screening",
-                venue = "Blondies Brewery",
+                venue = "Blondies Brewery Taproom",
                 year = 2026,
                 month = "Aug",
                 day = "12",
@@ -259,7 +259,7 @@ class AppTest {
         expectThat(events.last()).isEqualTo(
             GigEvent(
                 title = "FORLORN / BIRDWITCH",
-                venue = "Blondies Brewery",
+                venue = "Blondies Brewery Taproom",
                 year = 2026,
                 month = "Nov",
                 day = "27",
@@ -269,7 +269,7 @@ class AppTest {
         )
 
         expectThat(events.all { it.url.startsWith("https://dice.fm/event/") }).isTrue()
-        expectThat(events.all { it.venue == "Blondies Brewery" }).isTrue()
+        expectThat(events.all { it.venue == "Blondies Brewery Taproom" }).isTrue()
     }
 
     @Test
