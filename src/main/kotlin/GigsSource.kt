@@ -211,3 +211,27 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
             }
     }
 }
+
+class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://dingwalls.com/whats-on/"
+    private val venue = "Dingwalls"
+
+    // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
+    // September 2026", "Saturday 26th September, 2026 (Afternoon Show)"
+    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+),?\s+(\d{4})""")
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select(".gig")
+            .map { item ->
+                val (day, monthName, year) = datePattern.find(item.select(".elementor-widget-heading:not(.elementor-widget-theme-post-title)").text())!!.destructured
+
+                GigEvent.of(
+                    title = item.select(".elementor-widget-theme-post-title a").text(),
+                    venue = venue,
+                    date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
+                    url = item.select(".elementor-widget-theme-post-title a").attr("abs:href"),
+                    imageUrl = item.select(".elementor-widget-theme-post-featured-image img").attr("abs:src"),
+                )
+            }
+}

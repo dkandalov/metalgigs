@@ -304,4 +304,31 @@ class GigsSourceTest {
             urlPrefix = "https://electricballroom.co.uk/",
         )
     }
+
+    @Test
+    fun `extracts gig events from Dingwalls whats-on page`() {
+        assertScrapesGigs(
+            source = DingwallsGigsSource(cachedClient()),
+            size = 24,
+            first = GigEvent(
+                title = "BANG YONGGUK",
+                venue = "Dingwalls",
+                year = 2026,
+                month = "Sep",
+                day = "02",
+                url = "https://dingwalls.com/gig/root-company/",
+                imageUrl = "https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-5-ropdtf0hg2d9yqdycam42ynoc5vdz4n4gsylj8c3l8.png",
+            ),
+            last = GigEvent(
+                title = "Rock For Hope",
+                venue = "Dingwalls",
+                year = 2026,
+                month = "Nov",
+                day = "07",
+                url = "https://dingwalls.com/gig/rock-for-hope-2/",
+                imageUrl = "https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-27-rr5voszodg8dz4qw6s0thhnj6cm8eai4qgy0bw9ru4.jpg",
+            ),
+            urlPrefix = "https://dingwalls.com/gig/",
+        )
+    }
 }
