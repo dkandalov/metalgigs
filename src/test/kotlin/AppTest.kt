@@ -345,6 +345,35 @@ class AppTest {
     }
 
     @Test
+    fun `scopes The Underworld classification to the gig's own content, ignoring other-events widgets`() {
+        val html = """
+            <article class="event">
+              <div class="content"><p>Doom metal night!</p></div>
+            </article>
+            <article class="list">
+              <h3 class="list-header-title">KINGS OF THRASH</h3>
+            </article>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val gig = GigEvent(title = "Some Gig", venue = "The Underworld", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
+
+        val classification = classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
+
+        expectThat(classification.matchedKeywords).containsExactly("metal", "doom")
+    }
+
+    @Test
+    fun `fails fast when a venue's content selector matches nothing on its event page`() {
+        val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
+        val gig = GigEvent(title = "Some Gig", venue = "The Underworld", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
+
+        val error = assertFailsWith<IllegalStateException> { classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z")) }
+
+        expectThat(error.message!!.contains("article.event")).isTrue()
+        expectThat(error.message!!.contains("The Underworld")).isTrue()
+    }
+
+    @Test
     fun `renders gigs grouped by date as html`(approver: Approver) {
         val gigs = listOf(
             GigEvent(title = "Late Gig", venue = "Venue A", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/late-gig", imageUrl = "https://example.com/images/late-gig.jpg"),
