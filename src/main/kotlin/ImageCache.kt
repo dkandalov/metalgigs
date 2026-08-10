@@ -31,3 +31,10 @@ fun cacheGigImages(client: HttpHandler, gigs: List<GigEvent>, cacheDir: File) {
     gigs.filter { it.imageUrl.isNotBlank() }
         .forEach { gig -> cacheImage(client, gig, cacheDir) }
 }
+
+// cached image files that don't belong to any of the given (currently Metal-classified) gigs -
+// e.g. left behind by a gig that was later reclassified away from Metal
+fun orphanedImageFiles(metalGigs: List<GigEvent>, imageFiles: List<File>): List<File> {
+    val expectedFileNames = metalGigs.map { localImageFileName(it) }.toSet()
+    return imageFiles.filter { it.name !in expectedFileNames }
+}

@@ -56,4 +56,15 @@ class ImageCacheTest {
         expectThat(error.message!!.contains("Some Venue")).isTrue()
         expectThat(error.message!!.contains("https://example.com/images/broken.jpg")).isTrue()
     }
+
+    @Test
+    fun `finds cached image files that don't belong to any current Metal gig`() {
+        val metalGig = GigEvent(title = "Metal Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/metal-gig", imageUrl = "https://example.com/images/metal-gig.jpg")
+        val keptFile = File(localImageFileName(metalGig))
+        val orphanedFile = File("2026-08-09-some-venue-deadbeef.jpg")
+
+        val orphaned = orphanedImageFiles(metalGigs = listOf(metalGig), imageFiles = listOf(keptFile, orphanedFile))
+
+        expectThat(orphaned).isEqualTo(listOf(orphanedFile))
+    }
 }

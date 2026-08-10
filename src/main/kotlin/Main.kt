@@ -107,6 +107,18 @@ fun reportUnclassifiedGigs(limit: Int? = null) {
     println("${gigs.size} unclassified gig(s)$suffix")
 }
 
+fun pruneOrphanedImages() {
+    val metalGigs = projectMetalGigs(readGigLogEntries(eventsFile))
+    val imageFiles = imagesDir.listFiles()?.toList() ?: emptyList()
+    val orphaned = orphanedImageFiles(metalGigs, imageFiles)
+
+    orphaned.forEach { file ->
+        println(file.name)
+        file.delete()
+    }
+    println("${orphaned.size} orphaned image(s) removed")
+}
+
 fun renderGigsHtml(today: LocalDate = LocalDate.now()) {
     val renderer = HandlebarsTemplates().CachingClasspath()
     val entries = readGigLogEntries(eventsFile)
@@ -134,11 +146,12 @@ fun main(args: Array<String>) {
                 overrideGigGenre(url, genre)
             }
         }
+        "prune-images" -> pruneOrphanedImages()
         "all" -> {
             scrapeGigs()
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify [llm]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify [llm]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|prune-images|all]")
     }
 }
