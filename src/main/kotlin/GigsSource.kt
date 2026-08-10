@@ -29,7 +29,7 @@ data class GigEvent(
     }
 }
 
-enum class Genre { Metal, Unclassified }
+enum class Genre { Metal, Other }
 
 enum class ClassificationSource { Keywords, LLM, User }
 

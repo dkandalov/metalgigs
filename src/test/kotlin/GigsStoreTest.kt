@@ -87,7 +87,7 @@ class GigsStoreTest {
             GigObserved(classifiedMetal, recordedAt),
             GigClassified(classifiedMetal.venue, classifiedMetal.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
             GigObserved(classifiedUnmatched, recordedAt),
-            GigClassified(classifiedUnmatched.venue, classifiedUnmatched.url, recordedAt, genre = Genre.Unclassified, source = ClassificationSource.Keywords),
+            GigClassified(classifiedUnmatched.venue, classifiedUnmatched.url, recordedAt, genre = Genre.Other, source = ClassificationSource.Keywords),
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(listOf(classifiedMetal))
@@ -99,7 +99,7 @@ class GigsStoreTest {
         val events: List<GigLogEntry> = listOf(
             GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")),
             GigClassified(gig.venue, gig.url, Instant.parse("2026-07-01T00:00:00Z"), genre = Genre.Metal, matchedKeywords = listOf("thrash"), source = ClassificationSource.Keywords),
-            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-15T00:00:00Z"), genre = Genre.Unclassified, source = ClassificationSource.User),
+            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-15T00:00:00Z"), genre = Genre.Other, source = ClassificationSource.User),
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(emptyList())
@@ -116,7 +116,7 @@ class GigsStoreTest {
             GigObserved(classifiedMetal, recordedAt),
             GigClassified(classifiedMetal.venue, classifiedMetal.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
             GigObserved(classifiedUnmatched, recordedAt),
-            GigClassified(classifiedUnmatched.venue, classifiedUnmatched.url, recordedAt, genre = Genre.Unclassified, source = ClassificationSource.Keywords),
+            GigClassified(classifiedUnmatched.venue, classifiedUnmatched.url, recordedAt, genre = Genre.Other, source = ClassificationSource.Keywords),
         )
 
         expectThat(projectUnclassifiedGigs(events)).containsExactlyInAnyOrder(neverClassified, classifiedUnmatched)
@@ -127,7 +127,7 @@ class GigsStoreTest {
         val gig = GigEvent(title = "Reclassified Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/reclassified", imageUrl = "")
         val events: List<GigLogEntry> = listOf(
             GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")),
-            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-01T00:00:00Z"), genre = Genre.Unclassified, source = ClassificationSource.Keywords),
+            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-01T00:00:00Z"), genre = Genre.Other, source = ClassificationSource.Keywords),
             GigClassified(gig.venue, gig.url, Instant.parse("2026-07-15T00:00:00Z"), genre = Genre.Metal, matchedKeywords = listOf("thrash"), source = ClassificationSource.Keywords),
         )
 
@@ -139,7 +139,7 @@ class GigsStoreTest {
         val gig = GigEvent(title = "Overridden Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/overridden", imageUrl = "")
         val events: List<GigLogEntry> = listOf(
             GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")),
-            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-01T00:00:00Z"), genre = Genre.Unclassified, source = ClassificationSource.Keywords),
+            GigClassified(gig.venue, gig.url, Instant.parse("2026-07-01T00:00:00Z"), genre = Genre.Other, source = ClassificationSource.Keywords),
             GigClassified(gig.venue, gig.url, Instant.parse("2026-07-15T00:00:00Z"), genre = Genre.Metal, source = ClassificationSource.User),
         )
 

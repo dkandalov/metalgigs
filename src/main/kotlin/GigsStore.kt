@@ -108,7 +108,7 @@ fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
     }
 }
 
-// current gigs with no matched keywords, including ones never classified at all
+// current gigs whose latest classification is Other, plus ones never classified at all
 fun projectUnclassifiedGigs(entries: List<GigLogEntry>): List<GigEvent> {
     val latestClassificationByGig = latestClassificationByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->

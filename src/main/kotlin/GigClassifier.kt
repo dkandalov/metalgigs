@@ -43,7 +43,7 @@ fun classifyGigByKeywords(client: HttpHandler, gig: GigEvent, recordedAt: Instan
         venue = gig.venue,
         url = gig.url,
         recordedAt = recordedAt,
-        genre = if (matchedKeywords.isNotEmpty()) Genre.Metal else Genre.Unclassified,
+        genre = if (matchedKeywords.isNotEmpty()) Genre.Metal else Genre.Other,
         matchedKeywords = matchedKeywords,
         source = ClassificationSource.Keywords,
     )
@@ -54,7 +54,7 @@ val llmClassifierSystemPrompt = """
     event page, reply with exactly one word and nothing else:
     Metal - if the gig is metal, doom, sludge, grindcore, black/death metal, metalcore, deathcore,
     thrash, stoner, hardcore, crust, or a closely related heavy genre.
-    Unclassified - for anything else, including when you're not sure.
+    Other - for anything else, including when you're not sure.
 """.trimIndent()
 
 private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")

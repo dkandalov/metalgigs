@@ -41,7 +41,7 @@ class GigClassifierTest {
         expectThat(requestCount).isEqualTo(2)
         expectThat(classifications).containsExactlyInAnyOrder(
             GigClassified(metalGig.venue, metalGig.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("metal", "doom"), source = ClassificationSource.Keywords),
-            GigClassified(comedyGig.venue, comedyGig.url, recordedAt, genre = Genre.Unclassified, source = ClassificationSource.Keywords),
+            GigClassified(comedyGig.venue, comedyGig.url, recordedAt, genre = Genre.Other, source = ClassificationSource.Keywords),
         )
     }
 
@@ -118,16 +118,16 @@ class GigClassifierTest {
     }
 
     @Test
-    fun `classifies a gig as Metal or Unclassified based on the LLM chat's reply`() {
+    fun `classifies a gig as Metal or Other based on the LLM chat's reply`() {
         val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
         val gig = GigEvent(title = "Some Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
         val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
 
         val metalClassification = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig, recordedAt)
-        val unclassifiedClassification = classifyGigByLLM(fakeClient, fakeChat("Unclassified"), gig, recordedAt)
+        val otherClassification = classifyGigByLLM(fakeClient, fakeChat("Other"), gig, recordedAt)
 
         expectThat(metalClassification).isEqualTo(GigClassified(gig.venue, gig.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.LLM))
-        expectThat(unclassifiedClassification).isEqualTo(GigClassified(gig.venue, gig.url, recordedAt, genre = Genre.Unclassified, source = ClassificationSource.LLM))
+        expectThat(otherClassification).isEqualTo(GigClassified(gig.venue, gig.url, recordedAt, genre = Genre.Other, source = ClassificationSource.LLM))
     }
 
     @Test
