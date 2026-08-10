@@ -49,7 +49,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
     appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, Instant.now()) })
 }
 
-fun classifyUnclassifiedGigs(useLLM: Boolean = false) {
+fun classifyUnclassifiedGigs(useLLM: Boolean = false, limit: Int? = null) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
     val currentGigs = projectCurrentGigs(existingEntries)
@@ -68,7 +68,7 @@ fun classifyUnclassifiedGigs(useLLM: Boolean = false) {
         if (chat != null) classifyGigByLLM(client, chat, gig, recordedAt) else classifyGigByKeywords(client, gig, recordedAt)
     }
 
-    val classifications = classifyGigs(currentGigs, alreadyClassified, classifyGig)
+    val classifications = classifyGigs(currentGigs, alreadyClassified, limit, classifyGig)
     appendGigLogEntries(eventsFile, classifications)
 
     val newlyMetalGigs = classifications.filter { it.genre == Genre.Metal }.mapNotNull { currentGigByKey[it.venue to it.url] }
@@ -131,7 +131,13 @@ fun main(args: Array<String>) {
 
     when (mode) {
         "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
-        "classify" -> classifyUnclassifiedGigs(useLLM = args.getOrNull(1) == "llm")
+        "classify" -> {
+            val classifyArgs = args.drop(1)
+            classifyUnclassifiedGigs(
+                useLLM = classifyArgs.contains("llm"),
+                limit = classifyArgs.firstNotNullOfOrNull { it.toIntOrNull() },
+            )
+        }
         "render" -> {
             val today = args.drop(1).firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now())
@@ -152,6 +158,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify [llm]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|prune-images|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify [llm] [limit]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|prune-images|all]")
     }
 }

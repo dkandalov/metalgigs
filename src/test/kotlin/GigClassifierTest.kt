@@ -46,6 +46,26 @@ class GigClassifierTest {
     }
 
     @Test
+    fun `limits classification to the soonest N not-yet-classified gigs`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("Comedy open mic") }
+        val soonest = GigEvent(title = "Soonest Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/soonest", imageUrl = "")
+        val middle = GigEvent(title = "Middle Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/middle", imageUrl = "")
+        val latest = GigEvent(title = "Latest Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/latest", imageUrl = "")
+        val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
+
+        val classifications = classifyGigs(
+            gigs = listOf(latest, soonest, middle),
+            alreadyClassified = emptySet(),
+            limit = 2,
+            classifyGig = { gig -> classifyGigByKeywords(fakeClient, gig, recordedAt) },
+        )
+
+        expectThat(requestCount).isEqualTo(2)
+        expectThat(classifications.map { it.url }).containsExactly(soonest.url, middle.url)
+    }
+
+    @Test
     fun `scopes The Underworld classification to the gig's own content, ignoring other-events widgets`() {
         val html = """
             <article class="event">
