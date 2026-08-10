@@ -13,7 +13,7 @@ dependencies {
     implementation("org.http4k:http4k-client-okhttp")
     implementation("org.http4k:http4k-tools-traffic-capture")
     implementation("org.jsoup:jsoup:1.18.1")
-    implementation("com.ubertob.kondor:kondor-core:3.5.2")
+    implementation("com.ubertob.kondor:kondor-core:3.6.1")
     implementation("org.http4k:http4k-template-handlebars")
 
     testImplementation(kotlin("test"))

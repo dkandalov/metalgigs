@@ -23,6 +23,7 @@ fun scrapeGigs() {
         OurBlackHeartGigsSource(client),
         TheUnderworldGigsSource(client),
         DomeLondonGigsSource(client),
+        BlondiesBreweryGigsSource(client),
     )
 
     val gigs = sources.flatMap { it.latestGigs() }

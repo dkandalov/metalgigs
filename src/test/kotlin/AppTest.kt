@@ -239,6 +239,40 @@ class AppTest {
     }
 
     @Test
+    fun `extracts gig events from Blondies Brewery's dice_fm venue page`() {
+        val events = BlondiesBreweryGigsSource(cachedClient()).latestGigs()
+        events.forEach { println(it) }
+
+        expectThat(events).hasSize(9)
+
+        expectThat(events.first()).isEqualTo(
+            GigEvent(
+                title = "It's Never Over, Jeff Buckley > Screening",
+                venue = "Blondies Brewery",
+                year = 2026,
+                month = "Aug",
+                day = "12",
+                url = "https://dice.fm/event/2wqb7p-its-never-over-jeff-buckley-screening-12th-aug-blondies-brewery-london-tickets",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-08-03/6088fc1d-076f-4946-b1d6-342519c36355.jpg?rect=0%2C49%2C2159%2C2159",
+            ),
+        )
+        expectThat(events.last()).isEqualTo(
+            GigEvent(
+                title = "FORLORN / BIRDWITCH",
+                venue = "Blondies Brewery",
+                year = 2026,
+                month = "Nov",
+                day = "27",
+                url = "https://dice.fm/event/8eq9dw-forlorn-birdwitch-27th-nov-blondies-brewery-london-tickets",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-07-13/d2e1f34c-9f57-4a47-811c-5e6d4efbc40a.jpg?rect=0%2C135%2C1080%2C1080",
+            ),
+        )
+
+        expectThat(events.all { it.url.startsWith("https://dice.fm/event/") }).isTrue()
+        expectThat(events.all { it.venue == "Blondies Brewery" }).isTrue()
+    }
+
+    @Test
     fun `appends and reads back gig log entries of different kinds`() {
         val gig = GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg")
         val scrapedAt = Instant.parse("2026-08-01T12:00:00Z")
