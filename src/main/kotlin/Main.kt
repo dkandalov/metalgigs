@@ -73,10 +73,11 @@ fun reportUnclassifiedGigs() {
     println("${gigs.size} unclassified gig(s)")
 }
 
-fun renderGigsHtml(includeNonMetal: Boolean = false) {
+fun renderGigsHtml(includeNonMetal: Boolean = false, today: LocalDate = LocalDate.now()) {
     val renderer = HandlebarsTemplates().CachingClasspath()
     val entries = readGigLogEntries(eventsFile)
-    val gigs = if (includeNonMetal) projectCurrentGigs(entries) else projectMetalGigs(entries)
+    val currentGigs = if (includeNonMetal) projectCurrentGigs(entries) else projectMetalGigs(entries)
+    val gigs = excludeGigsInThePast(currentGigs, today)
     File("gigs.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 
@@ -86,7 +87,14 @@ fun main(args: Array<String>) {
     when (mode) {
         "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
         "classify" -> classifyUnclassifiedGigs()
-        "render" -> renderGigsHtml(includeNonMetal = args.getOrNull(1) == "all")
+        "render" -> {
+            val renderArgs = args.drop(1)
+            val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
+            renderGigsHtml(
+                includeNonMetal = renderArgs.contains("all"),
+                today = today ?: LocalDate.now(),
+            )
+        }
         "unclassified" -> reportUnclassifiedGigs()
         "override" -> {
             val url = args.getOrNull(1)
@@ -102,6 +110,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify|render [all]|unclassified|override <url> <genre>|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify|render [all] [yyyy-mm-dd]|unclassified|override <url> <genre>|all]")
     }
 }

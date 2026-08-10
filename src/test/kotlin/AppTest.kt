@@ -18,6 +18,7 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.io.File
 import java.time.Instant
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -448,6 +449,17 @@ class AppTest {
         val classification = classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
 
         expectThat(classification.matchedKeywords).containsExactly("metal", "doom")
+    }
+
+    @Test
+    fun `excludes gigs before today but keeps gigs on today`() {
+        val yesterday = GigEvent(title = "Yesterday Gig", venue = "Venue A", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/yesterday", imageUrl = "")
+        val today = GigEvent(title = "Today Gig", venue = "Venue A", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/today", imageUrl = "")
+        val tomorrow = GigEvent(title = "Tomorrow Gig", venue = "Venue A", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/tomorrow", imageUrl = "")
+
+        val gigs = excludeGigsInThePast(listOf(yesterday, today, tomorrow), today = LocalDate.of(2026, 8, 10))
+
+        expectThat(gigs).containsExactlyInAnyOrder(today, tomorrow)
     }
 
     @Test

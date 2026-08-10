@@ -1,4 +1,5 @@
 import org.http4k.template.ViewModel
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -16,6 +17,9 @@ private fun GigEvent.toCardView() = GigCardView(
     url = url,
     imageUrl = "images/${localImageFileName(this)}",
 )
+
+fun excludeGigsInThePast(gigs: List<GigEvent>, today: LocalDate): List<GigEvent> =
+    gigs.filter { it.date() >= today }
 
 fun groupGigsByDate(gigs: List<GigEvent>): List<DateGroup> =
     gigs.sortedBy { it.date() }
