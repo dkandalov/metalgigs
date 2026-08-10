@@ -321,6 +321,40 @@ class AppTest {
     }
 
     @Test
+    fun `extracts gig events from Helgi's dice_fm venue page`() {
+        val events = HelgisGigsSource(cachedClient()).latestGigs()
+        events.forEach { println(it) }
+
+        expectThat(events).hasSize(15)
+
+        expectThat(events.first()).isEqualTo(
+            GigEvent(
+                title = "Sceptocrypt + In Gods Way + Cariad",
+                venue = "Helgi's",
+                year = 2026,
+                month = "Aug",
+                day = "14",
+                url = "https://dice.fm/event/avrpa2-sceptocrypt-in-gods-way-cariad-14th-aug-helgis-london-tickets",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-08-09/bcabb7e3-0777-4c15-929c-9192d05503fb.jpg?rect=0%2C32%2C1187%2C1187",
+            ),
+        )
+        expectThat(events.last()).isEqualTo(
+            GigEvent(
+                title = "HOLOCAUST + HYENA",
+                venue = "Helgi's",
+                year = 2026,
+                month = "Nov",
+                day = "14",
+                url = "https://dice.fm/event/xedvra-holocaust-hyena-14th-nov-helgis-london-tickets",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-04-07/cdca232f-2df2-41a6-a2b1-cdaa5c827aa3.jpg?rect=0%2C135%2C1080%2C1080",
+            ),
+        )
+
+        expectThat(events.all { it.url.startsWith("https://dice.fm/event/") }).isTrue()
+        expectThat(events.all { it.venue == "Helgi's" }).isTrue()
+    }
+
+    @Test
     fun `appends and reads back gig log entries of different kinds`() {
         val gig = GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg")
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")

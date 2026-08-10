@@ -96,3 +96,6 @@ class BlondiesBreweryTaproomGigsSource(client: HttpHandler) :
 
 class BlondiesBarGigsSource(client: HttpHandler) :
     GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-rmvw?lng=en", venue = "Blondies Bar")
+
+class HelgisGigsSource(client: HttpHandler) :
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = "Helgi's")
