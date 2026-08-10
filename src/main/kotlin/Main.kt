@@ -44,7 +44,15 @@ fun classifyUnclassifiedGigs() {
 
 fun reportUnclassifiedGigs() {
     val gigs = projectUnclassifiedGigs(readGigLogEntries(eventsFile))
-    gigs.forEach { println("${it.venue} | ${it.day} ${it.month} ${it.year} | ${it.title} | ${it.url}") }
+    gigs.groupBy { it.venue }.forEach { (venue, venueGigs) ->
+        println("$venue (${venueGigs.size})")
+        println()
+        venueGigs.forEach { gig ->
+            println("  ${gig.day} ${gig.month} ${gig.year}  ${gig.title}")
+            println("  ${gig.url}")
+            println()
+        }
+    }
     println("${gigs.size} unclassified gig(s)")
 }
 
