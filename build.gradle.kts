@@ -15,6 +15,7 @@ dependencies {
     implementation("org.jsoup:jsoup:1.18.1")
     implementation("com.ubertob.kondor:kondor-core:3.6.1")
     implementation("org.http4k:http4k-template-handlebars")
+    implementation("org.http4k:http4k-ai-llm-anthropic")
 
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-approval")

@@ -1,3 +1,11 @@
+import dev.forkhandles.result4k.onFailure
+import org.http4k.ai.llm.chat.Chat
+import org.http4k.ai.llm.chat.ChatRequest
+import org.http4k.ai.llm.chat.ChatResponseFormat
+import org.http4k.ai.llm.model.Content
+import org.http4k.ai.llm.model.ModelParams
+import org.http4k.ai.model.ModelName
+import org.http4k.ai.model.Temperature
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -28,7 +36,7 @@ private fun eventPageContentText(pageHtml: String, url: String, venue: String): 
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 
-fun classifyGig(client: HttpHandler, gig: GigEvent, recordedAt: Instant): GigClassified {
+fun classifyGigByKeywords(client: HttpHandler, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
     val matchedKeywords = matchKeywords(pageText)
     return GigClassified(
@@ -41,11 +49,41 @@ fun classifyGig(client: HttpHandler, gig: GigEvent, recordedAt: Instant): GigCla
     )
 }
 
+val llmClassifierSystemPrompt = """
+    You classify UK live music gig listings by genre. Given a gig's title and the text of its own
+    event page, reply with exactly one word and nothing else:
+    Metal - if the gig is metal, doom, sludge, grindcore, black/death metal, metalcore, deathcore,
+    thrash, stoner, hardcore, crust, or a closely related heavy genre.
+    Unclassified - for anything else, including when you're not sure.
+""".trimIndent()
+
+private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
+
+fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
+    val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
+
+    val request = ChatRequest(
+        "Title: ${gig.title}\n\nEvent page text: $pageText",
+        ModelParams(llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text),
+    )
+    val response = chat(request).onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
+    val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
+    val genre = Genre.entries.find { it.name.equals(reply, ignoreCase = true) }
+        ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
+
+    return GigClassified(
+        venue = gig.venue,
+        url = gig.url,
+        recordedAt = recordedAt,
+        genre = genre,
+        source = ClassificationSource.LLM,
+    )
+}
+
 fun classifyGigs(
-    client: HttpHandler,
     gigs: List<GigEvent>,
     alreadyClassified: Set<Pair<String, String>>,
-    recordedAt: Instant,
+    classifyGig: (GigEvent) -> GigClassified,
 ): List<GigClassified> =
     gigs.filter { (it.venue to it.url) !in alreadyClassified }
-        .map { classifyGig(client, it, recordedAt) }
+        .map(classifyGig)

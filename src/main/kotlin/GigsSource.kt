@@ -31,7 +31,7 @@ data class GigEvent(
 
 enum class Genre { Metal, Unclassified }
 
-enum class ClassificationSource { Keywords, User }
+enum class ClassificationSource { Keywords, LLM, User }
 
 // one entry in the append-only gig log, keyed by (venue, url) as the stable identity across scrapes
 sealed interface GigLogEntry {

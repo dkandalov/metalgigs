@@ -1,3 +1,7 @@
+import org.http4k.ai.llm.chat.Chat
+import org.http4k.ai.llm.chat.AnthropicAI
+import org.http4k.ai.model.ApiKey
+import org.http4k.ai.model.SystemPrompt
 import org.http4k.client.OkHttp
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
@@ -44,14 +48,26 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
     appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, Instant.now()) })
 }
 
-fun classifyUnclassifiedGigs() {
+fun classifyUnclassifiedGigs(useLLM: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
     val currentGigs = projectCurrentGigs(existingEntries)
     val currentGigByKey = currentGigs.associateBy { it.venue to it.url }
     val alreadyClassified = existingEntries.filterIsInstance<GigClassified>().map { it.venue to it.url }.toSet()
+    val recordedAt = Instant.now()
 
-    val classifications = classifyGigs(client, currentGigs, alreadyClassified, recordedAt = Instant.now())
+    val chat: Chat? = if (!useLLM) null else {
+        val apiKey = ApiKey.of(
+            System.getenv("ANTHROPIC_API_KEY")
+                ?: error("ANTHROPIC_API_KEY environment variable is required for LLM classification")
+        )
+        Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
+    }
+    val classifyGig: (GigEvent) -> GigClassified = { gig ->
+        if (chat != null) classifyGigByLLM(client, chat, gig, recordedAt) else classifyGigByKeywords(client, gig, recordedAt)
+    }
+
+    val classifications = classifyGigs(currentGigs, alreadyClassified, classifyGig)
     appendGigLogEntries(eventsFile, classifications)
 
     val newlyMetalGigs = classifications.filter { it.genre == Genre.Metal }.mapNotNull { currentGigByKey[it.venue to it.url] }
@@ -102,7 +118,7 @@ fun main(args: Array<String>) {
 
     when (mode) {
         "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
-        "classify" -> classifyUnclassifiedGigs()
+        "classify" -> classifyUnclassifiedGigs(useLLM = args.getOrNull(1) == "llm")
         "render" -> {
             val today = args.drop(1).firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now())
@@ -122,6 +138,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify [llm]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|all]")
     }
 }

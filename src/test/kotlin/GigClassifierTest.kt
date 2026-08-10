@@ -1,3 +1,10 @@
+import dev.forkhandles.result4k.Success
+import org.http4k.ai.llm.chat.Chat
+import org.http4k.ai.llm.chat.ChatResponse
+import org.http4k.ai.llm.model.Content
+import org.http4k.ai.llm.model.Message
+import org.http4k.ai.model.ModelName
+import org.http4k.ai.model.ResponseId
 import org.http4k.core.HttpHandler
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
@@ -26,10 +33,9 @@ class GigClassifierTest {
         val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
 
         val classifications = classifyGigs(
-            fakeClient,
             gigs = listOf(metalGig, comedyGig, oldGig),
             alreadyClassified = setOf(oldGig.venue to oldGig.url),
-            recordedAt = recordedAt,
+            classifyGig = { gig -> classifyGigByKeywords(fakeClient, gig, recordedAt) },
         )
 
         expectThat(requestCount).isEqualTo(2)
@@ -52,7 +58,7 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { Response(OK).body(html) }
         val gig = GigEvent(title = "Some Gig", venue = "The Underworld", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
 
-        val classification = classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
+        val classification = classifyGigByKeywords(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
 
         expectThat(classification.matchedKeywords).containsExactly("metal", "doom")
     }
@@ -62,7 +68,7 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
         val gig = GigEvent(title = "Some Gig", venue = "The Underworld", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
 
-        val error = assertFailsWith<IllegalStateException> { classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z")) }
+        val error = assertFailsWith<IllegalStateException> { classifyGigByKeywords(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z")) }
 
         expectThat(error.message!!.contains("The Underworld")).isTrue()
         expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
@@ -77,8 +83,43 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { Response(OK).body(html) }
         val gig = GigEvent(title = "Some Gig", venue = "New Cross Inn", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
 
-        val classification = classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
+        val classification = classifyGigByKeywords(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
 
         expectThat(classification.matchedKeywords).containsExactly("metal", "doom")
+    }
+
+    private fun fakeChat(reply: String): Chat = Chat { _ ->
+        Success(
+            ChatResponse(
+                Message.Assistant(listOf(Content.Text(reply))),
+                ChatResponse.Metadata(ResponseId.of("fake-response-id"), ModelName.of("fake-model")),
+            ),
+        )
+    }
+
+    @Test
+    fun `classifies a gig as Metal or Unclassified based on the LLM chat's reply`() {
+        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
+        val gig = GigEvent(title = "Some Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
+        val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
+
+        val metalClassification = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig, recordedAt)
+        val unclassifiedClassification = classifyGigByLLM(fakeClient, fakeChat("Unclassified"), gig, recordedAt)
+
+        expectThat(metalClassification).isEqualTo(GigClassified(gig.venue, gig.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.LLM))
+        expectThat(unclassifiedClassification).isEqualTo(GigClassified(gig.venue, gig.url, recordedAt, genre = Genre.Unclassified, source = ClassificationSource.LLM))
+    }
+
+    @Test
+    fun `fails fast when the LLM chat replies with something other than a genre name`() {
+        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
+        val gig = GigEvent(title = "Some Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
+
+        val error = assertFailsWith<IllegalStateException> {
+            classifyGigByLLM(fakeClient, fakeChat("I think this is probably a metal gig"), gig, Instant.parse("2026-08-01T00:00:00Z"))
+        }
+
+        expectThat(error.message!!.contains("Some Venue")).isTrue()
+        expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
     }
 }
