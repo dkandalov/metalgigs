@@ -1,12 +1,13 @@
 ---
 name: http4k-reference
-description: Look up exact http4k or Kondor API signatures and behavior from local source checkouts instead of guessing from memory or decompiling jars. Use whenever writing or debugging code that calls into http4k or Kondor (com.ubertob.kondor, e.g. the JAny/str/num JSON converters in GigsStore.kt) and the exact method name, parameter, or default behavior isn't certain.
+description: Look up exact http4k, Kondor, or forkhandles (result4k/values) API signatures and behavior from local source checkouts instead of guessing from memory or decompiling jars. Use whenever writing or debugging code that calls into http4k, Kondor (com.ubertob.kondor, e.g. the JAny/str/num JSON converters in GigsStore.kt), or forkhandles (dev.forkhandles, e.g. Result4k/Success/Failure from the LLM classifier, or StringValue-based types like ApiKey/ModelName) and the exact method name, parameter, or default behavior isn't certain.
 ---
 
 Full source checkouts live locally — real git clones, not just jars, so `Read`/`Grep` them directly:
 
 - http4k: `/Users/dk/Projects/_ref/http4k`
 - Kondor: `/Users/dk/Projects/_ref/kondor-json` (this project depends on the `kondor-core` module only)
+- forkhandles: `/Users/dk/Projects/forkhandles` (pulled in transitively via `http4k-ai-llm-anthropic`; `result4k` is the `Result4k`/`Success`/`Failure`/`onFailure` etc. library under `result4k/core/src/main/kotlin/dev/forkhandles/result4k/`, `values` is the `StringValue`/`NonBlankStringValueFactory` base for types like `ApiKey`/`ModelName`)
 
 This project has been burned before by guessing library APIs from memory (e.g. assuming Kondor's short-function names were `bindString`/`bindInt` when the real Kotlin source names are `str`/`num` — the guessed names only existed as `@JvmName` bytecode aliases) and by assuming defaults (e.g. assuming http4k's `OkHttp()` client follows HTTP redirects, when `PreCannedOkHttpClients.defaultOkHttpClient()` explicitly sets `.followRedirects(false)`). Reading the actual source avoids both classes of mistake and is faster than downloading/decompiling jars from Maven Central.
 
