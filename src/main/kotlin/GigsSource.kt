@@ -180,3 +180,34 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
                 )
             }
 }
+
+class ElectricBallroomGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
+    private val url = "https://electricballroom.co.uk/whats-on/"
+    private val venue = "Electric Ballroom"
+
+    // dates have no year, e.g. "Thursday 13th August"; ordinal suffix is discarded
+    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
+    private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
+
+    override fun latestGigs(): List<GigEvent> {
+        var currentYear = year
+        var previousMonth: Month? = null
+
+        return Jsoup.parse(fetchPage(client, url), url)
+            .select(".grid-block.card")
+            .map { item ->
+                val (day, monthName) = datePattern.find(item.select(".event-date").text())!!.destructured
+                val month = Month.valueOf(monthName.uppercase())
+                if (previousMonth != null && month < previousMonth) currentYear++
+                previousMonth = month
+
+                GigEvent.of(
+                    title = item.select(".event-name a").text(),
+                    venue = venue,
+                    date = LocalDate.of(currentYear, month, day.toInt()),
+                    url = item.select(".event-name a").attr("abs:href"),
+                    imageUrl = backgroundImageUrlPattern.find(item.select(".grid-image").attr("style"))?.groupValues?.get(1) ?: "",
+                )
+            }
+    }
+}

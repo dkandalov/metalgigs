@@ -24,6 +24,7 @@ private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
     "blondies-taproom" to BlondiesBreweryTaproomGigsSource(client),
     "blondies-bar" to BlondiesBarGigsSource(client),
     "helgis" to HelgisGigsSource(client),
+    "electric-ballroom" to ElectricBallroomGigsSource(client, year = LocalDate.now().year),
 )
 
 fun scrapeGigs(venueKeys: Set<String> = emptySet()) {

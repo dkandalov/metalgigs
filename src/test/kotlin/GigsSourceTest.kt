@@ -277,4 +277,31 @@ class GigsSourceTest {
             urlPrefix = "https://dice.fm/event/",
         )
     }
+
+    @Test
+    fun `extracts gig events from Electric Ballroom whats-on page`() {
+        assertScrapesGigs(
+            source = ElectricBallroomGigsSource(cachedClient(), year = 2026),
+            size = 89,
+            first = GigEvent(
+                title = "Lion Babe – RESCHEDULED!",
+                venue = "Electric Ballroom",
+                year = 2026,
+                month = "Aug",
+                day = "13",
+                url = "https://electricballroom.co.uk/lion-babe/",
+                imageUrl = "https://electricballroom.co.uk/wp-content/uploads/2026/07/LION-BABE-.jpg",
+            ),
+            last = GigEvent(
+                title = "Indiepalooza Tribute – Killers v Monkeys v Fender v Oasis v Kasabian v Kaiser",
+                venue = "Electric Ballroom",
+                year = 2027,
+                month = "Jun",
+                day = "19",
+                url = "https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/",
+                imageUrl = "https://electricballroom.co.uk/wp-content/uploads/2026/06/Indiepalooza-2027.jpg",
+            ),
+            urlPrefix = "https://electricballroom.co.uk/",
+        )
+    }
 }

@@ -1,0 +1,2616 @@
+HTTP/1.1 200 
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: a291376f2f81ef2f-LHR
+content-type: text/html; charset=UTF-8
+date: Mon, 10 Aug 2026 18:55:46 GMT
+link: <https://electricballroom.co.uk/wp-json/>; rel="https://api.w.org/", <https://electricballroom.co.uk/wp-json/wp/v2/pages/5>; rel="alternate"; title="JSON"; type="application/json", <https://electricballroom.co.uk/?p=5>; rel=shortlink
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=piMXZze%2BmNJRNBEjxYDjJ7sIT6XobB%2Bn4%2BiJQp%2Bw3UifObrXv4iggGNqbtJ4yeOSCphMdLIv1W%2FRbNFXXqPIoLv2cnkR8NztIhvTyTCzOhbRFH2cdwgQzhQWFMBYVNHSuCJNrQSPiaaf"}]}
+server: cloudflare
+vary: Accept-Encoding
+
+<!doctype html>
+<html lang="en-GB">
+<head>
+	<meta charset="UTF-8" />
+	<title>What&#039;s On - Electric Ballroom</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.typekit.net/xic5pwe.css">
+
+	<link href="https://electricballroom.co.uk/wp-content/themes/electricballroom/img/icons/favicon.ico" rel="shortcut icon">
+  <link href="https://electricballroom.co.uk/wp-content/themes/electricballroom/img/icons/touch.png" rel="apple-touch-icon-precomposed">
+
+  <link rel="stylesheet" href="https://electricballroom.co.uk/wp-content/themes/electricballroom/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--[if lt IE 9]>
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+<meta name="google-site-verification" content="vj5E0xmwEE5j3ylVVZKEgCtPo56CTDHCg4z2CObCk-A" />
+  <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v28.2 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<link rel="canonical" href="https://electricballroom.co.uk/whats-on/" />
+	<meta property="og:locale" content="en_GB" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="What&#039;s On - Electric Ballroom" />
+	<meta property="og:url" content="https://electricballroom.co.uk/whats-on/" />
+	<meta property="og:site_name" content="Electric Ballroom" />
+	<meta property="article:publisher" content="https://www.facebook.com/electricballroomcamden" />
+	<meta property="article:modified_time" content="2018-03-19T15:16:43+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@EBallroomCamden" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/electricballroom.co.uk\/whats-on\/","url":"https:\/\/electricballroom.co.uk\/whats-on\/","name":"What's On - Electric Ballroom","isPartOf":{"@id":"https:\/\/electricballroom.co.uk\/#website"},"datePublished":"2014-04-23T07:18:47+00:00","dateModified":"2018-03-19T15:16:43+00:00","breadcrumb":{"@id":"https:\/\/electricballroom.co.uk\/whats-on\/#breadcrumb"},"inLanguage":"en-GB","potentialAction":[{"@type":"ReadAction","target":["https:\/\/electricballroom.co.uk\/whats-on\/"]}]},{"@type":"BreadcrumbList","@id":"https:\/\/electricballroom.co.uk\/whats-on\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/electricballroom.co.uk\/"},{"@type":"ListItem","position":2,"name":"What&#8217;s On"}]},{"@type":"WebSite","@id":"https:\/\/electricballroom.co.uk\/#website","url":"https:\/\/electricballroom.co.uk\/","name":"Electric Ballroom","description":"Legendary venue and the heart of Camden Town since 1938","publisher":{"@id":"https:\/\/electricballroom.co.uk\/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/electricballroom.co.uk\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-GB"},{"@type":"Organization","@id":"https:\/\/electricballroom.co.uk\/#organization","name":"The Electric Ballroom","url":"https:\/\/electricballroom.co.uk\/","logo":{"@type":"ImageObject","inLanguage":"en-GB","@id":"https:\/\/electricballroom.co.uk\/#\/schema\/logo\/image\/","url":"https:\/\/i1.wp.com\/electricballroom.co.uk\/wp-content\/uploads\/2017\/12\/eb_logo.png?fit=500%2C502&ssl=1","contentUrl":"https:\/\/i1.wp.com\/electricballroom.co.uk\/wp-content\/uploads\/2017\/12\/eb_logo.png?fit=500%2C502&ssl=1","width":500,"height":502,"caption":"The Electric Ballroom"},"image":{"@id":"https:\/\/electricballroom.co.uk\/#\/schema\/logo\/image\/"},"sameAs":["https:\/\/www.facebook.com\/electricballroomcamden","https:\/\/x.com\/EBallroomCamden"]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//ajax.googleapis.com' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://electricballroom.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Felectricballroom.co.uk%2Fwhats-on%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://electricballroom.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Felectricballroom.co.uk%2Fwhats-on%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-color]){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='fancybox-css' href='https://electricballroom.co.uk/wp-content/plugins/easy-fancybox/fancybox/1.5.4/jquery.fancybox.min.css?ver=2f795cf6d552bec6b3680976977fa7cf' media='screen' />
+<style id="fancybox-inline-css">
+#fancybox-content{border-color:#fff;}
+/*# sourceURL=fancybox-inline-css */
+</style>
+<script id="jquery-js" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js?ver=1"></script>
+<link rel="https://api.w.org/" href="https://electricballroom.co.uk/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://electricballroom.co.uk/wp-json/wp/v2/pages/5" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://electricballroom.co.uk/xmlrpc.php?rsd" />
+
+<link rel='shortlink' href='https://electricballroom.co.uk/?p=5' />
+<script type="text/javascript">
+(function(url){
+	if(/(?:Chrome\/26\.0\.1410\.63 Safari\/537\.31|WordfenceTestMonBot)/.test(navigator.userAgent)){ return; }
+	var addEvent = function(evt, handler) {
+		if (window.addEventListener) {
+			document.addEventListener(evt, handler, false);
+		} else if (window.attachEvent) {
+			document.attachEvent('on' + evt, handler);
+		}
+	};
+	var removeEvent = function(evt, handler) {
+		if (window.removeEventListener) {
+			document.removeEventListener(evt, handler, false);
+		} else if (window.detachEvent) {
+			document.detachEvent('on' + evt, handler);
+		}
+	};
+	var evts = 'contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop keydown keypress keyup mousedown mousemove mouseout mouseover mouseup mousewheel scroll'.split(' ');
+	var logHuman = function() {
+		if (window.wfLogHumanRan) { return; }
+		window.wfLogHumanRan = true;
+		var wfscr = document.createElement('script');
+		wfscr.type = 'text/javascript';
+		wfscr.async = true;
+		wfscr.src = url + '&r=' + Math.random();
+		(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(wfscr);
+		for (var i = 0; i < evts.length; i++) {
+			removeEvent(evts[i], logHuman);
+		}
+	};
+	for (var i = 0; i < evts.length; i++) {
+		addEvent(evts[i], logHuman);
+	}
+})('//electricballroom.co.uk/?wordfence_lh=1&hid=4528A1C8CAD80FE369DDEAEE04E577EF');
+</script><link rel="icon" href="https://electricballroom.co.uk/wp-content/uploads/2017/08/eb_logo-90x90.png" sizes="32x32" />
+<link rel="icon" href="https://electricballroom.co.uk/wp-content/uploads/2017/08/eb_logo.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://electricballroom.co.uk/wp-content/uploads/2017/08/eb_logo.png" />
+<meta name="msapplication-TileImage" content="https://electricballroom.co.uk/wp-content/uploads/2017/08/eb_logo.png" />
+<style id="wp-custom-css">
+.gallery-caption {
+    font-size: 13px;
+}
+
+</style>
+</head>
+<body>
+	<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<defs>
+			<symbol id="icon-facebook" viewBox="0 0 32 32">
+<title>facebook</title>
+<path d="M26 0h6v32h-9.867v-12.4h4.133l0.667-4.8h-4.8v-3.067c0-1.333 0.4-2.4 2.4-2.4h2.533v-4.267c-0.4 0-2-0.133-3.733-0.133-3.733 0-6.267 2.267-6.267 6.4v3.6h-4.133v4.8h4.133v12.267h-17.067v-32h26z"></path>
+</symbol>
+<symbol id="icon-twitter" viewBox="0 0 32 32">
+<title>twitter</title>
+<path d="M26.667 10c-0.8 0.4-1.6 0.533-2.533 0.667 0.933-0.533 1.6-1.467 2-2.4-0.8 0.533-1.733 0.933-2.8 1.067-0.8-0.8-2-1.333-3.2-1.333-2.4 0-4.4 2-4.4 4.4 0 0.4 0 0.667 0.133 1.067-3.6-0.133-6.933-1.867-9.067-4.533-0.4 0.667-0.667 1.467-0.667 2.267 0 1.467 0.667 2.8 1.867 3.6-0.667 0-1.467-0.267-2.133-0.533v0c0 2.133 1.6 3.867 3.6 4.267-0.267 0-0.533 0.133-0.933 0.133-0.267 0-0.533 0-0.8-0.133 0.533 1.733 2.133 2.933 4.133 3.067-1.467 1.2-3.333 1.867-5.467 1.867-0.4 0-0.667 0-1.067 0 2 1.2 4.267 1.867 6.667 1.867 8 0 12.4-6.667 12.4-12.4 0-0.133 0-0.4 0-0.533 0.933-0.667 1.733-1.467 2.267-2.4v0zM32 0v32h-32v-32h32z"></path>
+</symbol>
+		<symbol id="icon-close" viewBox="0 0 24 24">
+		<title>close</title>
+		<path d="M18.984 6.422l-5.578 5.578 5.578 5.578-1.406 1.406-5.578-5.578-5.578 5.578-1.406-1.406 5.578-5.578-5.578-5.578 1.406-1.406 5.578 5.578 5.578-5.578z"></path>
+		</symbol>
+		<symbol id="icon-menu" viewBox="0 0 24 24">
+		<title>menu</title>
+		<path d="M3 6h18v2.016h-18v-2.016zM3 12.984v-1.969h18v1.969h-18zM3 18v-2.016h18v2.016h-18z"></path>
+		</symbol>
+		<symbol id="icon-instagram" viewBox="0 0 32 32">
+		<title>instagram</title>
+		<path d="M16 2.881c4.275 0 4.781 0.019 6.462 0.094 1.563 0.069 2.406 0.331 2.969 0.55 0.744 0.288 1.281 0.638 1.837 1.194 0.563 0.563 0.906 1.094 1.2 1.838 0.219 0.563 0.481 1.412 0.55 2.969 0.075 1.688 0.094 2.194 0.094 6.463s-0.019 4.781-0.094 6.463c-0.069 1.563-0.331 2.406-0.55 2.969-0.288 0.744-0.637 1.281-1.194 1.837-0.563 0.563-1.094 0.906-1.837 1.2-0.563 0.219-1.413 0.481-2.969 0.55-1.688 0.075-2.194 0.094-6.463 0.094s-4.781-0.019-6.463-0.094c-1.563-0.069-2.406-0.331-2.969-0.55-0.744-0.288-1.281-0.637-1.838-1.194-0.563-0.563-0.906-1.094-1.2-1.837-0.219-0.563-0.481-1.413-0.55-2.969-0.075-1.688-0.094-2.194-0.094-6.463s0.019-4.781 0.094-6.463c0.069-1.563 0.331-2.406 0.55-2.969 0.288-0.744 0.638-1.281 1.194-1.838 0.563-0.563 1.094-0.906 1.838-1.2 0.563-0.219 1.412-0.481 2.969-0.55 1.681-0.075 2.188-0.094 6.463-0.094zM16 0c-4.344 0-4.887 0.019-6.594 0.094-1.7 0.075-2.869 0.35-3.881 0.744-1.056 0.412-1.95 0.956-2.837 1.85-0.894 0.888-1.438 1.781-1.85 2.831-0.394 1.019-0.669 2.181-0.744 3.881-0.075 1.713-0.094 2.256-0.094 6.6s0.019 4.887 0.094 6.594c0.075 1.7 0.35 2.869 0.744 3.881 0.413 1.056 0.956 1.95 1.85 2.837 0.887 0.887 1.781 1.438 2.831 1.844 1.019 0.394 2.181 0.669 3.881 0.744 1.706 0.075 2.25 0.094 6.594 0.094s4.888-0.019 6.594-0.094c1.7-0.075 2.869-0.35 3.881-0.744 1.050-0.406 1.944-0.956 2.831-1.844s1.438-1.781 1.844-2.831c0.394-1.019 0.669-2.181 0.744-3.881 0.075-1.706 0.094-2.25 0.094-6.594s-0.019-4.887-0.094-6.594c-0.075-1.7-0.35-2.869-0.744-3.881-0.394-1.063-0.938-1.956-1.831-2.844-0.887-0.887-1.781-1.438-2.831-1.844-1.019-0.394-2.181-0.669-3.881-0.744-1.712-0.081-2.256-0.1-6.6-0.1v0z"></path>
+		<path d="M16 7.781c-4.537 0-8.219 3.681-8.219 8.219s3.681 8.219 8.219 8.219 8.219-3.681 8.219-8.219c0-4.537-3.681-8.219-8.219-8.219zM16 21.331c-2.944 0-5.331-2.387-5.331-5.331s2.387-5.331 5.331-5.331c2.944 0 5.331 2.387 5.331 5.331s-2.387 5.331-5.331 5.331z"></path>
+		<path d="M26.462 7.456c0 1.060-0.859 1.919-1.919 1.919s-1.919-0.859-1.919-1.919c0-1.060 0.859-1.919 1.919-1.919s1.919 0.859 1.919 1.919z"></path>
+		</symbol>
+		</defs>
+	</svg>
+
+	<div class="inner">
+
+  <header>
+		<div class="logo-wrap">
+							<a href="https://electricballroom.co.uk"><img src="https://electricballroom.co.uk/wp-content/uploads/2018/03/eb-logo.svg" alt="Electric Ballroom" width="" height=""></a>
+					</div>
+		<div class="header-right">
+			<nav>
+				<a href="#" class="mobile-nav-link"><svg class="icon icon-menu"><use xlink:href="#icon-menu"></use></svg><svg class="icon icon-close"><use xlink:href="#icon-close"></use></svg></a>
+				<ul id="menu-main-menu" class="menu"><li id="menu-item-19574" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-19574"><a href="https://electricballroom.co.uk/">Home</a></li>
+<li id="menu-item-241" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-5 current_page_item menu-item-241"><a href="https://electricballroom.co.uk/whats-on/" aria-current="page">What’s On</a></li>
+<li id="menu-item-3592" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3592"><a href="https://electricballroom.co.uk/gallery/">Gallery</a></li>
+<li id="menu-item-15036" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15036"><a href="https://electricballroom.co.uk/faq/">FAQ’S</a></li>
+</ul>			</nav>
+			<!--<span class="header-tel">Tel 02074859007</span>-->
+			<span class="header-address">184 CAMDEN HIGH STREET, CAMDEN TOWN, LONDON, NW1 8QP</span>		</div>
+				<div class="anniversary-banner">
+			<img src="https://electricballroom.co.uk/wp-content/uploads/2022/04/timeout-large-corner-4.png" alt="">
+		</div>
+						<div class="bottom-right">
+			<a href="https://www.youtube.com/watch?v=Lxbq_W1mMLs&autoplay=1" class="button light-button big-button">See Inside</a>
+		</div>
+		  </header>
+
+		<main class="page-bg">
+	
+
+    <div class="page-content">
+
+      <div class="content-header no-border">
+				<div>
+					<h1>Coming Up</h1>
+				</div>
+				<div class="month-col text-c">
+					<span class="month"></span>
+				</div>
+        <div class="filters-wrap text-r">
+					<div class="filters">
+					Filter by: <a href="#" data-filter="*" class="active button">All</a>
+                      <a href="#" data-filter=".club-nights" class="button">Club</a>
+                      <a href="#" data-filter=".live" class="button">Live</a>
+          					</div>
+				</div>
+			</div>
+
+                    <div class="grid filterable-grid">
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">August 2026</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/lion-babe/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/LION-BABE-.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 13th August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/lion-babe/">Lion Babe &#8211; RESCHEDULED!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">From £25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/lion-babe/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Lion Babe &#8211; RESCHEDULED!%20-%20https://electricballroom.co.uk/lion-babe/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/reggaeton-party-summer-terrace-fiesta-camden-courtyard/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/ruer_Kgo.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 14th August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/reggaeton-party-summer-terrace-fiesta-camden-courtyard/">Reggaeton Party: Summer Terrace Fiesta &#8211; Camden Courtyard!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">5.00PM</span> | <span class="event-price">£12</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/reggaeton-party-summer-terrace-fiesta/electric-ballroom/3674874" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/reggaeton-party-summer-terrace-fiesta-camden-courtyard/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Reggaeton Party: Summer Terrace Fiesta &#8211; Camden Courtyard!%20-%20https://electricballroom.co.uk/reggaeton-party-summer-terrace-fiesta-camden-courtyard/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/divorced-dad-rock-party-camden-courtyard/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/DDR-London-Insta.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 15th August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/divorced-dad-rock-party-camden-courtyard/">Divorced Dad Rock Terrace Party &#8211; Camden Courtyard</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">5.00PM</span> | <span class="event-price">From £8</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/divorced-dad-rock-terrace-party/electric-ballroom/3695885" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/divorced-dad-rock-party-camden-courtyard/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Divorced Dad Rock Terrace Party &#8211; Camden Courtyard%20-%20https://electricballroom.co.uk/divorced-dad-rock-party-camden-courtyard/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/wait-bleed-terrace-nu-metal-day-party-camden-courtyard/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Wait-and-bleed-summer-1080x1350-London.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 21st August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/wait-bleed-terrace-nu-metal-day-party-camden-courtyard/">Wait &#038; Bleed &#8211; Nu Metal Day Party &#8211; Camden Courtyard</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">5.00PM</span> | <span class="event-price">£10</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/wait-bleed-nu-metal-day-party/electric-ballroom/3669818" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/wait-bleed-terrace-nu-metal-day-party-camden-courtyard/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Wait &#038; Bleed &#8211; Nu Metal Day Party &#8211; Camden Courtyard%20-%20https://electricballroom.co.uk/wait-bleed-terrace-nu-metal-day-party-camden-courtyard/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match club-nights live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/pursuit-of-happiness-camden-courtyard/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Pursuit.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 22nd August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/pursuit-of-happiness-camden-courtyard/">Pursuit Of Happiness &#8211; – Camden Courtyard</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">3.00PM</span> | <span class="event-price">From £23</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://ra.co/events/2475211" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/pursuit-of-happiness-camden-courtyard/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Pursuit Of Happiness &#8211; – Camden Courtyard%20-%20https://electricballroom.co.uk/pursuit-of-happiness-camden-courtyard/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/josh-ross/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/Josh-Ross-SQ.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 27th August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/josh-ross/">Josh Ross</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/josh-ross/electric-ballroom/3622740" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/josh-ross/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Josh Ross%20-%20https://electricballroom.co.uk/josh-ross/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-80s-summer-outdoor-party-camden-courtyard/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/8os.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 28th August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-80s-summer-outdoor-party-camden-courtyard/">The 80s Summer Outdoor Party &#8211; Camden Courtyard</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">From £8</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://fixr.co/event/camden-the-80s-summer-outdoor-party-fri-28th-augus-tickets-810929203" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-80s-summer-outdoor-party-camden-courtyard/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=The 80s Summer Outdoor Party &#8211; Camden Courtyard%20-%20https://electricballroom.co.uk/the-80s-summer-outdoor-party-camden-courtyard/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/progress-wrestling-chapter-197/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/02/Progress.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Monday 31st August</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/progress-wrestling-chapter-197/">Progress Wrestling &#8211; Chapter 197</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">2.00PM</span> | <span class="event-price">From £29.79</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://dice.fm/event/3owd88-chapter-197-progress-close-the-weekend-31st-aug-electric-ballroom-london-tickets" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/progress-wrestling-chapter-197/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Progress Wrestling &#8211; Chapter 197%20-%20https://electricballroom.co.uk/progress-wrestling-chapter-197/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">September 2026</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/polica/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/01/Polica-1-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 3rd September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/polica/">POLIÇA &#8211; NEW VENUE!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/polica/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=POLIÇA &#8211; NEW VENUE!%20-%20https://electricballroom.co.uk/polica/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/soulfly-nailbomb/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/1x1-Square-1080x1080-1.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 4th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/soulfly-nailbomb/">Soulfly + Nailbomb</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/soulfly-nailbomb/electric-ballroom/3660444" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/soulfly-nailbomb/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Soulfly + Nailbomb%20-%20https://electricballroom.co.uk/soulfly-nailbomb/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-devout-depeche-mode-tribute/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/09/The-Devout-London-SQ-2.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 5th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-devout-depeche-mode-tribute/">THE DEVOUT – DEPECHE MODE TRIBUTE</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">From £15</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-devout-depeche-mode-tribute/the-electric-ballroom/3490731" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-devout-depeche-mode-tribute/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=THE DEVOUT – DEPECHE MODE TRIBUTE%20-%20https://electricballroom.co.uk/the-devout-depeche-mode-tribute/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/jamie-webster/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Jamie-Webster-Roll-Admat-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 9th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/jamie-webster/">Jamie Webster &#8211; NEW VENUE!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/jamie-webster/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Jamie Webster &#8211; NEW VENUE!%20-%20https://electricballroom.co.uk/jamie-webster/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/drug-church/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Drug.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 11th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/drug-church/">DRUG CHURCH</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£22.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/drug-church/electric-ballroom/3617658" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/drug-church/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=DRUG CHURCH%20-%20https://electricballroom.co.uk/drug-church/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/london-metalfest-2026/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/Metal-Fest-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 12th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/london-metalfest-2026/">London Metalfest 2026</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">3.30PM</span> | <span class="event-price">£45</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/london-metalfest-2026/various-venues/3629291" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/london-metalfest-2026/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=London Metalfest 2026%20-%20https://electricballroom.co.uk/london-metalfest-2026/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-jayhawks/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Jayhawks_2026_tour-IG-1-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 16th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-jayhawks/">THE JAYHAWKS</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-jayhawks/electric-ballroom/3653320" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-jayhawks/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=THE JAYHAWKS%20-%20https://electricballroom.co.uk/the-jayhawks/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/lion-babe-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/LION-BABE-9.17.26-Electric-Ballroom-London-UK_DUO_1080x1080.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 17th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/lion-babe-2/">Lion Babe</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">From £25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://www.bside.show/go/lion-babe#id=an-evening-with-lion-babe-london-uk" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/lion-babe-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Lion Babe%20-%20https://electricballroom.co.uk/lion-babe-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/cosmic-void-festival-2026/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/12/Cosmic-Void-2026.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 18th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/cosmic-void-festival-2026/">COSMIC VOID FESTIVAL 2026</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">1.00PM</span> | <span class="event-price">£180</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://www.cosmicvoidfestival.com/tickets-2026/" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/cosmic-void-festival-2026/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=COSMIC VOID FESTIVAL 2026%20-%20https://electricballroom.co.uk/cosmic-void-festival-2026/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/warren-boxing-management-3/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Warren.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 19th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/warren-boxing-management-3/">Warren Boxing Management</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">4.00PM</span> | <span class="event-price">£60</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/warren-boxing-management/electric-ballroom/3699817" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/warren-boxing-management-3/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Warren Boxing Management%20-%20https://electricballroom.co.uk/warren-boxing-management-3/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/oxxxymiron-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Ox.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Tuesday 22nd September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/oxxxymiron-2/">Oxxxymiron &#8211; Cancelled!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">From £69</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/oxxxymiron-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Oxxxymiron &#8211; Cancelled!%20-%20https://electricballroom.co.uk/oxxxymiron-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/an-irish-shindig-3/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/MUNDY-by-Anthony-Mulcahy-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 25th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/an-irish-shindig-3/">An Irish Shindig</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">From £20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/an-irish-shindig/electric-ballroom/3700009" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/an-irish-shindig-3/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=An Irish Shindig%20-%20https://electricballroom.co.uk/an-irish-shindig-3/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/mansour/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Man.jpeg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 26th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/mansour/">Mansour</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£59</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/mansour/electric-ballroom/3699444" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/mansour/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Mansour%20-%20https://electricballroom.co.uk/mansour/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/progress-wrestling-chapter-198/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Progress.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Sunday 27th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/progress-wrestling-chapter-198/">Progress Wrestling &#8211; Chapter 198</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">3.00PM</span> | <span class="event-price">From £30.08</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://dice.fm/event/eoxx2o-chapter-198-when-september-ends-27th-sep-electric-ballroom-london-tickets" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/progress-wrestling-chapter-198/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Progress Wrestling &#8211; Chapter 198%20-%20https://electricballroom.co.uk/progress-wrestling-chapter-198/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/21413-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Hoodoo-Gurus_2026_IG-1-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Monday 28th September</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/21413-2/">HOODOO GURUS</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">42.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/hoodoo-gurus/electric-ballroom/3621341" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/21413-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=HOODOO GURUS%20-%20https://electricballroom.co.uk/21413-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">October 2026</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/fickle-friends/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Fickle-Friends-Feed.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 1st October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/fickle-friends/">Fickle Friends</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£22.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/fickle-friends/electric-ballroom/3644952" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/fickle-friends/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Fickle Friends%20-%20https://electricballroom.co.uk/fickle-friends/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/unprocessed/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Square-2026-03-25T172651.321.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 2nd October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/unprocessed/">Unprocessed</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/unproccessed/electric-ballroom/3612889" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/unprocessed/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Unprocessed%20-%20https://electricballroom.co.uk/unprocessed/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/bop-a-lenas-autumn-ball-2026/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Bop.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Sunday 4th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/bop-a-lenas-autumn-ball-2026/">Bop-A-Lenas Autumn Ball 2026</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">2.00PM</span> | <span class="event-price">£10 OTD</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/bop-a-lenas-autumn-ball-2026/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Bop-A-Lenas Autumn Ball 2026%20-%20https://electricballroom.co.uk/bop-a-lenas-autumn-ball-2026/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/man-woman-chainsaw/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Man-Women-Chainsaw-Admat-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 7th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/man-woman-chainsaw/">Man/Woman/Chainsaw</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£17.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/man-woman-chainsaw/electric-ballroom/3609504" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/man-woman-chainsaw/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Man/Woman/Chainsaw%20-%20https://electricballroom.co.uk/man-woman-chainsaw/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/joyce-manor/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Joyce-Manor-UK-Admat.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 8th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/joyce-manor/">Joyce Manor</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/joyce-manor/electric-ballroom/3620505" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/joyce-manor/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Joyce Manor%20-%20https://electricballroom.co.uk/joyce-manor/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/bongos-bingo-halloween-special/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Bingo-Halloween-scaled.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Sunday 11th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/bongos-bingo-halloween-special/">Bongo&#8217;s Bingo (Halloween Special)</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">2.00PM</span> | <span class="event-price">From £15</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://bongosbingo.co.uk/events/london-camden/bongos-bingo-halloween-special-at-electric-ballroom-london-camden-2026-10-11" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/bongos-bingo-halloween-special/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Bongo&#8217;s Bingo (Halloween Special)%20-%20https://electricballroom.co.uk/bongos-bingo-halloween-special/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/mago-de-oz/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/Mago-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Monday 12th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/mago-de-oz/">Mago De Oz</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">From £32</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/mago-de-oz/electric-ballroom/3629656" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/mago-de-oz/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Mago De Oz%20-%20https://electricballroom.co.uk/mago-de-oz/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/madra-salach-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/LDN_SOLD_FINAL.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Tuesday 13th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/madra-salach-2/">Madra Salach &#8211; SOLD OUT!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/madra-salach-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Madra Salach &#8211; SOLD OUT!%20-%20https://electricballroom.co.uk/madra-salach-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/madra-salach/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Madra.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 14th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/madra-salach/">Madra Salach &#8211; SOLD OUT!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/madra-salach/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Madra Salach &#8211; SOLD OUT!%20-%20https://electricballroom.co.uk/madra-salach/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-long-ryders/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/11/Long-Ryders-IG-1080-x-1350_13.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 15th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-long-ryders/">THE LONG RYDERS</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-long-ryders/electric-ballroom/3541046" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-long-ryders/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=THE LONG RYDERS%20-%20https://electricballroom.co.uk/the-long-ryders/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/guilt-trip/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Guilt-Trip-Admat-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 16th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/guilt-trip/">Guilt Trip</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£22</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/guilt-trip/electric-ballroom/3637986" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/guilt-trip/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Guilt Trip%20-%20https://electricballroom.co.uk/guilt-trip/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/el-tri/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/LDN_1080X1350_25.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Sunday 18th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/el-tri/">El Tri</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/el-tri/electric-ballroom/3635293" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/el-tri/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=El Tri%20-%20https://electricballroom.co.uk/el-tri/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/huey-morgan/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/02/HUEY-MORGAN-2026-LDN-CLEAN2.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 22nd October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/huey-morgan/">Huey Morgan</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/huey-morgan/electric-ballroom/3610025" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/huey-morgan/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Huey Morgan%20-%20https://electricballroom.co.uk/huey-morgan/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/cast/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Cast_Oct26_Socials-Solus_1080-x-10803.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 23rd October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/cast/">CAST</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/cast/electric-ballroom/3681966" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/cast/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=CAST%20-%20https://electricballroom.co.uk/cast/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/archspire/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/Archspire-2026-London-1x1-1.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Monday 26th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/archspire/">ARCHSPIRE</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£30</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/archspire/electric-ballroom/3625719" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/archspire/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=ARCHSPIRE%20-%20https://electricballroom.co.uk/archspire/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/noahfinnce-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Noahfinnce.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Tuesday 27th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/noahfinnce-2/">NOAHFINNCE</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£22.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/noahfinnce/electric-ballroom/3671439" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/noahfinnce-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=NOAHFINNCE%20-%20https://electricballroom.co.uk/noahfinnce-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/beaux/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Beaux-Sq-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 28th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/beaux/">beaux</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£17.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/beaux/electric-ballroom/3644931" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/beaux/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=beaux%20-%20https://electricballroom.co.uk/beaux/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/21518-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/ASIWYFA_CASPIAN-Electric-Ballroom-Insta-Grid.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 29th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/21518-2/">And So I Watch You From Afar &#038; Caspian</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/and-so-i-watch-you-from-afar-caspian/electric-ballroom/3628424" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/21518-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=And So I Watch You From Afar &#038; Caspian%20-%20https://electricballroom.co.uk/21518-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/static-dress/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Static-dress.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 30th October</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/static-dress/">Static Dress</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/static-dress/electric-ballroom/3650295" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/static-dress/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Static Dress%20-%20https://electricballroom.co.uk/static-dress/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">November 2026</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-skinner-brothers/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/skinner-brothers-takeover-1.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Sunday 1st November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-skinner-brothers/">The Skinner Brothers &#8211; SOLD OUT!</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">From £18.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-skinner-brothers/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=The Skinner Brothers &#8211; SOLD OUT!%20-%20https://electricballroom.co.uk/the-skinner-brothers/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/bebe/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Bebe-London.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Monday 2nd November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/bebe/">Bebe</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/bebe/electric-ballroom/3643183" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/bebe/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Bebe%20-%20https://electricballroom.co.uk/bebe/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-hardkiss/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/09/HARDKISS_2026-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 5th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-hardkiss/">THE HARDKISS</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£40</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-hardkiss/the-electric-ballroom/3495652" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-hardkiss/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=THE HARDKISS%20-%20https://electricballroom.co.uk/the-hardkiss/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/walk-off-the-earth/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Walkf-off-the-Earth-Sq.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 6th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/walk-off-the-earth/">Walk Off The Earth</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/walk-off-the-earth/electric-ballroom/3656050" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/walk-off-the-earth/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Walk Off The Earth%20-%20https://electricballroom.co.uk/walk-off-the-earth/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/rocket-from-the-crypt-3/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/Rocket-From-The-Crypt_2026_IG-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 7th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/rocket-from-the-crypt-3/">ROCKET FROM THE CRYPT</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">£42.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/rocket-from-the-crypt/electric-ballroom/3632294" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/rocket-from-the-crypt-3/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=ROCKET FROM THE CRYPT%20-%20https://electricballroom.co.uk/rocket-from-the-crypt-3/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/dirty-three/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Dirty-Three-London-v2-1-Square.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Tuesday 10th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/dirty-three/">DIRTY THREE</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£37.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/dirty-three/electric-ballroom/3613800" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/dirty-three/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=DIRTY THREE%20-%20https://electricballroom.co.uk/dirty-three/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/overpass/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/01/Overpass-London-SQ.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 11th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/overpass/">overpass</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£18</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/overpass/electric-ballroom/3593419" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/overpass/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=overpass%20-%20https://electricballroom.co.uk/overpass/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/cardinals/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Cardinals-Admat-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 12th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/cardinals/">Cardinals</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£18</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/cardinals/electric-ballroom/3617348" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/cardinals/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Cardinals%20-%20https://electricballroom.co.uk/cardinals/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/freddie-halkon/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Freddie-Halkon-Autumn-2026-SQ.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 13th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/freddie-halkon/">FREDDIE HALKON</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/freddie-halkon/electric-ballroom/3618643" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/freddie-halkon/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=FREDDIE HALKON%20-%20https://electricballroom.co.uk/freddie-halkon/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/soil-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/11/Soil-Sq.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 14th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/soil-2/">Soil</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£29.90</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/soil/electric-ballroom/3552388" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/soil-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Soil%20-%20https://electricballroom.co.uk/soil-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/bongos-bingo-7/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Bingo-Nov.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Sunday 15th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/bongos-bingo-7/">Bongo&#8217;s Bingo</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">2.00PM</span> | <span class="event-price">From £14</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://bongosbingo.co.uk/events/london-camden/bongos-bingo-at-electric-ballroom-london-camden-2026-11-15" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/bongos-bingo-7/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Bongo&#8217;s Bingo%20-%20https://electricballroom.co.uk/bongos-bingo-7/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/deluxe/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Deluxe-Sq.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 18th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/deluxe/">Deluxe</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/deluxe/electric-ballroom/3613456" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/deluxe/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Deluxe%20-%20https://electricballroom.co.uk/deluxe/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/reverend-and-the-makers-4/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/RATM_London_Socials_1080-x-1350.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 19th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/reverend-and-the-makers-4/">Reverend and The Makers</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/reverend-the-makers/electric-ballroom/3632199" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/reverend-and-the-makers-4/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Reverend and The Makers%20-%20https://electricballroom.co.uk/reverend-and-the-makers-4/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/gentlemans-dub-club-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/1x1-NoLinkSquare-1080x1080-1.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 20th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/gentlemans-dub-club-2/">Gentleman&#8217;s Dub Club</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/gentleman-s-dub-club/electric-ballroom/3628564" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/gentlemans-dub-club-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Gentleman&#8217;s Dub Club%20-%20https://electricballroom.co.uk/gentlemans-dub-club-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/noasis-7/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/12/Noasis-2026-Sq.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 21st November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/noasis-7/">NOASIS</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">From £17</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/noasis/electric-ballroom/3561638" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/noasis-7/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=NOASIS%20-%20https://electricballroom.co.uk/noasis-7/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-undertones-5/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/12/The-Undertones-London.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Sunday 22nd November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-undertones-5/">The Undertones+ Ruts DC + Tom Robinson</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£37.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-undertones/electric-ballroom/3564418" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-undertones-5/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=The Undertones+ Ruts DC + Tom Robinson%20-%20https://electricballroom.co.uk/the-undertones-5/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/ash/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Ash-1977-30-2026-Ballroom-1080x1350-1.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 25th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/ash/">Ash</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£37.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/ash/electric-ballroom/3677001" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/ash/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Ash%20-%20https://electricballroom.co.uk/ash/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/no-cigar/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/No-Cigar-socials-2_1080-x-1350.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 26th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/no-cigar/">NO CIGAR</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/no-cigar/electric-ballroom/3605395" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/no-cigar/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=NO CIGAR%20-%20https://electricballroom.co.uk/no-cigar/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-rifles-no-love-lost-tour/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/The-Rifles.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 27th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-rifles-no-love-lost-tour/">The Rifles (No Love Lost Tour)</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-rifles-no-love-lost-tour-/electric-ballroom/3621152" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-rifles-no-love-lost-tour/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=The Rifles (No Love Lost Tour)%20-%20https://electricballroom.co.uk/the-rifles-no-love-lost-tour/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-rifles-no-love-lost-tour-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/The-Rifles.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 28th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-rifles-no-love-lost-tour-2/">THE RIFLES (NO LOVE LOST TOUR)</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-rifles-no-love-lost-tour-/electric-ballroom/3622481" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-rifles-no-love-lost-tour-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=THE RIFLES (NO LOVE LOST TOUR)%20-%20https://electricballroom.co.uk/the-rifles-no-love-lost-tour-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/salmo-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/Salmo-2026-London-1x1-1.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Monday 30th November</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/salmo-2/">SALMO</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/salmo/electric-ballroom/3612137" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/salmo-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=SALMO%20-%20https://electricballroom.co.uk/salmo-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">December 2026</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/bleech-93/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Bleech-93-Nov-Dec-UK-Updated-SQ.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Tuesday 1st December</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/bleech-93/">Bleech 9:3</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£21</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/bleech-9-3/electric-ballroom/3637963" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/bleech-93/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Bleech 9:3%20-%20https://electricballroom.co.uk/bleech-93/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/leap/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/LEAP_.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 4th December</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/leap/">LEAP</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/leap/electric-ballroom/3638575" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/leap/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=LEAP%20-%20https://electricballroom.co.uk/leap/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/aaron-rowe/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Aaron_Rowe_4-5.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 10th December</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/aaron-rowe/">Aaron Rowe</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/aaron-rowe/electric-ballroom/3674813" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/aaron-rowe/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Aaron Rowe%20-%20https://electricballroom.co.uk/aaron-rowe/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/skinny-lister-vs-pet-needs/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/Skinny-Lister_2026_IG-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 11th December</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/skinny-lister-vs-pet-needs/">SKINNY LISTER vs. PET NEEDS + MAD DOG MCREA</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£30</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/skinny-lister-vs-pet-needs-mad-dog-mcrea/electric-ballroom/3630024" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/skinny-lister-vs-pet-needs/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=SKINNY LISTER vs. PET NEEDS + MAD DOG MCREA%20-%20https://electricballroom.co.uk/skinny-lister-vs-pet-needs/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-sheepdogs-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2025/11/The-sheepdogs-X.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 12th December</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-sheepdogs-2/">The Sheepdogs</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-sheepdogs/electric-ballroom/3549643" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-sheepdogs-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=The Sheepdogs%20-%20https://electricballroom.co.uk/the-sheepdogs-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/sevendust/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/SevenDust-Tour-Admat-1-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Tuesday 15th December</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/sevendust/">Sevendust</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/sevendust/electric-ballroom/3625248" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/sevendust/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Sevendust%20-%20https://electricballroom.co.uk/sevendust/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/sweet/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/The-Sweet-Sq.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Wednesday 16th December</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/sweet/">Sweet with special guest John Otway</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/sweet/electric-ballroom/3618323" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/sweet/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Sweet with special guest John Otway%20-%20https://electricballroom.co.uk/sweet/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">January 2027</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/inbetween-days/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Inebetween-days-sq-.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 9th January</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/inbetween-days/">Inbetween Days</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">3.00PM</span> | <span class="event-price">£25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/inbetween-days/electric-ballroom/3649881" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/inbetween-days/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Inbetween Days%20-%20https://electricballroom.co.uk/inbetween-days/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/catch-your-breath/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Catch-Your-Breath-4x5-1.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 15th January</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/catch-your-breath/">Catch Your Breath</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£29.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/catch-your-breath/electric-ballroom/3644936" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/catch-your-breath/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Catch Your Breath%20-%20https://electricballroom.co.uk/catch-your-breath/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/london-calling-play-the-clash-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/LOndon-Calling.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 23rd January</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/london-calling-play-the-clash-2/">LONDON CALLING play THE CLASH</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">£25</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/london-calling-play-the-clash/electric-ballroom/3613723" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/london-calling-play-the-clash-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=LONDON CALLING play THE CLASH%20-%20https://electricballroom.co.uk/london-calling-play-the-clash-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/unpeople/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/07/Unpeople-UK27-LN-Admat.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 28th January</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/unpeople/">unpeople &#8211; we are unpeople tour</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£21</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/unpeople/electric-ballroom/3676830" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/unpeople/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=unpeople &#8211; we are unpeople tour%20-%20https://electricballroom.co.uk/unpeople/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/sylosis-whitechapel/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/03/01-SYLOSIS-WHITECHAPEL-SQ-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 29th January</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/sylosis-whitechapel/">Sylosis &#038; Whitechapel</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£30</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/sylosis-whitechapel/electric-ballroom/3614974" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/sylosis-whitechapel/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Sylosis &#038; Whitechapel%20-%20https://electricballroom.co.uk/sylosis-whitechapel/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/sim/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/SIM-Admat-New-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 30th January</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/sim/">SiM</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">£26</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/sim/electric-ballroom/3641305" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/sim/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=SiM%20-%20https://electricballroom.co.uk/sim/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">February 2027</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/dagny/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/05/Dagny-Sq.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Tuesday 2nd February</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/dagny/">Dagny</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£22.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/dagny/electric-ballroom/3640198" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/dagny/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Dagny%20-%20https://electricballroom.co.uk/dagny/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/melrose-avenue/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Melrose-Avenue-Admat-Leeds-Upgrade-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 4th February</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/melrose-avenue/">Melrose Avenue</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£23.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/melrose-avenue/electric-ballroom/3639265" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/melrose-avenue/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Melrose Avenue%20-%20https://electricballroom.co.uk/melrose-avenue/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/the-specials-ltd-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/02/The-Specials-1080-x-1350-London-scaled.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 5th February</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/the-specials-ltd-2/">THE SPECIALS LTD</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/the-specials-ltd-gangsters-/electric-ballroom/3611281" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/the-specials-ltd-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=THE SPECIALS LTD%20-%20https://electricballroom.co.uk/the-specials-ltd-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/dead-poet-society/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Dead-Poet-Square.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 6th February</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/dead-poet-society/">Dead Poet Society</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/dead-poet-society/electric-ballroom/3667889" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/dead-poet-society/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Dead Poet Society%20-%20https://electricballroom.co.uk/dead-poet-society/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/half-man-half-biscuit-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/02/hmhb-2027.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 19th February</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/half-man-half-biscuit-2/">Half Man Half Biscuit</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/half-man-half-biscuit/electric-ballroom/3402533" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/half-man-half-biscuit-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Half Man Half Biscuit%20-%20https://electricballroom.co.uk/half-man-half-biscuit-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/mono-snowdrop-world-tour-part-1/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/MONO-Sq.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 20th February</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/mono-snowdrop-world-tour-part-1/">MONO &#8220;Snowdrop&#8221; World Tour: Part 1</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.00PM</span> | <span class="event-price">£28.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/mono-snowdrop-world-tour-part-1/electric-ballroom/3625579" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/mono-snowdrop-world-tour-part-1/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=MONO &#8220;Snowdrop&#8221; World Tour: Part 1%20-%20https://electricballroom.co.uk/mono-snowdrop-world-tour-part-1/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">March 2027</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/tx2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/TX2-4x5-ldn-mcr.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 4th March</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/tx2/">TX2</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£27.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/tx2/electric-ballroom/3661318" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/tx2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=TX2%20-%20https://electricballroom.co.uk/tx2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/trentemoller/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/04/Trentemoller_Socials_1080-x-1350.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Thursday 11th March</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/trentemoller/">Trentemøller</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£32.50</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/trentemoller/electric-ballroom/3628530" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/trentemoller/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Trentemøller%20-%20https://electricballroom.co.uk/trentemoller/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/turnover/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Turnover-SQ.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 19th March</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/turnover/">Turnover</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£30</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/turnover/electric-ballroom/3669502" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/turnover/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Turnover%20-%20https://electricballroom.co.uk/turnover/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/turnover-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Turnover-SQ.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 20th March</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/turnover-2/">Turnover</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">£30</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/turnover/electric-ballroom/3669496" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/turnover-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Turnover%20-%20https://electricballroom.co.uk/turnover-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                        
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/london-intl-ska-festival-2027-day-2/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/08/Ska-Fest.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Friday 26th March</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/london-intl-ska-festival-2027-day-2/">London Int&#8217;l Ska Festival 2027 &#8211; Day 2</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">7.00PM</span> | <span class="event-price">From £20</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://www.tickettailor.com/events/hotshotscorcher/2339342" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/london-intl-ska-festival-2027-day-2/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=London Int&#8217;l Ska Festival 2027 &#8211; Day 2%20-%20https://electricballroom.co.uk/london-intl-ska-festival-2027-day-2/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">May 2027</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/london-rock-festival-2027/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/LONDON_ROCK-FEST_27_Sq-scaled.png');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 29th May</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/london-rock-festival-2027/">London Rock Festival 2027</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">6.30PM</span> | <span class="event-price">From £55</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/london-rock-festival-2027/electric-ballroom/3672402" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/london-rock-festival-2027/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=London Rock Festival 2027%20-%20https://electricballroom.co.uk/london-rock-festival-2027/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	                                    </div>
+            <div class="content-header hideable">
+    					<div class="three-col month-col text-r">
+    						<span class="month">June 2027</span>
+    					</div>
+    				</div>
+            <div class="grid filterable-grid">
+            
+            
+                            <div class="grid-block card match live whats-on ">
+    						<a class="grid-link" href="https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/">
+    						<div class="grid-image" style="background-image: url('https://electricballroom.co.uk/wp-content/uploads/2026/06/Indiepalooza-2027.jpg');">
+    							<div class="grid-title-overlay">
+    								<span class="event-date">Saturday 19th June</span>
+    							</div>
+    						</div>
+    						</a>
+    						<div class="card-content">
+    							<h2 class="event-name"><a href="https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/">Indiepalooza Tribute &#8211; Killers v Monkeys v Fender v Oasis v Kasabian v Kaiser</a></h2>
+    							<div class="event-meta">
+    								<span class="event-time">5.00PM</span> | <span class="event-price">£35</span>    							</div>
+                  <div class="buy-share-event">
+                          							<a href="https://electricballroom.seetickets.com/event/indiepalooza-tribute-2027/electric-ballroom/3660973" target="_blank" class="button">Buy Tickets</a>
+                          							<ul class="share-event">
+      								<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>
+      								<li><a href="https://twitter.com/home?status=Indiepalooza Tribute &#8211; Killers v Monkeys v Fender v Oasis v Kasabian v Kaiser%20-%20https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>
+      							</ul>
+                  </div>
+    						</div>
+    					</div>
+
+            
+        	        	        </div>
+      
+    </div>
+
+
+<script>
+(function($) {
+	$(document).ready(function() {
+
+
+
+		$('.grid').each(function() {
+			var $grid = $(this).isotope({
+			  itemSelector: '.grid-block',
+        layoutMode: 'fitRows'
+			});
+			$('.filters').on( 'click', 'a', function() {
+				$('.filters a').removeClass('active');
+				$(this).addClass('active');
+        $('.content-header').show();
+			  var filterValue = $(this).attr('data-filter');
+			  $grid.isotope({ filter: filterValue });
+        function onLayout() {
+          console.log('arrange done');
+          $('.grid').each(function() {
+            var thisHeight = $(this).outerHeight();
+            console.log(thisHeight);
+            if(thisHeight < 10) {
+              if($(this).prev().hasClass('hideable')) {
+                $(this).prev().hide();
+              }
+            }
+          });
+        }
+        $grid.on( 'layoutComplete', onLayout );
+				return false;
+			});
+		});
+
+
+	});
+})( jQuery );
+</script>
+<footer class="cf">
+  <ul class="footer-social">
+    <li><a href="https://www.twitter.com/Eballroomcamden" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li>    <li><a href="https://www.facebook.com/electricballroomcamden/" target="_blank"><svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a></li>    <li><a href="https://www.instagram.com/electricballroomcamden" target="_blank"><svg class="icon icon-instagram"><use xlink:href="#icon-instagram"></use></svg></a></li>  </ul>
+  <div class="footer-left">
+  <p>&copy; Electric Ballroom - 2026</p>
+      <nav>
+    <ul id="menu-footer" class="menu"><li id="menu-item-6485" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6485"><a href="https://electricballroom.co.uk/hire/">Hire</a></li>
+<li id="menu-item-6486" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6486"><a href="https://electricballroom.co.uk/history/">History</a></li>
+<li id="menu-item-6487" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6487"><a href="https://electricballroom.co.uk/disabled-access/">Disabled Access</a></li>
+<li id="menu-item-6887" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6887"><a href="https://electricballroom.co.uk/faq/">FAQ’S</a></li>
+<li id="menu-item-11707" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11707"><a href="https://electricballroom.co.uk/work-with-us/">Work With Us</a></li>
+<li id="menu-item-14974" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14974"><a href="https://electricballroom.co.uk/contact/">Contact Us</a></li>
+</ul>    </nav>
+    </div>
+</footer>
+
+</main>
+
+</div> <!-- .inner -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/electricballroom/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script id="modernizr-js" src="https://electricballroom.co.uk/wp-content/themes/electricballroom/js/modernizr.js?ver=2.7.1"></script>
+<script id="match-js" src="https://electricballroom.co.uk/wp-content/themes/electricballroom/js/jquery.matchHeight-min.js?ver=0.7.2"></script>
+<script id="isotope-js" src="https://electricballroom.co.uk/wp-content/themes/electricballroom/js/isotope.pkgd.min.js?ver=3.0.5"></script>
+<script id="scripts-js" src="https://electricballroom.co.uk/wp-content/themes/electricballroom/js/scripts.js?ver=1.0.0"></script>
+<script id="fancybox-purify-js" src="https://electricballroom.co.uk/wp-content/plugins/easy-fancybox/vendor/purify.min.js?ver=2f795cf6d552bec6b3680976977fa7cf"></script>
+<script id="jquery-fancybox-js-extra">
+var efb_i18n = {"close":"Close","next":"Next","prev":"Previous","startSlideshow":"Start slideshow","toggleSize":"Toggle size"};
+//# sourceURL=jquery-fancybox-js-extra
+</script>
+<script id="jquery-fancybox-js" src="https://electricballroom.co.uk/wp-content/plugins/easy-fancybox/fancybox/1.5.4/jquery.fancybox.min.js?ver=2f795cf6d552bec6b3680976977fa7cf"></script>
+<script id="jquery-fancybox-js-after">
+var fb_timeout, fb_opts={'autoScale':true,'showCloseButton':true,'width':700,'height':394,'margin':20,'pixelRatio':'false','centerOnScroll':true,'enableEscapeButton':true,'overlayShow':true,'hideOnOverlayClick':true,'overlayColor':'#000000','overlayOpacity':0.9,'minViewportWidth':320,'minVpHeight':320,'disableCoreLightbox':'true','enableBlockControls':'true','fancybox_openBlockControls':'true' };
+if(typeof easy_fancybox_handler==='undefined'){
+var easy_fancybox_handler=function(){
+jQuery([".nolightbox","a.wp-block-file__button","a.pin-it-button","a[href*='pinterest.com\/pin\/create']","a[href*='facebook.com\/share']","a[href*='twitter.com\/share']"].join(',')).addClass('nofancybox');
+jQuery('a.fancybox-close').on('click',function(e){e.preventDefault();jQuery.fancybox.close()});
+/* IMG */
+						var unlinkedImageBlocks=jQuery(".wp-block-image > img:not(.nofancybox,figure.nofancybox>img)");
+						unlinkedImageBlocks.wrap(function() {
+							var href = jQuery( this ).attr( "src" );
+							return "<a href='" + href + "'></a>";
+						});
+var fb_IMG_select=jQuery('a[href*=".jpg" i]:not(.nofancybox,li.nofancybox>a,figure.nofancybox>a),area[href*=".jpg" i]:not(.nofancybox),a[href*=".jpeg" i]:not(.nofancybox,li.nofancybox>a,figure.nofancybox>a),area[href*=".jpeg" i]:not(.nofancybox),a[href*=".png" i]:not(.nofancybox,li.nofancybox>a,figure.nofancybox>a),area[href*=".png" i]:not(.nofancybox)');
+fb_IMG_select.addClass('fancybox image');
+var fb_IMG_sections=jQuery('.gallery,.wp-block-gallery,.tiled-gallery,.wp-block-jetpack-tiled-gallery,.ngg-galleryoverview,.ngg-imagebrowser,.nextgen_pro_blog_gallery,.nextgen_pro_film,.nextgen_pro_horizontal_filmstrip,.ngg-pro-masonry-wrapper,.ngg-pro-mosaic-container,.nextgen_pro_sidescroll,.nextgen_pro_slideshow,.nextgen_pro_thumbnail_grid,.tiled-gallery');
+fb_IMG_sections.each(function(){jQuery(this).find(fb_IMG_select).attr('rel','gallery-'+fb_IMG_sections.index(this));});
+jQuery('a.fancybox,area.fancybox,.fancybox>a').each(function(){jQuery(this).fancybox(jQuery.extend(true,{},fb_opts,{'type':'image','transition':'elastic','transitionIn':'elastic','easingIn':'easeOutBack','transitionOut':'elastic','easingOut':'easeInBack','opacity':false,'hideOnContentClick':false,'titleShow':true,'titlePosition':'over','titleFromAlt':true,'showNavArrows':true,'enableKeyboardNav':true,'cyclic':false,'mouseWheel':'true'}))});
+/* Inline */
+jQuery('a.fancybox-inline,area.fancybox-inline,.fancybox-inline>a').each(function(){jQuery(this).fancybox(jQuery.extend(true,{},fb_opts,{'type':'inline','autoDimensions':true,'scrolling':'no','transitionIn':'elastic','easingIn':'easeOutBack','transitionOut':'elastic','easingOut':'easeInBack','opacity':false,'hideOnContentClick':false,'titleShow':false}))});
+/* YouTube */
+jQuery('a[href*="youtu.be/" i],area[href*="youtu.be/" i],a[href*="youtube.com/" i],area[href*="youtube.com/" i]' ).filter(function(){return this.href.match(/\/(?:youtu\.be|watch\?|embed\/)/);}).not('.nofancybox,li.nofancybox>a').addClass('fancybox-youtube');
+jQuery('a.fancybox-youtube,area.fancybox-youtube,.fancybox-youtube>a').each(function(){jQuery(this).fancybox(jQuery.extend(true,{},fb_opts,{'type':'iframe','width':750,'height':422,'padding':0,'keepRatio':1,'aspectRatio':1,'titleShow':false,'titlePosition':'float','titleFromAlt':false,'onStart':function(a,i,o){var splitOn=a[i].href.indexOf("?");var urlParms=(splitOn>-1)?a[i].href.substring(splitOn):"";o.allowfullscreen=(urlParms.indexOf("fs=0")>-1)?false:true;o.href=a[i].href.replace(/https?:\/\/(?:www\.)?youtu(?:\.be\/([^\?]+)\??|be\.com\/watch\?(.*(?=v=))v=([^&]+))(.*)/gi,"https://www.youtube.com/embed/$1$3?$2$4&autoplay=1");}}))});
+};};
+jQuery(easy_fancybox_handler);jQuery(document).on('post-load',easy_fancybox_handler);
+
+//# sourceURL=jquery-fancybox-js-after
+</script>
+<script id="jquery-easing-js" src="https://electricballroom.co.uk/wp-content/plugins/easy-fancybox/vendor/jquery.easing.min.js?ver=1.4.1"></script>
+<script id="jquery-mousewheel-js" src="https://electricballroom.co.uk/wp-content/plugins/easy-fancybox/vendor/jquery.mousewheel.min.js?ver=3.1.13"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://electricballroom.co.uk/wp-includes/js/wp-emoji-release.min.js?ver=2f795cf6d552bec6b3680976977fa7cf"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=https://electricballroom.co.uk/wp-includes/js/wp-emoji-loader.min.js
+</script>
+</body>
+</html>
