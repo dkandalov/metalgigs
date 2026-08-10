@@ -73,9 +73,10 @@ fun reportUnclassifiedGigs() {
     println("${gigs.size} unclassified gig(s)")
 }
 
-fun renderGigsHtml() {
+fun renderGigsHtml(includeNonMetal: Boolean = false) {
     val renderer = HandlebarsTemplates().CachingClasspath()
-    val gigs = projectCurrentGigs(readGigLogEntries(eventsFile))
+    val entries = readGigLogEntries(eventsFile)
+    val gigs = if (includeNonMetal) projectCurrentGigs(entries) else projectMetalGigs(entries)
     File("gigs.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 
@@ -85,7 +86,7 @@ fun main(args: Array<String>) {
     when (mode) {
         "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
         "classify" -> classifyUnclassifiedGigs()
-        "render" -> renderGigsHtml()
+        "render" -> renderGigsHtml(includeNonMetal = args.getOrNull(1) == "all")
         "unclassified" -> reportUnclassifiedGigs()
         "override" -> {
             val url = args.getOrNull(1)
@@ -101,6 +102,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify|render|unclassified|override <url> <genre>|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify|render [all]|unclassified|override <url> <genre>|all]")
     }
 }
