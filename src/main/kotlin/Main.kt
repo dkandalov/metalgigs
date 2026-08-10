@@ -27,13 +27,20 @@ fun scrapeGigs() {
 
     val gigs = sources.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
-    appendGigObservations(eventsFile, gigs, scrapedAt = Instant.now())
+
+    val scrapedAt = Instant.now()
+    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+    val alreadyClassified = existingEntries.filterIsInstance<GigClassified>().map { it.venue to it.url }.toSet()
+    val observations = gigs.map { GigObserved(it, scrapedAt) }
+    val classifications = classifyGigs(client, gigs, alreadyClassified, scrapedAt)
+
+    appendGigLogEntries(eventsFile, observations + classifications)
     cacheGigImages(client, gigs, imagesDir)
 }
 
 fun renderGigsHtml() {
     val renderer = HandlebarsTemplates().CachingClasspath()
-    val gigs = projectCurrentGigs(readGigObservations(eventsFile))
+    val gigs = projectCurrentGigs(readGigLogEntries(eventsFile))
     File("gigs.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 

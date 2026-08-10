@@ -29,9 +29,30 @@ data class GigEvent(
     }
 }
 
-// a single sighting of a gig at scrape time; the append-only source of truth,
-// with (gig.venue, gig.url) as the stable identity across scrapes
-data class GigObserved(val gig: GigEvent, val scrapedAt: Instant)
+// one entry in the append-only gig log, keyed by (venue, url) as the stable identity across scrapes
+sealed interface GigLogEntry {
+    val venue: String
+    val url: String
+    val scrapedAt: Instant
+}
+
+// a sighting of a gig at scrape time
+data class GigObserved(val gig: GigEvent, override val scrapedAt: Instant) : GigLogEntry {
+    override val venue get() = gig.venue
+    override val url get() = gig.url
+}
+
+// the outcome of checking a gig's own event page for genre keywords
+data class GigClassified(
+    override val venue: String,
+    override val url: String,
+    override val scrapedAt: Instant,
+    val matchedKeywords: List<String>,
+) : GigLogEntry
+
+enum class Genre { Metal, Unclassified }
+
+fun GigClassified.genre(): Genre = if (matchedKeywords.isNotEmpty()) Genre.Metal else Genre.Unclassified
 
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 

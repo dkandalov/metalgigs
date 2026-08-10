@@ -1,4 +1,7 @@
 import com.ubertob.kondor.json.JAny
+import com.ubertob.kondor.json.JSealed
+import com.ubertob.kondor.json.ObjectNodeConverter
+import com.ubertob.kondor.json.array
 import com.ubertob.kondor.json.datetime.str
 import com.ubertob.kondor.json.fromNdJsonToList
 import com.ubertob.kondor.json.jsonnode.JsonNodeObject
@@ -8,7 +11,6 @@ import com.ubertob.kondor.json.str
 import com.ubertob.kondor.json.toNdJson
 import java.io.File
 import java.io.FileWriter
-import java.time.Instant
 
 object JGigEvent : JAny<GigEvent>() {
     private val title by str(GigEvent::title)
@@ -40,17 +42,43 @@ object JGigObserved : JAny<GigObserved>() {
     )
 }
 
-fun appendGigObservations(file: File, gigs: List<GigEvent>, scrapedAt: Instant) {
-    val observations = gigs.map { GigObserved(it, scrapedAt) }
-    FileWriter(file, true).buffered().use { writer ->
-        toNdJson(JGigObserved)(observations).forEach { writer.appendLine(it) }
+object JGigClassified : JAny<GigClassified>() {
+    private val venue by str(GigClassified::venue)
+    private val url by str(GigClassified::url)
+    private val scrapedAt by str(GigClassified::scrapedAt)
+    private val matchedKeywords by array(GigClassified::matchedKeywords)
+
+    override fun JsonNodeObject.deserializeOrThrow() = GigClassified(
+        venue = +venue,
+        url = +url,
+        scrapedAt = +scrapedAt,
+        matchedKeywords = +matchedKeywords,
+    )
+}
+
+object JGigLogEntry : JSealed<GigLogEntry>() {
+    override val subConverters: Map<String, ObjectNodeConverter<out GigLogEntry>> = mapOf(
+        "observed" to JGigObserved,
+        "classified" to JGigClassified,
+    )
+
+    override fun extractTypeName(obj: GigLogEntry): String = when (obj) {
+        is GigObserved -> "observed"
+        is GigClassified -> "classified"
     }
 }
 
-fun readGigObservations(file: File): List<GigObserved> =
-    fromNdJsonToList(JGigObserved)(file.readLines().asSequence()).orThrow()
+fun appendGigLogEntries(file: File, entries: List<GigLogEntry>) {
+    FileWriter(file, true).buffered().use { writer ->
+        toNdJson(JGigLogEntry)(entries).forEach { writer.appendLine(it) }
+    }
+}
 
-fun projectCurrentGigs(events: List<GigObserved>): List<GigEvent> =
-    events.groupBy { it.gig.venue to it.gig.url }
+fun readGigLogEntries(file: File): List<GigLogEntry> =
+    fromNdJsonToList(JGigLogEntry)(file.readLines().asSequence()).orThrow()
+
+fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
+    entries.filterIsInstance<GigObserved>()
+        .groupBy { it.venue to it.url }
         .values
         .map { observations -> observations.maxBy { it.scrapedAt }.gig }

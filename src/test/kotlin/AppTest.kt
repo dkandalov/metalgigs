@@ -239,25 +239,27 @@ class AppTest {
     }
 
     @Test
-    fun `appends and reads back gig observations`() {
-        val gigs = listOf(
-            GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg"),
-            GigEvent(title = "Another Gig", venue = "Test Venue", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/another-gig", imageUrl = "https://example.com/images/another-gig.jpg"),
-        )
+    fun `appends and reads back gig log entries of different kinds`() {
+        val gig = GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "https://example.com/images/test-gig.jpg")
         val scrapedAt = Instant.parse("2026-08-01T12:00:00Z")
+        val entries: List<GigLogEntry> = listOf(
+            GigObserved(gig, scrapedAt),
+            GigClassified(venue = gig.venue, url = gig.url, scrapedAt = scrapedAt, matchedKeywords = listOf("doom")),
+        )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
-        appendGigObservations(file, gigs, scrapedAt)
+        appendGigLogEntries(file, entries)
 
-        expectThat(readGigObservations(file)).isEqualTo(gigs.map { GigObserved(it, scrapedAt) })
+        expectThat(readGigLogEntries(file)).isEqualTo(entries)
     }
 
     @Test
-    fun `projects the latest observation per gig`() {
+    fun `projects the latest observation per gig, ignoring classification entries`() {
         val firstSeen = GigEvent(title = "Some Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/some-gig", imageUrl = "https://example.com/images/some-gig.jpg")
         val soldOut = firstSeen.copy(title = "Some Gig - SOLD OUT")
-        val events = listOf(
+        val events: List<GigLogEntry> = listOf(
             GigObserved(firstSeen, Instant.parse("2026-07-01T00:00:00Z")),
+            GigClassified(venue = firstSeen.venue, url = firstSeen.url, scrapedAt = Instant.parse("2026-07-10T00:00:00Z"), matchedKeywords = listOf("doom")),
             GigObserved(soldOut, Instant.parse("2026-07-15T00:00:00Z")),
         )
 
@@ -272,6 +274,43 @@ class AppTest {
         val events = listOf(GigObserved(gigA, scrapedAt), GigObserved(gigB, scrapedAt))
 
         expectThat(projectCurrentGigs(events)).containsExactlyInAnyOrder(gigA, gigB)
+    }
+
+    @Test
+    fun `classifies a gig as Metal only when keywords matched, otherwise Unclassified`() {
+        val venue = "Test Venue"
+        val metal = GigClassified(venue, "https://example.com/metal-gig", Instant.parse("2026-08-01T00:00:00Z"), matchedKeywords = listOf("doom"))
+        val unclassified = GigClassified(venue, "https://example.com/other-gig", Instant.parse("2026-08-01T00:00:00Z"), matchedKeywords = emptyList())
+
+        expectThat(metal.genre()).isEqualTo(Genre.Metal)
+        expectThat(unclassified.genre()).isEqualTo(Genre.Unclassified)
+    }
+
+    @Test
+    fun `classifies gigs by scanning their event pages, skipping already classified ones`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { request ->
+            requestCount++
+            val body = if (request.uri.toString().endsWith("metal-gig")) "Doom metal night!" else "Comedy open mic"
+            Response(OK).body(body)
+        }
+        val metalGig = GigEvent(title = "Doom Night", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/metal-gig", imageUrl = "")
+        val comedyGig = GigEvent(title = "Comedy Night", venue = "Some Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/comedy-gig", imageUrl = "")
+        val oldGig = GigEvent(title = "Old Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/old-gig", imageUrl = "")
+        val scrapedAt = Instant.parse("2026-08-01T00:00:00Z")
+
+        val classifications = classifyGigs(
+            fakeClient,
+            gigs = listOf(metalGig, comedyGig, oldGig),
+            alreadyClassified = setOf(oldGig.venue to oldGig.url),
+            scrapedAt = scrapedAt,
+        )
+
+        expectThat(requestCount).isEqualTo(2)
+        expectThat(classifications.map { it.url to it.matchedKeywords }).containsExactlyInAnyOrder(
+            metalGig.url to listOf("metal", "doom"),
+            comedyGig.url to emptyList(),
+        )
     }
 
     @Test
