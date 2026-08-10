@@ -59,8 +59,10 @@ fun overrideGigGenre(url: String, genre: Genre) {
     ))
 }
 
-fun reportUnclassifiedGigs() {
-    val gigs = projectUnclassifiedGigs(readGigLogEntries(eventsFile))
+fun reportUnclassifiedGigs(limit: Int? = null) {
+    val allGigs = projectUnclassifiedGigs(readGigLogEntries(eventsFile)).sortedBy { it.date() }
+    val gigs = if (limit != null) allGigs.take(limit) else allGigs
+
     gigs.groupBy { it.venue }.forEach { (venue, venueGigs) ->
         println("$venue (${venueGigs.size})")
         println()
@@ -70,7 +72,8 @@ fun reportUnclassifiedGigs() {
             println()
         }
     }
-    println("${gigs.size} unclassified gig(s)")
+    val suffix = if (limit != null) " (of ${allGigs.size} total)" else ""
+    println("${gigs.size} unclassified gig(s)$suffix")
 }
 
 fun renderGigsHtml(includeNonMetal: Boolean = false, today: LocalDate = LocalDate.now()) {
@@ -95,7 +98,7 @@ fun main(args: Array<String>) {
                 today = today ?: LocalDate.now(),
             )
         }
-        "unclassified" -> reportUnclassifiedGigs()
+        "unclassified" -> reportUnclassifiedGigs(limit = args.getOrNull(1)?.toIntOrNull())
         "override" -> {
             val url = args.getOrNull(1)
             val genre = args.getOrNull(2)?.let { arg -> Genre.entries.find { it.name.equals(arg, ignoreCase = true) } }
@@ -110,6 +113,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify|render [all] [yyyy-mm-dd]|unclassified|override <url> <genre>|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify|render [all] [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|all]")
     }
 }
