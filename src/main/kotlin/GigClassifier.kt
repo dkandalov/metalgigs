@@ -1,5 +1,6 @@
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import java.time.Instant
 
 // starter list; extend as false negatives/positives turn up in practice
@@ -8,11 +9,14 @@ private val metalKeywords = listOf(
     "thrash", "stoner", "hardcore", "deathcore", "metalcore", "crust", "powerviolence",
 )
 
-// some venues' event pages embed a sitewide "other events" widget alongside the actual gig
-// content; scanning the whole page picks up unrelated shows' titles, so scope to just the gig's
-// own content where a venue's markup makes that possible
-private val eventPageContentSelectorByVenue = mapOf(
-    "The Underworld" to "article.event",
+// some venues' event pages need special handling to get at the gig's own content:
+// - The Underworld embeds a sitewide "other events" widget alongside the actual gig content,
+//   so scanning the whole page picks up unrelated shows' titles
+// - New Cross Inn (pit.live) renders its description client-side via Alpine.js: the text lives
+//   in an x-html attribute, not as element text, so the plain page text never contains it
+private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
+    "The Underworld" to { page -> page.select("article.event").let { if (it.isEmpty()) null else it.text() } },
+    "New Cross Inn" to { page -> page.select("[x-ref=desc]").firstOrNull()?.attr("x-html") },
 )
 
 fun matchKeywords(pageText: String): List<String> =
@@ -20,10 +24,8 @@ fun matchKeywords(pageText: String): List<String> =
 
 private fun eventPageContentText(pageHtml: String, url: String, venue: String): String {
     val page = Jsoup.parse(pageHtml, url)
-    val selector = eventPageContentSelectorByVenue[venue] ?: return page.text()
-    val content = page.select(selector)
-    check(content.isNotEmpty()) { "Event page content selector \"$selector\" matched nothing for $venue at $url" }
-    return content.text()
+    val extractContent = eventPageContentByVenue[venue] ?: return page.text()
+    return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 
 fun classifyGig(client: HttpHandler, gig: GigEvent, scrapedAt: Instant): GigClassified {

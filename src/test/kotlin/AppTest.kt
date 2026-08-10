@@ -363,14 +363,28 @@ class AppTest {
     }
 
     @Test
-    fun `fails fast when a venue's content selector matches nothing on its event page`() {
+    fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
         val gig = GigEvent(title = "Some Gig", venue = "The Underworld", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
 
         val error = assertFailsWith<IllegalStateException> { classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z")) }
 
-        expectThat(error.message!!.contains("article.event")).isTrue()
         expectThat(error.message!!.contains("The Underworld")).isTrue()
+        expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
+    }
+
+    @Test
+    fun `scopes New Cross Inn classification to the client-rendered description attribute`() {
+        val html = """
+            <p x-ref="desc" x-html="'Doom metal night with support'"></p>
+            <div>KINGS OF THRASH</div>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val gig = GigEvent(title = "Some Gig", venue = "New Cross Inn", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
+
+        val classification = classifyGig(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
+
+        expectThat(classification.matchedKeywords).containsExactly("metal", "doom")
     }
 
     @Test
