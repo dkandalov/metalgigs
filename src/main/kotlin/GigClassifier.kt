@@ -28,13 +28,13 @@ private fun eventPageContentText(pageHtml: String, url: String, venue: String): 
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 
-fun classifyGig(client: HttpHandler, gig: GigEvent, scrapedAt: Instant): GigClassified {
+fun classifyGig(client: HttpHandler, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
     val matchedKeywords = matchKeywords(pageText)
     return GigClassified(
         venue = gig.venue,
         url = gig.url,
-        scrapedAt = scrapedAt,
+        recordedAt = recordedAt,
         genre = if (matchedKeywords.isNotEmpty()) Genre.Metal else Genre.Unclassified,
         matchedKeywords = matchedKeywords,
         source = ClassificationSource.Keywords,
@@ -45,7 +45,7 @@ fun classifyGigs(
     client: HttpHandler,
     gigs: List<GigEvent>,
     alreadyClassified: Set<Pair<String, String>>,
-    scrapedAt: Instant,
+    recordedAt: Instant,
 ): List<GigClassified> =
     gigs.filter { (it.venue to it.url) !in alreadyClassified }
-        .map { classifyGig(client, it, scrapedAt) }
+        .map { classifyGig(client, it, recordedAt) }

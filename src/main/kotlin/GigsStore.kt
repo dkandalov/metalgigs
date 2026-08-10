@@ -34,18 +34,18 @@ object JGigEvent : JAny<GigEvent>() {
 
 object JGigObserved : JAny<GigObserved>() {
     private val gig by obj(JGigEvent, GigObserved::gig)
-    private val scrapedAt by str(GigObserved::scrapedAt)
+    private val recordedAt by str(GigObserved::recordedAt)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigObserved(
         gig = +gig,
-        scrapedAt = +scrapedAt,
+        recordedAt = +recordedAt,
     )
 }
 
 object JGigClassified : JAny<GigClassified>() {
     private val venue by str(GigClassified::venue)
     private val url by str(GigClassified::url)
-    private val scrapedAt by str(GigClassified::scrapedAt)
+    private val recordedAt by str(GigClassified::recordedAt)
     private val genre by str(GigClassified::genre)
     private val matchedKeywords by array(GigClassified::matchedKeywords)
     private val source by str(GigClassified::source)
@@ -53,7 +53,7 @@ object JGigClassified : JAny<GigClassified>() {
     override fun JsonNodeObject.deserializeOrThrow() = GigClassified(
         venue = +venue,
         url = +url,
-        scrapedAt = +scrapedAt,
+        recordedAt = +recordedAt,
         genre = +genre,
         matchedKeywords = +matchedKeywords,
         source = +source,
@@ -85,13 +85,13 @@ fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
     entries.filterIsInstance<GigObserved>()
         .groupBy { it.venue to it.url }
         .values
-        .map { observations -> observations.maxBy { it.scrapedAt }.gig }
+        .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
 // current gigs with no matched keywords, including ones never classified at all
 fun projectUnclassifiedGigs(entries: List<GigLogEntry>): List<GigEvent> {
     val latestClassificationByGig = entries.filterIsInstance<GigClassified>()
         .groupBy { it.venue to it.url }
-        .mapValues { (_, classifications) -> classifications.maxBy { it.scrapedAt } }
+        .mapValues { (_, classifications) -> classifications.maxBy { it.recordedAt } }
 
     return projectCurrentGigs(entries).filter { gig ->
         latestClassificationByGig[gig.venue to gig.url]?.genre != Genre.Metal

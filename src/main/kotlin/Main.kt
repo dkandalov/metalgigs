@@ -45,7 +45,7 @@ fun classifyUnclassifiedGigs() {
     val currentGigs = projectCurrentGigs(existingEntries)
     val alreadyClassified = existingEntries.filterIsInstance<GigClassified>().map { it.venue to it.url }.toSet()
 
-    val classifications = classifyGigs(client, currentGigs, alreadyClassified, scrapedAt = Instant.now())
+    val classifications = classifyGigs(client, currentGigs, alreadyClassified, recordedAt = Instant.now())
     appendGigLogEntries(eventsFile, classifications)
 }
 
@@ -55,7 +55,7 @@ fun overrideGigGenre(url: String, genre: Genre) {
         ?: error("No current gig found with url $url")
 
     appendGigLogEntries(eventsFile, listOf(
-        GigClassified(venue = gig.venue, url = gig.url, scrapedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
+        GigClassified(venue = gig.venue, url = gig.url, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
     ))
 }
 

@@ -37,11 +37,11 @@ enum class ClassificationSource { Keywords, User }
 sealed interface GigLogEntry {
     val venue: String
     val url: String
-    val scrapedAt: Instant
+    val recordedAt: Instant
 }
 
 // a sighting of a gig at scrape time
-data class GigObserved(val gig: GigEvent, override val scrapedAt: Instant) : GigLogEntry {
+data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : GigLogEntry {
     override val venue get() = gig.venue
     override val url get() = gig.url
 }
@@ -50,7 +50,7 @@ data class GigObserved(val gig: GigEvent, override val scrapedAt: Instant) : Gig
 data class GigClassified(
     override val venue: String,
     override val url: String,
-    override val scrapedAt: Instant,
+    override val recordedAt: Instant,
     val genre: Genre,
     val matchedKeywords: List<String> = emptyList(),
     val source: ClassificationSource,
