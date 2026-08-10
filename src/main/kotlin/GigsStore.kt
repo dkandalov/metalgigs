@@ -46,13 +46,17 @@ object JGigClassified : JAny<GigClassified>() {
     private val venue by str(GigClassified::venue)
     private val url by str(GigClassified::url)
     private val scrapedAt by str(GigClassified::scrapedAt)
+    private val genre by str(GigClassified::genre)
     private val matchedKeywords by array(GigClassified::matchedKeywords)
+    private val source by str(GigClassified::source)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigClassified(
         venue = +venue,
         url = +url,
         scrapedAt = +scrapedAt,
+        genre = +genre,
         matchedKeywords = +matchedKeywords,
+        source = +source,
     )
 }
 
@@ -90,6 +94,6 @@ fun projectUnclassifiedGigs(entries: List<GigLogEntry>): List<GigEvent> {
         .mapValues { (_, classifications) -> classifications.maxBy { it.scrapedAt } }
 
     return projectCurrentGigs(entries).filter { gig ->
-        latestClassificationByGig[gig.venue to gig.url]?.genre() != Genre.Metal
+        latestClassificationByGig[gig.venue to gig.url]?.genre != Genre.Metal
     }
 }

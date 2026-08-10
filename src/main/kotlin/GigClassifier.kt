@@ -13,11 +13,14 @@ fun matchKeywords(pageText: String): List<String> =
 
 fun classifyGig(client: HttpHandler, gig: GigEvent, scrapedAt: Instant): GigClassified {
     val pageText = Jsoup.parse(fetchPage(client, gig.url), gig.url).text()
+    val matchedKeywords = matchKeywords(pageText)
     return GigClassified(
         venue = gig.venue,
         url = gig.url,
         scrapedAt = scrapedAt,
-        matchedKeywords = matchKeywords(pageText),
+        genre = if (matchedKeywords.isNotEmpty()) Genre.Metal else Genre.Unclassified,
+        matchedKeywords = matchedKeywords,
+        source = ClassificationSource.Keywords,
     )
 }
 

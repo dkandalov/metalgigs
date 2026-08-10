@@ -42,6 +42,16 @@ fun classifyUnclassifiedGigs() {
     appendGigLogEntries(eventsFile, classifications)
 }
 
+fun overrideGigGenre(url: String, genre: Genre) {
+    val entries = readGigLogEntries(eventsFile)
+    val gig = projectCurrentGigs(entries).find { it.url == url }
+        ?: error("No current gig found with url $url")
+
+    appendGigLogEntries(eventsFile, listOf(
+        GigClassified(venue = gig.venue, url = gig.url, scrapedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
+    ))
+}
+
 fun reportUnclassifiedGigs() {
     val gigs = projectUnclassifiedGigs(readGigLogEntries(eventsFile))
     gigs.groupBy { it.venue }.forEach { (venue, venueGigs) ->
@@ -70,11 +80,20 @@ fun main(args: Array<String>) {
         "classify" -> classifyUnclassifiedGigs()
         "render" -> renderGigsHtml()
         "unclassified" -> reportUnclassifiedGigs()
+        "override" -> {
+            val url = args.getOrNull(1)
+            val genre = args.getOrNull(2)?.let { arg -> Genre.entries.find { it.name.equals(arg, ignoreCase = true) } }
+            if (url == null || genre == null) {
+                println("Usage: override <url> <${Genre.entries.joinToString("|") { it.name.lowercase() }}>")
+            } else {
+                overrideGigGenre(url, genre)
+            }
+        }
         "all" -> {
             scrapeGigs()
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape|classify|render|unclassified|all]")
+        else -> println("Usage: [scrape|classify|render|unclassified|override|all]")
     }
 }

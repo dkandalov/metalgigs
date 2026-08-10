@@ -1,14 +1,15 @@
 ---
 name: run-main
-description: Run the app's main entry point to scrape gigs, classify their genre, list unclassified gigs, render the HTML page, or all of scrape+classify+render. Use when asked to run the app, scrape gigs, classify gigs, list unclassified gigs, or render the gigs page.
+description: Run the app's main entry point to scrape gigs, classify their genre, list unclassified gigs, manually override a gig's genre, render the HTML page, or all of scrape+classify+render. Use when asked to run the app, scrape gigs, classify gigs, list unclassified gigs, override/correct a gig's genre, or render the gigs page.
 ---
 
-Run `.claude/scripts/run-main.sh [scrape|classify|unclassified|render|all]` from the project root using the Bash tool.
+Run `.claude/scripts/run-main.sh [scrape|classify|unclassified|override <url> <metal|unclassified>|render|all]` from the project root using the Bash tool, e.g. `.claude/scripts/run-main.sh override https://example.com/event metal` (the script joins all its args into one `--args=...` string for `gradlew run`, so passing them as separate words or one quoted string both work).
 
 - `scrape` fetches gigs from all five venues and appends a `GigObserved` entry per gig to `events.ndjson` (the append-only event log; never overwritten).
-- `classify` projects the current gigs from `events.ndjson`, fetches the event page for any gig not yet classified, and appends a `GigClassified` entry (matched genre keywords, or none) for each.
-- `unclassified` projects the current gigs from `events.ndjson` and prints the ones with no matched keywords (including gigs never classified at all) — venue, date, title, url, one per line — with a trailing count. No network calls.
+- `classify` projects the current gigs from `events.ndjson`, fetches the event page for any gig not yet classified, and appends a `GigClassified` entry (`genre`, `matchedKeywords`, `source = Keywords`) for each.
+- `unclassified` projects the current gigs from `events.ndjson` and prints the ones whose latest classification isn't `Metal` (including gigs never classified at all), grouped by venue with a per-venue count, date/title/url per gig — with a trailing total count. No network calls.
+- `override <url> <metal|unclassified>` appends a `GigClassified` entry with `source = User` for the gig with that url, asserting its genre directly. Since it's a `GigClassified` entry like any other, a later `classify` run will treat it as already classified and won't reclassify it — the override sticks. No network calls.
 - `render` projects the current gigs from `events.ndjson` and writes `gigs.html` (no network calls). Currently shows every gig regardless of classification.
-- `all` (also the default when no argument is given) runs `scrape`, then `classify`, then `render` — it does not include `unclassified`, which is a standalone report.
+- `all` (also the default when no argument is given) runs `scrape`, then `classify`, then `render` — it does not include `unclassified` or `override`, which are standalone.
 
 Report what was produced and surface any errors from the Gradle output.
