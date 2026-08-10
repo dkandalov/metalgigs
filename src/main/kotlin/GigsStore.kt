@@ -87,6 +87,14 @@ fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
         .values
         .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
+// scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
+// title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
+// per gig, not the whole history, so a gig can be logged again after reverting to a prior state
+fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEvent>): List<GigEvent> {
+    val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.venue to it.url }
+    return scrapedGigs.filter { gig -> latestByGig[gig.venue to gig.url] != gig }
+}
+
 private fun latestClassificationByGig(entries: List<GigLogEntry>): Map<Pair<String, String>, GigClassified> =
     entries.filterIsInstance<GigClassified>()
         .groupBy { it.venue to it.url }

@@ -37,7 +37,9 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
     val gigs = sources.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
 
-    appendGigLogEntries(eventsFile, gigs.map { GigObserved(it, Instant.now()) })
+    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+    val newOrChanged = newOrChangedGigs(existingEntries, gigs)
+    appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, Instant.now()) })
     cacheGigImages(client, gigs, imagesDir)
 }
 

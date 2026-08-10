@@ -393,6 +393,36 @@ class AppTest {
     }
 
     @Test
+    fun `treats a gig as new or changed if it's unseen or differs from its latest observation`() {
+        val unseen = GigEvent(title = "Unseen Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/unseen", imageUrl = "")
+        val unchangedGig = GigEvent(title = "Unchanged Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/unchanged", imageUrl = "")
+        val soldOutBefore = GigEvent(title = "Changed Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/changed", imageUrl = "")
+        val soldOutNow = soldOutBefore.copy(title = "Changed Gig - SOLD OUT")
+        val existingEntries: List<GigLogEntry> = listOf(
+            GigObserved(unchangedGig, Instant.parse("2026-07-01T00:00:00Z")),
+            GigObserved(soldOutBefore, Instant.parse("2026-07-01T00:00:00Z")),
+        )
+
+        val newOrChanged = newOrChangedGigs(existingEntries, scrapedGigs = listOf(unseen, unchangedGig, soldOutNow))
+
+        expectThat(newOrChanged).containsExactlyInAnyOrder(unseen, soldOutNow)
+    }
+
+    @Test
+    fun `treats a gig as changed again if it reverts to a state seen earlier than its latest observation`() {
+        val original = GigEvent(title = "Reverting Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/reverting", imageUrl = "")
+        val soldOut = original.copy(title = "Reverting Gig - SOLD OUT")
+        val existingEntries: List<GigLogEntry> = listOf(
+            GigObserved(original, Instant.parse("2026-07-01T00:00:00Z")),
+            GigObserved(soldOut, Instant.parse("2026-07-10T00:00:00Z")),
+        )
+
+        val newOrChanged = newOrChangedGigs(existingEntries, scrapedGigs = listOf(original))
+
+        expectThat(newOrChanged).containsExactly(original)
+    }
+
+    @Test
     fun `projects only metal gigs, excluding unclassified and never-classified ones`() {
         val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/never-classified", imageUrl = "")
         val classifiedMetal = GigEvent(title = "Classified Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/classified-metal", imageUrl = "")
