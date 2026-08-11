@@ -3,7 +3,7 @@ name: classify-unclassified-gigs
 description: Show the user the next 5 soonest-upcoming unclassified gigs and apply their genre calls as manual overrides. Use when asked to classify gigs, work through the unclassified backlog, or review/correct upcoming gigs' genre.
 ---
 
-1. Run `.claude/scripts/run-main.sh "unclassified 5"` from the project root using the Bash tool (see the `run-main` skill). This lists the next 5 soonest-upcoming gigs whose latest classification isn't Metal (including gigs never classified at all) — venue, date, title, and url per gig.
+1. Run `.claude/scripts/run-main.sh "unclassified 5"` from the project root using the Bash tool (see the `run-main` skill). This lists the next 5 soonest-upcoming gigs not confirmed Metal by consensus (never classified, pending Keywords/LLM, disputed between them, or agreed Other) — venue, date, title, and url per gig.
 
 2. If it reports 0 gigs, tell the user the backlog is empty and stop.
 
@@ -15,9 +15,9 @@ description: Show the user the next 5 soonest-upcoming unclassified gigs and app
 
    ```bash
    .claude/scripts/run-main.sh "override <url> metal"
-   .claude/scripts/run-main.sh "override <url> unclassified"
+   .claude/scripts/run-main.sh "override <url> other"
    ```
 
-   Use `metal` for a `Metal` answer. Use `unclassified` for a `Non-metal` answer — that's just the CLI/`Genre` enum's literal value for "not metal" (there's no separate `Genre` case for it); always call it "Non-metal" when talking to the user, never "Unclassified", since the user has explicitly confirmed it isn't metal rather than leaving it unreviewed. Leave skipped gigs alone — they'll surface again next time this skill runs.
+   Use `metal` for a `Metal` answer. Use `other` for a `Non-metal` answer — that's just the CLI/`Genre` enum's literal value for "not metal"; always call it "Non-metal" when talking to the user, never "Other", since the user has explicitly confirmed it isn't metal rather than the classifiers having merely bucketed it that way. A `User` override like this is always final — it settles the gig outright regardless of what Keywords/LLM said or will say later. Leave skipped gigs alone — they'll surface again next time this skill runs.
 
-6. Report a short summary back to the user: how many were classified Metal, how many Non-metal, and how many were skipped. Use "Non-metal" in this summary too, not "Unclassified".
+6. Report a short summary back to the user: how many were classified Metal, how many Non-metal, and how many were skipped. Use "Non-metal" in this summary too, not "Other".

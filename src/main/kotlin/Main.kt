@@ -49,30 +49,32 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
     appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, Instant.now()) })
 }
 
-fun classifyUnclassifiedGigs(useLLM: Boolean = false, limit: Int? = null) {
+fun classifyUnclassifiedGigs(limit: Int? = null) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
     val currentGigs = projectCurrentGigs(existingEntries)
-    val source = if (useLLM) ClassificationSource.LLM else ClassificationSource.Keywords
-    val alreadyClassified = alreadyClassifiedBy(existingEntries, source)
     val recordedAt = Instant.now()
 
-    val chat: Chat? = if (!useLLM) null else {
-        val apiKey = ApiKey.of(
-            System.getenv("ANTHROPIC_API_KEY")
-                ?: error("ANTHROPIC_API_KEY environment variable is required for LLM classification")
-        )
-        Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
-    }
-    val classifyGig: (GigEvent) -> GigClassified = { gig ->
-        if (chat != null) classifyGigByLLM(client, chat, gig, recordedAt) else classifyGigByKeywords(client, gig, recordedAt)
-    }
+    val apiKey = ApiKey.of(
+        System.getenv("ANTHROPIC_API_KEY")
+            ?: error("ANTHROPIC_API_KEY environment variable is required for LLM classification")
+    )
+    val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
-    val classifications = classifyGigs(currentGigs, alreadyClassified, limit, classifyGig)
-    appendGigLogEntries(eventsFile, classifications)
+    val keywordsClassifications = classifyGigs(
+        currentGigs, alreadyClassifiedBy(existingEntries, ClassificationSource.Keywords), limit,
+    ) { gig -> classifyGigByKeywords(client, gig, recordedAt) }
+    appendGigLogEntries(eventsFile, keywordsClassifications)
+    val afterKeywords = existingEntries + keywordsClassifications
 
-    val affectedKeys = classifications.map { it.venue to it.url }.toSet()
-    val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { (it.venue to it.url) in affectedKeys }
+    val llmClassifications = classifyGigs(
+        currentGigs, alreadyClassifiedBy(afterKeywords, ClassificationSource.LLM), limit,
+    ) { gig -> classifyGigByLLM(client, chat, gig, recordedAt) }
+    appendGigLogEntries(eventsFile, llmClassifications)
+    val afterLLM = afterKeywords + llmClassifications
+
+    val affectedKeys = (keywordsClassifications + llmClassifications).map { it.venue to it.url }.toSet()
+    val newlyMetalGigs = projectMetalGigs(afterLLM).filter { (it.venue to it.url) in affectedKeys }
     cacheGigImages(client, newlyMetalGigs, imagesDir)
 }
 
@@ -132,13 +134,7 @@ fun main(args: Array<String>) {
 
     when (mode) {
         "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
-        "classify" -> {
-            val classifyArgs = args.drop(1)
-            classifyUnclassifiedGigs(
-                useLLM = classifyArgs.contains("llm"),
-                limit = classifyArgs.firstNotNullOfOrNull { it.toIntOrNull() },
-            )
-        }
+        "classify" -> classifyUnclassifiedGigs(limit = args.getOrNull(1)?.toIntOrNull())
         "render" -> {
             val today = args.drop(1).firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now())
@@ -159,6 +155,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify [llm] [limit]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|prune-images|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify [limit]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|prune-images|all]")
     }
 }
