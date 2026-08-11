@@ -207,7 +207,15 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     File("index.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 
-fun main(args: Array<String>) {
+// run-main.sh encodes each argument's spaces (0x1e) and joins arguments with 0x1f before handing
+// them to Gradle, since --args is re-split on whitespace before we ever see it - undo both here,
+// so an argument like a venue name can contain spaces. A direct `gradlew run --args=...`
+// invocation (no encoding) still works fine: with no 0x1f present this is a no-op split.
+private fun decodeArgs(rawArgs: Array<String>): List<String> =
+    if (rawArgs.size == 1) rawArgs[0].split('\u001F').map { it.replace('\u001E', ' ') } else rawArgs.toList()
+
+fun main(rawArgs: Array<String>) {
+    val args = decodeArgs(rawArgs)
     val mode = args.firstOrNull() ?: "all"
 
     when (mode) {
