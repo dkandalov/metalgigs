@@ -88,10 +88,14 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +
         if (useVision) listOf(fetchImageContent(client, gig.imageUrl)) else emptyList()
 
-    val request = ChatRequest(
-        Message.User(contents),
-        ModelParams(if (useVision) visionClassifierModel else llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text),
-    )
+    // the vision model doesn't accept a temperature override (its API rejects the param outright);
+    // the text-only model does and we want its replies deterministic, so only set it there
+    val params = if (useVision) {
+        ModelParams(visionClassifierModel, responseFormat = ChatResponseFormat.Text)
+    } else {
+        ModelParams(llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text)
+    }
+    val request = ChatRequest(Message.User(contents), params)
     val response = chat(request).onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
     val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
     val genre = Genre.entries.find { it.name.equals(reply, ignoreCase = true) }
