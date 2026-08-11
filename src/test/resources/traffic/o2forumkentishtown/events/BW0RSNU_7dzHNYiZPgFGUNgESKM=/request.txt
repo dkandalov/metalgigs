@@ -1,3 +1,0 @@
-GET https://www.academymusicgroup.com/o2forumkentishtown/events HTTP/1.1
-
-

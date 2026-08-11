@@ -65,9 +65,7 @@ private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
     "roundhouse" to RoundhouseGigsSource(client),
     "signature-brew-blackhorse-road" to SignatureBrewBlackhorseRoadGigsSource(client),
     "signature-brew-haggerston" to SignatureBrewHaggerstonGigsSource(client),
-    // needs a JS-capable client, unlike every other venue - ChromeHeadless resolves its binary
-    // lazily, so constructing this here doesn't require Chrome unless it's actually scraped
-    "o2-forum-kentish-town" to O2ForumKentishTownGigsSource(ChromeHeadless()),
+    "o2-forum-kentish-town" to O2ForumKentishTownGigsSource(client),
 )
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)

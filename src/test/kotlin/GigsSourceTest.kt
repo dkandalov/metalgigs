@@ -446,33 +446,32 @@ class GigsSourceTest {
         expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
     }
 
-    // unlike every other venue, this page only renders its listings via JS, so it needs a
-    // Chrome-backed client - once the fixture below is recorded this replays from disk like any
-    // other test and no longer needs Chrome installed
     @Test
-    fun `extracts gig events from the O2 Forum Kentish Town events page`() {
-        assertScrapesGigs(
-            source = O2ForumKentishTownGigsSource(cachedChromeClient()),
-            size = 20,
+    fun `extracts gig events from the O2 Forum Kentish Town events api`() {
+        val events = assertScrapesGigs(
+            source = O2ForumKentishTownGigsSource(cachedClient()),
+            size = 88,
             first = GigEvent(
                 title = "Davido: A Royal Night in London",
                 venue = "O2 Forum Kentish Town",
                 year = 2026,
                 month = "Aug",
                 day = "11",
-                url = "https://www.ticketmaster.co.uk/event/3E0064EADF473D89?brand=o2forumkentishtown&camefrom=CFC_AMG_FORUM&davido",
+                url = "https://www.ticketmaster.co.uk/event/3E0064EADF473D89",
                 imageUrl = "https://dynamicmedia.livenationinternational.com/c/a/q/4378d09e-ce1e-4e17-91a8-27094d497b78.jpg",
             ),
             last = GigEvent(
-                title = "Creeper: The Off With Their Heads Tour",
+                title = "MASS OF THE FERMENTING DREGS",
                 venue = "O2 Forum Kentish Town",
-                year = 2026,
+                year = 2027,
                 month = "Oct",
-                day = "09",
-                url = "https://www.ticketmaster.co.uk/event/3E0064C4DBBF7D5D?brand=o2forumkentishtown&camefrom=CFC_AMG_FORUM&creeper26",
-                imageUrl = "https://dynamicmedia.livenationinternational.com/s/s/n/8edde2e2-f4ad-461b-ab8f-f5b015dd4092.jpg",
+                day = "14",
+                url = "https://www.ticketmaster.co.uk/event/3E0065059E6A1198",
+                imageUrl = "https://dynamicmedia.livenationinternational.com/t/a/f/03bb4ec9-ed69-4d30-b4d4-1e516b000455.jpg",
             ),
             urlPrefix = "https://www.ticketmaster.co.uk/event/",
         )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(3)
     }
 }
