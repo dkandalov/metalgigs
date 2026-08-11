@@ -23,3 +23,11 @@ fun cachedClient(): HttpHandler = TrafficFilters.ServeCachedFrom(ReadWriteCache.
     .then(TrafficFilters.RecordTo(ReadWriteCache.Disk(fixtures.absolutePath)))
     .then(redactSecretsFilter)
     .then(OkHttp())
+
+// for venues whose pages only render via JS (see ChromeHeadless) - identical recording/replay
+// setup, just a different innermost handler, so once a fixture exists these tests replay from
+// disk like any other and never need Chrome installed
+fun cachedChromeClient(): HttpHandler = TrafficFilters.ServeCachedFrom(ReadWriteCache.Disk(fixtures.absolutePath))
+    .then(TrafficFilters.RecordTo(ReadWriteCache.Disk(fixtures.absolutePath)))
+    .then(redactSecretsFilter)
+    .then(ChromeHeadless())
