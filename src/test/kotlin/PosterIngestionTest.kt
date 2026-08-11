@@ -50,6 +50,26 @@ class PosterIngestionTest {
     }
 
     @Test
+    fun `excludes The Dev's recurring karaoke night, keeping other gigs`() {
+        val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
+        val reply = "2026-08-06 | Doom Night\n2026-08-13 | RrroooaaarrR Rock/Metal Karaoke\n2026-08-20 | Thrash Fest"
+
+        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = "The Dev")
+
+        expectThat(gigs.map { it.title }).containsExactly("Doom Night", "Thrash Fest")
+    }
+
+    @Test
+    fun `does not exclude karaoke-titled gigs at other venues`() {
+        val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
+        val reply = "2026-08-13 | Metal Karaoke Night"
+
+        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = "Some Other Venue")
+
+        expectThat(gigs.map { it.title }).containsExactly("Metal Karaoke Night")
+    }
+
+    @Test
     fun `fails fast when no gigs can be parsed from the reply`() {
         val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
 

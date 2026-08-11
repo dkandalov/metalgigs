@@ -30,6 +30,16 @@ private fun parsePosterReply(reply: String): List<Pair<LocalDate, String>> =
         posterGigLinePattern.matchEntire(line.trim())?.let { m -> LocalDate.parse(m.groupValues[1]) to m.groupValues[2].trim() }
     }
 
+// recurring non-gig event types a venue's own poster doesn't distinguish from actual gigs - e.g.
+// The Dev runs a regular karaoke night on the same monthly flyer as its band shows, with nothing
+// about the listing itself (format, image) marking it apart from a real gig except its title
+private val excludedTitlePatternsByVenue: Map<String, Regex> = mapOf(
+    "The Dev" to Regex("karaoke", RegexOption.IGNORE_CASE),
+)
+
+private fun isExcluded(venue: String, title: String): Boolean =
+    excludedTitlePatternsByVenue[venue]?.containsMatchIn(title) == true
+
 // each gig's url is synthesized from the poster's own source url (the post/page it came from) -
 // there's no per-gig page to link to, so every gig from one poster shares that same real, working
 // url, disambiguated by a fragment; clicking it lands on the actual poster, just not scrolled to
@@ -47,7 +57,7 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
     val parsed = parsePosterReply(reply)
     check(parsed.isNotEmpty()) { "Could not parse any gigs from poster extraction reply for $venue at $imageUrl: \"$reply\"" }
 
-    return parsed.map { (date, title) ->
-        GigEvent.of(title = title, venue = venue, date = date, url = posterGigUrl(sourceUrl, title, date), imageUrl = imageUrl)
-    }
+    return parsed
+        .filterNot { (_, title) -> isExcluded(venue, title) }
+        .map { (date, title) -> GigEvent.of(title = title, venue = venue, date = date, url = posterGigUrl(sourceUrl, title, date), imageUrl = imageUrl) }
 }
