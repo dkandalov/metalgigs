@@ -48,12 +48,6 @@ private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 private const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
-// the same gig is judged more than once and the samples compared: agreement means the model is
-// consistent about this gig and its answer stands, disagreement means it isn't and a human should
-// decide. Sampling only tells us anything at a non-zero temperature - at Temperature.ZERO the
-// replies would be near-identical by construction and always "agree", which measures nothing
-private const val SAMPLES_PER_GIG = 2
-
 fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
@@ -61,31 +55,26 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +
         if (useVision) listOf(fetchImageContent(client, gig.imageUrl)) else emptyList()
 
-    // the vision model rejects a temperature override outright, so it's left at the API's own
-    // default - which is non-zero, and so still varies between samples as this relies on
+    // the vision model rejects a temperature override outright; the text model accepts one and we
+    // want its verdicts reproducible, so only that path pins it
     val params = if (useVision) {
         ModelParams(visionClassifierModel, responseFormat = ChatResponseFormat.Text)
     } else {
-        ModelParams(llmClassifierModel, Temperature.ONE, responseFormat = ChatResponseFormat.Text)
+        ModelParams(llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text)
     }
-    val request = ChatRequest(Message.User(contents), params)
 
-    val sampledGenres = (1..SAMPLES_PER_GIG).map {
-        val response = chat(request).onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
-        val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
-        Genre.entries.find { it.name.equals(reply, ignoreCase = true) }
-            ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
-    }
+    val response = chat(ChatRequest(Message.User(contents), params))
+        .onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
+    val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
+    val genre = Genre.entries.find { it.name.equals(reply, ignoreCase = true) }
+        ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
 
     return GigClassified(
         venue = gig.venue,
         url = gig.url,
         recordedAt = recordedAt,
-        // when the samples disagree this verdict isn't used - the gig needs review either way -
-        // but it's still recorded so the log holds a complete row rather than a hole
-        genre = sampledGenres.first(),
+        genre = genre,
         source = ClassificationSource.LLM,
-        sampledGenres = sampledGenres,
     )
 }
 

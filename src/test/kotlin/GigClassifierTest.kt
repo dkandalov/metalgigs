@@ -29,37 +29,20 @@ class GigClassifierTest {
         ),
     )
 
-    // replies are handed out in order, so a test can make the samples agree or disagree; the last
-    // one repeats once exhausted, which keeps single-reply cases readable
-    private fun fakeChat(vararg replies: String): Chat {
-        var call = 0
-        return Chat { _ -> chatResponse(replies[minOf(call++, replies.size - 1)]) }
-    }
+    private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
     private fun gig(title: String = "Some Gig", venue: String = "Some Venue", day: String = "08", url: String = "https://example.com/gig", imageUrl: String = "") =
         GigEvent(title = title, venue = venue, year = 2026, month = "Aug", day = day, url = url, imageUrl = imageUrl)
 
     @Test
-    fun `classifies a gig when repeated samples agree`() {
+    fun `classifies a gig as Metal or Other from the LLM's reply`() {
         val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
 
-        val metal = classifyGigByLLM(fakeClient, fakeChat("Metal", "Metal"), gig(), recordedAt)
-        val other = classifyGigByLLM(fakeClient, fakeChat("Other", "Other"), gig(), recordedAt)
+        val metal = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig(), recordedAt)
+        val other = classifyGigByLLM(fakeClient, fakeChat("Other"), gig(), recordedAt)
 
-        expectThat(metal.genre).isEqualTo(Genre.Metal)
-        expectThat(metal.sampledGenres).containsExactly(Genre.Metal, Genre.Metal)
-        expectThat(metal.source).isEqualTo(ClassificationSource.LLM)
-        expectThat(other.genre).isEqualTo(Genre.Other)
-        expectThat(other.sampledGenres).containsExactly(Genre.Other, Genre.Other)
-    }
-
-    @Test
-    fun `records both verdicts when repeated samples disagree`() {
-        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
-
-        val classification = classifyGigByLLM(fakeClient, fakeChat("Metal", "Other"), gig(), recordedAt)
-
-        expectThat(classification.sampledGenres).containsExactly(Genre.Metal, Genre.Other)
+        expectThat(metal).isEqualTo(GigClassified(gig().venue, gig().url, recordedAt, Genre.Metal, ClassificationSource.LLM))
+        expectThat(other).isEqualTo(GigClassified(gig().venue, gig().url, recordedAt, Genre.Other, ClassificationSource.LLM))
     }
 
     @Test

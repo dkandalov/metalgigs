@@ -116,35 +116,26 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { it.id in affectedKeys }
     cacheGigImages(client, newlyMetalGigs, imagesDir)
 
-    printClassificationSummary(classifications, newlyMetalGigs.size, affectedKeys, currentGigs, statusByGig)
+    printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig)
 }
 
 private fun printClassificationSummary(
     classifications: List<GigClassified>,
     newlyMetal: Int,
-    affectedKeys: Set<GigId>,
     currentGigs: List<GigEvent>,
     statusByGig: Map<GigId, ClassificationStatus>,
 ) {
-    val needingReview = affectedKeys.count { key -> statusByGig[key] is ClassificationStatus.NeedsReview }
-    val settled = classifications.size - needingReview
-
-    println("Classified this run: ${classifications.size}")
-    println("  Samples agreed:    $settled (of which $newlyMetal newly Metal)")
-    println("  Samples disagreed: $needingReview (needs human review)")
+    println("Classified this run: ${classifications.size} ($newlyMetal Metal, ${classifications.size - newlyMetal} Other)")
     println()
 
     val statuses = currentGigs.map { statusByGig[it.id] }
     val overallMetal = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Metal }
     val overallOther = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Other }
-    val overallNeedsReview = statuses.count { it is ClassificationStatus.NeedsReview }
-    val overallPending = currentGigs.size - overallMetal - overallOther - overallNeedsReview
 
     println("Overall (${currentGigs.size} current gigs):")
-    println("  Metal:        $overallMetal")
-    println("  Other:        $overallOther")
-    println("  Pending:      $overallPending")
-    println("  Needs review: $overallNeedsReview")
+    println("  Metal:   $overallMetal")
+    println("  Other:   $overallOther")
+    println("  Pending: ${currentGigs.size - overallMetal - overallOther}")
 }
 
 fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Boolean = false) {
@@ -218,7 +209,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
             "  ${gig.date()}  ${gig.venue}  ${gig.title}\n  $status\n  ${gig.url}"
         }
         val hint = if (shown.size < unresolved.size) " Soonest ${shown.size} (pass full-unresolved to see all)" else ""
-        error("${unresolved.size} upcoming gig(s) not yet resolved (pending, or needing review) - run classify/override first, or pass force to render anyway.$hint:\n$listing")
+        error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
     val renderer = HandlebarsTemplates().CachingClasspath()
