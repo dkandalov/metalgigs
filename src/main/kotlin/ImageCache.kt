@@ -1,6 +1,4 @@
 import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
 import java.io.File
 import java.security.MessageDigest
 
@@ -9,20 +7,18 @@ private fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z
 private fun shortHash(value: String): String =
     MessageDigest.getInstance("SHA-256").digest(value.toByteArray()).joinToString("") { "%02x".format(it) }.take(8)
 
-fun localImageFileName(gig: GigEvent): String {
-    val extension = gig.imageUrl.substringBefore('?').substringAfterLast('.', "jpg")
-    return "${gig.date()}-${slug(gig.venue)}-${shortHash(gig.imageUrl)}.$extension"
-}
+// the extension of the URL's own path, ignoring any query string; used both as the local cache
+// file's extension and (elsewhere) to infer the image's mime type
+fun imageUrlExtension(url: String): String = url.substringBefore('?').substringAfterLast('.', "jpg")
+
+fun localImageFileName(gig: GigEvent): String =
+    "${gig.date()}-${slug(gig.venue)}-${shortHash(gig.imageUrl)}.${imageUrlExtension(gig.imageUrl)}"
 
 fun cacheImage(client: HttpHandler, gig: GigEvent, cacheDir: File): File {
     val file = File(cacheDir, localImageFileName(gig))
     if (!file.exists()) {
         cacheDir.mkdirs()
-        val response = client(Request(GET, gig.imageUrl))
-        check(response.status.successful) {
-            "Failed to download image for \"${gig.title}\" at ${gig.venue} (${gig.imageUrl}): ${response.status}"
-        }
-        file.writeBytes(response.body.stream.readBytes())
+        file.writeBytes(fetchBytes(client, gig.imageUrl, "image for \"${gig.title}\" at ${gig.venue} (${gig.imageUrl})"))
     }
     return file
 }

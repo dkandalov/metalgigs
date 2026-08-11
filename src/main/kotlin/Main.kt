@@ -16,6 +16,12 @@ import java.time.LocalDate
 fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, String>> = emptyList()): String =
     client(headers.fold(Request(GET, url)) { request, (name, value) -> request.header(name, value) }).bodyString()
 
+fun fetchBytes(client: HttpHandler, url: String, errorContext: String = url): ByteArray {
+    val response = client(Request(GET, url))
+    check(response.status.successful) { "Failed to fetch $errorContext: ${response.status}" }
+    return response.body.stream.readBytes()
+}
+
 private val eventsFile = File("events.ndjson")
 private val imagesDir = File("images")
 

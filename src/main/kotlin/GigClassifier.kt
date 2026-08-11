@@ -11,8 +11,6 @@ import org.http4k.ai.model.Temperature
 import org.http4k.connect.model.Base64Blob
 import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.time.Instant
@@ -73,18 +71,15 @@ private const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
 private fun mimeTypeForImageUrl(url: String) =
-    when (url.substringBefore('?').substringAfterLast('.', "jpg").lowercase()) {
+    when (imageUrlExtension(url).lowercase()) {
         "png" -> MimeType.IMAGE_PNG
         "gif" -> MimeType.IMAGE_GIF
         "webp" -> MimeType.IMAGE_WEBP
         else -> MimeType.IMAGE_JPG
     }
 
-private fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
-    val response = client(Request(GET, imageUrl))
-    check(response.status.successful) { "Failed to fetch poster image at $imageUrl: ${response.status}" }
-    return Content.Image(Resource.Binary(Base64Blob.encode(response.body.stream.readBytes()), mimeTypeForImageUrl(imageUrl)))
-}
+private fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image =
+    Content.Image(Resource.Binary(Base64Blob.encode(fetchBytes(client, imageUrl, "poster image at $imageUrl")), mimeTypeForImageUrl(imageUrl)))
 
 fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
