@@ -571,4 +571,34 @@ class GigsSourceTest {
         expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
         expectThat(events.count { !it.url.startsWith("https://www.ticketmaster.co.uk/") }).isEqualTo(3)
     }
+
+    @Test
+    fun `extracts gig events from both O2 Academy Islington rooms, which share one listing`() {
+        val events = assertScrapesGigs(
+            source = O2AcademyIslingtonGigsSource(cachedClient()),
+            // the main room and the smaller Academy2 upstairs, listed together as the site does
+            size = 83,
+            first = GigEvent(
+                title = "OCT (On Company Time) UK Tour",
+                venue = "O2 Academy Islington",
+                year = 2026,
+                month = "Aug",
+                day = "29",
+                url = "https://www.ticketmaster.co.uk/event/3E00646A8FB52ACA",
+                imageUrl = "https://dynamicmedia.livenationinternational.com/v/v/w/023063cb-a764-4f67-9d96-075a1bd3d454.jpg",
+            ),
+            last = GigEvent(
+                title = "The Reggae Orchestra comes to London",
+                venue = "O2 Academy Islington",
+                year = 2027,
+                month = "May",
+                day = "01",
+                url = "https://www.ticketmaster.co.uk/event/3E0064F5350835B8",
+                imageUrl = "https://dynamicmedia.livenationinternational.com/m/a/b/e51bb674-c586-4164-9477-c725574f74ca.jpg",
+            ),
+            urlPrefix = "https://www.ticketmaster.co.uk/event/",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(4)
+    }
 }
