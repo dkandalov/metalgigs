@@ -155,9 +155,19 @@ fun pruneOrphanedImages() {
     println("${orphaned.size} orphaned image(s) removed")
 }
 
-fun renderGigsHtml(today: LocalDate = LocalDate.now()) {
-    val renderer = HandlebarsTemplates().CachingClasspath()
+fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false) {
     val entries = readGigLogEntries(eventsFile)
+    val statusByGig = classificationStatusByGig(entries)
+    val upcomingGigs = excludeGigsInThePast(projectCurrentGigs(entries), today)
+    val unresolved = upcomingGigs.filter { gig -> statusByGig[gig.venue to gig.url] !is ClassificationStatus.Classified }
+
+    if (unresolved.isNotEmpty() && !force) {
+        val soonest = unresolved.sortedBy { it.date() }.take(5)
+            .joinToString("\n") { "  ${it.date()}  ${it.venue}  ${it.title}" }
+        error("${unresolved.size} upcoming gig(s) not yet resolved (Pending or Disputed) - run classify/override first, or pass force to render anyway. Soonest:\n$soonest")
+    }
+
+    val renderer = HandlebarsTemplates().CachingClasspath()
     val gigs = excludeGigsInThePast(projectMetalGigs(entries), today)
     File("index.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
@@ -169,8 +179,9 @@ fun main(args: Array<String>) {
         "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
         "classify" -> classifyUnclassifiedGigs(limit = args.getOrNull(1)?.toIntOrNull())
         "render" -> {
-            val today = args.drop(1).firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
-            renderGigsHtml(today = today ?: LocalDate.now())
+            val renderArgs = args.drop(1)
+            val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
+            renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"))
         }
         "unclassified" -> reportUnclassifiedGigs(limit = args.getOrNull(1)?.toIntOrNull())
         "override" -> {
@@ -188,6 +199,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify [limit]|render [yyyy-mm-dd]|unclassified [limit]|override <url> <genre>|prune-images|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify [limit]|render [yyyy-mm-dd] [force]|unclassified [limit]|override <url> <genre>|prune-images|all]")
     }
 }
