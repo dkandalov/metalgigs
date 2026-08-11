@@ -226,9 +226,8 @@ private fun decodeArgs(rawArgs: Array<String>): List<String> =
 
 fun main(rawArgs: Array<String>) {
     val args = decodeArgs(rawArgs)
-    val mode = args.firstOrNull() ?: "all"
 
-    when (mode) {
+    when (args.firstOrNull()) {
         "scrape" -> {
             val scrapeArgs = args.drop(1)
             scrapeGigs(venueKeys = (scrapeArgs - "force").toSet(), force = scrapeArgs.contains("force"))
@@ -259,11 +258,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
             }
         }
-        "all" -> {
-            scrapeGigs()
-            classifyUnclassifiedGigs()
-            renderGigsHtml()
-        }
-        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|ingest-poster <imageUrl> <sourceUrl> <venue> [force]|all]")
+        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
     }
 }
