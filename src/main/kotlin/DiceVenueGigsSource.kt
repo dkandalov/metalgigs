@@ -67,7 +67,7 @@ private object JDiceNextData : JAny<DiceNextData>() {
 }
 
 // shared by every dice.fm venue page; the venue-specific classes below just supply url/venue
-class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, private val venue: String) : GigsSource {
+class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: String) : GigsSource {
 
     // dice.fm blocks requests without a browser-like User-Agent
     private val browserUserAgent =

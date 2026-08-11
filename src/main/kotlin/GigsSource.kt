@@ -74,12 +74,13 @@ private fun Element.squarespaceThumbnailUrl(): String {
 }
 
 interface GigsSource {
+    val venue: String
     fun latestGigs(): List<GigEvent>
 }
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://www.cartandhorses.london/news-offers-events/"
-    private val venue = "Cart & Horses"
+    override val venue = "Cart & Horses"
 
     override fun latestGigs(): List<GigEvent> {
         var currentYear = year
@@ -108,7 +109,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
 
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.newcrossinn.com/gigs/"
-    private val venue = "New Cross Inn"
+    override val venue = "New Cross Inn"
 
     private val datePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
 
@@ -131,7 +132,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by every Squarespace "Events List" venue page; the venue-specific classes below just
 // supply url/venue
-class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, private val venue: String) : GigsSource {
+class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: String) : GigsSource {
     override fun latestGigs(): List<GigEvent> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("article.eventlist-event--upcoming")
@@ -155,7 +156,7 @@ class DomeLondonGigsSource(client: HttpHandler) :
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.theunderworldcamden.co.uk/search-events/"
-    private val venue = "The Underworld"
+    override val venue = "The Underworld"
 
     // the site blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -177,7 +178,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
 
 class ElectricBallroomGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://electricballroom.co.uk/whats-on/"
-    private val venue = "Electric Ballroom"
+    override val venue = "Electric Ballroom"
 
     // dates have no year, e.g. "Thursday 13th August"; ordinal suffix is discarded
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
@@ -208,7 +209,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
 
 class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://dingwalls.com/whats-on/"
-    private val venue = "Dingwalls"
+    override val venue = "Dingwalls"
 
     // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
     // September 2026", "Saturday 26th September, 2026 (Afternoon Show)"
@@ -232,7 +233,7 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
 
 class TheGarageGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.thegarage.london/live/"
-    private val venue = "The Garage"
+    override val venue = "The Garage"
 
     // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
@@ -256,7 +257,7 @@ class TheGarageGigsSource(private val client: HttpHandler) : GigsSource {
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.roundhouse.org.uk/whats-on/"
-    private val venue = "Roundhouse"
+    override val venue = "Roundhouse"
 
     // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
     private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")

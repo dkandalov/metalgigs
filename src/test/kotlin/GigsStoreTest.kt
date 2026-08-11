@@ -77,6 +77,25 @@ class GigsStoreTest {
     }
 
     @Test
+    fun `derives last-scraped time per venue from the latest observation, ignoring venues never observed`() {
+        val gigA1 = GigEvent(title = "Gig A1", venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/a1", imageUrl = "")
+        val gigA2 = GigEvent(title = "Gig A2", venue = "Venue A", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/a2", imageUrl = "")
+        val gigB = GigEvent(title = "Gig B", venue = "Venue B", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/b", imageUrl = "")
+        val events: List<GigLogEntry> = listOf(
+            GigObserved(gigA1, Instant.parse("2026-07-01T00:00:00Z")),
+            GigObserved(gigA2, Instant.parse("2026-07-10T00:00:00Z")),
+            GigObserved(gigB, Instant.parse("2026-07-05T00:00:00Z")),
+        )
+
+        val lastScrapedAt = lastScrapedAt(events)
+
+        expectThat(lastScrapedAt).isEqualTo(
+            mapOf("Venue A" to Instant.parse("2026-07-10T00:00:00Z"), "Venue B" to Instant.parse("2026-07-05T00:00:00Z")),
+        )
+        expectThat(lastScrapedAt["Venue Never Scraped"]).isEqualTo(null)
+    }
+
+    @Test
     fun `projects metal gigs only where Keywords and LLM agree`() {
         val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/never-classified", imageUrl = "")
         val agreedMetal = GigEvent(title = "Agreed Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/agreed-metal", imageUrl = "")

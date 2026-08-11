@@ -11,6 +11,7 @@ import com.ubertob.kondor.json.str
 import com.ubertob.kondor.json.toNdJson
 import java.io.File
 import java.io.FileWriter
+import java.time.Instant
 
 object JGigEvent : JAny<GigEvent>() {
     private val title by str(GigEvent::title)
@@ -94,6 +95,15 @@ fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEv
     val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
     return scrapedGigs.filter { gig -> latestByGig[gig.id] != gig }
 }
+
+// when each venue was last seen changing - an approximation of "last scraped" derived from
+// GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
+// longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
+// scraped a bit more often than strictly necessary, never less
+fun lastScrapedAt(entries: List<GigLogEntry>): Map<String, Instant> =
+    entries.filterIsInstance<GigObserved>()
+        .groupBy { it.venue }
+        .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
 sealed interface ClassificationStatus {
     data class Classified(val genre: Genre) : ClassificationStatus

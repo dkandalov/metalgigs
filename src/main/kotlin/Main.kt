@@ -10,6 +10,7 @@ import org.http4k.core.then
 import org.http4k.filter.ClientFilters
 import org.http4k.template.HandlebarsTemplates
 import java.io.File
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 
@@ -40,7 +41,9 @@ private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
     "roundhouse" to RoundhouseGigsSource(client),
 )
 
-fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
+private val scrapeCooldown: Duration = Duration.ofDays(1)
+
+fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val sourcesByKey = sourcesByKey(client)
 
@@ -48,12 +51,20 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet()) {
     check(unknownKeys.isEmpty()) { "Unknown venue key(s): $unknownKeys. Known venue keys: ${sourcesByKey.keys}" }
     val sources = if (venueKeys.isEmpty()) sourcesByKey.values.toList() else venueKeys.map { sourcesByKey.getValue(it) }
 
-    val gigs = sources.flatMap { it.latestGigs() }
+    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+    val lastScrapedAt = lastScrapedAt(existingEntries)
+    val now = Instant.now()
+
+    val (skipped, toScrape) = sources.partition { source ->
+        !force && lastScrapedAt[source.venue]?.isAfter(now.minus(scrapeCooldown)) == true
+    }
+    skipped.forEach { source -> println("Skipping ${source.venue} - scraped within the last day; pass force to scrape anyway") }
+
+    val gigs = toScrape.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
 
-    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
     val newOrChanged = newOrChangedGigs(existingEntries, gigs)
-    appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, Instant.now()) })
+    appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, now) })
 }
 
 fun classifyUnclassifiedGigs(limit: Int? = null) {
@@ -168,7 +179,10 @@ fun main(args: Array<String>) {
     val mode = args.firstOrNull() ?: "all"
 
     when (mode) {
-        "scrape" -> scrapeGigs(venueKeys = args.drop(1).toSet())
+        "scrape" -> {
+            val scrapeArgs = args.drop(1)
+            scrapeGigs(venueKeys = (scrapeArgs - "force").toSet(), force = scrapeArgs.contains("force"))
+        }
         "classify" -> classifyUnclassifiedGigs(limit = args.getOrNull(1)?.toIntOrNull())
         "render" -> {
             val renderArgs = args.drop(1)
@@ -190,6 +204,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|all]")
+        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|all]")
     }
 }
