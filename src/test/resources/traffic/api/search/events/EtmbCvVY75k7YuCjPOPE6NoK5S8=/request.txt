@@ -1,0 +1,3 @@
+GET https://www.academymusicgroup.com/api/search/events?VenueIds=4051&IncludePostponed=true&IncludeCancelled=true&PageSize=500&Page=1 HTTP/1.1
+
+

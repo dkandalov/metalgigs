@@ -85,3 +85,6 @@ class O2AcademyBrixtonGigsSource(client: HttpHandler) :
 // site itself presents them
 class O2AcademyIslingtonGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4361, 4258, venue = "O2 Academy Islington")
+
+class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
+    GigsSource by AmgVenueGigsSource(client, 4051, venue = "O2 Shepherd's Bush Empire")

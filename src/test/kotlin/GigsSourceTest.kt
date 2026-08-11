@@ -601,4 +601,36 @@ class GigsSourceTest {
 
         expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(4)
     }
+
+    @Test
+    fun `extracts gig events from the O2 Shepherd's Bush Empire events api`() {
+        val events = assertScrapesGigs(
+            source = O2ShepherdsBushEmpireGigsSource(cachedClient()),
+            size = 95,
+            first = GigEvent(
+                title = "AFI",
+                venue = "O2 Shepherd's Bush Empire",
+                year = 2026,
+                month = "Aug",
+                day = "20",
+                url = "https://www.ticketmaster.co.uk/event/3E0064AFD611527C",
+                imageUrl = "https://dynamicmedia.livenationinternational.com/s/x/l/353f9994-6437-4ccd-b401-a48c39f23a4b.jpg",
+            ),
+            last = GigEvent(
+                title = "Clearwater Creedence Revival: '60th Anniversary of C.C.R' Tour 2027",
+                venue = "O2 Shepherd's Bush Empire",
+                year = 2027,
+                month = "Nov",
+                day = "27",
+                url = "https://www.ticketmaster.co.uk/event/3E0064D0EB10676E",
+                imageUrl = "https://dynamicmedia.livenationinternational.com/e/o/k/21247638-dba8-45ed-9a31-5943a3bf78a6.png",
+            ),
+            // not the usual "/event/<id>" for every gig here - one is a slug-style ticketmaster
+            // link instead, so only the host is common to them all
+            urlPrefix = "https://www.ticketmaster.co.uk/",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(2)
+        expectThat(events.count { !it.url.startsWith("https://www.ticketmaster.co.uk/event/") }).isEqualTo(1)
+    }
 }
