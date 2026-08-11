@@ -253,3 +253,27 @@ class TheGarageGigsSource(private val client: HttpHandler) : GigsSource {
                 )
             }
 }
+
+class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://www.roundhouse.org.uk/whats-on/"
+    private val venue = "Roundhouse"
+
+    // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
+    private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select(".event-card")
+            .map { item ->
+                val link = item.select(".event-card__link")
+                val (day, monthName, year) = datePattern.find(item.select(".event-card__date").text())!!.destructured
+
+                GigEvent.of(
+                    title = item.select(".event-card__title").text(),
+                    venue = venue,
+                    date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
+                    url = link.attr("abs:href"),
+                    imageUrl = item.select(".event-card__image img").attr("abs:src"),
+                )
+            }
+}

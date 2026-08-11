@@ -360,4 +360,31 @@ class GigsSourceTest {
 
         expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
     }
+
+    @Test
+    fun `extracts gig events from the Roundhouse whats-on page`() {
+        assertScrapesGigs(
+            source = RoundhouseGigsSource(cachedClient()),
+            size = 9,
+            first = GigEvent(
+                title = "Centre 59 Theatre Week (15-17s)",
+                venue = "Roundhouse",
+                year = 2026,
+                month = "Aug",
+                day = "12",
+                url = "https://www.roundhouse.org.uk/whats-on/c59-theatre-week-15-17-sh26/",
+                imageUrl = "https://assets.roundhouse.org.uk/app/uploads/2026/05/C59-15-17-1260x1280.jpg",
+            ),
+            last = GigEvent(
+                title = "Open DAW Series: Ableton for Intermediates",
+                venue = "Roundhouse",
+                year = 2026,
+                month = "Aug",
+                day = "17",
+                url = "https://www.roundhouse.org.uk/whats-on/open-daw-ableton-18-25-sh26/",
+                imageUrl = "https://assets.roundhouse.org.uk/app/uploads/2026/05/Open-DAWs-18-to-25-1260x1280.png",
+            ),
+            urlPrefix = "https://www.roundhouse.org.uk/whats-on/",
+        )
+    }
 }
