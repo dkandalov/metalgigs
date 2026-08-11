@@ -5,9 +5,9 @@ import com.ubertob.kondor.json.str
 import org.http4k.core.HttpHandler
 import java.time.OffsetDateTime
 
-// the venue's listing page is a Next.js SPA that renders nothing server-side and paginates
-// client-side, but it feeds itself from this plain JSON API, which happily serves every event in
-// one request - so we call that directly rather than rendering the page and paging through it
+// AMG's venue listing pages are Next.js SPAs that render nothing server-side and paginate
+// client-side, but they feed themselves from this plain JSON API, which happily serves every event
+// in one request - so we call that directly rather than rendering a page and paging through it
 private data class AmgTicket(val ticketUrl: String)
 private data class AmgEvent(val name: String, val eventDate: String, val image: String, val tickets: List<AmgTicket>)
 private data class AmgSearchResults(val documents: List<AmgEvent>)
@@ -36,19 +36,25 @@ private object JAmgSearchResults : JAny<AmgSearchResults>() {
     override fun JsonNodeObject.deserializeOrThrow() = AmgSearchResults(documents = +documents)
 }
 
-class O2ForumKentishTownGigsSource(private val client: HttpHandler) : GigsSource {
-    override val venue = "O2 Forum Kentish Town"
-
-    // PageSize is well above the ~90 events actually listed, so everything comes back in one page
+// shared by every Academy Music Group venue; the venue-specific classes below just supply the
+// venue's own id (as seen in the API's own venue objects) and display name
+class AmgVenueGigsSource(private val client: HttpHandler, venueId: Int, override val venue: String) : GigsSource {
+    // PageSize is well above what any one venue actually lists, so everything comes back in one
+    // page - the listing page itself paginates client-side, but the API needn't
     private val url = "https://www.academymusicgroup.com/api/search/events" +
-        "?VenueIds=5597&IncludePostponed=true&IncludeCancelled=true" +
-        "&Url=%2Fo2forumkentishtown%2Fevents&PageSize=500&Page=1"
+        "?VenueIds=$venueId&IncludePostponed=true&IncludeCancelled=true&PageSize=500&Page=1"
 
     override fun latestGigs(): List<GigEvent> {
         val results = JAmgSearchResults.fromJson(fetchPage(client, url)).orThrow()
         check(results.documents.isNotEmpty()) { "No events returned by $url" }
 
-        return results.documents.map { event ->
+        // an event whose ticket sales have closed (typically one happening today) is listed with no
+        // tickets at all, leaving it with neither a stable identity nor a link worth rendering, so
+        // it's dropped rather than failing the venue's whole scrape over a normal end-of-life state
+        val (ticketed, ticketless) = results.documents.partition { it.tickets.isNotEmpty() }
+        if (ticketless.isNotEmpty()) println("Skipping ${ticketless.size} $venue gig(s) with no ticket link: ${ticketless.joinToString { it.name }}")
+
+        return ticketed.map { event ->
             GigEvent.of(
                 title = event.name,
                 venue = venue,
@@ -66,3 +72,9 @@ class O2ForumKentishTownGigsSource(private val client: HttpHandler) : GigsSource
         }
     }
 }
+
+class O2ForumKentishTownGigsSource(client: HttpHandler) :
+    GigsSource by AmgVenueGigsSource(client, venueId = 5597, venue = "O2 Forum Kentish Town")
+
+class O2AcademyBrixtonGigsSource(client: HttpHandler) :
+    GigsSource by AmgVenueGigsSource(client, venueId = 3919, venue = "O2 Academy Brixton")

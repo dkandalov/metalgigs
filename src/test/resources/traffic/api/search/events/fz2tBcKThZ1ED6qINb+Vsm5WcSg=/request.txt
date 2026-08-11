@@ -1,3 +1,0 @@
-GET https://www.academymusicgroup.com/api/search/events?VenueIds=5597&IncludePostponed=true&IncludeCancelled=true&Url=%2Fo2forumkentishtown%2Fevents&PageSize=500&Page=1 HTTP/1.1
-
-

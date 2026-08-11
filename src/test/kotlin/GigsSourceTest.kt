@@ -447,18 +447,20 @@ class GigsSourceTest {
     }
 
     @Test
-    fun `extracts gig events from the O2 Forum Kentish Town events api`() {
+    fun `extracts gig events from the O2 Forum Kentish Town events api, skipping ones with no ticket link`() {
         val events = assertScrapesGigs(
             source = O2ForumKentishTownGigsSource(cachedClient()),
-            size = 88,
+            // 88 events are listed, but one happening today has closed its ticket sales and comes
+            // back with no tickets at all, so it has no url to identify or link it by
+            size = 87,
             first = GigEvent(
-                title = "Davido: A Royal Night in London",
+                title = "Ronnie Wood & His Band featuring Imelda May",
                 venue = "O2 Forum Kentish Town",
                 year = 2026,
                 month = "Aug",
-                day = "11",
-                url = "https://www.ticketmaster.co.uk/event/3E0064EADF473D89",
-                imageUrl = "https://dynamicmedia.livenationinternational.com/c/a/q/4378d09e-ce1e-4e17-91a8-27094d497b78.jpg",
+                day = "21",
+                url = "https://www.ticketmaster.co.uk/event/3E00648FA8A634C8",
+                imageUrl = "https://dynamicmedia.livenationinternational.com/g/v/y/79807d88-4cc2-4da8-acda-d434e0df08b2.jpg",
             ),
             last = GigEvent(
                 title = "MASS OF THE FERMENTING DREGS",
@@ -473,5 +475,37 @@ class GigsSourceTest {
         )
 
         expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(3)
+    }
+
+    @Test
+    fun `extracts gig events from the O2 Academy Brixton events api`() {
+        val events = assertScrapesGigs(
+            source = O2AcademyBrixtonGigsSource(cachedClient()),
+            size = 67,
+            first = GigEvent(
+                title = "Primus",
+                venue = "O2 Academy Brixton",
+                year = 2026,
+                month = "Aug",
+                day = "19",
+                url = "https://www.ticketmaster.co.uk/event/3E006464ACEB4803",
+                imageUrl = "",
+            ),
+            last = GigEvent(
+                title = "Loreen: THE WILDFIRE TOUR",
+                venue = "O2 Academy Brixton",
+                year = 2026,
+                month = "Sep",
+                day = "26",
+                url = "https://www.ticketmaster.co.uk/event/3E006452FC929180",
+                imageUrl = "https://dynamicmedia.livenationinternational.com/i/l/u/977ca756-1a25-4148-b46a-e2667effd53f.jpg",
+            ),
+            // unlike every other venue so far, these gigs don't share one url prefix: most sell via
+            // ticketmaster but a few link elsewhere entirely, and a couple are http rather than https
+            urlPrefix = "http",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
+        expectThat(events.count { !it.url.startsWith("https://www.ticketmaster.co.uk/") }).isEqualTo(3)
     }
 }
