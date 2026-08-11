@@ -387,4 +387,62 @@ class GigsSourceTest {
             urlPrefix = "https://www.roundhouse.org.uk/whats-on/",
         )
     }
+
+    @Test
+    fun `extracts only Blackhorse Road gigs from the shared Signature Brew events page`() {
+        val events = assertScrapesGigs(
+            source = SignatureBrewBlackhorseRoadGigsSource(cachedClient()),
+            size = 29,
+            first = GigEvent(
+                title = "Suntrap Sessions 2026",
+                venue = "Signature Brew Blackhorse Road",
+                year = 2026,
+                month = "Jul",
+                day = "27",
+                url = "https://tixr.com/e/187182",
+                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/69eb41b1e30251cb31bc631e_7c5b19cb-cd0d-4947-babe-8eed3af2ea87.webp",
+            ),
+            last = GigEvent(
+                title = "Dig It Up by The Allergies | London",
+                venue = "Signature Brew Blackhorse Road",
+                year = 2027,
+                month = "Apr",
+                day = "17",
+                url = "https://tixr.com/e/198560",
+                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/6a50e7034103b50e0c99a81a_a357afab-1215-423f-be75-579554bd88fb.webp",
+            ),
+            urlPrefix = "https://tixr.com/e/",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
+    }
+
+    @Test
+    fun `extracts only Haggerston gigs from the shared Signature Brew events page`() {
+        val events = assertScrapesGigs(
+            source = SignatureBrewHaggerstonGigsSource(cachedClient()),
+            size = 55,
+            first = GigEvent(
+                title = "Signature Brew Waterfront - Haggerston's Canalside Terrace",
+                venue = "Signature Brew Haggerston",
+                year = 2026,
+                month = "Jul",
+                day = "27",
+                url = "https://tixr.com/e/186035",
+                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/69e0d1a8d35c853ece44eee1_78d4ade1-c3f1-4277-953e-1bebf8329075.webp",
+            ),
+            last = GigEvent(
+                title = "DUCK & DIVE FESTIVAL 2027 | LONDON",
+                venue = "Signature Brew Haggerston",
+                year = 2027,
+                month = "Feb",
+                day = "26",
+                url = "https://tixr.com/e/176800",
+                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/6a57a1a53ae33eb0a8b6c494_df8eea81-0037-4763-8407-53609ce233be.webp",
+            ),
+            urlPrefix = "https://tixr.com/e/",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
+    }
 }

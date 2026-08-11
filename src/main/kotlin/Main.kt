@@ -39,6 +39,8 @@ private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
     "dingwalls" to DingwallsGigsSource(client),
     "the-garage" to TheGarageGigsSource(client),
     "roundhouse" to RoundhouseGigsSource(client),
+    "signature-brew-blackhorse-road" to SignatureBrewBlackhorseRoadGigsSource(client),
+    "signature-brew-haggerston" to SignatureBrewHaggerstonGigsSource(client),
 )
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)

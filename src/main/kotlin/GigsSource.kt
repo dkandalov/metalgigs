@@ -4,6 +4,7 @@ import org.jsoup.nodes.Element
 import java.time.Instant
 import java.time.LocalDate
 import java.time.Month
+import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -278,3 +279,36 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                 )
             }
 }
+
+// shared by both Signature Brew taprooms - they're listed together on one page, each event
+// tagged with its own venue name, so the venue-specific classes below just filter by that
+class SignatureBrewGigsSource(private val client: HttpHandler, override val venue: String) : GigsSource {
+    private val url = "https://events.signaturebrew.co.uk/"
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH)
+
+    // e.g. background-image:url("...") on some events, background-image:none on others (no poster)
+    private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select(".cal-info.w-dyn-item")
+            .filter { item -> item.select(".venuename").text() == venue }
+            .map { item ->
+                val link = item.select("a.button.white.w-button")
+
+                GigEvent.of(
+                    title = item.select(".b-show").text(),
+                    venue = venue,
+                    date = LocalDate.parse(item.select(".dates p.months.date:not(.hide)").text(), dateFormatter),
+                    url = link.attr("abs:href"),
+                    imageUrl = backgroundImageUrlPattern.find(item.select(".poster").attr("style"))?.groupValues?.get(1) ?: "",
+                )
+            }
+}
+
+class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
+    GigsSource by SignatureBrewGigsSource(client, venue = "Signature Brew Blackhorse Road")
+
+class SignatureBrewHaggerstonGigsSource(client: HttpHandler) :
+    GigsSource by SignatureBrewGigsSource(client, venue = "Signature Brew Haggerston")
