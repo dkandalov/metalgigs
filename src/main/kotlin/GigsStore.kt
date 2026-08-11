@@ -112,8 +112,17 @@ fun alreadyIngested(entries: List<GigLogEntry>, sourceUrl: String): Boolean =
 
 sealed interface ClassificationStatus {
     data class Classified(val genre: Genre) : ClassificationStatus
-    data object Disputed : ClassificationStatus
-    data object Pending : ClassificationStatus
+
+    // carries each classifier's verdict, so a report can say what they actually disagreed about
+    data class Disputed(val keywordsGenre: Genre, val llmGenre: Genre) : ClassificationStatus {
+        override fun toString() = "Disputed (Keywords=$keywordsGenre, LLM=$llmGenre)"
+    }
+
+    // carries the classifiers yet to run, to distinguish "never classified at all" from
+    // "one of the two is still outstanding"
+    data class Pending(val awaiting: List<ClassificationSource>) : ClassificationStatus {
+        override fun toString() = "Pending (awaiting ${awaiting.joinToString("/")})"
+    }
 }
 
 // a User classification is always final, regardless of what Keywords/LLM said; otherwise a gig
@@ -127,9 +136,14 @@ private fun classificationStatus(classifications: List<GigClassified>): Classifi
     val keywordsGenre = latestGenreBySource[ClassificationSource.Keywords]
     val llmGenre = latestGenreBySource[ClassificationSource.LLM]
     return when {
-        keywordsGenre == null || llmGenre == null -> ClassificationStatus.Pending
+        keywordsGenre == null || llmGenre == null -> ClassificationStatus.Pending(
+            awaiting = listOfNotNull(
+                ClassificationSource.Keywords.takeIf { keywordsGenre == null },
+                ClassificationSource.LLM.takeIf { llmGenre == null },
+            ),
+        )
         keywordsGenre == llmGenre -> ClassificationStatus.Classified(keywordsGenre)
-        else -> ClassificationStatus.Disputed
+        else -> ClassificationStatus.Disputed(keywordsGenre, llmGenre)
     }
 }
 

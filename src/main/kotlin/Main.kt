@@ -222,7 +222,13 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
 
     if (unresolved.isNotEmpty() && !force) {
         val shown = if (fullUnresolved) unresolved else unresolved.take(5)
-        val listing = shown.joinToString("\n") { "  ${it.date()}  ${it.venue}  ${it.title}\n  ${it.url}" }
+        val listing = shown.joinToString("\n") { gig ->
+            // no entry at all means neither classifier has run - reported as awaiting both, rather
+            // than as a bare "unclassified" that doesn't say what it's waiting for
+            val status = statusByGig[gig.id]
+                ?: ClassificationStatus.Pending(listOf(ClassificationSource.Keywords, ClassificationSource.LLM))
+            "  ${gig.date()}  ${gig.venue}  ${gig.title}\n  $status\n  ${gig.url}"
+        }
         val hint = if (shown.size < unresolved.size) " Soonest ${shown.size} (pass full-unresolved to see all)" else ""
         error("${unresolved.size} upcoming gig(s) not yet resolved (Pending or Disputed) - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }

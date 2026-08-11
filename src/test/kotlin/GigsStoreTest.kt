@@ -155,8 +155,8 @@ class GigsStoreTest {
 
         expectThat(statusByGig[agreedMetal.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
         expectThat(statusByGig[agreedOther.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
-        expectThat(statusByGig[pendingLLM.id]).isEqualTo(ClassificationStatus.Pending)
-        expectThat(statusByGig[disputed.id]).isEqualTo(ClassificationStatus.Disputed)
+        expectThat(statusByGig[pendingLLM.id]).isEqualTo(ClassificationStatus.Pending(listOf(ClassificationSource.LLM)))
+        expectThat(statusByGig[disputed.id]).isEqualTo(ClassificationStatus.Disputed(keywordsGenre = Genre.Metal, llmGenre = Genre.Other))
     }
 
     @Test
