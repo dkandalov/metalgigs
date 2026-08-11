@@ -105,6 +105,11 @@ fun lastScrapedAt(entries: List<GigLogEntry>): Map<String, Instant> =
         .groupBy { it.venue }
         .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
+// has a poster from this source url already been ingested? - every gig from one poster shares a
+// "{sourceUrl}#..." url (see posterGigUrl), so one prefix check covers the whole poster
+fun alreadyIngested(entries: List<GigLogEntry>, sourceUrl: String): Boolean =
+    entries.any { it.url.startsWith("$sourceUrl#") }
+
 sealed interface ClassificationStatus {
     data class Classified(val genre: Genre) : ClassificationStatus
     data object Disputed : ClassificationStatus

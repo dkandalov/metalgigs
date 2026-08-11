@@ -131,6 +131,36 @@ private fun printClassificationSummary(
     println("  Disputed: $overallDisputed")
 }
 
+fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Boolean = false) {
+    val client = ClientFilters.FollowRedirects().then(OkHttp())
+    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+
+    if (!force && alreadyIngested(existingEntries, sourceUrl)) {
+        println("Skipping - $sourceUrl already ingested; pass force to re-ingest anyway")
+        return
+    }
+
+    val apiKey = ApiKey.of(
+        System.getenv("ANTHROPIC_API_KEY")
+            ?: error("ANTHROPIC_API_KEY environment variable is required for poster extraction")
+    )
+    val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(posterExtractionSystemPrompt))
+
+    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, venue)
+    gigs.forEach { println(it) }
+
+    val newOrChanged = newOrChangedGigs(existingEntries, gigs)
+    val recordedAt = Instant.now()
+    val observed = newOrChanged.map { GigObserved(it, recordedAt) }
+    val classified = newOrChanged.map { gig ->
+        GigClassified(venue = gig.venue, url = gig.url, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
+    }
+    appendGigLogEntries(eventsFile, observed + classified)
+    cacheGigImages(client, newOrChanged, imagesDir)
+
+    println("${gigs.size} gig(s) extracted from poster, ${newOrChanged.size} new/changed, assumed Metal")
+}
+
 fun overrideGigGenre(url: String, genre: Genre) {
     val entries = readGigLogEntries(eventsFile)
     val gig = projectCurrentGigs(entries).find { it.url == url }
@@ -201,11 +231,21 @@ fun main(args: Array<String>) {
             }
         }
         "prune-images" -> pruneOrphanedImages()
+        "ingest-poster" -> {
+            val posterArgs = args.drop(1)
+            val positional = posterArgs.filterNot { it == "force" }
+            if (positional.size != 3) {
+                println("Usage: ingest-poster <imageUrl> <sourceUrl> <venue> [force]")
+            } else {
+                val (imageUrl, sourceUrl, venue) = positional
+                ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
+            }
+        }
         "all" -> {
             scrapeGigs()
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|all]")
+        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|ingest-poster <imageUrl> <sourceUrl> <venue> [force]|all]")
     }
 }

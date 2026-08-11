@@ -2,7 +2,7 @@ import org.http4k.core.HttpHandler
 import java.io.File
 import java.security.MessageDigest
 
-private fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
+fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
 
 private fun shortHash(value: String): String =
     MessageDigest.getInstance("SHA-256").digest(value.toByteArray()).joinToString("") { "%02x".format(it) }.take(8)

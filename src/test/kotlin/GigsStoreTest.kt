@@ -96,6 +96,15 @@ class GigsStoreTest {
     }
 
     @Test
+    fun `detects an already-ingested poster by its gigs' shared source-url prefix`() {
+        val gig = GigEvent(title = "Doom Night", venue = "Some Venue", year = 2026, month = "Aug", day = "14", url = "https://example.com/post/1#gig-doom-night-2026-08-14", imageUrl = "")
+        val events: List<GigLogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
+
+        expectThat(alreadyIngested(events, "https://example.com/post/1")).isEqualTo(true)
+        expectThat(alreadyIngested(events, "https://example.com/post/2")).isEqualTo(false)
+    }
+
+    @Test
     fun `projects metal gigs only where Keywords and LLM agree`() {
         val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/never-classified", imageUrl = "")
         val agreedMetal = GigEvent(title = "Agreed Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/agreed-metal", imageUrl = "")
