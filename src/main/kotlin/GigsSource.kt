@@ -227,10 +227,9 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-class TheGarageGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.thegarage.london/live/"
-    override val venue = "The Garage"
-
+// shared by DHP Family's venue sites, which all use the same card markup; the venue-specific
+// classes below just supply url/venue
+class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: String) : GigsSource {
     // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
 
@@ -240,16 +239,25 @@ class TheGarageGigsSource(private val client: HttpHandler) : GigsSource {
             .map { item ->
                 val (day, monthName, year) = datePattern.find(item.select(".card__strip-heading").text())!!.destructured
                 val img = item.select(".card__grid-media img")
+                val heading = item.select(".card__heading")
 
                 GigEvent.of(
-                    title = item.select(".card__heading").text(),
+                    title = heading.text(),
                     venue = venue,
                     date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
-                    url = item.select(".card__heading").attr("abs:href"),
+                    // a sold-out gig's heading isn't a link at all - its only link is the "Gig Sold
+                    // Out" notification, which points at the same gig page
+                    url = heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") },
                     imageUrl = img.attr("abs:data-lazy-src").ifBlank { img.attr("abs:src") },
                 )
             }
 }
+
+class TheGarageGigsSource(client: HttpHandler) :
+    GigsSource by DhpVenueGigsSource(client, url = "https://www.thegarage.london/live/", venue = "The Garage")
+
+class TheGraceGigsSource(client: HttpHandler) :
+    GigsSource by DhpVenueGigsSource(client, url = "https://www.thegrace.london/whats-on/", venue = "The Grace")
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.roundhouse.org.uk/whats-on/"

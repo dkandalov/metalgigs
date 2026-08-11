@@ -362,6 +362,69 @@ class GigsSourceTest {
     }
 
     @Test
+    fun `extracts gig events from The Grace whats-on page`() {
+        assertScrapesGigs(
+            source = TheGraceGigsSource(cachedClient()),
+            size = 48,
+            first = GigEvent(
+                title = "FLAMEBEARER",
+                venue = "The Grace",
+                year = 2026,
+                month = "Aug",
+                day = "14",
+                url = "https://www.thegrace.london/gigs/flamebearer-the-grace-london-tickets-2026/",
+                imageUrl = "https://www.thegrace.london/wp-content/uploads/2026/05/FLAMEBEARER_IGNITER_ALBUM_LAUNCH_POSTER_SQUARE_v3_MED_RES_RGB-1-1024x1024.jpg",
+            ),
+            last = GigEvent(
+                title = "DREAMDNVR",
+                venue = "The Grace",
+                year = 2026,
+                month = "Oct",
+                day = "31",
+                url = "https://www.thegrace.london/gigs/dreamdnvr-the-grace-london-tickets-2026/",
+                imageUrl = "https://www.thegrace.london/wp-content/uploads/2026/05/PRESS-PHOTO-DD-3-1-1024x683.jpg",
+            ),
+            urlPrefix = "https://www.thegrace.london/gigs/",
+        )
+    }
+
+    @Test
+    fun `takes a sold-out DHP gig's url from its notification, since its heading isn't a link`() {
+        val html = """
+            <div class="card card--full card--contains-notification">
+              <mark class="notification card__notification">
+                <a href="https://example.com/gigs/sold-out-gig/"><h4 class="notification__title">Gig Sold Out</h4></a>
+              </mark>
+              <div class="card__strip">
+                <h6 class="card__strip-heading">Live</h6>
+                <h6 class="card__strip-heading card__strip-heading--last">Sat.03.Oct.26</h6>
+              </div>
+              <div class="card__grid">
+                <div class="card__grid-media media">
+                  <img data-lazy-src="https://example.com/poster.jpg" />
+                </div>
+                <h4 class="card__heading">SOLD OUT GIG</h4>
+              </div>
+            </div>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+
+        val events = DhpVenueGigsSource(fakeClient, url = "https://example.com/whats-on/", venue = "Some Venue").latestGigs()
+
+        expectThat(events).containsExactly(
+            GigEvent(
+                title = "SOLD OUT GIG",
+                venue = "Some Venue",
+                year = 2026,
+                month = "Oct",
+                day = "03",
+                url = "https://example.com/gigs/sold-out-gig/",
+                imageUrl = "https://example.com/poster.jpg",
+            ),
+        )
+    }
+
+    @Test
     fun `extracts gig events from the Roundhouse whats-on page`() {
         assertScrapesGigs(
             source = RoundhouseGigsSource(cachedClient()),

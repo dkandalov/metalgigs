@@ -8,9 +8,11 @@ import java.io.File
 
 private val fixtures = File("src/test/resources/traffic")
 
-// pages we scrape sometimes embed the site's own third-party API keys (maps, analytics, etc.)
-// in inline JS; scrub those before they're written to disk as recorded test fixtures
-private val secretPattern = Regex("""(\w*(?:API_KEY|SECRET|TOKEN)\w*\s*=\s*)(['"])[^'"]*\2""", RegexOption.IGNORE_CASE)
+// pages we scrape sometimes embed the site's own third-party API keys (maps, analytics, captcha)
+// in inline JS; scrub those before they're written to disk as recorded test fixtures. Covers both
+// the JS assignment form (window.MAPBOX_API_KEY = "...") and the JSON/config form
+// ("maps_api_key":"..."), since sites embed them either way
+private val secretPattern = Regex("""("?\w*(?:API_KEY|SECRET|TOKEN)\w*"?\s*[:=]\s*)(['"])[^'"]*\2""", RegexOption.IGNORE_CASE)
 
 private fun redactSecrets(body: String): String =
     secretPattern.replace(body) { "${it.groupValues[1]}${it.groupValues[2]}REDACTED${it.groupValues[2]}" }

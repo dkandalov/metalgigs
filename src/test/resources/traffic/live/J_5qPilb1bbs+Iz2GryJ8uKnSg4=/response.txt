@@ -1,7 +1,7 @@
 HTTP/1.1 200 OK
 connection: Keep-Alive
 content-type: text/html; charset=UTF-8
-date: Mon, 10 Aug 2026 22:16:18 GMT
+date: Tue, 11 Aug 2026 23:22:45 GMT
 keep-alive: timeout=5, max=100
 link: <https://www.thegarage.london/wp-json/>; rel="https://api.w.org/", <https://www.thegarage.london/wp-json/wp/v2/pages/7>; rel="alternate"; type="application/json", <https://www.thegarage.london/?p=7>; rel=shortlink
 server: Apache/2.4.62 (AlmaLinux) OpenSSL/3.5.5
@@ -1702,7 +1702,7 @@ var sbiajaxurl = "https://www.thegarage.london/wp-admin/admin-ajax.php";
 <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js?ver=3.2.1' id='jquery-js'></script>
 <script type='text/javascript' id='main-js-extra'>
 /* <![CDATA[ */
-var WP = {"site_url":"https:\/\/www.thegarage.london","template_path":"https:\/\/www.thegarage.london\/wp-content\/themes\/dhp","stylesheet_path":"https:\/\/www.thegarage.london\/wp-content\/themes\/dhp","maps_api_key":"AIzaSyB0rZnjWrZrEIuFO0cRoXeneRFswRUH9Bs","maps_custom_marker":"","map_lat":"51.546658","map_long":"-0.1050904","maps_custom_styles":"","address":null,"captcha_api_key":"6Ldmy8YeAAAAAMdm1MY8ltM3u9gZNczZ3Ry4C9RT"};
+var WP = {"site_url":"https:\/\/www.thegarage.london","template_path":"https:\/\/www.thegarage.london\/wp-content\/themes\/dhp","stylesheet_path":"https:\/\/www.thegarage.london\/wp-content\/themes\/dhp","maps_api_key":"REDACTED","maps_custom_marker":"","map_lat":"51.546658","map_long":"-0.1050904","maps_custom_styles":"","address":null,"captcha_api_key":"REDACTED"};
 /* ]]> */
 </script>
 <script type='text/javascript' src='https://www.thegarage.london/wp-content/themes/dhp/build/js/main.min.js' id='main-js'></script>
