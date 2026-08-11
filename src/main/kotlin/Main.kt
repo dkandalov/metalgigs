@@ -74,8 +74,41 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     val afterLLM = afterKeywords + llmClassifications
 
     val affectedKeys = (keywordsClassifications + llmClassifications).map { it.venue to it.url }.toSet()
+    val statusByGig = classificationStatusByGig(afterLLM)
     val newlyMetalGigs = projectMetalGigs(afterLLM).filter { (it.venue to it.url) in affectedKeys }
     cacheGigImages(client, newlyMetalGigs, imagesDir)
+
+    printClassificationSummary(keywordsClassifications, llmClassifications, newlyMetalGigs.size, affectedKeys, currentGigs, statusByGig)
+}
+
+private fun printClassificationSummary(
+    keywordsClassifications: List<GigClassified>,
+    llmClassifications: List<GigClassified>,
+    reachedMetalConsensus: Int,
+    affectedKeys: Set<Pair<String, String>>,
+    currentGigs: List<GigEvent>,
+    statusByGig: Map<Pair<String, String>, ClassificationStatus>,
+) {
+    val newConflicts = affectedKeys.count { key -> statusByGig[key] is ClassificationStatus.Disputed }
+
+    println("Classified this run:")
+    println("  Keywords: ${keywordsClassifications.size} (${keywordsClassifications.count { it.genre == Genre.Metal }} Metal, ${keywordsClassifications.count { it.genre == Genre.Other }} Other)")
+    println("  LLM:      ${llmClassifications.size} (${llmClassifications.count { it.genre == Genre.Metal }} Metal, ${llmClassifications.count { it.genre == Genre.Other }} Other)")
+    println("  Reached Metal consensus: $reachedMetalConsensus")
+    println("  New conflicts (Keywords/LLM disagree): $newConflicts")
+    println()
+
+    val statuses = currentGigs.map { statusByGig[it.venue to it.url] }
+    val overallMetal = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Metal }
+    val overallOther = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Other }
+    val overallDisputed = statuses.count { it is ClassificationStatus.Disputed }
+    val overallPending = currentGigs.size - overallMetal - overallOther - overallDisputed
+
+    println("Overall (${currentGigs.size} current gigs):")
+    println("  Metal:    $overallMetal")
+    println("  Other:    $overallOther")
+    println("  Pending:  $overallPending")
+    println("  Disputed: $overallDisputed")
 }
 
 fun overrideGigGenre(url: String, genre: Genre) {

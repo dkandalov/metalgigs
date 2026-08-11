@@ -118,7 +118,7 @@ private fun classificationStatus(classifications: List<GigClassified>): Classifi
     }
 }
 
-private fun classificationStatusByGig(entries: List<GigLogEntry>): Map<Pair<String, String>, ClassificationStatus> =
+fun classificationStatusByGig(entries: List<GigLogEntry>): Map<Pair<String, String>, ClassificationStatus> =
     entries.filterIsInstance<GigClassified>()
         .groupBy { it.venue to it.url }
         .mapValues { (_, classifications) -> classificationStatus(classifications) }
