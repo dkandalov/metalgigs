@@ -70,8 +70,7 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
         ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
 
     return GigClassified(
-        venue = gig.venue,
-        url = gig.url,
+        id = gig.id,
         recordedAt = recordedAt,
         genre = genre,
         source = ClassificationSource.LLM,

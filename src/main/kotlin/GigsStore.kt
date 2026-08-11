@@ -42,16 +42,17 @@ object JGigObserved : JAny<GigObserved>() {
     )
 }
 
+// GigId is flattened to venue/url rather than nested, matching how GigObserved's own gig object
+// carries them and keeping the on-disk format unchanged
 object JGigClassified : JAny<GigClassified>() {
-    private val venue by str(GigClassified::venue)
-    private val url by str(GigClassified::url)
+    private val venue by str(fun GigClassified.(): String = id.venue)
+    private val url by str(fun GigClassified.(): String = id.url)
     private val recordedAt by str(GigClassified::recordedAt)
     private val genre by str(GigClassified::genre)
     private val source by str(GigClassified::source)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigClassified(
-        venue = +venue,
-        url = +url,
+        id = GigId(+venue, +url),
         recordedAt = +recordedAt,
         genre = +genre,
         source = +source,
@@ -99,13 +100,13 @@ fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEv
 // scraped a bit more often than strictly necessary, never less
 fun lastScrapedAt(entries: List<GigLogEntry>): Map<String, Instant> =
     entries.filterIsInstance<GigObserved>()
-        .groupBy { it.venue }
+        .groupBy { it.id.venue }
         .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
 // has a poster from this source url already been ingested? - every gig from one poster shares a
 // "{sourceUrl}#..." url (see posterGigUrl), so one prefix check covers the whole poster
 fun alreadyIngested(entries: List<GigLogEntry>, sourceUrl: String): Boolean =
-    entries.any { it.url.startsWith("$sourceUrl#") }
+    entries.any { it.id.url.startsWith("$sourceUrl#") }
 
 sealed interface ClassificationStatus {
     data class Classified(val genre: Genre) : ClassificationStatus

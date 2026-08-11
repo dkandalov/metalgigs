@@ -14,7 +14,7 @@ class GigsStoreTest {
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val entries: List<GigLogEntry> = listOf(
             GigObserved(gig, recordedAt),
-            GigClassified(gig.venue, gig.url, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
         )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
@@ -29,7 +29,7 @@ class GigsStoreTest {
         val soldOut = firstSeen.copy(title = "Some Gig - SOLD OUT")
         val events: List<GigLogEntry> = listOf(
             GigObserved(firstSeen, Instant.parse("2026-07-01T00:00:00Z")),
-            GigClassified(firstSeen.venue, firstSeen.url, Instant.parse("2026-07-10T00:00:00Z"), Genre.Metal, ClassificationSource.LLM),
+            GigClassified(firstSeen.id, Instant.parse("2026-07-10T00:00:00Z"), Genre.Metal, ClassificationSource.LLM),
             GigObserved(soldOut, Instant.parse("2026-07-15T00:00:00Z")),
         )
 
@@ -113,9 +113,9 @@ class GigsStoreTest {
         val events: List<GigLogEntry> = listOf(
             GigObserved(neverClassified, recordedAt),
             GigObserved(metal, recordedAt),
-            GigClassified(metal.venue, metal.url, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigClassified(metal.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
             GigObserved(other, recordedAt),
-            GigClassified(other.venue, other.url, recordedAt, Genre.Other, ClassificationSource.LLM),
+            GigClassified(other.id, recordedAt, Genre.Other, ClassificationSource.LLM),
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(listOf(metal))
@@ -129,10 +129,10 @@ class GigsStoreTest {
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
             GigObserved(classified, recordedAt),
-            GigClassified(classified.venue, classified.url, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigClassified(classified.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
             GigObserved(reclassified, recordedAt),
-            GigClassified(reclassified.venue, reclassified.url, recordedAt, Genre.Metal, ClassificationSource.LLM),
-            GigClassified(reclassified.venue, reclassified.url, Instant.parse("2026-07-15T00:00:00Z"), Genre.Other, ClassificationSource.LLM),
+            GigClassified(reclassified.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigClassified(reclassified.id, Instant.parse("2026-07-15T00:00:00Z"), Genre.Other, ClassificationSource.LLM),
             GigObserved(neverClassified, recordedAt),
         )
 
@@ -150,11 +150,11 @@ class GigsStoreTest {
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
             GigObserved(overriddenToMetal, recordedAt),
-            GigClassified(overriddenToMetal.venue, overriddenToMetal.url, recordedAt, Genre.Other, ClassificationSource.LLM),
-            GigClassified(overriddenToMetal.venue, overriddenToMetal.url, recordedAt, Genre.Metal, ClassificationSource.User),
+            GigClassified(overriddenToMetal.id, recordedAt, Genre.Other, ClassificationSource.LLM),
+            GigClassified(overriddenToMetal.id, recordedAt, Genre.Metal, ClassificationSource.User),
             GigObserved(overriddenToOther, recordedAt),
-            GigClassified(overriddenToOther.venue, overriddenToOther.url, recordedAt, Genre.Metal, ClassificationSource.LLM),
-            GigClassified(overriddenToOther.venue, overriddenToOther.url, recordedAt, Genre.Other, ClassificationSource.User),
+            GigClassified(overriddenToOther.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigClassified(overriddenToOther.id, recordedAt, Genre.Other, ClassificationSource.User),
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(listOf(overriddenToMetal))
@@ -169,9 +169,9 @@ class GigsStoreTest {
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
             GigObserved(classified, recordedAt),
-            GigClassified(classified.venue, classified.url, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigClassified(classified.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
             GigObserved(userOverridden, recordedAt),
-            GigClassified(userOverridden.venue, userOverridden.url, recordedAt, Genre.Metal, ClassificationSource.User),
+            GigClassified(userOverridden.id, recordedAt, Genre.Metal, ClassificationSource.User),
             GigObserved(neverClassified, recordedAt),
         )
 

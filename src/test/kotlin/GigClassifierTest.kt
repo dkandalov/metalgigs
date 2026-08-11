@@ -41,8 +41,8 @@ class GigClassifierTest {
         val metal = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig(), recordedAt)
         val other = classifyGigByLLM(fakeClient, fakeChat("Other"), gig(), recordedAt)
 
-        expectThat(metal).isEqualTo(GigClassified(gig().venue, gig().url, recordedAt, Genre.Metal, ClassificationSource.LLM))
-        expectThat(other).isEqualTo(GigClassified(gig().venue, gig().url, recordedAt, Genre.Other, ClassificationSource.LLM))
+        expectThat(metal).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Metal, ClassificationSource.LLM))
+        expectThat(other).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Other, ClassificationSource.LLM))
     }
 
     @Test
@@ -54,11 +54,11 @@ class GigClassifierTest {
         val classifications = classifyGigs(
             gigs = listOf(alreadyDone, toDo),
             alreadyClassified = setOf(alreadyDone.id),
-            classifyGig = { g -> classified++; GigClassified(g.venue, g.url, recordedAt, Genre.Other, ClassificationSource.LLM) },
+            classifyGig = { g -> classified++; GigClassified(g.id, recordedAt, Genre.Other, ClassificationSource.LLM) },
         )
 
         expectThat(classified).isEqualTo(1)
-        expectThat(classifications.map { it.url }).containsExactly(toDo.url)
+        expectThat(classifications.map { it.id.url }).containsExactly(toDo.url)
     }
 
     @Test
@@ -71,10 +71,10 @@ class GigClassifierTest {
             gigs = listOf(latest, soonest, middle),
             alreadyClassified = emptySet(),
             limit = 2,
-            classifyGig = { g -> GigClassified(g.venue, g.url, recordedAt, Genre.Other, ClassificationSource.LLM) },
+            classifyGig = { g -> GigClassified(g.id, recordedAt, Genre.Other, ClassificationSource.LLM) },
         )
 
-        expectThat(classifications.map { it.url }).containsExactly(soonest.url, middle.url)
+        expectThat(classifications.map { it.id.url }).containsExactly(soonest.url, middle.url)
     }
 
     // the venue-specific page-content extraction below feeds whatever the classifier sees, so these

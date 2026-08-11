@@ -34,33 +34,29 @@ enum class Genre { Metal, Other }
 
 enum class ClassificationSource { LLM, User }
 
-// one entry in the append-only gig log, keyed by (venue, url) as the stable identity across scrapes
+// a gig's stable identity across scrapes - everything else (title, date, image) is status, not identity
+data class GigId(val venue: String, val url: String)
+
+val GigEvent.id: GigId get() = GigId(venue, url)
+
+// one entry in the append-only gig log, keyed by the gig it's about
 sealed interface GigLogEntry {
-    val venue: String
-    val url: String
+    val id: GigId
     val recordedAt: Instant
 }
 
 // a sighting of a gig at scrape time
 data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : GigLogEntry {
-    override val venue get() = gig.venue
-    override val url get() = gig.url
+    override val id get() = gig.id
 }
 
 // a gig's genre, either judged by the LLM classifier or asserted by a user
 data class GigClassified(
-    override val venue: String,
-    override val url: String,
+    override val id: GigId,
     override val recordedAt: Instant,
     val genre: Genre,
     val source: ClassificationSource,
 ) : GigLogEntry
-
-// a gig's stable identity across scrapes - everything else (title, date, image) is status, not identity
-data class GigId(val venue: String, val url: String)
-
-val GigEvent.id: GigId get() = GigId(venue, url)
-val GigLogEntry.id: GigId get() = GigId(venue, url)
 
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 

@@ -160,7 +160,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     val recordedAt = Instant.now()
     val observed = newOrChanged.map { GigObserved(it, recordedAt) }
     val classified = newOrChanged.map { gig ->
-        GigClassified(venue = gig.venue, url = gig.url, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
+        GigClassified(id = gig.id, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
     }
     appendGigLogEntries(eventsFile, observed + classified)
     cacheGigImages(client, newOrChanged, imagesDir)
@@ -174,7 +174,7 @@ fun overrideGigGenre(url: String, genre: Genre) {
         ?: error("No current gig found with url $url")
 
     appendGigLogEntries(eventsFile, listOf(
-        GigClassified(venue = gig.venue, url = gig.url, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
+        GigClassified(id = gig.id, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
     ))
 
     if (genre == Genre.Metal) {
