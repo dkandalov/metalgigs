@@ -53,8 +53,8 @@ fun classifyUnclassifiedGigs(useLLM: Boolean = false, limit: Int? = null) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
     val currentGigs = projectCurrentGigs(existingEntries)
-    val currentGigByKey = currentGigs.associateBy { it.venue to it.url }
-    val alreadyClassified = existingEntries.filterIsInstance<GigClassified>().map { it.venue to it.url }.toSet()
+    val source = if (useLLM) ClassificationSource.LLM else ClassificationSource.Keywords
+    val alreadyClassified = alreadyClassifiedBy(existingEntries, source)
     val recordedAt = Instant.now()
 
     val chat: Chat? = if (!useLLM) null else {
@@ -71,7 +71,8 @@ fun classifyUnclassifiedGigs(useLLM: Boolean = false, limit: Int? = null) {
     val classifications = classifyGigs(currentGigs, alreadyClassified, limit, classifyGig)
     appendGigLogEntries(eventsFile, classifications)
 
-    val newlyMetalGigs = classifications.filter { it.genre == Genre.Metal }.mapNotNull { currentGigByKey[it.venue to it.url] }
+    val affectedKeys = classifications.map { it.venue to it.url }.toSet()
+    val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { (it.venue to it.url) in affectedKeys }
     cacheGigImages(client, newlyMetalGigs, imagesDir)
 }
 

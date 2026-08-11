@@ -95,23 +95,56 @@ fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEv
     return scrapedGigs.filter { gig -> latestByGig[gig.venue to gig.url] != gig }
 }
 
-private fun latestClassificationByGig(entries: List<GigLogEntry>): Map<Pair<String, String>, GigClassified> =
+sealed interface ClassificationStatus {
+    data class Classified(val genre: Genre) : ClassificationStatus
+    data object Disputed : ClassificationStatus
+    data object Pending : ClassificationStatus
+}
+
+// a User classification is always final, regardless of what Keywords/LLM said; otherwise a gig
+// is only Classified once Keywords and LLM agree (using each source's latest entry), Disputed if
+// they disagree, or Pending until both have run at least once
+private fun classificationStatus(classifications: List<GigClassified>): ClassificationStatus {
+    val latestGenreBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt }.genre }
+    val userGenre = latestGenreBySource[ClassificationSource.User]
+    if (userGenre != null) return ClassificationStatus.Classified(userGenre)
+
+    val keywordsGenre = latestGenreBySource[ClassificationSource.Keywords]
+    val llmGenre = latestGenreBySource[ClassificationSource.LLM]
+    return when {
+        keywordsGenre == null || llmGenre == null -> ClassificationStatus.Pending
+        keywordsGenre == llmGenre -> ClassificationStatus.Classified(keywordsGenre)
+        else -> ClassificationStatus.Disputed
+    }
+}
+
+private fun classificationStatusByGig(entries: List<GigLogEntry>): Map<Pair<String, String>, ClassificationStatus> =
     entries.filterIsInstance<GigClassified>()
         .groupBy { it.venue to it.url }
-        .mapValues { (_, classifications) -> classifications.maxBy { it.recordedAt } }
+        .mapValues { (_, classifications) -> classificationStatus(classifications) }
 
-// current gigs whose latest classification is Metal; excludes ones never classified at all
+// current gigs classified Metal by consensus: a User override, or Keywords and LLM agreeing
 fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
-    val latestClassificationByGig = latestClassificationByGig(entries)
+    val statusByGig = classificationStatusByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->
-        latestClassificationByGig[gig.venue to gig.url]?.genre == Genre.Metal
+        (statusByGig[gig.venue to gig.url] as? ClassificationStatus.Classified)?.genre == Genre.Metal
     }
 }
 
-// current gigs whose latest classification is Other, plus ones never classified at all
+// current gigs not confirmed Metal: never classified, awaiting one of Keywords/LLM, disputed
+// between them, or classified Other by consensus
 fun projectUnclassifiedGigs(entries: List<GigLogEntry>): List<GigEvent> {
-    val latestClassificationByGig = latestClassificationByGig(entries)
+    val statusByGig = classificationStatusByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->
-        latestClassificationByGig[gig.venue to gig.url]?.genre != Genre.Metal
+        val status = statusByGig[gig.venue to gig.url]
+        status !is ClassificationStatus.Classified || status.genre != Genre.Metal
     }
 }
+
+// gigs the given automated source should skip: it has already classified them, or a User
+// override has already settled them
+fun alreadyClassifiedBy(entries: List<GigLogEntry>, source: ClassificationSource): Set<Pair<String, String>> =
+    entries.filterIsInstance<GigClassified>()
+        .filter { it.source == source || it.source == ClassificationSource.User }
+        .map { it.venue to it.url }
+        .toSet()
