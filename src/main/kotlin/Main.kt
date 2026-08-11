@@ -159,13 +159,16 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     val newOrChanged = newOrChangedGigs(existingEntries, gigs)
     val recordedAt = Instant.now()
     val observed = newOrChanged.map { GigObserved(it, recordedAt) }
-    val classified = newOrChanged.map { gig ->
+    // every gig on the poster is asserted Metal, not just the ones whose details changed - the
+    // poster is the assertion, so re-ingesting it has to restate the genre for all of them (a gig
+    // already observed unchanged would otherwise keep whatever the classifier had made of it)
+    val classified = gigs.map { gig ->
         GigClassified(id = gig.id, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
     }
     appendGigLogEntries(eventsFile, observed + classified)
-    cacheGigImages(client, newOrChanged, imagesDir)
+    cacheGigImages(client, gigs, imagesDir)
 
-    println("${gigs.size} gig(s) extracted from poster, ${newOrChanged.size} new/changed, assumed Metal")
+    println("${gigs.size} gig(s) extracted from poster (${newOrChanged.size} new/changed), all assumed Metal")
 }
 
 fun overrideGigGenre(url: String, genre: Genre) {
