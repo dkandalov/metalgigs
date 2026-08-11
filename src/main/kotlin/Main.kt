@@ -126,23 +126,6 @@ fun overrideGigGenre(url: String, genre: Genre) {
     }
 }
 
-fun reportUnclassifiedGigs(limit: Int? = null) {
-    val allGigs = projectUnclassifiedGigs(readGigLogEntries(eventsFile)).sortedBy { it.date() }
-    val gigs = if (limit != null) allGigs.take(limit) else allGigs
-
-    gigs.groupBy { it.venue }.forEach { (venue, venueGigs) ->
-        println("$venue (${venueGigs.size})")
-        println()
-        venueGigs.forEach { gig ->
-            println("  ${gig.day} ${gig.month} ${gig.year}  ${gig.title}")
-            println("  ${gig.url}")
-            println()
-        }
-    }
-    val suffix = if (limit != null) " (of ${allGigs.size} total)" else ""
-    println("${gigs.size} unclassified gig(s)$suffix")
-}
-
 fun pruneOrphanedImages() {
     val metalGigs = projectMetalGigs(readGigLogEntries(eventsFile))
     val imageFiles = imagesDir.listFiles()?.toList() ?: emptyList()
@@ -155,16 +138,18 @@ fun pruneOrphanedImages() {
     println("${orphaned.size} orphaned image(s) removed")
 }
 
-fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false) {
+fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
     val entries = readGigLogEntries(eventsFile)
     val statusByGig = classificationStatusByGig(entries)
     val upcomingGigs = excludeGigsInThePast(projectCurrentGigs(entries), today)
     val unresolved = upcomingGigs.filter { gig -> statusByGig[gig.venue to gig.url] !is ClassificationStatus.Classified }
+        .sortedBy { it.date() }
 
     if (unresolved.isNotEmpty() && !force) {
-        val soonest = unresolved.sortedBy { it.date() }.take(5)
-            .joinToString("\n") { "  ${it.date()}  ${it.venue}  ${it.title}" }
-        error("${unresolved.size} upcoming gig(s) not yet resolved (Pending or Disputed) - run classify/override first, or pass force to render anyway. Soonest:\n$soonest")
+        val shown = if (fullUnresolved) unresolved else unresolved.take(5)
+        val listing = shown.joinToString("\n") { "  ${it.date()}  ${it.venue}  ${it.title}\n  ${it.url}" }
+        val hint = if (shown.size < unresolved.size) " Soonest ${shown.size} (pass full-unresolved to see all)" else ""
+        error("${unresolved.size} upcoming gig(s) not yet resolved (Pending or Disputed) - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
     val renderer = HandlebarsTemplates().CachingClasspath()
@@ -181,9 +166,8 @@ fun main(args: Array<String>) {
         "render" -> {
             val renderArgs = args.drop(1)
             val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
-            renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"))
+            renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"), fullUnresolved = renderArgs.contains("full-unresolved"))
         }
-        "unclassified" -> reportUnclassifiedGigs(limit = args.getOrNull(1)?.toIntOrNull())
         "override" -> {
             val url = args.getOrNull(1)
             val genre = args.getOrNull(2)?.let { arg -> Genre.entries.find { it.name.equals(arg, ignoreCase = true) } }
@@ -199,6 +183,6 @@ fun main(args: Array<String>) {
             classifyUnclassifiedGigs()
             renderGigsHtml()
         }
-        else -> println("Usage: [scrape [venue-key...]|classify [limit]|render [yyyy-mm-dd] [force]|unclassified [limit]|override <url> <genre>|prune-images|all]")
+        else -> println("Usage: [scrape [venue-key...]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|all]")
     }
 }

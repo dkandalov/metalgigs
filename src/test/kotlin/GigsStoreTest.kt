@@ -103,15 +103,13 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `projects unclassified gigs as everything not confirmed metal by consensus`() {
-        val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/never-classified", imageUrl = "")
+    fun `computes classification status per gig - agreed, pending, or disputed`() {
         val agreedMetal = GigEvent(title = "Agreed Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/agreed-metal", imageUrl = "")
         val agreedOther = GigEvent(title = "Agreed Other", venue = "Test Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/agreed-other", imageUrl = "")
         val pendingLLM = GigEvent(title = "Pending LLM", venue = "Test Venue", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/pending-llm", imageUrl = "")
         val disputed = GigEvent(title = "Disputed", venue = "Test Venue", year = 2026, month = "Aug", day = "12", url = "https://example.com/gigs/disputed", imageUrl = "")
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
-            GigObserved(neverClassified, recordedAt),
             GigObserved(agreedMetal, recordedAt),
             GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
             GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.LLM),
@@ -125,7 +123,12 @@ class GigsStoreTest {
             GigClassified(disputed.venue, disputed.url, recordedAt, genre = Genre.Other, source = ClassificationSource.LLM),
         )
 
-        expectThat(projectUnclassifiedGigs(events)).containsExactlyInAnyOrder(neverClassified, agreedOther, pendingLLM, disputed)
+        val statusByGig = classificationStatusByGig(events)
+
+        expectThat(statusByGig[agreedMetal.venue to agreedMetal.url]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
+        expectThat(statusByGig[agreedOther.venue to agreedOther.url]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
+        expectThat(statusByGig[pendingLLM.venue to pendingLLM.url]).isEqualTo(ClassificationStatus.Pending)
+        expectThat(statusByGig[disputed.venue to disputed.url]).isEqualTo(ClassificationStatus.Disputed)
     }
 
     @Test
@@ -144,7 +147,7 @@ class GigsStoreTest {
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(listOf(overriddenToMetal))
-        expectThat(projectUnclassifiedGigs(events)).isEqualTo(listOf(overriddenToOther))
+        expectThat(classificationStatusByGig(events)[overriddenToOther.venue to overriddenToOther.url]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
     }
 
     @Test

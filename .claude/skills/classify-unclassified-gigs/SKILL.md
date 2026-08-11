@@ -3,9 +3,9 @@ name: classify-unclassified-gigs
 description: Show the user the next 5 soonest-upcoming unclassified gigs and apply their genre calls as manual overrides. Use when asked to classify gigs, work through the unclassified backlog, or review/correct upcoming gigs' genre.
 ---
 
-1. Run `.claude/scripts/run-main.sh "unclassified 5"` from the project root using the Bash tool (see the `run-main` skill). This lists the next 5 soonest-upcoming gigs not confirmed Metal by consensus (never classified, pending Keywords/LLM, disputed between them, or agreed Other) — venue, date, title, and url per gig.
+1. Run `.claude/scripts/run-main.sh "render"` from the project root using the Bash tool (see the `run-main` skill). There's no standalone "list unresolved gigs" command — `render` itself fails fast (writing nothing) whenever unresolved upcoming gigs exist, and that failure message is the list to work from.
 
-2. If it reports 0 gigs, tell the user the backlog is empty and stop.
+2. If the command succeeds (exit 0, no exception), there were no unresolved upcoming gigs — it also refreshed `index.html` as a side effect. Tell the user the backlog is empty and stop. If it fails, the failure is an `IllegalStateException` printed to the output starting "N upcoming gig(s) not yet resolved ... Soonest 5 ...:" followed by up to 5 gigs, each as two lines — `  <date>  <venue>  <title>` then `  <url>`. That's the list for the next steps; any other kind of failure (e.g. a real compile/network error) isn't this skill's concern — surface it to the user instead of proceeding.
 
 3. Before asking anything, post the 5 gigs to the user as a plain markdown list — title as a link to its url, plus venue and date — so they have something clickable to open and check each one before deciding. Example line: `- [ARCH ENEMY | SOLD OUT](https://www.theunderworldcamden.co.uk/event/arch-enemy/) — The Underworld, 10 Aug 2026`.
 

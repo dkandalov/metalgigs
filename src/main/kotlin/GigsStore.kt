@@ -131,16 +131,6 @@ fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
     }
 }
 
-// current gigs not confirmed Metal: never classified, awaiting one of Keywords/LLM, disputed
-// between them, or classified Other by consensus
-fun projectUnclassifiedGigs(entries: List<GigLogEntry>): List<GigEvent> {
-    val statusByGig = classificationStatusByGig(entries)
-    return projectCurrentGigs(entries).filter { gig ->
-        val status = statusByGig[gig.venue to gig.url]
-        status !is ClassificationStatus.Classified || status.genre != Genre.Metal
-    }
-}
-
 // gigs the given automated source should skip: it has already classified them, or a User
 // override has already settled them
 fun alreadyClassifiedBy(entries: List<GigLogEntry>, source: ClassificationSource): Set<Pair<String, String>> =
