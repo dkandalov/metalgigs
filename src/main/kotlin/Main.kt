@@ -232,20 +232,26 @@ fun main(rawArgs: Array<String>) {
             val scrapeArgs = args.drop(1)
             scrapeGigs(venueKeys = (scrapeArgs - "force").toSet(), force = scrapeArgs.contains("force"))
         }
-        "classify" -> classifyUnclassifiedGigs(limit = args.getOrNull(1)?.toIntOrNull())
+        // classifying a gig yourself is the same operation as letting the classifier do it - both
+        // append a GigClassified, differing only in source - so it's a mode of the same command
+        "classify" -> {
+            val classifyArgs = args.drop(1)
+            if (classifyArgs.firstOrNull() == "override") {
+                val url = classifyArgs.getOrNull(1)
+                val genre = classifyArgs.getOrNull(2)?.let { arg -> Genre.entries.find { it.name.equals(arg, ignoreCase = true) } }
+                if (url == null || genre == null) {
+                    println("Usage: classify override <url> <${Genre.entries.joinToString("|") { it.name.lowercase() }}>")
+                } else {
+                    overrideGigGenre(url, genre)
+                }
+            } else {
+                classifyUnclassifiedGigs(limit = classifyArgs.firstOrNull()?.toIntOrNull())
+            }
+        }
         "render" -> {
             val renderArgs = args.drop(1)
             val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"), fullUnresolved = renderArgs.contains("full-unresolved"))
-        }
-        "override" -> {
-            val url = args.getOrNull(1)
-            val genre = args.getOrNull(2)?.let { arg -> Genre.entries.find { it.name.equals(arg, ignoreCase = true) } }
-            if (url == null || genre == null) {
-                println("Usage: override <url> <${Genre.entries.joinToString("|") { it.name.lowercase() }}>")
-            } else {
-                overrideGigGenre(url, genre)
-            }
         }
         "prune-images" -> pruneOrphanedImages()
         "ingest-poster" -> {
@@ -258,6 +264,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|render [yyyy-mm-dd] [force] [full-unresolved]|override <url> <genre>|prune-images|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
+        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|prune-images|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
     }
 }

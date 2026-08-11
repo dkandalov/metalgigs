@@ -13,11 +13,11 @@ description: Show the user the next 5 soonest-upcoming unclassified gigs and app
 
 4. Then ask the user to classify each gig using the AskUserQuestion tool, one question per gig. Question text: title, venue, date, and the event url (so the link is visible in the question itself too, not just the list above). Options: `Metal`, `Non-metal`, and `Skip`. `Skip` is for a gig the user doesn't recognize or isn't sure about — never guess a genre on their behalf. AskUserQuestion allows at most 4 questions per call, so with 5 gigs ask 4 in one call and the remaining 1 in a second call; fewer than 5 gigs means fewer than 4 questions, so one call is enough.
 
-5. For every gig answered `Metal` or `Non-metal` (not `Skip`), run one `override` per gig using that gig's own url from step 1's output:
+5. For every gig answered `Metal` or `Non-metal` (not `Skip`), run one `classify override` per gig using that gig's own url from step 1's output. Pass the parts as **separate arguments**, not as one combined string — a gig url can contain characters that a combined string would resplit on:
 
    ```bash
-   .claude/scripts/run-main.sh "override <url> metal"
-   .claude/scripts/run-main.sh "override <url> other"
+   .claude/scripts/run-main.sh "classify" "override" "<url>" "metal"
+   .claude/scripts/run-main.sh "classify" "override" "<url>" "other"
    ```
 
    Use `metal` for a `Metal` answer. Use `other` for a `Non-metal` answer — that's just the CLI/`Genre` enum's literal value for "not metal"; always call it "Non-metal" when talking to the user, never "Other", since the user has explicitly confirmed it isn't metal rather than the classifiers having merely bucketed it that way. A `User` override like this is always final — it settles the gig outright regardless of what the classifier said or will say later. Leave skipped gigs alone — they'll surface again next time this skill runs.
