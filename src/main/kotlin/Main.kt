@@ -217,8 +217,24 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
-    val renderer = HandlebarsTemplates().CachingClasspath()
     val gigs = excludeGigsInThePast(projectMetalGigs(entries), today)
+
+    // gigs are only cached when they're first classified Metal, so anything removed since (by
+    // prune-images while the gig was classified otherwise, say) would leave a broken <img> on the
+    // page. Fetch whatever is missing here, where we know exactly what's about to be rendered.
+    // A download that fails is reported rather than fatal: some image urls expire by design (the
+    // Facebook CDN ones carry an expiry parameter), and one dead image shouldn't block publishing
+    // every other gig
+    val client = ClientFilters.FollowRedirects().then(OkHttp())
+    val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
+        runCatching { cacheImage(client, gig, imagesDir) }.exceptionOrNull()?.let { "${gig.date()}  ${gig.venue}  ${gig.title}: ${it.message}" }
+    }
+    if (failures.isNotEmpty()) {
+        println("Could not cache ${failures.size} image(s) - those gigs will render with a broken image:")
+        failures.forEach { println("  $it") }
+    }
+
+    val renderer = HandlebarsTemplates().CachingClasspath()
     File("index.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 
