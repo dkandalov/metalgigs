@@ -70,17 +70,6 @@ private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 private const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
-private fun mimeTypeForImageUrl(url: String) =
-    when (imageUrlExtension(url).lowercase()) {
-        "png" -> MimeType.IMAGE_PNG
-        "gif" -> MimeType.IMAGE_GIF
-        "webp" -> MimeType.IMAGE_WEBP
-        else -> MimeType.IMAGE_JPG
-    }
-
-private fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image =
-    Content.Image(Resource.Binary(Base64Blob.encode(fetchBytes(client, imageUrl, "poster image at $imageUrl")), mimeTypeForImageUrl(imageUrl)))
-
 fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()

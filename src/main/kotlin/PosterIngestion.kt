@@ -5,10 +5,7 @@ import org.http4k.ai.llm.chat.ChatResponseFormat
 import org.http4k.ai.llm.model.Content
 import org.http4k.ai.llm.model.Message
 import org.http4k.ai.llm.model.ModelParams
-import org.http4k.ai.llm.model.Resource
 import org.http4k.ai.model.ModelName
-import org.http4k.connect.model.Base64Blob
-import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
 import java.time.LocalDate
 
@@ -40,7 +37,7 @@ private fun parsePosterReply(reply: String): List<Pair<LocalDate, String>> =
 fun posterGigUrl(sourceUrl: String, title: String, date: LocalDate): String = "$sourceUrl#gig-${slug(title)}-$date"
 
 fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceUrl: String, venue: String): List<GigEvent> {
-    val image = Content.Image(Resource.Binary(Base64Blob.encode(fetchBytes(client, imageUrl, "poster image at $imageUrl"))))
+    val image = fetchImageContent(client, imageUrl)
     val request = ChatRequest(
         Message.User(listOf(image)),
         ModelParams(posterExtractionModel, responseFormat = ChatResponseFormat.Text),

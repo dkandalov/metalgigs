@@ -1,8 +1,12 @@
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.llm.chat.AnthropicAI
+import org.http4k.ai.llm.model.Content
+import org.http4k.ai.llm.model.Resource
 import org.http4k.ai.model.ApiKey
 import org.http4k.ai.model.SystemPrompt
 import org.http4k.client.OkHttp
+import org.http4k.connect.model.Base64Blob
+import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
@@ -21,6 +25,26 @@ fun fetchBytes(client: HttpHandler, url: String, errorContext: String = url): By
     val response = client(Request(GET, url))
     check(response.status.successful) { "Failed to fetch $errorContext: ${response.status}" }
     return response.body.stream.readBytes()
+}
+
+// a URL's extension isn't a reliable guide to its actual content type - e.g. Facebook serves some
+// images as image/webp via a "dst-webp" transcoding query param even though the path still ends
+// in .jpg - so this trusts the server's own Content-Type header first, falling back to the URL's
+// extension only if that header is missing
+private fun mimeTypeForImageUrl(url: String) =
+    when (imageUrlExtension(url).lowercase()) {
+        "png" -> MimeType.IMAGE_PNG
+        "gif" -> MimeType.IMAGE_GIF
+        "webp" -> MimeType.IMAGE_WEBP
+        else -> MimeType.IMAGE_JPG
+    }
+
+fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
+    val response = client(Request(GET, imageUrl))
+    check(response.status.successful) { "Failed to fetch image at $imageUrl: ${response.status}" }
+    val mimeType = response.header("Content-Type")?.substringBefore(';')?.trim()?.takeIf { it.isNotBlank() }
+        ?.let { MimeType.of(it) } ?: mimeTypeForImageUrl(imageUrl)
+    return Content.Image(Resource.Binary(Base64Blob.encode(response.body.stream.readBytes()), mimeType))
 }
 
 private val eventsFile = File("events.ndjson")
