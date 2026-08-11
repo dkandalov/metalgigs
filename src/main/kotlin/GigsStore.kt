@@ -1,4 +1,5 @@
 import com.ubertob.kondor.json.JAny
+import com.ubertob.kondor.json.JEnumClass
 import com.ubertob.kondor.json.JSealed
 import com.ubertob.kondor.json.ObjectNodeConverter
 import com.ubertob.kondor.json.array
@@ -48,16 +49,16 @@ object JGigClassified : JAny<GigClassified>() {
     private val url by str(GigClassified::url)
     private val recordedAt by str(GigClassified::recordedAt)
     private val genre by str(GigClassified::genre)
-    private val matchedKeywords by array(GigClassified::matchedKeywords)
     private val source by str(GigClassified::source)
+    private val sampledGenres by array(JEnumClass(Genre::class), GigClassified::sampledGenres)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigClassified(
         venue = +venue,
         url = +url,
         recordedAt = +recordedAt,
         genre = +genre,
-        matchedKeywords = +matchedKeywords,
         source = +source,
+        sampledGenres = +sampledGenres,
     )
 }
 
@@ -113,38 +114,27 @@ fun alreadyIngested(entries: List<GigLogEntry>, sourceUrl: String): Boolean =
 sealed interface ClassificationStatus {
     data class Classified(val genre: Genre) : ClassificationStatus
 
-    // carries each classifier's verdict, so a report can say what they actually disagreed about
-    data class Disputed(val keywordsGenre: Genre, val llmGenre: Genre) : ClassificationStatus {
-        override fun toString() = "Disputed (Keywords=$keywordsGenre, LLM=$llmGenre)"
+    // the classifier's samples didn't agree, so it isn't confident enough to call - carries the
+    // samples themselves so a report can show what it was torn between
+    data class NeedsReview(val sampledGenres: List<Genre>) : ClassificationStatus {
+        override fun toString() = "Needs review (LLM sampled ${sampledGenres.joinToString("/")})"
     }
 
-    // carries the classifiers yet to run, to distinguish "never classified at all" from
-    // "one of the two is still outstanding"
-    data class Pending(val awaiting: List<ClassificationSource>) : ClassificationStatus {
-        override fun toString() = "Pending (awaiting ${awaiting.joinToString("/")})"
+    data object Pending : ClassificationStatus {
+        override fun toString() = "Pending (not yet classified)"
     }
 }
 
-// a User classification is always final, regardless of what Keywords/LLM said; otherwise a gig
-// is only Classified once Keywords and LLM agree (using each source's latest entry), Disputed if
-// they disagree, or Pending until both have run at least once
+// a user's own classification is always final; otherwise the latest LLM classification stands,
+// but only if its samples agreed - samples disagreeing means the model wasn't consistent about
+// this gig, which is the cue for a human to decide rather than trusting either answer
 private fun classificationStatus(classifications: List<GigClassified>): ClassificationStatus {
-    val latestGenreBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt }.genre }
-    val userGenre = latestGenreBySource[ClassificationSource.User]
-    if (userGenre != null) return ClassificationStatus.Classified(userGenre)
+    val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt } }
+    latestBySource[ClassificationSource.User]?.let { return ClassificationStatus.Classified(it.genre) }
 
-    val keywordsGenre = latestGenreBySource[ClassificationSource.Keywords]
-    val llmGenre = latestGenreBySource[ClassificationSource.LLM]
-    return when {
-        keywordsGenre == null || llmGenre == null -> ClassificationStatus.Pending(
-            awaiting = listOfNotNull(
-                ClassificationSource.Keywords.takeIf { keywordsGenre == null },
-                ClassificationSource.LLM.takeIf { llmGenre == null },
-            ),
-        )
-        keywordsGenre == llmGenre -> ClassificationStatus.Classified(keywordsGenre)
-        else -> ClassificationStatus.Disputed(keywordsGenre, llmGenre)
-    }
+    val llm = latestBySource[ClassificationSource.LLM] ?: return ClassificationStatus.Pending
+    return if (llm.sampledGenres.distinct().size <= 1) ClassificationStatus.Classified(llm.genre)
+    else ClassificationStatus.NeedsReview(llm.sampledGenres)
 }
 
 fun classificationStatusByGig(entries: List<GigLogEntry>): Map<GigId, ClassificationStatus> =
@@ -152,7 +142,7 @@ fun classificationStatusByGig(entries: List<GigLogEntry>): Map<GigId, Classifica
         .groupBy { it.id }
         .mapValues { (_, classifications) -> classificationStatus(classifications) }
 
-// current gigs classified Metal by consensus: a User override, or Keywords and LLM agreeing
+// current gigs settled as Metal: a user's own call, or the classifier's samples agreeing on it
 fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
     val statusByGig = classificationStatusByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->
@@ -160,10 +150,8 @@ fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
     }
 }
 
-// gigs the given automated source should skip: it has already classified them, or a User
-// override has already settled them
-fun alreadyClassifiedBy(entries: List<GigLogEntry>, source: ClassificationSource): Set<GigId> =
-    entries.filterIsInstance<GigClassified>()
-        .filter { it.source == source || it.source == ClassificationSource.User }
-        .map { it.id }
-        .toSet()
+// gigs the classifier should skip: it has already judged them, or a user has settled them. Note a
+// gig needing review isn't reclassified - the samples already disagreed once, so re-running the
+// same classifier is just as likely to disagree again; it's waiting on a person, not on a retry
+fun alreadyClassified(entries: List<GigLogEntry>): Set<GigId> =
+    entries.filterIsInstance<GigClassified>().map { it.id }.toSet()

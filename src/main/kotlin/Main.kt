@@ -106,54 +106,45 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
-    val keywordsClassifications = classifyGigs(
-        currentGigs, alreadyClassifiedBy(existingEntries, ClassificationSource.Keywords), limit,
-    ) { gig -> classifyGigByKeywords(client, gig, recordedAt) }
-    appendGigLogEntries(eventsFile, keywordsClassifications)
-    val afterKeywords = existingEntries + keywordsClassifications
+    val classifications = classifyGigs(currentGigs, alreadyClassified(existingEntries), limit) { gig ->
+        classifyGigByLLM(client, chat, gig, recordedAt)
+    }
+    appendGigLogEntries(eventsFile, classifications)
 
-    val llmClassifications = classifyGigs(
-        currentGigs, alreadyClassifiedBy(afterKeywords, ClassificationSource.LLM), limit,
-    ) { gig -> classifyGigByLLM(client, chat, gig, recordedAt) }
-    appendGigLogEntries(eventsFile, llmClassifications)
-    val afterLLM = afterKeywords + llmClassifications
-
-    val affectedKeys = (keywordsClassifications + llmClassifications).map { it.id }.toSet()
-    val statusByGig = classificationStatusByGig(afterLLM)
-    val newlyMetalGigs = projectMetalGigs(afterLLM).filter { it.id in affectedKeys }
+    val affectedKeys = classifications.map { it.id }.toSet()
+    val statusByGig = classificationStatusByGig(existingEntries + classifications)
+    val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { it.id in affectedKeys }
     cacheGigImages(client, newlyMetalGigs, imagesDir)
 
-    printClassificationSummary(keywordsClassifications, llmClassifications, newlyMetalGigs.size, affectedKeys, currentGigs, statusByGig)
+    printClassificationSummary(classifications, newlyMetalGigs.size, affectedKeys, currentGigs, statusByGig)
 }
 
 private fun printClassificationSummary(
-    keywordsClassifications: List<GigClassified>,
-    llmClassifications: List<GigClassified>,
-    reachedMetalConsensus: Int,
+    classifications: List<GigClassified>,
+    newlyMetal: Int,
     affectedKeys: Set<GigId>,
     currentGigs: List<GigEvent>,
     statusByGig: Map<GigId, ClassificationStatus>,
 ) {
-    val newConflicts = affectedKeys.count { key -> statusByGig[key] is ClassificationStatus.Disputed }
+    val needingReview = affectedKeys.count { key -> statusByGig[key] is ClassificationStatus.NeedsReview }
+    val settled = classifications.size - needingReview
 
-    println("Classified this run:")
-    println("  Keywords: ${keywordsClassifications.size} (${keywordsClassifications.count { it.genre == Genre.Metal }} Metal, ${keywordsClassifications.count { it.genre == Genre.Other }} Other)")
-    println("  LLM:      ${llmClassifications.size} (${llmClassifications.count { it.genre == Genre.Metal }} Metal, ${llmClassifications.count { it.genre == Genre.Other }} Other)")
-    println("  Reached Metal consensus: $reachedMetalConsensus")
-    println("  New conflicts (Keywords/LLM disagree): $newConflicts")
+    println("Classified this run: ${classifications.size}")
+    println("  Samples agreed:    $settled (of which $newlyMetal newly Metal)")
+    println("  Samples disagreed: $needingReview (needs human review)")
     println()
 
     val statuses = currentGigs.map { statusByGig[it.id] }
     val overallMetal = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Metal }
     val overallOther = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Other }
-    val overallDisputed = statuses.count { it is ClassificationStatus.Disputed }
-    val overallPending = currentGigs.size - overallMetal - overallOther - overallDisputed
+    val overallNeedsReview = statuses.count { it is ClassificationStatus.NeedsReview }
+    val overallPending = currentGigs.size - overallMetal - overallOther - overallNeedsReview
 
     println("Overall (${currentGigs.size} current gigs):")
-    println("  Metal:    $overallMetal")
-    println("  Other:    $overallOther")
-    println("  Pending:  $overallPending")
-    println("  Disputed: $overallDisputed")
+    println("  Metal:        $overallMetal")
+    println("  Other:        $overallOther")
+    println("  Pending:      $overallPending")
+    println("  Needs review: $overallNeedsReview")
 }
 
 fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Boolean = false) {
@@ -223,14 +214,11 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     if (unresolved.isNotEmpty() && !force) {
         val shown = if (fullUnresolved) unresolved else unresolved.take(5)
         val listing = shown.joinToString("\n") { gig ->
-            // no entry at all means neither classifier has run - reported as awaiting both, rather
-            // than as a bare "unclassified" that doesn't say what it's waiting for
-            val status = statusByGig[gig.id]
-                ?: ClassificationStatus.Pending(listOf(ClassificationSource.Keywords, ClassificationSource.LLM))
+            val status = statusByGig[gig.id] ?: ClassificationStatus.Pending
             "  ${gig.date()}  ${gig.venue}  ${gig.title}\n  $status\n  ${gig.url}"
         }
         val hint = if (shown.size < unresolved.size) " Soonest ${shown.size} (pass full-unresolved to see all)" else ""
-        error("${unresolved.size} upcoming gig(s) not yet resolved (Pending or Disputed) - run classify/override first, or pass force to render anyway.$hint:\n$listing")
+        error("${unresolved.size} upcoming gig(s) not yet resolved (pending, or needing review) - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
     val renderer = HandlebarsTemplates().CachingClasspath()

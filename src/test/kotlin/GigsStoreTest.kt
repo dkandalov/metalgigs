@@ -14,7 +14,7 @@ class GigsStoreTest {
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val entries: List<GigLogEntry> = listOf(
             GigObserved(gig, recordedAt),
-            GigClassified(venue = gig.venue, url = gig.url, recordedAt = recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
+            GigClassified(gig.venue, gig.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Metal)),
         )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
@@ -29,7 +29,7 @@ class GigsStoreTest {
         val soldOut = firstSeen.copy(title = "Some Gig - SOLD OUT")
         val events: List<GigLogEntry> = listOf(
             GigObserved(firstSeen, Instant.parse("2026-07-01T00:00:00Z")),
-            GigClassified(venue = firstSeen.venue, url = firstSeen.url, recordedAt = Instant.parse("2026-07-10T00:00:00Z"), genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
+            GigClassified(firstSeen.venue, firstSeen.url, Instant.parse("2026-07-10T00:00:00Z"), Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Metal)),
             GigObserved(soldOut, Instant.parse("2026-07-15T00:00:00Z")),
         )
 
@@ -105,73 +105,63 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `projects metal gigs only where Keywords and LLM agree`() {
+    fun `projects metal gigs only where the classifier's samples agreed`() {
         val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/never-classified", imageUrl = "")
         val agreedMetal = GigEvent(title = "Agreed Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/agreed-metal", imageUrl = "")
         val agreedOther = GigEvent(title = "Agreed Other", venue = "Test Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/agreed-other", imageUrl = "")
-        val pendingLLM = GigEvent(title = "Pending LLM", venue = "Test Venue", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/pending-llm", imageUrl = "")
-        val disputed = GigEvent(title = "Disputed", venue = "Test Venue", year = 2026, month = "Aug", day = "12", url = "https://example.com/gigs/disputed", imageUrl = "")
+        val needsReview = GigEvent(title = "Needs Review", venue = "Test Venue", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/needs-review", imageUrl = "")
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
             GigObserved(neverClassified, recordedAt),
             GigObserved(agreedMetal, recordedAt),
-            GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
-            GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.LLM),
+            GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Metal)),
             GigObserved(agreedOther, recordedAt),
-            GigClassified(agreedOther.venue, agreedOther.url, recordedAt, genre = Genre.Other, source = ClassificationSource.Keywords),
-            GigClassified(agreedOther.venue, agreedOther.url, recordedAt, genre = Genre.Other, source = ClassificationSource.LLM),
-            GigObserved(pendingLLM, recordedAt),
-            GigClassified(pendingLLM.venue, pendingLLM.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
-            GigObserved(disputed, recordedAt),
-            GigClassified(disputed.venue, disputed.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
-            GigClassified(disputed.venue, disputed.url, recordedAt, genre = Genre.Other, source = ClassificationSource.LLM),
+            GigClassified(agreedOther.venue, agreedOther.url, recordedAt, Genre.Other, ClassificationSource.LLM, listOf(Genre.Other, Genre.Other)),
+            GigObserved(needsReview, recordedAt),
+            GigClassified(needsReview.venue, needsReview.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Other)),
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(listOf(agreedMetal))
     }
 
     @Test
-    fun `computes classification status per gig - agreed, pending, or disputed`() {
+    fun `computes classification status per gig - classified, needing review, or pending`() {
         val agreedMetal = GigEvent(title = "Agreed Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/agreed-metal", imageUrl = "")
         val agreedOther = GigEvent(title = "Agreed Other", venue = "Test Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/agreed-other", imageUrl = "")
-        val pendingLLM = GigEvent(title = "Pending LLM", venue = "Test Venue", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/pending-llm", imageUrl = "")
-        val disputed = GigEvent(title = "Disputed", venue = "Test Venue", year = 2026, month = "Aug", day = "12", url = "https://example.com/gigs/disputed", imageUrl = "")
+        val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/never-classified", imageUrl = "")
+        val needsReview = GigEvent(title = "Needs Review", venue = "Test Venue", year = 2026, month = "Aug", day = "12", url = "https://example.com/gigs/needs-review", imageUrl = "")
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
             GigObserved(agreedMetal, recordedAt),
-            GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
-            GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.LLM),
+            GigClassified(agreedMetal.venue, agreedMetal.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Metal)),
             GigObserved(agreedOther, recordedAt),
-            GigClassified(agreedOther.venue, agreedOther.url, recordedAt, genre = Genre.Other, source = ClassificationSource.Keywords),
-            GigClassified(agreedOther.venue, agreedOther.url, recordedAt, genre = Genre.Other, source = ClassificationSource.LLM),
-            GigObserved(pendingLLM, recordedAt),
-            GigClassified(pendingLLM.venue, pendingLLM.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
-            GigObserved(disputed, recordedAt),
-            GigClassified(disputed.venue, disputed.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
-            GigClassified(disputed.venue, disputed.url, recordedAt, genre = Genre.Other, source = ClassificationSource.LLM),
+            GigClassified(agreedOther.venue, agreedOther.url, recordedAt, Genre.Other, ClassificationSource.LLM, listOf(Genre.Other, Genre.Other)),
+            GigObserved(neverClassified, recordedAt),
+            GigObserved(needsReview, recordedAt),
+            GigClassified(needsReview.venue, needsReview.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Other)),
         )
 
         val statusByGig = classificationStatusByGig(events)
 
         expectThat(statusByGig[agreedMetal.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
         expectThat(statusByGig[agreedOther.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
-        expectThat(statusByGig[pendingLLM.id]).isEqualTo(ClassificationStatus.Pending(listOf(ClassificationSource.LLM)))
-        expectThat(statusByGig[disputed.id]).isEqualTo(ClassificationStatus.Disputed(keywordsGenre = Genre.Metal, llmGenre = Genre.Other))
+        expectThat(statusByGig[neverClassified.id]).isEqualTo(null)
+        expectThat(statusByGig[needsReview.id]).isEqualTo(ClassificationStatus.NeedsReview(listOf(Genre.Metal, Genre.Other)))
     }
 
     @Test
-    fun `a user override is always final regardless of Keywords or LLM agreement`() {
+    fun `a user override is always final, even over samples that disagreed`() {
         val overriddenToMetal = GigEvent(title = "Overridden To Metal", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/overridden-to-metal", imageUrl = "")
         val overriddenToOther = GigEvent(title = "Overridden To Other", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/overridden-to-other", imageUrl = "")
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
             GigObserved(overriddenToMetal, recordedAt),
-            GigClassified(overriddenToMetal.venue, overriddenToMetal.url, recordedAt, genre = Genre.Other, source = ClassificationSource.Keywords),
-            GigClassified(overriddenToMetal.venue, overriddenToMetal.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.User),
+            // samples disagreed, so this would need review - the user's call settles it instead
+            GigClassified(overriddenToMetal.venue, overriddenToMetal.url, recordedAt, Genre.Other, ClassificationSource.LLM, listOf(Genre.Other, Genre.Metal)),
+            GigClassified(overriddenToMetal.venue, overriddenToMetal.url, recordedAt, Genre.Metal, ClassificationSource.User),
             GigObserved(overriddenToOther, recordedAt),
-            GigClassified(overriddenToOther.venue, overriddenToOther.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
-            GigClassified(overriddenToOther.venue, overriddenToOther.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.LLM),
-            GigClassified(overriddenToOther.venue, overriddenToOther.url, recordedAt, genre = Genre.Other, source = ClassificationSource.User),
+            GigClassified(overriddenToOther.venue, overriddenToOther.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Metal)),
+            GigClassified(overriddenToOther.venue, overriddenToOther.url, recordedAt, Genre.Other, ClassificationSource.User),
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(listOf(overriddenToMetal))
@@ -179,22 +169,23 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `tracks already-classified gigs per automated source, treating a user override as settled for both`() {
-        val keywordsOnly = GigEvent(title = "Keywords Only", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/keywords-only", imageUrl = "")
-        val userOverridden = GigEvent(title = "User Overridden", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/user-overridden", imageUrl = "")
-        val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/never-classified", imageUrl = "")
+    fun `treats any classification as already-classified, including one still needing review`() {
+        val classified = GigEvent(title = "Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/classified", imageUrl = "")
+        val needsReview = GigEvent(title = "Needs Review", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/needs-review", imageUrl = "")
+        val userOverridden = GigEvent(title = "User Overridden", venue = "Test Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/user-overridden", imageUrl = "")
+        val neverClassified = GigEvent(title = "Never Classified", venue = "Test Venue", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/never-classified", imageUrl = "")
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<GigLogEntry> = listOf(
-            GigObserved(keywordsOnly, recordedAt),
-            GigClassified(keywordsOnly.venue, keywordsOnly.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("doom"), source = ClassificationSource.Keywords),
+            GigObserved(classified, recordedAt),
+            GigClassified(classified.venue, classified.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Metal)),
+            GigObserved(needsReview, recordedAt),
+            GigClassified(needsReview.venue, needsReview.url, recordedAt, Genre.Metal, ClassificationSource.LLM, listOf(Genre.Metal, Genre.Other)),
             GigObserved(userOverridden, recordedAt),
-            GigClassified(userOverridden.venue, userOverridden.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.User),
+            GigClassified(userOverridden.venue, userOverridden.url, recordedAt, Genre.Metal, ClassificationSource.User),
             GigObserved(neverClassified, recordedAt),
         )
 
-        expectThat(alreadyClassifiedBy(events, ClassificationSource.Keywords))
-            .containsExactlyInAnyOrder(keywordsOnly.id, userOverridden.id)
-        expectThat(alreadyClassifiedBy(events, ClassificationSource.LLM))
-            .containsExactlyInAnyOrder(userOverridden.id)
+        expectThat(alreadyClassified(events))
+            .containsExactlyInAnyOrder(classified.id, needsReview.id, userOverridden.id)
     }
 }

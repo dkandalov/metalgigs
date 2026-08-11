@@ -15,12 +15,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.time.Instant
 
-// starter list; extend as false negatives/positives turn up in practice
-private val metalKeywords = listOf(
-    "metal", "doom", "sludge", "grind", "grindcore", "death metal", "black metal",
-    "thrash", "stoner", "hardcore", "deathcore", "metalcore", "crust", "powerviolence",
-)
-
 // some venues' event pages need special handling to get at the gig's own content:
 // - The Underworld embeds a sitewide "other events" widget alongside the actual gig content,
 //   so scanning the whole page picks up unrelated shows' titles
@@ -31,26 +25,10 @@ private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     "New Cross Inn" to { page -> page.select("[x-ref=desc]").firstOrNull()?.attr("x-html") },
 )
 
-fun matchKeywords(pageText: String): List<String> =
-    metalKeywords.filter { pageText.contains(it, ignoreCase = true) }
-
 private fun eventPageContentText(pageHtml: String, url: String, venue: String): String {
     val page = Jsoup.parse(pageHtml, url)
     val extractContent = eventPageContentByVenue[venue] ?: return page.text()
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
-}
-
-fun classifyGigByKeywords(client: HttpHandler, gig: GigEvent, recordedAt: Instant): GigClassified {
-    val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
-    val matchedKeywords = matchKeywords(pageText)
-    return GigClassified(
-        venue = gig.venue,
-        url = gig.url,
-        recordedAt = recordedAt,
-        genre = if (matchedKeywords.isNotEmpty()) Genre.Metal else Genre.Other,
-        matchedKeywords = matchedKeywords,
-        source = ClassificationSource.Keywords,
-    )
 }
 
 val llmClassifierSystemPrompt = """
@@ -70,6 +48,12 @@ private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 private const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
+// the same gig is judged more than once and the samples compared: agreement means the model is
+// consistent about this gig and its answer stands, disagreement means it isn't and a human should
+// decide. Sampling only tells us anything at a non-zero temperature - at Temperature.ZERO the
+// replies would be near-identical by construction and always "agree", which measures nothing
+private const val SAMPLES_PER_GIG = 2
+
 fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
@@ -77,25 +61,31 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +
         if (useVision) listOf(fetchImageContent(client, gig.imageUrl)) else emptyList()
 
-    // the vision model doesn't accept a temperature override (its API rejects the param outright);
-    // the text-only model does and we want its replies deterministic, so only set it there
+    // the vision model rejects a temperature override outright, so it's left at the API's own
+    // default - which is non-zero, and so still varies between samples as this relies on
     val params = if (useVision) {
         ModelParams(visionClassifierModel, responseFormat = ChatResponseFormat.Text)
     } else {
-        ModelParams(llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text)
+        ModelParams(llmClassifierModel, Temperature.ONE, responseFormat = ChatResponseFormat.Text)
     }
     val request = ChatRequest(Message.User(contents), params)
-    val response = chat(request).onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
-    val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
-    val genre = Genre.entries.find { it.name.equals(reply, ignoreCase = true) }
-        ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
+
+    val sampledGenres = (1..SAMPLES_PER_GIG).map {
+        val response = chat(request).onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
+        val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
+        Genre.entries.find { it.name.equals(reply, ignoreCase = true) }
+            ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
+    }
 
     return GigClassified(
         venue = gig.venue,
         url = gig.url,
         recordedAt = recordedAt,
-        genre = genre,
+        // when the samples disagree this verdict isn't used - the gig needs review either way -
+        // but it's still recorded so the log holds a complete row rather than a hole
+        genre = sampledGenres.first(),
         source = ClassificationSource.LLM,
+        sampledGenres = sampledGenres,
     )
 }
 

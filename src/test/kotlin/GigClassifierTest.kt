@@ -11,7 +11,6 @@ import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
-import strikt.assertions.containsExactlyInAnyOrder
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
@@ -21,51 +20,89 @@ import kotlin.test.assertFailsWith
 
 class GigClassifierTest {
 
+    private val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
+
+    private fun chatResponse(reply: String) = Success(
+        ChatResponse(
+            Message.Assistant(listOf(Content.Text(reply))),
+            ChatResponse.Metadata(ResponseId.of("fake-response-id"), ModelName.of("fake-model")),
+        ),
+    )
+
+    // replies are handed out in order, so a test can make the samples agree or disagree; the last
+    // one repeats once exhausted, which keeps single-reply cases readable
+    private fun fakeChat(vararg replies: String): Chat {
+        var call = 0
+        return Chat { _ -> chatResponse(replies[minOf(call++, replies.size - 1)]) }
+    }
+
+    private fun gig(title: String = "Some Gig", venue: String = "Some Venue", day: String = "08", url: String = "https://example.com/gig", imageUrl: String = "") =
+        GigEvent(title = title, venue = venue, year = 2026, month = "Aug", day = day, url = url, imageUrl = imageUrl)
+
     @Test
-    fun `classifies gigs by scanning their event pages, skipping already classified ones`() {
-        var requestCount = 0
-        val fakeClient: HttpHandler = { request ->
-            requestCount++
-            val body = if (request.uri.toString().endsWith("metal-gig")) "Doom metal night!" else "Comedy open mic"
-            Response(OK).body(body)
-        }
-        val metalGig = GigEvent(title = "Doom Night", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/metal-gig", imageUrl = "")
-        val comedyGig = GigEvent(title = "Comedy Night", venue = "Some Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/comedy-gig", imageUrl = "")
-        val oldGig = GigEvent(title = "Old Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/old-gig", imageUrl = "")
-        val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
+    fun `classifies a gig when repeated samples agree`() {
+        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
+
+        val metal = classifyGigByLLM(fakeClient, fakeChat("Metal", "Metal"), gig(), recordedAt)
+        val other = classifyGigByLLM(fakeClient, fakeChat("Other", "Other"), gig(), recordedAt)
+
+        expectThat(metal.genre).isEqualTo(Genre.Metal)
+        expectThat(metal.sampledGenres).containsExactly(Genre.Metal, Genre.Metal)
+        expectThat(metal.source).isEqualTo(ClassificationSource.LLM)
+        expectThat(other.genre).isEqualTo(Genre.Other)
+        expectThat(other.sampledGenres).containsExactly(Genre.Other, Genre.Other)
+    }
+
+    @Test
+    fun `records both verdicts when repeated samples disagree`() {
+        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
+
+        val classification = classifyGigByLLM(fakeClient, fakeChat("Metal", "Other"), gig(), recordedAt)
+
+        expectThat(classification.sampledGenres).containsExactly(Genre.Metal, Genre.Other)
+    }
+
+    @Test
+    fun `skips gigs that are already classified`() {
+        val alreadyDone = gig(title = "Already Done", url = "https://example.com/already-done")
+        val toDo = gig(title = "To Do", day = "09", url = "https://example.com/to-do")
+        var classified = 0
 
         val classifications = classifyGigs(
-            gigs = listOf(metalGig, comedyGig, oldGig),
-            alreadyClassified = setOf(oldGig.id),
-            classifyGig = { gig -> classifyGigByKeywords(fakeClient, gig, recordedAt) },
+            gigs = listOf(alreadyDone, toDo),
+            alreadyClassified = setOf(alreadyDone.id),
+            classifyGig = { g -> classified++; GigClassified(g.venue, g.url, recordedAt, Genre.Other, ClassificationSource.LLM) },
         )
 
-        expectThat(requestCount).isEqualTo(2)
-        expectThat(classifications).containsExactlyInAnyOrder(
-            GigClassified(metalGig.venue, metalGig.url, recordedAt, genre = Genre.Metal, matchedKeywords = listOf("metal", "doom"), source = ClassificationSource.Keywords),
-            GigClassified(comedyGig.venue, comedyGig.url, recordedAt, genre = Genre.Other, source = ClassificationSource.Keywords),
-        )
+        expectThat(classified).isEqualTo(1)
+        expectThat(classifications.map { it.url }).containsExactly(toDo.url)
     }
 
     @Test
     fun `limits classification to the soonest N not-yet-classified gigs`() {
-        var requestCount = 0
-        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("Comedy open mic") }
-        val soonest = GigEvent(title = "Soonest Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/soonest", imageUrl = "")
-        val middle = GigEvent(title = "Middle Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/middle", imageUrl = "")
-        val latest = GigEvent(title = "Latest Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "10", url = "https://example.com/latest", imageUrl = "")
-        val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
+        val soonest = gig(title = "Soonest", day = "08", url = "https://example.com/soonest")
+        val middle = gig(title = "Middle", day = "09", url = "https://example.com/middle")
+        val latest = gig(title = "Latest", day = "10", url = "https://example.com/latest")
 
         val classifications = classifyGigs(
             gigs = listOf(latest, soonest, middle),
             alreadyClassified = emptySet(),
             limit = 2,
-            classifyGig = { gig -> classifyGigByKeywords(fakeClient, gig, recordedAt) },
+            classifyGig = { g -> GigClassified(g.venue, g.url, recordedAt, Genre.Other, ClassificationSource.LLM) },
         )
 
-        expectThat(requestCount).isEqualTo(2)
         expectThat(classifications.map { it.url }).containsExactly(soonest.url, middle.url)
     }
+
+    // the venue-specific page-content extraction below feeds whatever the classifier sees, so these
+    // assert on the text that actually reached the model rather than on the verdict it returned
+    private fun capturingChat(): Pair<Chat, MutableList<ChatRequest>> {
+        val requests = mutableListOf<ChatRequest>()
+        return Chat { request -> requests.add(request); chatResponse("Other") } to requests
+    }
+
+    private fun ChatRequest.promptText() =
+        (messages.single() as Message.User).contents.filterIsInstance<Content.Text>().joinToString("") { it.text }
 
     @Test
     fun `scopes The Underworld classification to the gig's own content, ignoring other-events widgets`() {
@@ -78,22 +115,12 @@ class GigClassifierTest {
             </article>
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val gig = GigEvent(title = "Some Gig", venue = "The Underworld", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
+        val (chat, requests) = capturingChat()
 
-        val classification = classifyGigByKeywords(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
+        classifyGigByLLM(fakeClient, chat, gig(venue = "The Underworld"), recordedAt)
 
-        expectThat(classification.matchedKeywords).containsExactly("metal", "doom")
-    }
-
-    @Test
-    fun `fails fast when a venue's event page content can't be extracted`() {
-        val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
-        val gig = GigEvent(title = "Some Gig", venue = "The Underworld", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
-
-        val error = assertFailsWith<IllegalStateException> { classifyGigByKeywords(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z")) }
-
-        expectThat(error.message!!.contains("The Underworld")).isTrue()
-        expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
+        expectThat(requests.first().promptText().contains("Doom metal night!")).isTrue()
+        expectThat(requests.first().promptText().contains("KINGS OF THRASH")).isEqualTo(false)
     }
 
     @Test
@@ -103,33 +130,24 @@ class GigClassifierTest {
             <div>KINGS OF THRASH</div>
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val gig = GigEvent(title = "Some Gig", venue = "New Cross Inn", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
+        val (chat, requests) = capturingChat()
 
-        val classification = classifyGigByKeywords(fakeClient, gig, Instant.parse("2026-08-01T00:00:00Z"))
+        classifyGigByLLM(fakeClient, chat, gig(venue = "New Cross Inn"), recordedAt)
 
-        expectThat(classification.matchedKeywords).containsExactly("metal", "doom")
-    }
-
-    private fun fakeChat(reply: String): Chat = Chat { _ ->
-        Success(
-            ChatResponse(
-                Message.Assistant(listOf(Content.Text(reply))),
-                ChatResponse.Metadata(ResponseId.of("fake-response-id"), ModelName.of("fake-model")),
-            ),
-        )
+        expectThat(requests.first().promptText().contains("Doom metal night with support")).isTrue()
+        expectThat(requests.first().promptText().contains("KINGS OF THRASH")).isEqualTo(false)
     }
 
     @Test
-    fun `classifies a gig as Metal or Other based on the LLM chat's reply`() {
-        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
-        val gig = GigEvent(title = "Some Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
-        val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
+    fun `fails fast when a venue's event page content can't be extracted`() {
+        val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
 
-        val metalClassification = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig, recordedAt)
-        val otherClassification = classifyGigByLLM(fakeClient, fakeChat("Other"), gig, recordedAt)
+        val error = assertFailsWith<IllegalStateException> {
+            classifyGigByLLM(fakeClient, fakeChat("Other"), gig(venue = "The Underworld"), recordedAt)
+        }
 
-        expectThat(metalClassification).isEqualTo(GigClassified(gig.venue, gig.url, recordedAt, genre = Genre.Metal, source = ClassificationSource.LLM))
-        expectThat(otherClassification).isEqualTo(GigClassified(gig.venue, gig.url, recordedAt, genre = Genre.Other, source = ClassificationSource.LLM))
+        expectThat(error.message!!.contains("The Underworld")).isTrue()
+        expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
     }
 
     @Test
@@ -137,59 +155,35 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { request ->
             if (request.uri.toString().endsWith("poster.jpg")) Response(OK).body("fake-image-bytes") else Response(OK).body("Thin")
         }
-        var capturedRequest: ChatRequest? = null
-        val chat = Chat { request ->
-            capturedRequest = request
-            Success(
-                ChatResponse(
-                    Message.Assistant(listOf(Content.Text("Metal"))),
-                    ChatResponse.Metadata(ResponseId.of("fake-response-id"), ModelName.of("fake-model")),
-                ),
-            )
-        }
-        val gig = GigEvent(title = "Some Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "https://example.com/poster.jpg")
+        val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig, Instant.parse("2026-08-01T00:00:00Z"))
+        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt)
 
-        val message = capturedRequest!!.messages.single() as Message.User
+        val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(1)
-        expectThat(capturedRequest!!.params.modelName).isEqualTo(ModelName.of("claude-sonnet-5"))
+        expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-sonnet-5"))
     }
 
     @Test
     fun `does not fetch the poster image when the event page text is long enough`() {
-        var fetchedUrls = mutableListOf<String>()
-        val fakeClient: HttpHandler = { request ->
-            fetchedUrls.add(request.uri.toString())
-            Response(OK).body("A".repeat(200))
-        }
-        var capturedRequest: ChatRequest? = null
-        val chat = Chat { request ->
-            capturedRequest = request
-            Success(
-                ChatResponse(
-                    Message.Assistant(listOf(Content.Text("Other"))),
-                    ChatResponse.Metadata(ResponseId.of("fake-response-id"), ModelName.of("fake-model")),
-                ),
-            )
-        }
-        val gig = GigEvent(title = "Some Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "https://example.com/poster.jpg")
+        val fetchedUrls = mutableListOf<String>()
+        val fakeClient: HttpHandler = { request -> fetchedUrls.add(request.uri.toString()); Response(OK).body("A".repeat(200)) }
+        val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig, Instant.parse("2026-08-01T00:00:00Z"))
+        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt)
 
         expectThat(fetchedUrls).containsExactly("https://example.com/gig")
-        val message = capturedRequest!!.messages.single() as Message.User
+        val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(0)
-        expectThat(capturedRequest!!.params.modelName).isEqualTo(ModelName.of("claude-haiku-4-5-20251001"))
+        expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-haiku-4-5-20251001"))
     }
 
     @Test
     fun `fails fast when the LLM chat replies with something other than a genre name`() {
         val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
-        val gig = GigEvent(title = "Some Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gig", imageUrl = "")
 
         val error = assertFailsWith<IllegalStateException> {
-            classifyGigByLLM(fakeClient, fakeChat("I think this is probably a metal gig"), gig, Instant.parse("2026-08-01T00:00:00Z"))
+            classifyGigByLLM(fakeClient, fakeChat("I think this is probably a metal gig"), gig(), recordedAt)
         }
 
         expectThat(error.message!!.contains("Some Venue")).isTrue()

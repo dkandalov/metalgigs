@@ -32,7 +32,7 @@ data class GigEvent(
 
 enum class Genre { Metal, Other }
 
-enum class ClassificationSource { Keywords, LLM, User }
+enum class ClassificationSource { LLM, User }
 
 // one entry in the append-only gig log, keyed by (venue, url) as the stable identity across scrapes
 sealed interface GigLogEntry {
@@ -47,14 +47,19 @@ data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : Gi
     override val url get() = gig.url
 }
 
-// a gig's genre, either derived from keywords matched on its event page or asserted by a user
+// a gig's genre, either judged by the LLM classifier or asserted by a user. The classifier samples
+// the LLM more than once and records every sample in sampledGenres, so the log keeps the raw
+// evidence and confidence is derived at read time: samples agreeing is the signal that the verdict
+// is trustworthy, samples disagreeing is the signal a human should decide. genre is the verdict
+// itself (the agreed sample, or the first one when they disagree and it's about to need review);
+// sampledGenres is empty for a user's own assertion, which needs no corroboration
 data class GigClassified(
     override val venue: String,
     override val url: String,
     override val recordedAt: Instant,
     val genre: Genre,
-    val matchedKeywords: List<String> = emptyList(),
     val source: ClassificationSource,
+    val sampledGenres: List<Genre> = emptyList(),
 ) : GigLogEntry
 
 // a gig's stable identity across scrapes - everything else (title, date, image) is status, not identity
