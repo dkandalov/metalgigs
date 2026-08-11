@@ -3,10 +3,16 @@ import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.llm.chat.ChatRequest
 import org.http4k.ai.llm.chat.ChatResponseFormat
 import org.http4k.ai.llm.model.Content
+import org.http4k.ai.llm.model.Message
 import org.http4k.ai.llm.model.ModelParams
+import org.http4k.ai.llm.model.Resource
 import org.http4k.ai.model.ModelName
 import org.http4k.ai.model.Temperature
+import org.http4k.connect.model.Base64Blob
+import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.time.Instant
@@ -55,16 +61,41 @@ val llmClassifierSystemPrompt = """
     Metal - if the gig is metal, doom, sludge, grindcore, black/death metal, metalcore, deathcore,
     thrash, stoner, hardcore, crust, or a closely related heavy genre.
     Other - for anything else, including when you're not sure.
+    When the event page text is too sparse to judge and a poster image is included instead, use the
+    image the same way - band logos, artwork style, and typography can indicate metal even without text.
 """.trimIndent()
 
 private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 
+// below this, event page text is usually boilerplate/placeholder rather than a real description -
+// fall back to the poster image (with a stronger, vision-capable model) instead of guessing from it
+private const val THIN_TEXT_THRESHOLD = 80
+private val visionClassifierModel = ModelName.of("claude-sonnet-5")
+
+private fun mimeTypeForImageUrl(url: String) =
+    when (url.substringBefore('?').substringAfterLast('.', "jpg").lowercase()) {
+        "png" -> MimeType.IMAGE_PNG
+        "gif" -> MimeType.IMAGE_GIF
+        "webp" -> MimeType.IMAGE_WEBP
+        else -> MimeType.IMAGE_JPG
+    }
+
+private fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
+    val response = client(Request(GET, imageUrl))
+    check(response.status.successful) { "Failed to fetch poster image at $imageUrl: ${response.status}" }
+    return Content.Image(Resource.Binary(Base64Blob.encode(response.body.stream.readBytes()), mimeTypeForImageUrl(imageUrl)))
+}
+
 fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
+    val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
+
+    val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +
+        if (useVision) listOf(fetchImageContent(client, gig.imageUrl)) else emptyList()
 
     val request = ChatRequest(
-        "Title: ${gig.title}\n\nEvent page text: $pageText",
-        ModelParams(llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text),
+        Message.User(contents),
+        ModelParams(if (useVision) visionClassifierModel else llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text),
     )
     val response = chat(request).onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
     val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
