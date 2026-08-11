@@ -17,6 +17,14 @@ data class GigEvent(
     val url: String,
     val imageUrl: String,
 ) {
+    // half of a gig's identity (see GigId), so a blank one leaves it unidentifiable, unlinkable,
+    // and - since classifying fetches this url - a crash several steps later in a different
+    // command. Always a scraping bug rather than a real listing, so it fails here where the
+    // offending gig can still be named. imageUrl is genuinely optional and isn't checked
+    init {
+        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: \"$title\" at $venue on $year-$month-$day" }
+    }
+
     companion object {
         fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String) = GigEvent(
             title = title,
