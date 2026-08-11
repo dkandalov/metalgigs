@@ -123,41 +123,29 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-class OurBlackHeartGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.ourblackheart.com/events"
-    private val venue = "Our Black Heart"
-
+// shared by every Squarespace "Events List" venue page; the venue-specific classes below just
+// supply url/venue
+class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, private val venue: String) : GigsSource {
     override fun latestGigs(): List<GigEvent> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("article.eventlist-event--upcoming")
             .map { item ->
+                val titleLink = item.select(".eventlist-title-link")
                 GigEvent.of(
-                    title = item.select(".eventlist-title-link").text(),
+                    title = titleLink.text(),
                     venue = venue,
                     date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
-                    url = item.select(".eventlist-title-link").attr("abs:href"),
+                    url = titleLink.attr("abs:href"),
                     imageUrl = item.squarespaceThumbnailUrl(),
                 )
             }
 }
 
-class DomeLondonGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.domelondon.co.uk/whatson"
-    private val venue = "The Dome"
+class OurBlackHeartGigsSource(client: HttpHandler) :
+    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = "Our Black Heart")
 
-    override fun latestGigs(): List<GigEvent> =
-        Jsoup.parse(fetchPage(client, url), url)
-            .select("article.eventlist-event--upcoming")
-            .map { item ->
-                GigEvent.of(
-                    title = item.select(".eventlist-title-link").text(),
-                    venue = venue,
-                    date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
-                    url = item.select(".eventlist-title-link").attr("abs:href"),
-                    imageUrl = item.squarespaceThumbnailUrl(),
-                )
-            }
-}
+class DomeLondonGigsSource(client: HttpHandler) :
+    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = "The Dome")
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.theunderworldcamden.co.uk/search-events/"
