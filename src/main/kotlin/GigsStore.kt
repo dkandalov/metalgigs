@@ -83,7 +83,7 @@ fun readGigLogEntries(file: File): List<GigLogEntry> =
 
 fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
     entries.filterIsInstance<GigObserved>()
-        .groupBy { it.venue to it.url }
+        .groupBy { it.id }
         .values
         .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
@@ -91,8 +91,8 @@ fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
 // title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
 // per gig, not the whole history, so a gig can be logged again after reverting to a prior state
 fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEvent>): List<GigEvent> {
-    val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.venue to it.url }
-    return scrapedGigs.filter { gig -> latestByGig[gig.venue to gig.url] != gig }
+    val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
+    return scrapedGigs.filter { gig -> latestByGig[gig.id] != gig }
 }
 
 sealed interface ClassificationStatus {
@@ -118,23 +118,23 @@ private fun classificationStatus(classifications: List<GigClassified>): Classifi
     }
 }
 
-fun classificationStatusByGig(entries: List<GigLogEntry>): Map<Pair<String, String>, ClassificationStatus> =
+fun classificationStatusByGig(entries: List<GigLogEntry>): Map<GigId, ClassificationStatus> =
     entries.filterIsInstance<GigClassified>()
-        .groupBy { it.venue to it.url }
+        .groupBy { it.id }
         .mapValues { (_, classifications) -> classificationStatus(classifications) }
 
 // current gigs classified Metal by consensus: a User override, or Keywords and LLM agreeing
 fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
     val statusByGig = classificationStatusByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->
-        (statusByGig[gig.venue to gig.url] as? ClassificationStatus.Classified)?.genre == Genre.Metal
+        (statusByGig[gig.id] as? ClassificationStatus.Classified)?.genre == Genre.Metal
     }
 }
 
 // gigs the given automated source should skip: it has already classified them, or a User
 // override has already settled them
-fun alreadyClassifiedBy(entries: List<GigLogEntry>, source: ClassificationSource): Set<Pair<String, String>> =
+fun alreadyClassifiedBy(entries: List<GigLogEntry>, source: ClassificationSource): Set<GigId> =
     entries.filterIsInstance<GigClassified>()
         .filter { it.source == source || it.source == ClassificationSource.User }
-        .map { it.venue to it.url }
+        .map { it.id }
         .toSet()

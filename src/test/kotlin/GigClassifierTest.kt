@@ -36,7 +36,7 @@ class GigClassifierTest {
 
         val classifications = classifyGigs(
             gigs = listOf(metalGig, comedyGig, oldGig),
-            alreadyClassified = setOf(oldGig.venue to oldGig.url),
+            alreadyClassified = setOf(oldGig.id),
             classifyGig = { gig -> classifyGigByKeywords(fakeClient, gig, recordedAt) },
         )
 

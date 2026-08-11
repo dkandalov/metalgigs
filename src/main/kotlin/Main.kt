@@ -73,9 +73,9 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     appendGigLogEntries(eventsFile, llmClassifications)
     val afterLLM = afterKeywords + llmClassifications
 
-    val affectedKeys = (keywordsClassifications + llmClassifications).map { it.venue to it.url }.toSet()
+    val affectedKeys = (keywordsClassifications + llmClassifications).map { it.id }.toSet()
     val statusByGig = classificationStatusByGig(afterLLM)
-    val newlyMetalGigs = projectMetalGigs(afterLLM).filter { (it.venue to it.url) in affectedKeys }
+    val newlyMetalGigs = projectMetalGigs(afterLLM).filter { it.id in affectedKeys }
     cacheGigImages(client, newlyMetalGigs, imagesDir)
 
     printClassificationSummary(keywordsClassifications, llmClassifications, newlyMetalGigs.size, affectedKeys, currentGigs, statusByGig)
@@ -85,9 +85,9 @@ private fun printClassificationSummary(
     keywordsClassifications: List<GigClassified>,
     llmClassifications: List<GigClassified>,
     reachedMetalConsensus: Int,
-    affectedKeys: Set<Pair<String, String>>,
+    affectedKeys: Set<GigId>,
     currentGigs: List<GigEvent>,
-    statusByGig: Map<Pair<String, String>, ClassificationStatus>,
+    statusByGig: Map<GigId, ClassificationStatus>,
 ) {
     val newConflicts = affectedKeys.count { key -> statusByGig[key] is ClassificationStatus.Disputed }
 
@@ -98,7 +98,7 @@ private fun printClassificationSummary(
     println("  New conflicts (Keywords/LLM disagree): $newConflicts")
     println()
 
-    val statuses = currentGigs.map { statusByGig[it.venue to it.url] }
+    val statuses = currentGigs.map { statusByGig[it.id] }
     val overallMetal = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Metal }
     val overallOther = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Other }
     val overallDisputed = statuses.count { it is ClassificationStatus.Disputed }
@@ -142,7 +142,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     val entries = readGigLogEntries(eventsFile)
     val statusByGig = classificationStatusByGig(entries)
     val upcomingGigs = excludeGigsInThePast(projectCurrentGigs(entries), today)
-    val unresolved = upcomingGigs.filter { gig -> statusByGig[gig.venue to gig.url] !is ClassificationStatus.Classified }
+    val unresolved = upcomingGigs.filter { gig -> statusByGig[gig.id] !is ClassificationStatus.Classified }
         .sortedBy { it.date() }
 
     if (unresolved.isNotEmpty() && !force) {

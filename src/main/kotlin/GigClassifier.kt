@@ -113,10 +113,10 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
 
 fun classifyGigs(
     gigs: List<GigEvent>,
-    alreadyClassified: Set<Pair<String, String>>,
+    alreadyClassified: Set<GigId>,
     limit: Int? = null,
     classifyGig: (GigEvent) -> GigClassified,
 ): List<GigClassified> {
-    val toClassify = gigs.filter { (it.venue to it.url) !in alreadyClassified }.sortedBy { it.date() }
+    val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date() }
     return (if (limit != null) toClassify.take(limit) else toClassify).map(classifyGig)
 }

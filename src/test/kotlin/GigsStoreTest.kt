@@ -125,10 +125,10 @@ class GigsStoreTest {
 
         val statusByGig = classificationStatusByGig(events)
 
-        expectThat(statusByGig[agreedMetal.venue to agreedMetal.url]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
-        expectThat(statusByGig[agreedOther.venue to agreedOther.url]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
-        expectThat(statusByGig[pendingLLM.venue to pendingLLM.url]).isEqualTo(ClassificationStatus.Pending)
-        expectThat(statusByGig[disputed.venue to disputed.url]).isEqualTo(ClassificationStatus.Disputed)
+        expectThat(statusByGig[agreedMetal.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
+        expectThat(statusByGig[agreedOther.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
+        expectThat(statusByGig[pendingLLM.id]).isEqualTo(ClassificationStatus.Pending)
+        expectThat(statusByGig[disputed.id]).isEqualTo(ClassificationStatus.Disputed)
     }
 
     @Test
@@ -147,7 +147,7 @@ class GigsStoreTest {
         )
 
         expectThat(projectMetalGigs(events)).isEqualTo(listOf(overriddenToMetal))
-        expectThat(classificationStatusByGig(events)[overriddenToOther.venue to overriddenToOther.url]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
+        expectThat(classificationStatusByGig(events)[overriddenToOther.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
     }
 
     @Test
@@ -165,8 +165,8 @@ class GigsStoreTest {
         )
 
         expectThat(alreadyClassifiedBy(events, ClassificationSource.Keywords))
-            .containsExactlyInAnyOrder(keywordsOnly.venue to keywordsOnly.url, userOverridden.venue to userOverridden.url)
+            .containsExactlyInAnyOrder(keywordsOnly.id, userOverridden.id)
         expectThat(alreadyClassifiedBy(events, ClassificationSource.LLM))
-            .containsExactlyInAnyOrder(userOverridden.venue to userOverridden.url)
+            .containsExactlyInAnyOrder(userOverridden.id)
     }
 }

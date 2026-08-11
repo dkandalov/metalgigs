@@ -56,6 +56,12 @@ data class GigClassified(
     val source: ClassificationSource,
 ) : GigLogEntry
 
+// a gig's stable identity across scrapes - everything else (title, date, image) is status, not identity
+data class GigId(val venue: String, val url: String)
+
+val GigEvent.id: GigId get() = GigId(venue, url)
+val GigLogEntry.id: GigId get() = GigId(venue, url)
+
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
 fun GigEvent.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
