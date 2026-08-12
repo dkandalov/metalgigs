@@ -672,4 +672,29 @@ class GigsSourceTest {
         // counting if a future site change made the "next" link loop back to page 1
         expectThat(events.map { it.id.url }.distinct()).hasSize(55)
     }
+
+    @Test
+    fun `extracts gig events from 229's Dice partner-widget API`() {
+        assertScrapesGigs(
+            source = TwoTwoNineGigsSource(cachedClient()),
+            size = 75,
+            first = GigEvent(
+                id = GigId("229", "https://dice.fm/event/lun8-14th-aug-229-london-tickets"),
+                title = "LUN8 ",
+                year = 2026,
+                month = "Aug",
+                day = "14",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-06-23/baa8fed2-8ece-4006-83d7-f9610c6622f3.jpg",
+            ),
+            last = GigEvent(
+                id = GigId("229", "https://dice.fm/event/leo-kottke-9th-jun-229-london-tickets"),
+                title = "Leo Kottke",
+                year = 2027,
+                month = "Jun",
+                day = "09",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-06-01/e83611c7-842b-4a07-ae83-b29386d816dc.jpg",
+            ),
+            urlPrefix = "https://dice.fm/event/",
+        )
+    }
 }
