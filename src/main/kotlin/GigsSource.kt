@@ -85,6 +85,20 @@ private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(Te
 
 fun GigEvent.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
 
+// imgix renders whatever size the url asks for, and The Underworld's listing asks for w=200 - a
+// thumbnail sized for its own page, and 8x fewer pixels than the crop behind it (measured: w=200
+// gives 200px, dropping it gives the full 1667px, and asking beyond that caps rather than upscales).
+// Taking the full crop lets render size it for the card instead of enlarging a thumbnail.
+//
+// The dice.fm venues draw on this same CDN but link their images with no w at all, which is why
+// theirs have always arrived at full size
+internal fun imgixUrlWithoutWidth(url: String): String {
+    if (!url.contains("imgix.net")) return url
+    val base = url.substringBefore('?')
+    val params = url.substringAfter('?', "").split("&").filterNot { it.startsWith("w=") || it.isBlank() }
+    return if (params.isEmpty()) base else "$base?${params.joinToString("&")}"
+}
+
 // Squarespace's "Events List" block sometimes resolves the thumbnail's `src` eagerly and sometimes
 // leaves it lazy-loaded with only `data-image` set, depending on the site
 private fun Element.squarespaceThumbnailUrl(): String {
@@ -188,7 +202,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
                     venue = venue,
                     date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
                     url = item.select(".list-header-title a").attr("abs:href"),
-                    imageUrl = item.select(".list-image img").attr("abs:src"),
+                    imageUrl = imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src")),
                 )
             }
 }

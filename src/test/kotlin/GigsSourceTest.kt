@@ -139,7 +139,7 @@ class GigsSourceTest {
 
     @Test
     fun `extracts gig events from The Underworld search-events page`() {
-        assertScrapesGigs(
+        val events = assertScrapesGigs(
             source = TheUnderworldGigsSource(cachedClient()),
             size = 74,
             first = GigEvent(
@@ -148,7 +148,7 @@ class GigsSourceTest {
                 year = 2026,
                 month = "Aug",
                 day = "08",
-                imageUrl = "https://dice-media.imgix.net/attachments/2026-04-15/644411f7-5f86-484c-b29b-b71dc309b89e.jpg?rect=734%2C0%2C2682%2C2682&w=200",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-04-15/644411f7-5f86-484c-b29b-b71dc309b89e.jpg?rect=734%2C0%2C2682%2C2682",
             ),
             last = GigEvent(
                 id = GigId("The Underworld", "https://www.theunderworldcamden.co.uk/event/alive-a-tribute-to-pearl-jam-20th-nov-the-underworld-london-tickets/"),
@@ -156,10 +156,27 @@ class GigsSourceTest {
                 year = 2027,
                 month = "Dec",
                 day = "04",
-                imageUrl = "https://dice-media.imgix.net/attachments/2026-02-10/cf613856-3e58-41a8-b0f0-af044c77c97b.jpg?rect=228%2C0%2C2045%2C2045&w=200",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-02-10/cf613856-3e58-41a8-b0f0-af044c77c97b.jpg?rect=228%2C0%2C2045%2C2045",
             ),
             urlPrefix = "https://www.theunderworldcamden.co.uk/event/",
         )
+
+        // the listing asks imgix for w=200 thumbnails; keeping that would publish 200px images for
+        // this venue and nothing downstream could recover the detail, so no image url keeps a width
+        expectThat(events.count { it.imageUrl.contains("w=") }).isEqualTo(0)
+        expectThat(events.count { it.imageUrl.contains("imgix.net") }).isEqualTo(73)
+    }
+
+    @Test
+    fun `strips only the width, leaving other imgix parameters and non-imgix urls alone`() {
+        val rect = "https://dice-media.imgix.net/a.jpg?rect=1%2C0%2C99%2C99"
+
+        expectThat(imgixUrlWithoutWidth("$rect&w=200")).isEqualTo(rect)
+        expectThat(imgixUrlWithoutWidth("https://dice-media.imgix.net/a.jpg?w=200&rect=1")).isEqualTo("https://dice-media.imgix.net/a.jpg?rect=1")
+        expectThat(imgixUrlWithoutWidth("https://dice-media.imgix.net/a.jpg?w=200")).isEqualTo("https://dice-media.imgix.net/a.jpg")
+        expectThat(imgixUrlWithoutWidth(rect)).isEqualTo(rect)
+        // a width elsewhere isn't imgix's, so it's left alone rather than guessed at
+        expectThat(imgixUrlWithoutWidth("https://example.com/a.jpg?w=200")).isEqualTo("https://example.com/a.jpg?w=200")
     }
 
     @Test
