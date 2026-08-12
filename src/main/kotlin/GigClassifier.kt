@@ -64,10 +64,10 @@ fun genreFromReply(reply: String): Genre? {
     return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
 }
 
-// capturedPageText is what the scrape recorded for this gig; it's only fetched here when absent,
-// which means a gig observed before scrape started capturing it
-fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant, capturedPageText: String? = null): GigClassified {
-    val pageText = capturedPageText ?: fetchGigPageText(client, gig)
+// uses the page text the scrape captured onto the gig, only fetching when it has none - which
+// means a gig observed before scrape started capturing it, or one whose page couldn't be read
+fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
+    val pageText = gig.pageText ?: fetchGigPageText(client, gig)
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +

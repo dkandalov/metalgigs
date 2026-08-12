@@ -20,6 +20,8 @@ object JGigEvent : JAny<GigEvent>() {
     private val day by str(GigEvent::day)
     private val url by str(GigEvent::url)
     private val imageUrl by str(GigEvent::imageUrl)
+    // optional, so entries written before page text was captured still read back (see GigEvent)
+    private val pageText by str(GigEvent::pageText)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigEvent(
         title = +title,
@@ -29,19 +31,17 @@ object JGigEvent : JAny<GigEvent>() {
         day = +day,
         url = +url,
         imageUrl = +imageUrl,
+        pageText = +pageText,
     )
 }
 
 object JGigObserved : JAny<GigObserved>() {
     private val gig by obj(JGigEvent, GigObserved::gig)
     private val recordedAt by str(GigObserved::recordedAt)
-    // optional, so entries written before pageText existed still read back (see GigObserved)
-    private val pageText by str(GigObserved::pageText)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigObserved(
         gig = +gig,
         recordedAt = +recordedAt,
-        pageText = +pageText,
     )
 }
 
@@ -92,19 +92,22 @@ fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
 // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
 // title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
 // per gig, not the whole history, so a gig can be logged again after reverting to a prior state
+// what makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
+// not pageText. That comes from a different page, and measurably churns: re-reading every gig's
+// page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
+// to full (a flaky JS-rendered site). Comparing it would log a fresh observation of an otherwise
+// untouched gig each time that happened
+private fun GigEvent.listedDetails() = copy(pageText = null)
+
 fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEvent>): List<GigEvent> {
     val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
-    return scrapedGigs.filter { gig -> latestByGig[gig.id] != gig }
+    return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
 }
 
-// each gig's most recently captured event-page text. Falls back through older observations rather
-// than only reading the latest one, so a gig re-observed by a scrape that couldn't reach its page
-// keeps the text an earlier scrape did capture
-fun pageTextByGig(entries: List<GigLogEntry>): Map<GigId, String> =
-    entries.filterIsInstance<GigObserved>()
-        .filter { it.pageText != null }
-        .groupBy { it.id }
-        .mapValues { (_, observations) -> observations.maxBy { it.recordedAt }.pageText!! }
+// gigs whose latest observation never captured their event-page text - scraping their venue picks
+// them up so the log fills in, and until then the classifier fetches for them
+fun gigsMissingPageText(entries: List<GigLogEntry>): Set<GigId> =
+    projectCurrentGigs(entries).filter { it.pageText == null }.map { it.id }.toSet()
 
 // when each venue was last seen changing - an approximation of "last scraped" derived from
 // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for

@@ -108,22 +108,22 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val gigs = toScrape.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
 
-    // record a gig whose details changed, and also one that's unchanged but has no page text yet -
-    // that second case backfills gigs observed before scrape started capturing it, so the log fills
-    // in venue by venue instead of needing a separate migration pass
-    val alreadyCaptured = pageTextByGig(existingEntries)
+    // record a gig whose listed details changed, and also one that's unchanged but has no page text
+    // yet - that second case backfills gigs observed before scrape started capturing it, so the log
+    // fills in venue by venue instead of needing a separate migration pass
+    val missingPageText = gigsMissingPageText(existingEntries)
     val newOrChanged = newOrChangedGigs(existingEntries, gigs).toSet()
-    val toObserve = gigs.filter { it in newOrChanged || it.id !in alreadyCaptured }
+    val toObserve = gigs.filter { it in newOrChanged || it.id in missingPageText }
 
     val observed = toObserve.map { gig ->
         // one dead event page shouldn't cost us the whole scrape - the gig is still worth recording,
         // and the classifier falls back to fetching for a gig with no captured text
         val pageText = runCatching { fetchGigPageText(client, gig) }.getOrNull()
-        GigObserved(gig, now, pageText)
+        GigObserved(gig.copy(pageText = pageText), now)
     }
     appendGigLogEntries(eventsFile, observed)
 
-    val withoutText = observed.count { it.pageText == null }
+    val withoutText = observed.count { it.gig.pageText == null }
     if (withoutText > 0) println("Could not capture event page text for $withoutText gig(s); they'll be fetched at classification time instead")
 
     // cache every scraped gig's image now, whatever its genre turns out to be: classification and
@@ -143,9 +143,8 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
-    val capturedPageText = pageTextByGig(existingEntries)
     val classifications = classifyGigs(currentGigs, alreadyClassified(existingEntries), limit) { gig ->
-        classifyGigByLLM(client, chat, gig, recordedAt, capturedPageText[gig.id])
+        classifyGigByLLM(client, chat, gig, recordedAt)
     }
     appendGigLogEntries(eventsFile, classifications)
 
@@ -230,7 +229,7 @@ fun migrateLogCapturingPageText(outputFile: File) {
     var failed = 0
 
     val migrated = entries.mapIndexed { index, entry ->
-        if (entry !is GigObserved || entry.pageText != null) return@mapIndexed entry
+        if (entry !is GigObserved || entry.gig.pageText != null) return@mapIndexed entry
         val text = textByUrl.getOrPut(entry.gig.url) {
             runCatching { fetchGigPageText(client, entry.gig) }
                 .onSuccess { fetched++ }
@@ -238,12 +237,12 @@ fun migrateLogCapturingPageText(outputFile: File) {
                 .getOrNull()
         }
         if ((index + 1) % 100 == 0) println("  ${index + 1}/${entries.size} entries...")
-        entry.copy(pageText = text)
+        entry.copy(gig = entry.gig.copy(pageText = text))
     }
 
     appendGigLogEntries(outputFile, migrated)
 
-    val stillMissing = migrated.filterIsInstance<GigObserved>().count { it.pageText == null }
+    val stillMissing = migrated.filterIsInstance<GigObserved>().count { it.gig.pageText == null }
     println("Wrote ${migrated.size} entries to $outputFile")
     println("  pages fetched: $fetched, fetches failed: $failed")
     println("  observations still without text: $stillMissing")

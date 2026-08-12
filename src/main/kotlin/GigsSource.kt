@@ -16,6 +16,12 @@ data class GigEvent(
     val day: String,
     val url: String,
     val imageUrl: String,
+    // the gig's own event-page text, captured at scrape time so classifying later needs no network
+    // and can't be defeated by a page that has since changed or gone. Unlike every other field here
+    // it comes from the gig's own page rather than the venue's listing, so it can be absent on its
+    // own - null means never captured (an entry predating this, or a page that couldn't be read),
+    // and the classifier falls back to fetching for those
+    val pageText: String? = null,
 ) {
     // half of a gig's identity (see GigId), so a blank one leaves it unidentifiable, unlinkable,
     // and - since classifying fetches this url - a crash several steps later in a different
@@ -54,16 +60,7 @@ sealed interface GigLogEntry {
 }
 
 // a sighting of a gig at scrape time
-// pageText is the gig's own event-page text as it read at scrape time, captured then so classifying
-// later needs no network and can't be defeated by a page that has since changed or gone. It is
-// deliberately not part of GigEvent: GigEvent equality decides what counts as a changed gig, and
-// this text churns (ticket counters, "last few remaining"), so folding it in would log a fresh
-// observation on every single scrape.
-//
-// Nullable for now - entries written before this existed have no text, and the classifier falls
-// back to fetching for those. Scraping a venue backfills its gigs (see scrapeGigs), so the log
-// fills in over time and the field can be made required once nothing relies on the fallback.
-data class GigObserved(val gig: GigEvent, override val recordedAt: Instant, val pageText: String? = null) : GigLogEntry {
+data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : GigLogEntry {
     override val id get() = gig.id
 }
 

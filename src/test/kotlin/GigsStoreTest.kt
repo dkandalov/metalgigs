@@ -31,32 +31,39 @@ class GigsStoreTest {
         // exactly as the log held it before the field was added - no pageText key at all
         file.writeText("""{"_type": "observed", "gig": {"title": "Test Gig", "venue": "Test Venue", "year": 2026, "month": "Aug", "day": "08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
 
-        appendGigLogEntries(file, listOf(GigObserved(gig, recordedAt.plusSeconds(60), pageText = "Doom metal night")))
+        appendGigLogEntries(file, listOf(GigObserved(gig.copy(pageText = "Doom metal night"), recordedAt.plusSeconds(60))))
 
         expectThat(readGigLogEntries(file)).isEqualTo(
             listOf(
-                GigObserved(gig, recordedAt, pageText = null),
-                GigObserved(gig, recordedAt.plusSeconds(60), pageText = "Doom metal night"),
+                GigObserved(gig, recordedAt),
+                GigObserved(gig.copy(pageText = "Doom metal night"), recordedAt.plusSeconds(60)),
             ),
         )
     }
 
     @Test
-    fun `takes each gig's most recent captured page text, ignoring observations that captured none`() {
-        val gig = GigEvent(title = "Some Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/some-gig", imageUrl = "")
-        val neverCaptured = GigEvent(title = "Other Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/other-gig", imageUrl = "")
+    fun `finds gigs whose latest observation captured no page text`() {
+        val captured = GigEvent(title = "Captured", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/captured", imageUrl = "")
+        val neverCaptured = GigEvent(title = "Never", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/never", imageUrl = "")
         val entries: List<GigLogEntry> = listOf(
-            GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z"), pageText = "first text"),
-            GigObserved(gig, Instant.parse("2026-07-10T00:00:00Z"), pageText = "newer text"),
-            // a later re-observation whose page couldn't be reached must not erase what we have
-            GigObserved(gig, Instant.parse("2026-07-15T00:00:00Z"), pageText = null),
-            GigObserved(neverCaptured, Instant.parse("2026-07-01T00:00:00Z"), pageText = null),
+            GigObserved(captured, Instant.parse("2026-07-01T00:00:00Z")),
+            GigObserved(captured.copy(pageText = "Doom metal night"), Instant.parse("2026-07-10T00:00:00Z")),
+            GigObserved(neverCaptured, Instant.parse("2026-07-01T00:00:00Z")),
         )
 
-        val byGig = pageTextByGig(entries)
+        expectThat(gigsMissingPageText(entries)).containsExactly(neverCaptured.id)
+    }
 
-        expectThat(byGig[gig.id]).isEqualTo("newer text")
-        expectThat(byGig[neverCaptured.id]).isEqualTo(null)
+    @Test
+    fun `page text changing does not make a gig count as changed`() {
+        val gig = GigEvent(title = "Some Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/some-gig", imageUrl = "")
+        val existing: List<GigLogEntry> = listOf(GigObserved(gig.copy(pageText = "3 tickets left"), Instant.parse("2026-07-01T00:00:00Z")))
+
+        // the same gig as the listing gives it - a counter ticking over on its own page, or that
+        // page failing to render, must not look like the gig itself changed
+        expectThat(newOrChangedGigs(existing, listOf(gig.copy(pageText = "2 tickets left")))).isEqualTo(emptyList())
+        expectThat(newOrChangedGigs(existing, listOf(gig.copy(pageText = null)))).isEqualTo(emptyList())
+        expectThat(newOrChangedGigs(existing, listOf(gig.copy(title = "Some Gig - SOLD OUT")))).containsExactly(gig.copy(title = "Some Gig - SOLD OUT"))
     }
 
     @Test
