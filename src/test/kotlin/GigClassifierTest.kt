@@ -44,8 +44,11 @@ class GigClassifierTest {
         val metal = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig(), recordedAt)
         val other = classifyGigByLLM(fakeClient, fakeChat("Other"), gig(), recordedAt)
 
-        expectThat(metal).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Metal, ClassificationSource.LLM))
-        expectThat(other).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Other, ClassificationSource.LLM))
+        // page text is long enough here that this is the text path, not vision - records which
+        // model judged it and confirms useVision = false rather than just leaving it null
+        val textModel = "claude-haiku-4-5-20251001"
+        expectThat(metal).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false))
+        expectThat(other).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Other, ClassificationSource.LLM, textModel, useVision = false))
     }
 
     @Test
@@ -195,12 +198,14 @@ class GigClassifierTest {
         val (chat, requests) = capturingChat()
         val posterUrls = mutableListOf<String>()
 
-        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
+        val classified = classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
 
         expectThat(posterUrls).containsExactly("https://example.com/poster.jpg")
         val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(1)
         expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-sonnet-5"))
+        expectThat(classified.useVision).isEqualTo(true)
+        expectThat(classified.llmModel).isEqualTo("claude-sonnet-5")
     }
 
     @Test
@@ -210,7 +215,7 @@ class GigClassifierTest {
         val (chat, requests) = capturingChat()
         val posterUrls = mutableListOf<String>()
 
-        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
+        val classified = classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
 
         expectThat(fetchedUrls).containsExactly("https://example.com/gig")
         // not merely absent from the request - never fetched, so no download and no conversion
@@ -218,6 +223,8 @@ class GigClassifierTest {
         val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(0)
         expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-haiku-4-5-20251001"))
+        expectThat(classified.useVision).isEqualTo(false)
+        expectThat(classified.llmModel).isEqualTo("claude-haiku-4-5-20251001")
     }
 
     @Test

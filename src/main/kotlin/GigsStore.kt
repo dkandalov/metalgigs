@@ -1,5 +1,6 @@
 import com.ubertob.kondor.json.JAny
 import com.ubertob.kondor.json.JSealed
+import com.ubertob.kondor.json.bool
 import com.ubertob.kondor.json.ObjectNodeConverter
 import com.ubertob.kondor.json.datetime.str
 import com.ubertob.kondor.json.fromNdJsonToList
@@ -53,12 +54,17 @@ object JGigClassified : JAny<GigClassified>() {
     private val recordedAt by str(GigClassified::recordedAt)
     private val genre by str(GigClassified::genre)
     private val source by str(GigClassified::source)
+    // optional, so entries written before these existed still read back (see GigClassified)
+    private val llmModel by str(GigClassified::llmModel)
+    private val useVision by bool(GigClassified::useVision)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigClassified(
         id = GigId(+venue, +url),
         recordedAt = +recordedAt,
         genre = +genre,
         source = +source,
+        llmModel = +llmModel,
+        useVision = +useVision,
     )
 }
 

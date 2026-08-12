@@ -66,6 +66,11 @@ data class GigClassified(
     override val recordedAt: Instant,
     val genre: Genre,
     val source: ClassificationSource,
+    // which model judged it, and whether it saw the poster rather than page text - orthogonal to
+    // source, which is only about whose verdict is final (see classificationStatus). Null for
+    // anything not judged by the LLM classifier: a User override, or ingest-poster's own assertion
+    val llmModel: String? = null,
+    val useVision: Boolean? = null,
 ) : LogEntry
 
 // the one entry that isn't about a single gig - a whole page was published, naming the archived

@@ -43,6 +43,45 @@ class GigsStoreTest {
     }
 
     @Test
+    fun `round-trips a classification recording which model judged it and whether it saw the poster`() {
+        val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+        val classified = GigClassified(
+            id = GigId("Test Venue", "https://example.com/gigs/test-gig"),
+            recordedAt = recordedAt,
+            genre = Genre.Metal,
+            source = ClassificationSource.LLM,
+            llmModel = "claude-haiku-4-5-20251001",
+            useVision = false,
+        )
+
+        appendLogEntries(file, listOf(classified))
+
+        expectThat(readLogEntries(file)).isEqualTo(listOf(classified))
+    }
+
+    // verbatim from the real log, from before llmModel and useVision were added - no keys for
+    // either, not null-valued keys, so this is what an absent JFieldMaybe actually has to handle
+    @Test
+    fun `reads back a classification written before llmModel and useVision existed`() {
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+        file.writeText(
+            """{"_type": "classified", "venue": "Signature Brew Blackhorse Road", "url": "https://tixr.com/e/187182", "recordedAt": "2026-08-11T21:20:43.785398Z", "genre": "Other", "source": "LLM"}""" + "\n",
+        )
+
+        expectThat(readLogEntries(file)).isEqualTo(
+            listOf(
+                GigClassified(
+                    id = GigId("Signature Brew Blackhorse Road", "https://tixr.com/e/187182"),
+                    recordedAt = Instant.parse("2026-08-11T21:20:43.785398Z"),
+                    genre = Genre.Other,
+                    source = ClassificationSource.LLM,
+                ),
+            ),
+        )
+    }
+
+    @Test
     fun `reads back an observation written before pageText existed, and one with it`() {
         val gig = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/test-gig"), title = "Test Gig", year = 2026, month = "Aug", day = "08", imageUrl = "")
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")

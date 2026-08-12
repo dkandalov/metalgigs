@@ -79,10 +79,11 @@ fun classifyGigByLLM(
 
     // the vision model rejects a temperature override outright; the text model accepts one and we
     // want its verdicts reproducible, so only that path pins it
+    val model = if (useVision) visionClassifierModel else llmClassifierModel
     val params = if (useVision) {
-        ModelParams(visionClassifierModel, responseFormat = ChatResponseFormat.Text)
+        ModelParams(model, responseFormat = ChatResponseFormat.Text)
     } else {
-        ModelParams(llmClassifierModel, Temperature.ZERO, responseFormat = ChatResponseFormat.Text)
+        ModelParams(model, Temperature.ZERO, responseFormat = ChatResponseFormat.Text)
     }
 
     val response = chat(ChatRequest(Message.User(contents), params))
@@ -96,6 +97,8 @@ fun classifyGigByLLM(
         recordedAt = recordedAt,
         genre = genre,
         source = ClassificationSource.LLM,
+        llmModel = model.value,
+        useVision = useVision,
     )
 }
 
