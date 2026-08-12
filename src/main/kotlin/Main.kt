@@ -95,7 +95,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     check(unknownKeys.isEmpty()) { "Unknown venue key(s): $unknownKeys. Known venue keys: ${sourcesByKey.keys}" }
     val sources = if (venueKeys.isEmpty()) sourcesByKey.values.toList() else venueKeys.map { sourcesByKey.getValue(it) }
 
-    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+    val existingEntries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
     val lastScrapedAt = lastScrapedAt(existingEntries)
     val now = Instant.now()
 
@@ -120,7 +120,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
         val pageText = runCatching { fetchGigPageText(client, gig) }.getOrNull()
         GigObserved(gig.copy(pageText = pageText), now)
     }
-    appendGigLogEntries(eventsFile, observed)
+    appendLogEntries(eventsFile, observed)
 
     val withoutText = observed.count { it.gig.pageText == null }
     if (withoutText > 0) println("Could not capture event page text for $withoutText gig(s); they'll be fetched at classification time instead")
@@ -132,7 +132,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
 
 fun classifyUnclassifiedGigs(limit: Int? = null) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+    val existingEntries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
     val currentGigs = projectCurrentGigs(existingEntries)
     val recordedAt = Instant.now()
 
@@ -145,7 +145,7 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     val classifications = classifyGigs(currentGigs, alreadyClassified(existingEntries), limit) { gig ->
         classifyGigByLLM(client, chat, gig, recordedAt)
     }
-    appendGigLogEntries(eventsFile, classifications)
+    appendLogEntries(eventsFile, classifications)
 
     val affectedKeys = classifications.map { it.id }.toSet()
     val statusByGig = classificationStatusByGig(existingEntries + classifications)
@@ -175,7 +175,7 @@ private fun printClassificationSummary(
 
 fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val existingEntries = if (eventsFile.exists()) readGigLogEntries(eventsFile) else emptyList()
+    val existingEntries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
 
     if (!force && alreadyIngested(existingEntries, sourceUrl)) {
         println("Skipping - $sourceUrl already ingested; pass force to re-ingest anyway")
@@ -200,7 +200,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     val classified = gigs.map { gig ->
         GigClassified(id = gig.id, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
     }
-    appendGigLogEntries(eventsFile, observed + classified)
+    appendLogEntries(eventsFile, observed + classified)
     // these gigs never go through scrape, so this is their only chance to be cached - and the
     // poster urls here are the most likely to expire
     cacheImagesReportingFailures(client, gigs, "poster image(s)")
@@ -218,7 +218,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
 fun migrateLogCapturingPageText(outputFile: File) {
     check(!outputFile.exists()) { "$outputFile already exists - delete it or choose another name, or a re-run would append to it" }
     val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val entries = readGigLogEntries(eventsFile)
+    val entries = readLogEntries(eventsFile)
 
     // several observations of one gig share a url, so fetch each page once
     val textByUrl = mutableMapOf<String, String?>()
@@ -237,7 +237,7 @@ fun migrateLogCapturingPageText(outputFile: File) {
         entry.copy(gig = entry.gig.copy(pageText = text))
     }
 
-    appendGigLogEntries(outputFile, migrated)
+    appendLogEntries(outputFile, migrated)
 
     val stillMissing = migrated.filterIsInstance<GigObserved>().count { it.gig.pageText == null }
     println("Wrote ${migrated.size} entries to $outputFile")
@@ -246,17 +246,17 @@ fun migrateLogCapturingPageText(outputFile: File) {
 }
 
 fun overrideGigGenre(url: String, genre: Genre) {
-    val entries = readGigLogEntries(eventsFile)
+    val entries = readLogEntries(eventsFile)
     val gig = projectCurrentGigs(entries).find { it.id.url == url }
         ?: error("No current gig found with url $url")
 
-    appendGigLogEntries(eventsFile, listOf(
+    appendLogEntries(eventsFile, listOf(
         GigClassified(id = gig.id, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
     ))
 }
 
 fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
-    val entries = readGigLogEntries(eventsFile)
+    val entries = readLogEntries(eventsFile)
     val statusByGig = classificationStatusByGig(entries)
     val upcomingGigs = excludeGigsInThePast(projectCurrentGigs(entries), today)
     val unresolved = upcomingGigs.filter { gig -> statusByGig[gig.id] !is ClassificationStatus.Classified }

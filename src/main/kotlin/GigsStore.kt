@@ -61,28 +61,28 @@ object JGigClassified : JAny<GigClassified>() {
     )
 }
 
-object JGigLogEntry : JSealed<GigLogEntry>() {
-    override val subConverters: Map<String, ObjectNodeConverter<out GigLogEntry>> = mapOf(
+object JLogEntry : JSealed<LogEntry>() {
+    override val subConverters: Map<String, ObjectNodeConverter<out LogEntry>> = mapOf(
         "observed" to JGigObserved,
         "classified" to JGigClassified,
     )
 
-    override fun extractTypeName(obj: GigLogEntry): String = when (obj) {
+    override fun extractTypeName(obj: LogEntry): String = when (obj) {
         is GigObserved -> "observed"
         is GigClassified -> "classified"
     }
 }
 
-fun appendGigLogEntries(file: File, entries: List<GigLogEntry>) {
+fun appendLogEntries(file: File, entries: List<LogEntry>) {
     FileWriter(file, true).buffered().use { writer ->
-        toNdJson(JGigLogEntry)(entries).forEach { writer.appendLine(it) }
+        toNdJson(JLogEntry)(entries).forEach { writer.appendLine(it) }
     }
 }
 
-fun readGigLogEntries(file: File): List<GigLogEntry> =
-    fromNdJsonToList(JGigLogEntry)(file.readLines().asSequence()).orThrow()
+fun readLogEntries(file: File): List<LogEntry> =
+    fromNdJsonToList(JLogEntry)(file.readLines().asSequence()).orThrow()
 
-fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
+fun projectCurrentGigs(entries: List<LogEntry>): List<GigEvent> =
     entries.filterIsInstance<GigObserved>()
         .groupBy { it.id }
         .values
@@ -98,26 +98,26 @@ private fun GigEvent.listedDetails() = copy(pageText = null)
 // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
 // title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
 // per gig, not the whole history, so a gig can be logged again after reverting to a prior state
-fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEvent>): List<GigEvent> {
+fun newOrChangedGigs(existingEntries: List<LogEntry>, scrapedGigs: List<GigEvent>): List<GigEvent> {
     val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
     return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
 }
 
-fun gigsMissingPageText(entries: List<GigLogEntry>): Set<GigId> =
+fun gigsMissingPageText(entries: List<LogEntry>): Set<GigId> =
     projectCurrentGigs(entries).filter { it.pageText == null }.map { it.id }.toSet()
 
 // when each venue was last seen changing - an approximation of "last scraped" derived from
 // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
 // longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
 // scraped a bit more often than strictly necessary, never less
-fun lastScrapedAt(entries: List<GigLogEntry>): Map<String, Instant> =
+fun lastScrapedAt(entries: List<LogEntry>): Map<String, Instant> =
     entries.filterIsInstance<GigObserved>()
         .groupBy { it.id.venue }
         .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
 // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check
 // covers the whole poster
-fun alreadyIngested(entries: List<GigLogEntry>, sourceUrl: String): Boolean =
+fun alreadyIngested(entries: List<LogEntry>, sourceUrl: String): Boolean =
     entries.filterIsInstance<GigObserved>().any { it.id.url.startsWith("$sourceUrl#") }
 
 sealed interface ClassificationStatus {
@@ -135,17 +135,17 @@ private fun classificationStatus(classifications: List<GigClassified>): Classifi
     return latest?.let { ClassificationStatus.Classified(it.genre) } ?: ClassificationStatus.Pending
 }
 
-fun classificationStatusByGig(entries: List<GigLogEntry>): Map<GigId, ClassificationStatus> =
+fun classificationStatusByGig(entries: List<LogEntry>): Map<GigId, ClassificationStatus> =
     entries.filterIsInstance<GigClassified>()
         .groupBy { it.id }
         .mapValues { (_, classifications) -> classificationStatus(classifications) }
 
-fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
+fun projectMetalGigs(entries: List<LogEntry>): List<GigEvent> {
     val statusByGig = classificationStatusByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->
         (statusByGig[gig.id] as? ClassificationStatus.Classified)?.genre == Genre.Metal
     }
 }
 
-fun alreadyClassified(entries: List<GigLogEntry>): Set<GigId> =
+fun alreadyClassified(entries: List<LogEntry>): Set<GigId> =
     entries.filterIsInstance<GigClassified>().map { it.id }.toSet()

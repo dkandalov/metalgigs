@@ -51,11 +51,11 @@ data class GigId(val venue: String, val url: String)
 
 // one entry in the append-only log: something that happened, and when. Deliberately says nothing
 // about a gig - most entries are about one, but not all of them need to be
-sealed interface GigLogEntry {
+sealed interface LogEntry {
     val recordedAt: Instant
 }
 
-data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : GigLogEntry {
+data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : LogEntry {
     val id get() = gig.id
 }
 
@@ -64,7 +64,7 @@ data class GigClassified(
     override val recordedAt: Instant,
     val genre: Genre,
     val source: ClassificationSource,
-) : GigLogEntry
+) : LogEntry
 
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
