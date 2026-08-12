@@ -22,38 +22,21 @@ The script stages only `events.ndjson`, `index.html` and `images/` — deliberat
 
 ## The scheduled job
 
-A launchd agent runs the same script automatically. Four files are involved, and only the first is in the repo:
+A launchd agent, `london.metalgigs.daily`, runs the same script at 09:00, 14:00 and 20:00. Three fires rather than one because `daily-update` gates itself on the day's render, so the later two exit immediately — a closed laptop at 09:00 becomes a non-event instead of a missed day. `RunAtLoad` is false.
 
-| file | in git | purpose |
-| --- | --- | --- |
-| `.claude/scripts/daily-update.sh` | yes | what actually runs |
-| `~/Library/LaunchAgents/london.metalgigs.daily.plist` | **no** | the agent definition |
-| `~/.metalgigs.env` | **no** | holds `ANTHROPIC_API_KEY`, `chmod 600` |
-| `~/Library/Logs/metalgigs-daily.log` | no | combined stdout/stderr of every run |
-
-Because the plist and the env file live outside the repo, a rebuilt machine loses both. The plist is reproduced in full at the end of this section for exactly that reason.
-
-**Managing it.** The label is `london.metalgigs.daily`, and `gui/$(id -u)` is the user's domain:
+Only the script is in the repo. `~/Library/LaunchAgents/london.metalgigs.daily.plist`, `~/.metalgigs.env` (the api key, `chmod 600`) and `~/Library/Logs/metalgigs-daily.log` are not, so a rebuilt machine loses them — hence the plist below.
 
 ```bash
-launchctl print gui/$(id -u)/london.metalgigs.daily      # state, schedule, last exit code
-launchctl kickstart -p gui/$(id -u)/london.metalgigs.daily   # run it now
-launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/london.metalgigs.daily.plist   # load
-launchctl bootout gui/$(id -u)/london.metalgigs.daily    # unload
+launchctl print gui/$(id -u)/london.metalgigs.daily         # state, schedule, last exit code
+launchctl kickstart -p gui/$(id -u)/london.metalgigs.daily  # run now
+launchctl bootout gui/$(id -u)/london.metalgigs.daily       # unload; bootstrap <plist> reloads
 ```
 
-Editing the plist requires a `bootout` then `bootstrap` to take effect. `launchctl load`/`unload` are the deprecated spellings; prefer the above. To check whether a run worked, read `~/Library/Logs/metalgigs-daily.log` and the `last exit code` from `launchctl print` — exit 0 with "Skipping - already updated for <date>" is the normal outcome for every fire after the day's first.
+Editing the plist takes effect only after `bootout` then `bootstrap`. Exit 0 with "Skipping - already updated" is the normal result of any fire after the day's first.
 
-**Why it fires three times** (09:00, 14:00, 20:00) rather than once: `daily-update` gates itself on whether the log already holds a render for today, so the second and third fires exit immediately. That makes a closed laptop at 09:00 a non-event rather than a missed day, with no risk of updating twice. launchd also runs a missed calendar fire when the machine wakes, so the two behaviours compound. `RunAtLoad` is false — bootstrapping the agent must not itself publish.
+Two environment traps, both guarded in the script since launchd supplies almost no environment. The api key is kept out of the plist (world-readable by default) in `~/.metalgigs.env`, recreated from a shell that has it without echoing the value: `umask 077 && printf 'export ANTHROPIC_API_KEY=%s\n' "$ANTHROPIC_API_KEY" > ~/.metalgigs.env`. ImageMagick is off launchd's `PATH`, which the plist therefore sets — treated as fatal rather than reported, because `render` completes despite per-gig conversion failures and would otherwise publish a page of missing images and push it.
 
-**Why the environment matters.** launchd gives a job almost nothing, which breaks this two ways, and the script guards both up front:
-
-- `ANTHROPIC_API_KEY` lives in `~/.zshrc`, which no non-interactive shell reads. The script falls back to `~/.metalgigs.env`. That file is deliberately *not* the plist, since plists are world-readable by default. Recreate it from an interactive shell where the key is set, so the value is never echoed: `umask 077 && printf 'export ANTHROPIC_API_KEY=%s\n' "$ANTHROPIC_API_KEY" > ~/.metalgigs.env`
-- ImageMagick lives in `/opt/homebrew/bin`, which isn't on launchd's default `PATH`, so the plist sets `PATH` explicitly. This one is dangerous rather than merely broken: `render` reports a failed image conversion per gig and completes anyway, so without `magick` an unattended run would publish a page of missing images and push it. The script therefore treats a missing ImageMagick as fatal.
-
-**What still needs a human.** The job publishes to a live site with nobody reviewing it, so a broken scraper's output goes straight out; the unresolved-gig check in `render` and `set -e` are the only brakes. And a gig the classifier can't judge leaves the backlog non-empty, which fails `render` and so fails the job every day until someone settles it — `classify status` says what's stuck, and the `classify-unclassified-gigs` skill resolves it. The log is never rotated and `scrape` prints every gig it sees, so it grows by roughly 450 lines a day.
-
-**The plist**, for recreating it:
+The plist, whose paths are absolute and machine-specific:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -78,5 +61,3 @@ Editing the plist requires a `bootout` then `bootstrap` to take effect. `launchc
 </dict>
 </plist>
 ```
-
-The paths are absolute and specific to this machine — `ProgramArguments`, `WorkingDirectory` and both log paths all need changing if the repo or user moves.
