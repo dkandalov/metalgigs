@@ -212,6 +212,43 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     println("${gigs.size} gig(s) extracted from poster (${newOrChanged.size} new/changed), all assumed Metal")
 }
 
+// rewrites the log into a new file with every observation carrying its gig's event-page text,
+// fetching whatever the log doesn't already hold. Writes alongside rather than in place so the
+// original is untouched and the result can be compared before replacing it.
+//
+// Note this fills superseded observations with the page's text *as it reads today*, not as it read
+// when that observation was made - that text is gone. The field means "the gig's page text, best
+// known", not "what the page said at recordedAt".
+fun migrateLogCapturingPageText(outputFile: File) {
+    check(!outputFile.exists()) { "$outputFile already exists - delete it or choose another name, or a re-run would append to it" }
+    val client = ClientFilters.FollowRedirects().then(OkHttp())
+    val entries = readGigLogEntries(eventsFile)
+
+    // several observations of one gig share a url, so fetch each page once
+    val textByUrl = mutableMapOf<String, String?>()
+    var fetched = 0
+    var failed = 0
+
+    val migrated = entries.mapIndexed { index, entry ->
+        if (entry !is GigObserved || entry.pageText != null) return@mapIndexed entry
+        val text = textByUrl.getOrPut(entry.gig.url) {
+            runCatching { fetchGigPageText(client, entry.gig) }
+                .onSuccess { fetched++ }
+                .onFailure { failed++; println("  could not fetch ${entry.gig.venue} - ${entry.gig.title}: ${it.message}") }
+                .getOrNull()
+        }
+        if ((index + 1) % 100 == 0) println("  ${index + 1}/${entries.size} entries...")
+        entry.copy(pageText = text)
+    }
+
+    appendGigLogEntries(outputFile, migrated)
+
+    val stillMissing = migrated.filterIsInstance<GigObserved>().count { it.pageText == null }
+    println("Wrote ${migrated.size} entries to $outputFile")
+    println("  pages fetched: $fetched, fetches failed: $failed")
+    println("  observations still without text: $stillMissing")
+}
+
 fun overrideGigGenre(url: String, genre: Genre) {
     val entries = readGigLogEntries(eventsFile)
     val gig = projectCurrentGigs(entries).find { it.url == url }
@@ -305,6 +342,14 @@ fun main(rawArgs: Array<String>) {
             val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"), fullUnresolved = renderArgs.contains("full-unresolved"))
         }
+        "migrate-log" -> {
+            val outputFile = args.getOrNull(1)
+            if (outputFile == null) {
+                println("Usage: migrate-log <outputFile>")
+            } else {
+                migrateLogCapturingPageText(File(outputFile))
+            }
+        }
         "ingest-poster" -> {
             val posterArgs = args.drop(1)
             val positional = posterArgs.filterNot { it == "force" }
@@ -315,6 +360,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
+        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]|migrate-log <outputFile>]")
     }
 }
