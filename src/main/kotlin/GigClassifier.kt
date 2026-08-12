@@ -62,12 +62,20 @@ fun genreFromReply(reply: String): Genre? {
     return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
 }
 
-fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
+// posterImage is injectable so tests can exercise the vision path without a real image or
+// ImageMagick; the default resizes to what the model actually needs (see fetchPosterForClassifying)
+fun classifyGigByLLM(
+    client: HttpHandler,
+    chat: Chat,
+    gig: GigEvent,
+    recordedAt: Instant,
+    posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
+): GigClassified {
     val pageText = gig.pageText ?: fetchGigPageText(client, gig)
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +
-        if (useVision) listOf(fetchImageContent(client, gig.imageUrl)) else emptyList()
+        if (useVision) listOf(posterImage(client, gig.imageUrl)) else emptyList()
 
     // the vision model rejects a temperature override outright; the text model accepts one and we
     // want its verdicts reproducible, so only that path pins it

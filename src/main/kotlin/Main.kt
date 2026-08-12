@@ -55,6 +55,25 @@ fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
     return Content.Image(Resource.Binary(Base64Blob.encode(bytes), mimeType))
 }
 
+// the classifier judges a poster by its logos, artwork and typography, none of which need the
+// venue's original resolution - and Claude charges an image at ceil(w/28) * ceil(h/28) visual
+// tokens, so a 1667px Underworld poster costs 3600 and a 4385px dice.fm one hits the model's 4784
+// cap, against 784 for the 768px rendition the page itself shows. Reusing the render pipeline's
+// conversion keeps that size defined in one place, and reads from the image cache so classifying
+// doesn't re-download what scrape already fetched.
+//
+// Poster ingestion deliberately doesn't do this: it has to read dates and titles off a flyer, and
+// that is exactly the small print shrinking would cost it.
+fun fetchPosterForClassifying(client: HttpHandler, imageUrl: String): Content.Image {
+    val resized = File.createTempFile("classify-poster", ".webp")
+    try {
+        convertToWebp(downloadToCache(client, imageUrl, imageCacheDir), resized)
+        return Content.Image(Resource.Binary(Base64Blob.encode(resized.readBytes()), MimeType.IMAGE_WEBP))
+    } finally {
+        resized.delete()
+    }
+}
+
 private val eventsFile = File("events.ndjson")
 private val publishedImagesDir = File("images")
 private val imageCacheDir = File(".image-cache")

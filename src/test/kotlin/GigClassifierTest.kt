@@ -4,7 +4,10 @@ import org.http4k.ai.llm.chat.ChatRequest
 import org.http4k.ai.llm.chat.ChatResponse
 import org.http4k.ai.llm.model.Content
 import org.http4k.ai.llm.model.Message
+import org.http4k.ai.llm.model.Resource
 import org.http4k.ai.model.ModelName
+import org.http4k.connect.model.Base64Blob
+import org.http4k.connect.model.MimeType
 import org.http4k.ai.model.ResponseId
 import org.http4k.core.HttpHandler
 import org.http4k.core.Response
@@ -178,15 +181,23 @@ class GigClassifierTest {
         expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
     }
 
+    // the real one downloads and runs the image through ImageMagick; these tests are about when the
+    // vision path is taken and with which model, so they record the request and hand back a stub
+    private fun stubPoster(requestedUrls: MutableList<String>): (HttpHandler, String) -> Content.Image =
+        { _, url ->
+            requestedUrls.add(url)
+            Content.Image(Resource.Binary(Base64Blob.encode("fake-image-bytes".toByteArray()), MimeType.IMAGE_WEBP))
+        }
+
     @Test
     fun `falls back to the poster image with a vision model when event page text is too thin`() {
-        val fakeClient: HttpHandler = { request ->
-            if (request.uri.toString().endsWith("poster.jpg")) Response(OK).body("fake-image-bytes") else Response(OK).body("Thin")
-        }
+        val fakeClient: HttpHandler = { Response(OK).body("Thin") }
         val (chat, requests) = capturingChat()
+        val posterUrls = mutableListOf<String>()
 
-        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
 
+        expectThat(posterUrls).containsExactly("https://example.com/poster.jpg")
         val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(1)
         expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-sonnet-5"))
@@ -197,10 +208,13 @@ class GigClassifierTest {
         val fetchedUrls = mutableListOf<String>()
         val fakeClient: HttpHandler = { request -> fetchedUrls.add(request.uri.toString()); Response(OK).body("A".repeat(200)) }
         val (chat, requests) = capturingChat()
+        val posterUrls = mutableListOf<String>()
 
-        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
 
         expectThat(fetchedUrls).containsExactly("https://example.com/gig")
+        // not merely absent from the request - never fetched, so no download and no conversion
+        expectThat(posterUrls).hasSize(0)
         val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(0)
         expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-haiku-4-5-20251001"))
