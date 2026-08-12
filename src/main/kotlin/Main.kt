@@ -181,14 +181,46 @@ private fun printClassificationSummary(
     }
     println()
 
-    val statuses = currentGigs.map { statusByGig[it.id] }
-    val overallMetal = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Metal }
-    val overallOther = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Other }
+    printBreakdown("Overall", currentGigs, statusByGig)
+}
 
-    println("Overall (${currentGigs.size} current gigs):")
-    println("  Metal:   $overallMetal")
-    println("  Other:   $overallOther")
-    println("  Pending: ${currentGigs.size - overallMetal - overallOther}")
+private fun printBreakdown(label: String, gigs: List<GigEvent>, statusByGig: Map<GigId, ClassificationStatus>) {
+    val statuses = gigs.map { statusByGig[it.id] }
+    val metal = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Metal }
+    val other = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Other }
+
+    println("$label (${gigs.size} gigs):")
+    println("  Metal:   $metal")
+    println("  Other:   $other")
+    println("  Pending: ${gigs.size - metal - other}")
+}
+
+// what classify has and hasn't got to, without classifying anything - no API key, no network, no
+// cost. Before this the only way to see the backlog was to run render and read the exception it
+// throws, which reports upcoming gigs only and refuses to do its actual job while any remain
+fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
+    val entries = readLogEntries(eventsFile)
+    val statusByGig = classificationStatusByGig(entries)
+    val currentGigs = projectCurrentGigs(entries)
+    val upcoming = excludeGigsInThePast(currentGigs, today)
+
+    printBreakdown("Overall", currentGigs, statusByGig)
+    println()
+    // the split that matters for rendering: only upcoming gigs block it, so a large overall
+    // backlog of gigs already in the past isn't what's standing in the way
+    printBreakdown("Upcoming from $today", upcoming, statusByGig)
+
+    val pendingByVenue = upcoming
+        .filter { statusByGig[it.id] !is ClassificationStatus.Classified }
+        .groupingBy { it.id.venue }
+        .eachCount()
+
+    if (pendingByVenue.isNotEmpty()) {
+        println()
+        println("Upcoming Pending by venue:")
+        pendingByVenue.entries.sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
+            .forEach { (venue, count) -> println("  ${count.toString().padStart(4)}  $venue") }
+    }
 }
 
 fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Boolean = false) {
@@ -345,7 +377,9 @@ fun main(rawArgs: Array<String>) {
         // append a GigClassified, differing only in source - so it's a mode of the same command
         "classify" -> {
             val classifyArgs = args.drop(1)
-            if (classifyArgs.firstOrNull() == "override") {
+            if (classifyArgs.firstOrNull() == "status") {
+                printClassificationStatus()
+            } else if (classifyArgs.firstOrNull() == "override") {
                 val url = classifyArgs.getOrNull(1)
                 val genre = classifyArgs.getOrNull(2)?.let { arg -> Genre.entries.find { it.name.equals(arg, ignoreCase = true) } }
                 if (url == null || genre == null) {
@@ -373,6 +407,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [daily-update [force]|scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
+        else -> println("Usage: [daily-update [force]|scrape [venue-key...] [force]|classify [limit]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
     }
 }
