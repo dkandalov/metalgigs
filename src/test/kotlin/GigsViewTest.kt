@@ -5,6 +5,7 @@ import org.http4k.testing.ApprovalTest
 import org.http4k.testing.Approver
 import org.junit.jupiter.api.extension.ExtendWith
 import strikt.api.expectThat
+import strikt.assertions.containsExactly
 import strikt.assertions.containsExactlyInAnyOrder
 import java.time.LocalDate
 import kotlin.test.Test
@@ -35,5 +36,15 @@ class GigsViewTest {
         val html = renderer(GigsView(groupGigsByDate(gigs)))
 
         approver.assertApproved(Response(OK).body(html))
+    }
+
+    @Test
+    fun `sorts gigs alphabetically within a day, ignoring case`() {
+        fun gig(title: String) =
+            GigEvent(title = title, venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/$title", imageUrl = "")
+
+        val groups = groupGigsByDate(listOf(gig("zebra"), gig("Apple"), gig("banana"), gig("Cherry")))
+
+        expectThat(groups.single().gigs.map { it.title }).containsExactly("Apple", "banana", "Cherry", "zebra")
     }
 }
