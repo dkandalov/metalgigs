@@ -172,4 +172,24 @@ class GigClassifierTest {
         expectThat(error.message!!.contains("Some Venue")).isTrue()
         expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
     }
+
+    @Test
+    fun `reads the genre off the last line, so a caveat before the answer doesn't derail it`() {
+        // verbatim from a real vision-path reply that used to fail the whole classify run
+        val withCaveat = "I can't identify people in images. However, I can still classify this gig based on the title provided.\n\nOther"
+
+        expectThat(genreFromReply(withCaveat)).isEqualTo(Genre.Other)
+        expectThat(genreFromReply("Metal")).isEqualTo(Genre.Metal)
+        expectThat(genreFromReply("  Other\n")).isEqualTo(Genre.Other)
+        expectThat(genreFromReply("Metal.")).isEqualTo(Genre.Metal)
+    }
+
+    @Test
+    fun `still rejects a reply whose answer line isn't just a genre`() {
+        // the answer itself has to stand alone - a genre mentioned mid-sentence is too ambiguous to
+        // trust (here the verdict is Other, but "metal" is the last genre word in the text)
+        expectThat(genreFromReply("I think this is probably a metal gig")).isEqualTo(null)
+        expectThat(genreFromReply("Not metal")).isEqualTo(null)
+        expectThat(genreFromReply("")).isEqualTo(null)
+    }
 }

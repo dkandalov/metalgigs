@@ -39,6 +39,8 @@ val llmClassifierSystemPrompt = """
     Other - for anything else, including when you're not sure.
     When the event page text is too sparse to judge and a poster image is included instead, use the
     image the same way - band logos, artwork style, and typography can indicate metal even without text.
+    You are never being asked to identify anyone pictured, only to judge the genre, so don't say so -
+    just give the one-word answer, on its own, with no explanation or caveats before it.
 """.trimIndent()
 
 private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
@@ -47,6 +49,15 @@ private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 // fall back to the poster image (with a stronger, vision-capable model) instead of guessing from it
 private const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
+
+// the prompt asks for one bare word, and usually gets it - but the model sometimes prefixes the
+// answer with a caveat (notably "I can't identify people in images" when judging a poster), so a
+// preamble on earlier lines is tolerated. The answer line itself still has to be just the genre,
+// give or take trailing punctuation, rather than the genre being fished out of a sentence
+fun genreFromReply(reply: String): Genre? {
+    val answer = reply.lines().lastOrNull { it.isNotBlank() }?.trim()?.trimEnd('.', '!') ?: return null
+    return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
+}
 
 fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
@@ -66,7 +77,7 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
     val response = chat(ChatRequest(Message.User(contents), params))
         .onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
     val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
-    val genre = Genre.entries.find { it.name.equals(reply, ignoreCase = true) }
+    val genre = genreFromReply(reply)
         ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
 
     return GigClassified(
