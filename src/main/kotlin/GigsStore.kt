@@ -118,7 +118,7 @@ fun lastScrapedAt(entries: List<GigLogEntry>): Map<String, Instant> =
 // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check
 // covers the whole poster
 fun alreadyIngested(entries: List<GigLogEntry>, sourceUrl: String): Boolean =
-    entries.any { it.id.url.startsWith("$sourceUrl#") }
+    entries.filterIsInstance<GigObserved>().any { it.id.url.startsWith("$sourceUrl#") }
 
 sealed interface ClassificationStatus {
     data class Classified(val genre: Genre) : ClassificationStatus
