@@ -25,7 +25,7 @@ fun cachedImageFile(cacheDir: File, imageUrl: String): File =
     File(cacheDir, "${shortHash(imageUrl)}.${imageUrlExtension(imageUrl)}")
 
 fun publishedImageFileName(gig: GigEvent): String =
-    "${gig.date()}-${slug(gig.venue)}-${shortHash(gig.imageUrl)}.${imageUrlExtension(gig.imageUrl)}"
+    "${gig.date()}-${slug(gig.id.venue)}-${shortHash(gig.imageUrl)}.${imageUrlExtension(gig.imageUrl)}"
 
 fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File {
     val file = cachedImageFile(cacheDir, imageUrl)

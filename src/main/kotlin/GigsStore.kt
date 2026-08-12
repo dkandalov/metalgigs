@@ -12,24 +12,25 @@ import java.io.File
 import java.io.FileWriter
 import java.time.Instant
 
+// GigId is flattened to venue/url rather than nested, matching JGigClassified and keeping the
+// on-disk format unchanged by the move of those fields into GigId
 object JGigEvent : JAny<GigEvent>() {
     private val title by str(GigEvent::title)
-    private val venue by str(GigEvent::venue)
+    private val venue by str(fun GigEvent.(): String = id.venue)
     private val year by num(GigEvent::year)
     private val month by str(GigEvent::month)
     private val day by str(GigEvent::day)
-    private val url by str(GigEvent::url)
+    private val url by str(fun GigEvent.(): String = id.url)
     private val imageUrl by str(GigEvent::imageUrl)
     // optional, so entries written before page text was captured still read back (see GigEvent)
     private val pageText by str(GigEvent::pageText)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigEvent(
+        id = GigId(+venue, +url),
         title = +title,
-        venue = +venue,
         year = +year,
         month = +month,
         day = +day,
-        url = +url,
         imageUrl = +imageUrl,
         pageText = +pageText,
     )

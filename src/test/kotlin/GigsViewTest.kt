@@ -15,9 +15,9 @@ class GigsViewTest {
 
     @Test
     fun `excludes gigs before today but keeps gigs on today`() {
-        val yesterday = GigEvent(title = "Yesterday Gig", venue = "Venue A", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/yesterday", imageUrl = "")
-        val today = GigEvent(title = "Today Gig", venue = "Venue A", year = 2026, month = "Aug", day = "10", url = "https://example.com/gigs/today", imageUrl = "")
-        val tomorrow = GigEvent(title = "Tomorrow Gig", venue = "Venue A", year = 2026, month = "Aug", day = "11", url = "https://example.com/gigs/tomorrow", imageUrl = "")
+        val yesterday = GigEvent(id = GigId("Venue A", "https://example.com/gigs/yesterday"), title = "Yesterday Gig", year = 2026, month = "Aug", day = "09", imageUrl = "")
+        val today = GigEvent(id = GigId("Venue A", "https://example.com/gigs/today"), title = "Today Gig", year = 2026, month = "Aug", day = "10", imageUrl = "")
+        val tomorrow = GigEvent(id = GigId("Venue A", "https://example.com/gigs/tomorrow"), title = "Tomorrow Gig", year = 2026, month = "Aug", day = "11", imageUrl = "")
 
         val gigs = excludeGigsInThePast(listOf(yesterday, today, tomorrow), today = LocalDate.of(2026, 8, 10))
 
@@ -27,9 +27,9 @@ class GigsViewTest {
     @Test
     fun `renders gigs grouped by date as html`(approver: Approver) {
         val gigs = listOf(
-            GigEvent(title = "Late Gig", venue = "Venue A", year = 2026, month = "Sep", day = "01", url = "https://example.com/gigs/late-gig", imageUrl = "https://example.com/images/late-gig.jpg"),
-            GigEvent(title = "Early Gig One", venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-one", imageUrl = "https://example.com/images/early-gig-one.jpg"),
-            GigEvent(title = "Early Gig Two", venue = "Venue B", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/early-gig-two", imageUrl = "https://example.com/images/early-gig-two.jpg"),
+            GigEvent(id = GigId("Venue A", "https://example.com/gigs/late-gig"), title = "Late Gig", year = 2026, month = "Sep", day = "01", imageUrl = "https://example.com/images/late-gig.jpg"),
+            GigEvent(id = GigId("Venue A", "https://example.com/gigs/early-gig-one"), title = "Early Gig One", year = 2026, month = "Aug", day = "08", imageUrl = "https://example.com/images/early-gig-one.jpg"),
+            GigEvent(id = GigId("Venue B", "https://example.com/gigs/early-gig-two"), title = "Early Gig Two", year = 2026, month = "Aug", day = "08", imageUrl = "https://example.com/images/early-gig-two.jpg"),
         )
         val renderer = HandlebarsTemplates().CachingClasspath()
 
@@ -41,7 +41,7 @@ class GigsViewTest {
     @Test
     fun `sorts gigs alphabetically within a day, ignoring case`() {
         fun gig(title: String) =
-            GigEvent(title = title, venue = "Venue A", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/$title", imageUrl = "")
+            GigEvent(id = GigId("Venue A", "https://example.com/gigs/$title"), title = title, year = 2026, month = "Aug", day = "08", imageUrl = "")
 
         val groups = groupGigsByDate(listOf(gig("zebra"), gig("Apple"), gig("banana"), gig("Cherry")))
 

@@ -34,7 +34,7 @@ private fun eventPageContentText(pageHtml: String, url: String, venue: String): 
 // fetches and extracts a gig's own event-page text - done at scrape time so it's stored alongside
 // the observation, and only as a fallback at classification time for gigs observed before that
 fun fetchGigPageText(client: HttpHandler, gig: GigEvent): String =
-    eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
+    eventPageContentText(fetchPage(client, gig.id.url), gig.id.url, gig.id.venue)
 
 val llmClassifierSystemPrompt = """
     You classify UK live music gig listings by genre. Given a gig's title and the text of its own
@@ -82,10 +82,10 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
     }
 
     val response = chat(ChatRequest(Message.User(contents), params))
-        .onFailure { error("LLM classification failed for ${gig.venue} at ${gig.url}: $it") }
+        .onFailure { error("LLM classification failed for ${gig.id.venue} at ${gig.id.url}: $it") }
     val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
     val genre = genreFromReply(reply)
-        ?: error("Unexpected LLM classification reply for ${gig.venue} at ${gig.url}: \"$reply\"")
+        ?: error("Unexpected LLM classification reply for ${gig.id.venue} at ${gig.id.url}: \"$reply\"")
 
     return GigClassified(
         id = gig.id,

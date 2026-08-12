@@ -9,12 +9,11 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 data class GigEvent(
+    val id: GigId,
     val title: String,
-    val venue: String,
     val year: Int,
     val month: String,
     val day: String,
-    val url: String,
     val imageUrl: String,
     // the gig's own event-page text, captured at scrape time so classifying later needs no network
     // and can't be defeated by a page that has since changed or gone. Unlike every other field here
@@ -28,17 +27,16 @@ data class GigEvent(
     // command. Always a scraping bug rather than a real listing, so it fails here where the
     // offending gig can still be named. imageUrl is genuinely optional and isn't checked
     init {
-        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: \"$title\" at $venue on $year-$month-$day" }
+        require(id.url.isNotBlank()) { "Gig has no url, so it can't be identified: \"$title\" at ${id.venue} on $year-$month-$day" }
     }
 
     companion object {
         fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String) = GigEvent(
+            id = GigId(venue, url),
             title = title,
-            venue = venue,
             year = date.year,
             month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
             day = "%02d".format(date.dayOfMonth),
-            url = url,
             imageUrl = imageUrl,
         )
     }
@@ -50,8 +48,6 @@ enum class ClassificationSource { LLM, User }
 
 // a gig's stable identity across scrapes - everything else (title, date, image) is status, not identity
 data class GigId(val venue: String, val url: String)
-
-val GigEvent.id: GigId get() = GigId(venue, url)
 
 // one entry in the append-only gig log, keyed by the gig it's about
 sealed interface GigLogEntry {
@@ -105,12 +101,11 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 previousMonth = month
 
                 GigEvent(
+                    id = GigId(venue, item.select(".news-carousel__link").attr("abs:href")),
                     title = item.select(".news-carousel__link").text(),
-                    venue = venue,
                     year = currentYear,
                     month = month,
                     day = item.select(".news-carousel__day").text(),
-                    url = item.select(".news-carousel__link").attr("abs:href"),
                     imageUrl = item.select(".news-carousel__image").attr("abs:src"),
                 )
             }
@@ -129,12 +124,11 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
             .map { item ->
                 val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
                 GigEvent(
+                    id = GigId(venue, item.select("a:has(h3.nci-event-name)").attr("abs:href")),
                     title = item.select("h3.nci-event-name").text(),
-                    venue = venue,
                     year = year.toInt(),
                     month = month,
                     day = day,
-                    url = item.select("a:has(h3.nci-event-name)").attr("abs:href"),
                     imageUrl = item.select("img").attr("abs:src"),
                 )
             }

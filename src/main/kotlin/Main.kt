@@ -56,7 +56,7 @@ private val imageCacheDir = File(".image-cache")
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<GigEvent>, what: String) {
     val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { downloadToCache(client, gig.imageUrl, imageCacheDir) }.exceptionOrNull()
-            ?.let { "${gig.date()}  ${gig.venue}  ${gig.title}: ${it.message}" }
+            ?.let { "${gig.date()}  ${gig.id.venue}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
         println("Could not download ${failures.size} $what:")
@@ -230,10 +230,10 @@ fun migrateLogCapturingPageText(outputFile: File) {
 
     val migrated = entries.mapIndexed { index, entry ->
         if (entry !is GigObserved || entry.gig.pageText != null) return@mapIndexed entry
-        val text = textByUrl.getOrPut(entry.gig.url) {
+        val text = textByUrl.getOrPut(entry.gig.id.url) {
             runCatching { fetchGigPageText(client, entry.gig) }
                 .onSuccess { fetched++ }
-                .onFailure { failed++; println("  could not fetch ${entry.gig.venue} - ${entry.gig.title}: ${it.message}") }
+                .onFailure { failed++; println("  could not fetch ${entry.gig.id.venue} - ${entry.gig.title}: ${it.message}") }
                 .getOrNull()
         }
         if ((index + 1) % 100 == 0) println("  ${index + 1}/${entries.size} entries...")
@@ -250,7 +250,7 @@ fun migrateLogCapturingPageText(outputFile: File) {
 
 fun overrideGigGenre(url: String, genre: Genre) {
     val entries = readGigLogEntries(eventsFile)
-    val gig = projectCurrentGigs(entries).find { it.url == url }
+    val gig = projectCurrentGigs(entries).find { it.id.url == url }
         ?: error("No current gig found with url $url")
 
     appendGigLogEntries(eventsFile, listOf(
@@ -271,7 +271,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         val shown = if (fullUnresolved) unresolved else unresolved.take(5)
         val listing = shown.joinToString("\n") { gig ->
             val status = statusByGig[gig.id] ?: ClassificationStatus.Pending
-            "  ${gig.date()}  ${gig.venue}  ${gig.title}\n  $status\n  ${gig.url}"
+            "  ${gig.date()}  ${gig.id.venue}  ${gig.title}\n  $status\n  ${gig.id.url}"
         }
         val hint = if (shown.size < unresolved.size) " Soonest ${shown.size} (pass full-unresolved to see all)" else ""
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
@@ -293,7 +293,7 @@ private fun publishGigImages(renderedGigs: List<GigEvent>) {
 
     val failures = renderedGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
-            ?.let { "${gig.date()}  ${gig.venue}  ${gig.title}: ${it.message}" }
+            ?.let { "${gig.date()}  ${gig.id.venue}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
         println("Could not publish ${failures.size} image(s) - those gigs will render with a broken image:")
