@@ -49,6 +49,8 @@ fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
 private val eventsFile = File("events.ndjson")
 private val publishedImagesDir = File("images")
 private val imageCacheDir = File(".image-cache")
+private val indexFile = File("index.html")
+private val renderedDir = File(".rendered")
 
 // downloads each gig's image into the local cache, reporting rather than failing on any that don't
 // come back - a dead image url shouldn't abort a scrape or a render over the other gigs
@@ -276,7 +278,14 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     publishGigImages(gigs)
 
     val renderer = HandlebarsTemplates().CachingClasspath()
-    File("index.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
+    val html = renderer(GigsView(groupGigsByDate(gigs)))
+
+    // logged only once both files are written, so an entry always means a render that completed
+    val renderedAt = Instant.now()
+    val archived = archiveRender(html, renderedDir, indexFile, renderedAt)
+    appendLogEntries(eventsFile, listOf(GigsRendered(archived.name, gigs.size, renderedAt)))
+
+    println("Rendered ${gigs.size} gig(s) to $indexFile, archived as $archived")
 }
 
 // makes images/ hold exactly the images the page references: copies each one out of the download

@@ -15,6 +15,7 @@ class GigsStoreTest {
         val entries: List<LogEntry> = listOf(
             GigObserved(gig, recordedAt),
             GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigsRendered("2026-08-01T12-00-00Z.html", gigCount = 1, recordedAt = recordedAt),
         )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
@@ -145,6 +146,25 @@ class GigsStoreTest {
 
         expectThat(alreadyIngested(events, "https://example.com/post/1")).isEqualTo(true)
         expectThat(alreadyIngested(events, "https://example.com/post/2")).isEqualTo(false)
+    }
+
+    // it's the one entry with no gig behind it, so every projection has to step over it rather
+    // than assume each entry names a gig
+    @Test
+    fun `ignores a render entry when projecting gigs`() {
+        val gig = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/metal"), title = "Metal", year = 2026, month = "Aug", day = "09", imageUrl = "")
+        val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
+        val events: List<LogEntry> = listOf(
+            GigObserved(gig, recordedAt),
+            GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigsRendered("2026-07-01T00-00-00Z.html", gigCount = 1, recordedAt = recordedAt),
+        )
+
+        expectThat(projectCurrentGigs(events)).isEqualTo(listOf(gig))
+        expectThat(projectMetalGigs(events)).isEqualTo(listOf(gig))
+        expectThat(alreadyClassified(events)).isEqualTo(setOf(gig.id))
+        expectThat(lastScrapedAt(events)).isEqualTo(mapOf("Test Venue" to recordedAt))
+        expectThat(alreadyIngested(events, "https://example.com/post/1")).isEqualTo(false)
     }
 
     @Test

@@ -61,15 +61,29 @@ object JGigClassified : JAny<GigClassified>() {
     )
 }
 
+object JGigsRendered : JAny<GigsRendered>() {
+    private val file by str(GigsRendered::file)
+    private val gigCount by num(GigsRendered::gigCount)
+    private val recordedAt by str(GigsRendered::recordedAt)
+
+    override fun JsonNodeObject.deserializeOrThrow() = GigsRendered(
+        file = +file,
+        gigCount = +gigCount,
+        recordedAt = +recordedAt,
+    )
+}
+
 object JLogEntry : JSealed<LogEntry>() {
     override val subConverters: Map<String, ObjectNodeConverter<out LogEntry>> = mapOf(
         "observed" to JGigObserved,
         "classified" to JGigClassified,
+        "rendered" to JGigsRendered,
     )
 
     override fun extractTypeName(obj: LogEntry): String = when (obj) {
         is GigObserved -> "observed"
         is GigClassified -> "classified"
+        is GigsRendered -> "rendered"
     }
 }
 

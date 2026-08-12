@@ -8,3 +8,6 @@ index.html
 # local download cache of every gig image, whatever its genre - rebuilt by scraping, and only the
 # subset the rendered page references is copied into (and committed under) images/
 .image-cache/
+# every render ever made, timestamped; index.html is a copy of the most recent. Local because git
+# history of index.html already archives the committed renders - this adds the ones in between
+.rendered/

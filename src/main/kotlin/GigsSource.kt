@@ -66,6 +66,14 @@ data class GigClassified(
     val source: ClassificationSource,
 ) : LogEntry
 
+// the one entry that isn't about a single gig - a whole page was published, naming the archived
+// file it was written to (see archiveRender) and how many gigs were on it
+data class GigsRendered(
+    val file: String,
+    val gigCount: Int,
+    override val recordedAt: Instant,
+) : LogEntry
+
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
 fun GigEvent.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
