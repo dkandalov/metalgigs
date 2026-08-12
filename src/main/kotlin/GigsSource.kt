@@ -67,10 +67,15 @@ data class GigClassified(
 ) : LogEntry
 
 // the one entry that isn't about a single gig - a whole page was published, naming the archived
-// file it was written to (see archiveRender) and how many gigs were on it
+// file it was written to (see archiveRender) and how many gigs were on it.
+//
+// logicalDate is the date the page was rendered as of - gigs before it are left off - which is
+// today for a normal render but any date for a backdated one. Distinct from recordedAt, the wall
+// clock: without it two renders of very different pages are told apart only by their gig count
 data class GigsRendered(
     val file: String,
     val gigCount: Int,
+    val logicalDate: LocalDate,
     override val recordedAt: Instant,
 ) : LogEntry
 

@@ -4,6 +4,7 @@ import strikt.assertions.containsExactlyInAnyOrder
 import strikt.assertions.isEqualTo
 import java.io.File
 import java.time.Instant
+import java.time.LocalDate
 import kotlin.test.Test
 
 class GigsStoreTest {
@@ -15,13 +16,30 @@ class GigsStoreTest {
         val entries: List<LogEntry> = listOf(
             GigObserved(gig, recordedAt),
             GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
-            GigsRendered("2026-08-01T12-00-00Z.html", gigCount = 1, recordedAt = recordedAt),
+            GigsRendered("2026-08-01T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 1), recordedAt = recordedAt),
         )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
         appendLogEntries(file, entries)
 
         expectThat(readLogEntries(file)).isEqualTo(entries)
+    }
+
+    @Test
+    fun `writes a render entry with its logical date as a plain ISO date`() {
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+        val rendered = GigsRendered(
+            file = "2026-08-01T12-00-00Z.html",
+            gigCount = 42,
+            logicalDate = LocalDate.of(2026, 8, 1),
+            recordedAt = Instant.parse("2026-08-01T12:00:00Z"),
+        )
+
+        appendLogEntries(file, listOf(rendered))
+
+        expectThat(file.readText().trim()).isEqualTo(
+            """{"_type": "rendered", "file": "2026-08-01T12-00-00Z.html", "gigCount": 42, "logicalDate": "2026-08-01", "recordedAt": "2026-08-01T12:00:00Z"}""",
+        )
     }
 
     @Test
@@ -157,7 +175,7 @@ class GigsStoreTest {
         val events: List<LogEntry> = listOf(
             GigObserved(gig, recordedAt),
             GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
-            GigsRendered("2026-07-01T00-00-00Z.html", gigCount = 1, recordedAt = recordedAt),
+            GigsRendered("2026-07-01T00-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 1), recordedAt = recordedAt),
         )
 
         expectThat(projectCurrentGigs(events)).isEqualTo(listOf(gig))

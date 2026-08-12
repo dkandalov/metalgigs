@@ -64,11 +64,13 @@ object JGigClassified : JAny<GigClassified>() {
 object JGigsRendered : JAny<GigsRendered>() {
     private val file by str(GigsRendered::file)
     private val gigCount by num(GigsRendered::gigCount)
+    private val logicalDate by str(GigsRendered::logicalDate)
     private val recordedAt by str(GigsRendered::recordedAt)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigsRendered(
         file = +file,
         gigCount = +gigCount,
+        logicalDate = +logicalDate,
         recordedAt = +recordedAt,
     )
 }

@@ -283,9 +283,9 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     // logged only once both files are written, so an entry always means a render that completed
     val renderedAt = Instant.now()
     val archived = archiveRender(html, renderedDir, indexFile, renderedAt)
-    appendLogEntries(eventsFile, listOf(GigsRendered(archived.name, gigs.size, renderedAt)))
+    appendLogEntries(eventsFile, listOf(GigsRendered(archived.name, gigs.size, today, renderedAt)))
 
-    println("Rendered ${gigs.size} gig(s) to $indexFile, archived as $archived")
+    println("Rendered ${gigs.size} gig(s) as of $today to $indexFile, archived as $archived")
 }
 
 // makes images/ hold exactly the images the page references: copies each one out of the download
