@@ -1,6 +1,8 @@
 plugins {
     kotlin("jvm") version "2.1.20"
     application
+    // packages everything into one runnable jar: ./gradlew shadowJar -> build/libs/metalgigs-all.jar
+    id("com.gradleup.shadow") version "9.6.1"
 }
 
 repositories {
@@ -24,9 +26,16 @@ dependencies {
 
 application {
     mainClass.set("MainKt")
-    // some venues' sites (e.g. The Garage) omit their intermediate CA cert from the TLS handshake;
-    // this lets the JVM fetch it automatically instead of failing the connection, same as browsers do
+    // main() sets this itself too, so a plain `java -jar` gets it as well - see the comment there
     applicationDefaultJvmArgs = listOf("-Dcom.sun.security.enableAIAcaIssuers=true")
+}
+
+tasks.shadowJar {
+    archiveClassifier.set("")
+    archiveFileName.set("metalgigs.jar")
+    // http4k and okhttp register implementations through META-INF/services; without merging, only
+    // one jar's copy of a given service file would survive and those lookups would come up empty
+    mergeServiceFiles()
 }
 
 kotlin {

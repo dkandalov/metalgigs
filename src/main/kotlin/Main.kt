@@ -325,6 +325,14 @@ private fun decodeArgs(rawArgs: Array<String>): List<String> =
     if (rawArgs.size == 1) rawArgs[0].split('\u001F').map { it.replace('\u001E', ' ') } else rawArgs.toList()
 
 fun main(rawArgs: Array<String>) {
+    // some venues' sites (e.g. The Garage) omit their intermediate CA cert from the TLS handshake;
+    // this lets the JVM fetch it automatically instead of failing the connection, same as browsers
+    // do. Set here as well as via applicationDefaultJvmArgs because that arg only reaches `gradlew
+    // run` and the start scripts - a plain `java -jar` would otherwise fail those venues outright.
+    // Setting it this early does take effect: the JVM reads it when it first builds a cert path,
+    // which is during the first TLS handshake, well after this line
+    System.setProperty("com.sun.security.enableAIAcaIssuers", "true")
+
     val args = decodeArgs(rawArgs)
 
     when (args.firstOrNull()) {
