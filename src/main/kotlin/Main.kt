@@ -190,18 +190,6 @@ fun overrideGigGenre(url: String, genre: Genre) {
     }
 }
 
-fun pruneOrphanedImages() {
-    val metalGigs = projectMetalGigs(readGigLogEntries(eventsFile))
-    val imageFiles = imagesDir.listFiles()?.toList() ?: emptyList()
-    val orphaned = orphanedImageFiles(metalGigs, imageFiles)
-
-    orphaned.forEach { file ->
-        println(file.name)
-        file.delete()
-    }
-    println("${orphaned.size} orphaned image(s) removed")
-}
-
 fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
     val entries = readGigLogEntries(eventsFile)
     val statusByGig = classificationStatusByGig(entries)
@@ -219,16 +207,24 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
-    val gigs = excludeGigsInThePast(projectMetalGigs(entries), today)
+    val metalGigs = projectMetalGigs(entries)
+    syncGigImages(metalGigs)
 
-    // gigs are only cached when they're first classified Metal, so anything removed since (by
-    // prune-images while the gig was classified otherwise, say) would leave a broken <img> on the
-    // page. Fetch whatever is missing here, where we know exactly what's about to be rendered.
-    // A download that fails is reported rather than fatal: some image urls expire by design (the
+    val renderer = HandlebarsTemplates().CachingClasspath()
+    File("index.html").writeText(renderer(GigsView(groupGigsByDate(excludeGigsInThePast(metalGigs, today)))))
+}
+
+// makes images/ hold exactly the images of the given gigs: downloads what's missing, deletes what
+// no longer belongs. Deliberately keyed on every Metal gig rather than only the ones being
+// rendered - render is date-parameterised, so pruning against a single run's output would delete
+// the images of every gig outside that window (and `render <past date>` would wipe most of them)
+private fun syncGigImages(metalGigs: List<GigEvent>) {
+    val client = ClientFilters.FollowRedirects().then(OkHttp())
+
+    // a failed download is reported rather than fatal: some image urls expire by design (the
     // Facebook CDN ones carry an expiry parameter), and one dead image shouldn't block publishing
     // every other gig
-    val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
+    val failures = metalGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { cacheImage(client, gig, imagesDir) }.exceptionOrNull()?.let { "${gig.date()}  ${gig.venue}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
@@ -236,8 +232,9 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         failures.forEach { println("  $it") }
     }
 
-    val renderer = HandlebarsTemplates().CachingClasspath()
-    File("index.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
+    val orphaned = orphanedImageFiles(metalGigs, imagesDir.listFiles()?.toList() ?: emptyList())
+    orphaned.forEach { it.delete() }
+    if (orphaned.isNotEmpty()) println("Removed ${orphaned.size} orphaned image(s): ${orphaned.joinToString { it.name }}")
 }
 
 // run-main.sh encodes each argument's spaces (0x1e) and joins arguments with 0x1f before handing
@@ -276,7 +273,6 @@ fun main(rawArgs: Array<String>) {
             val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"), fullUnresolved = renderArgs.contains("full-unresolved"))
         }
-        "prune-images" -> pruneOrphanedImages()
         "ingest-poster" -> {
             val posterArgs = args.drop(1)
             val positional = posterArgs.filterNot { it == "force" }
@@ -287,6 +283,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|prune-images|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
+        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
     }
 }
