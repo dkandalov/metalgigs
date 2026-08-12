@@ -11,60 +11,88 @@ import kotlin.test.assertFailsWith
 
 class ImageCacheTest {
 
+    private fun tempDir() = File.createTempFile("images", "").apply { delete(); deleteOnExit() }
+
+    private fun gig(day: String = "08", venue: String = "Some Venue", imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
+        GigEvent(title = "Some Gig", venue = venue, year = 2026, month = "Aug", day = day, url = "https://example.com/gigs/some-gig", imageUrl = imageUrl)
+
     @Test
-    fun `caches downloaded images and skips re-downloading on cache hit`() {
+    fun `caches a downloaded image and skips re-downloading on a cache hit`() {
         var requestCount = 0
         val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
-        val cacheDir = File.createTempFile("images", "").apply { delete(); deleteOnExit() }
-        val gig = GigEvent(
-            title = "Some Gig",
-            venue = "Some Venue",
-            year = 2026,
-            month = "Aug",
-            day = "08",
-            url = "https://example.com/gigs/some-gig",
-            imageUrl = "https://example.com/images/some-gig.jpg?w=200",
-        )
+        val cacheDir = tempDir()
 
-        val first = cacheImage(fakeClient, gig, cacheDir)
-        val second = cacheImage(fakeClient, gig, cacheDir)
+        val first = downloadToCache(fakeClient, gig().imageUrl, cacheDir)
+        val second = downloadToCache(fakeClient, gig().imageUrl, cacheDir)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(first).isEqualTo(second)
         expectThat(first.readText()).isEqualTo("fake-image-bytes")
-        expectThat(first.name).isEqualTo("2026-08-08-some-venue-1af7931d.jpg")
         expectThat(first.extension).isEqualTo("jpg")
     }
 
     @Test
-    fun `fails fast with gig identity when image download fails`() {
+    fun `caches one copy of an image shared by several gigs, since it is keyed by url`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
+        val cacheDir = tempDir()
+        val sharedPoster = "https://example.com/images/monthly-poster.jpg"
+
+        // the same poster advertising gigs on different days, as a venue's monthly flyer does
+        downloadToCache(fakeClient, gig(day = "08", imageUrl = sharedPoster).imageUrl, cacheDir)
+        downloadToCache(fakeClient, gig(day = "09", imageUrl = sharedPoster).imageUrl, cacheDir)
+
+        expectThat(requestCount).isEqualTo(1)
+        expectThat(cacheDir.listFiles()!!.size).isEqualTo(1)
+    }
+
+    @Test
+    fun `publishes from the cache without hitting the network`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
+        val cacheDir = tempDir()
+        val publishedDir = tempDir()
+        downloadToCache(fakeClient, gig().imageUrl, cacheDir)
+        expectThat(requestCount).isEqualTo(1)
+
+        val published = publishGigImage(fakeClient, gig(), cacheDir, publishedDir)
+
+        // still 1: publishing copied the cached bytes rather than re-fetching them
+        expectThat(requestCount).isEqualTo(1)
+        expectThat(published.name).isEqualTo("2026-08-08-some-venue-1af7931d.jpg")
+        expectThat(published.readText()).isEqualTo("fake-image-bytes")
+    }
+
+    @Test
+    fun `downloads when publishing a gig the cache doesn't have`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
+
+        val published = publishGigImage(fakeClient, gig(), tempDir(), tempDir())
+
+        expectThat(requestCount).isEqualTo(1)
+        expectThat(published.readText()).isEqualTo("fake-image-bytes")
+    }
+
+    @Test
+    fun `fails with the gig's identity when its image can't be downloaded`() {
         val fakeClient: HttpHandler = { Response(NOT_FOUND) }
-        val cacheDir = File.createTempFile("images", "").apply { delete(); deleteOnExit() }
-        val gig = GigEvent(
-            title = "Broken Image Gig",
-            venue = "Some Venue",
-            year = 2026,
-            month = "Aug",
-            day = "08",
-            url = "https://example.com/gigs/broken",
-            imageUrl = "https://example.com/images/broken.jpg",
-        )
 
-        val error = assertFailsWith<IllegalStateException> { cacheImage(fakeClient, gig, cacheDir) }
+        val error = assertFailsWith<IllegalStateException> {
+            publishGigImage(fakeClient, gig(imageUrl = "https://example.com/images/broken.jpg"), tempDir(), tempDir())
+        }
 
-        expectThat(error.message!!.contains("Broken Image Gig")).isTrue()
-        expectThat(error.message!!.contains("Some Venue")).isTrue()
         expectThat(error.message!!.contains("https://example.com/images/broken.jpg")).isTrue()
     }
 
     @Test
-    fun `finds cached image files that don't belong to any current Metal gig`() {
-        val metalGig = GigEvent(title = "Metal Gig", venue = "Some Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/metal-gig", imageUrl = "https://example.com/images/metal-gig.jpg")
-        val keptFile = File(localImageFileName(metalGig))
-        val orphanedFile = File("2026-08-09-some-venue-deadbeef.jpg")
+    fun `finds published files that the rendered page no longer references`() {
+        val rendered = gig(day = "08")
+        val keptFile = File(publishedImageFileName(rendered))
+        val staleFile = File("2026-08-09-some-venue-deadbeef.jpg")
 
-        val orphaned = orphanedImageFiles(metalGigs = listOf(metalGig), imageFiles = listOf(keptFile, orphanedFile))
+        val unpublished = unpublishedImageFiles(renderedGigs = listOf(rendered), publishedFiles = listOf(keptFile, staleFile))
 
-        expectThat(orphaned).isEqualTo(listOf(orphanedFile))
+        expectThat(unpublished).isEqualTo(listOf(staleFile))
     }
 }

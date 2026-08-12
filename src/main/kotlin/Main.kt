@@ -48,7 +48,21 @@ fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
 }
 
 private val eventsFile = File("events.ndjson")
-private val imagesDir = File("images")
+private val publishedImagesDir = File("images")
+private val imageCacheDir = File(".image-cache")
+
+// downloads each gig's image into the local cache, reporting rather than failing on any that don't
+// come back - a dead image url shouldn't abort a scrape or a render over the other gigs
+private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<GigEvent>, what: String) {
+    val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
+        runCatching { downloadToCache(client, gig.imageUrl, imageCacheDir) }.exceptionOrNull()
+            ?.let { "${gig.date()}  ${gig.venue}  ${gig.title}: ${it.message}" }
+    }
+    if (failures.isNotEmpty()) {
+        println("Could not download ${failures.size} $what:")
+        failures.forEach { println("  $it") }
+    }
+}
 
 private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
     "cart-and-horses" to CartAndHorsesGigsSource(client, year = LocalDate.now().year),
@@ -96,6 +110,10 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
 
     val newOrChanged = newOrChangedGigs(existingEntries, gigs)
     appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, now) })
+
+    // cache every scraped gig's image now, whatever its genre turns out to be: classification and
+    // rendering can be days later, by which time some urls have expired
+    cacheImagesReportingFailures(client, gigs, "gig image(s) - those gigs will have no poster")
 }
 
 fun classifyUnclassifiedGigs(limit: Int? = null) {
@@ -118,7 +136,8 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     val affectedKeys = classifications.map { it.id }.toSet()
     val statusByGig = classificationStatusByGig(existingEntries + classifications)
     val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { it.id in affectedKeys }
-    cacheGigImages(client, newlyMetalGigs, imagesDir)
+    // no image handling here any more: scrape has already cached every gig's image, and render
+    // publishes the ones its page needs
 
     printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig)
 }
@@ -170,7 +189,9 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
         GigClassified(id = gig.id, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
     }
     appendGigLogEntries(eventsFile, observed + classified)
-    cacheGigImages(client, gigs, imagesDir)
+    // these gigs never go through scrape, so this is their only chance to be cached - and the
+    // poster urls here are the most likely to expire
+    cacheImagesReportingFailures(client, gigs, "poster image(s)")
 
     println("${gigs.size} gig(s) extracted from poster (${newOrChanged.size} new/changed), all assumed Metal")
 }
@@ -183,11 +204,8 @@ fun overrideGigGenre(url: String, genre: Genre) {
     appendGigLogEntries(eventsFile, listOf(
         GigClassified(id = gig.id, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
     ))
-
-    if (genre == Genre.Metal) {
-        val client = ClientFilters.FollowRedirects().then(OkHttp())
-        cacheGigImages(client, listOf(gig), imagesDir)
-    }
+    // no image handling here: the gig's image was cached when it was scraped, and render publishes
+    // it if this override put it on the page
 }
 
 fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
@@ -207,34 +225,32 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
-    val metalGigs = projectMetalGigs(entries)
-    syncGigImages(metalGigs)
+    val gigs = excludeGigsInThePast(projectMetalGigs(entries), today)
+    publishGigImages(gigs)
 
     val renderer = HandlebarsTemplates().CachingClasspath()
-    File("index.html").writeText(renderer(GigsView(groupGigsByDate(excludeGigsInThePast(metalGigs, today)))))
+    File("index.html").writeText(renderer(GigsView(groupGigsByDate(gigs))))
 }
 
-// makes images/ hold exactly the images of the given gigs: downloads what's missing, deletes what
-// no longer belongs. Deliberately keyed on every Metal gig rather than only the ones being
-// rendered - render is date-parameterised, so pruning against a single run's output would delete
-// the images of every gig outside that window (and `render <past date>` would wipe most of them)
-private fun syncGigImages(metalGigs: List<GigEvent>) {
+// makes images/ hold exactly the images the page references: copies each one out of the download
+// cache, and removes any that this page doesn't use. Pruning to just the rendered gigs is safe
+// precisely because the cache keeps the bytes - a later or backdated render republishes them with
+// a local copy rather than a fetch against a url that may since have expired
+private fun publishGigImages(renderedGigs: List<GigEvent>) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
 
-    // a failed download is reported rather than fatal: some image urls expire by design (the
-    // Facebook CDN ones carry an expiry parameter), and one dead image shouldn't block publishing
-    // every other gig
-    val failures = metalGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
-        runCatching { cacheImage(client, gig, imagesDir) }.exceptionOrNull()?.let { "${gig.date()}  ${gig.venue}  ${gig.title}: ${it.message}" }
+    val failures = renderedGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
+        runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
+            ?.let { "${gig.date()}  ${gig.venue}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
-        println("Could not cache ${failures.size} image(s) - those gigs will render with a broken image:")
+        println("Could not publish ${failures.size} image(s) - those gigs will render with a broken image:")
         failures.forEach { println("  $it") }
     }
 
-    val orphaned = orphanedImageFiles(metalGigs, imagesDir.listFiles()?.toList() ?: emptyList())
-    orphaned.forEach { it.delete() }
-    if (orphaned.isNotEmpty()) println("Removed ${orphaned.size} orphaned image(s): ${orphaned.joinToString { it.name }}")
+    val unpublished = unpublishedImageFiles(renderedGigs, publishedImagesDir.listFiles()?.toList() ?: emptyList())
+    unpublished.forEach { it.delete() }
+    if (unpublished.isNotEmpty()) println("Unpublished ${unpublished.size} image(s) no longer on the page (still held in $imageCacheDir)")
 }
 
 // run-main.sh encodes each argument's spaces (0x1e) and joins arguments with 0x1f before handing

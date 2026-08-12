@@ -15,7 +15,7 @@ private fun GigEvent.toCardView() = GigCardView(
     title = title,
     venue = venue,
     url = url,
-    imageUrl = "images/${localImageFileName(this)}",
+    imageUrl = "images/${publishedImageFileName(this)}",
 )
 
 fun excludeGigsInThePast(gigs: List<GigEvent>, today: LocalDate): List<GigEvent> =
