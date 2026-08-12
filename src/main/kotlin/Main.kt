@@ -35,6 +35,11 @@ private fun mimeTypeForImageUrl(url: String) =
         else -> MimeType.IMAGE_JPG
     }
 
+// the API rejects an image whose base64 encoding is over 10MB, and base64 inflates by about a
+// third, so the raw bytes have to stay under roughly this. Checked before sending rather than
+// letting the API refuse it, so the failure names the image and costs no paid call
+private const val MAX_IMAGE_BYTES = 7_000_000
+
 // a url's extension isn't a reliable guide to its actual content type - e.g. Facebook serves some
 // images as image/webp via a "dst-webp" transcoding query param even though the path still ends in
 // .jpg - so the server's own Content-Type header wins, and the extension is only the fallback
@@ -43,7 +48,11 @@ fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
     check(response.status.successful) { "Failed to fetch image at $imageUrl: ${response.status}" }
     val mimeType = response.header("Content-Type")?.substringBefore(';')?.trim()?.takeIf { it.isNotBlank() }
         ?.let { MimeType.of(it) } ?: mimeTypeForImageUrl(imageUrl)
-    return Content.Image(Resource.Binary(Base64Blob.encode(response.body.stream.readBytes()), mimeType))
+    val bytes = response.body.stream.readBytes()
+    check(bytes.size <= MAX_IMAGE_BYTES) {
+        "Image at $imageUrl is ${bytes.size} bytes, too large to send (limit ~$MAX_IMAGE_BYTES)"
+    }
+    return Content.Image(Resource.Binary(Base64Blob.encode(bytes), mimeType))
 }
 
 private val eventsFile = File("events.ndjson")
@@ -144,16 +153,17 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
-    val classifications = classifyGigs(currentGigs, alreadyClassified(existingEntries), limit) { gig ->
+    val run = classifyGigs(currentGigs, alreadyClassified(existingEntries), limit) { gig ->
         classifyGigByLLM(client, chat, gig, recordedAt)
     }
+    val classifications = run.classified
     appendLogEntries(eventsFile, classifications)
 
     val affectedKeys = classifications.map { it.id }.toSet()
     val statusByGig = classificationStatusByGig(existingEntries + classifications)
     val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { it.id in affectedKeys }
 
-    printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig)
+    printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig, run.failed)
 }
 
 private fun printClassificationSummary(
@@ -161,8 +171,13 @@ private fun printClassificationSummary(
     newlyMetal: Int,
     currentGigs: List<GigEvent>,
     statusByGig: Map<GigId, ClassificationStatus>,
+    failed: List<Pair<GigEvent, String>>,
 ) {
     println("Classified this run: ${classifications.size} ($newlyMetal Metal, ${classifications.size - newlyMetal} Other)")
+    if (failed.isNotEmpty()) {
+        println("Could not classify ${failed.size} gig(s) - they stay Pending:")
+        failed.forEach { (gig, reason) -> println("  ${gig.date()}  ${gig.id.venue}  ${gig.title}: $reason") }
+    }
     println()
 
     val statuses = currentGigs.map { statusByGig[it.id] }

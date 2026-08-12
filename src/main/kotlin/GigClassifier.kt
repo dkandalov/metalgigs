@@ -91,12 +91,29 @@ fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt:
     )
 }
 
+data class ClassificationRun(
+    val classified: List<GigClassified>,
+    val failed: List<Pair<GigEvent, String>>,
+)
+
+// one gig the model can't judge - a poster too big to send, an event page that won't load - must
+// not discard the classifications made before it. Classifying is slow and every call is paid for,
+// so a failure late in a long run used to throw away everything earlier in it. Failures are
+// collected and reported instead, and those gigs simply stay Pending for a later run
 fun classifyGigs(
     gigs: List<GigEvent>,
     alreadyClassified: Set<GigId>,
     limit: Int? = null,
     classifyGig: (GigEvent) -> GigClassified,
-): List<GigClassified> {
+): ClassificationRun {
     val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date() }
-    return (if (limit != null) toClassify.take(limit) else toClassify).map(classifyGig)
+    val results = (if (limit != null) toClassify.take(limit) else toClassify)
+        .map { gig -> gig to runCatching { classifyGig(gig) } }
+
+    return ClassificationRun(
+        classified = results.mapNotNull { (_, result) -> result.getOrNull() },
+        failed = results.mapNotNull { (gig, result) ->
+            result.exceptionOrNull()?.let { gig to (it.message ?: it.toString()) }
+        },
+    )
 }

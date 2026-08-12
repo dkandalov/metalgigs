@@ -82,7 +82,7 @@ class GigClassifierTest {
         )
 
         expectThat(classified).isEqualTo(1)
-        expectThat(classifications.map { it.id.url }).containsExactly(toDo.id.url)
+        expectThat(classifications.classified.map { it.id.url }).containsExactly(toDo.id.url)
     }
 
     @Test
@@ -98,7 +98,28 @@ class GigClassifierTest {
             classifyGig = { g -> GigClassified(g.id, recordedAt, Genre.Other, ClassificationSource.LLM) },
         )
 
-        expectThat(classifications.map { it.id.url }).containsExactly(soonest.id.url, middle.id.url)
+        expectThat(classifications.classified.map { it.id.url }).containsExactly(soonest.id.url, middle.id.url)
+    }
+
+    // a real run lost 50 gigs' worth of paid calls when the last one had a poster too big to send
+    @Test
+    fun `keeps the classifications made before and after one that fails`() {
+        val first = gig(title = "First", day = "08", url = "https://example.com/first")
+        val unjudgeable = gig(title = "Unjudgeable", day = "09", url = "https://example.com/unjudgeable")
+        val last = gig(title = "Last", day = "10", url = "https://example.com/last")
+
+        val run = classifyGigs(
+            gigs = listOf(first, unjudgeable, last),
+            alreadyClassified = emptySet(),
+            classifyGig = { g ->
+                check(g != unjudgeable) { "image too large" }
+                GigClassified(g.id, recordedAt, Genre.Other, ClassificationSource.LLM)
+            },
+        )
+
+        expectThat(run.classified.map { it.id.url }).containsExactly(first.id.url, last.id.url)
+        expectThat(run.failed.map { (gig, reason) -> gig.title to reason })
+            .containsExactly("Unjudgeable" to "image too large")
     }
 
     // the venue-specific page-content extraction below feeds whatever the classifier sees, so these
