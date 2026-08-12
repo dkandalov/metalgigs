@@ -166,6 +166,20 @@ class GigsStoreTest {
         expectThat(alreadyIngested(events, "https://example.com/post/2")).isEqualTo(false)
     }
 
+    @Test
+    fun `knows whether the page has been rendered for a given date`() {
+        val entries: List<LogEntry> = listOf(
+            GigsRendered("2026-08-10T09-00-00Z.html", gigCount = 3, logicalDate = LocalDate.of(2026, 8, 10), recordedAt = Instant.parse("2026-08-10T09:00:00Z")),
+            // a backdated render, made later than the one above but for an earlier page
+            GigsRendered("2026-08-11T09-00-00Z.html", gigCount = 9, logicalDate = LocalDate.of(2026, 1, 1), recordedAt = Instant.parse("2026-08-11T09:00:00Z")),
+        )
+
+        expectThat(alreadyRenderedFor(entries, LocalDate.of(2026, 8, 10))).isEqualTo(true)
+        // the newest render was for 1 Jan, so it must not count as having rendered the 11th
+        expectThat(alreadyRenderedFor(entries, LocalDate.of(2026, 8, 11))).isEqualTo(false)
+        expectThat(alreadyRenderedFor(emptyList(), LocalDate.of(2026, 8, 10))).isEqualTo(false)
+    }
+
     // it's the one entry with no gig behind it, so every projection has to step over it rather
     // than assume each entry names a gig
     @Test

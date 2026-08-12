@@ -11,6 +11,7 @@ import com.ubertob.kondor.json.toNdJson
 import java.io.File
 import java.io.FileWriter
 import java.time.Instant
+import java.time.LocalDate
 
 // here and in JGigClassified, GigId is flattened to venue/url rather than nested - the on-disk
 // format predates GigId existing, and keeping it that way means the log needs no migration
@@ -135,6 +136,12 @@ fun lastScrapedAt(entries: List<LogEntry>): Map<String, Instant> =
 // covers the whole poster
 fun alreadyIngested(entries: List<LogEntry>, sourceUrl: String): Boolean =
     entries.filterIsInstance<GigObserved>().any { it.id.url.startsWith("$sourceUrl#") }
+
+// has the page already been rendered for this date? Matches on logicalDate rather than the newest
+// render's own timestamp, so a backdated render of some past date doesn't count as having done
+// today, and today's render still counts however long ago in the day it happened
+fun alreadyRenderedFor(entries: List<LogEntry>, date: LocalDate): Boolean =
+    entries.filterIsInstance<GigsRendered>().any { it.logicalDate == date }
 
 sealed interface ClassificationStatus {
     data class Classified(val genre: Genre) : ClassificationStatus

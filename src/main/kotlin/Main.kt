@@ -287,6 +287,36 @@ private fun publishGigImages(renderedGigs: List<GigEvent>) {
     if (unpublished.isNotEmpty()) println("Unpublished ${unpublished.size} image(s) no longer on the page (still held in $imageCacheDir)")
 }
 
+// the routine daily refresh: everything new, judged, and published, in the only order that works -
+// classifying can't judge gigs a scrape hasn't recorded yet, and rendering before classifying would
+// leave them off the page. Each step calls the same function its own command does, so behaviour
+// can't drift between running this and running the three by hand.
+//
+// Runs at most once a day, judged by whether the log already holds a render for today - the log is
+// the only record that survives between runs, so nothing else needs tracking. force means "do it
+// again anyway", and carries through to scrape, whose own per-venue cooldown would otherwise skip
+// every venue and leave a forced run with nothing to do but re-render. It deliberately does *not*
+// carry through to render, whose force means something else entirely - publishing a page despite
+// gigs nobody has classified - which is never something a routine update should decide by itself.
+fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = false) {
+    val entries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
+    if (!force && alreadyRenderedFor(entries, today)) {
+        println("Skipping - already updated for $today; pass force to update anyway")
+        return
+    }
+
+    println("== scrape ==")
+    scrapeGigs(force = force)
+
+    println()
+    println("== classify ==")
+    classifyUnclassifiedGigs()
+
+    println()
+    println("== render ==")
+    renderGigsHtml(today = today)
+}
+
 // run-main.sh encodes each argument's spaces (0x1e) and joins arguments with 0x1f before handing
 // them to Gradle, since --args is re-split on whitespace before we ever see it - undo both here,
 // so an argument like a venue name can contain spaces. A direct `gradlew run --args=...`
@@ -323,6 +353,7 @@ fun main(rawArgs: Array<String>) {
             val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"), fullUnresolved = renderArgs.contains("full-unresolved"))
         }
+        "daily-update" -> dailyUpdate(force = args.drop(1).contains("force"))
         "ingest-poster" -> {
             val posterArgs = args.drop(1)
             val positional = posterArgs.filterNot { it == "force" }
@@ -333,6 +364,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
+        else -> println("Usage: [daily-update [force]|scrape [venue-key...] [force]|classify [limit]|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
     }
 }
