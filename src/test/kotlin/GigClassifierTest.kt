@@ -46,6 +46,30 @@ class GigClassifierTest {
     }
 
     @Test
+    fun `uses page text captured at scrape time instead of refetching the event page`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("page text fetched now") }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(), recordedAt, capturedPageText = "text captured at scrape time")
+
+        expectThat(requestCount).isEqualTo(0)
+        expectThat(requests.first().promptText().contains("text captured at scrape time")).isTrue()
+    }
+
+    @Test
+    fun `falls back to fetching the event page for a gig observed before text was captured`() {
+        var requestCount = 0
+        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("page text fetched now") }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(), recordedAt, capturedPageText = null)
+
+        expectThat(requestCount).isEqualTo(1)
+        expectThat(requests.first().promptText().contains("page text fetched now")).isTrue()
+    }
+
+    @Test
     fun `skips gigs that are already classified`() {
         val alreadyDone = gig(title = "Already Done", url = "https://example.com/already-done")
         val toDo = gig(title = "To Do", day = "09", url = "https://example.com/to-do")

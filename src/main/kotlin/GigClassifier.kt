@@ -31,6 +31,11 @@ private fun eventPageContentText(pageHtml: String, url: String, venue: String): 
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 
+// fetches and extracts a gig's own event-page text - done at scrape time so it's stored alongside
+// the observation, and only as a fallback at classification time for gigs observed before that
+fun fetchGigPageText(client: HttpHandler, gig: GigEvent): String =
+    eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
+
 val llmClassifierSystemPrompt = """
     You classify UK live music gig listings by genre. Given a gig's title and the text of its own
     event page, reply with exactly one word and nothing else:
@@ -59,8 +64,10 @@ fun genreFromReply(reply: String): Genre? {
     return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
 }
 
-fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
-    val pageText = eventPageContentText(fetchPage(client, gig.url), gig.url, gig.venue)
+// capturedPageText is what the scrape recorded for this gig; it's only fetched here when absent,
+// which means a gig observed before scrape started capturing it
+fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant, capturedPageText: String? = null): GigClassified {
+    val pageText = capturedPageText ?: fetchGigPageText(client, gig)
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +

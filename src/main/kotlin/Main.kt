@@ -108,8 +108,23 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val gigs = toScrape.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
 
-    val newOrChanged = newOrChangedGigs(existingEntries, gigs)
-    appendGigLogEntries(eventsFile, newOrChanged.map { GigObserved(it, now) })
+    // record a gig whose details changed, and also one that's unchanged but has no page text yet -
+    // that second case backfills gigs observed before scrape started capturing it, so the log fills
+    // in venue by venue instead of needing a separate migration pass
+    val alreadyCaptured = pageTextByGig(existingEntries)
+    val newOrChanged = newOrChangedGigs(existingEntries, gigs).toSet()
+    val toObserve = gigs.filter { it in newOrChanged || it.id !in alreadyCaptured }
+
+    val observed = toObserve.map { gig ->
+        // one dead event page shouldn't cost us the whole scrape - the gig is still worth recording,
+        // and the classifier falls back to fetching for a gig with no captured text
+        val pageText = runCatching { fetchGigPageText(client, gig) }.getOrNull()
+        GigObserved(gig, now, pageText)
+    }
+    appendGigLogEntries(eventsFile, observed)
+
+    val withoutText = observed.count { it.pageText == null }
+    if (withoutText > 0) println("Could not capture event page text for $withoutText gig(s); they'll be fetched at classification time instead")
 
     // cache every scraped gig's image now, whatever its genre turns out to be: classification and
     // rendering can be days later, by which time some urls have expired
@@ -128,8 +143,9 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
+    val capturedPageText = pageTextByGig(existingEntries)
     val classifications = classifyGigs(currentGigs, alreadyClassified(existingEntries), limit) { gig ->
-        classifyGigByLLM(client, chat, gig, recordedAt)
+        classifyGigByLLM(client, chat, gig, recordedAt, capturedPageText[gig.id])
     }
     appendGigLogEntries(eventsFile, classifications)
 

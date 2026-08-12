@@ -35,10 +35,13 @@ object JGigEvent : JAny<GigEvent>() {
 object JGigObserved : JAny<GigObserved>() {
     private val gig by obj(JGigEvent, GigObserved::gig)
     private val recordedAt by str(GigObserved::recordedAt)
+    // optional, so entries written before pageText existed still read back (see GigObserved)
+    private val pageText by str(GigObserved::pageText)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigObserved(
         gig = +gig,
         recordedAt = +recordedAt,
+        pageText = +pageText,
     )
 }
 
@@ -93,6 +96,15 @@ fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEv
     val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
     return scrapedGigs.filter { gig -> latestByGig[gig.id] != gig }
 }
+
+// each gig's most recently captured event-page text. Falls back through older observations rather
+// than only reading the latest one, so a gig re-observed by a scrape that couldn't reach its page
+// keeps the text an earlier scrape did capture
+fun pageTextByGig(entries: List<GigLogEntry>): Map<GigId, String> =
+    entries.filterIsInstance<GigObserved>()
+        .filter { it.pageText != null }
+        .groupBy { it.id }
+        .mapValues { (_, observations) -> observations.maxBy { it.recordedAt }.pageText!! }
 
 // when each venue was last seen changing - an approximation of "last scraped" derived from
 // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for

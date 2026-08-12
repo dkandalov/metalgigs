@@ -54,7 +54,16 @@ sealed interface GigLogEntry {
 }
 
 // a sighting of a gig at scrape time
-data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : GigLogEntry {
+// pageText is the gig's own event-page text as it read at scrape time, captured then so classifying
+// later needs no network and can't be defeated by a page that has since changed or gone. It is
+// deliberately not part of GigEvent: GigEvent equality decides what counts as a changed gig, and
+// this text churns (ticket counters, "last few remaining"), so folding it in would log a fresh
+// observation on every single scrape.
+//
+// Nullable for now - entries written before this existed have no text, and the classifier falls
+// back to fetching for those. Scraping a venue backfills its gigs (see scrapeGigs), so the log
+// fills in over time and the field can be made required once nothing relies on the fallback.
+data class GigObserved(val gig: GigEvent, override val recordedAt: Instant, val pageText: String? = null) : GigLogEntry {
     override val id get() = gig.id
 }
 

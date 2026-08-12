@@ -24,6 +24,42 @@ class GigsStoreTest {
     }
 
     @Test
+    fun `reads back an observation written before pageText existed, and one with it`() {
+        val gig = GigEvent(title = "Test Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/test-gig", imageUrl = "")
+        val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+        // exactly as the log held it before the field was added - no pageText key at all
+        file.writeText("""{"_type": "observed", "gig": {"title": "Test Gig", "venue": "Test Venue", "year": 2026, "month": "Aug", "day": "08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
+
+        appendGigLogEntries(file, listOf(GigObserved(gig, recordedAt.plusSeconds(60), pageText = "Doom metal night")))
+
+        expectThat(readGigLogEntries(file)).isEqualTo(
+            listOf(
+                GigObserved(gig, recordedAt, pageText = null),
+                GigObserved(gig, recordedAt.plusSeconds(60), pageText = "Doom metal night"),
+            ),
+        )
+    }
+
+    @Test
+    fun `takes each gig's most recent captured page text, ignoring observations that captured none`() {
+        val gig = GigEvent(title = "Some Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/some-gig", imageUrl = "")
+        val neverCaptured = GigEvent(title = "Other Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "09", url = "https://example.com/gigs/other-gig", imageUrl = "")
+        val entries: List<GigLogEntry> = listOf(
+            GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z"), pageText = "first text"),
+            GigObserved(gig, Instant.parse("2026-07-10T00:00:00Z"), pageText = "newer text"),
+            // a later re-observation whose page couldn't be reached must not erase what we have
+            GigObserved(gig, Instant.parse("2026-07-15T00:00:00Z"), pageText = null),
+            GigObserved(neverCaptured, Instant.parse("2026-07-01T00:00:00Z"), pageText = null),
+        )
+
+        val byGig = pageTextByGig(entries)
+
+        expectThat(byGig[gig.id]).isEqualTo("newer text")
+        expectThat(byGig[neverCaptured.id]).isEqualTo(null)
+    }
+
+    @Test
     fun `projects the latest observation per gig, ignoring classification entries`() {
         val firstSeen = GigEvent(title = "Some Gig", venue = "Test Venue", year = 2026, month = "Aug", day = "08", url = "https://example.com/gigs/some-gig", imageUrl = "https://example.com/images/some-gig.jpg")
         val soldOut = firstSeen.copy(title = "Some Gig - SOLD OUT")
