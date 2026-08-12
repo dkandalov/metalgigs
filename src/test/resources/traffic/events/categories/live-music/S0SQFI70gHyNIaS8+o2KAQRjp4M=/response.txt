@@ -1,0 +1,991 @@
+HTTP/1.1 200 
+alt-svc: h3=":443"; ma=2592000, h3-29=":443"; ma=2592000
+content-type: text/html; charset=UTF-8
+date: Wed, 12 Aug 2026 22:58:19 GMT
+link: <https://scala.co.uk/wp-json/>; rel="https://api.w.org/"
+server: LiteSpeed
+vary: Accept-Encoding
+
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en-GB"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en-GB"> <![endif]-->
+<!--[if (gte IE 10)|!(IE)]><!--><html lang="en-GB"> <!--<![endif]-->
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Live Music | Scala</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Add CSS3 Rules here for IE 7-9
+================================================== -->
+
+<!--[if IE]>
+<style type="text/css">
+html.ie #navigation,
+html.ie a.button,
+html.ie .cta,
+html.ie .wp-caption,
+html.ie #breadcrumbs,
+html.ie a.more-link,
+html.ie .gallery .gallery-item img,
+html.ie .gallery .gallery-item img.thumbnail,
+html.ie .widget-container,
+html.ie #author-info {behavior: url("https://scala.co.uk/s/wp-content/themes/skeleton_childtheme/PIE.php");position: relative;}</style>
+<![endif]-->
+
+
+<!-- Mobile Specific Metas
+================================================== -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+
+<!-- Favicons
+================================================== -->
+
+<link rel="shortcut icon" href="https://scala.co.uk/s/wp-content/themes/skeleton_childtheme/images/favicon.ico">
+
+<link rel="apple-touch-icon" href="https://scala.co.uk/s/wp-content/themes/skeleton_childtheme/images/apple-touch-icon.png">
+
+<link rel="apple-touch-icon" sizes="72x72" href="https://scala.co.uk/s/wp-content/themes/skeleton_childtheme/images/apple-touch-icon-72x72.png" />
+
+<link rel="apple-touch-icon" sizes="114x114" href="https://scala.co.uk/s/wp-content/themes/skeleton_childtheme/images/apple-touch-icon-114x114.png" />
+
+<link rel="pingback" href="https://scala.co.uk/s/xmlrpc.php" />
+
+<link href='http://fonts.googleapis.com/css?family=Lato:400italic,400,300italic,300,100italic,100,700,900,400italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" id="custom" href="https://scala.co.uk/?get_styles=css" type="text/css" media="all" />
+
+<link rel="stylesheet" href="https://scala.co.uk/s/wp-content/themes/skeleton_childtheme/font-awesome/css/font-awesome.min.css" />
+
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="Scala &raquo; Feed" href="https://scala.co.uk/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Scala &raquo; Comments Feed" href="https://scala.co.uk/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Scala &raquo; Live Music Comments Feed" href="https://scala.co.uk/events/categories/feed/" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/scala.co.uk\/s\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.1.11"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='flick-css' href='https://scala.co.uk/s/wp-content/plugins/mailchimp/css/flick/flick.css?ver=6.1.11' type='text/css' media='all' />
+<link rel='stylesheet' id='mailchimpSF_main_css-css' href='https://scala.co.uk/s/?mcsf_action=main_css&#038;ver=6.1.11' type='text/css' media='all' />
+<!--[if IE]>
+<link rel='stylesheet' id='mailchimpSF_ie_css-css' href='https://scala.co.uk/s/wp-content/plugins/mailchimp/css/ie.css?ver=6.1.11' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='skeleton-css' href='https://scala.co.uk/s/wp-content/themes/skeleton/skeleton.css?ver=1.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='layout-css' href='https://scala.co.uk/s/wp-content/themes/skeleton/layout.css?ver=1.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='formalize-css' href='https://scala.co.uk/s/wp-content/themes/skeleton/formalize.css?ver=1.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='theme-css' href='https://scala.co.uk/s/wp-content/themes/skeleton_childtheme/style.css?ver=1.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='superfish-css' href='https://scala.co.uk/s/wp-content/themes/skeleton/superfish.css?ver=1.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://scala.co.uk/s/wp-includes/css/dist/block-library/style.min.css?ver=6.1.11' type='text/css' media='all' />
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<link rel='stylesheet' id='jetpack-videopress-video-block-view-css' href='https://scala.co.uk/s/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/video/view.css?minify=false&#038;ver=317afd605f368082816f' type='text/css' media='all' />
+<link rel='stylesheet' id='mediaelement-css' href='https://scala.co.uk/s/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css?ver=4.2.17' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='https://scala.co.uk/s/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=6.1.11' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://scala.co.uk/s/wp-includes/css/classic-themes.min.css?ver=1' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='contact-form-7-css' href='https://scala.co.uk/s/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.7.6' type='text/css' media='all' />
+<link rel='stylesheet' id='events-manager-css' href='https://scala.co.uk/s/wp-content/plugins/events-manager/includes/css/events_manager.css?ver=5.55' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css' href='https://scala.co.uk/s/wp-content/plugins/jetpack/css/jetpack.css?ver=12.1.2' type='text/css' media='all' />
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/jquery.min.js?ver=3.6.1' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/plugins/mailchimp/js/scrollTo.js?ver=1.5.8' id='jquery_scrollto-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/jquery.form.min.js?ver=4.3.0' id='jquery-form-js'></script>
+<script type='text/javascript' id='mailchimpSF_main_js-js-extra'>
+/* <![CDATA[ */
+var mailchimpSF = {"ajax_url":"https:\/\/scala.co.uk\/"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/plugins/mailchimp/js/mailchimp.js?ver=1.5.8' id='mailchimpSF_main_js-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2' id='jquery-ui-core-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/plugins/mailchimp/js/datepicker.js?ver=6.1.11' id='datepicker-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/mouse.min.js?ver=1.13.2' id='jquery-ui-mouse-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/sortable.min.js?ver=1.13.2' id='jquery-ui-sortable-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/datepicker.min.js?ver=1.13.2' id='jquery-ui-datepicker-js'></script>
+<script type='text/javascript' id='jquery-ui-datepicker-js-after'>
+jQuery(function(jQuery){jQuery.datepicker.setDefaults({"closeText":"Close","currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"nextText":"Next","prevText":"Previous","dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["S","M","T","W","T","F","S"],"dateFormat":"DD  dS MM yy","firstDay":1,"isRTL":false});});
+</script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/menu.min.js?ver=1.13.2' id='jquery-ui-menu-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.9' id='regenerator-runtime-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0' id='wp-polyfill-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/dist/dom-ready.min.js?ver=392bdd43726760d1f3ca' id='wp-dom-ready-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/dist/hooks.min.js?ver=4169d3cf8e8d95a3d6d5' id='wp-hooks-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/dist/i18n.min.js?ver=9e794f35a71bb98672ae' id='wp-i18n-js'></script>
+<script type='text/javascript' id='wp-i18n-js-after'>
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+</script>
+<script type='text/javascript' id='wp-a11y-js-translations'>
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "default", {"translation-revision-date":"2025-10-08 12:55:45+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"en_GB"},"Notifications":["Notifications"]}},"comment":{"reference":"wp-includes\/js\/dist\/a11y.js"}} );
+</script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/dist/a11y.min.js?ver=ecce20f002eda4c19664' id='wp-a11y-js'></script>
+<script type='text/javascript' id='jquery-ui-autocomplete-js-extra'>
+/* <![CDATA[ */
+var uiAutocompleteL10n = {"noResults":"No results found.","oneResult":"1 result found. Use up and down arrow keys to navigate.","manyResults":"%d results found. Use up and down arrow keys to navigate.","itemSelected":"Item selected."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.2' id='jquery-ui-autocomplete-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/resizable.min.js?ver=1.13.2' id='jquery-ui-resizable-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/draggable.min.js?ver=1.13.2' id='jquery-ui-draggable-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/controlgroup.min.js?ver=1.13.2' id='jquery-ui-controlgroup-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/checkboxradio.min.js?ver=1.13.2' id='jquery-ui-checkboxradio-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/button.min.js?ver=1.13.2' id='jquery-ui-button-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-includes/js/jquery/ui/dialog.min.js?ver=1.13.2' id='jquery-ui-dialog-js'></script>
+<script type='text/javascript' id='events-manager-js-extra'>
+/* <![CDATA[ */
+var EM = {"ajaxurl":"https:\/\/scala.co.uk\/s\/wp-admin\/admin-ajax.php","locationajaxurl":"https:\/\/scala.co.uk\/s\/wp-admin\/admin-ajax.php?action=locations_search","firstDay":"1","locale":"en","dateFormat":"dd\/mm\/yy","ui_css":"https:\/\/scala.co.uk\/s\/wp-content\/plugins\/events-manager\/includes\/css\/ui-lightness.css","show24hours":"0","is_ssl":"1","txt_search":"Type search words here","txt_searching":"Searching...","txt_loading":"Loading...","locale_data":{"closeText":"Done","prevText":"Prev","nextText":"Next","currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["Su","Mo","Tu","We","Th","Fr","Sa"],"weekHeader":"Wk","dateFormat":"dd\/mm\/yy","firstDay":1,"isRTL":false,"showMonthAfterYear":false,"yearSuffix":""}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/plugins/events-manager/includes/js/events-manager.js?ver=5.55' id='events-manager-js'></script>
+<link rel="https://api.w.org/" href="https://scala.co.uk/wp-json/" /><link rel="alternate" type="application/json" href="https://scala.co.uk/wp-json/wp/v2/pages/12" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://scala.co.uk/s/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://scala.co.uk/s/wp-includes/wlwmanifest.xml" />
+<meta name="generator" content="WordPress 6.1.11" />
+<link rel="canonical" href="https://scala.co.uk/events/categories/" />
+<link rel='shortlink' href='https://scala.co.uk/?p=12' />
+<link rel="alternate" type="application/json+oembed" href="https://scala.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fscala.co.uk%2Fcategories%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://scala.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fscala.co.uk%2Fcategories%2F&#038;format=xml" />
+<script type="text/javascript">
+        jQuery(function($) {
+            $('.date-pick').each(function() {
+                var format = $(this).data('format') || 'mm/dd/yyyy';
+                format = format.replace(/yyyy/i, 'yy');
+                $(this).datepicker({
+                    autoFocusNextInput: true,
+                    constrainInput: false,
+                    changeMonth: true,
+                    changeYear: true,
+                    beforeShow: function(input, inst) { $('#ui-datepicker-div').addClass('show'); },
+                    dateFormat: format.toLowerCase(),
+                });
+            });
+            d = new Date();
+            $('.birthdate-pick').each(function() {
+                var format = $(this).data('format') || 'mm/dd';
+                format = format.replace(/yyyy/i, 'yy');
+                $(this).datepicker({
+                    autoFocusNextInput: true,
+                    constrainInput: false,
+                    changeMonth: true,
+                    changeYear: false,
+                    minDate: new Date(d.getFullYear(), 1-1, 1),
+                    maxDate: new Date(d.getFullYear(), 12-1, 31),
+                    beforeShow: function(input, inst) { $('#ui-datepicker-div').removeClass('show'); },
+                    dateFormat: format.toLowerCase(),
+                });
+
+            });
+
+        });
+    </script>
+<!-- Stream WordPress user activity plugin v3.9.3 -->
+	<style>img#wpstats{display:none}</style>
+		<style type="text/css">
+	#header #site-title.graphic a {background-image: url(https://scala.co.uk/s/wp-content/uploads/2019/03/scala-logo-2018-temp-home.png);width: 238px;height: 65px;}</style>		<style type="text/css" id="wp-custom-css">
+			/*
+Welcome to Custom CSS!
+
+To learn how this works, see http://wp.me/PEmnE-Bt
+*/
+p.smalltext {
+	font-size: 14px;
+}
+
+/*
+This is to make the logo scale for retina screens
+*/
+#header #site-title.graphic a {
+	background-size: 239px;
+}
+
+/*
+This is to hide the event subtitle on any listings page in the event the main title is unusually long
+*/
+.hide-subtitle-on-list .tb-event-subtitle {
+	display: none !important;
+}
+
+/*
+This is move event feature pic down for listings so top of image is the focus
+*/
+.feature-pic-top-in-list .tb-event-feature-pic {
+	height: 140px;
+	background: no-repeat top center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+/*
+This is move event feature pic up for listings so bottom of image is the focus
+*/
+.feature-pic-bottom-in-list .tb-event-feature-pic {
+	height: 140px;
+	background: no-repeat bottom center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+/*
+This is to hide the text shadow on the cookie panel button
+*/
+button#catapultCookie {
+	text-shadow: none;
+}
+
+
+
+#footer.noborder {
+  width: 100%;
+	margin-left: -10px;
+	margin-right: -10px;
+}		</style>
+		
+
+	<!--TB added link to google font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+<!--TB end -->
+
+</head>
+<body class="page-template-default page page-id-12 page-child parent-pageid-10">
+
+<!--Facebook like button code -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!--END Facebook like button code -->
+
+
+
+
+
+	<div id="wrap" class="container">
+	
+    
+	<div id="header" class="columns">
+<div class="inner">
+<div id="site-title" class="graphic"><a href="https://scala.co.uk/" title="Scala">Scala</a></div>
+<span class="site-desc graphic">London club and live music venue</span>
+</div></div><!--/#header-->    
+     
+	<div id="navigation" class="row"><div class="menu-header"><ul id="menu-menu-a" class="menu"><li id="menu-item-26" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-26"><a href="http://scala.co.uk/events/categories/live-music/" aria-current="page">Live Music</a></li>
+<li id="menu-item-27" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27"><a href="http://scala.co.uk/events/categories/clubs/">Clubs</a></li>
+<li id="menu-item-28" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28"><a href="http://scala.co.uk/events/categories/alternative-events/">Alternative Events</a></li>
+<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32"><a href="https://scala.co.uk/all-events-list/">Calendar</a></li>
+</ul></div><div class="menu-header"><ul id="menu-menu-b" class="menu"><li id="menu-item-94" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-94"><a href="https://scala.co.uk/s/category/news/">News</a></li>
+<li id="menu-item-95" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-95"><a href="https://scala.co.uk/s/category/competitions/">Competitions</a></li>
+<li id="menu-item-93" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-93"><a href="https://scala.co.uk/ticketing/">Ticketing</a></li>
+<li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a href="https://scala.co.uk/admission/">Admission</a></li>
+</ul></div><div class="menu-header"><ul id="menu-menu-c" class="menu"><li id="menu-item-111" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-111"><a href="https://scala.co.uk/venue-hire/">Venue Hire</a></li>
+<li id="menu-item-110" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-110"><a href="https://scala.co.uk/about/">About</a>
+<ul class="sub-menu">
+	<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><a href="https://scala.co.uk/about/our-venue/">Our Venue</a></li>
+	<li id="menu-item-750" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-750"><a href="https://scala.co.uk/about/photographs/">Photographs</a></li>
+	<li id="menu-item-242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-242"><a href="https://scala.co.uk/about/building-history/">Building History</a></li>
+</ul>
+</li>
+<li id="menu-item-109" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-109"><a href="https://scala.co.uk/location/">Location</a></li>
+<li id="menu-item-112" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-112"><a href="https://scala.co.uk/contact-us/">Contact Us</a>
+<ul class="sub-menu">
+	<li id="menu-item-241" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-241"><a href="https://scala.co.uk/faq/">Your questions</a></li>
+	<li id="menu-item-1716" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1716"><a href="http://eepurl.com/bndjZX">Subscribe</a></li>
+	<li id="menu-item-7203" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7203"><a href="https://scala.co.uk/privacy-policy/">Privacy Policy</a></li>
+</ul>
+</li>
+</ul></div></div><!--/#navigation-->   
+		<a name="top" id="top"></a><div id="content" class="eleven columns">
+
+				<div id="post-12" class="post-12 page type-page status-publish hentry">
+								
+															
+						<h1 class="entry-title">Live Music</h1>
+						
+													
+					<div class="entry-content">
+						
+<ul class="tb-event-list">
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/03/Digable-Planets-2026_colour-c-Emilio-Herce-scaled-e1774636627462.jpeg')"><a href="https://scala.co.uk/events/digable-planets/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">19th August 2026</p>
+<h2><a href="https://scala.co.uk/events/digable-planets/" title="Digable Planets">Digable Planets</a></h2>
+<h3 class="tb-event-subtitle">Plus Blue Lab Beats</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/kd37ff0da944">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/digable-planets/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/05/Press-Photo-4-by-Tino-DOnghia-scaled-e1779449947683.jpg')"><a href="https://scala.co.uk/events/way-dynamic/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">3rd September 2026</p>
+<h2><a href="https://scala.co.uk/events/way-dynamic/" title="Way Dynamic">Way Dynamic</a></h2>
+<h3 class="tb-event-subtitle">Plus Liam Parsons</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/t473fd7b1409">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/way-dynamic/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/Martha-London-Instagrid-scaled-e1775666117522.jpg')"><a href="https://scala.co.uk/events/martha-2/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">11th September 2026</p>
+<h2><a href="https://scala.co.uk/events/martha-2/" title="Martha">Martha</a></h2>
+<h3 class="tb-event-subtitle">Plus Trust Fund </h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/tcb575854d85">Sold out</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/martha-2/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/Boyce-Avenue-scaled-e1777042778772.jpg')"><a href="https://scala.co.uk/events/boyce-avenue/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">15th September 2026</p>
+<h2><a href="https://scala.co.uk/events/boyce-avenue/" title="Boyce Avenue">Boyce Avenue</a></h2>
+<h3 class="tb-event-subtitle"> </h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/G4d7c97a8154">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/boyce-avenue/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/07/Little-Grandad-e1783098163973.png')"><a href="https://scala.co.uk/events/little-grandad/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">16th September 2026</p>
+<h2><a href="https://scala.co.uk/events/little-grandad/" title="Little Grandad">Little Grandad</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/R6cbad2bf3f9">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/little-grandad/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/03/4x5-3-e1774014396446.jpg')"><a href="https://scala.co.uk/events/shit-kid/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">17th September 2026</p>
+<h2><a href="https://scala.co.uk/events/shit-kid/" title="SHIT KID">SHIT KID</a></h2>
+<h3 class="tb-event-subtitle">Plus Clutter</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/d6fc9d8ac441">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/shit-kid/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/05/Strawberry-guy-Square-1-e1779812675877.jpg')"><a href="https://scala.co.uk/events/strawberry-guy/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">20th September 2026</p>
+<h2><a href="https://scala.co.uk/events/strawberry-guy/" title="Strawberry Guy">Strawberry Guy</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/a804b58c5602">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/strawberry-guy/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/Casey-Dec-25-scaled-e1776788758522.jpg')"><a href="https://scala.co.uk/events/casey/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">22nd September 2026</p>
+<h2><a href="https://scala.co.uk/events/casey/" title="Casey">Casey</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/fc092eb74f92">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/casey/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/06/PRESS1-e1780652645554.jpg')"><a href="https://scala.co.uk/events/chxrry/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">23rd September 2026</p>
+<h2><a href="https://scala.co.uk/events/chxrry/" title="Chxrry">Chxrry</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/ud08fc3f7740">Sold out</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/chxrry/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/01/Lead-Shot-1-scaled-e1768405730211.jpg')"><a href="https://scala.co.uk/events/holy-fuck/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">24th September 2026</p>
+<h2><a href="https://scala.co.uk/events/holy-fuck/" title="HOLY FUCK">HOLY FUCK</a></h2>
+<h3 class="tb-event-subtitle">Plus The Itch</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/v10439bc4126">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/holy-fuck/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/The-Tubs-e1777287198318.jpg')"><a href="https://scala.co.uk/events/the-tubs/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">30th September 2026</p>
+<h2><a href="https://scala.co.uk/events/the-tubs/" title="The Tubs">The Tubs</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/d45da32fc8c8">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/the-tubs/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/06/Chrissy_2_1-scaled-e1780669561317.jpeg')"><a href="https://scala.co.uk/events/chrissy-chlapecka/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">1st October 2026</p>
+<h2><a href="https://scala.co.uk/events/chrissy-chlapecka/" title="Chrissy Chlapecka">Chrissy Chlapecka</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/ad101bcffe30">Sold out</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/chrissy-chlapecka/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2025/12/-Лондон-2000х1000-e1764771287363.jpg')"><a href="https://scala.co.uk/events/kaspiyskiy-gruz/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">4th October 2026</p>
+<h2><a href="https://scala.co.uk/events/kaspiyskiy-gruz/" title="Kaspiyskiy Gruz - rescheduled">Kaspiyskiy Gruz - rescheduled</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/D9018fd2cc1c">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/kaspiyskiy-gruz/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/07/The-Wanted-2.0-scaled-e1784064219341.jpg')"><a href="https://scala.co.uk/events/the-wanted-2-0/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">6th October 2026</p>
+<h2><a href="https://scala.co.uk/events/the-wanted-2-0/" title="The Wanted 2.0">The Wanted 2.0</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/k502ff9671cf">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/the-wanted-2-0/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/07/2908035b-cb62-4cc3-b3e0-4a757b4f0aac.jpg')"><a href="https://scala.co.uk/events/nails/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">7th October 2026</p>
+<h2><a href="https://scala.co.uk/events/nails/" title="Nails">Nails</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/Cb67c9e35001">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/nails/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/065664bd_benellis-whereshegoes-3-scaled-e1777023436326.jpg')"><a href="https://scala.co.uk/events/ben-ellis/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">13th October 2026</p>
+<h2><a href="https://scala.co.uk/events/ben-ellis/" title="Ben Ellis">Ben Ellis</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/d7155e0fec24">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/ben-ellis/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/03/LSD-Dice-e1772548074125.jpg')"><a href="https://scala.co.uk/events/lsd-and-the-search-for-god/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">14th October 2026</p>
+<h2><a href="https://scala.co.uk/events/lsd-and-the-search-for-god/" title="LSD and the Search for God">LSD and the Search for God</a></h2>
+<h3 class="tb-event-subtitle">PLUS TRIAGE</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/x766a648793c">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/lsd-and-the-search-for-god/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/02/1-5-scaled-e1771952386196.jpg')"><a href="https://scala.co.uk/events/the-clockworks/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">16th October 2026</p>
+<h2><a href="https://scala.co.uk/events/the-clockworks/" title="The Clockworks">The Clockworks</a></h2>
+<h3 class="tb-event-subtitle">Plus Bluai</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/E93469dd5978">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/the-clockworks/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/07/04_Shed_London-1-scaled-e1785341638877.jpg')"><a href="https://scala.co.uk/events/shed-seven-a-maximum-high-live/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">17th October 2026</p>
+<h2><a href="https://scala.co.uk/events/shed-seven-a-maximum-high-live/" title="Shed Seven Jacaranda Edition">Shed Seven Jacaranda Edition</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/zbdb6f3edaed">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/shed-seven-a-maximum-high-live/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/02/jim-jones-e1770135582161.jpg')"><a href="https://scala.co.uk/events/jim-jones-all-stars/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">18th October 2026</p>
+<h2><a href="https://scala.co.uk/events/jim-jones-all-stars/" title="Jim Jones All Stars">Jim Jones All Stars</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/Ze53b3a4aaae">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/jim-jones-all-stars/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/03/The-Early-November-Hellogoodbye-London-Poster-scaled-e1773767812835.jpg')"><a href="https://scala.co.uk/events/the-early-november-hellogoodbye/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">19th October 2026</p>
+<h2><a href="https://scala.co.uk/events/the-early-november-hellogoodbye/" title="The Early November &amp; Hellogoodbye">The Early November &amp; Hellogoodbye</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/L5c4430560e5">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/the-early-november-hellogoodbye/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/Personal-Trainer-2-Credit-Sophie-Koterus-Korting-copy-e1776700274979.jpg')"><a href="https://scala.co.uk/events/personal-trainer/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">20th October 2026</p>
+<h2><a href="https://scala.co.uk/events/personal-trainer/" title="Personal Trainer">Personal Trainer</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/o98930e003d9">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/personal-trainer/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/01/DECO-PRESS-IMAGE-2-scaled-e1769171913984.jpg')"><a href="https://scala.co.uk/events/deco/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">23rd October 2026</p>
+<h2><a href="https://scala.co.uk/events/deco/" title="Deco">Deco</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/a8df03ca06a9">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/deco/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/07/YP2026ET-scaled-e1784628731525.jpg')"><a href="https://scala.co.uk/events/young-posse/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">25th October 2026</p>
+<h2><a href="https://scala.co.uk/events/young-posse/" title="Young Posse">Young Posse</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/c0f2f3a66dc1">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/young-posse/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/06/Lady-Leshurr-London-1080-x-1350-e1782314715427.jpg')"><a href="https://scala.co.uk/events/lady-leshurr/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">27th October 2026</p>
+<h2><a href="https://scala.co.uk/events/lady-leshurr/" title="Lady Leshurr">Lady Leshurr</a></h2>
+<h3 class="tb-event-subtitle">10 Years of The Queen's Speech Tour</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/C6b2cd78d16f">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/lady-leshurr/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/4e75e901_ADULT-DVD-PRESS-PHOTOS-NOV25-DEVONC-12-scaled-e1776352522441.jpg')"><a href="https://scala.co.uk/events/adult-dvd/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">28th October 2026</p>
+<h2><a href="https://scala.co.uk/events/adult-dvd/" title="Adult DVD">Adult DVD</a></h2>
+<h3 class="tb-event-subtitle">Plus Group A.D. & Kiosk</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/Wfd0020d37ca">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/adult-dvd/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/02/100club17-copy-1-1.jpg')"><a href="https://scala.co.uk/events/boy-kill-boy/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">29th October 2026</p>
+<h2><a href="https://scala.co.uk/events/boy-kill-boy/" title="Boy Kill Boy">Boy Kill Boy</a></h2>
+<h3 class="tb-event-subtitle">Plus DSM IV</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/u473f1e755af">Sold out</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/boy-kill-boy/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/05/World_News_1x1-e1778001165140.jpg')"><a href="https://scala.co.uk/events/world-news/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">3rd November 2026</p>
+<h2><a href="https://scala.co.uk/events/world-news/" title="World News">World News</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/U22b13effda3">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/world-news/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/Portrait-Chasing-Abbey-1-scaled-e1777282282893.jpg')"><a href="https://scala.co.uk/events/chasing-abbey/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">4th November 2026</p>
+<h2><a href="https://scala.co.uk/events/chasing-abbey/" title="Chasing Abbey">Chasing Abbey</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/Z44463a56ef4">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/chasing-abbey/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/05/Josiah_Bonnevilles_Lead_Photo_by_Dan_Winters-scaled-e1778256182664.jpg')"><a href="https://scala.co.uk/events/josiah-the-bonnevilles/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">5th November 2026</p>
+<h2><a href="https://scala.co.uk/events/josiah-the-bonnevilles/" title="Josiah &amp; The Bonnevilles">Josiah &amp; The Bonnevilles</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/C3acc387cb01">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/josiah-the-bonnevilles/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/06/1780331608722-e1781540952693.jpg')"><a href="https://scala.co.uk/events/spyair/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">7th November 2026</p>
+<h2><a href="https://scala.co.uk/events/spyair/" title="SPYAIR">SPYAIR</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/p16943b8bed7">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/spyair/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/01/fe325419_EYEHATEGOD-PROMOS-WORCESTER-9-e1769449926410.jpg')"><a href="https://scala.co.uk/events/eyehategod/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">9th November 2026</p>
+<h2><a href="https://scala.co.uk/events/eyehategod/" title="EYEHATEGOD">EYEHATEGOD</a></h2>
+<h3 class="tb-event-subtitle">Plus Rwake & Intercourse </h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/T297c0ba7dd9">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/eyehategod/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/06/Chloe-Slater-Press-Shot-scaled-e1781196319126.jpg')"><a href="https://scala.co.uk/events/chloe-slater/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">10th November 2026</p>
+<h2><a href="https://scala.co.uk/events/chloe-slater/" title="Chloe Slater">Chloe Slater</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/Z1f30c5d5518">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/chloe-slater/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/Temples-Press-Shot-scaled-e1776096155227.jpg')"><a href="https://scala.co.uk/events/temples/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">12th November 2026</p>
+<h2><a href="https://scala.co.uk/events/temples/" title="Temples">Temples</a></h2>
+<h3 class="tb-event-subtitle"></h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/w757321a0045">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/temples/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/02/PigDestroyer-London-e1771953746432.jpg')"><a href="https://scala.co.uk/events/pig-destroyer/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">13th November 2026</p>
+<h2><a href="https://scala.co.uk/events/pig-destroyer/" title="PIG DESTROYER">PIG DESTROYER</a></h2>
+<h3 class="tb-event-subtitle">Plus Wormrot </h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/M5f7f170e2fd">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/pig-destroyer/">Info</a></div>
+</div>
+</div>
+</li>
+<li class="tb-event-item no-amends">
+<div class="tb-event-feature-pic" style="background-image:url('https://scala.co.uk/s/wp-content/uploads/2026/04/De-Staat_2026-scaled-e1777304914195.jpg')"><a href="https://scala.co.uk/events/de-staat/"></p>
+<div class="linkbgimage"></div>
+<p></a></div>
+<div class="tb-event-box" style="background:#D3506E;">
+<p class="date">15th November 2026</p>
+<h2><a href="https://scala.co.uk/events/de-staat/" title="DE STAAT">DE STAAT</a></h2>
+<h3 class="tb-event-subtitle">Plus Hiqpy</h3>
+<div class="morebox">
+<div class="left-morebox"><a href="https://link.dice.fm/O14007968372">Buy tickets</a></div>
+<div class="right-morebox"><a href="https://scala.co.uk/events/de-staat/">Info</a></div>
+</div>
+</div>
+</li>
+</ul>
+<p><span class="em-pagination" > <strong><span class="page-numbers current">1</span></strong> <a class="page-numbers" href="/events/categories/live-music/?pno=2" title="2">2</a>  <a class="next page-numbers" href="/events/categories/live-music/?pno=2" title="2">&gt;</a>  </span></p>
+																	</div><!-- .entry-content -->
+				</div><!-- #post-## -->
+
+				<!-- taragh deleted comments as she could not turn off easily -->
+		</div><!-- /.columns (#content) -->
+<div id="sidebar" class="five columns" role="complementary">
+	<ul>
+		<li id="search-3" class="widget-container widget_search"><h3 class="widget-title">Search</h3><form role="search" method="get" id="searchform" class="searchform" action="https://scala.co.uk/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			</form></li><li id="nav_menu-2" class="widget-container widget_nav_menu"><div class="menu-about-container"><ul id="menu-about" class="menu"><li id="menu-item-1102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1102"><a href="https://scala.co.uk/about/our-venue/">Our Venue</a></li>
+<li id="menu-item-1101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1101"><a href="https://scala.co.uk/about/photographs/">Photographs</a></li>
+<li id="menu-item-1103" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1103"><a href="https://scala.co.uk/about/building-history/">Building History</a></li>
+</ul></div></li><li id="text-8" class="widget-container widget_text">			<div class="textwidget"><div class="fb-like" data-href="https://www.facebook.com/pages/Scala/9208207092" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div></div>
+		</li><li id="text-6" class="widget-container widget_text"><h3 class="widget-title">Subscribe</h3>			<div class="textwidget"><p><i class="fa fa-envelope-o reposition-icon"></i>Subscribe to our mailing list for  updates on new events, news and regular free tickets giveaways. <a href="http://eepurl.com/bndjZX">Subscribe now</a></p>
+</div>
+		</li><li id="em_widget-2" class="widget-container widget_em_widget"><h3 class="widget-title">Upcoming Events</h3><ul><li><ul>
+<li class="eventDate">15th August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/club-de-fromage-daytime-party-27/" title="Club de Fromage – Daytime Party">Club de Fromage – Daytime Party</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/club-de-fromage-daytime-party-27/">Info</a> | <a href="https://link.dice.fm/Z932fca9ffbc">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">15th August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/old-school-indie-over-30s-daytime-party-w-club-de-fromage-17/" title="Old School Indie - Over 30s Daytime Party (w/Club de Fromage)">Old School Indie - Over 30s Daytime Party (w/Club de Fromage)</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/old-school-indie-over-30s-daytime-party-w-club-de-fromage-17/">Info</a> | <a href="https://link.dice.fm/W79f6b3e8b0d">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">15th August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/back-to-the-90s-00s-20/" title="Back to the 90&#039;s &amp; 00&#039;s!">Back to the 90&#039;s &amp; 00&#039;s!</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/back-to-the-90s-00s-20/">Info</a> | <a href="https://link.dice.fm/Nb7e25085cdd">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">19th August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/digable-planets/" title="Digable Planets">Digable Planets</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/digable-planets/">Info</a> | <a href="https://link.dice.fm/kd37ff0da944">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">22nd August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/tg-summer-ball-2/" title="TG Summer Ball">TG Summer Ball</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/tg-summer-ball-2/">Info</a> | <a href="https://link.dice.fm/o709b5050d67">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">28th August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/activate-meets-socahall-2/" title="Activate Meets Socahall">Activate Meets Socahall</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/activate-meets-socahall-2/">Info</a> | <a href="https://link.dice.fm/j5f64b0c5e3f">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">29th August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/the-bootylicious-carnival-party/" title="The Bootylicious Carnival Party">The Bootylicious Carnival Party</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/the-bootylicious-carnival-party/">Info</a> | <a href="https://link.dice.fm/Af1f8b52a811">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">31st August 2026</li>
+<li><h3><a href="https://scala.co.uk/events/notting-hill-carnival-quencher-3/" title="Notting Hill Carnival Quencher">Notting Hill Carnival Quencher</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/notting-hill-carnival-quencher-3/">Info</a> | <a href="https://link.dice.fm/T1e6445af499">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">3rd September 2026</li>
+<li><h3><a href="https://scala.co.uk/events/way-dynamic/" title="Way Dynamic">Way Dynamic</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/way-dynamic/">Info</a> | <a href="https://link.dice.fm/t473fd7b1409">Buy tickets</a></li>
+</ul></li><li><ul>
+<li class="eventDate">4th September 2026</li>
+<li><h3><a href="https://scala.co.uk/events/face-down-pop-punk-metal-emo-night-london-32/" title="Face Down - Pop Punk, Metal, Emo Night London">Face Down - Pop Punk, Metal, Emo Night London</a></h3></li>
+<li class="eventTicketlink"><a href="https://scala.co.uk/events/face-down-pop-punk-metal-emo-night-london-32/">Info</a> | <a href="https://link.dice.fm/i0b2fbaac806">Buy tickets</a></li>
+</ul></li></ul></li><li id="text-9" class="widget-container widget_text"><h3 class="widget-title">What others say</h3>			<div class="textwidget"><p>&#8216;Thank you Team Scala for all your help yesterday. We couldn’t have done it without you. It was a great success all round. Everything ran smoothly, the atmosphere was electric and everyone is raving about it today!&#8217;<br />
+<strong>Nina Mistry &#8211; Universal</strong></p>
+<hr />
+<p>&#8216;We would like to thank you and your staff for Saturday. It was a great pleasure working with a professional team right across the board &#8211; from management, security to bar staff. We found everyone to be very helpful and easy to work with and look forward to working with your team again.&#8217;<br />
+<strong>Jo – TwiceasNice</strong></p>
+<hr />
+<p>&#8216;Once again I’d just like to say thank you for everything over the last few weeks. It’s been a quick turn around and you two have dealt with difficult scenarios brilliantly, and even made them enjoyable!It really was a great night for the fans, the band and the clients.&#8217;<br />
+<strong>Joseph Winter – Drive Productions</strong></p>
+<hr />
+<p>&#8216;We just wanted to thank all the staff that were so helpful  to us on friday we were so impressed with the attitude of each and every one of them, whilst it is never easy moving to a new venue your team did every thing to make us feel at home. We are now looking forward to the next event and we feel we can only get stronger and stronger, many thanks again&#8217;<br />
+<strong>The Salsa Republic Team </strong></p>
+<hr />
+<p>&#8216;It&#8217;s been a complete pleasure working with you and your team on a cracking couple of sold out shows &#8211; look forward to being back with you soon.&#8217;<br />
+<strong>Amy Pearce – Serious Music</strong></p>
+<hr />
+<p>&#8216;Thanks for all of your help and generosity.  It was a great night for War Child &#8211; which we did with your help and your brilliant venue.  Please pass on a big thank you to Suzanne, Lisa Marie, Charlene, Dave, security and bar staff. You have a good crew. I look forward to working with the Scala again. All of the money raised from these events fund our vital work protecting and saving young lives in war zones.&#8217;<br />
+<strong>Jim Benner – WarChild</strong></p>
+<hr />
+<p>&#8216;We will definitely look at coming back in the future, we were very well looked after so a big thank you to you and your team as well.&#8217;<br />
+<strong>Adrian Storry — Shorebitch</strong></p>
+<hr />
+<p>&#8216;A pleasure working with you and your team &#8211; always so straight forward. It was an absolutely fantastic night, and our sponsors were also delighted with the end result.&#8217;<br />
+<strong>Alex Parmee – Absolute Audio Visual</strong></p>
+<hr />
+<p>&#8216;WOW, you have an incredible team. They were just amazing all day.&#8217;<br />
+<strong>Ben – Marshall Arts</strong></p>
+<hr />
+</div>
+		</li>	</ul>
+	
+</div><!-- #sidebar -->
+<div class="clear"></div><div id="footer" class="normal sixteen columns">
+
+
+<div class="one_half">
+	<div class="block-4">
+<p></p>
+</div><div class="block-5">
+<p></p>
+</div><div class="nav_menu-6"><div class="menu-footer-menu-container"><ul id="menu-footer-menu" class="menu"><li id="menu-item-7196" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7196"><a href="https://scala.co.uk/privacy-policy/">Privacy Policy</a></li>
+</ul></div></div></div>
+
+
+
+<div class="one_half">
+		  <div class="block-6">
+<p></p>
+</div><div class="block-7">
+<p></p>
+</div></div>
+<div class="clear"></div>
+
+<div id="credits">Scala, 275 Pentonville Road, London N1 9NL UK | Call +44 (0)20 7833 2022 | © Copyright Scala 2015 | Web design by Taragh at <a href="http://www.enfabula.com">Enfabula</a> | <a href="https://scala.co.uk/s/wp-login.php">Log in</a><br /><a class="themeauthor" href="http://www.simplethemes.com" title="Simple WordPress Themes">WordPress Themes</a></div><script type='text/javascript' src='https://scala.co.uk/s/wp-content/themes/skeleton/javascripts/app.js?ver=1.2.3' id='custom-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/themes/skeleton/javascripts/superfish.js?ver=1.2.3' id='superfish-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/themes/skeleton/javascripts/jquery.formalize.min.js?ver=1.2.3' id='formalize-js'></script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.7.6' id='swv-js'></script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/scala.co.uk\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://scala.co.uk/s/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.7.6' id='contact-form-7-js'></script>
+<script defer type='text/javascript' src='https://stats.wp.com/e-202633.js' id='jetpack-stats-js'></script>
+<script type='text/javascript' id='jetpack-stats-js-after'>
+_stq = window._stq || [];
+_stq.push([ "view", {v:'ext',blog:'74883103',post:'0',tz:'1',srv:'scala.co.uk',j:'1:12.1.2'} ]);
+_stq.push([ "clickTrackerInit", "74883103", "0" ]);
+</script>
+
+</div><!--/#footer-->
+</div><!--/#wrap.container-->
+<!-- STOP USING MAILCHIMP POPUP
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us10.list-manage.com","uuid":"0d7f5bf0204c83efabdaa2961","lid":"7f8e9605a4"}) })</script>
+-->
+
+</body>
+</html>

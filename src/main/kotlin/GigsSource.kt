@@ -372,6 +372,48 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
+class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://scala.co.uk/events/categories/live-music/"
+    override val venue = "Scala"
+
+    // e.g. "19th August 2026" - full month name, ordinal suffix discarded
+    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)\s+(\d{4})""")
+
+    // e.g. background-image:url('...') - the poster is a css background rather than an img element
+    private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
+
+    // this category currently spans two pages (36 + 19 events), found by following the page's own
+    // "next" link rather than guessing at a query parameter - the same sidebar also links a handful
+    // of upcoming shows outside .tb-event-item, which .select scopes past. maxPages exists only to
+    // bound a pathological site bug; the real stop condition is the next link disappearing
+    private val maxPages = 10
+
+    override fun latestGigs(): List<GigEvent> {
+        val gigs = mutableListOf<GigEvent>()
+        var pageUrl: String? = url
+        var pagesFetched = 0
+
+        while (pageUrl != null && pagesFetched < maxPages) {
+            val page = Jsoup.parse(fetchPage(client, pageUrl), pageUrl)
+            pagesFetched++
+            gigs += page.select(".tb-event-item").map { item ->
+                val (day, monthName, year) = datePattern.find(item.select(".date").text())!!.destructured
+                val link = item.select("h2 a")
+
+                GigEvent.of(
+                    title = link.text(),
+                    venue = venue,
+                    date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
+                    url = link.attr("abs:href"),
+                    imageUrl = backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1) ?: "",
+                )
+            }
+            pageUrl = page.select(".em-pagination a.next").attr("abs:href").ifBlank { null }
+        }
+        return gigs
+    }
+}
+
 class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
     GigsSource by SignatureBrewGigsSource(client, venue = "Signature Brew Blackhorse Road")
 

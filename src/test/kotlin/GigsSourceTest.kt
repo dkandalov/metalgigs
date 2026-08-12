@@ -642,4 +642,34 @@ class GigsSourceTest {
         expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(0)
         expectThat(events.map { it.id.url }.distinct()).hasSize(119)
     }
+
+    @Test
+    fun `extracts gig events from Scala's live music category page, following pagination`() {
+        val events = assertScrapesGigs(
+            source = ScalaGigsSource(cachedClient()),
+            size = 55,
+            first = GigEvent(
+                id = GigId("Scala", "https://scala.co.uk/events/digable-planets/"),
+                title = "Digable Planets",
+                year = 2026,
+                month = "Aug",
+                day = "19",
+                imageUrl = "https://scala.co.uk/s/wp-content/uploads/2026/03/Digable-Planets-2026_colour-c-Emilio-Herce-scaled-e1774636627462.jpeg",
+            ),
+            last = GigEvent(
+                id = GigId("Scala", "https://scala.co.uk/events/split-the-dealer-deva-st-john/"),
+                title = "SPLIT THE DEALER & DEVA ST.JOHN",
+                year = 2027,
+                month = "May",
+                day = "20",
+                imageUrl = "https://scala.co.uk/s/wp-content/uploads/2026/05/Scala-poster-Prf2_page-0001-1-e1779370004481.jpg",
+            ),
+            urlPrefix = "https://scala.co.uk/events/",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(0)
+        // 36 on the first page, 19 on the second - a size assertion alone wouldn't catch double
+        // counting if a future site change made the "next" link loop back to page 1
+        expectThat(events.map { it.id.url }.distinct()).hasSize(55)
+    }
 }

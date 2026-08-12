@@ -1,0 +1,3 @@
+GET https://scala.co.uk/events/categories/live-music/ HTTP/1.1
+
+
