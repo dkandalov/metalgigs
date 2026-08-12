@@ -120,9 +120,6 @@ fun newOrChangedGigs(existingEntries: List<LogEntry>, scrapedGigs: List<GigEvent
     return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
 }
 
-fun gigsMissingPageText(entries: List<LogEntry>): Set<GigId> =
-    projectCurrentGigs(entries).filter { it.pageText == null }.map { it.id }.toSet()
-
 // when each venue was last seen changing - an approximation of "last scraped" derived from
 // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
 // longer than the cooldown looks stale here and gets rescraped anyway, which just means it's

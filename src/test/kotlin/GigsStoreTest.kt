@@ -60,17 +60,14 @@ class GigsStoreTest {
         )
     }
 
+    // a page that couldn't be read leaves pageText null, and that must not make the gig look
+    // changed - otherwise every scrape would log the same unchanged listing again
     @Test
-    fun `finds gigs whose latest observation captured no page text`() {
-        val captured = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/captured"), title = "Captured", year = 2026, month = "Aug", day = "08", imageUrl = "")
-        val neverCaptured = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/never"), title = "Never", year = 2026, month = "Aug", day = "09", imageUrl = "")
-        val entries: List<LogEntry> = listOf(
-            GigObserved(captured, Instant.parse("2026-07-01T00:00:00Z")),
-            GigObserved(captured.copy(pageText = "Doom metal night"), Instant.parse("2026-07-10T00:00:00Z")),
-            GigObserved(neverCaptured, Instant.parse("2026-07-01T00:00:00Z")),
-        )
+    fun `a gig whose page text was never captured is not treated as changed`() {
+        val gig = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/never"), title = "Never", year = 2026, month = "Aug", day = "09", imageUrl = "")
+        val existing: List<LogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
 
-        expectThat(gigsMissingPageText(entries)).containsExactly(neverCaptured.id)
+        expectThat(newOrChangedGigs(existing, listOf(gig))).isEqualTo(emptyList())
     }
 
     @Test

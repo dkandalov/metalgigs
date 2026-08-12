@@ -139,11 +139,9 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     gigs.forEach { println(it) }
 
     // record a gig whose listed details changed, and also one that's unchanged but has no page text
-    // yet - that second case backfills gigs observed before scrape started capturing it, so the log
-    // fills in venue by venue instead of needing a separate migration pass
-    val missingPageText = gigsMissingPageText(existingEntries)
-    val newOrChanged = newOrChangedGigs(existingEntries, gigs).toSet()
-    val toObserve = gigs.filter { it in newOrChanged || it.id in missingPageText }
+    // a gig is recorded only when it's new or its listed details have changed, so an unchanged
+    // listing costs nothing and the log stays a record of changes rather than of scrapes
+    val toObserve = newOrChangedGigs(existingEntries, gigs)
 
     val observed = toObserve.map { gig ->
         // one dead event page shouldn't cost us the whole scrape - the gig is still worth recording,
