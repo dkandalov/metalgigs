@@ -22,8 +22,10 @@ fun imageUrlExtension(url: String): String = url.substringBefore('?').substringA
 fun cachedImageFile(cacheDir: File, imageUrl: String): File =
     File(cacheDir, "${shortHash(imageUrl)}.${imageUrlExtension(imageUrl)}")
 
+// always .webp whatever the source was, since publishing re-encodes rather than copies. The name
+// still hashes the source url, so a gig's identity here is unchanged
 fun publishedImageFileName(gig: GigEvent): String =
-    "${gig.date()}-${slug(gig.id.venue)}-${shortHash(gig.imageUrl)}.${imageUrlExtension(gig.imageUrl)}"
+    "${gig.date()}-${slug(gig.id.venue)}-${shortHash(gig.imageUrl)}.webp"
 
 fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File {
     val file = cachedImageFile(cacheDir, imageUrl)
@@ -35,13 +37,28 @@ fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File
 }
 
 // the cache can miss - a gig scraped before the cache existed, or one whose download failed at
-// scrape time - so publishing falls back to fetching
-fun publishGigImage(client: HttpHandler, gig: GigEvent, cacheDir: File, publishedDir: File): File {
+// scrape time - so publishing falls back to fetching.
+//
+// Publishing re-encodes rather than copies: venues serve whatever they happen to have, which here
+// ranged from 200px thumbnails to 4096px posters and 7MB PNGs, none of it sized for a 260px card.
+// The cache keeps the original, so this is only ever discarding pixels the page can't show anyway.
+// convert is injectable so tests don't need ImageMagick to exercise the caching around it.
+//
+// Note an already-published file is left alone, and its name says nothing about the size or quality
+// it was encoded at - so changing either of those in ImageMagick.kt won't re-encode what's already
+// in images/. Delete the directory to force that; the cache means it costs no network.
+fun publishGigImage(
+    client: HttpHandler,
+    gig: GigEvent,
+    cacheDir: File,
+    publishedDir: File,
+    convert: (File, File) -> Unit = ::convertToWebp,
+): File {
     val published = File(publishedDir, publishedImageFileName(gig))
     if (!published.exists()) {
         val cached = downloadToCache(client, gig.imageUrl, cacheDir)
         publishedDir.mkdirs()
-        cached.copyTo(published, overwrite = true)
+        convert(cached, published)
     }
     return published
 }

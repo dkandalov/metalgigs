@@ -79,7 +79,7 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-one"><img class="gig-image" src="images/2026-08-08-venue-a-e8f74dd6.jpg" alt="Early Gig One" loading="lazy"></a>
+            <a href="https://example.com/gigs/early-gig-one"><img class="gig-image" src="images/2026-08-08-venue-a-e8f74dd6.webp" alt="Early Gig One" loading="lazy"></a>
             <div class="gig-info">
                 <a href="https://example.com/gigs/early-gig-one">Early Gig One</a>
                 <div class="gig-venue">Venue A</div>
@@ -87,7 +87,7 @@
         </li>
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-two"><img class="gig-image" src="images/2026-08-08-venue-b-40b1a885.jpg" alt="Early Gig Two" loading="lazy"></a>
+            <a href="https://example.com/gigs/early-gig-two"><img class="gig-image" src="images/2026-08-08-venue-b-40b1a885.webp" alt="Early Gig Two" loading="lazy"></a>
             <div class="gig-info">
                 <a href="https://example.com/gigs/early-gig-two">Early Gig Two</a>
                 <div class="gig-venue">Venue B</div>
@@ -100,7 +100,7 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/late-gig"><img class="gig-image" src="images/2026-09-01-venue-a-1c8f1c82.jpg" alt="Late Gig" loading="lazy"></a>
+            <a href="https://example.com/gigs/late-gig"><img class="gig-image" src="images/2026-09-01-venue-a-1c8f1c82.webp" alt="Late Gig" loading="lazy"></a>
             <div class="gig-info">
                 <a href="https://example.com/gigs/late-gig">Late Gig</a>
                 <div class="gig-venue">Venue A</div>

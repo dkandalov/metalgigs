@@ -13,6 +13,10 @@ class ImageCacheTest {
 
     private fun tempDir() = File.createTempFile("images", "").apply { delete(); deleteOnExit() }
 
+    // the real converter runs ImageMagick over a genuine image; these tests are about the caching
+    // and naming around it, and their "images" are a few bytes of text, so they just copy
+    private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
+
     private fun gig(day: String = "08", venue: String = "Some Venue", imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
         GigEvent(id = GigId(venue, "https://example.com/gigs/some-gig"), title = "Some Gig", year = 2026, month = "Aug", day = day, imageUrl = imageUrl)
 
@@ -55,11 +59,11 @@ class ImageCacheTest {
         downloadToCache(fakeClient, gig().imageUrl, cacheDir)
         expectThat(requestCount).isEqualTo(1)
 
-        val published = publishGigImage(fakeClient, gig(), cacheDir, publishedDir)
+        val published = publishGigImage(fakeClient, gig(), cacheDir, publishedDir, copyingConvert)
 
         // still 1: publishing copied the cached bytes rather than re-fetching them
         expectThat(requestCount).isEqualTo(1)
-        expectThat(published.name).isEqualTo("2026-08-08-some-venue-1af7931d.jpg")
+        expectThat(published.name).isEqualTo("2026-08-08-some-venue-1af7931d.webp")
         expectThat(published.readText()).isEqualTo("fake-image-bytes")
     }
 
@@ -68,7 +72,7 @@ class ImageCacheTest {
         var requestCount = 0
         val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
 
-        val published = publishGigImage(fakeClient, gig(), tempDir(), tempDir())
+        val published = publishGigImage(fakeClient, gig(), tempDir(), tempDir(), copyingConvert)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(published.readText()).isEqualTo("fake-image-bytes")
@@ -79,7 +83,7 @@ class ImageCacheTest {
         val fakeClient: HttpHandler = { Response(NOT_FOUND) }
 
         val error = assertFailsWith<IllegalStateException> {
-            publishGigImage(fakeClient, gig(imageUrl = "https://example.com/images/broken.jpg"), tempDir(), tempDir())
+            publishGigImage(fakeClient, gig(imageUrl = "https://example.com/images/broken.jpg"), tempDir(), tempDir(), copyingConvert)
         }
 
         expectThat(error.message!!.contains("https://example.com/images/broken.jpg")).isTrue()
@@ -89,7 +93,7 @@ class ImageCacheTest {
     fun `finds published files that the rendered page no longer references`() {
         val rendered = gig(day = "08")
         val keptFile = File(publishedImageFileName(rendered))
-        val staleFile = File("2026-08-09-some-venue-deadbeef.jpg")
+        val staleFile = File("2026-08-09-some-venue-deadbeef.webp")
 
         val unpublished = unpublishedImageFiles(renderedGigs = listOf(rendered), publishedFiles = listOf(keptFile, staleFile))
 
