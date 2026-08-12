@@ -331,6 +331,33 @@ class SignatureBrewGigsSource(private val client: HttpHandler, override val venu
             }
 }
 
+class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
+    private val url = "https://unionchapel.org.uk/whats-on"
+    override val venue = "Union Chapel"
+
+    // e.g. background-image:url("...") - the poster is a css background rather than an img element
+    private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
+
+    override fun latestGigs(): List<GigEvent> =
+        Jsoup.parse(fetchPage(client, url), url)
+            // every card carries its own sortable timestamp for the page's client-side sorting,
+            // which beats parsing the human date ("Thu 27 May 2027") printed alongside it
+            .select(".item[data-chron]")
+            .map { item ->
+                GigEvent.of(
+                    // each card prints its title twice, once for the card and once for the hover
+                    // panel inside it, so this takes the first rather than both concatenated
+                    title = item.select(".card-title").first()!!.text(),
+                    venue = venue,
+                    date = LocalDate.parse(item.attr("data-chron").substringBefore(' ')),
+                    // matched on the path, since the other link on a card goes to whichever
+                    // external ticketing site that gig happens to sell through
+                    url = item.select("a[href*=/whats-on/]").attr("abs:href"),
+                    imageUrl = backgroundImageUrlPattern.find(item.select(".card-image").attr("style"))?.groupValues?.get(1) ?: "",
+                )
+            }
+}
+
 class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
     GigsSource by SignatureBrewGigsSource(client, venue = "Signature Brew Blackhorse Road")
 

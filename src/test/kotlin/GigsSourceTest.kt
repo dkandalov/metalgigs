@@ -594,4 +594,35 @@ class GigsSourceTest {
         expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(2)
         expectThat(events.count { !it.id.url.startsWith("https://www.ticketmaster.co.uk/event/") }).isEqualTo(1)
     }
+
+    @Test
+    fun `extracts gig events from Union Chapel's what's on page`() {
+        val events = assertScrapesGigs(
+            source = UnionChapelGigsSource(cachedClient()),
+            size = 119,
+            first = GigEvent(
+                id = GigId("Union Chapel", "https://unionchapel.org.uk/whats-on/mavis-staples-12-aug-2026"),
+                title = "MAVIS STAPLES: 12 AUG 2026",
+                year = 2026,
+                month = "Aug",
+                day = "12",
+                imageUrl = "https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/MAVIS%20S.png",
+            ),
+            last = GigEvent(
+                id = GigId("Union Chapel", "https://unionchapel.org.uk/whats-on/fairport-convention-60th-anniversary"),
+                title = "Fairport Convention 60th Anniversary",
+                year = 2027,
+                month = "May",
+                day = "27",
+                imageUrl = "https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/Fairport%20Convention%2060th%20logo.jpg",
+            ),
+            urlPrefix = "https://unionchapel.org.uk/whats-on/",
+        )
+
+        // the whole listing comes back on one page, with a poster on every card. Document order is
+        // *not* chronological - the page sorts client-side, which is why the date is read from
+        // data-chron rather than inferred from position as some other venues' listings allow
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(0)
+        expectThat(events.map { it.id.url }.distinct()).hasSize(119)
+    }
 }
