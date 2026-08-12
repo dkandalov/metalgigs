@@ -7,8 +7,6 @@ fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"),
 private fun shortHash(value: String): String =
     MessageDigest.getInstance("SHA-256").digest(value.toByteArray()).joinToString("") { "%02x".format(it) }.take(8)
 
-// the extension of the URL's own path, ignoring any query string; used both as the local cache
-// file's extension and (elsewhere) to infer the image's mime type
 fun imageUrlExtension(url: String): String = url.substringBefore('?').substringAfterLast('.', "jpg")
 
 // images are held in two places, for different reasons:
@@ -36,9 +34,8 @@ fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File
     return file
 }
 
-// copies a gig's image out of the download cache into the published directory, fetching it first
-// if the cache doesn't have it (a gig scraped before the cache existed, or one whose download
-// failed at scrape time)
+// the cache can miss - a gig scraped before the cache existed, or one whose download failed at
+// scrape time - so publishing falls back to fetching
 fun publishGigImage(client: HttpHandler, gig: GigEvent, cacheDir: File, publishedDir: File): File {
     val published = File(publishedDir, publishedImageFileName(gig))
     if (!published.exists()) {
@@ -49,8 +46,7 @@ fun publishGigImage(client: HttpHandler, gig: GigEvent, cacheDir: File, publishe
     return published
 }
 
-// published files that no gig on the rendered page references, so are safe to remove - the cache
-// still holds their bytes if a later render needs them again
+// safe to remove precisely because the cache still holds their bytes if a later render needs them
 fun unpublishedImageFiles(renderedGigs: List<GigEvent>, publishedFiles: List<File>): List<File> {
     val expectedFileNames = renderedGigs.map { publishedImageFileName(it) }.toSet()
     return publishedFiles.filter { it.name !in expectedFileNames }

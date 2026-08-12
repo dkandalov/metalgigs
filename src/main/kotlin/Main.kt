@@ -27,10 +27,6 @@ fun fetchBytes(client: HttpHandler, url: String, errorContext: String = url): By
     return response.body.stream.readBytes()
 }
 
-// a URL's extension isn't a reliable guide to its actual content type - e.g. Facebook serves some
-// images as image/webp via a "dst-webp" transcoding query param even though the path still ends
-// in .jpg - so this trusts the server's own Content-Type header first, falling back to the URL's
-// extension only if that header is missing
 private fun mimeTypeForImageUrl(url: String) =
     when (imageUrlExtension(url).lowercase()) {
         "png" -> MimeType.IMAGE_PNG
@@ -39,6 +35,9 @@ private fun mimeTypeForImageUrl(url: String) =
         else -> MimeType.IMAGE_JPG
     }
 
+// a url's extension isn't a reliable guide to its actual content type - e.g. Facebook serves some
+// images as image/webp via a "dst-webp" transcoding query param even though the path still ends in
+// .jpg - so the server's own Content-Type header wins, and the extension is only the fallback
 fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
     val response = client(Request(GET, imageUrl))
     check(response.status.successful) { "Failed to fetch image at $imageUrl: ${response.status}" }
@@ -151,8 +150,6 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     val affectedKeys = classifications.map { it.id }.toSet()
     val statusByGig = classificationStatusByGig(existingEntries + classifications)
     val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { it.id in affectedKeys }
-    // no image handling here any more: scrape has already cached every gig's image, and render
-    // publishes the ones its page needs
 
     printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig)
 }
@@ -256,8 +253,6 @@ fun overrideGigGenre(url: String, genre: Genre) {
     appendGigLogEntries(eventsFile, listOf(
         GigClassified(id = gig.id, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
     ))
-    // no image handling here: the gig's image was cached when it was scraped, and render publishes
-    // it if this override put it on the page
 }
 
 fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {

@@ -31,8 +31,6 @@ private fun eventPageContentText(pageHtml: String, url: String, venue: String): 
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 
-// fetches and extracts a gig's own event-page text - done at scrape time so it's stored alongside
-// the observation, and only as a fallback at classification time for gigs observed before that
 fun fetchGigPageText(client: HttpHandler, gig: GigEvent): String =
     eventPageContentText(fetchPage(client, gig.id.url), gig.id.url, gig.id.venue)
 
@@ -64,8 +62,6 @@ fun genreFromReply(reply: String): Genre? {
     return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
 }
 
-// uses the page text the scrape captured onto the gig, only fetching when it has none - which
-// means a gig observed before scrape started capturing it, or one whose page couldn't be read
 fun classifyGigByLLM(client: HttpHandler, chat: Chat, gig: GigEvent, recordedAt: Instant): GigClassified {
     val pageText = gig.pageText ?: fetchGigPageText(client, gig)
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()

@@ -55,12 +55,10 @@ sealed interface GigLogEntry {
     val recordedAt: Instant
 }
 
-// a sighting of a gig at scrape time
 data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : GigLogEntry {
     override val id get() = gig.id
 }
 
-// a gig's genre, either judged by the LLM classifier or asserted by a user
 data class GigClassified(
     override val id: GigId,
     override val recordedAt: Instant,

@@ -12,8 +12,8 @@ import java.io.File
 import java.io.FileWriter
 import java.time.Instant
 
-// GigId is flattened to venue/url rather than nested, matching JGigClassified and keeping the
-// on-disk format unchanged by the move of those fields into GigId
+// here and in JGigClassified, GigId is flattened to venue/url rather than nested - the on-disk
+// format predates GigId existing, and keeping it that way means the log needs no migration
 object JGigEvent : JAny<GigEvent>() {
     private val title by str(GigEvent::title)
     private val venue by str(fun GigEvent.(): String = id.venue)
@@ -46,8 +46,6 @@ object JGigObserved : JAny<GigObserved>() {
     )
 }
 
-// GigId is flattened to venue/url rather than nested, matching how GigObserved's own gig object
-// carries them and keeping the on-disk format unchanged
 object JGigClassified : JAny<GigClassified>() {
     private val venue by str(fun GigClassified.(): String = id.venue)
     private val url by str(fun GigClassified.(): String = id.url)
@@ -90,9 +88,6 @@ fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
         .values
         .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
-// scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
-// title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
-// per gig, not the whole history, so a gig can be logged again after reverting to a prior state
 // what makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
 // not pageText. That comes from a different page, and measurably churns: re-reading every gig's
 // page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
@@ -100,13 +95,14 @@ fun projectCurrentGigs(entries: List<GigLogEntry>): List<GigEvent> =
 // untouched gig each time that happened
 private fun GigEvent.listedDetails() = copy(pageText = null)
 
+// scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
+// title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
+// per gig, not the whole history, so a gig can be logged again after reverting to a prior state
 fun newOrChangedGigs(existingEntries: List<GigLogEntry>, scrapedGigs: List<GigEvent>): List<GigEvent> {
     val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
     return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
 }
 
-// gigs whose latest observation never captured their event-page text - scraping their venue picks
-// them up so the log fills in, and until then the classifier fetches for them
 fun gigsMissingPageText(entries: List<GigLogEntry>): Set<GigId> =
     projectCurrentGigs(entries).filter { it.pageText == null }.map { it.id }.toSet()
 
@@ -119,8 +115,8 @@ fun lastScrapedAt(entries: List<GigLogEntry>): Map<String, Instant> =
         .groupBy { it.id.venue }
         .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
-// has a poster from this source url already been ingested? - every gig from one poster shares a
-// "{sourceUrl}#..." url (see posterGigUrl), so one prefix check covers the whole poster
+// every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check
+// covers the whole poster
 fun alreadyIngested(entries: List<GigLogEntry>, sourceUrl: String): Boolean =
     entries.any { it.id.url.startsWith("$sourceUrl#") }
 
@@ -144,7 +140,6 @@ fun classificationStatusByGig(entries: List<GigLogEntry>): Map<GigId, Classifica
         .groupBy { it.id }
         .mapValues { (_, classifications) -> classificationStatus(classifications) }
 
-// current gigs settled as Metal, by the classifier's verdict or a user's own call
 fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
     val statusByGig = classificationStatusByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->
@@ -152,6 +147,5 @@ fun projectMetalGigs(entries: List<GigLogEntry>): List<GigEvent> {
     }
 }
 
-// gigs the classifier should skip: it has already judged them, or a user has settled them
 fun alreadyClassified(entries: List<GigLogEntry>): Set<GigId> =
     entries.filterIsInstance<GigClassified>().map { it.id }.toSet()
