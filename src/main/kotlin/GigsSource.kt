@@ -22,14 +22,6 @@ data class GigEvent(
     // and the classifier falls back to fetching for those
     val pageText: String? = null,
 ) {
-    // half of a gig's identity (see GigId), so a blank one leaves it unidentifiable, unlinkable,
-    // and - since classifying fetches this url - a crash several steps later in a different
-    // command. Always a scraping bug rather than a real listing, so it fails here where the
-    // offending gig can still be named. imageUrl is genuinely optional and isn't checked
-    init {
-        require(id.url.isNotBlank()) { "Gig has no url, so it can't be identified: \"$title\" at ${id.venue} on $year-$month-$day" }
-    }
-
     companion object {
         fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String) = GigEvent(
             id = GigId(venue, url),
@@ -47,7 +39,17 @@ enum class Genre { Metal, Other }
 enum class ClassificationSource { LLM, User }
 
 // a gig's stable identity across scrapes - everything else (title, date, image) is status, not identity
-data class GigId(val venue: String, val url: String)
+data class GigId(val venue: String, val url: String) {
+    // a blank half leaves a gig unidentifiable and, since classifying fetches the url, crashing
+    // several steps later in a different command. Always a scraping bug rather than a real listing,
+    // so it fails at construction - which happens inside the venue's own latestGigs(), naming that
+    // source in the stack trace. Checked here rather than on GigEvent so it also covers a
+    // GigClassified, and an id read back from the log
+    init {
+        require(venue.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
+        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venue" }
+    }
+}
 
 // one entry in the append-only log: something that happened, and when. Deliberately says nothing
 // about a gig - most entries are about one, but not all of them need to be
