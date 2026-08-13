@@ -11,8 +11,7 @@ class GigsStoreTest {
 
     private fun gigsLog(entries: List<LogEntry>): GigsLog {
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
-        appendLogEntries(file, entries)
-        return GigsLog(file)
+        return GigsLog(file).apply { append(entries) }
     }
 
     @Test
@@ -26,7 +25,7 @@ class GigsStoreTest {
         )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
-        appendLogEntries(file, entries)
+        GigsLog(file).append(entries)
 
         expectThat(readLogEntries(file)).isEqualTo(entries)
     }
@@ -41,7 +40,7 @@ class GigsStoreTest {
             recordedAt = Instant.parse("2026-08-01T12:00:00Z"),
         )
 
-        appendLogEntries(file, listOf(rendered))
+        GigsLog(file).append(listOf(rendered))
 
         expectThat(file.readText().trim()).isEqualTo(
             """{"_type": "rendered", "file": "2026-08-01T12-00-00Z.html", "gigCount": 42, "logicalDate": "2026-08-01", "recordedAt": "2026-08-01T12:00:00Z"}""",
@@ -61,7 +60,7 @@ class GigsStoreTest {
             useVision = false,
         )
 
-        appendLogEntries(file, listOf(classified))
+        GigsLog(file).append(listOf(classified))
 
         expectThat(readLogEntries(file)).isEqualTo(listOf(classified))
     }
@@ -96,7 +95,7 @@ class GigsStoreTest {
         // read, so a hand-edited or truncated line degrades to "" instead of failing the whole read.
         file.writeText("""{"_type": "observed", "gig": {"title": "Test Gig", "venue": "Test Venue", "date": "2026-08-08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
 
-        appendLogEntries(file, listOf(GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))
+        GigsLog(file).append(listOf(GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))
 
         expectThat(readLogEntries(file)).isEqualTo(
             listOf(

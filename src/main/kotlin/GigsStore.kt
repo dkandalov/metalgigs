@@ -97,12 +97,6 @@ object JLogEntry : JSealed<LogEntry>() {
     }
 }
 
-fun appendLogEntries(file: File, entries: List<LogEntry>) {
-    FileWriter(file, true).buffered().use { writer ->
-        toNdJson(JLogEntry)(entries).forEach { writer.appendLine(it) }
-    }
-}
-
 fun readLogEntries(file: File): List<LogEntry> =
     fromNdJsonToList(JLogEntry)(file.readLines().asSequence()).orThrow()
 
@@ -121,7 +115,9 @@ class GigsLog(private val file: File) {
     private var entries: List<LogEntry> = if (file.exists()) readLogEntries(file) else emptyList()
 
     fun append(newEntries: List<LogEntry>) {
-        appendLogEntries(file, newEntries)
+        FileWriter(file, true).buffered().use { writer ->
+            toNdJson(JLogEntry)(newEntries).forEach { writer.appendLine(it) }
+        }
         entries = entries + newEntries
     }
 
