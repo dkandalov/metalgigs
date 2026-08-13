@@ -80,7 +80,7 @@ fun classifyGigByLLM(
     recordedAt: Instant,
     posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
 ): GigClassified {
-    val pageText = gig.pageText ?: fetchGigPageText(client, gig)
+    val pageText = gig.pageText.ifBlank { fetchGigPageText(client, gig) }
     val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +

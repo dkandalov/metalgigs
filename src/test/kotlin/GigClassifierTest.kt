@@ -69,7 +69,7 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { requestCount++; Response(OK).body("page text fetched now") }
         val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig().copy(pageText = null), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig().copy(pageText = ""), recordedAt)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(requests.first().promptText().contains("page text fetched now")).isTrue()

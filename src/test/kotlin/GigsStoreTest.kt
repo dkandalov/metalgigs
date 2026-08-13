@@ -99,7 +99,7 @@ class GigsStoreTest {
         )
     }
 
-    // a page that couldn't be read leaves pageText null, and that must not make the gig look
+    // a page that couldn't be read leaves pageText blank, and that must not make the gig look
     // changed - otherwise every scrape would log the same unchanged listing again
     @Test
     fun `a gig whose page text was never captured is not treated as changed`() {
@@ -117,7 +117,7 @@ class GigsStoreTest {
         // the same gig as the listing gives it - a counter ticking over on its own page, or that
         // page failing to render, must not look like the gig itself changed
         expectThat(newOrChangedGigs(existing, listOf(gig.copy(pageText = "2 tickets left")))).isEqualTo(emptyList())
-        expectThat(newOrChangedGigs(existing, listOf(gig.copy(pageText = null)))).isEqualTo(emptyList())
+        expectThat(newOrChangedGigs(existing, listOf(gig.copy(pageText = "")))).isEqualTo(emptyList())
         expectThat(newOrChangedGigs(existing, listOf(gig.copy(title = "Some Gig - SOLD OUT")))).containsExactly(gig.copy(title = "Some Gig - SOLD OUT"))
     }
 
