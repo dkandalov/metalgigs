@@ -41,7 +41,12 @@ import kotlin.math.ceil
 //   nothing server-side to select from - the actual description lives in a __NEXT_DATA__ JSON
 //   blob, itself containing a JSON-encoded string (props.pageProps.initialState) that has to be
 //   parsed a second time to reach event.event.about.description
+// - The Garage and The Grace (DHP Family, same shared scraper) both wrap their gig content in a
+//   ".single-article--contains-list" section - the more obvious ".single-article" also matches
+//   its own *outer* wrapper div (which carries that same class alongside others), so selecting it
+//   doubles every word of text
 private val squarespaceEventItem: (Document) -> String? = { page -> page.select("article.eventitem").let { if (it.isEmpty()) null else it.text() } }
+private val dhpSingleArticle: (Document) -> String? = { page -> page.select(".single-article--contains-list").let { if (it.isEmpty()) null else it.text() } }
 
 private fun JsonNode.field(key: String): JsonNode? = (this as? JsonNodeObject)?._fieldMap?.get(key)
 private fun JsonNode.stringOrNull(): String? = (this as? JsonNodeString)?.text
@@ -65,6 +70,8 @@ private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     "Blondies Bar" to diceEventDescription,
     "Helgi's" to diceEventDescription,
     "229" to diceEventDescription,
+    "The Garage" to dhpSingleArticle,
+    "The Grace" to dhpSingleArticle,
     "Our Black Heart" to squarespaceEventItem,
     "The Dome" to squarespaceEventItem,
 )

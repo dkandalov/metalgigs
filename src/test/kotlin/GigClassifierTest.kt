@@ -267,6 +267,35 @@ class GigClassifierTest {
         expectThat(promptText.contains("ignore me")).isEqualTo(false)
     }
 
+    // The Garage and The Grace (both DHP Family, sharing DhpVenueGigsSource) share this same
+    // WordPress theme - the obvious ".single-article" also matches its own outer wrapper div,
+    // which would double every word of text, so this is scoped to the more specific inner class
+    @Test
+    fun `scopes DHP-venue classification to the single-article section, not its own outer wrapper`() {
+        val html = """
+            <nav><a>Home</a><a>News</a></nav>
+            <div class="section single-article">
+                <section class="single-article single-article--contains-list">
+                    <h1>Doom Night</h1>
+                    <article class="single-article__content"><p>Doom metal night!</p></article>
+                </section>
+            </div>
+            <section><h2>ON SPOTIFY</h2></section>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = theGarage), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig(venue = theGrace), recordedAt)
+
+        requests.forEach { request ->
+            val promptText = request.promptText()
+            expectThat(promptText.contains("Doom metal night!")).isTrue()
+            expectThat(promptText.split("Doom metal night!").size - 1).isEqualTo(1)
+            expectThat(promptText.contains("ON SPOTIFY")).isEqualTo(false)
+        }
+    }
+
     @Test
     fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
