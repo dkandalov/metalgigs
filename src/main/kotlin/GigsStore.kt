@@ -14,8 +14,6 @@ import java.io.FileWriter
 import java.time.Instant
 import java.time.LocalDate
 
-// here and in JGigClassified, GigId is flattened to venue/url rather than nested - the on-disk
-// format predates GigId existing, and keeping it that way means the log needs no migration
 object JGigEvent : JAny<GigEvent>() {
     private val title by str(GigEvent::title)
     private val venue by str(fun GigEvent.(): String = id.venue)
@@ -24,8 +22,8 @@ object JGigEvent : JAny<GigEvent>() {
     private val day by str(GigEvent::day)
     private val url by str(fun GigEvent.(): String = id.url)
     private val imageUrl by str(GigEvent::imageUrl)
-    // the lambda form forces Kondor's optional-field overload despite description not being String? -
-    // a plain GigEvent::description reference would resolve to the required-field one instead
+    // The lambda form forces Kondor's optional-field overload despite description not being String? -
+    // a plain GigEvent::description reference would resolve to the required-field one instead.
     private val description by str(fun GigEvent.(): String? = description)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigEvent(
@@ -112,11 +110,11 @@ fun projectCurrentGigs(entries: List<LogEntry>): List<GigEvent> =
         .values
         .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
-// what makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
+// What makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
 // not description. That comes from a different page, and measurably churns: re-reading every gig's
 // page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
 // to full (a flaky JS-rendered site). Comparing it would log a fresh observation of an otherwise
-// untouched gig each time that happened
+// untouched gig each time that happened.
 private fun GigEvent.listedDetails() = copy(description = "")
 
 // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a

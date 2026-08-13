@@ -57,9 +57,9 @@ val llmClassifierSystemPrompt = """
 
 private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 
-// below this, the text extracted from an event page is usually boilerplate/placeholder rather than
+// Below this, the text extracted from an event page is usually boilerplate/placeholder rather than
 // anything descriptive - fall back to the poster image (with a stronger, vision-capable model)
-// instead of guessing from it
+// instead of guessing from it.
 private const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 

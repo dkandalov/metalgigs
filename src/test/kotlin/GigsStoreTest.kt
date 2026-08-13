@@ -86,8 +86,8 @@ class GigsStoreTest {
         val gig = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/test-gig"), title = "Test Gig", year = 2026, month = "Aug", day = "08", imageUrl = "")
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
-        // no description key at all, which no line in the log currently has - this pins the optional
-        // read, so a hand-edited or truncated line degrades to "" instead of failing the whole read
+        // No description key at all, which no line in the log currently has - this pins the optional
+        // read, so a hand-edited or truncated line degrades to "" instead of failing the whole read.
         file.writeText("""{"_type": "observed", "gig": {"title": "Test Gig", "venue": "Test Venue", "year": 2026, "month": "Aug", "day": "08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
 
         appendLogEntries(file, listOf(GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))

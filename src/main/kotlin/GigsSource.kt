@@ -34,21 +34,13 @@ enum class Genre { Metal, Other }
 
 enum class ClassificationSource { LLM, User }
 
-// a gig's stable identity across scrapes - everything else (title, date, image) is status, not identity
 data class GigId(val venue: String, val url: String) {
-    // a blank half leaves a gig unidentifiable and, since classifying fetches the url, crashing
-    // several steps later in a different command. Always a scraping bug rather than a real listing,
-    // so it fails at construction - which happens inside the venue's own latestGigs(), naming that
-    // source in the stack trace. Checked here rather than on GigEvent so it also covers a
-    // GigClassified, and an id read back from the log
     init {
         require(venue.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
         require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venue" }
     }
 }
 
-// one entry in the append-only log: something that happened, and when. Deliberately says nothing
-// about a gig - most entries are about one, but not all of them need to be
 sealed interface LogEntry {
     val recordedAt: Instant
 }
@@ -62,19 +54,13 @@ data class GigClassified(
     override val recordedAt: Instant,
     val genre: Genre,
     val source: ClassificationSource,
-    // which model judged it, and whether it saw the poster rather than the description - orthogonal to
-    // source, which is only about whose verdict is final (see classificationStatus). Null for
-    // anything not judged by the LLM classifier: a User override, or ingest-poster's own assertion
     val llmModel: String? = null,
     val useVision: Boolean? = null,
 ) : LogEntry
 
-// the one entry that isn't about a single gig - a whole page was published, naming the archived
-// file it was written to (see archiveRender) and how many gigs were on it.
-//
 // logicalDate is the date the page was rendered as of - gigs before it are left off - which is
 // today for a normal render but any date for a backdated one. Distinct from recordedAt, the wall
-// clock: without it two renders of very different pages are told apart only by their gig count
+// clock: without it two renders of very different pages are told apart only by their gig count.
 data class GigsRendered(
     val file: String,
     val gigCount: Int,
