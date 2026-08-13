@@ -22,17 +22,17 @@ data class GigEvent(
     // and the classifier falls back to fetching for those. Never null: every venue source scrapes
     // only the listing page, not each gig's own page, so of() defaults it blank too - it's
     // scrapeGigs, working from the already-built GigEvent, that fills this in afterward
-    val pageText: String = "",
+    val description: String = "",
 ) {
     companion object {
-        fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String, pageText: String = "") = GigEvent(
+        fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String, description: String = "") = GigEvent(
             id = GigId(venue, url),
             title = title,
             year = date.year,
             month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
             day = "%02d".format(date.dayOfMonth),
             imageUrl = imageUrl,
-            pageText = pageText,
+            description = description,
         )
     }
 }

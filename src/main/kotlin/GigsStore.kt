@@ -24,11 +24,11 @@ object JGigEvent : JAny<GigEvent>() {
     private val day by str(GigEvent::day)
     private val url by str(fun GigEvent.(): String = id.url)
     private val imageUrl by str(GigEvent::imageUrl)
-    // optional on read, so entries written before page text was captured (or before this field was
-    // added at all) still read back - GigEvent.pageText is non-null, so a missing key becomes "".
-    // The lambda form forces Kondor's optional-field overload despite pageText no longer being
-    // String? - a plain GigEvent::pageText reference would resolve to the required-field one instead
-    private val pageText by str(fun GigEvent.(): String? = pageText)
+    // optional on read, so entries written before the description was captured (or before this field
+    // was added at all) still read back - GigEvent.description is non-null, so a missing key becomes
+    // "". The lambda form forces Kondor's optional-field overload despite description no longer
+    // being String? - a plain GigEvent::description reference would resolve to the required one
+    private val description by str(fun GigEvent.(): String? = description)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigEvent(
         id = GigId(+venue, +url),
@@ -37,7 +37,7 @@ object JGigEvent : JAny<GigEvent>() {
         month = +month,
         day = +day,
         imageUrl = +imageUrl,
-        pageText = +pageText ?: "",
+        description = +description ?: "",
     )
 }
 
@@ -115,11 +115,11 @@ fun projectCurrentGigs(entries: List<LogEntry>): List<GigEvent> =
         .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
 // what makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
-// not pageText. That comes from a different page, and measurably churns: re-reading every gig's
+// not description. That comes from a different page, and measurably churns: re-reading every gig's
 // page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
 // to full (a flaky JS-rendered site). Comparing it would log a fresh observation of an otherwise
 // untouched gig each time that happened
-private fun GigEvent.listedDetails() = copy(pageText = "")
+private fun GigEvent.listedDetails() = copy(description = "")
 
 // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
 // title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation

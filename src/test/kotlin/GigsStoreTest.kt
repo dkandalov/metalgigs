@@ -82,27 +82,27 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `reads back an observation written before pageText existed, and one with it`() {
+    fun `reads back an observation written before the description existed, and one with it`() {
         val gig = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/test-gig"), title = "Test Gig", year = 2026, month = "Aug", day = "08", imageUrl = "")
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
-        // exactly as the log held it before the field was added - no pageText key at all
+        // exactly as the log held it before the field was added - no description key at all
         file.writeText("""{"_type": "observed", "gig": {"title": "Test Gig", "venue": "Test Venue", "year": 2026, "month": "Aug", "day": "08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
 
-        appendLogEntries(file, listOf(GigObserved(gig.copy(pageText = "Doom metal night"), recordedAt.plusSeconds(60))))
+        appendLogEntries(file, listOf(GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))
 
         expectThat(readLogEntries(file)).isEqualTo(
             listOf(
                 GigObserved(gig, recordedAt),
-                GigObserved(gig.copy(pageText = "Doom metal night"), recordedAt.plusSeconds(60)),
+                GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60)),
             ),
         )
     }
 
-    // a page that couldn't be read leaves pageText blank, and that must not make the gig look
+    // a page that couldn't be read leaves the description blank, and that must not make the gig look
     // changed - otherwise every scrape would log the same unchanged listing again
     @Test
-    fun `a gig whose page text was never captured is not treated as changed`() {
+    fun `a gig whose description was never captured is not treated as changed`() {
         val gig = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/never"), title = "Never", year = 2026, month = "Aug", day = "09", imageUrl = "")
         val existing: List<LogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
 
@@ -110,14 +110,14 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `page text changing does not make a gig count as changed`() {
+    fun `the description changing does not make a gig count as changed`() {
         val gig = GigEvent(id = GigId("Test Venue", "https://example.com/gigs/some-gig"), title = "Some Gig", year = 2026, month = "Aug", day = "08", imageUrl = "")
-        val existing: List<LogEntry> = listOf(GigObserved(gig.copy(pageText = "3 tickets left"), Instant.parse("2026-07-01T00:00:00Z")))
+        val existing: List<LogEntry> = listOf(GigObserved(gig.copy(description = "3 tickets left"), Instant.parse("2026-07-01T00:00:00Z")))
 
         // the same gig as the listing gives it - a counter ticking over on its own page, or that
         // page failing to render, must not look like the gig itself changed
-        expectThat(newOrChangedGigs(existing, listOf(gig.copy(pageText = "2 tickets left")))).isEqualTo(emptyList())
-        expectThat(newOrChangedGigs(existing, listOf(gig.copy(pageText = "")))).isEqualTo(emptyList())
+        expectThat(newOrChangedGigs(existing, listOf(gig.copy(description = "2 tickets left")))).isEqualTo(emptyList())
+        expectThat(newOrChangedGigs(existing, listOf(gig.copy(description = "")))).isEqualTo(emptyList())
         expectThat(newOrChangedGigs(existing, listOf(gig.copy(title = "Some Gig - SOLD OUT")))).containsExactly(gig.copy(title = "Some Gig - SOLD OUT"))
     }
 

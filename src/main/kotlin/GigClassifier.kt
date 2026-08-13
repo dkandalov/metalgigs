@@ -80,10 +80,12 @@ fun classifyGigByLLM(
     recordedAt: Instant,
     posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
 ): GigClassified {
-    val pageText = gig.pageText.ifBlank { fetchGigPageText(client, gig) }
-    val useVision = pageText.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
+    val description = gig.description.ifBlank { fetchGigPageText(client, gig) }
+    val useVision = description.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
 
-    val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $pageText")) +
+    // the prompt's wording is deliberately unchanged by the pageText -> description rename: the
+    // model's input is behaviour, not naming, and this text is what its verdicts were tuned against
+    val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $description")) +
         if (useVision) listOf(posterImage(client, gig.imageUrl)) else emptyList()
 
     // the vision model rejects a temperature override outright; the text model accepts one and we

@@ -148,12 +148,12 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val observed = toObserve.map { gig ->
         // one dead event page shouldn't cost us the whole scrape - the gig is still worth recording,
         // and the classifier falls back to fetching for a gig with no captured text
-        val pageText = runCatching { fetchGigPageText(client, gig) }.getOrDefault("")
-        GigObserved(gig.copy(pageText = pageText), now)
+        val description = runCatching { fetchGigPageText(client, gig) }.getOrDefault("")
+        GigObserved(gig.copy(description = description), now)
     }
     appendLogEntries(eventsFile, observed)
 
-    val withoutText = observed.count { it.gig.pageText.isBlank() }
+    val withoutText = observed.count { it.gig.description.isBlank() }
     if (withoutText > 0) println("Could not capture event page text for $withoutText gig(s); they'll be fetched at classification time instead")
 
     // cache every scraped gig's image now, whatever its genre turns out to be: classification and
