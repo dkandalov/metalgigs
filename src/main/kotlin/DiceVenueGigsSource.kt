@@ -73,14 +73,14 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
     private val browserUserAgent =
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
-    override fun latestGigs(): List<GigEvent> {
+    override fun latestGigs(): List<Gig> {
         val page = Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
         val nextData = page.select("script#__NEXT_DATA__").first()
             ?: error("Could not find __NEXT_DATA__ on $url")
         val events = JDiceNextData.fromJson(nextData.data()).orThrow().props.pageProps.profile.sections.flatMap { it.events }
 
         return events.map { event ->
-            GigEvent.of(
+            Gig.of(
                 title = event.name,
                 venue = venue,
                 date = OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),

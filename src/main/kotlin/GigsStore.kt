@@ -14,19 +14,19 @@ import java.io.FileWriter
 import java.time.Instant
 import java.time.LocalDate
 
-object JGigEvent : JAny<GigEvent>() {
-    private val title by str(GigEvent::title)
-    private val venue by str(fun GigEvent.(): String = id.venue)
-    private val year by num(GigEvent::year)
-    private val month by str(GigEvent::month)
-    private val day by str(GigEvent::day)
-    private val url by str(fun GigEvent.(): String = id.url)
-    private val imageUrl by str(GigEvent::imageUrl)
+object JGig : JAny<Gig>() {
+    private val title by str(Gig::title)
+    private val venue by str(fun Gig.(): String = id.venue)
+    private val year by num(Gig::year)
+    private val month by str(Gig::month)
+    private val day by str(Gig::day)
+    private val url by str(fun Gig.(): String = id.url)
+    private val imageUrl by str(Gig::imageUrl)
     // The lambda form forces Kondor's optional-field overload despite description not being String? -
-    // a plain GigEvent::description reference would resolve to the required-field one instead.
-    private val description by str(fun GigEvent.(): String? = description)
+    // a plain Gig::description reference would resolve to the required-field one instead.
+    private val description by str(fun Gig.(): String? = description)
 
-    override fun JsonNodeObject.deserializeOrThrow() = GigEvent(
+    override fun JsonNodeObject.deserializeOrThrow() = Gig(
         id = GigId(+venue, +url),
         title = +title,
         year = +year,
@@ -38,7 +38,7 @@ object JGigEvent : JAny<GigEvent>() {
 }
 
 object JGigObserved : JAny<GigObserved>() {
-    private val gig by obj(JGigEvent, GigObserved::gig)
+    private val gig by obj(JGig, GigObserved::gig)
     private val recordedAt by str(GigObserved::recordedAt)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigObserved(
@@ -104,7 +104,7 @@ fun appendLogEntries(file: File, entries: List<LogEntry>) {
 fun readLogEntries(file: File): List<LogEntry> =
     fromNdJsonToList(JLogEntry)(file.readLines().asSequence()).orThrow()
 
-fun projectCurrentGigs(entries: List<LogEntry>): List<GigEvent> =
+fun projectCurrentGigs(entries: List<LogEntry>): List<Gig> =
     entries.filterIsInstance<GigObserved>()
         .groupBy { it.id }
         .values
@@ -115,12 +115,12 @@ fun projectCurrentGigs(entries: List<LogEntry>): List<GigEvent> =
 // page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
 // to full (a flaky JS-rendered site). Comparing it would log a fresh observation of an otherwise
 // untouched gig each time that happened.
-private fun GigEvent.listedDetails() = copy(description = "")
+private fun Gig.listedDetails() = copy(description = "")
 
 // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
 // title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
 // per gig, not the whole history, so a gig can be logged again after reverting to a prior state
-fun newOrChangedGigs(existingEntries: List<LogEntry>, scrapedGigs: List<GigEvent>): List<GigEvent> {
+fun newOrChangedGigs(existingEntries: List<LogEntry>, scrapedGigs: List<Gig>): List<Gig> {
     val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
     return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
 }
@@ -165,7 +165,7 @@ fun classificationStatusByGig(entries: List<LogEntry>): Map<GigId, Classificatio
         .groupBy { it.id }
         .mapValues { (_, classifications) -> classificationStatus(classifications) }
 
-fun projectMetalGigs(entries: List<LogEntry>): List<GigEvent> {
+fun projectMetalGigs(entries: List<LogEntry>): List<Gig> {
     val statusByGig = classificationStatusByGig(entries)
     return projectCurrentGigs(entries).filter { gig ->
         (statusByGig[gig.id] as? ClassificationStatus.Classified)?.genre == Genre.Metal

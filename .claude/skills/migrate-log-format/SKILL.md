@@ -1,6 +1,6 @@
 ---
 name: migrate-log-format
-description: Change an on-disk key in events.ndjson - rename a field, drop one, or change how it is written - using expand-contract, with a temporary test as both the migration and its verification. Use when renaming or removing a GigEvent/GigClassified/GigsRendered field whose Kondor converter key is already present in the log, or when any change to JGigEvent/JGigClassified/JGigsRendered would stop existing log lines reading back identically.
+description: Change an on-disk key in events.ndjson - rename a field, drop one, or change how it is written - using expand-contract, with a temporary test as both the migration and its verification. Use when renaming or removing a Gig/GigClassified/GigsRendered field whose Kondor converter key is already present in the log, or when any change to JGig/JGigClassified/JGigsRendered would stop existing log lines reading back identically.
 ---
 
 `events.ndjson` is an append-only log of every observation, classification and render this project has
@@ -13,10 +13,10 @@ changing a key safely, and the checks that actually catch a mistake.
 Renaming a Kotlin property is *not* this task. All the code is one Gradle module, so an IDE rename is
 atomic and the compiler proves it complete. Only the on-disk key needs the ceremony below.
 
-The two are independent, and keeping them apart is an established choice here — see the comment above
-`JGigEvent` about `GigId` being flattened to `venue`/`url` on disk precisely so the log needs no
-migration. If the model name is what bothers you, rename the property and leave the key alone. Do the
-migration when the *stored* name is what's wrong, or when a field's shape changes.
+The two are independent, and they already differ deliberately: `JGig` and `JGigClassified` flatten
+`GigId` to `venue`/`url` on disk rather than nesting it. If the model name is what bothers you, rename
+the property and leave the key alone. Do the migration when the *stored* name is what's wrong, or when
+a field's shape changes.
 
 ## The sequence
 
@@ -51,14 +51,14 @@ Verified in `/Users/dk/Projects/_ref/kondor-json` (see the `http4k-reference` sk
 Expand (step 1) — write the old key, accept either:
 
 ```kotlin
-private val pageText by str(fun GigEvent.(): String? = description)
-private val description by str(fun GigEvent.(): String? = null)
+private val pageText by str(fun Gig.(): String? = description)
+private val description by str(fun Gig.(): String? = null)
 
 description = +description ?: +pageText ?: "",
 ```
 
 Step 2 is swapping which binder returns the value and which returns `null`. Keep the lambda form on
-both: a plain `GigEvent::description` reference resolves to the *required*-field overload instead.
+both: a plain `Gig::description` reference resolves to the *required*-field overload instead.
 
 ## Steps 3-4: the migration is a temporary test
 
@@ -117,4 +117,5 @@ Get both numbers from the migrated file before contracting. Then delete the test
 - Leave prompt text sent to the LLM alone. `GigClassifier` deliberately still says "Event page text"
   after the field became `description`: model input is behaviour, not naming.
 
-Worked example: commit `46734ba`, renaming `GigEvent.pageText` to `description` across 1339 log lines.
+Worked example: commit `46734ba`, renaming the gig's `pageText` field to `description` across 1339 log
+lines.

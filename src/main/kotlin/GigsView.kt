@@ -11,17 +11,17 @@ data class GigsView(val dateGroups: List<DateGroup>) : ViewModel {
     override fun template() = "gigs"
 }
 
-private fun GigEvent.toCardView() = GigCardView(
+private fun Gig.toCardView() = GigCardView(
     title = title,
     venue = id.venue,
     url = id.url,
     imageUrl = "images/${publishedImageFileName(this)}",
 )
 
-fun excludeGigsInThePast(gigs: List<GigEvent>, today: LocalDate): List<GigEvent> =
+fun excludeGigsInThePast(gigs: List<Gig>, today: LocalDate): List<Gig> =
     gigs.filter { it.date() >= today }
 
-fun groupGigsByDate(gigs: List<GigEvent>): List<DateGroup> =
+fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
     gigs.sortedBy { it.date() }
         .groupBy { it.date() }
         .map { (date, gigsOnDate) ->

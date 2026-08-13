@@ -55,7 +55,7 @@ class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
     // "load more" would rather than trusting the page size to stay big enough forever
     private val firstPageUrl = "$baseUrl?page%5Bsize%5D=200&types=linkout,event&filter%5Bvenues%5D%5B%5D=229"
 
-    override fun latestGigs(): List<GigEvent> {
+    override fun latestGigs(): List<Gig> {
         val events = mutableListOf<DicePartnerEvent>()
         var pageUrl: String? = firstPageUrl
 
@@ -70,7 +70,7 @@ class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
         check(events.isNotEmpty()) { "No events returned by $firstPageUrl" }
 
         return events.map { event ->
-            GigEvent.of(
+            Gig.of(
                 title = event.name,
                 venue = venue,
                 // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here

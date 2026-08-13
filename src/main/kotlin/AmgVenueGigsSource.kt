@@ -45,7 +45,7 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
     private val url = "https://www.academymusicgroup.com/api/search/events" +
         "?VenueIds=${venueIds.joinToString(",")}&IncludePostponed=true&IncludeCancelled=true&PageSize=500&Page=1"
 
-    override fun latestGigs(): List<GigEvent> {
+    override fun latestGigs(): List<Gig> {
         val results = JAmgSearchResults.fromJson(fetchPage(client, url)).orThrow()
         check(results.documents.isNotEmpty()) { "No events returned by $url" }
 
@@ -56,7 +56,7 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
         if (ticketless.isNotEmpty()) println("Skipping ${ticketless.size} $venue gig(s) with no ticket link: ${ticketless.joinToString { it.name }}")
 
         return ticketed.map { event ->
-            GigEvent.of(
+            Gig.of(
                 title = event.name,
                 venue = venue,
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here

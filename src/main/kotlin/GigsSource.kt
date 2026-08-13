@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
-data class GigEvent(
+data class Gig(
     val id: GigId,
     val title: String,
     val year: Int,
@@ -18,7 +18,7 @@ data class GigEvent(
     val description: String = "",
 ) {
     companion object {
-        fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String, description: String = "") = GigEvent(
+        fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String, description: String = "") = Gig(
             id = GigId(venue, url),
             title = title,
             year = date.year,
@@ -45,7 +45,7 @@ sealed interface LogEntry {
     val recordedAt: Instant
 }
 
-data class GigObserved(val gig: GigEvent, override val recordedAt: Instant) : LogEntry {
+data class GigObserved(val gig: Gig, override val recordedAt: Instant) : LogEntry {
     val id get() = gig.id
 }
 
@@ -70,7 +70,7 @@ data class GigsRendered(
 
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
-fun GigEvent.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
+fun Gig.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
 
 // imgix renders whatever size the url asks for, and The Underworld's listing asks for w=200 - a
 // thumbnail sized for its own page, and 8x fewer pixels than the crop behind it (measured: w=200
@@ -95,14 +95,14 @@ private fun Element.squarespaceThumbnailUrl(): String {
 
 interface GigsSource {
     val venue: String
-    fun latestGigs(): List<GigEvent>
+    fun latestGigs(): List<Gig>
 }
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://www.cartandhorses.london/news-offers-events/"
     override val venue = "Cart & Horses"
 
-    override fun latestGigs(): List<GigEvent> {
+    override fun latestGigs(): List<Gig> {
         var currentYear = year
         var previousMonth: String? = null
 
@@ -114,7 +114,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 if (month == "Jan" && previousMonth != null && previousMonth != "Jan") currentYear++
                 previousMonth = month
 
-                GigEvent(
+                Gig(
                     id = GigId(venue, item.select(".news-carousel__link").attr("abs:href")),
                     title = item.select(".news-carousel__link").text(),
                     year = currentYear,
@@ -132,12 +132,12 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 
     private val datePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("li:has(h3.nci-event-name)")
             .map { item ->
                 val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
-                GigEvent(
+                Gig(
                     id = GigId(venue, item.select("a:has(h3.nci-event-name)").attr("abs:href")),
                     title = item.select("h3.nci-event-name").text(),
                     year = year.toInt(),
@@ -151,12 +151,12 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 // shared by every Squarespace "Events List" venue page; the venue-specific classes below just
 // supply url/venue
 class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: String) : GigsSource {
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("article.eventlist-event--upcoming")
             .map { item ->
                 val titleLink = item.select(".eventlist-title-link")
-                GigEvent.of(
+                Gig.of(
                     title = titleLink.text(),
                     venue = venue,
                     date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
@@ -180,11 +180,11 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val browserUserAgent =
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
             .select("#gigs article.list")
             .map { item ->
-                GigEvent.of(
+                Gig.of(
                     title = item.select(".list-header-title").text(),
                     venue = venue,
                     date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
@@ -202,7 +202,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
     private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
 
-    override fun latestGigs(): List<GigEvent> {
+    override fun latestGigs(): List<Gig> {
         var currentYear = year
         var previousMonth: Month? = null
 
@@ -214,7 +214,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
                 if (previousMonth != null && month < previousMonth) currentYear++
                 previousMonth = month
 
-                GigEvent.of(
+                Gig.of(
                     title = item.select(".event-name a").text(),
                     venue = venue,
                     date = LocalDate.of(currentYear, month, day.toInt()),
@@ -233,13 +233,13 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     // September 2026", "Saturday 26th September, 2026 (Afternoon Show)"
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+),?\s+(\d{4})""")
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".gig")
             .map { item ->
                 val (day, monthName, year) = datePattern.find(item.select(".elementor-widget-heading:not(.elementor-widget-theme-post-title)").text())!!.destructured
 
-                GigEvent.of(
+                Gig.of(
                     title = item.select(".elementor-widget-theme-post-title a").text(),
                     venue = venue,
                     date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
@@ -255,7 +255,7 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
     // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".card.card--full")
             .map { item ->
@@ -263,7 +263,7 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
                 val img = item.select(".card__grid-media img")
                 val heading = item.select(".card__heading")
 
-                GigEvent.of(
+                Gig.of(
                     title = heading.text(),
                     venue = venue,
                     date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
@@ -288,14 +288,14 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
     private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".event-card")
             .map { item ->
                 val link = item.select(".event-card__link")
                 val (day, monthName, year) = datePattern.find(item.select(".event-card__date").text())!!.destructured
 
-                GigEvent.of(
+                Gig.of(
                     title = item.select(".event-card__title").text(),
                     venue = venue,
                     date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
@@ -315,14 +315,14 @@ class SignatureBrewGigsSource(private val client: HttpHandler, override val venu
     // e.g. background-image:url("...") on some events, background-image:none on others (no poster)
     private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".cal-info.w-dyn-item")
             .filter { item -> item.select(".venuename").text() == venue }
             .map { item ->
                 val link = item.select("a.button.white.w-button")
 
-                GigEvent.of(
+                Gig.of(
                     title = item.select(".b-show").text(),
                     venue = venue,
                     date = LocalDate.parse(item.select(".dates p.months.date:not(.hide)").text(), dateFormatter),
@@ -339,13 +339,13 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
     // e.g. background-image:url("...") - the poster is a css background rather than an img element
     private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             // every card carries its own sortable timestamp for the page's client-side sorting,
             // which beats parsing the human date ("Thu 27 May 2027") printed alongside it
             .select(".item[data-chron]")
             .map { item ->
-                GigEvent.of(
+                Gig.of(
                     // each card prints its title twice, once for the card and once for the hover
                     // panel inside it, so this takes the first rather than both concatenated
                     title = item.select(".card-title").first()!!.text(),
@@ -375,8 +375,8 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     // bound a pathological site bug; the real stop condition is the next link disappearing
     private val maxPages = 10
 
-    override fun latestGigs(): List<GigEvent> {
-        val gigs = mutableListOf<GigEvent>()
+    override fun latestGigs(): List<Gig> {
+        val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
         var pagesFetched = 0
 
@@ -387,7 +387,7 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
                 val (day, monthName, year) = datePattern.find(item.select(".date").text())!!.destructured
                 val link = item.select("h2 a")
 
-                GigEvent.of(
+                Gig.of(
                     title = link.text(),
                     venue = venue,
                     date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
@@ -449,13 +449,13 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
         return widest ?: img.attr("abs:src")
     }
 
-    override fun latestGigs(): List<GigEvent> =
+    override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
             .select(".event_card_wrapper")
             .map { item ->
                 val link = item.select(".event_target")
 
-                GigEvent.of(
+                Gig.of(
                     title = link.text(),
                     venue = venue,
                     date = startDateOf(item.select(".dates").text()),

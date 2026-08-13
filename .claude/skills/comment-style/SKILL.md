@@ -11,13 +11,13 @@ A comment must pass both tests:
 - **True.** Verify against the code first, and never assert a rationale you can't substantiate.
 - **Not derivable.** If the declaration, the adjacent code, or a well-known pattern already says it, cut it.
 
-Cut on sight: change history, renames, rejected alternatives ("checked here rather than on GigEvent"),
+Cut on sight: change history, renames, rejected alternatives ("checked here rather than on Gig"),
 restatements of the declaration, when and by which caller a field gets populated, and explanations of
 patterns like event sourcing.
 
 Keep what reading the code can't recover: venue and site behaviour (inconsistent scraped date formats,
 posters arriving as a css `background-image`, sites refusing non-browser User-Agents), measurements (why
-`listedDetails` excludes `description`), library traps (a plain `GigEvent::description` reference
+`listedDetails` excludes `description`), library traps (a plain `Gig::description` reference
 silently resolves to Kondor's required-field overload), and distinctions between similar things
 (`logicalDate` versus `recordedAt`).
 

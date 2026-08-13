@@ -40,7 +40,7 @@ private fun eventPageContentText(pageHtml: String, url: String, venue: String): 
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 
-fun fetchGigPageText(client: HttpHandler, gig: GigEvent): String =
+fun fetchGigPageText(client: HttpHandler, gig: Gig): String =
     eventPageContentText(fetchPage(client, gig.id.url), gig.id.url, gig.id.venue)
 
 val llmClassifierSystemPrompt = """
@@ -77,7 +77,7 @@ fun genreFromReply(reply: String): Genre? {
 fun classifyGigByLLM(
     client: HttpHandler,
     chat: Chat,
-    gig: GigEvent,
+    gig: Gig,
     recordedAt: Instant,
     posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
 ): GigClassified {
@@ -114,7 +114,7 @@ fun classifyGigByLLM(
 
 data class ClassificationRun(
     val classified: List<GigClassified>,
-    val failed: List<Pair<GigEvent, String>>,
+    val failed: List<Pair<Gig, String>>,
 )
 
 // one gig the model can't judge - a poster too big to send, an event page that won't load - must
@@ -122,10 +122,10 @@ data class ClassificationRun(
 // so a failure late in a long run used to throw away everything earlier in it. Failures are
 // collected and reported instead, and those gigs simply stay Pending for a later run
 fun classifyGigs(
-    gigs: List<GigEvent>,
+    gigs: List<Gig>,
     alreadyClassified: Set<GigId>,
     limit: Int? = null,
-    classifyGig: (GigEvent) -> GigClassified,
+    classifyGig: (Gig) -> GigClassified,
 ): ClassificationRun {
     val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date() }
     val results = (if (limit != null) toClassify.take(limit) else toClassify)

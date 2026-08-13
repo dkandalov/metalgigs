@@ -21,8 +21,6 @@ class GigIdTest {
         expectThat(error.message!!).contains("https://example.com/gigs/a")
     }
 
-    // the check used to live on GigEvent, which left these three ways of minting a blank identity
-    // open - a classification, a copy, and anything read back out of the log
     @Test
     fun `refuses a blank url on a classification too`() {
         assertFailsWith<IllegalArgumentException> {
@@ -50,7 +48,7 @@ class GigIdTest {
 
     @Test
     fun `a gig built through of still carries its url`() {
-        val gig = GigEvent.of(
+        val gig = Gig.of(
             title = "FLAMEBEARER",
             venue = "The Grace",
             date = java.time.LocalDate.of(2026, 8, 14),

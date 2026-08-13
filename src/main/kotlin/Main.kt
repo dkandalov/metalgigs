@@ -82,7 +82,7 @@ private val renderedDir = File(".rendered")
 
 // downloads each gig's image into the local cache, reporting rather than failing on any that don't
 // come back - a dead image url shouldn't abort a scrape or a render over the other gigs
-private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<GigEvent>, what: String) {
+private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
     val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { downloadToCache(client, gig.imageUrl, imageCacheDir) }.exceptionOrNull()
             ?.let { "${gig.date()}  ${gig.id.venue}  ${gig.title}: ${it.message}" }
@@ -189,9 +189,9 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
 private fun printClassificationSummary(
     classifications: List<GigClassified>,
     newlyMetal: Int,
-    currentGigs: List<GigEvent>,
+    currentGigs: List<Gig>,
     statusByGig: Map<GigId, ClassificationStatus>,
-    failed: List<Pair<GigEvent, String>>,
+    failed: List<Pair<Gig, String>>,
 ) {
     println("Classified this run: ${classifications.size} ($newlyMetal Metal, ${classifications.size - newlyMetal} Other)")
     if (failed.isNotEmpty()) {
@@ -203,7 +203,7 @@ private fun printClassificationSummary(
     printBreakdown("Overall", currentGigs, statusByGig)
 }
 
-private fun printBreakdown(label: String, gigs: List<GigEvent>, statusByGig: Map<GigId, ClassificationStatus>) {
+private fun printBreakdown(label: String, gigs: List<Gig>, statusByGig: Map<GigId, ClassificationStatus>) {
     val statuses = gigs.map { statusByGig[it.id] }
     val metal = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Metal }
     val other = statuses.count { (it as? ClassificationStatus.Classified)?.genre == Genre.Other }
@@ -322,7 +322,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
 // cache, and removes any that this page doesn't use. Pruning to just the rendered gigs is safe
 // precisely because the cache keeps the bytes - a later or backdated render republishes them with
 // a local copy rather than a fetch against a url that may since have expired
-private fun publishGigImages(renderedGigs: List<GigEvent>) {
+private fun publishGigImages(renderedGigs: List<Gig>) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
 
     val failures = renderedGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->

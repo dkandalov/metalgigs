@@ -24,7 +24,7 @@ fun cachedImageFile(cacheDir: File, imageUrl: String): File =
 
 // always .webp whatever the source was, since publishing re-encodes rather than copies. The name
 // still hashes the source url, so a gig's identity here is unchanged
-fun publishedImageFileName(gig: GigEvent): String =
+fun publishedImageFileName(gig: Gig): String =
     "${gig.date()}-${slug(gig.id.venue)}-${shortHash(gig.imageUrl)}.webp"
 
 fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File {
@@ -49,7 +49,7 @@ fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File
 // in images/. Delete the directory to force that; the cache means it costs no network.
 fun publishGigImage(
     client: HttpHandler,
-    gig: GigEvent,
+    gig: Gig,
     cacheDir: File,
     publishedDir: File,
     convert: (File, File) -> Unit = ::convertToWebp,
@@ -64,7 +64,7 @@ fun publishGigImage(
 }
 
 // safe to remove precisely because the cache still holds their bytes if a later render needs them
-fun unpublishedImageFiles(renderedGigs: List<GigEvent>, publishedFiles: List<File>): List<File> {
+fun unpublishedImageFiles(renderedGigs: List<Gig>, publishedFiles: List<File>): List<File> {
     val expectedFileNames = renderedGigs.map { publishedImageFileName(it) }.toSet()
     return publishedFiles.filter { it.name !in expectedFileNames }
 }
