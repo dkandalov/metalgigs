@@ -21,7 +21,12 @@ private val redactSecretsFilter = Filter { next ->
     { request -> next(request).let { it.body(redactSecrets(it.bodyString())) } }
 }
 
-fun cachedClient(): HttpHandler = TrafficFilters.ServeCachedFrom(ReadWriteCache.Disk(fixtures.absolutePath))
-    .then(TrafficFilters.RecordTo(ReadWriteCache.Disk(fixtures.absolutePath)))
-    .then(redactSecretsFilter)
-    .then(OkHttp())
+private val cache = ReadWriteCache.Disk(fixtures.absolutePath)
+
+private val noLiveRequests: HttpHandler =
+    { request -> error("No recorded traffic for ${request.uri} - re-run with RECORD_TRAFFIC=1 to record it") }
+
+fun cachedClient(): HttpHandler = TrafficFilters.ServeCachedFrom(cache).then(
+    if (System.getenv("RECORD_TRAFFIC") == null) noLiveRequests
+    else TrafficFilters.RecordTo(cache).then(redactSecretsFilter).then(OkHttp()),
+)
