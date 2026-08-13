@@ -18,6 +18,7 @@ import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.time.Instant
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -34,8 +35,8 @@ class GigClassifierTest {
 
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
-    private fun gig(title: String = "Some Gig", venue: String = "Some Venue", day: String = "08", url: String = "https://example.com/gig", imageUrl: String = "") =
-        Gig(id = GigId(venue, url), title = title, year = 2026, month = "Aug", day = day, imageUrl = imageUrl)
+    private fun gig(title: String = "Some Gig", venue: String = "Some Venue", day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "") =
+        Gig(id = GigId(venue, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl)
 
     @Test
     fun `classifies a gig as Metal or Other from the LLM's reply`() {
@@ -78,7 +79,7 @@ class GigClassifierTest {
     @Test
     fun `skips gigs that are already classified`() {
         val alreadyDone = gig(title = "Already Done", url = "https://example.com/already-done")
-        val toDo = gig(title = "To Do", day = "09", url = "https://example.com/to-do")
+        val toDo = gig(title = "To Do", day = 9, url = "https://example.com/to-do")
         var classified = 0
 
         val classifications = classifyGigs(
@@ -93,9 +94,9 @@ class GigClassifierTest {
 
     @Test
     fun `limits classification to the soonest N not-yet-classified gigs`() {
-        val soonest = gig(title = "Soonest", day = "08", url = "https://example.com/soonest")
-        val middle = gig(title = "Middle", day = "09", url = "https://example.com/middle")
-        val latest = gig(title = "Latest", day = "10", url = "https://example.com/latest")
+        val soonest = gig(title = "Soonest", day = 8, url = "https://example.com/soonest")
+        val middle = gig(title = "Middle", day = 9, url = "https://example.com/middle")
+        val latest = gig(title = "Latest", day = 10, url = "https://example.com/latest")
 
         val classifications = classifyGigs(
             gigs = listOf(latest, soonest, middle),
@@ -110,9 +111,9 @@ class GigClassifierTest {
     // a real run lost 50 gigs' worth of paid calls when the last one had a poster too big to send
     @Test
     fun `keeps the classifications made before and after one that fails`() {
-        val first = gig(title = "First", day = "08", url = "https://example.com/first")
-        val unjudgeable = gig(title = "Unjudgeable", day = "09", url = "https://example.com/unjudgeable")
-        val last = gig(title = "Last", day = "10", url = "https://example.com/last")
+        val first = gig(title = "First", day = 8, url = "https://example.com/first")
+        val unjudgeable = gig(title = "Unjudgeable", day = 9, url = "https://example.com/unjudgeable")
+        val last = gig(title = "Last", day = 10, url = "https://example.com/last")
 
         val run = classifyGigs(
             gigs = listOf(first, unjudgeable, last),

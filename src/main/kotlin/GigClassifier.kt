@@ -127,7 +127,7 @@ fun classifyGigs(
     limit: Int? = null,
     classifyGig: (Gig) -> GigClassified,
 ): ClassificationRun {
-    val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date() }
+    val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date }
     val results = (if (limit != null) toClassify.take(limit) else toClassify)
         .map { gig -> gig to runCatching { classifyGig(gig) } }
 

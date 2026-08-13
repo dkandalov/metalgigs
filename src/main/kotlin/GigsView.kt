@@ -19,11 +19,11 @@ private fun Gig.toCardView() = GigCardView(
 )
 
 fun excludeGigsInThePast(gigs: List<Gig>, today: LocalDate): List<Gig> =
-    gigs.filter { it.date() >= today }
+    gigs.filter { it.date >= today }
 
 fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
-    gigs.sortedBy { it.date() }
-        .groupBy { it.date() }
+    gigs.sortedBy { it.date }
+        .groupBy { it.date }
         .map { (date, gigsOnDate) ->
             DateGroup(
                 date = date.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.ENGLISH)),

@@ -11,6 +11,7 @@ import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.isTrue
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -33,8 +34,8 @@ class PosterIngestionTest {
         val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = "Some Venue")
 
         expectThat(gigs).containsExactly(
-            Gig(id = GigId("Some Venue", "https://example.com/post/1#gig-doom-night-2026-08-14"), title = "Doom Night", year = 2026, month = "Aug", day = "14", imageUrl = "https://example.com/poster.jpg"),
-            Gig(id = GigId("Some Venue", "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = "Thrash Fest", year = 2026, month = "Aug", day = "21", imageUrl = "https://example.com/poster.jpg"),
+            Gig(id = GigId("Some Venue", "https://example.com/post/1#gig-doom-night-2026-08-14"), title = "Doom Night", date = LocalDate.of(2026, 8, 14), imageUrl = "https://example.com/poster.jpg"),
+            Gig(id = GigId("Some Venue", "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = "Thrash Fest", date = LocalDate.of(2026, 8, 21), imageUrl = "https://example.com/poster.jpg"),
         )
     }
 

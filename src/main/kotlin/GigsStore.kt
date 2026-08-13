@@ -17,9 +17,7 @@ import java.time.LocalDate
 object JGig : JAny<Gig>() {
     private val title by str(Gig::title)
     private val venue by str(fun Gig.(): String = id.venue)
-    private val year by num(Gig::year)
-    private val month by str(Gig::month)
-    private val day by str(Gig::day)
+    private val date by str(Gig::date)
     private val url by str(fun Gig.(): String = id.url)
     private val imageUrl by str(Gig::imageUrl)
     // The lambda form forces Kondor's optional-field overload despite description not being String? -
@@ -29,9 +27,7 @@ object JGig : JAny<Gig>() {
     override fun JsonNodeObject.deserializeOrThrow() = Gig(
         id = GigId(+venue, +url),
         title = +title,
-        year = +year,
-        month = +month,
-        day = +day,
+        date = +date,
         imageUrl = +imageUrl,
         description = +description ?: "",
     )

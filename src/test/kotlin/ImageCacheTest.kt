@@ -6,6 +6,7 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.io.File
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -17,8 +18,8 @@ class ImageCacheTest {
     // and naming around it, and their "images" are a few bytes of text, so they just copy
     private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
 
-    private fun gig(day: String = "08", venue: String = "Some Venue", imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
-        Gig(id = GigId(venue, "https://example.com/gigs/some-gig"), title = "Some Gig", year = 2026, month = "Aug", day = day, imageUrl = imageUrl)
+    private fun gig(day: Int = 8, venue: String = "Some Venue", imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
+        Gig(id = GigId(venue, "https://example.com/gigs/some-gig"), title = "Some Gig", date = LocalDate.of(2026, 8, day), imageUrl = imageUrl)
 
     @Test
     fun `caches a downloaded image and skips re-downloading on a cache hit`() {
@@ -43,8 +44,8 @@ class ImageCacheTest {
         val sharedPoster = "https://example.com/images/monthly-poster.jpg"
 
         // the same poster advertising gigs on different days, as a venue's monthly flyer does
-        downloadToCache(fakeClient, gig(day = "08", imageUrl = sharedPoster).imageUrl, cacheDir)
-        downloadToCache(fakeClient, gig(day = "09", imageUrl = sharedPoster).imageUrl, cacheDir)
+        downloadToCache(fakeClient, gig(day = 8, imageUrl = sharedPoster).imageUrl, cacheDir)
+        downloadToCache(fakeClient, gig(day = 9, imageUrl = sharedPoster).imageUrl, cacheDir)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(cacheDir.listFiles()!!.size).isEqualTo(1)
@@ -91,7 +92,7 @@ class ImageCacheTest {
 
     @Test
     fun `finds published files that the rendered page no longer references`() {
-        val rendered = gig(day = "08")
+        val rendered = gig(day = 8)
         val keptFile = File(publishedImageFileName(rendered))
         val staleFile = File("2026-08-09-some-venue-deadbeef.webp")
 

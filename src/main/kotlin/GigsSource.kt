@@ -11,9 +11,7 @@ import java.util.Locale
 data class Gig(
     val id: GigId,
     val title: String,
-    val year: Int,
-    val month: String,
-    val day: String,
+    val date: LocalDate,
     val imageUrl: String,
     val description: String = "",
 ) {
@@ -21,9 +19,7 @@ data class Gig(
         fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String, description: String = "") = Gig(
             id = GigId(venue, url),
             title = title,
-            year = date.year,
-            month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
-            day = "%02d".format(date.dayOfMonth),
+            date = date,
             imageUrl = imageUrl,
             description = description,
         )
@@ -70,8 +66,6 @@ data class GigsRendered(
 
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
-fun Gig.date(): LocalDate = LocalDate.of(year, monthsByShortName.getValue(month), day.toInt())
-
 // imgix renders whatever size the url asks for, and The Underworld's listing asks for w=200 - a
 // thumbnail sized for its own page, and 8x fewer pixels than the crop behind it (measured: w=200
 // gives 200px, dropping it gives the full 1667px, and asking beyond that caps rather than upscales).
@@ -117,9 +111,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 Gig(
                     id = GigId(venue, item.select(".news-carousel__link").attr("abs:href")),
                     title = item.select(".news-carousel__link").text(),
-                    year = currentYear,
-                    month = month,
-                    day = item.select(".news-carousel__day").text(),
+                    date = LocalDate.of(currentYear, monthsByShortName.getValue(month), item.select(".news-carousel__day").text().toInt()),
                     imageUrl = item.select(".news-carousel__image").attr("abs:src"),
                 )
             }
@@ -140,9 +132,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     id = GigId(venue, item.select("a:has(h3.nci-event-name)").attr("abs:href")),
                     title = item.select("h3.nci-event-name").text(),
-                    year = year.toInt(),
-                    month = month,
-                    day = day,
+                    date = LocalDate.of(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
                     imageUrl = item.select("img").attr("abs:src"),
                 )
             }
