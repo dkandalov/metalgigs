@@ -67,7 +67,7 @@ private object JDiceNextData : JAny<DiceNextData>() {
 }
 
 // shared by every dice.fm venue page; the venue-specific classes below just supply url/venue
-class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: String) : GigsSource {
+class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
 
     // dice.fm blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -91,10 +91,10 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
 }
 
 class BlondiesBreweryTaproomGigsSource(client: HttpHandler) :
-    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en", venue = "Blondies Brewery Taproom")
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en", venue = Venue("Blondies Brewery Taproom"))
 
 class BlondiesBarGigsSource(client: HttpHandler) :
-    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-rmvw?lng=en", venue = "Blondies Bar")
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-rmvw?lng=en", venue = Venue("Blondies Bar"))
 
 class HelgisGigsSource(client: HttpHandler) :
-    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = "Helgi's")
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = Venue("Helgi's"))

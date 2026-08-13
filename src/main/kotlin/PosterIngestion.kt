@@ -46,7 +46,7 @@ private fun isExcluded(venue: String, title: String): Boolean =
 // this specific gig, since that's not something the source itself supports
 fun posterGigUrl(sourceUrl: String, title: String, date: LocalDate): String = "$sourceUrl#gig-${slug(title)}-$date"
 
-fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceUrl: String, venue: String): List<Gig> {
+fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceUrl: String, venue: Venue): List<Gig> {
     val image = fetchImageContent(client, imageUrl)
     val request = ChatRequest(
         Message.User(listOf(image)),
@@ -58,6 +58,6 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
     check(parsed.isNotEmpty()) { "Could not parse any gigs from poster extraction reply for $venue at $imageUrl: \"$reply\"" }
 
     return parsed
-        .filterNot { (_, title) -> isExcluded(venue, title) }
+        .filterNot { (_, title) -> isExcluded(venue.name, title) }
         .map { (date, title) -> Gig(id = GigId(venue, posterGigUrl(sourceUrl, title, date)), title = title, date = date, imageUrl = imageUrl) }
 }

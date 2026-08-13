@@ -18,7 +18,7 @@ class ImageCacheTest {
     // and naming around it, and their "images" are a few bytes of text, so they just copy
     private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
 
-    private fun gig(day: Int = 8, venue: String = "Some Venue", imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
+    private fun gig(day: Int = 8, venue: Venue = Venue("Some Venue"), imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
         Gig(id = GigId(venue, "https://example.com/gigs/some-gig"), title = "Some Gig", date = LocalDate.of(2026, 8, day), imageUrl = imageUrl)
 
     @Test

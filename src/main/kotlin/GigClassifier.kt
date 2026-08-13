@@ -34,9 +34,9 @@ private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     "Alexandra Palace" to { page -> page.select(".ap_text_block, #key-information").let { if (it.isEmpty()) null else it.text() } },
 )
 
-private fun eventPageContentText(pageHtml: String, url: String, venue: String): String {
+private fun eventPageContentText(pageHtml: String, url: String, venue: Venue): String {
     val page = Jsoup.parse(pageHtml, url)
-    val extractContent = eventPageContentByVenue[venue] ?: return page.text()
+    val extractContent = eventPageContentByVenue[venue.name] ?: return page.text()
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 

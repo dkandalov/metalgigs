@@ -1,5 +1,6 @@
 import com.ubertob.kondor.json.JAny
 import com.ubertob.kondor.json.JSealed
+import com.ubertob.kondor.json.JStringRepresentable
 import com.ubertob.kondor.json.bool
 import com.ubertob.kondor.json.ObjectNodeConverter
 import com.ubertob.kondor.json.datetime.str
@@ -14,9 +15,14 @@ import java.io.FileWriter
 import java.time.Instant
 import java.time.LocalDate
 
+private object JVenue : JStringRepresentable<Venue>() {
+    override val cons: (String) -> Venue = ::Venue
+    override val render: (Venue) -> String = Venue::name
+}
+
 object JGig : JAny<Gig>() {
     private val title by str(Gig::title)
-    private val venue by str(fun Gig.(): String = id.venue)
+    private val venue by str(JVenue) { id.venue }
     private val date by str(Gig::date)
     private val url by str(fun Gig.(): String = id.url)
     private val imageUrl by str(Gig::imageUrl)
@@ -44,7 +50,7 @@ object JGigObserved : JAny<GigObserved>() {
 }
 
 object JGigClassified : JAny<GigClassified>() {
-    private val venue by str(fun GigClassified.(): String = id.venue)
+    private val venue by str(JVenue) { id.venue }
     private val url by str(fun GigClassified.(): String = id.url)
     private val recordedAt by str(GigClassified::recordedAt)
     private val genre by str(GigClassified::genre)
@@ -125,7 +131,7 @@ fun newOrChangedGigs(existingEntries: List<LogEntry>, scrapedGigs: List<Gig>): L
 // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
 // longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
 // scraped a bit more often than strictly necessary, never less
-fun lastScrapedAt(entries: List<LogEntry>): Map<String, Instant> =
+fun lastScrapedAt(entries: List<LogEntry>): Map<Venue, Instant> =
     entries.filterIsInstance<GigObserved>()
         .groupBy { it.id.venue }
         .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }

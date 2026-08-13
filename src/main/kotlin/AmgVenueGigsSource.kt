@@ -39,7 +39,7 @@ private object JAmgSearchResults : JAny<AmgSearchResults>() {
 // shared by every Academy Music Group venue; the venue-specific classes below just supply the
 // venue's own id(s) (as seen in the API's own venue objects) and display name. More than one id
 // where a site lists several rooms at the same venue together, as its own listing page does
-class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, override val venue: String) : GigsSource {
+class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, override val venue: Venue) : GigsSource {
     // PageSize is well above what any one venue actually lists, so everything comes back in one
     // page - the listing page itself paginates client-side, but the API needn't
     private val url = "https://www.academymusicgroup.com/api/search/events" +
@@ -74,16 +74,16 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
 }
 
 class O2ForumKentishTownGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 5597, venue = "O2 Forum Kentish Town")
+    GigsSource by AmgVenueGigsSource(client, 5597, venue = Venue("O2 Forum Kentish Town"))
 
 class O2AcademyBrixtonGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 3919, venue = "O2 Academy Brixton")
+    GigsSource by AmgVenueGigsSource(client, 3919, venue = Venue("O2 Academy Brixton"))
 
 // its listing page covers both the main room and the smaller "Academy2" upstairs (which has no
 // listing page of its own), so both are scraped together under the one venue name, exactly as the
 // site itself presents them
 class O2AcademyIslingtonGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 4361, 4258, venue = "O2 Academy Islington")
+    GigsSource by AmgVenueGigsSource(client, 4361, 4258, venue = Venue("O2 Academy Islington"))
 
 class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 4051, venue = "O2 Shepherd's Bush Empire")
+    GigsSource by AmgVenueGigsSource(client, 4051, venue = Venue("O2 Shepherd's Bush Empire"))

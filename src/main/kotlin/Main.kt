@@ -237,7 +237,7 @@ fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
     if (pendingByVenue.isNotEmpty()) {
         println()
         println("Upcoming Pending by venue:")
-        pendingByVenue.entries.sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
+        pendingByVenue.entries.sortedWith(compareByDescending<Map.Entry<Venue, Int>> { it.value }.thenBy { it.key.name })
             .forEach { (venue, count) -> println("  ${count.toString().padStart(4)}  $venue") }
     }
 }
@@ -257,7 +257,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(posterExtractionSystemPrompt))
 
-    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, venue)
+    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, Venue(venue))
     gigs.forEach { println(it) }
 
     val newOrChanged = newOrChangedGigs(existingEntries, gigs)

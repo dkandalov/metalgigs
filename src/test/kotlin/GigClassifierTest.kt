@@ -35,7 +35,7 @@ class GigClassifierTest {
 
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
-    private fun gig(title: String = "Some Gig", venue: String = "Some Venue", day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "") =
+    private fun gig(title: String = "Some Gig", venue: Venue = Venue("Some Venue"), day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "") =
         Gig(id = GigId(venue, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl)
 
     @Test
@@ -152,7 +152,7 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { Response(OK).body(html) }
         val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig(venue = "The Underworld"), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig(venue = Venue("The Underworld")), recordedAt)
 
         expectThat(requests.first().promptText().contains("Doom metal night!")).isTrue()
         expectThat(requests.first().promptText().contains("KINGS OF THRASH")).isEqualTo(false)
@@ -167,7 +167,7 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { Response(OK).body(html) }
         val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig(venue = "New Cross Inn"), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig(venue = Venue("New Cross Inn")), recordedAt)
 
         expectThat(requests.first().promptText().contains("Doom metal night with support")).isTrue()
         expectThat(requests.first().promptText().contains("KINGS OF THRASH")).isEqualTo(false)
@@ -190,7 +190,7 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { Response(OK).body(html) }
         val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig(venue = "Alexandra Palace"), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig(venue = Venue("Alexandra Palace")), recordedAt)
 
         val promptText = requests.first().promptText()
         expectThat(promptText.contains("Doom metal night!")).isTrue()
@@ -204,7 +204,7 @@ class GigClassifierTest {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
 
         val error = assertFailsWith<IllegalStateException> {
-            classifyGigByLLM(fakeClient, fakeChat("Other"), gig(venue = "The Underworld"), recordedAt)
+            classifyGigByLLM(fakeClient, fakeChat("Other"), gig(venue = Venue("The Underworld")), recordedAt)
         }
 
         expectThat(error.message!!.contains("The Underworld")).isTrue()

@@ -9,14 +9,14 @@ class GigIdTest {
 
     @Test
     fun `refuses a blank url, naming the venue it came from`() {
-        val error = assertFailsWith<IllegalArgumentException> { GigId(venue = "The Grace", url = "") }
+        val error = assertFailsWith<IllegalArgumentException> { GigId(venue = Venue("The Grace"), url = "") }
 
         expectThat(error.message!!).contains("The Grace")
     }
 
     @Test
     fun `refuses a blank venue, naming the url it came from`() {
-        val error = assertFailsWith<IllegalArgumentException> { GigId(venue = "", url = "https://example.com/gigs/a") }
+        val error = assertFailsWith<IllegalArgumentException> { GigId(venue = Venue(""), url = "https://example.com/gigs/a") }
 
         expectThat(error.message!!).contains("https://example.com/gigs/a")
     }
@@ -24,13 +24,13 @@ class GigIdTest {
     @Test
     fun `refuses a blank url on a classification too`() {
         assertFailsWith<IllegalArgumentException> {
-            GigClassified(GigId("The Grace", ""), Instant.parse("2026-08-01T12:00:00Z"), Genre.Metal, ClassificationSource.User)
+            GigClassified(GigId(Venue("The Grace"), ""), Instant.parse("2026-08-01T12:00:00Z"), Genre.Metal, ClassificationSource.User)
         }
     }
 
     @Test
     fun `refuses a blank url introduced by copy`() {
-        val id = GigId(venue = "The Grace", url = "https://example.com/gigs/a")
+        val id = GigId(venue = Venue("The Grace"), url = "https://example.com/gigs/a")
 
         assertFailsWith<IllegalArgumentException> { id.copy(url = "") }
     }
