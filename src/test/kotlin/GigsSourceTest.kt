@@ -6,6 +6,7 @@ import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
+import java.time.LocalDate
 import kotlin.test.Test
 
 class GigsSourceTest {
@@ -696,5 +697,62 @@ class GigsSourceTest {
             ),
             urlPrefix = "https://dice.fm/event/",
         )
+    }
+
+    @Test
+    fun `extracts gig events from Alexandra Palace's what's on page`() {
+        val events = assertScrapesGigs(
+            source = AlexandraPalaceGigsSource(cachedClient()),
+            size = 41,
+            first = GigEvent(
+                id = GigId("Alexandra Palace", "https://www.alexandrapalace.com/whats-on/upside-down-london/"),
+                // trailing   (narrow no-break space), not a plain space - it's what the
+                // page's own title text actually contains, confirmed character-by-character
+                // against a failed run before this literal was written
+                title = "Upside Down London ",
+                year = 2026,
+                month = "Aug",
+                day = "01",
+                imageUrl = "https://www.alexandrapalace.com/wp-content/uploads/2026/05/pl-udl-approved-media-assets-14-of-17-marked-2048x1536.jpg",
+            ),
+            last = GigEvent(
+                id = GigId("Alexandra Palace", "https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/"),
+                title = "Kaleidoscope Festival",
+                year = 2027,
+                month = "Jul",
+                day = "10",
+                imageUrl = "https://www.alexandrapalace.com/wp-content/uploads/2026/07/Kaleidescope-11.07.26-www.harbinson.uk-7159-2048x1366.jpg",
+            ),
+            urlPrefix = "https://www.alexandrapalace.com/whats-on/",
+        )
+
+        // srcset's widest entry is used over the img tag's own 650px src, and the two events with
+        // no srcset (only a plain src) still resolve rather than falling back to blank
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(0)
+    }
+
+    @Test
+    fun `resolves the start date of a range, including one that crosses a calendar year`() {
+        fun eventPage(dates: String) = """
+            <div class="event_card_wrapper">
+                <div class="event_img proportional_container"></div>
+                <header><p class="dates uc"><strong>$dates</strong></p>
+                <a href="https://example.com/gig" class="event_target"><h3>Gig</h3></a></header>
+            </div>
+        """.trimIndent()
+
+        fun startDateOf(dates: String): LocalDate {
+            val fakeClient: HttpHandler = { Response(OK).body(eventPage(dates)) }
+            return AlexandraPalaceGigsSource(fakeClient).latestGigs().single().date()
+        }
+
+        expectThat(startDateOf("21 Aug 2026")).isEqualTo(LocalDate.of(2026, 8, 21))
+        // same month range - the year and month are only written once, on the end day
+        expectThat(startDateOf("1 - 9 Aug 2026")).isEqualTo(LocalDate.of(2026, 8, 1))
+        // cross-month range within one year - both start and end take the written year
+        expectThat(startDateOf("19 Sep - 5 Dec 2026")).isEqualTo(LocalDate.of(2026, 9, 19))
+        // cross-month range crossing new year's day - the written year belongs to the end date
+        // (Jan 2027), so the start date (Dec) must roll back to the year before it
+        expectThat(startDateOf("11 Dec - 3 Jan 2027")).isEqualTo(LocalDate.of(2026, 12, 11))
     }
 }

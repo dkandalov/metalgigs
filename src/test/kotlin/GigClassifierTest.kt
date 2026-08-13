@@ -172,6 +172,32 @@ class GigClassifierTest {
         expectThat(requests.first().promptText().contains("KINGS OF THRASH")).isEqualTo(false)
     }
 
+    // two different kinds of boilerplate reach the whole page: the sitewide nav ("Summer Season",
+    // "Food And Drink") outside #event_content, and a sidebar of generic quick-link buttons ("Buy
+    // Tickets", "FAQs", ...) *inside* it - the second one only turned up against the real site,
+    // after #event_content alone looked like enough of a fix
+    @Test
+    fun `scopes Alexandra Palace classification to the description and key-information accordion`() {
+        val html = """
+            <nav><li>Summer Season</li><li>Food And Drink</li></nav>
+            <div id="event_content">
+                <div class="event_sidebar"><ul class="event_buttons"><li>Buy Tickets</li><li>FAQs</li></ul></div>
+                <div class="ap_text_block"><p>Doom metal night!</p></div>
+                <div id="key-information"><h3>Key information</h3><p>Support from Kings of Thrash.</p></div>
+            </div>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = "Alexandra Palace"), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("Kings of Thrash")).isTrue()
+        expectThat(promptText.contains("Summer Season")).isEqualTo(false)
+        expectThat(promptText.contains("Buy Tickets")).isEqualTo(false)
+    }
+
     @Test
     fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }

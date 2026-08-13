@@ -116,6 +116,7 @@ private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
     "union-chapel" to UnionChapelGigsSource(client),
     "scala" to ScalaGigsSource(client),
     "229" to TwoTwoNineGigsSource(client),
+    "alexandra-palace" to AlexandraPalaceGigsSource(client),
 )
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)
@@ -140,7 +141,6 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val gigs = toScrape.flatMap { it.latestGigs() }
     gigs.forEach { println(it) }
 
-    // record a gig whose listed details changed, and also one that's unchanged but has no page text
     // a gig is recorded only when it's new or its listed details have changed, so an unchanged
     // listing costs nothing and the log stays a record of changes rather than of scrapes
     val toObserve = newOrChangedGigs(existingEntries, gigs)

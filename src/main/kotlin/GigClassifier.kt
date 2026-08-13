@@ -20,9 +20,18 @@ import java.time.Instant
 //   so scanning the whole page picks up unrelated shows' titles
 // - New Cross Inn (pit.live) renders its description client-side via Alpine.js: the text lives
 //   in an x-html attribute, not as element text, so the plain page text never contains it
+// - Alexandra Palace's #event_content div (the obvious container to reach for) turned out to
+//   share space with two different kinds of boilerplate: the whole-page text picked up the
+//   sitewide nav menu ("Summer Season", "Food And Drink", ...), and #event_content itself also
+//   holds a sidebar of generic quick-link buttons ("Buy Tickets", "How to get here", "FAQs", "Safe
+//   and secure", "Accessibility", "Accommodation") repeated identically on every event page. Rather
+//   than exclude boilerplate piece by piece as more of it turns up, this names only the two
+//   containers that actually hold gig-specific text: the description block and the "Key
+//   information" accordion (often real content - an artist bio, say)
 private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     "The Underworld" to { page -> page.select("article.event").let { if (it.isEmpty()) null else it.text() } },
     "New Cross Inn" to { page -> page.select("[x-ref=desc]").firstOrNull()?.attr("x-html") },
+    "Alexandra Palace" to { page -> page.select(".ap_text_block, #key-information").let { if (it.isEmpty()) null else it.text() } },
 )
 
 private fun eventPageContentText(pageHtml: String, url: String, venue: String): String {
