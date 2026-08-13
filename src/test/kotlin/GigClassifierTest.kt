@@ -297,6 +297,106 @@ class GigClassifierTest {
     }
 
     @Test
+    fun `scopes Electric Ballroom classification to the article, ignoring sitewide nav and footer`() {
+        val html = """
+            <header><nav><a>Whats On</a></nav></header>
+            <article><h1>Doom Night</h1><div class="article-content"><p>Doom metal night!</p></div></article>
+            <footer><a>Facebook</a></footer>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = electricBallroom), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("Whats On")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Dingwalls classification to the Elementor single-page template`() {
+        val html = """
+            <nav><a>Home</a></nav>
+            <div data-elementor-type="single-page" class="elementor elementor-750 elementor-location-single">
+                <h1>Doom Night</h1>
+                <div class="elementor-widget-theme-post-content"><p>Doom metal night!</p></div>
+            </div>
+            <footer><a>Instagram</a></footer>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = dingwalls), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("Home")).isEqualTo(false)
+    }
+
+    // ".event-about" holds the real description alongside a "Related events" carousel *nested
+    // inside it*, not a sibling section - that's why the exclusion is by class, not by boundary
+    @Test
+    fun `scopes Roundhouse classification to the event content, excluding the nested related-events block`() {
+        val html = """
+            <div class="event-hero__heading-wrapper"><h1>Doom Night</h1></div>
+            <section class="event-about">
+                <div class="layout-block layout-block--text-block-with-title"><p>Doom metal night!</p></div>
+                <div class="layout-block layout-block--related-events-list"><h3>Related events</h3><p>Other Gig</p></div>
+            </section>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = roundhouse), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("Other Gig")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Union Chapel classification to the article and event-information sidebar`() {
+        val html = """
+            <nav><a>Whats On</a></nav>
+            <div id="content">
+                <article class="pt-4"><h1>Doom Night</h1><p>Doom metal night!</p></article>
+            </div>
+            <aside><div class="sidebar p-3"><h6>WHEN</h6><p>7pm</p></div></aside>
+            <footer class="pt-4"><a>Instagram</a></footer>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = unionChapel), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("7pm")).isTrue()
+        expectThat(promptText.contains("Whats On")).isEqualTo(false)
+        expectThat(promptText.contains("Instagram")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Scala classification to the event post, excluding the sidebar of other upcoming events`() {
+        val html = """
+            <nav><a>Home</a></nav>
+            <div id="post-1" class="post-1 event type-event event-post">
+                <h1 class="entry-title">Doom Night</h1>
+                <div class="entry-content"><p>Doom metal night!</p></div>
+            </div>
+            <div id="sidebar"><ul><li>Other Gig</li></ul></div>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = scala), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("Other Gig")).isEqualTo(false)
+    }
+
+    @Test
     fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
 

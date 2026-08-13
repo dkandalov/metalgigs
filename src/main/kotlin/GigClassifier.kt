@@ -45,6 +45,9 @@ import kotlin.math.ceil
 //   ".single-article--contains-list" section - the more obvious ".single-article" also matches
 //   its own *outer* wrapper div (which carries that same class alongside others), so selecting it
 //   doubles every word of text
+// - Roundhouse's ".event-about" section holds the real description alongside a "Related events"
+//   carousel *nested inside it*, not a sibling - excluding that one sub-block by class is what
+//   keeps other shows' titles out
 private val squarespaceEventItem: (Document) -> String? = { page -> page.select("article.eventitem").let { if (it.isEmpty()) null else it.text() } }
 private val dhpSingleArticle: (Document) -> String? = { page -> page.select(".single-article--contains-list").let { if (it.isEmpty()) null else it.text() } }
 
@@ -74,6 +77,14 @@ private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     "The Grace" to dhpSingleArticle,
     "Our Black Heart" to squarespaceEventItem,
     "The Dome" to squarespaceEventItem,
+    "Electric Ballroom" to { page -> page.select("article").let { if (it.isEmpty()) null else it.text() } },
+    "Dingwalls" to { page -> page.select(".elementor-location-single").let { if (it.isEmpty()) null else it.text() } },
+    "Roundhouse" to { page ->
+        page.select(".event-hero__heading-wrapper, section.event-about .layout-block:not(.layout-block--related-events-list)")
+            .let { if (it.isEmpty()) null else it.text() }
+    },
+    "Union Chapel" to { page -> page.select("article.pt-4, .sidebar").let { if (it.isEmpty()) null else it.text() } },
+    "Scala" to { page -> page.select(".event-post").let { if (it.isEmpty()) null else it.text() } },
 )
 
 private fun eventPageContentText(pageHtml: String, url: String, venue: Venue): String {
