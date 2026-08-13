@@ -156,6 +156,14 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val withoutText = observed.count { it.gig.description.isBlank() }
     if (withoutText > 0) println("Could not capture event page text for $withoutText gig(s); they'll be fetched at classification time instead")
 
+    // checked against every gig currently known for these venues, not just what changed this run -
+    // a handful of new observations isn't enough gigs to tell a coincidence from real contamination
+    val contaminated = likelyContaminatedVenues(log.currentGigs())
+    if (contaminated.isNotEmpty()) {
+        println("Descriptions may include site-wide boilerplate - consider adding to eventPageContentByVenue:")
+        contaminated.forEach { (venue, count) -> println("  $venue ($count gig(s))") }
+    }
+
     // cache every scraped gig's image now, whatever its genre turns out to be: classification and
     // rendering can be days later, by which time some urls have expired
     cacheImagesReportingFailures(client, gigs, "gig image(s) - those gigs will have no poster")
