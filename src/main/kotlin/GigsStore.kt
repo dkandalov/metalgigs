@@ -24,10 +24,8 @@ object JGigEvent : JAny<GigEvent>() {
     private val day by str(GigEvent::day)
     private val url by str(fun GigEvent.(): String = id.url)
     private val imageUrl by str(GigEvent::imageUrl)
-    // optional on read, so entries written before the description was captured (or before this field
-    // was added at all) still read back - GigEvent.description is non-null, so a missing key becomes
-    // "". The lambda form forces Kondor's optional-field overload despite description no longer
-    // being String? - a plain GigEvent::description reference would resolve to the required one
+    // the lambda form forces Kondor's optional-field overload despite description not being String? -
+    // a plain GigEvent::description reference would resolve to the required-field one instead
     private val description by str(fun GigEvent.(): String? = description)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigEvent(

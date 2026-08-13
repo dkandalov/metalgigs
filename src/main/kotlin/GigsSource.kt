@@ -15,13 +15,6 @@ data class GigEvent(
     val month: String,
     val day: String,
     val imageUrl: String,
-    // the gig's own event-page text, captured at scrape time so classifying later needs no network
-    // and can't be defeated by a page that has since changed or gone. Unlike every other field here
-    // it comes from the gig's own page rather than the venue's listing, so it can fail on its own -
-    // blank means never captured (an entry predating this field, or a page that couldn't be read),
-    // and the classifier falls back to fetching for those. Never null: every venue source scrapes
-    // only the listing page, not each gig's own page, so of() defaults it blank too - it's
-    // scrapeGigs, working from the already-built GigEvent, that fills this in afterward
     val description: String = "",
 ) {
     companion object {
@@ -69,7 +62,7 @@ data class GigClassified(
     override val recordedAt: Instant,
     val genre: Genre,
     val source: ClassificationSource,
-    // which model judged it, and whether it saw the poster rather than page text - orthogonal to
+    // which model judged it, and whether it saw the poster rather than the description - orthogonal to
     // source, which is only about whose verdict is final (see classificationStatus). Null for
     // anything not judged by the LLM classifier: a User override, or ingest-poster's own assertion
     val llmModel: String? = null,

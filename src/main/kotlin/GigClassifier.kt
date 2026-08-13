@@ -57,8 +57,9 @@ val llmClassifierSystemPrompt = """
 
 private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 
-// below this, event page text is usually boilerplate/placeholder rather than a real description -
-// fall back to the poster image (with a stronger, vision-capable model) instead of guessing from it
+// below this, the text extracted from an event page is usually boilerplate/placeholder rather than
+// anything descriptive - fall back to the poster image (with a stronger, vision-capable model)
+// instead of guessing from it
 private const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
@@ -83,8 +84,6 @@ fun classifyGigByLLM(
     val description = gig.description.ifBlank { fetchGigPageText(client, gig) }
     val useVision = description.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
 
-    // the prompt's wording is deliberately unchanged by the pageText -> description rename: the
-    // model's input is behaviour, not naming, and this text is what its verdicts were tuned against
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $description")) +
         if (useVision) listOf(posterImage(client, gig.imageUrl)) else emptyList()
 

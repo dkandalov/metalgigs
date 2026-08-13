@@ -44,8 +44,8 @@ class GigClassifierTest {
         val metal = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig(), recordedAt)
         val other = classifyGigByLLM(fakeClient, fakeChat("Other"), gig(), recordedAt)
 
-        // page text is long enough here that this is the text path, not vision - records which
-        // model judged it and confirms useVision = false rather than just leaving it null
+        // the fixture has no imageUrl, so this is the text path however thin the text is - records
+        // which model judged it and confirms useVision = false rather than just leaving it null
         val textModel = "claude-haiku-4-5-20251001"
         expectThat(metal).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false))
         expectThat(other).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Other, ClassificationSource.LLM, textModel, useVision = false))
