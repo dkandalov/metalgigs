@@ -86,9 +86,11 @@ interface GigsSource {
     fun latestGigs(): List<Gig>
 }
 
+val cartAndHorses = Venue("Cart & Horses")
+
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://www.cartandhorses.london/news-offers-events/"
-    override val venue = Venue("Cart & Horses")
+    override val venue = cartAndHorses
 
     override fun latestGigs(): List<Gig> {
         var currentYear = year
@@ -112,9 +114,11 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
     }
 }
 
+val newCrossInn = Venue("New Cross Inn")
+
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.newcrossinn.com/gigs/"
-    override val venue = Venue("New Cross Inn")
+    override val venue = newCrossInn
 
     private val datePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
 
@@ -149,15 +153,21 @@ class SquarespaceEventsGigsSource(private val client: HttpHandler, private val u
             }
 }
 
+val ourBlackHeart = Venue("Our Black Heart")
+
 class OurBlackHeartGigsSource(client: HttpHandler) :
-    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = Venue("Our Black Heart"))
+    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = ourBlackHeart)
+
+val theDome = Venue("The Dome")
 
 class DomeLondonGigsSource(client: HttpHandler) :
-    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = Venue("The Dome"))
+    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome)
+
+val theUnderworld = Venue("The Underworld")
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.theunderworldcamden.co.uk/search-events/"
-    override val venue = Venue("The Underworld")
+    override val venue = theUnderworld
 
     // the site blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -176,9 +186,11 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
+val electricBallroom = Venue("Electric Ballroom")
+
 class ElectricBallroomGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://electricballroom.co.uk/whats-on/"
-    override val venue = Venue("Electric Ballroom")
+    override val venue = electricBallroom
 
     // dates have no year, e.g. "Thursday 13th August"; ordinal suffix is discarded
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
@@ -206,9 +218,11 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
     }
 }
 
+val dingwalls = Venue("Dingwalls")
+
 class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://dingwalls.com/whats-on/"
-    override val venue = Venue("Dingwalls")
+    override val venue = dingwalls
 
     // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
     // September 2026", "Saturday 26th September, 2026 (Afternoon Show)"
@@ -254,15 +268,21 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
             }
 }
 
+val theGarage = Venue("The Garage")
+
 class TheGarageGigsSource(client: HttpHandler) :
-    GigsSource by DhpVenueGigsSource(client, url = "https://www.thegarage.london/live/", venue = Venue("The Garage"))
+    GigsSource by DhpVenueGigsSource(client, url = "https://www.thegarage.london/live/", venue = theGarage)
+
+val theGrace = Venue("The Grace")
 
 class TheGraceGigsSource(client: HttpHandler) :
-    GigsSource by DhpVenueGigsSource(client, url = "https://www.thegrace.london/whats-on/", venue = Venue("The Grace"))
+    GigsSource by DhpVenueGigsSource(client, url = "https://www.thegrace.london/whats-on/", venue = theGrace)
+
+val roundhouse = Venue("Roundhouse")
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.roundhouse.org.uk/whats-on/"
-    override val venue = Venue("Roundhouse")
+    override val venue = roundhouse
 
     // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
     private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")
@@ -309,9 +329,11 @@ class SignatureBrewGigsSource(private val client: HttpHandler, override val venu
             }
 }
 
+val unionChapel = Venue("Union Chapel")
+
 class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://unionchapel.org.uk/whats-on"
-    override val venue = Venue("Union Chapel")
+    override val venue = unionChapel
 
     // e.g. background-image:url("...") - the poster is a css background rather than an img element
     private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
@@ -335,9 +357,11 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
+val scala = Venue("Scala")
+
 class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://scala.co.uk/events/categories/live-music/"
-    override val venue = Venue("Scala")
+    override val venue = scala
 
     // e.g. "19th August 2026" - full month name, ordinal suffix discarded
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)\s+(\d{4})""")
@@ -376,9 +400,11 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     }
 }
 
+val alexandraPalace = Venue("Alexandra Palace")
+
 class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.alexandrapalace.com/whats-on/"
-    override val venue = Venue("Alexandra Palace")
+    override val venue = alexandraPalace
 
     // the site blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -439,8 +465,12 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
+val signatureBrewBlackhorseRoad = Venue("Signature Brew Blackhorse Road")
+
 class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
-    GigsSource by SignatureBrewGigsSource(client, venue = Venue("Signature Brew Blackhorse Road"))
+    GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewBlackhorseRoad)
+
+val signatureBrewHaggerston = Venue("Signature Brew Haggerston")
 
 class SignatureBrewHaggerstonGigsSource(client: HttpHandler) :
-    GigsSource by SignatureBrewGigsSource(client, venue = Venue("Signature Brew Haggerston"))
+    GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewHaggerston)

@@ -90,11 +90,17 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
     }
 }
 
+val blondiesBreweryTaproom = Venue("Blondies Brewery Taproom")
+
 class BlondiesBreweryTaproomGigsSource(client: HttpHandler) :
-    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en", venue = Venue("Blondies Brewery Taproom"))
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en", venue = blondiesBreweryTaproom)
+
+val blondiesBar = Venue("Blondies Bar")
 
 class BlondiesBarGigsSource(client: HttpHandler) :
-    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-rmvw?lng=en", venue = Venue("Blondies Bar"))
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-rmvw?lng=en", venue = blondiesBar)
+
+val helgis = Venue("Helgi's")
 
 class HelgisGigsSource(client: HttpHandler) :
-    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = Venue("Helgi's"))
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = helgis)

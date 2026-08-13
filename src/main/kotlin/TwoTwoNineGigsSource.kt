@@ -43,8 +43,10 @@ private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEventsResponse(data = +data, links = +links)
 }
 
+val twoTwoNine = Venue("229")
+
 class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
-    override val venue = Venue("229")
+    override val venue = twoTwoNine
 
     private val apiKey = "9PmJEatQBB8iKSivm8gCbIvKIeU3S4x4MqPoT6Tg"
     private val baseUrl = "https://partners-endpoint.dice.fm/api/v2/events"

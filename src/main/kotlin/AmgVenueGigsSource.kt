@@ -73,17 +73,25 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
     }
 }
 
+val o2ForumKentishTown = Venue("O2 Forum Kentish Town")
+
 class O2ForumKentishTownGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 5597, venue = Venue("O2 Forum Kentish Town"))
+    GigsSource by AmgVenueGigsSource(client, 5597, venue = o2ForumKentishTown)
+
+val o2AcademyBrixton = Venue("O2 Academy Brixton")
 
 class O2AcademyBrixtonGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 3919, venue = Venue("O2 Academy Brixton"))
+    GigsSource by AmgVenueGigsSource(client, 3919, venue = o2AcademyBrixton)
+
+val o2AcademyIslington = Venue("O2 Academy Islington")
 
 // its listing page covers both the main room and the smaller "Academy2" upstairs (which has no
 // listing page of its own), so both are scraped together under the one venue name, exactly as the
 // site itself presents them
 class O2AcademyIslingtonGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 4361, 4258, venue = Venue("O2 Academy Islington"))
+    GigsSource by AmgVenueGigsSource(client, 4361, 4258, venue = o2AcademyIslington)
+
+val o2ShepherdsBushEmpire = Venue("O2 Shepherd's Bush Empire")
 
 class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
-    GigsSource by AmgVenueGigsSource(client, 4051, venue = Venue("O2 Shepherd's Bush Empire"))
+    GigsSource by AmgVenueGigsSource(client, 4051, venue = o2ShepherdsBushEmpire)
