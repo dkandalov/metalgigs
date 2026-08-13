@@ -9,6 +9,12 @@ import kotlin.test.Test
 
 class GigsStoreTest {
 
+    private fun gigsLog(entries: List<LogEntry>): GigsLog {
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+        appendLogEntries(file, entries)
+        return GigsLog(file)
+    }
+
     @Test
     fun `appends and reads back gig log entries of different kinds`() {
         val gig = Gig(id = GigId(Venue("Test Venue"), "https://example.com/gigs/test-gig"), title = "Test Gig", date = LocalDate.of(2026, 8, 8), imageUrl = "https://example.com/images/test-gig.jpg")
@@ -105,19 +111,20 @@ class GigsStoreTest {
         val gig = Gig(id = GigId(Venue("Test Venue"), "https://example.com/gigs/never"), title = "Never", date = LocalDate.of(2026, 8, 9), imageUrl = "")
         val existing: List<LogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
 
-        expectThat(newOrChangedGigs(existing, listOf(gig))).isEqualTo(emptyList())
+        expectThat(gigsLog(existing).newOrChangedGigs(listOf(gig))).isEqualTo(emptyList())
     }
 
     @Test
     fun `the description changing does not make a gig count as changed`() {
         val gig = Gig(id = GigId(Venue("Test Venue"), "https://example.com/gigs/some-gig"), title = "Some Gig", date = LocalDate.of(2026, 8, 8), imageUrl = "")
         val existing: List<LogEntry> = listOf(GigObserved(gig.copy(description = "3 tickets left"), Instant.parse("2026-07-01T00:00:00Z")))
+        val log = gigsLog(existing)
 
         // the same gig as the listing gives it - a counter ticking over on its own page, or that
         // page failing to render, must not look like the gig itself changed
-        expectThat(newOrChangedGigs(existing, listOf(gig.copy(description = "2 tickets left")))).isEqualTo(emptyList())
-        expectThat(newOrChangedGigs(existing, listOf(gig.copy(description = "")))).isEqualTo(emptyList())
-        expectThat(newOrChangedGigs(existing, listOf(gig.copy(title = "Some Gig - SOLD OUT")))).containsExactly(gig.copy(title = "Some Gig - SOLD OUT"))
+        expectThat(log.newOrChangedGigs(listOf(gig.copy(description = "2 tickets left")))).isEqualTo(emptyList())
+        expectThat(log.newOrChangedGigs(listOf(gig.copy(description = "")))).isEqualTo(emptyList())
+        expectThat(log.newOrChangedGigs(listOf(gig.copy(title = "Some Gig - SOLD OUT")))).containsExactly(gig.copy(title = "Some Gig - SOLD OUT"))
     }
 
     @Test
@@ -130,7 +137,7 @@ class GigsStoreTest {
             GigObserved(soldOut, Instant.parse("2026-07-15T00:00:00Z")),
         )
 
-        expectThat(projectCurrentGigs(events)).isEqualTo(listOf(soldOut))
+        expectThat(gigsLog(events).currentGigs()).isEqualTo(listOf(soldOut))
     }
 
     @Test
@@ -140,7 +147,7 @@ class GigsStoreTest {
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events = listOf(GigObserved(gigA, recordedAt), GigObserved(gigB, recordedAt))
 
-        expectThat(projectCurrentGigs(events)).containsExactlyInAnyOrder(gigA, gigB)
+        expectThat(gigsLog(events).currentGigs()).containsExactlyInAnyOrder(gigA, gigB)
     }
 
     @Test
@@ -154,7 +161,7 @@ class GigsStoreTest {
             GigObserved(soldOutBefore, Instant.parse("2026-07-01T00:00:00Z")),
         )
 
-        val newOrChanged = newOrChangedGigs(existingEntries, scrapedGigs = listOf(unseen, unchangedGig, soldOutNow))
+        val newOrChanged = gigsLog(existingEntries).newOrChangedGigs(listOf(unseen, unchangedGig, soldOutNow))
 
         expectThat(newOrChanged).containsExactlyInAnyOrder(unseen, soldOutNow)
     }
@@ -168,7 +175,7 @@ class GigsStoreTest {
             GigObserved(soldOut, Instant.parse("2026-07-10T00:00:00Z")),
         )
 
-        val newOrChanged = newOrChangedGigs(existingEntries, scrapedGigs = listOf(original))
+        val newOrChanged = gigsLog(existingEntries).newOrChangedGigs(listOf(original))
 
         expectThat(newOrChanged).containsExactly(original)
     }
@@ -184,7 +191,7 @@ class GigsStoreTest {
             GigObserved(gigB, Instant.parse("2026-07-05T00:00:00Z")),
         )
 
-        val lastScrapedAt = lastScrapedAt(events)
+        val lastScrapedAt = gigsLog(events).lastScrapedAt()
 
         expectThat(lastScrapedAt).isEqualTo(
             mapOf(Venue("Venue A") to Instant.parse("2026-07-10T00:00:00Z"), Venue("Venue B") to Instant.parse("2026-07-05T00:00:00Z")),
@@ -197,8 +204,9 @@ class GigsStoreTest {
         val gig = Gig(id = GigId(Venue("Some Venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = "Doom Night", date = LocalDate.of(2026, 8, 14), imageUrl = "")
         val events: List<LogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
 
-        expectThat(alreadyIngested(events, "https://example.com/post/1")).isEqualTo(true)
-        expectThat(alreadyIngested(events, "https://example.com/post/2")).isEqualTo(false)
+        val log = gigsLog(events)
+        expectThat(log.alreadyIngested("https://example.com/post/1")).isEqualTo(true)
+        expectThat(log.alreadyIngested("https://example.com/post/2")).isEqualTo(false)
     }
 
     @Test
@@ -209,10 +217,11 @@ class GigsStoreTest {
             GigsRendered("2026-08-11T09-00-00Z.html", gigCount = 9, logicalDate = LocalDate.of(2026, 1, 1), recordedAt = Instant.parse("2026-08-11T09:00:00Z")),
         )
 
-        expectThat(alreadyRenderedFor(entries, LocalDate.of(2026, 8, 10))).isEqualTo(true)
+        val log = gigsLog(entries)
+        expectThat(log.alreadyRenderedFor(LocalDate.of(2026, 8, 10))).isEqualTo(true)
         // the newest render was for 1 Jan, so it must not count as having rendered the 11th
-        expectThat(alreadyRenderedFor(entries, LocalDate.of(2026, 8, 11))).isEqualTo(false)
-        expectThat(alreadyRenderedFor(emptyList(), LocalDate.of(2026, 8, 10))).isEqualTo(false)
+        expectThat(log.alreadyRenderedFor(LocalDate.of(2026, 8, 11))).isEqualTo(false)
+        expectThat(gigsLog(emptyList()).alreadyRenderedFor(LocalDate.of(2026, 8, 10))).isEqualTo(false)
     }
 
     // it's the one entry with no gig behind it, so every projection has to step over it rather
@@ -227,11 +236,12 @@ class GigsStoreTest {
             GigsRendered("2026-07-01T00-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 1), recordedAt = recordedAt),
         )
 
-        expectThat(projectCurrentGigs(events)).isEqualTo(listOf(gig))
-        expectThat(projectMetalGigs(events)).isEqualTo(listOf(gig))
-        expectThat(alreadyClassified(events)).isEqualTo(setOf(gig.id))
-        expectThat(lastScrapedAt(events)).isEqualTo(mapOf(Venue("Test Venue") to recordedAt))
-        expectThat(alreadyIngested(events, "https://example.com/post/1")).isEqualTo(false)
+        val log = gigsLog(events)
+        expectThat(log.currentGigs()).isEqualTo(listOf(gig))
+        expectThat(log.metalGigs()).isEqualTo(listOf(gig))
+        expectThat(log.alreadyClassified()).isEqualTo(setOf(gig.id))
+        expectThat(log.lastScrapedAt()).isEqualTo(mapOf(Venue("Test Venue") to recordedAt))
+        expectThat(log.alreadyIngested("https://example.com/post/1")).isEqualTo(false)
     }
 
     @Test
@@ -248,7 +258,7 @@ class GigsStoreTest {
             GigClassified(other.id, recordedAt, Genre.Other, ClassificationSource.LLM),
         )
 
-        expectThat(projectMetalGigs(events)).isEqualTo(listOf(metal))
+        expectThat(gigsLog(events).metalGigs()).isEqualTo(listOf(metal))
     }
 
     @Test
@@ -266,7 +276,7 @@ class GigsStoreTest {
             GigObserved(neverClassified, recordedAt),
         )
 
-        val statusByGig = classificationStatusByGig(events)
+        val statusByGig = gigsLog(events).classificationStatus()
 
         expectThat(statusByGig[classified.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
         expectThat(statusByGig[reclassified.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
@@ -287,8 +297,9 @@ class GigsStoreTest {
             GigClassified(overriddenToOther.id, recordedAt, Genre.Other, ClassificationSource.User),
         )
 
-        expectThat(projectMetalGigs(events)).isEqualTo(listOf(overriddenToMetal))
-        expectThat(classificationStatusByGig(events)[overriddenToOther.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
+        val log = gigsLog(events)
+        expectThat(log.metalGigs()).isEqualTo(listOf(overriddenToMetal))
+        expectThat(log.classificationStatus()[overriddenToOther.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
     }
 
     @Test
@@ -305,6 +316,6 @@ class GigsStoreTest {
             GigObserved(neverClassified, recordedAt),
         )
 
-        expectThat(alreadyClassified(events)).containsExactlyInAnyOrder(classified.id, userOverridden.id)
+        expectThat(gigsLog(events).alreadyClassified()).containsExactlyInAnyOrder(classified.id, userOverridden.id)
     }
 }

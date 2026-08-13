@@ -106,6 +106,14 @@ fun appendLogEntries(file: File, entries: List<LogEntry>) {
 fun readLogEntries(file: File): List<LogEntry> =
     fromNdJsonToList(JLogEntry)(file.readLines().asSequence()).orThrow()
 
+sealed interface ClassificationStatus {
+    data class Classified(val genre: Genre) : ClassificationStatus
+
+    data object Pending : ClassificationStatus {
+        override fun toString() = "Pending (not yet classified)"
+    }
+}
+
 // wraps events.ndjson so callers don't thread a List<LogEntry> through several functions by hand -
 // entries are loaded once and appending updates the same in-memory copy, so e.g. a status computed
 // right after an append reflects it without the caller re-reading the file or concatenating lists
@@ -117,83 +125,66 @@ class GigsLog(private val file: File) {
         entries = entries + newEntries
     }
 
-    fun currentGigs(): List<Gig> = projectCurrentGigs(entries)
-    fun metalGigs(): List<Gig> = projectMetalGigs(entries)
-    fun classificationStatus(): Map<GigId, ClassificationStatus> = classificationStatusByGig(entries)
-    fun alreadyClassified(): Set<GigId> = alreadyClassified(entries)
-    fun alreadyIngested(sourceUrl: String): Boolean = alreadyIngested(entries, sourceUrl)
-    fun alreadyRenderedFor(date: LocalDate): Boolean = alreadyRenderedFor(entries, date)
-    fun lastScrapedAt(): Map<Venue, Instant> = lastScrapedAt(entries)
-    fun newOrChangedGigs(scrapedGigs: List<Gig>): List<Gig> = newOrChangedGigs(entries, scrapedGigs)
-}
+    fun currentGigs(): List<Gig> =
+        entries.filterIsInstance<GigObserved>()
+            .groupBy { it.id }
+            .values
+            .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
-fun projectCurrentGigs(entries: List<LogEntry>): List<Gig> =
-    entries.filterIsInstance<GigObserved>()
-        .groupBy { it.id }
-        .values
-        .map { observations -> observations.maxBy { it.recordedAt }.gig }
+    // What makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
+    // not description. That comes from a different page, and measurably churns: re-reading every gig's
+    // page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
+    // to full (a flaky JS-rendered site). Comparing it would log a fresh observation of an otherwise
+    // untouched gig each time that happened.
+    private fun Gig.listedDetails() = copy(description = "")
 
-// What makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
-// not description. That comes from a different page, and measurably churns: re-reading every gig's
-// page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
-// to full (a flaky JS-rendered site). Comparing it would log a fresh observation of an otherwise
-// untouched gig each time that happened.
-private fun Gig.listedDetails() = copy(description = "")
-
-// scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
-// title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
-// per gig, not the whole history, so a gig can be logged again after reverting to a prior state
-fun newOrChangedGigs(existingEntries: List<LogEntry>, scrapedGigs: List<Gig>): List<Gig> {
-    val latestByGig = projectCurrentGigs(existingEntries).associateBy { it.id }
-    return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
-}
-
-// when each venue was last seen changing - an approximation of "last scraped" derived from
-// GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
-// longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
-// scraped a bit more often than strictly necessary, never less
-fun lastScrapedAt(entries: List<LogEntry>): Map<Venue, Instant> =
-    entries.filterIsInstance<GigObserved>()
-        .groupBy { it.id.venue }
-        .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
-
-// every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check
-// covers the whole poster
-fun alreadyIngested(entries: List<LogEntry>, sourceUrl: String): Boolean =
-    entries.filterIsInstance<GigObserved>().any { it.id.url.startsWith("$sourceUrl#") }
-
-// has the page already been rendered for this date? Matches on logicalDate rather than the newest
-// render's own timestamp, so a backdated render of some past date doesn't count as having done
-// today, and today's render still counts however long ago in the day it happened
-fun alreadyRenderedFor(entries: List<LogEntry>, date: LocalDate): Boolean =
-    entries.filterIsInstance<GigsRendered>().any { it.logicalDate == date }
-
-sealed interface ClassificationStatus {
-    data class Classified(val genre: Genre) : ClassificationStatus
-
-    data object Pending : ClassificationStatus {
-        override fun toString() = "Pending (not yet classified)"
+    // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
+    // title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
+    // per gig, not the whole history, so a gig can be logged again after reverting to a prior state
+    fun newOrChangedGigs(scrapedGigs: List<Gig>): List<Gig> {
+        val latestByGig = currentGigs().associateBy { it.id }
+        return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
     }
-}
 
-// a user's own classification is always final; otherwise the latest LLM classification stands
-private fun classificationStatus(classifications: List<GigClassified>): ClassificationStatus {
-    val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt } }
-    val latest = latestBySource[ClassificationSource.User] ?: latestBySource[ClassificationSource.LLM]
-    return latest?.let { ClassificationStatus.Classified(it.genre) } ?: ClassificationStatus.Pending
-}
+    // when each venue was last seen changing - an approximation of "last scraped" derived from
+    // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
+    // longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
+    // scraped a bit more often than strictly necessary, never less
+    fun lastScrapedAt(): Map<Venue, Instant> =
+        entries.filterIsInstance<GigObserved>()
+            .groupBy { it.id.venue }
+            .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
-fun classificationStatusByGig(entries: List<LogEntry>): Map<GigId, ClassificationStatus> =
-    entries.filterIsInstance<GigClassified>()
-        .groupBy { it.id }
-        .mapValues { (_, classifications) -> classificationStatus(classifications) }
+    // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check
+    // covers the whole poster
+    fun alreadyIngested(sourceUrl: String): Boolean =
+        entries.filterIsInstance<GigObserved>().any { it.id.url.startsWith("$sourceUrl#") }
 
-fun projectMetalGigs(entries: List<LogEntry>): List<Gig> {
-    val statusByGig = classificationStatusByGig(entries)
-    return projectCurrentGigs(entries).filter { gig ->
-        (statusByGig[gig.id] as? ClassificationStatus.Classified)?.genre == Genre.Metal
+    // has the page already been rendered for this date? Matches on logicalDate rather than the newest
+    // render's own timestamp, so a backdated render of some past date doesn't count as having done
+    // today, and today's render still counts however long ago in the day it happened
+    fun alreadyRenderedFor(date: LocalDate): Boolean =
+        entries.filterIsInstance<GigsRendered>().any { it.logicalDate == date }
+
+    // a user's own classification is always final; otherwise the latest LLM classification stands
+    private fun statusFor(classifications: List<GigClassified>): ClassificationStatus {
+        val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt } }
+        val latest = latestBySource[ClassificationSource.User] ?: latestBySource[ClassificationSource.LLM]
+        return latest?.let { ClassificationStatus.Classified(it.genre) } ?: ClassificationStatus.Pending
     }
-}
 
-fun alreadyClassified(entries: List<LogEntry>): Set<GigId> =
-    entries.filterIsInstance<GigClassified>().map { it.id }.toSet()
+    fun classificationStatus(): Map<GigId, ClassificationStatus> =
+        entries.filterIsInstance<GigClassified>()
+            .groupBy { it.id }
+            .mapValues { (_, classifications) -> statusFor(classifications) }
+
+    fun metalGigs(): List<Gig> {
+        val statusByGig = classificationStatus()
+        return currentGigs().filter { gig ->
+            (statusByGig[gig.id] as? ClassificationStatus.Classified)?.genre == Genre.Metal
+        }
+    }
+
+    fun alreadyClassified(): Set<GigId> =
+        entries.filterIsInstance<GigClassified>().map { it.id }.toSet()
+}
