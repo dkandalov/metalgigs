@@ -2599,3 +2599,5 @@
 {"_type": "classified", "venue": "Alexandra Palace", "url": "https://www.alexandrapalace.com/whats-on/ed-byrne-no-dramas/", "recordedAt": "2026-08-13T00:00:32.969459Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false}
 {"_type": "classified", "venue": "Alexandra Palace", "url": "https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/", "recordedAt": "2026-08-13T00:00:32.969459Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false}
 {"_type": "rendered", "file": "2026-08-13T00-03-04Z.html", "gigCount": 257, "logicalDate": "2026-08-13", "recordedAt": "2026-08-13T00:03:04.636461Z"}
+{"_type": "rendered", "file": "2026-08-13T15-24-14Z.html", "gigCount": 257, "logicalDate": "2026-08-13", "recordedAt": "2026-08-13T15:24:14.399385Z"}
+{"_type": "rendered", "file": "2026-08-13T15-27-10Z.html", "gigCount": 257, "logicalDate": "2026-08-13", "recordedAt": "2026-08-13T15:27:10.373383Z"}
