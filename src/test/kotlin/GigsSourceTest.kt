@@ -661,4 +661,25 @@ class GigsSourceTest {
         // (Jan 2027), so the start date (Dec) must roll back to the year before it
         expectThat(startDateOf("11 Dec - 3 Jan 2027")).isEqualTo(LocalDate.of(2026, 12, 11))
     }
+
+    @Test
+    fun `extracts gig events from Paper Dress Vintage's by-night page`() {
+        assertScrapesGigs(
+            source = PaperDressVintageGigsSource(cachedClient()),
+            size = 46,
+            first = Gig(
+                id = GigId(paperDressVintage, "https://paperdressvintage.co.uk/?p=18710"),
+                title = "That 70s Night ft. Vintage Voltage",
+                date = LocalDate.of(2026, 8, 14),
+                imageUrl = "http://paperdressvintage.co.uk/wp-content/uploads/2026/07/poster-aug-14th-pd1-scaled.jpg",
+            ),
+            last = Gig(
+                id = GigId(paperDressVintage, "https://paperdressvintage.co.uk/?p=18815"),
+                title = "Sam Scherdel",
+                date = LocalDate.of(2026, 12, 10),
+                imageUrl = "http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel.jpg",
+            ),
+            urlPrefix = "https://paperdressvintage.co.uk/",
+        )
+    }
 }

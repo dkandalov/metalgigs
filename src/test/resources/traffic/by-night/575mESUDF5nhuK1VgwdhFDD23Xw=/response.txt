@@ -1,0 +1,1251 @@
+HTTP/1.1 200 
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: a2ab68faabc138c0-LHR
+content-type: text/html; charset=UTF-8
+date: Thu, 13 Aug 2026 23:13:24 GMT
+link: <https://paperdressvintage.co.uk/wp-json/>; rel="https://api.w.org/", <https://paperdressvintage.co.uk/wp-json/wp/v2/pages/10839>; rel="alternate"; type="application/json", <https://paperdressvintage.co.uk/?p=10839>; rel=shortlink
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=aMRxKhIO1FISB44BUDvyuNrFHPO5XYADi%2FXrs%2FFEVTpS6WgkG2DRxOii6zTTj0QIfYdN5%2BASY%2F4QnECG%2FgOd1oGM%2FrmgFVyv5D%2BEIVsa%2Fn7CbQ5kiFhRvE8LKRuYW7T8MXinkIbmJM15KQ%3D%3D"}]}
+server: cloudflare
+vary: Accept-Encoding
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="//www.w3.org/1999/xhtml">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Oswald:700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+          integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
+          crossorigin="anonymous" />
+
+
+    <!--Meta tags and title-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" href="https://paperdressvintage.co.uk/wp-content/cache/autoptimize/css/autoptimize_ced097dbdb8ad3ab2917d51f81ce2c2d.css" rel="stylesheet" /><title>By Night // Paper Dress Vintage Bar &amp; Boutique, London // Fashions fade – style is eternal.</title>
+    <meta name="author" content="Paper Dress Vintage">
+    <meta name="description"
+          content="Paper Dress Vintage is a Hackney-based vintage clothing boutique / live music venue & events space. By Day: Clothing, shoes and accessories from the 1900–80’s hand-sourced from around the UK. By Night: Spread over two levels with a lovely intimate live music room upstairs, seating downstairs, a spacious backyard that's open till late and a friendly house party atmosphere running throughout."/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
+
+        <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window,document,'script',
+        '//connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '290418038443213');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1"
+             src="//www.facebook.com/tr?id=290418038443213&ev=PageView
+&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+    
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="//www.googletagmanager.com/gtag/js?id=UA-112931447-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-112931447-1');
+        </script>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1196387937118330');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=1196387937118330&ev=PageView&noscript=1"
+        /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Paper Dress Vintage Bar &amp; Boutique, London &raquo; Sam Scherdel Comments Feed" href="https://paperdressvintage.co.uk/?p=18815/feed" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/paperdressvintage.co.uk\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.0.14"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+
+	
+
+
+
+
+<link rel="https://api.w.org/" href="https://paperdressvintage.co.uk/wp-json/" /><link rel="alternate" type="application/json" href="https://paperdressvintage.co.uk/wp-json/wp/v2/pages/10839" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://paperdressvintage.co.uk/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://paperdressvintage.co.uk/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 6.0.14" />
+<link rel="canonical" href="https://paperdressvintage.co.uk/by-night" />
+<link rel='shortlink' href='https://paperdressvintage.co.uk/?p=10839' />
+<link rel="alternate" type="application/json+oembed" href="https://paperdressvintage.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpaperdressvintage.co.uk%2F%3Fp%3D18815" />
+<link rel="alternate" type="text/xml+oembed" href="https://paperdressvintage.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpaperdressvintage.co.uk%2F%3Fp%3D18815&#038;format=xml" />
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+            
+    </head>
+
+<body style="background-color: #000">
+    <header class="header  container-fluid">
+        <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-4">
+            <a href="/">
+                <img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/logo-alt.png" class="header__logo margin__right--2"/>
+            </a>
+            <ul class="header__social">
+                <li><a href="https://www.facebook.com/paperdressvintage/?ref=br_rs" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/paperdressvintage/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-8 text-align--right">
+            <ul class="header__menu">
+                <li class="hidden-xs hidden-sm"><a href="/by-day" class="btn--box">Shop</a></li>
+                <li class="hidden-xs hidden-sm"><a href="/by-night" class="btn--box">Bar &amp; Events</a></li>
+                <li><a href="#" class="header__menu-toggle"><i class="fa fa-bars text--white" data-menu-toggle></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="header__mobile-menu header__mobile-menu--hidden background--black">
+        <div>
+            <ul class="header__mobile-links">
+                <li><a href="/">Home</a></li>
+                <li class="header__mobile-has-child">
+                    <a href="#" data-menu-submenu>Shop</a>
+                    <ul>
+                        <li><a href="/by-day">Home</a></li>
+                        <li><a href="https://www.instagram.com/hannah_paperdressvintage/" target="_blank" title="View our Instagram Shop">Instagram Shop</a></li>
+                        <li><a href="/by-day#gallery" data-menu-hide>Gallery</a></li>
+                        <li><a href="/by-day#reviews" data-menu-hide>Reviews</a></li>
+                        <li><a href="/by-day#alterations" data-menu-hide>Alterations</a></li>
+                        <li><a href="/by-day#contact" data-menu-hide>Contact</a></li>
+                    </ul>
+                </li>
+                <li class="header__mobile-has-child">
+                    <a href="#" data-menu-submenu>Bar &amp; Events</a>
+                    <ul>
+                        <li><a href="/by-night">Home</a></li>
+                        <li><a href="/by-night#events" data-menu-hide>What's on</a></li>
+                                                <li><a href="/by-night#reviews" data-menu-hide>Reviews</a></li>
+                        <li><a href="/by-night#gallery" data-menu-hide>Gallery</a></li>
+                        <li><a href="/by-night#" data-menu-hide>Find us</a></li>
+                        <li><a href="/private-hire" data-menu-hide>Private Hire</a></li>
+                        <li><a href="/by-night#contact" data-menu-hide>Contact</a></li>
+                    </ul>
+                </li>
+                <li><a href="/category/news">News</a></li>
+                <li><a href="/faqs">FAQs</a></li>
+                <li><a href="/#contact" data-menu-hide>Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+        <div class="intro">
+    <div class="intro__overlay"></div>
+    <div class="intro__slider">
+        <div data-intro-slider>
+                <div class="intro__slider-image" style="background-image: url('https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/slider/1.jpg')"></div>
+    <div class="intro__slider-image" style="background-image: url('https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/slider/2.jpg')"></div>
+    <div class="intro__slider-image" style="background-image: url('https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/slider/3.jpg')"></div>
+    <div class="intro__slider-image" style="background-image: url('https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/slider/4.jpg')"></div>
+    <div class="intro__slider-image" style="background-image: url('https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/slider/5.jpg')"></div>
+    <div class="intro__slider-image" style="background-image: url('https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/slider/6.jpg')"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-align--center">
+                    <div class="margin__bottom--3">
+        <img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/logo-alt.png" alt="Paper Dress Vintage">
+    </div>
+
+    <h3 class="text--white margin__bottom--1">Bar &amp; Events</h3>
+            </div>
+        </div>
+    </div>
+
+        <div class="intro__address">
+        <a href="https://www.google.co.uk/maps/place/352a+Mare+St,+Kingsland,+London+E8+1HR/@51.5473013,-0.0568322,17z/data=!3m1!4b1!4m5!3m4!1s0x48761cfb39969161:0xaeceb688a56f8afb!8m2!3d51.5473013!4d-0.0546435"
+           class="text--white"
+            target="_blank">352a Mare Street London E8 1HR</a>
+    </div>
+    </div>
+    <div class="intro__content container-fluid background--white" id="intro">
+        <div class="row row--flex">
+            <div class="col-xs-12 col-sm-12 col-md-6 no-gutter">
+                <div class="intro__section-text padding__top--5 padding__bottom--5">
+                    <h1>By Night</h1>
+                    <p>Shop by day and bar by night, Paper Dress transforms from vintage boutique to live music venue
+                        and events space within a matter of minutes with a fully stocked bar selling cocktails, local
+                        craft beers and Hackney Brewery on tap.</p>
+
+                    <p>Spread over two levels (total capacity 180) with a lovely intimate live music room upstairs,
+                        seating downstairs, a spacious backyard that's open till late and a friendly house party
+                        atmosphere running throughout.</p>
+
+                    <p>Licensed till 3am on Saturday, 2.30am on Fridays and between 11am – midnight during the week,
+                        check events tab for details.</p>
+
+                    <p></p>
+                    
+                    <div class="night__logos" style="padding: 20px 0">
+                        <img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/supported-by.png" class="intro__sponsor" />
+                        <img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/prs.png?V=2002" class="intro__sponsor" />
+                        <img src="https://paperdressvintage.co.uk/wp-content/uploads/2023/11/LOGO-BANNER_-SON-Estrella-x-Paper-Dress.png" class="intro__sponsor" />
+                        <img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/venue-of-year-2.jpg" class="intro__sponsor" alt="Independent Venue of the Year 2024 award" />
+                    </div>
+
+                    <p></p>
+
+                    <p style="font-style: italic">Past guests include: Arlo Parks, Teleman, Tom Odell, Squid, Public Service Broadcasting, Sam Fender, Luvcat, Opus Kink, Man/Woman/Chainsaw, Kit Sebastian, Flamingods, Moshi Moshi Records, Dream Wife, Home Counties, Alien Chicks, Bass Clef, Transgressive Records, DEADLETTER, Fat White Family, The Wave Pictures, Parallel Lines, London In Stereo, Prima Queen, Jim E. Brown, Juanita Stein, The New Eves, Aldous Harding, Alexis Taylor, Visions Festival, The Great Escape, WOOZE, and many more...</p>
+
+                    <div class="hidden-md hidden-lg">
+                        <img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/content.jpg" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-6 no-gutter hidden-xs hidden-sm">
+                <div class="intro__section-image" style="background-image: url(https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/content.jpg); background-position: center">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid background--black padding__bottom--10 padding__top--10" id="reviews">
+    <div class="row">
+        <div class="col-xs-12 text-align--center">
+            <h1 class="text--gold margin__bottom--3">Reviews</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-3 col-md-6">
+            <div class="review__slider" data-reviews-slider>
+                <div class="text-align--center">
+                    <p class="review text--white">
+                        "It's not just my favourite place in Hackney, it's my favourite place in London! A glorious haven
+                        of vintage clothing, cocktails, craft beers, superb live music, and ridiculously warm, friendly
+                        people"
+                        <span class="review__name">Eleanore O.</span>
+                    </p>
+                </div>
+
+                <div class="text-align--center">
+                    <p class="review text--white">
+                        "Just brilliant. A fabulous, small, friendly venue with a wide range of live entertainment. You
+                        will not get this close to the stage in many other places."
+                        <span class="review__name">Neil T.</span>
+                    </p>
+                </div>
+
+                <div class="text-align--center">
+                    <p class="review text--white">
+                        "Love this place. Truly authentic and cool bit of East London. Great music. Fairly priced booze.
+                        Been a bunch of times and love it."
+                        <span class="review__name">Bioux H.</span>
+                    </p>
+                </div>
+
+                <div class="text-align--center">
+                    <p class="review text--white">
+                        "One of the best small venues to visit and host at with great local breweries on draught and in
+                        the fridges!"
+                        <span class="review__name">Braden F.</span>
+                    </p>
+                </div>
+
+                <div class="text-align--center">
+                    <p class="review text--white">
+                        "Fabulous bands and venue - well organised with good vibes attended by the trendy set who like
+                        serious up and coming bands. Good beer .... do visit.."
+                        <span class="review__name">Norman J.</span>
+                    </p>
+                </div>
+
+                <div class="text-align--center">
+                    <p class="review text--white">
+                        "We played there and felt so much love and support. Great sound too!"
+                        <span class="review__name">Gabriel M.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="background--white padding__bottom--10 padding__top--10" id="events">
+    <div class="container-fluid events">
+        <div class="row">
+                        <div class="col-xs-12 text-align--center">
+
+                <h1 class="margin__bottom--3">
+                    What's On
+                </h1>
+
+                <div class="margin__bottom--3">
+                    <span class="slick-prev slick-arrow" aria-label="Previous" type="button" aria-disabled="false" style="
+    top: 0; color: #000;
+" data-events-previous>Previous</span>
+                    <span class="h1" data-event-title>August 2026</span>
+                    <span class="slick-next slick-arrow" aria-label="Next" type="button" aria-disabled="false" style="
+    top: 0; color: #000;
+" data-events-next>Next</span>
+                </div>
+            </div>
+            
+                    </div>
+
+        <div data-events>
+                            <div data-event-month="August 2026">
+                    <div id="monthAug2026" class="margin__bottom--10"></div>
+                    <div class="row">
+                        <div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18710" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/poster-aug-14th-pd1-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 14 Aug</p>
+                                        <h4 class="margin__bottom--1">That 70s Night ft. Vintage Voltage</h4>
+                                        <p class="text--small-body">Limited tickets available HERE THAT 70s NIGHT IS BACK... ONE LAST TIME (FOR NOW!) After two sold-out nights, That 70s&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18648" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/06/DIG-DICE-August-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 14 Aug</p>
+                                        <h4 class="margin__bottom--1">DIG! Club Night</h4>
+                                        <p class="text--small-body">FREE tickets available HERE DIG! returns to Paper Dress Vintage playing the finest rock and roll, indie, psych, soul, funk&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18837" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/08/PORTRAIT33-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 15 Aug</p>
+                                        <h4 class="margin__bottom--1">kiss gem burn + Electric Cherry Blossom + Robinson&#8217;s Village</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Flash Delirium &amp; Paper Dress Live are proud to bring you a beautiful bill of fresh&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18716" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/INSTA-PORTRAIT4-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 15 Aug</p>
+                                        <h4 class="margin__bottom--1">Cosmic Sleazecake Club Night</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Cosmic Sleazecake launch party! A late-night trip through sleazy astral disco, cosmic house, psychedelic chug &amp;&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18742" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/m-trik-promo-instagram1-lbox-550x300-FFF.png');"></div>
+
+                                        <p class="margin__bottom--1">Wed 19 Aug</p>
+                                        <h4 class="margin__bottom--1">Møtrik</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Møtrik - On EARTH, Møtrik delivers a sprawling, celestial journey through the outer limits of krautrock.From&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18713" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/fionn-boland-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 20 Aug</p>
+                                        <h4 class="margin__bottom--1">Fionn Boland and Friends</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Join Irish singer-songwriter Fionn Boland and his band as they bring a blend of acoustic folk&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18824" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/08/SON-EG_PDV_GARAGE_FLOWER_Digital_1080X1350-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 21 Aug</p>
+                                        <h4 class="margin__bottom--1">Garage Flower + special guests</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Paper Dress Live in association with SON Estrella Galicia are delighted to present a very special&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18745" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/INSTA-PORTRAIT10-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 21 Aug</p>
+                                        <h4 class="margin__bottom--1">Tears For Beers Club Night</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Expect to be grooving all night long with classic bangers, twists and turns from the late&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18851" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/08/PDV-Socials-with-Logos-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 22 Aug</p>
+                                        <h4 class="margin__bottom--1">Queer Open Decks Collective All Dayer</h4>
+                                        <p class="text--small-body">FREE ticket available HERE Queer Open Decks Collective touches down at Paper Dress Vintage for a free daytime all-dayer in&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18720" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/PORTRAIT30-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 22 Aug</p>
+                                        <h4 class="margin__bottom--1">Disco Dyke Club Night</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Disco Dyke lands at Paper Dress Vintage: a queer-led dancefloor built on joy, sweat and serious&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18735" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/The-wattles-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 27 Aug</p>
+                                        <h4 class="margin__bottom--1">The Wattles + Lusa Morena + BeeJar</h4>
+                                        <p class="text--small-body">Limited tickets available HERE From beginnings as an acoustic duo in Sydney garages, The Wattles have grown into a distinctive&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18848" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/08/Golden-Toad-Insta-Portrait16-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 28 Aug</p>
+                                        <h4 class="margin__bottom--1">Golden Toad + Floating Poets + Crisol Rust</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Flash Delirium &amp; Paper Dress Live are extremely proud to bring you a fabulous lineup of&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18565" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/05/80s-PDV-CLub-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 28 Aug</p>
+                                        <h4 class="margin__bottom--1">Paper Dress 80s Club</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Paper Dress 80s Club is back with another night of 'simply the best' hits &amp; dancefloor&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18827" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/08/Insta-Portrait15-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 29 Aug</p>
+                                        <h4 class="margin__bottom--1">New Gaze + Uranian Stone + The Louie Cameron Group</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Brace yourselves for an incredible night of soft prog rock, groovy Moldovan psych, and 60s garage&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18691" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/PORTRAIT-Decadance-Saturday-29th-August-2026_PDV-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 29 Aug</p>
+                                        <h4 class="margin__bottom--1">Decadance Club Night</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Decadance is back ! Pierre &amp; Abel return to Paper Dress Vintage for another slice of&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                    </div>
+                    </div>
+                </div>
+                            <div data-event-month="September 2026">
+                    <div id="monthSep2026" class="margin__bottom--10"></div>
+                    <div class="row">
+                        <div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18749" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/headline-show-poster-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 3 Sep</p>
+                                        <h4 class="margin__bottom--1">lina sounds: undiagnosed</h4>
+                                        <p class="text--small-body">Limited tickets available HERE lina sounds: undiagnosed — EP release show Join London Alt/indie Pop and RnB artist artist lina&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18752" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Scouts-INSTA-PORTRAIT14-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 5 Sep</p>
+                                        <h4 class="margin__bottom--1">Scouts + Blousey + We Lost Alice</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Join us for a proper sonic riot taking us through alternative indie, post-punk and dream pop&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18755" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/09/Onde-Anda-square-temp-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 5 Sep</p>
+                                        <h4 class="margin__bottom--1">Onde Anda Club Night</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Onde Anda are back at Paper Dress Vintage! Expect a hot night of dancefloor fire featuring&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18757" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Iona-Luke-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Tue 8 Sep</p>
+                                        <h4 class="margin__bottom--1">Iona Luke + Special guest</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Iona Luke is returning to Paper Dress Vintage this September to play her debut EP ‘From&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18760" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/ACBBF0F0-7A9F-4CE3-A200-8356BB72B9AE-scaled-lbox-550x300-FFF.jpeg');"></div>
+
+                                        <p class="margin__bottom--1">Wed 9 Sep</p>
+                                        <h4 class="margin__bottom--1">Emma Tea (EP Launch) ft. Special guests</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Emma Tea is a self-taught, London-based songwriter and multi-instrumentalist crafting emotionally honest dark alt-pop with hints&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18697" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Seren-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Wed 16 Sep</p>
+                                        <h4 class="margin__bottom--1">SJM presents Seren + Special guests</h4>
+                                        <p class="text--small-body">Limited tickets available HERE SJM Concerts Present Seren plus support Limited tickets available HERE</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18763" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Black-And-Blue-Minimalistic-Music-Festival-Poster-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 18 Sep</p>
+                                        <h4 class="margin__bottom--1">Disco Lizards + Ruby Doomsday + Murman</h4>
+                                        <p class="text--small-body">Limited tickets available HERE A night of garage rock n roll in East London's Paper Dress Vintage with live music&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18766" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Tsuki-Insta-Portrait14-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 18 Sep</p>
+                                        <h4 class="margin__bottom--1">Tsuki Soul Club Night</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Step into a neon-lit night of 80s soul, funk, R&amp;B, jazz fusion &amp; Japanese city pop&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18834" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/08/INSTA-PORTRAIT14-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 19 Sep</p>
+                                        <h4 class="margin__bottom--1">Flash Delirium &#038; Paper Dress Live present Minimal Schlager + Teleboutique</h4>
+                                        <p class="text--small-body">Limited tickets available HERE After a year of absence from the London stages that felt like an eternity, we're extremely&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18769" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Hot-Pants-INSTA-PORTRAIT13-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 19 Sep</p>
+                                        <h4 class="margin__bottom--1">Hot Pants Disco Club Night</h4>
+                                        <p class="text--small-body">FREE tickets available HERE 🔥 Hot Pants Disco - a disco inferno of Italo, Electronic, Turkish &amp; Disco bangers with&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18775" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/george-bone-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 24 Sep</p>
+                                        <h4 class="margin__bottom--1">George Bone (EP release show)</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Join George Bone &amp; Friends at Paper Dress Vintage on a night celebrating the release of&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18778" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/SON-EG_SH-EAST_LONDON_CARTEL_RRSS_Post-1080x1350px-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 25 Sep</p>
+                                        <h4 class="margin__bottom--1">Soundhood East London | SON Estrella Galicia</h4>
+                                        <p class="text--small-body">Limited tickets available HERE SON Estrella Galicia’s flagship event Soundhood returns for 2026 on September 25th &amp; 26th with more&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18567" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/05/80s-PDV-CLub-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 25 Sep</p>
+                                        <h4 class="margin__bottom--1">Paper Dress 80&#8217;s Club</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Paper Dress 80s Club is back with another night of 'simply the best' hits &amp; dancefloor&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                    </div>
+                    </div>
+                </div>
+                            <div data-event-month="October 2026">
+                    <div id="monthOct2026" class="margin__bottom--10"></div>
+                    <div class="row">
+                        <div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18772" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/b6ebaa95-026c-449e-a313-706816c69490-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 1 Oct</p>
+                                        <h4 class="margin__bottom--1">The Third Sound</h4>
+                                        <p class="text--small-body">Limited tickets available HERE The Third Sound - The ever-evolving The Third Sound are back with their hypnotic blend of&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18785" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Poster-0210-paper-dress-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 2 Oct</p>
+                                        <h4 class="margin__bottom--1">Between Suns (Single Launch) + Modern People + Sonic Sex</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Hackney never fails when it comes to quirkiness. And no better that Paper Dress Vintage hosting&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18781" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/016a83e1-6372-4133-a1eb-c31b2863a161-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 3 Oct</p>
+                                        <h4 class="margin__bottom--1">Paahto &#038; the Bull + Hromada Collective</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Paahto &amp; The Bull is the guitar-duo project of Patrick "Paahto" Cummins and John Francis Flynn.&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18529" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/05/Oliver-Pinder-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Wed 7 Oct</p>
+                                        <h4 class="margin__bottom--1">Oliver Pinder + Support</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Following the release of his latest single Such An Angel, championed by John Kennedy from Radio&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18788" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/lotus-bliss-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 8 Oct</p>
+                                        <h4 class="margin__bottom--1">lotusbliss + Special guests</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Hailing from Canterbury, UK, lotusbliss is the result of a literal lifetime of creating, experimenting, noise-making&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18791" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Some-Weird-Sin-The-Empty-Page-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 9 Oct</p>
+                                        <h4 class="margin__bottom--1">The Empty Page + Casual Wednesday + Eve Indigo</h4>
+                                        <p class="text--small-body">Limited tickets available HERE ☆The Empty Page☆ have always been good at naming the feeling you’re trying not to think&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18794" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Kit-Sebastian-Linternationale-Insta-Portrait10-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 10 Oct</p>
+                                        <h4 class="margin__bottom--1">Kit Sebastian DJs present Club L&#8217;internationale + Beats Kebab (DJ set)</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Get down to an evening of world dancefloor funk! Kit Sebastian DJs will take us on&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18797" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/07c9a80f-9033-49c2-9d7e-dc4ea799d39d-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 15 Oct</p>
+                                        <h4 class="margin__bottom--1">Lacuna + special guests</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Lacuna - The six friends and musicians that make up Glasgow outfit Lacuna have been putting&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18818" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/10/PORTRAIT34-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 16 Oct</p>
+                                        <h4 class="margin__bottom--1">Dog Race + BARBADOS99</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Paper Dress Live with the support of MVT's initiative Everywhere At Once is proud to bring&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18800" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/kaktus-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Wed 21 Oct</p>
+                                        <h4 class="margin__bottom--1">Kaktus Einarsson (Album Launch) + special guests</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Celebrate ‘Factoid Happiness’, the new album from Icelandic artist Kaktus Einarsson, at this special London launch&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                    </div>
+                    </div>
+                </div>
+                            <div data-event-month="November 2026">
+                    <div id="monthNov2026" class="margin__bottom--10"></div>
+                    <div class="row">
+                        <div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18803" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/bentley-robles-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Wed 4 Nov</p>
+                                        <h4 class="margin__bottom--1">Bentley Robles: The Olympus Tour</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Turning heartbreak into bangers and gay clubs into church, the yellow haired pop boy Bentley Robles&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18806" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Teiger_Paper-Dress_Poster_Social_V2_3-4-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 5 Nov</p>
+                                        <h4 class="margin__bottom--1">Teiger + Mount Forel</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Teiger + Mount Forel A show celebrating the launch of Teiger's new single "Bloodwork" Shop by&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18809" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Twin-peaks-INSTA-PORTRAIT13-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Sat 7 Nov</p>
+                                        <h4 class="margin__bottom--1">It Is Happening Again: A Twin Peaks Party</h4>
+                                        <p class="text--small-body">VERY LIMITED tickets available HERE IT IS HAPPENING AGAIN! Step once more into the strange and seductive world of Twin&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18526" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/05/Ayushi-scaled-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Wed 11 Nov</p>
+                                        <h4 class="margin__bottom--1">Aayushi + Ray Vincent-Mills + Hannah Lou Clark</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Aayushi, Ray Vincent-Mills and Special Guest Hannah Lou Clark Aayushi Aayushi is an incredible artist who&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18473" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/11/MTE-Inst-Post-London-lbox-550x300-FFF.png');"></div>
+
+                                        <p class="margin__bottom--1">Thu 26 Nov</p>
+                                        <h4 class="margin__bottom--1">Man &#038; The Echo 10 Year Celebration</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Man &amp; The Echo are celebrating 10 years of their self-titled debut album this November with&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18569" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/05/80s-PDV-CLub-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Fri 27 Nov</p>
+                                        <h4 class="margin__bottom--1">Paper Dress 80&#8217;s Club</h4>
+                                        <p class="text--small-body">FREE tickets available HERE Paper Dress 80s Club is back with another night of 'simply the best' hits &amp; dancefloor&hellip;</p>
+                                    </a>
+                                                            </div>
+                                                    </div>
+                    </div>
+                </div>
+                            <div data-event-month="December 2026">
+                    <div id="monthDec2026" class="margin__bottom--10"></div>
+                    <div class="row">
+                        <div>
+                                                        <div class="row margin__bottom--3">
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18812" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Domains-lbox-550x300-FFF.jpeg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 3 Dec</p>
+                                        <h4 class="margin__bottom--1">Domains &#8211; First Transmission</h4>
+                                        <p class="text--small-body">FREE tickets available HERE First Transmission is Domains’ debut live show at Paper Dress Vintage, Hackney. An immersive night of&hellip;</p>
+                                    </a>
+                                                                     <a href="https://paperdressvintage.co.uk/?p=18815" class="col-xs-12 col-sm-12 col-md-3 events__event">
+                                        <div class="event__poster event__poster--fixed" style="background-image: url('http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel-lbox-550x300-FFF.jpg');"></div>
+
+                                        <p class="margin__bottom--1">Thu 10 Dec</p>
+                                        <h4 class="margin__bottom--1">Sam Scherdel</h4>
+                                        <p class="text--small-body">Limited tickets available HERE Live Nation Presents Sam Scherdel Plus Special Guests Limited tickets available HERE</p>
+                                    </a>
+                                                            </div>
+                                                    </div>
+                    </div>
+                </div>
+                    </div>
+
+            </div>
+</div>
+
+    <div class="container-fluid background--black padding__bottom--10 padding__top--10" id="gallery">
+    <div class="row">
+        <div class="col-xs-12 text-align--center">
+            <h1 class="text--gold margin__bottom--3">Gallery</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-3 col-md-6">
+            <div data-slider>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/1.jpg" alt=""></div>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/2.jpg" alt=""></div>
+                                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/4.jpg" alt=""></div>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/5.jpg" alt=""></div>
+                                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/12.jpg" alt=""></div>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/13.jpg" alt=""></div>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/14.jpg" alt=""></div>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/15.jpg" alt=""></div>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-night/gallery/16.jpg" alt=""></div>
+                                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-day/gallery/20.jpg" alt=""></div>
+                <div><img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/by-day/gallery/22.jpg" alt=""></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container-fluid background--white map contact" id="contact">
+    <div class="row row--flex">
+        <div class="col-xs-12 col-sm-12 col-md-6 no-gutter" data-map>
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 text-align--center no-gutter">
+            <div class="padding__top--5" style="width: 100%">
+                <div class="padding__top--3 padding__bottom--3">
+                    <p class="header--dashed margin__bottom--3">phone</p>
+                    <div class="margin__bottom--3">
+                        <a href="tel:+442085100520" class="contact__link" target="_blank">0208 510 0520</a>
+                    </div>
+
+                    <p class="header--dashed margin__bottom--3">email</p>
+                    <div class="margin__bottom--3">
+                        <a href="/cdn-cgi/l/email-protection#c0a8a5acacaf80b0a1b0a5b2a4b2a5b3b3b6a9aeb4a1a7a5eea3afeeb5ab" class="contact__link" target="_blank"><span class="__cf_email__" data-cfemail="1b737e7777745b6b7a6b7e697f697e68686d72756f7a7c7e357874356e70">[email&#160;protected]</span></a>
+                    </div>
+                </div>
+
+                <div class="background--grey padding__top--5 padding__bottom--5">
+                    <p class="header--dashed margin__bottom--3">contact us</p>
+
+                    <form class="contact__form" method="post" action="https://paperdressvintage.co.uk/wp-admin/admin-ajax.php">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <input type="text" name="name" id="name" placeholder="Your name" required />
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <input type="email" name="email" id="email" placeholder="Your email address" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <textarea name="msg" placeholder="Your message" rows="5" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 text-align--left margin__top--3">
+                                <input type="checkbox" value="1" name="newsletter" id="newsletter" />
+                                <label for="newsletter" class="text--small-body">Sign up for our newsletter!</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 margin__top--1">
+                                <input type="submit" class="btn--box" value="Send" />
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row contact__form-message">
+                        <div class="col-xs-12">
+                            <h2>Thanks, your message has been sent</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container-fluid background--white padding__bottom--5 padding__top--5">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3 text-align--center">
+            <ul class="connect__icons">
+                <li><a href="https://www.facebook.com/paperdressvintage/?ref=br_rs" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/paperdressvintage/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+    <footer>
+    <div class="container-fluid padding__top--3 padding__bottom--3">
+        <div class="row visible">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <img class="margin__bottom--3"
+                     src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/logo-alt.png"
+                     alt="Paper Dress Vintage" />
+                <p class="text--white footer__address">
+                    352a Mare Street<br>
+                    London E8 1HR<br>
+                    United Kingdom<br>
+
+                    Tel: 0208 510 0520.</p>
+
+                <a href="https://paperdressvintage.co.uk/independent-venue-of-the-year-2024" title="We won Independent Venue of the Year 2024!" style="display: block;margin: 15px auto 0 auto;">
+                    <img src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/images/venue-of-year-2.jpg" style="width: 150px;" alt="Independent Venue of the Year 2024 award" />
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <h5 class="font--oswald text--gold">Boutique opening hours</h5>
+                
+                <ul class="footer__list text--white">
+                    Mon: Closed<br>
+                    Tue: 12:00-19:00<br>
+                    Wed: 11:00–19:00<br>
+                    Thu: 11:00–19:00<br>
+                    Fri: 11:00–19:00<br>
+                    Sat: 11:00–19:00<br>
+                    Sun: 11:00–18:00
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <h5 class="font--oswald text--gold">Bar opening hours*</h5>
+                <a href="/by-night#events" style="color:#B33A3A; font-size: 10px;">(see what’s on listings for weekday events)</a>
+                <ul class="footer__list text--white">
+                    Mon: Closed<br>
+                    Tue: 12:00-23:00<br>
+                    Wed: 12:00-23:30<br>
+                    Thu: 12:00–23:30<br>
+                    Fri: 12:00–02:30<br>
+                    Sat: 12:00–03:00
+                </ul>            </div>
+            <div class="col-md-3 col-sm-6">
+                <h5 class="font--oswald text--gold margin__bottom--2">Stay in touch</h5>
+
+                <form class="newsletter" id="footer_ema_signup_form" target="_blank" action="https://gem.godaddy.com/signups/subscribe/a8a0429f24dd48839db80dcf4232a12a" accept-charset="UTF-8" method="post">
+                    <p class="info-newsletter text--white text--small-body">Sign up for our newsletter to stay up to date with when beautiful new stock arrives and find out about our latest events.</p>
+
+                    <input name="utf8" type="hidden" value="✓"/>
+                    <div class="mimi_field required">
+                        <input id="footer_signup_email" name="signup[email]" type="text" data-required-field="This field is required" placeholder="you@example.com"/>
+                    </div>
+                    <div style="background: white; font-size:1px; height: 0; overflow: hidden">
+                        <input type="text" name="df1642193094c1043344830dc604a1d7" style="font-size: 1px; width: 1px !important; height:1px !important; border:0 !important; line-height: 1px !important; padding: 0 0; min-height:1px !important;"/>
+                        <input class="checkbox" type="checkbox" name="beacon"/>
+                    </div>
+                    <div class="mimi_field">
+                        <input type="submit" class="submit newsletter__submit margin__top--1 margin__bottom--2" value="Subscribe"
+                               id="footer_webform_submit_button"
+                               data-default-text="Subscribe"
+                               data-submitting-text="Sending..."
+                               data-invalid-text="↑ You forgot some required fields"
+                               data-choose-list="↑ Choose a list"
+                               data-thanks="Thank you!"/>
+                    </div>
+
+                    <p class="text--small-body text--white">By entering your email address, we'll send you regular updates via email that you
+                        can unsubscribe from at any time.</p>
+
+                </form>
+                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
+                  (function(global) {
+                    function serialize(form){if(!form||form.nodeName!=="FORM"){return }var i,j,q=[];for(i=form.elements.length-1;i>=0;i=i-1){if(form.elements[i].name===""){continue}switch(form.elements[i].nodeName){case"INPUT":switch(form.elements[i].type){case"text":case"hidden":case"password":case"button":case"reset":case"submit":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break;case"checkbox":case"radio":if(form.elements[i].checked){q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value))}break;case"file":break}break;case"TEXTAREA":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break;case"SELECT":switch(form.elements[i].type){case"select-one":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break;case"select-multiple":for(j=form.elements[i].options.length-1;j>=0;j=j-1){if(form.elements[i].options[j].selected){q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].options[j].value))}}break}break;case"BUTTON":switch(form.elements[i].type){case"reset":case"submit":case"button":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break}break}}return q.join("&")};
+
+
+                    function extend(destination, source) {
+                      for (var prop in source) {
+                        destination[prop] = source[prop];
+                      }
+                    }
+
+                    if (!Mimi) var Mimi = {};
+                    if (!Mimi.Signups) Mimi.Signups = {};
+
+                    Mimi.Signups.EmbedValidation = function() {
+                      this.initialize();
+
+                      var _this = this;
+                      if (document.addEventListener) {
+                        this.form.addEventListener('submit', function(e){
+                          _this.onFormSubmit(e);
+                        });
+                      } else {
+                        this.form.attachEvent('onsubmit', function(e){
+                          _this.onFormSubmit(e);
+                        });
+                      }
+                    };
+
+                    extend(Mimi.Signups.EmbedValidation.prototype, {
+                      initialize: function() {
+                        this.form         = document.getElementById('footer_ema_signup_form');
+                        this.submit       = document.getElementById('footer_webform_submit_button');
+                        this.callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+                        this.validEmail   = /.+@.+\..+/
+                      },
+
+                      onFormSubmit: function(e) {
+                        e.preventDefault();
+
+                        this.validate();
+                        if (this.isValid) {
+                          this.submitForm();
+                        } else {
+                          this.revalidateOnChange();
+                        }
+                      },
+
+                      validate: function() {
+                        this.isValid = true;
+                        this.emailValidation();
+                        this.fieldAndListValidation();
+                        this.updateFormAfterValidation();
+                      },
+
+                      emailValidation: function() {
+                        var email = document.getElementById('footer_signup_email');
+
+                        if (this.validEmail.test(email.value)) {
+                          this.removeTextFieldError(email);
+                        } else {
+                          this.textFieldError(email);
+                          this.isValid = false;
+                        }
+                      },
+
+                      fieldAndListValidation: function() {
+                        var fields = this.form.querySelectorAll('.mimi_field.required');
+
+                        for (var i = 0; i < fields.length; ++i) {
+                          var field = fields[i],
+                            type  = this.fieldType(field);
+                          if (type === 'checkboxes' || type === 'radio_buttons' || type === 'age_check') {
+                            this.checkboxAndRadioValidation(field);
+                          } else {
+                            this.textAndDropdownValidation(field, type);
+                          }
+                        }
+                      },
+
+                      fieldType: function(field) {
+                        var type = field.querySelectorAll('.field_type');
+
+                        if (type.length) {
+                          return type[0].getAttribute('data-field-type');
+                        } else if (field.className.indexOf('checkgroup') >= 0) {
+                          return 'checkboxes';
+                        } else {
+                          return 'text_field';
+                        }
+                      },
+
+                      checkboxAndRadioValidation: function(field) {
+                        var inputs   = field.getElementsByTagName('input'),
+                          selected = false;
+
+                        for (var i = 0; i < inputs.length; ++i) {
+                          var input = inputs[i];
+                          if((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
+                            selected = true;
+                          }
+                        }
+
+                        if (selected) {
+                          field.className = field.className.replace(/ invalid/g, '');
+                        } else {
+                          if (field.className.indexOf('invalid') === -1) {
+                            field.className += ' invalid';
+                          }
+
+                          this.isValid = false;
+                        }
+                      },
+
+                      textAndDropdownValidation: function(field, type) {
+                        var inputs = field.getElementsByTagName('input');
+
+                        for (var i = 0; i < inputs.length; ++i) {
+                          var input = inputs[i];
+                          if (input.name.indexOf('signup') >= 0) {
+                            if (type === 'text_field') {
+                              this.textValidation(input);
+                            } else {
+                              this.dropdownValidation(field, input);
+                            }
+                          }
+                        }
+                        this.htmlEmbedDropdownValidation(field);
+                      },
+
+                      textValidation: function(input) {
+                        if (input.id === 'signup_email') return;
+
+                        if (input.value) {
+                          this.removeTextFieldError(input);
+                        } else {
+                          this.textFieldError(input);
+                          this.isValid = false;
+                        }
+                      },
+
+                      dropdownValidation: function(field, input) {
+                        if (input.value) {
+                          field.className = field.className.replace(/ invalid/g, '');
+                        } else {
+                          if (field.className.indexOf('invalid') === -1) field.className += ' invalid';
+                          this.onSelectCallback(input);
+                          this.isValid = false;
+                        }
+                      },
+
+                      htmlEmbedDropdownValidation: function(field) {
+                        var dropdowns = field.querySelectorAll('.mimi_html_dropdown');
+                        var _this = this;
+
+                        for (var i = 0; i < dropdowns.length; ++i) {
+                          var dropdown = dropdowns[i];
+
+                          if (dropdown.value) {
+                            field.className = field.className.replace(/ invalid/g, '');
+                          } else {
+                            if (field.className.indexOf('invalid') === -1) field.className += ' invalid';
+                            this.isValid = false;
+                            dropdown.onchange = (function(){ _this.validate(); });
+                          }
+                        }
+                      },
+
+                      textFieldError: function(input) {
+                        input.className   = 'required invalid';
+                        input.placeholder = input.getAttribute('data-required-field');
+                      },
+
+                      removeTextFieldError: function(input) {
+                        input.className   = 'required';
+                        input.placeholder = '';
+                      },
+
+                      onSelectCallback: function(input) {
+                        if (typeof Widget === 'undefined' || !Widget.BasicDropdown) return;
+
+                        var dropdownEl = input.parentNode,
+                          instances  = Widget.BasicDropdown.instances,
+                          _this = this;
+
+                        for (var i = 0; i < instances.length; ++i) {
+                          var instance = instances[i];
+                          if (instance.wrapperEl === dropdownEl) {
+                            instance.onSelect = function(){ _this.validate() };
+                          }
+                        }
+                      },
+
+                      updateFormAfterValidation: function() {
+                        this.form.className   = this.setFormClassName();
+                        this.submit.value     = this.submitButtonText();
+                        this.submit.disabled  = !this.isValid;
+                        this.submit.className = this.isValid ? 'submit' : 'disabled';
+                      },
+
+                      setFormClassName: function() {
+                        var name = this.form.className;
+
+                        if (this.isValid) {
+                          return name.replace(/\s?mimi_invalid/, '');
+                        } else {
+                          if (name.indexOf('mimi_invalid') === -1) {
+                            return name += ' mimi_invalid';
+                          } else {
+                            return name;
+                          }
+                        }
+                      },
+
+                      submitButtonText: function() {
+                        var invalidFields = document.querySelectorAll('.invalid'),
+                          text;
+
+                        if (this.isValid || !invalidFields) {
+                          text = this.submit.getAttribute('data-default-text');
+                        } else {
+                          if (invalidFields.length || invalidFields[0].className.indexOf('checkgroup') === -1) {
+                            text = this.submit.getAttribute('data-invalid-text');
+                          } else {
+                            text = this.submit.getAttribute('data-choose-list');
+                          }
+                        }
+                        return text;
+                      },
+
+                      submitForm: function() {
+                        this.formSubmitting();
+
+                        var _this = this;
+                        window[this.callbackName] = function(response) {
+                          delete window[this.callbackName];
+                          document.body.removeChild(script);
+                          _this.onSubmitCallback(response);
+                        };
+
+                        var script = document.createElement('script');
+                        script.src = this.formUrl('json');
+                        document.body.appendChild(script);
+                      },
+
+                      formUrl: function(format) {
+                        var action  = this.form.action;
+                        if (format === 'json') action += '.json';
+                        return action + '?callback=' + this.callbackName + '&' + serialize(this.form);
+                      },
+
+                      formSubmitting: function() {
+                        this.form.className  += ' mimi_submitting';
+                        this.submit.value     = this.submit.getAttribute('data-submitting-text');
+                        this.submit.disabled  = true;
+                        this.submit.className = 'disabled';
+                      },
+
+                      onSubmitCallback: function(response) {
+                        if (response.success) {
+                          this.onSubmitSuccess(response.result);
+                        } else {
+                          top.location.href = this.formUrl('html');
+                        }
+                      },
+
+                      onSubmitSuccess: function(result) {
+                        if (result.has_redirect) {
+                          top.location.href = result.redirect;
+                        } else if(result.single_opt_in || !result.confirmation_html) {
+                          this.disableForm();
+                          this.updateSubmitButtonText(this.submit.getAttribute('data-thanks'));
+                        } else {
+                          this.showConfirmationText(result.confirmation_html);
+                        }
+                      },
+
+                      showConfirmationText: function(html) {
+                        var fields = this.form.querySelectorAll('.mimi_field');
+
+                        for (var i = 0; i < fields.length; ++i) {
+                          fields[i].style['display'] = 'none';
+                        }
+
+                        (this.form.querySelectorAll('fieldset')[0] || this.form).innerHTML = html;
+                      },
+
+                      disableForm: function() {
+                        var elements = this.form.elements;
+                        for (var i = 0; i < elements.length; ++i) {
+                          elements[i].disabled = true;
+                        }
+                      },
+
+                      updateSubmitButtonText: function(text) {
+                        this.submit.value = text;
+                      },
+
+                      revalidateOnChange: function() {
+                        var fields = this.form.querySelectorAll(".mimi_field.required"),
+                          _this = this;
+
+                        var onTextFieldChange = function() {
+                          if (this.getAttribute('name') === 'signup[email]') {
+                            if (_this.validEmail.test(this.value)) _this.validate();
+                          } else {
+                            if (this.value.length === 1) _this.validate();
+                          }
+                        }
+
+                        for (var i = 0; i < fields.length; ++i) {
+                          var inputs = fields[i].getElementsByTagName('input');
+                          for (var j = 0; j < inputs.length; ++j) {
+                            if (this.fieldType(fields[i]) === 'text_field') {
+                              inputs[j].onkeyup = onTextFieldChange;
+                              inputs[j].onchange = onTextFieldChange;
+                            } else {
+                              inputs[j].onchange = function(){ _this.validate() };
+                            }
+                          }
+                        }
+                      }
+                    });
+
+                    if (document.addEventListener) {
+                      document.addEventListener("DOMContentLoaded", function() {
+                        new Mimi.Signups.EmbedValidation();
+                      });
+                    }
+                    else {
+                      window.attachEvent('onload', function() {
+                        new Mimi.Signups.EmbedValidation();
+                      });
+                    }
+                  })(this);
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="footer__copyright background--white text-align--center padding__top--3 padding__bottom--3">
+        <p class="text--small-body margin__bottom--0">
+            Copyright 2026 Paper Dress Vintage. All rights reserved.
+            <a class="text--small-body" href="/privacy-policy" title="View the Privacy Policy">Privacy Policy</a>.
+            Photography by Zigpix and Alessandro Ruggieri.
+        </p>
+    </div>
+</footer>
+
+    <script type='text/javascript' src='https://paperdressvintage.co.uk/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://paperdressvintage.co.uk/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://paperdressvintage.co.uk/wp-content/plugins/wordpress-plugin-ajax-calendar-with-future-posts/calendar-future.js?ver=6.0.14' id='ajax_calendar_future-js-js'></script>
+<!-- Instagram Feed JS -->
+<script type="text/javascript">
+var sbiajaxurl = "https://paperdressvintage.co.uk/wp-admin/admin-ajax.php";
+</script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+
+
+            <script type="text/javascript" src="https://paperdressvintage.co.uk/wp-content/themes/paper-dress-2020/assets/js/app.min.js?v=1747661970"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    </body>
+</html>

@@ -48,6 +48,8 @@ import kotlin.math.ceil
 // - Roundhouse's ".event-about" section holds the real description alongside a "Related events"
 //   carousel *nested inside it*, not a sibling - excluding that one sub-block by class is what
 //   keeps other shows' titles out
+// - Paper Dress Vintage's ".event__content" holds just the description, cleanly separate from the
+//   sitewide nav and footer that whole-page text would otherwise pick up
 private val squarespaceEventItem: (Document) -> String? = { page -> page.select("article.eventitem").let { if (it.isEmpty()) null else it.text() } }
 private val dhpSingleArticle: (Document) -> String? = { page -> page.select(".single-article--contains-list").let { if (it.isEmpty()) null else it.text() } }
 
@@ -85,6 +87,7 @@ private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     },
     "Union Chapel" to { page -> page.select("article.pt-4, .sidebar").let { if (it.isEmpty()) null else it.text() } },
     "Scala" to { page -> page.select(".event-post").let { if (it.isEmpty()) null else it.text() } },
+    "Paper Dress Vintage" to { page -> page.select(".event__content").let { if (it.isEmpty()) null else it.text() } },
 )
 
 private fun eventPageContentText(pageHtml: String, url: String, venue: Venue): String {

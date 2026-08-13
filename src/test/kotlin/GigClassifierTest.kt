@@ -397,6 +397,23 @@ class GigClassifierTest {
     }
 
     @Test
+    fun `scopes Paper Dress Vintage classification to the event content, excluding nav and footer`() {
+        val html = """
+            <nav><a>Home</a><a>Book a table</a></nav>
+            <div class="event__content"><p>Doom metal night!</p></div>
+            <footer><a>Contact</a><a>Opening hours</a></footer>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = paperDressVintage), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("Opening hours")).isEqualTo(false)
+    }
+
+    @Test
     fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
 
