@@ -45,17 +45,4 @@ class GigIdTest {
 
         expectThat(error.message!!).contains("has no url")
     }
-
-    @Test
-    fun `a gig built through of still carries its url`() {
-        val gig = Gig.of(
-            title = "FLAMEBEARER",
-            venue = "The Grace",
-            date = java.time.LocalDate.of(2026, 8, 14),
-            url = "https://www.thegrace.london/gigs/flamebearer/",
-            imageUrl = "",
-        )
-
-        expectThat(gig.id).isEqualTo(GigId("The Grace", "https://www.thegrace.london/gigs/flamebearer/"))
-    }
 }

@@ -70,16 +70,15 @@ class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
         check(events.isNotEmpty()) { "No events returned by $firstPageUrl" }
 
         return events.map { event ->
-            Gig.of(
-                title = event.name,
-                venue = venue,
-                // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
-                date = OffsetDateTime.parse(event.date).toLocalDate(),
+            Gig(
                 // no per-gig page on 229's own site, so the same identity DiceVenueGigsSource uses
                 // for dice.fm venue pages applies here too - a stable url built from the event's
                 // own perm_name, not the short ticketing link (link.dice.fm/...), which is opaque
                 // and reused across unrelated calls to the API
-                url = "https://dice.fm/event/${event.permName}",
+                id = GigId(venue, "https://dice.fm/event/${event.permName}"),
+                title = event.name,
+                // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
+                date = OffsetDateTime.parse(event.date).toLocalDate(),
                 imageUrl = event.images.firstOrNull() ?: "",
             )
         }
