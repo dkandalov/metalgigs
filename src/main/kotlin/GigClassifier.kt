@@ -1,3 +1,7 @@
+import com.ubertob.kondor.json.jsonnode.JsonNode
+import com.ubertob.kondor.json.jsonnode.JsonNodeObject
+import com.ubertob.kondor.json.jsonnode.JsonNodeString
+import com.ubertob.kondor.json.jsonnode.parseJsonNode
 import dev.forkhandles.result4k.onFailure
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.llm.chat.ChatRequest
@@ -33,13 +37,34 @@ import kotlin.math.ceil
 //   page's nav and footer (opening times, address, social links) end up in every description
 // - Our Black Heart and The Dome are both built on Squarespace's "Events" template - same
 //   article.eventitem container on both, same fix
+// - dice.fm event pages (Blondies Brewery Taproom, Blondies Bar, Helgi's, 229) render almost
+//   nothing server-side to select from - the actual description lives in a __NEXT_DATA__ JSON
+//   blob, itself containing a JSON-encoded string (props.pageProps.initialState) that has to be
+//   parsed a second time to reach event.event.about.description
 private val squarespaceEventItem: (Document) -> String? = { page -> page.select("article.eventitem").let { if (it.isEmpty()) null else it.text() } }
+
+private fun JsonNode.field(key: String): JsonNode? = (this as? JsonNodeObject)?._fieldMap?.get(key)
+private fun JsonNode.stringOrNull(): String? = (this as? JsonNodeString)?.text
+
+private val diceEventDescription: (Document) -> String? = { page ->
+    val nextDataJson = page.select("script#__NEXT_DATA__").firstOrNull()?.data()
+    val initialStateJson = nextDataJson
+        ?.let { parseJsonNode(it).orThrow() }
+        ?.field("props")?.field("pageProps")?.field("initialState")?.stringOrNull()
+    initialStateJson
+        ?.let { parseJsonNode(it).orThrow() }
+        ?.field("event")?.field("event")?.field("about")?.field("description")?.stringOrNull()
+}
 
 private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     "The Underworld" to { page -> page.select("article.event").let { if (it.isEmpty()) null else it.text() } },
     "New Cross Inn" to { page -> page.select("[x-ref=desc]").firstOrNull()?.attr("x-html") },
     "Alexandra Palace" to { page -> page.select(".ap_text_block, #key-information").let { if (it.isEmpty()) null else it.text() } },
     "Cart & Horses" to { page -> page.select(".page_header, .page_content_inner").let { if (it.isEmpty()) null else it.text() } },
+    "Blondies Brewery Taproom" to diceEventDescription,
+    "Blondies Bar" to diceEventDescription,
+    "Helgi's" to diceEventDescription,
+    "229" to diceEventDescription,
     "Our Black Heart" to squarespaceEventItem,
     "The Dome" to squarespaceEventItem,
 )

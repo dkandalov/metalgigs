@@ -246,6 +246,27 @@ class GigClassifierTest {
         }
     }
 
+    // dice.fm venues (Blondies Brewery Taproom, Blondies Bar, Helgi's, 229) render almost nothing
+    // server-side to select from - the real description is nested two JSON parses deep inside
+    // __NEXT_DATA__ (itself containing a JSON-encoded string), alongside plenty of sitewide data
+    // (i18n strings, nav) this fixture only trims down, not invents
+    @Test
+    fun `scopes dice-fm classification to the event's own about-description, ignoring the surrounding JSON`() {
+        val html = """
+            <script id="__NEXT_DATA__" type="application/json">
+                {"props":{"pageProps":{"otherStuff":"ignore me","initialState":"{\"event\":{\"event\":{\"about\":{\"description\":\"Doom metal night!\"}}}}"}}}
+            </script>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = blondiesBreweryTaproom), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("ignore me")).isEqualTo(false)
+    }
+
     @Test
     fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
