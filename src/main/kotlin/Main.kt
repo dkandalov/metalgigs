@@ -129,8 +129,8 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     check(unknownKeys.isEmpty()) { "Unknown venue key(s): $unknownKeys. Known venue keys: ${sourcesByKey.keys}" }
     val sources = if (venueKeys.isEmpty()) sourcesByKey.values.toList() else venueKeys.map { sourcesByKey.getValue(it) }
 
-    val existingEntries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
-    val lastScrapedAt = lastScrapedAt(existingEntries)
+    val log = GigsLog(eventsFile)
+    val lastScrapedAt = log.lastScrapedAt()
     val now = Instant.now()
 
     val (skipped, toScrape) = sources.partition { source ->
@@ -143,7 +143,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
 
     // a gig is recorded only when it's new or its listed details have changed, so an unchanged
     // listing costs nothing and the log stays a record of changes rather than of scrapes
-    val toObserve = newOrChangedGigs(existingEntries, gigs)
+    val toObserve = log.newOrChangedGigs(gigs)
 
     val observed = toObserve.map { gig ->
         // one dead event page shouldn't cost us the whole scrape - the gig is still worth recording,
@@ -151,7 +151,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
         val description = runCatching { fetchGigPageText(client, gig) }.getOrDefault("")
         GigObserved(gig.copy(description = description), now)
     }
-    appendLogEntries(eventsFile, observed)
+    log.append(observed)
 
     val withoutText = observed.count { it.gig.description.isBlank() }
     if (withoutText > 0) println("Could not capture event page text for $withoutText gig(s); they'll be fetched at classification time instead")
@@ -163,8 +163,8 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
 
 fun classifyUnclassifiedGigs(limit: Int? = null) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val existingEntries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
-    val currentGigs = projectCurrentGigs(existingEntries)
+    val log = GigsLog(eventsFile)
+    val currentGigs = log.currentGigs()
     val recordedAt = Instant.now()
 
     val apiKey = ApiKey.of(
@@ -173,15 +173,15 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
-    val run = classifyGigs(currentGigs, alreadyClassified(existingEntries), limit) { gig ->
+    val run = classifyGigs(currentGigs, log.alreadyClassified(), limit) { gig ->
         classifyGigByLLM(client, chat, gig, recordedAt)
     }
     val classifications = run.classified
-    appendLogEntries(eventsFile, classifications)
+    log.append(classifications)
 
     val affectedKeys = classifications.map { it.id }.toSet()
-    val statusByGig = classificationStatusByGig(existingEntries + classifications)
-    val newlyMetalGigs = projectMetalGigs(existingEntries + classifications).filter { it.id in affectedKeys }
+    val statusByGig = log.classificationStatus()
+    val newlyMetalGigs = log.metalGigs().filter { it.id in affectedKeys }
 
     printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig, run.failed)
 }
@@ -218,9 +218,9 @@ private fun printBreakdown(label: String, gigs: List<Gig>, statusByGig: Map<GigI
 // cost. Before this the only way to see the backlog was to run render and read the exception it
 // throws, which reports upcoming gigs only and refuses to do its actual job while any remain
 fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
-    val entries = readLogEntries(eventsFile)
-    val statusByGig = classificationStatusByGig(entries)
-    val currentGigs = projectCurrentGigs(entries)
+    val log = GigsLog(eventsFile)
+    val statusByGig = log.classificationStatus()
+    val currentGigs = log.currentGigs()
     val upcoming = excludeGigsInThePast(currentGigs, today)
 
     printBreakdown("Overall", currentGigs, statusByGig)
@@ -244,9 +244,9 @@ fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
 
 fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val existingEntries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
+    val log = GigsLog(eventsFile)
 
-    if (!force && alreadyIngested(existingEntries, sourceUrl)) {
+    if (!force && log.alreadyIngested(sourceUrl)) {
         println("Skipping - $sourceUrl already ingested; pass force to re-ingest anyway")
         return
     }
@@ -260,7 +260,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, Venue(venue))
     gigs.forEach { println(it) }
 
-    val newOrChanged = newOrChangedGigs(existingEntries, gigs)
+    val newOrChanged = log.newOrChangedGigs(gigs)
     val recordedAt = Instant.now()
     val observed = newOrChanged.map { GigObserved(it, recordedAt) }
     // every gig on the poster is asserted Metal, not just the ones whose details changed - the
@@ -269,7 +269,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     val classified = gigs.map { gig ->
         GigClassified(id = gig.id, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
     }
-    appendLogEntries(eventsFile, observed + classified)
+    log.append(observed + classified)
     // these gigs never go through scrape, so this is their only chance to be cached - and the
     // poster urls here are the most likely to expire
     cacheImagesReportingFailures(client, gigs, "poster image(s)")
@@ -278,19 +278,19 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
 }
 
 fun overrideGigGenre(url: String, genre: Genre) {
-    val entries = readLogEntries(eventsFile)
-    val gig = projectCurrentGigs(entries).find { it.id.url == url }
+    val log = GigsLog(eventsFile)
+    val gig = log.currentGigs().find { it.id.url == url }
         ?: error("No current gig found with url $url")
 
-    appendLogEntries(eventsFile, listOf(
+    log.append(listOf(
         GigClassified(id = gig.id, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
     ))
 }
 
 fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
-    val entries = readLogEntries(eventsFile)
-    val statusByGig = classificationStatusByGig(entries)
-    val upcomingGigs = excludeGigsInThePast(projectCurrentGigs(entries), today)
+    val log = GigsLog(eventsFile)
+    val statusByGig = log.classificationStatus()
+    val upcomingGigs = excludeGigsInThePast(log.currentGigs(), today)
     val unresolved = upcomingGigs.filter { gig -> statusByGig[gig.id] !is ClassificationStatus.Classified }
         .sortedBy { it.date }
 
@@ -304,7 +304,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
-    val gigs = excludeGigsInThePast(projectMetalGigs(entries), today)
+    val gigs = excludeGigsInThePast(log.metalGigs(), today)
     publishGigImages(gigs)
 
     val renderer = HandlebarsTemplates().CachingClasspath()
@@ -313,7 +313,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     // logged only once both files are written, so an entry always means a render that completed
     val renderedAt = Instant.now()
     val archived = archiveRender(html, renderedDir, indexFile, renderedAt)
-    appendLogEntries(eventsFile, listOf(GigsRendered(archived.name, gigs.size, today, renderedAt)))
+    log.append(listOf(GigsRendered(archived.name, gigs.size, today, renderedAt)))
 
     println("Rendered ${gigs.size} gig(s) as of $today to $indexFile, archived as $archived")
 }
@@ -351,8 +351,8 @@ private fun publishGigImages(renderedGigs: List<Gig>) {
 // carry through to render, whose force means something else entirely - publishing a page despite
 // gigs nobody has classified - which is never something a routine update should decide by itself.
 fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = false) {
-    val entries = if (eventsFile.exists()) readLogEntries(eventsFile) else emptyList()
-    if (!force && alreadyRenderedFor(entries, today)) {
+    val log = GigsLog(eventsFile)
+    if (!force && log.alreadyRenderedFor(today)) {
         println("Skipping - already updated for $today; pass force to update anyway")
         return
     }

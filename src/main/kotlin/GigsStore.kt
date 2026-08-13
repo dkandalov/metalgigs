@@ -106,6 +106,27 @@ fun appendLogEntries(file: File, entries: List<LogEntry>) {
 fun readLogEntries(file: File): List<LogEntry> =
     fromNdJsonToList(JLogEntry)(file.readLines().asSequence()).orThrow()
 
+// wraps events.ndjson so callers don't thread a List<LogEntry> through several functions by hand -
+// entries are loaded once and appending updates the same in-memory copy, so e.g. a status computed
+// right after an append reflects it without the caller re-reading the file or concatenating lists
+class GigsLog(private val file: File) {
+    private var entries: List<LogEntry> = if (file.exists()) readLogEntries(file) else emptyList()
+
+    fun append(newEntries: List<LogEntry>) {
+        appendLogEntries(file, newEntries)
+        entries = entries + newEntries
+    }
+
+    fun currentGigs(): List<Gig> = projectCurrentGigs(entries)
+    fun metalGigs(): List<Gig> = projectMetalGigs(entries)
+    fun classificationStatus(): Map<GigId, ClassificationStatus> = classificationStatusByGig(entries)
+    fun alreadyClassified(): Set<GigId> = alreadyClassified(entries)
+    fun alreadyIngested(sourceUrl: String): Boolean = alreadyIngested(entries, sourceUrl)
+    fun alreadyRenderedFor(date: LocalDate): Boolean = alreadyRenderedFor(entries, date)
+    fun lastScrapedAt(): Map<Venue, Instant> = lastScrapedAt(entries)
+    fun newOrChangedGigs(scrapedGigs: List<Gig>): List<Gig> = newOrChangedGigs(entries, scrapedGigs)
+}
+
 fun projectCurrentGigs(entries: List<LogEntry>): List<Gig> =
     entries.filterIsInstance<GigObserved>()
         .groupBy { it.id }
