@@ -31,11 +31,17 @@ import kotlin.math.ceil
 //   information" accordion (often real content - an artist bio, say)
 // - Cart & Horses (Useyourlocal pub-website platform) has no scoping at all today, so the whole
 //   page's nav and footer (opening times, address, social links) end up in every description
+// - Our Black Heart and The Dome are both built on Squarespace's "Events" template - same
+//   article.eventitem container on both, same fix
+private val squarespaceEventItem: (Document) -> String? = { page -> page.select("article.eventitem").let { if (it.isEmpty()) null else it.text() } }
+
 private val eventPageContentByVenue: Map<String, (Document) -> String?> = mapOf(
     "The Underworld" to { page -> page.select("article.event").let { if (it.isEmpty()) null else it.text() } },
     "New Cross Inn" to { page -> page.select("[x-ref=desc]").firstOrNull()?.attr("x-html") },
     "Alexandra Palace" to { page -> page.select(".ap_text_block, #key-information").let { if (it.isEmpty()) null else it.text() } },
     "Cart & Horses" to { page -> page.select(".page_header, .page_content_inner").let { if (it.isEmpty()) null else it.text() } },
+    "Our Black Heart" to squarespaceEventItem,
+    "The Dome" to squarespaceEventItem,
 )
 
 private fun eventPageContentText(pageHtml: String, url: String, venue: Venue): String {

@@ -219,6 +219,33 @@ class GigClassifierTest {
         expectThat(promptText.contains("Opening times")).isEqualTo(false)
     }
 
+    // Our Black Heart and The Dome share this same Squarespace "Events" template, so one fixture
+    // (with the venue swapped in) covers both
+    @Test
+    fun `scopes Squarespace-venue classification to the event item, ignoring sitewide nav and footer`() {
+        val html = """
+            <nav><a>Home</a><a>About</a></nav>
+            <article class="eventitem">
+                <h1 class="eventitem-title">Doom Night</h1>
+                <div class="eventitem-column-content"><p>Doom metal night!</p></div>
+            </article>
+            <footer><a>Instagram</a><a>Privacy Policy</a></footer>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = ourBlackHeart), recordedAt)
+        classifyGigByLLM(fakeClient, chat, gig(venue = theDome), recordedAt)
+
+        requests.forEach { request ->
+            val promptText = request.promptText()
+            expectThat(promptText.contains("Doom Night")).isTrue()
+            expectThat(promptText.contains("Doom metal night!")).isTrue()
+            expectThat(promptText.contains("About")).isEqualTo(false)
+            expectThat(promptText.contains("Instagram")).isEqualTo(false)
+        }
+    }
+
     @Test
     fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
