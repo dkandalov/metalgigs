@@ -19,19 +19,20 @@ data class GigEvent(
     // and can't be defeated by a page that has since changed or gone. Unlike every other field here
     // it comes from the gig's own page rather than the venue's listing, so it can fail on its own -
     // blank means never captured (an entry predating this field, or a page that couldn't be read),
-    // and the classifier falls back to fetching for those. Never null: a venue source never sets
-    // this itself (of() doesn't take it), it's filled in by scrapeGigs after the listing is scraped,
-    // and every reader downstream needs only check blankness, not two absent-value representations
+    // and the classifier falls back to fetching for those. Never null: every venue source scrapes
+    // only the listing page, not each gig's own page, so of() defaults it blank too - it's
+    // scrapeGigs, working from the already-built GigEvent, that fills this in afterward
     val pageText: String = "",
 ) {
     companion object {
-        fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String) = GigEvent(
+        fun of(title: String, venue: String, date: LocalDate, url: String, imageUrl: String, pageText: String = "") = GigEvent(
             id = GigId(venue, url),
             title = title,
             year = date.year,
             month = date.month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH),
             day = "%02d".format(date.dayOfMonth),
             imageUrl = imageUrl,
+            pageText = pageText,
         )
     }
 }
