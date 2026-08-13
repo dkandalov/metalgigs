@@ -200,6 +200,26 @@ class GigClassifierTest {
     }
 
     @Test
+    fun `scopes Cart & Horses classification to the page header and content, ignoring nav and footer`() {
+        val html = """
+            <nav><a>Sign up</a><a>Food & Drink</a></nav>
+            <header class="page_header"><h1>Doom Night</h1></header>
+            <div class="page_content_inner"><p>Doom metal night!</p></div>
+            <footer>Opening times Mon: 12:00 - 00:00 Cart & Horses 1 Maryland Point</footer>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+        val (chat, requests) = capturingChat()
+
+        classifyGigByLLM(fakeClient, chat, gig(venue = cartAndHorses), recordedAt)
+
+        val promptText = requests.first().promptText()
+        expectThat(promptText.contains("Doom Night")).isTrue()
+        expectThat(promptText.contains("Doom metal night!")).isTrue()
+        expectThat(promptText.contains("Food & Drink")).isEqualTo(false)
+        expectThat(promptText.contains("Opening times")).isEqualTo(false)
+    }
+
+    @Test
     fun `fails fast when a venue's event page content can't be extracted`() {
         val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
 
