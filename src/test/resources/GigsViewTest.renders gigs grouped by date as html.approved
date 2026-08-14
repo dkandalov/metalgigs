@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>London Metal Gigs - upcoming metal and hardcore shows in London</title>
+    <title>Metal Gigs in London - upcoming metal and hardcore shows</title>
     <meta name="description" content="Upcoming metal, hardcore and heavy gigs in London, listed by date and updated daily. Covering the Underworld, the Black Heart, the Dev, Helgi's and more.">
     <link rel="canonical" href="https://metalgigs.london/">
     <meta name="theme-color" content="#0d0d0f">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="London Metal Gigs">
-    <meta property="og:title" content="London Metal Gigs">
+    <meta property="og:site_name" content="Metal Gigs in London">
+    <meta property="og:title" content="Metal Gigs in London">
     <meta property="og:description" content="Upcoming metal, hardcore and heavy gigs in London, listed by date and updated daily. Covering the Underworld, the Black Heart, the Dev, Helgi's and more.">
     <meta property="og:url" content="https://metalgigs.london/">
     <meta property="og:image" content="https://metalgigs.london/apple-touch-icon.png">
@@ -179,7 +179,7 @@
             <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
                 <polygon points="310,50 140,290 240,290 190,462 385,215 275,215" fill="#f2f2f2"/>
             </svg>
-            London Metal Gigs
+            Metal Gigs in London
         </h1>
     </header>
     
