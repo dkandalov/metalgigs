@@ -77,6 +77,15 @@
         .gig-card a:hover {
             text-decoration: underline;
         }
+        /* Two-tone and drawn inside the link rather than a plain outline around it, for two
+           reasons: half these links wrap a poster, so a single colour is only guaranteed to show
+           against some of them, and .gig-card clips anything outside its rounded box, which an
+           outline at a positive offset would be. */
+        .gig-card a:focus-visible {
+            outline: 2px solid #f2f2f2;
+            outline-offset: -4px;
+            box-shadow: inset 0 0 0 4px #0d0d0f;
+        }
         .gig-venue {
             color: #a1a1aa;
             font-size: 0.9rem;
