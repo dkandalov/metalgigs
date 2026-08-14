@@ -40,22 +40,23 @@
             gap: 0.75rem 1.5rem;
             margin-bottom: 2rem;
         }
-        .brand {
+        h1 {
             display: flex;
             align-items: center;
             gap: 0.7rem;
-        }
-        .brand-mark {
-            display: block;
-            flex: none;
-            width: 2.4rem;
-            height: 2.4rem;
-            border-radius: 9px;
-        }
-        h1 {
             font-size: 2rem;
             line-height: 1;
             margin: 0;
+        }
+        /* Sized against the heading's own text rather than in rem, so it stays locked to the title.
+           Short of the 1em line box because only about 0.7em of that is the capitals it sits beside,
+           so a badge filling the box reads as taller than the words. */
+        .brand-mark {
+            display: block;
+            flex: none;
+            width: 0.85em;
+            height: 0.85em;
+            border-radius: 0.2em;
         }
         h2 {
             font-size: 1.1rem;
@@ -157,17 +158,17 @@
 <body>
 <main>
     <header class="page-header">
-        <div class="brand">
+        <h1>
             <!-- favicon.svg's bolt with its colours swapped, so the tile reads as a mark against the
                  page rather than disappearing into it. Inline to save a request and because it's the
                  second copy of that artwork - change one and the other wants changing too.
-                 aria-hidden because the heading beside it already says the name. -->
+                 aria-hidden because the heading it sits in already says the name. -->
             <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
                 <rect width="512" height="512" fill="#e6e6e6"/>
                 <polygon points="310,50 140,290 240,290 190,462 385,215 275,215" fill="#0d0d0f"/>
             </svg>
-            <h1>London Metal Gigs</h1>
-        </div>
+            London Metal Gigs
+        </h1>
     </header>
     {{#each dateGroups}}
     <section class="date-group">
