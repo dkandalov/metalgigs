@@ -146,18 +146,24 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     // listing costs nothing and the log stays a record of changes rather than of scrapes
     val toObserve = log.newOrChangedGigs(gigs)
 
-    val observed = toObserve.map { gig -> GigObserved(gig, now) }
+    // checked against a projection of the whole log plus this run's new observations, not just what
+    // changed this run - a handful of new observations isn't enough gigs to tell a coincidence from
+    // real contamination, and a first-ever scrape of a venue has no history to check against otherwise
+    val projectedGigs = (log.currentGigs().associateBy { it.id } + toObserve.associateBy { it.id }).values
+    val contaminated = likelyContaminatedVenues(projectedGigs.toList())
+    if (contaminated.isNotEmpty()) {
+        println("Descriptions may include site-wide boilerplate - consider scoping their source's eventPageContent. Not logging their new gigs this run:")
+        contaminated.forEach { (venue, count) -> println("  $venue ($count gig(s))") }
+    }
+
+    val observed = toObserve.filterNot { it.id.venue.name in contaminated.keys }.map { gig -> GigObserved(gig, now) }
     log.append(observed)
 
-    val withoutText = observed.count { it.gig.description.isBlank() }
-    if (withoutText > 0) println("Could not capture event page text for $withoutText gig(s); they'll be fetched at classification time instead")
-
-    // checked against every gig currently known for these venues, not just what changed this run -
-    // a handful of new observations isn't enough gigs to tell a coincidence from real contamination
-    val contaminated = likelyContaminatedVenues(log.currentGigs())
-    if (contaminated.isNotEmpty()) {
-        println("Descriptions may include site-wide boilerplate - consider adding to eventPageContentByVenue:")
-        contaminated.forEach { (venue, count) -> println("  $venue ($count gig(s))") }
+    val withoutText = observed.filter { it.gig.description.isBlank() }
+    if (withoutText.isNotEmpty()) {
+        println("Could not capture event page text for ${withoutText.size} gig(s); they'll be classified from their poster instead")
+        val withoutPoster = withoutText.count { it.gig.imageUrl.isBlank() }
+        if (withoutPoster > 0) println("  $withoutPoster of those have no poster either, so they stay unclassified until a later scrape captures text")
     }
 
     // cache every scraped gig's image now, whatever its genre turns out to be: classification and

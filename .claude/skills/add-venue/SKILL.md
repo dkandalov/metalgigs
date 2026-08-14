@@ -25,13 +25,18 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
    script doesn't set this). Scan the recorded fixture for anything secret-shaped before committing it -
    response bodies are auto-redacted, but a credential sent as a request header isn't.
 
-5. **Scope the classifier's description extraction.** Expect to need an entry in `GigClassifier.kt`'s
-   `eventPageContentByVenue` - most venues do, usually because the whole-page text picks up nav/footer
-   boilerplate, or a related-content widget sits inside the real container rather than beside it. Prefer
-   naming the container(s) that hold real content over excluding boilerplate piece by piece - a second,
-   differently-shaped bit of boilerplate is easy to miss the first time. Write a scoping test the same
-   shape as the existing ones: synthetic HTML with real content next to a piece of the venue's actual
-   boilerplate, asserting the classifier prompt contains one and not the other.
+5. **Scope the event page text.** Each source parses its own event pages: give the class an
+   `internal fun eventPageContent(page: Document)` and pass it to `fetchDescription`. Expect to need to
+   scope it to a container - most venues do, usually because the whole-page text picks up nav/footer
+   boilerplate, or a related-content widget sits inside the real container rather than beside it. Put it
+   on the shared scraper if the venue has one, and test it there, since the delegating class doesn't
+   expose it. Prefer naming the container(s) that hold real content over excluding boilerplate piece by
+   piece - a second, differently-shaped bit of boilerplate is easy to miss the first time. Write a
+   scoping test the same shape as the existing ones in `GigsSourceTest`: synthetic HTML with real
+   content next to a piece of the venue's actual boilerplate, asserting `eventPageContent` returns one
+   and not the other. Extraction that matches nothing is worse than taking the whole page: it reaches
+   the gig as a blank description, so a gig with a poster is judged from that alone and a gig without
+   one is refused and left Pending.
 
 6. **Verify against the real thing, not a sample.** `scrapeGigs` runs `likelyContaminatedVenues` after
    every scrape and warns if a venue's gigs share suspiciously much text - read the warning if it fires.

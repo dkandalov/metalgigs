@@ -4,7 +4,7 @@ import kotlin.math.ceil
 // dates) wouldn't coincidentally repeat between different gigs, but sitewide boilerplate the page-
 // text extraction failed to strip out (nav, footer, cookie notice, venue address) appears
 // identically on every one of that venue's pages. Flags venues where enough gigs are made up mostly
-// of such shared text, as candidates for the eventPageContentByVenue treatment - this only surfaces
+// of such shared text, as candidates for scoping that source's eventPageContent - this only surfaces
 // the problem rather than trying to auto-strip the shared text, which risks eating real content
 // along with the boilerplate.
 //

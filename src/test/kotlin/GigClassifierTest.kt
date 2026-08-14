@@ -10,8 +10,6 @@ import org.http4k.connect.model.Base64Blob
 import org.http4k.connect.model.MimeType
 import org.http4k.ai.model.ResponseId
 import org.http4k.core.HttpHandler
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
@@ -38,42 +36,61 @@ class GigClassifierTest {
     private fun gig(title: String = "Some Gig", venue: Venue = Venue("Some Venue"), day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "", description: String = "") =
         Gig(id = GigId(venue, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = description)
 
+    // Classifying makes no http request of its own - the only fetch it can do is the vision path's
+    // poster, which the tests exercising that path stub out.
+    private val noHttp: HttpHandler = { request -> error("unexpected http request: ${request.uri}") }
+
     @Test
     fun `classifies a gig as Metal or Other from the LLM's reply`() {
-        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
+        val judgeable = gig(description = "Some event page text")
 
-        val metal = classifyGigByLLM(fakeClient, fakeChat("Metal"), gig(), recordedAt)
-        val other = classifyGigByLLM(fakeClient, fakeChat("Other"), gig(), recordedAt)
+        val metal = classifyGigByLLM(noHttp, fakeChat("Metal"), judgeable, recordedAt)
+        val other = classifyGigByLLM(noHttp, fakeChat("Other"), judgeable, recordedAt)
 
         // The fixture has no imageUrl, so this is the text path however thin the text is - records
         // which model judged it and confirms useVision = false rather than just leaving it null.
         val textModel = "claude-haiku-4-5-20251001"
-        expectThat(metal).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false))
-        expectThat(other).isEqualTo(GigClassified(gig().id, recordedAt, Genre.Other, ClassificationSource.LLM, textModel, useVision = false))
+        expectThat(metal).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false))
+        expectThat(other).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Other, ClassificationSource.LLM, textModel, useVision = false))
     }
 
     @Test
-    fun `uses page text captured at scrape time instead of refetching the event page`() {
-        var requestCount = 0
-        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("page text fetched now") }
+    fun `judges a gig on the page text captured at scrape time`() {
         val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig().copy(description = "text captured at scrape time"), recordedAt)
+        classifyGigByLLM(noHttp, chat, gig(description = "text captured at scrape time"), recordedAt)
 
-        expectThat(requestCount).isEqualTo(0)
         expectThat(requests.first().promptText().contains("text captured at scrape time")).isTrue()
     }
 
+    // Asking with nothing but a title gets an answer - Other - rather than an error, and no later run
+    // reclassifies a gig that already has a verdict.
     @Test
-    fun `falls back to fetching the event page for a gig observed before text was captured`() {
-        var requestCount = 0
-        val fakeClient: HttpHandler = { requestCount++; Response(OK).body("page text fetched now") }
+    fun `refuses to classify a gig with neither page text nor a poster`() {
         val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(fakeClient, chat, gig().copy(description = ""), recordedAt)
+        val error = assertFailsWith<IllegalStateException> {
+            classifyGigByLLM(noHttp, chat, gig(description = "", imageUrl = ""), recordedAt)
+        }
 
-        expectThat(requestCount).isEqualTo(1)
-        expectThat(requests.first().promptText().contains("page text fetched now")).isTrue()
+        expectThat(requests).hasSize(0)
+        expectThat(error.message!!.contains("Some Venue")).isTrue()
+        expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
+    }
+
+    // The gigs the classifier refuses are collected like any other failure, so one of them costs its
+    // own verdict and nothing else.
+    @Test
+    fun `a gig with nothing to judge stays Pending without sinking the run`() {
+        val judgeable = gig(title = "Judgeable", description = "Doom metal night!", url = "https://example.com/judgeable")
+        val blank = gig(title = "Blank", day = 9, url = "https://example.com/blank")
+
+        val run = classifyGigs(gigs = listOf(judgeable, blank), alreadyClassified = emptySet()) { g ->
+            classifyGigByLLM(noHttp, fakeChat("Metal"), g, recordedAt)
+        }
+
+        expectThat(run.classified.map { it.id.url }).containsExactly(judgeable.id.url)
+        expectThat(run.failed.map { (gig, _) -> gig.title }).containsExactly("Blank")
     }
 
     @Test
@@ -129,8 +146,6 @@ class GigClassifierTest {
             .containsExactly("Unjudgeable" to "image too large")
     }
 
-    // the venue-specific page-content extraction below feeds whatever the classifier sees, so these
-    // assert on the text that actually reached the model rather than on the verdict it returned
     private fun capturingChat(): Pair<Chat, MutableList<ChatRequest>> {
         val requests = mutableListOf<ChatRequest>()
         return Chat { request -> requests.add(request); chatResponse("Other") } to requests
@@ -138,292 +153,6 @@ class GigClassifierTest {
 
     private fun ChatRequest.promptText() =
         (messages.single() as Message.User).contents.filterIsInstance<Content.Text>().joinToString("") { it.text }
-
-    @Test
-    fun `scopes The Underworld classification to the gig's own content, ignoring other-events widgets`() {
-        val html = """
-            <article class="event">
-              <div class="content"><p>Doom metal night!</p></div>
-            </article>
-            <article class="list">
-              <h3 class="list-header-title">KINGS OF THRASH</h3>
-            </article>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = theUnderworld), recordedAt)
-
-        expectThat(requests.first().promptText().contains("Doom metal night!")).isTrue()
-        expectThat(requests.first().promptText().contains("KINGS OF THRASH")).isEqualTo(false)
-    }
-
-    @Test
-    fun `scopes New Cross Inn classification to the client-rendered description attribute`() {
-        val html = """
-            <p x-ref="desc" x-html="'Doom metal night with support'"></p>
-            <div>KINGS OF THRASH</div>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = newCrossInn), recordedAt)
-
-        expectThat(requests.first().promptText().contains("Doom metal night with support")).isTrue()
-        expectThat(requests.first().promptText().contains("KINGS OF THRASH")).isEqualTo(false)
-    }
-
-    // two different kinds of boilerplate reach the whole page: the sitewide nav ("Summer Season",
-    // "Food And Drink") outside #event_content, and a sidebar of generic quick-link buttons ("Buy
-    // Tickets", "FAQs", ...) *inside* it - the second one only turned up against the real site,
-    // after #event_content alone looked like enough of a fix
-    @Test
-    fun `scopes Alexandra Palace classification to the description and key-information accordion`() {
-        val html = """
-            <nav><li>Summer Season</li><li>Food And Drink</li></nav>
-            <div id="event_content">
-                <div class="event_sidebar"><ul class="event_buttons"><li>Buy Tickets</li><li>FAQs</li></ul></div>
-                <div class="ap_text_block"><p>Doom metal night!</p></div>
-                <div id="key-information"><h3>Key information</h3><p>Support from Kings of Thrash.</p></div>
-            </div>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = alexandraPalace), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("Kings of Thrash")).isTrue()
-        expectThat(promptText.contains("Summer Season")).isEqualTo(false)
-        expectThat(promptText.contains("Buy Tickets")).isEqualTo(false)
-    }
-
-    @Test
-    fun `scopes Cart & Horses classification to the page header and content, ignoring nav and footer`() {
-        val html = """
-            <nav><a>Sign up</a><a>Food & Drink</a></nav>
-            <header class="page_header"><h1>Doom Night</h1></header>
-            <div class="page_content_inner"><p>Doom metal night!</p></div>
-            <footer>Opening times Mon: 12:00 - 00:00 Cart & Horses 1 Maryland Point</footer>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = cartAndHorses), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom Night")).isTrue()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("Food & Drink")).isEqualTo(false)
-        expectThat(promptText.contains("Opening times")).isEqualTo(false)
-    }
-
-    // Our Black Heart and The Dome share this same Squarespace "Events" template, so one fixture
-    // (with the venue swapped in) covers both
-    @Test
-    fun `scopes Squarespace-venue classification to the event item, ignoring sitewide nav and footer`() {
-        val html = """
-            <nav><a>Home</a><a>About</a></nav>
-            <article class="eventitem">
-                <h1 class="eventitem-title">Doom Night</h1>
-                <div class="eventitem-column-content"><p>Doom metal night!</p></div>
-            </article>
-            <footer><a>Instagram</a><a>Privacy Policy</a></footer>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = ourBlackHeart), recordedAt)
-        classifyGigByLLM(fakeClient, chat, gig(venue = theDome), recordedAt)
-
-        requests.forEach { request ->
-            val promptText = request.promptText()
-            expectThat(promptText.contains("Doom Night")).isTrue()
-            expectThat(promptText.contains("Doom metal night!")).isTrue()
-            expectThat(promptText.contains("About")).isEqualTo(false)
-            expectThat(promptText.contains("Instagram")).isEqualTo(false)
-        }
-    }
-
-    // dice.fm venues (Blondies Brewery Taproom, Blondies Bar, Helgi's, 229) render almost nothing
-    // server-side to select from - the real description is nested two JSON parses deep inside
-    // __NEXT_DATA__ (itself containing a JSON-encoded string), alongside plenty of sitewide data
-    // (i18n strings, nav) this fixture only trims down, not invents
-    @Test
-    fun `scopes dice-fm classification to the event's own about-description, ignoring the surrounding JSON`() {
-        val html = """
-            <script id="__NEXT_DATA__" type="application/json">
-                {"props":{"pageProps":{"otherStuff":"ignore me","initialState":"{\"event\":{\"event\":{\"about\":{\"description\":\"Doom metal night!\"}}}}"}}}
-            </script>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = blondiesBreweryTaproom), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("ignore me")).isEqualTo(false)
-    }
-
-    // The Garage and The Grace (both DHP Family, sharing DhpVenueGigsSource) share this same
-    // WordPress theme - the obvious ".single-article" also matches its own outer wrapper div,
-    // which would double every word of text, so this is scoped to the more specific inner class
-    @Test
-    fun `scopes DHP-venue classification to the single-article section, not its own outer wrapper`() {
-        val html = """
-            <nav><a>Home</a><a>News</a></nav>
-            <div class="section single-article">
-                <section class="single-article single-article--contains-list">
-                    <h1>Doom Night</h1>
-                    <article class="single-article__content"><p>Doom metal night!</p></article>
-                </section>
-            </div>
-            <section><h2>ON SPOTIFY</h2></section>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = theGarage), recordedAt)
-        classifyGigByLLM(fakeClient, chat, gig(venue = theGrace), recordedAt)
-
-        requests.forEach { request ->
-            val promptText = request.promptText()
-            expectThat(promptText.contains("Doom metal night!")).isTrue()
-            expectThat(promptText.split("Doom metal night!").size - 1).isEqualTo(1)
-            expectThat(promptText.contains("ON SPOTIFY")).isEqualTo(false)
-        }
-    }
-
-    @Test
-    fun `scopes Electric Ballroom classification to the article, ignoring sitewide nav and footer`() {
-        val html = """
-            <header><nav><a>Whats On</a></nav></header>
-            <article><h1>Doom Night</h1><div class="article-content"><p>Doom metal night!</p></div></article>
-            <footer><a>Facebook</a></footer>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = electricBallroom), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("Whats On")).isEqualTo(false)
-    }
-
-    @Test
-    fun `scopes Dingwalls classification to the Elementor single-page template`() {
-        val html = """
-            <nav><a>Home</a></nav>
-            <div data-elementor-type="single-page" class="elementor elementor-750 elementor-location-single">
-                <h1>Doom Night</h1>
-                <div class="elementor-widget-theme-post-content"><p>Doom metal night!</p></div>
-            </div>
-            <footer><a>Instagram</a></footer>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = dingwalls), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("Home")).isEqualTo(false)
-    }
-
-    // ".event-about" holds the real description alongside a "Related events" carousel *nested
-    // inside it*, not a sibling section - that's why the exclusion is by class, not by boundary
-    @Test
-    fun `scopes Roundhouse classification to the event content, excluding the nested related-events block`() {
-        val html = """
-            <div class="event-hero__heading-wrapper"><h1>Doom Night</h1></div>
-            <section class="event-about">
-                <div class="layout-block layout-block--text-block-with-title"><p>Doom metal night!</p></div>
-                <div class="layout-block layout-block--related-events-list"><h3>Related events</h3><p>Other Gig</p></div>
-            </section>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = roundhouse), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("Other Gig")).isEqualTo(false)
-    }
-
-    @Test
-    fun `scopes Union Chapel classification to the article and event-information sidebar`() {
-        val html = """
-            <nav><a>Whats On</a></nav>
-            <div id="content">
-                <article class="pt-4"><h1>Doom Night</h1><p>Doom metal night!</p></article>
-            </div>
-            <aside><div class="sidebar p-3"><h6>WHEN</h6><p>7pm</p></div></aside>
-            <footer class="pt-4"><a>Instagram</a></footer>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = unionChapel), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("7pm")).isTrue()
-        expectThat(promptText.contains("Whats On")).isEqualTo(false)
-        expectThat(promptText.contains("Instagram")).isEqualTo(false)
-    }
-
-    @Test
-    fun `scopes Scala classification to the event post, excluding the sidebar of other upcoming events`() {
-        val html = """
-            <nav><a>Home</a></nav>
-            <div id="post-1" class="post-1 event type-event event-post">
-                <h1 class="entry-title">Doom Night</h1>
-                <div class="entry-content"><p>Doom metal night!</p></div>
-            </div>
-            <div id="sidebar"><ul><li>Other Gig</li></ul></div>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = scala), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("Other Gig")).isEqualTo(false)
-    }
-
-    @Test
-    fun `scopes Paper Dress Vintage classification to the event content, excluding nav and footer`() {
-        val html = """
-            <nav><a>Home</a><a>Book a table</a></nav>
-            <div class="event__content"><p>Doom metal night!</p></div>
-            <footer><a>Contact</a><a>Opening hours</a></footer>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
-        val (chat, requests) = capturingChat()
-
-        classifyGigByLLM(fakeClient, chat, gig(venue = paperDressVintage), recordedAt)
-
-        val promptText = requests.first().promptText()
-        expectThat(promptText.contains("Doom metal night!")).isTrue()
-        expectThat(promptText.contains("Opening hours")).isEqualTo(false)
-    }
-
-    @Test
-    fun `fails fast when a venue's event page content can't be extracted`() {
-        val fakeClient: HttpHandler = { Response(OK).body("<div>page markup changed, no article.event here</div>") }
-
-        val error = assertFailsWith<IllegalStateException> {
-            classifyGigByLLM(fakeClient, fakeChat("Other"), gig(venue = theUnderworld), recordedAt)
-        }
-
-        expectThat(error.message!!.contains("The Underworld")).isTrue()
-        expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
-    }
 
     // the real one downloads and runs the image through ImageMagick; these tests are about when the
     // vision path is taken and with which model, so they record the request and hand back a stub
@@ -435,11 +164,11 @@ class GigClassifierTest {
 
     @Test
     fun `falls back to the poster image with a vision model when event page text is too thin`() {
-        val fakeClient: HttpHandler = { Response(OK).body("Thin") }
         val (chat, requests) = capturingChat()
         val posterUrls = mutableListOf<String>()
+        val thin = gig(imageUrl = "https://example.com/poster.jpg", description = "Thin")
 
-        val classified = classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
+        val classified = classifyGigByLLM(noHttp, chat, thin, recordedAt, stubPoster(posterUrls))
 
         expectThat(posterUrls).containsExactly("https://example.com/poster.jpg")
         val message = requests.first().messages.single() as Message.User
@@ -451,14 +180,12 @@ class GigClassifierTest {
 
     @Test
     fun `does not fetch the poster image when the event page text is long enough`() {
-        val fetchedUrls = mutableListOf<String>()
-        val fakeClient: HttpHandler = { request -> fetchedUrls.add(request.uri.toString()); Response(OK).body("A".repeat(200)) }
         val (chat, requests) = capturingChat()
         val posterUrls = mutableListOf<String>()
+        val described = gig(imageUrl = "https://example.com/poster.jpg", description = "A".repeat(200))
 
-        val classified = classifyGigByLLM(fakeClient, chat, gig(imageUrl = "https://example.com/poster.jpg"), recordedAt, stubPoster(posterUrls))
+        val classified = classifyGigByLLM(noHttp, chat, described, recordedAt, stubPoster(posterUrls))
 
-        expectThat(fetchedUrls).containsExactly("https://example.com/gig")
         // not merely absent from the request - never fetched, so no download and no conversion
         expectThat(posterUrls).hasSize(0)
         val message = requests.first().messages.single() as Message.User
@@ -470,10 +197,8 @@ class GigClassifierTest {
 
     @Test
     fun `fails fast when the LLM chat replies with something other than a genre name`() {
-        val fakeClient: HttpHandler = { Response(OK).body("Some event page text") }
-
         val error = assertFailsWith<IllegalStateException> {
-            classifyGigByLLM(fakeClient, fakeChat("I think this is probably a metal gig"), gig(), recordedAt)
+            classifyGigByLLM(noHttp, fakeChat("I think this is probably a metal gig"), gig(description = "Some event page text"), recordedAt)
         }
 
         expectThat(error.message!!.contains("Some Venue")).isTrue()

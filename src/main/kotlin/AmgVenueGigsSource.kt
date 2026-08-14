@@ -69,7 +69,7 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.eventDate).toLocalDate(),
                 imageUrl = event.image,
-                description = fetchDescription(client, gigUrl, venue),
+                description = fetchDescription(client, gigUrl) { page -> page.text() },
             )
         }
     }

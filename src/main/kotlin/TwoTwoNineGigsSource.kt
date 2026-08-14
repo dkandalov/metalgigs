@@ -83,7 +83,8 @@ class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
                 // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.date).toLocalDate(),
                 imageUrl = event.images.firstOrNull() ?: "",
-                description = fetchDescription(client, gigUrl, venue),
+                // its gigs are ticketed through dice.fm, so their event pages are dice.fm's own
+                description = fetchDescription(client, gigUrl, ::diceEventPageContent),
             )
         }
     }

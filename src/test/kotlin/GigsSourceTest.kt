@@ -1,6 +1,7 @@
 import org.http4k.core.HttpHandler
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
+import org.jsoup.Jsoup
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
@@ -387,7 +388,9 @@ class GigsSourceTest {
                 title = "SOLD OUT GIG",
                 date = LocalDate.of(2026, 10, 3),
                 imageUrl = "https://example.com/poster.jpg",
-                description = "Gig Sold Out Live Sat.03.Oct.26 SOLD OUT GIG",
+                // the fixture serves this listing markup for the event page too, and DHP's
+                // extraction finds no gig content in it
+                description = "",
             ),
         )
     }
@@ -730,5 +733,272 @@ class GigsSourceTest {
             ),
             urlPrefix = "https://paperdressvintage.co.uk/",
         )
+    }
+
+    // Each source parses its own event pages, so these go straight at that parsing - no listing page
+    // to scrape first, and no http.
+    private val noHttp: HttpHandler = { request -> error("unexpected http request: ${request.uri}") }
+
+    private fun pageOf(html: String) = Jsoup.parse(html, "https://example.com/gig")
+
+    @Test
+    fun `scopes The Underworld page text to the gig's own content, ignoring other-events widgets`() {
+        val html = """
+            <article class="event">
+              <div class="content"><p>Doom metal night!</p></div>
+            </article>
+            <article class="list">
+              <h3 class="list-header-title">KINGS OF THRASH</h3>
+            </article>
+        """.trimIndent()
+
+        val pageText = TheUnderworldGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("KINGS OF THRASH")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes New Cross Inn page text to the client-rendered description attribute`() {
+        val html = """
+            <p x-ref="desc" x-html="'Doom metal night with support'"></p>
+            <div>KINGS OF THRASH</div>
+        """.trimIndent()
+
+        val pageText = NewCrossInnGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night with support")).isTrue()
+        expectThat(pageText.contains("KINGS OF THRASH")).isEqualTo(false)
+    }
+
+    // two different kinds of boilerplate reach the whole page: the sitewide nav ("Summer Season",
+    // "Food And Drink") outside #event_content, and a sidebar of generic quick-link buttons ("Buy
+    // Tickets", "FAQs", ...) *inside* it - the second one only turned up against the real site,
+    // after #event_content alone looked like enough of a fix
+    @Test
+    fun `scopes Alexandra Palace page text to the description and key-information accordion`() {
+        val html = """
+            <nav><li>Summer Season</li><li>Food And Drink</li></nav>
+            <div id="event_content">
+                <div class="event_sidebar"><ul class="event_buttons"><li>Buy Tickets</li><li>FAQs</li></ul></div>
+                <div class="ap_text_block"><p>Doom metal night!</p></div>
+                <div id="key-information"><h3>Key information</h3><p>Support from Kings of Thrash.</p></div>
+            </div>
+        """.trimIndent()
+
+        val pageText = AlexandraPalaceGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Kings of Thrash")).isTrue()
+        expectThat(pageText.contains("Summer Season")).isEqualTo(false)
+        expectThat(pageText.contains("Buy Tickets")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Cart & Horses page text to the page header and content, ignoring nav and footer`() {
+        val html = """
+            <nav><a>Sign up</a><a>Food & Drink</a></nav>
+            <header class="page_header"><h1>Doom Night</h1></header>
+            <div class="page_content_inner"><p>Doom metal night!</p></div>
+            <footer>Opening times Mon: 12:00 - 00:00 Cart & Horses 1 Maryland Point</footer>
+        """.trimIndent()
+
+        val pageText = CartAndHorsesGigsSource(noHttp, year = 2026).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom Night")).isTrue()
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Food & Drink")).isEqualTo(false)
+        expectThat(pageText.contains("Opening times")).isEqualTo(false)
+    }
+
+    // Our Black Heart and The Dome share this same Squarespace "Events" template, and both delegate
+    // to this scraper, so one fixture covers both
+    @Test
+    fun `scopes Squarespace-venue page text to the event item, ignoring sitewide nav and footer`() {
+        val html = """
+            <nav><a>Home</a><a>About</a></nav>
+            <article class="eventitem">
+                <h1 class="eventitem-title">Doom Night</h1>
+                <div class="eventitem-column-content"><p>Doom metal night!</p></div>
+            </article>
+            <footer><a>Instagram</a><a>Privacy Policy</a></footer>
+        """.trimIndent()
+
+        val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = ourBlackHeart)
+        val pageText = source.eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom Night")).isTrue()
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("About")).isEqualTo(false)
+        expectThat(pageText.contains("Instagram")).isEqualTo(false)
+    }
+
+    // dice.fm venues (Blondies Brewery Taproom, Blondies Bar, Helgi's, 229) render almost nothing
+    // server-side to select from - the real description is nested two JSON parses deep inside
+    // __NEXT_DATA__ (itself containing a JSON-encoded string), alongside plenty of sitewide data
+    // (i18n strings, nav) this fixture only trims down, not invents. 229's own scraper reads the same
+    // pages, so both use this one extraction
+    @Test
+    fun `scopes dice-fm page text to the event's own about-description, ignoring the surrounding JSON`() {
+        val html = """
+            <script id="__NEXT_DATA__" type="application/json">
+                {"props":{"pageProps":{"otherStuff":"ignore me","initialState":"{\"event\":{\"event\":{\"about\":{\"description\":\"Doom metal night!\"}}}}"}}}
+            </script>
+        """.trimIndent()
+
+        val pageText = diceEventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("ignore me")).isEqualTo(false)
+    }
+
+    // The Garage and The Grace (both DHP Family, sharing DhpVenueGigsSource) share this same
+    // WordPress theme - the obvious ".single-article" also matches its own outer wrapper div,
+    // which would double every word of text, so this is scoped to the more specific inner class
+    @Test
+    fun `scopes DHP-venue page text to the single-article section, not its own outer wrapper`() {
+        val html = """
+            <nav><a>Home</a><a>News</a></nav>
+            <div class="section single-article">
+                <section class="single-article single-article--contains-list">
+                    <h1>Doom Night</h1>
+                    <article class="single-article__content"><p>Doom metal night!</p></article>
+                </section>
+            </div>
+            <section><h2>ON SPOTIFY</h2></section>
+        """.trimIndent()
+
+        val source = DhpVenueGigsSource(noHttp, url = "https://example.com/live/", venue = theGarage)
+        val pageText = source.eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.split("Doom metal night!").size - 1).isEqualTo(1)
+        expectThat(pageText.contains("ON SPOTIFY")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Electric Ballroom page text to the article, ignoring sitewide nav and footer`() {
+        val html = """
+            <header><nav><a>Whats On</a></nav></header>
+            <article><h1>Doom Night</h1><div class="article-content"><p>Doom metal night!</p></div></article>
+            <footer><a>Facebook</a></footer>
+        """.trimIndent()
+
+        val pageText = ElectricBallroomGigsSource(noHttp, year = 2026).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Whats On")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Dingwalls page text to the Elementor single-page template`() {
+        val html = """
+            <nav><a>Home</a></nav>
+            <div data-elementor-type="single-page" class="elementor elementor-750 elementor-location-single">
+                <h1>Doom Night</h1>
+                <div class="elementor-widget-theme-post-content"><p>Doom metal night!</p></div>
+            </div>
+            <footer><a>Instagram</a></footer>
+        """.trimIndent()
+
+        val pageText = DingwallsGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Home")).isEqualTo(false)
+    }
+
+    // ".event-about" holds the real description alongside a "Related events" carousel *nested
+    // inside it*, not a sibling section - that's why the exclusion is by class, not by boundary
+    @Test
+    fun `scopes Roundhouse page text to the event content, excluding the nested related-events block`() {
+        val html = """
+            <div class="event-hero__heading-wrapper"><h1>Doom Night</h1></div>
+            <section class="event-about">
+                <div class="layout-block layout-block--text-block-with-title"><p>Doom metal night!</p></div>
+                <div class="layout-block layout-block--related-events-list"><h3>Related events</h3><p>Other Gig</p></div>
+            </section>
+        """.trimIndent()
+
+        val pageText = RoundhouseGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Other Gig")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Union Chapel page text to the article and event-information sidebar`() {
+        val html = """
+            <nav><a>Whats On</a></nav>
+            <div id="content">
+                <article class="pt-4"><h1>Doom Night</h1><p>Doom metal night!</p></article>
+            </div>
+            <aside><div class="sidebar p-3"><h6>WHEN</h6><p>7pm</p></div></aside>
+            <footer class="pt-4"><a>Instagram</a></footer>
+        """.trimIndent()
+
+        val pageText = UnionChapelGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("7pm")).isTrue()
+        expectThat(pageText.contains("Whats On")).isEqualTo(false)
+        expectThat(pageText.contains("Instagram")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Scala page text to the event post, excluding the sidebar of other upcoming events`() {
+        val html = """
+            <nav><a>Home</a></nav>
+            <div id="post-1" class="post-1 event type-event event-post">
+                <h1 class="entry-title">Doom Night</h1>
+                <div class="entry-content"><p>Doom metal night!</p></div>
+            </div>
+            <div id="sidebar"><ul><li>Other Gig</li></ul></div>
+        """.trimIndent()
+
+        val pageText = ScalaGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Other Gig")).isEqualTo(false)
+    }
+
+    @Test
+    fun `scopes Paper Dress Vintage page text to the event content, excluding nav and footer`() {
+        val html = """
+            <nav><a>Home</a><a>Book a table</a></nav>
+            <div class="event__content"><p>Doom metal night!</p></div>
+            <footer><a>Contact</a><a>Opening hours</a></footer>
+        """.trimIndent()
+
+        val pageText = PaperDressVintageGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Opening hours")).isEqualTo(false)
+    }
+
+    // Signature Brew takes the whole page rather than scoping to a container, boilerplate included.
+    @Test
+    fun `takes the whole page text for a venue that scopes nothing`() {
+        val html = """
+            <nav><a>Home</a></nav>
+            <article><p>Doom metal night!</p></article>
+        """.trimIndent()
+
+        val source = SignatureBrewGigsSource(noHttp, venue = signatureBrewHaggerston)
+        val pageText = source.eventPageContent(pageOf(html))
+
+        expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Home")).isTrue()
+    }
+
+    // Extraction that matches nothing is what a changed site looks like, and it reaches the gig as a
+    // blank description rather than as a failed scrape.
+    @Test
+    fun `extracts nothing from a page whose markup no longer matches`() {
+        val changedMarkup = "<div>page markup changed, no article.event here</div>"
+        val servingChangedMarkup: HttpHandler = { Response(OK).body(changedMarkup) }
+        val source = TheUnderworldGigsSource(noHttp)
+
+        expectThat(source.eventPageContent(pageOf(changedMarkup))).isEqualTo(null)
+        expectThat(fetchDescription(servingChangedMarkup, "https://example.com/gig", source::eventPageContent)).isEqualTo("")
     }
 }

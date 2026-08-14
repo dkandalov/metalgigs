@@ -1,10 +1,14 @@
 import com.ubertob.kondor.json.JAny
 import com.ubertob.kondor.json.array
+import com.ubertob.kondor.json.jsonnode.JsonNode
 import com.ubertob.kondor.json.jsonnode.JsonNodeObject
+import com.ubertob.kondor.json.jsonnode.JsonNodeString
+import com.ubertob.kondor.json.jsonnode.parseJsonNode
 import com.ubertob.kondor.json.obj
 import com.ubertob.kondor.json.str
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import java.time.OffsetDateTime
 
 // dice.fm renders its venue pages client-side (Next.js), but embeds the full event list as JSON
@@ -66,6 +70,23 @@ private object JDiceNextData : JAny<DiceNextData>() {
     override fun JsonNodeObject.deserializeOrThrow() = DiceNextData(props = +props)
 }
 
+private fun JsonNode.field(key: String): JsonNode? = (this as? JsonNodeObject)?._fieldMap?.get(key)
+private fun JsonNode.stringOrNull(): String? = (this as? JsonNodeString)?.text
+
+// A dice.fm event page renders almost nothing server-side to select from: the description lives in
+// the __NEXT_DATA__ blob, under a props.pageProps.initialState that is itself a JSON-encoded string,
+// so it has to be parsed a second time to reach event.event.about.description. Shared with 229,
+// whose gigs are ticketed through dice.fm and so have dice.fm event pages.
+internal fun diceEventPageContent(page: Document): String? {
+    val nextDataJson = page.select("script#__NEXT_DATA__").firstOrNull()?.data()
+    val initialStateJson = nextDataJson
+        ?.let { parseJsonNode(it).orThrow() }
+        ?.field("props")?.field("pageProps")?.field("initialState")?.stringOrNull()
+    return initialStateJson
+        ?.let { parseJsonNode(it).orThrow() }
+        ?.field("event")?.field("event")?.field("about")?.field("description")?.stringOrNull()
+}
+
 // shared by every dice.fm venue page; the venue-specific classes below just supply url/venue
 class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
 
@@ -86,7 +107,7 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
                 title = event.name,
                 date = OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),
                 imageUrl = event.images.square,
-                description = fetchDescription(client, gigUrl, venue),
+                description = fetchDescription(client, gigUrl, ::diceEventPageContent),
             )
         }
     }
