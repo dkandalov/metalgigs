@@ -96,8 +96,8 @@ private fun eventPageContentText(pageHtml: String, url: String, venue: Venue): S
     return extractContent(page) ?: error("Could not extract event page content for $venue at $url")
 }
 
-fun fetchGigPageText(client: HttpHandler, gig: Gig): String =
-    eventPageContentText(fetchPage(client, gig.id.url), gig.id.url, gig.id.venue)
+fun fetchGigPageText(client: HttpHandler, url: String, venue: Venue): String =
+    eventPageContentText(fetchPage(client, url), url, venue)
 
 // cross-checks a venue's gigs against each other: real gig-specific text (lineup, ticket info,
 // dates) wouldn't coincidentally repeat between different gigs, but sitewide boilerplate the
@@ -190,7 +190,7 @@ fun classifyGigByLLM(
     recordedAt: Instant,
     posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
 ): GigClassified {
-    val description = gig.description.ifBlank { fetchGigPageText(client, gig) }
+    val description = gig.description.ifBlank { fetchGigPageText(client, gig.id.url, gig.id.venue) }
     val useVision = description.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: $description")) +

@@ -56,18 +56,20 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
         if (ticketless.isNotEmpty()) println("Skipping ${ticketless.size} $venue gig(s) with no ticket link: ${ticketless.joinToString { it.name }}")
 
         return ticketed.map { event ->
+            // no per-gig page on the venue's own site, so the ticketing link identifies the gig - but
+            // only up to its query string: one gig lists several tickets (general onsale, presales,
+            // partner-branded) whose urls differ purely by marketing params and whose order isn't
+            // stable between gigs, so the same gig would otherwise keep changing identity. Everything
+            // after "?" is dropped, leaving the ticket platform's own event id, which is stable and
+            // still a working link
+            val gigUrl = event.tickets.first().ticketUrl.substringBefore('?')
             Gig(
-                // no per-gig page on the venue's own site, so the ticketing link identifies the gig -
-                // but only up to its query string: one gig lists several tickets (general onsale,
-                // presales, partner-branded) whose urls differ purely by marketing params and whose
-                // order isn't stable between gigs, so the same gig would otherwise keep changing
-                // identity. Everything after "?" is dropped, leaving the ticket platform's own
-                // event id, which is stable and still a working link
-                id = GigId(venue, event.tickets.first().ticketUrl.substringBefore('?')),
+                id = GigId(venue, gigUrl),
                 title = event.name,
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.eventDate).toLocalDate(),
                 imageUrl = event.image,
+                description = fetchDescription(client, gigUrl, venue),
             )
         }
     }

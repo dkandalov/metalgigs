@@ -127,19 +127,13 @@ class GigsLog(private val file: File) {
             .values
             .map { observations -> observations.maxBy { it.recordedAt }.gig }
 
-    // What makes a gig "the same gig in the same state" - every field the venue's listing gave us, but
-    // not description. That comes from a different page, and measurably churns: re-reading every gig's
-    // page minutes apart changed the text of one (a counter ticking over) and flipped eight from empty
-    // to full (a flaky JS-rendered site). Comparing it would log a fresh observation of an otherwise
-    // untouched gig each time that happened.
-    private fun Gig.listedDetails() = copy(description = "")
-
     // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
-    // title gaining "- SOLD OUT", a rescheduled date) - compares against only the latest observation
-    // per gig, not the whole history, so a gig can be logged again after reverting to a prior state
+    // title gaining "- SOLD OUT", a rescheduled date, or a changed description) - compares against
+    // only the latest observation per gig, not the whole history, so a gig can be logged again after
+    // reverting to a prior state
     fun newOrChangedGigs(scrapedGigs: List<Gig>): List<Gig> {
         val latestByGig = currentGigs().associateBy { it.id }
-        return scrapedGigs.filter { gig -> latestByGig[gig.id]?.listedDetails() != gig.listedDetails() }
+        return scrapedGigs.filter { gig -> latestByGig[gig.id] != gig }
     }
 
     // when each venue was last seen changing - an approximation of "last scraped" derived from

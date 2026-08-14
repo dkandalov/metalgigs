@@ -34,8 +34,8 @@ class PosterIngestionTest {
         val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = Venue("Some Venue"))
 
         expectThat(gigs).containsExactly(
-            Gig(id = GigId(Venue("Some Venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = "Doom Night", date = LocalDate.of(2026, 8, 14), imageUrl = "https://example.com/poster.jpg"),
-            Gig(id = GigId(Venue("Some Venue"), "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = "Thrash Fest", date = LocalDate.of(2026, 8, 21), imageUrl = "https://example.com/poster.jpg"),
+            Gig(id = GigId(Venue("Some Venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = "Doom Night", date = LocalDate.of(2026, 8, 14), imageUrl = "https://example.com/poster.jpg", description = ""),
+            Gig(id = GigId(Venue("Some Venue"), "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = "Thrash Fest", date = LocalDate.of(2026, 8, 21), imageUrl = "https://example.com/poster.jpg", description = ""),
         )
     }
 

@@ -13,7 +13,7 @@ data class Gig(
     val title: String,
     val date: LocalDate,
     val imageUrl: String,
-    val description: String = "",
+    val description: String,
 )
 
 enum class Genre { Metal, Other }
@@ -86,6 +86,11 @@ interface GigsSource {
     fun latestGigs(): List<Gig>
 }
 
+// one dead event page shouldn't cost the whole scrape - the gig is still worth recording, and the
+// classifier falls back to fetching for a gig with no captured text
+internal fun fetchDescription(client: HttpHandler, url: String, venue: Venue): String =
+    runCatching { fetchGigPageText(client, url, venue) }.getOrDefault("")
+
 val cartAndHorses = Venue("Cart & Horses")
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
@@ -103,12 +108,14 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 val month = item.select(".news-carousel__month").text()
                 if (month == "Jan" && previousMonth != null && previousMonth != "Jan") currentYear++
                 previousMonth = month
+                val gigUrl = item.select(".news-carousel__link").attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, item.select(".news-carousel__link").attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = item.select(".news-carousel__link").text(),
                     date = LocalDate.of(currentYear, monthsByShortName.getValue(month), item.select(".news-carousel__day").text().toInt()),
                     imageUrl = item.select(".news-carousel__image").attr("abs:src"),
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
     }
@@ -127,11 +134,13 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
             .select("li:has(h3.nci-event-name)")
             .map { item ->
                 val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
+                val gigUrl = item.select("a:has(h3.nci-event-name)").attr("abs:href")
                 Gig(
-                    id = GigId(venue, item.select("a:has(h3.nci-event-name)").attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = item.select("h3.nci-event-name").text(),
                     date = LocalDate.of(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
                     imageUrl = item.select("img").attr("abs:src"),
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -144,11 +153,13 @@ class SquarespaceEventsGigsSource(private val client: HttpHandler, private val u
             .select("article.eventlist-event--upcoming")
             .map { item ->
                 val titleLink = item.select(".eventlist-title-link")
+                val gigUrl = titleLink.attr("abs:href")
                 Gig(
-                    id = GigId(venue, titleLink.attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = titleLink.text(),
                     date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
                     imageUrl = item.squarespaceThumbnailUrl(),
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -177,11 +188,13 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
             .select("#gigs article.list")
             .map { item ->
+                val gigUrl = item.select(".list-header-title a").attr("abs:href")
                 Gig(
-                    id = GigId(venue, item.select(".list-header-title a").attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = item.select(".list-header-title").text(),
                     date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
                     imageUrl = imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src")),
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -208,11 +221,13 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
                 if (previousMonth != null && month < previousMonth) currentYear++
                 previousMonth = month
 
+                val gigUrl = item.select(".event-name a").attr("abs:href")
                 Gig(
-                    id = GigId(venue, item.select(".event-name a").attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = item.select(".event-name a").text(),
                     date = LocalDate.of(currentYear, month, day.toInt()),
                     imageUrl = backgroundImageUrlPattern.find(item.select(".grid-image").attr("style"))?.groupValues?.get(1) ?: "",
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
     }
@@ -233,12 +248,14 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
             .select(".gig")
             .map { item ->
                 val (day, monthName, year) = datePattern.find(item.select(".elementor-widget-heading:not(.elementor-widget-theme-post-title)").text())!!.destructured
+                val gigUrl = item.select(".elementor-widget-theme-post-title a").attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, item.select(".elementor-widget-theme-post-title a").attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = item.select(".elementor-widget-theme-post-title a").text(),
                     date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                     imageUrl = item.select(".elementor-widget-theme-post-featured-image img").attr("abs:src"),
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -256,14 +273,16 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
                 val (day, monthName, year) = datePattern.find(item.select(".card__strip-heading").text())!!.destructured
                 val img = item.select(".card__grid-media img")
                 val heading = item.select(".card__heading")
+                // a sold-out gig's heading isn't a link at all - its only link is the "Gig Sold Out"
+                // notification, which points at the same gig page
+                val gigUrl = heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") }
 
                 Gig(
-                    // a sold-out gig's heading isn't a link at all - its only link is the "Gig Sold
-                    // Out" notification, which points at the same gig page
-                    id = GigId(venue, heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") }),
+                    id = GigId(venue, gigUrl),
                     title = heading.text(),
                     date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
                     imageUrl = img.attr("abs:data-lazy-src").ifBlank { img.attr("abs:src") },
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -294,11 +313,13 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                 val link = item.select(".event-card__link")
                 val (day, monthName, year) = datePattern.find(item.select(".event-card__date").text())!!.destructured
 
+                val gigUrl = link.attr("abs:href")
                 Gig(
-                    id = GigId(venue, link.attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = item.select(".event-card__title").text(),
                     date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
                     imageUrl = item.select(".event-card__image img").attr("abs:src"),
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -319,12 +340,14 @@ class SignatureBrewGigsSource(private val client: HttpHandler, override val venu
             .filter { item -> item.select(".venuename").text() == venue.name }
             .map { item ->
                 val link = item.select("a.button.white.w-button")
+                val gigUrl = link.attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, link.attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = item.select(".b-show").text(),
                     date = LocalDate.parse(item.select(".dates p.months.date:not(.hide)").text(), dateFormatter),
                     imageUrl = backgroundImageUrlPattern.find(item.select(".poster").attr("style"))?.groupValues?.get(1) ?: "",
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -344,15 +367,17 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
             // which beats parsing the human date ("Thu 27 May 2027") printed alongside it
             .select(".item[data-chron]")
             .map { item ->
+                // matched on the path, since the other link on a card goes to whichever external
+                // ticketing site that gig happens to sell through
+                val gigUrl = item.select("a[href*=/whats-on/]").attr("abs:href")
                 Gig(
-                    // matched on the path, since the other link on a card goes to whichever
-                    // external ticketing site that gig happens to sell through
-                    id = GigId(venue, item.select("a[href*=/whats-on/]").attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     // each card prints its title twice, once for the card and once for the hover
                     // panel inside it, so this takes the first rather than both concatenated
                     title = item.select(".card-title").first()!!.text(),
                     date = LocalDate.parse(item.attr("data-chron").substringBefore(' ')),
                     imageUrl = backgroundImageUrlPattern.find(item.select(".card-image").attr("style"))?.groupValues?.get(1) ?: "",
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -386,12 +411,14 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
             gigs += page.select(".tb-event-item").map { item ->
                 val (day, monthName, year) = datePattern.find(item.select(".date").text())!!.destructured
                 val link = item.select("h2 a")
+                val gigUrl = link.attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, link.attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = link.text(),
                     date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                     imageUrl = backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1) ?: "",
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
             pageUrl = page.select(".em-pagination a.next").attr("abs:href").ifBlank { null }
@@ -455,12 +482,14 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
             .select(".event_card_wrapper")
             .map { item ->
                 val link = item.select(".event_target")
+                val gigUrl = link.attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, link.attr("abs:href")),
+                    id = GigId(venue, gigUrl),
                     title = link.text(),
                     date = startDateOf(item.select(".dates").text()),
                     imageUrl = item.widestImageUrl(),
+                    description = fetchDescription(client, gigUrl, venue),
                 )
             }
 }
@@ -490,12 +519,14 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
                 monthBlock.select(".events__event").map { item ->
                     val day = dayPattern.find(item.select("p.margin__bottom--1").text())!!.groupValues[1]
                     val thumbnailUrl = backgroundImageUrlPattern.find(item.select(".event__poster").attr("style"))?.groupValues?.get(1) ?: ""
+                    val gigUrl = item.attr("abs:href")
 
                     Gig(
-                        id = GigId(venue, item.attr("abs:href")),
+                        id = GigId(venue, gigUrl),
                         title = item.select("h4").text(),
                         date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                         imageUrl = thumbnailSuffixPattern.replace(thumbnailUrl, "$1"),
+                        description = fetchDescription(client, gigUrl, venue),
                     )
                 }
             }

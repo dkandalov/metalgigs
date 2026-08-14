@@ -59,5 +59,5 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
 
     return parsed
         .filterNot { (_, title) -> isExcluded(venue.name, title) }
-        .map { (date, title) -> Gig(id = GigId(venue, posterGigUrl(sourceUrl, title, date)), title = title, date = date, imageUrl = imageUrl) }
+        .map { (date, title) -> Gig(id = GigId(venue, posterGigUrl(sourceUrl, title, date)), title = title, date = date, imageUrl = imageUrl, description = "") }
 }

@@ -146,12 +146,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     // listing costs nothing and the log stays a record of changes rather than of scrapes
     val toObserve = log.newOrChangedGigs(gigs)
 
-    val observed = toObserve.map { gig ->
-        // one dead event page shouldn't cost us the whole scrape - the gig is still worth recording,
-        // and the classifier falls back to fetching for a gig with no captured text
-        val description = runCatching { fetchGigPageText(client, gig) }.getOrDefault("")
-        GigObserved(gig.copy(description = description), now)
-    }
+    val observed = toObserve.map { gig -> GigObserved(gig, now) }
     log.append(observed)
 
     val withoutText = observed.count { it.gig.description.isBlank() }

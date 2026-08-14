@@ -35,8 +35,8 @@ class GigClassifierTest {
 
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
-    private fun gig(title: String = "Some Gig", venue: Venue = Venue("Some Venue"), day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "") =
-        Gig(id = GigId(venue, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl)
+    private fun gig(title: String = "Some Gig", venue: Venue = Venue("Some Venue"), day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "", description: String = "") =
+        Gig(id = GigId(venue, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = description)
 
     @Test
     fun `classifies a gig as Metal or Other from the LLM's reply`() {

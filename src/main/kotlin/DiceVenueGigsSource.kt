@@ -80,11 +80,13 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
         val events = JDiceNextData.fromJson(nextData.data()).orThrow().props.pageProps.profile.sections.flatMap { it.events }
 
         return events.map { event ->
+            val gigUrl = "https://dice.fm/event/${event.permName}"
             Gig(
-                id = GigId(venue, "https://dice.fm/event/${event.permName}"),
+                id = GigId(venue, gigUrl),
                 title = event.name,
                 date = OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),
                 imageUrl = event.images.square,
+                description = fetchDescription(client, gigUrl, venue),
             )
         }
     }
