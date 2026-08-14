@@ -31,9 +31,18 @@
             max-width: 1100px;
             margin: 0 auto;
         }
+        .page-header {
+            display: flex;
+            /* on a narrow screen the search drops onto its own line rather than squeezing the title */
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem 1.5rem;
+            margin-bottom: 2rem;
+        }
         h1 {
             font-size: 2rem;
-            margin-bottom: 2rem;
+            margin: 0;
         }
         h2 {
             font-size: 1.1rem;
@@ -42,6 +51,28 @@
             border-bottom: 1px solid #26262a;
             padding-bottom: 0.5rem;
             margin: 2.5rem 0 1rem;
+        }
+        .gig-search {
+            box-sizing: border-box;
+            /* grows into whatever the title leaves, up to a width that keeps it a control in the
+               header rather than a second banner across it */
+            flex: 1 1 12rem;
+            max-width: 16rem;
+            padding: 0.4rem 0.8rem;
+            background: #18181b;
+            border: 1px solid #26262a;
+            border-radius: 999px;
+            color: #e6e6e6;
+            font: inherit;
+            font-size: 0.9rem;
+        }
+        .gig-search:focus-visible {
+            outline: 2px solid #f2f2f2;
+            outline-offset: 2px;
+        }
+        .no-matches {
+            margin-top: 0;
+            color: #a1a1aa;
         }
         .gigs-grid {
             display: grid;
@@ -112,8 +143,11 @@
 </head>
 <body>
 <main>
-    <h1>London Metal Gigs</h1>
+    <header class="page-header">
+        <h1>London Metal Gigs</h1>
+    </header>
     {{#each dateGroups}}
+    <section class="date-group">
     <h2>{{date}}</h2>
     <ul class="gigs-grid">
         {{#each gigs}}
@@ -128,7 +162,48 @@
         </li>
         {{/each}}
     </ul>
+    </section>
     {{/each}}
 </main>
+<script>
+    // The search box is built here rather than sitting in the template so that it only ever appears
+    // when there is script to run it - the page is otherwise entirely static, and a box that
+    // silently does nothing is worse than no box.
+    (() => {
+        const cards = [...document.querySelectorAll('.gig-card')]
+            // both the title and the venue are inside the card, so its own text is the whole
+            // haystack; lowercased once here rather than on every keystroke
+            .map(card => ({card, text: card.textContent.toLowerCase()}))
+        const dateGroups = [...document.querySelectorAll('.date-group')]
+        if (!cards.length) return
+
+        const search = document.createElement('input')
+        search.type = 'search'
+        search.className = 'gig-search'
+        search.placeholder = 'Search gigs and venues'
+        search.autocomplete = 'off'
+        search.setAttribute('aria-label', 'Search gigs and venues')
+
+        // role=status so that emptying the page is announced rather than only shown
+        const noMatches = document.createElement('p')
+        noMatches.className = 'no-matches'
+        noMatches.setAttribute('role', 'status')
+        noMatches.textContent = 'No gigs match that search.'
+        noMatches.hidden = true
+
+        const header = document.querySelector('.page-header')
+        header.append(search)
+        header.after(noMatches)
+
+        search.addEventListener('input', () => {
+            const query = search.value.trim().toLowerCase()
+            for (const {card, text} of cards) card.hidden = query !== '' && !text.includes(query)
+            // a date whose gigs are all filtered out goes too, or the page fills with headings
+            // standing over nothing
+            for (const group of dateGroups) group.hidden = !group.querySelector('.gig-card:not([hidden])')
+            noMatches.hidden = query === '' || dateGroups.some(group => !group.hidden)
+        })
+    })()
+</script>
 </body>
 </html>

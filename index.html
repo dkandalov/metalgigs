@@ -31,9 +31,18 @@
             max-width: 1100px;
             margin: 0 auto;
         }
+        .page-header {
+            display: flex;
+            /* on a narrow screen the search drops onto its own line rather than squeezing the title */
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem 1.5rem;
+            margin-bottom: 2rem;
+        }
         h1 {
             font-size: 2rem;
-            margin-bottom: 2rem;
+            margin: 0;
         }
         h2 {
             font-size: 1.1rem;
@@ -42,6 +51,28 @@
             border-bottom: 1px solid #26262a;
             padding-bottom: 0.5rem;
             margin: 2.5rem 0 1rem;
+        }
+        .gig-search {
+            box-sizing: border-box;
+            /* grows into whatever the title leaves, up to a width that keeps it a control in the
+               header rather than a second banner across it */
+            flex: 1 1 12rem;
+            max-width: 16rem;
+            padding: 0.4rem 0.8rem;
+            background: #18181b;
+            border: 1px solid #26262a;
+            border-radius: 999px;
+            color: #e6e6e6;
+            font: inherit;
+            font-size: 0.9rem;
+        }
+        .gig-search:focus-visible {
+            outline: 2px solid #f2f2f2;
+            outline-offset: 2px;
+        }
+        .no-matches {
+            margin-top: 0;
+            color: #a1a1aa;
         }
         .gigs-grid {
             display: grid;
@@ -112,8 +143,11 @@
 </head>
 <body>
 <main>
-    <h1>London Metal Gigs</h1>
+    <header class="page-header">
+        <h1>London Metal Gigs</h1>
+    </header>
     
+    <section class="date-group">
     <h2>Friday, 14 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -148,7 +182,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 15 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -203,7 +239,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 16 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -238,7 +276,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 17 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -263,7 +303,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 18 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -308,7 +350,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 19 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -333,7 +377,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 20 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -378,7 +424,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 21 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -413,7 +461,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 22 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -488,7 +538,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 23 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -533,7 +585,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 25 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -568,7 +622,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 26 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -583,7 +639,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 27 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -608,7 +666,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 28 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -653,7 +713,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 29 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -708,7 +770,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 30 August 2026</h2>
     <ul class="gigs-grid">
         
@@ -743,7 +807,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 1 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -768,7 +834,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 3 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -793,7 +861,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 4 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -828,7 +898,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 5 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -853,7 +925,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 6 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -878,7 +952,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 7 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -913,7 +989,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 8 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -938,7 +1016,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 9 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -973,7 +1053,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 10 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -998,7 +1080,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 11 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1043,7 +1127,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 12 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1098,7 +1184,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 13 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1113,7 +1201,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 16 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1138,7 +1228,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 17 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1153,7 +1245,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 18 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1218,7 +1312,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 19 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1273,7 +1369,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 20 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1288,7 +1386,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 25 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1323,7 +1423,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 26 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1368,7 +1470,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 27 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1393,7 +1497,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 30 September 2026</h2>
     <ul class="gigs-grid">
         
@@ -1408,7 +1514,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 1 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1443,7 +1551,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 2 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1468,7 +1578,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 3 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1503,7 +1615,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 4 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1518,7 +1632,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 5 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1533,7 +1649,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 7 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1578,7 +1696,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 8 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1613,7 +1733,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 9 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1648,7 +1770,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 10 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1683,7 +1807,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 11 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1698,7 +1824,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 12 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1713,7 +1841,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 13 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1738,7 +1868,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 15 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1773,7 +1905,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 16 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1818,7 +1952,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 17 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1863,7 +1999,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 18 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1878,7 +2016,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 19 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1903,7 +2043,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 22 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1928,7 +2070,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 24 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1943,7 +2087,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 25 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1968,7 +2114,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 26 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -1993,7 +2141,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 28 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -2008,7 +2158,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 29 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -2033,7 +2185,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 30 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -2078,7 +2232,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 31 October 2026</h2>
     <ul class="gigs-grid">
         
@@ -2133,7 +2289,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 1 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2168,7 +2326,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 3 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2183,7 +2343,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 5 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2198,7 +2360,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 6 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2233,7 +2397,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 7 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2268,7 +2434,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 8 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2283,7 +2451,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 9 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2308,7 +2478,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 10 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2323,7 +2495,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 11 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2348,7 +2522,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 12 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2373,7 +2549,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 13 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2408,7 +2586,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 14 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2453,7 +2633,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 15 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2488,7 +2670,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 18 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2513,7 +2697,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 19 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2548,7 +2734,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 20 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2573,7 +2761,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 21 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2598,7 +2788,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 22 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2613,7 +2805,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 24 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2648,7 +2842,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 25 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2663,7 +2859,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 26 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2688,7 +2886,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 27 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2733,7 +2933,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 28 November 2026</h2>
     <ul class="gigs-grid">
         
@@ -2768,7 +2970,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 1 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2783,7 +2987,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 2 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2798,7 +3004,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 3 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2823,7 +3031,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 4 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2838,7 +3048,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 5 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2853,7 +3065,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 6 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2878,7 +3092,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 9 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2903,7 +3119,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 10 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2918,7 +3136,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 11 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2933,7 +3153,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 12 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2948,7 +3170,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 15 December 2026</h2>
     <ul class="gigs-grid">
         
@@ -2963,7 +3187,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 9 January 2027</h2>
     <ul class="gigs-grid">
         
@@ -2978,7 +3204,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Monday, 11 January 2027</h2>
     <ul class="gigs-grid">
         
@@ -2993,7 +3221,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 13 January 2027</h2>
     <ul class="gigs-grid">
         
@@ -3008,7 +3238,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 16 January 2027</h2>
     <ul class="gigs-grid">
         
@@ -3023,7 +3255,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 22 January 2027</h2>
     <ul class="gigs-grid">
         
@@ -3038,7 +3272,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 29 January 2027</h2>
     <ul class="gigs-grid">
         
@@ -3053,7 +3289,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 30 January 2027</h2>
     <ul class="gigs-grid">
         
@@ -3078,7 +3316,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Wednesday, 3 February 2027</h2>
     <ul class="gigs-grid">
         
@@ -3093,7 +3333,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 4 February 2027</h2>
     <ul class="gigs-grid">
         
@@ -3108,7 +3350,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 20 February 2027</h2>
     <ul class="gigs-grid">
         
@@ -3133,7 +3377,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Sunday, 7 March 2027</h2>
     <ul class="gigs-grid">
         
@@ -3148,7 +3394,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Thursday, 11 March 2027</h2>
     <ul class="gigs-grid">
         
@@ -3163,7 +3411,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 19 March 2027</h2>
     <ul class="gigs-grid">
         
@@ -3178,7 +3428,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 20 March 2027</h2>
     <ul class="gigs-grid">
         
@@ -3193,7 +3445,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Tuesday, 30 March 2027</h2>
     <ul class="gigs-grid">
         
@@ -3208,7 +3462,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Saturday, 29 May 2027</h2>
     <ul class="gigs-grid">
         
@@ -3223,7 +3479,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 18 June 2027</h2>
     <ul class="gigs-grid">
         
@@ -3238,7 +3496,9 @@
         </li>
         
     </ul>
+    </section>
     
+    <section class="date-group">
     <h2>Friday, 28 January 2028</h2>
     <ul class="gigs-grid">
         
@@ -3253,7 +3513,48 @@
         </li>
         
     </ul>
+    </section>
     
 </main>
+<script>
+    // The search box is built here rather than sitting in the template so that it only ever appears
+    // when there is script to run it - the page is otherwise entirely static, and a box that
+    // silently does nothing is worse than no box.
+    (() => {
+        const cards = [...document.querySelectorAll('.gig-card')]
+            // both the title and the venue are inside the card, so its own text is the whole
+            // haystack; lowercased once here rather than on every keystroke
+            .map(card => ({card, text: card.textContent.toLowerCase()}))
+        const dateGroups = [...document.querySelectorAll('.date-group')]
+        if (!cards.length) return
+
+        const search = document.createElement('input')
+        search.type = 'search'
+        search.className = 'gig-search'
+        search.placeholder = 'Search gigs and venues'
+        search.autocomplete = 'off'
+        search.setAttribute('aria-label', 'Search gigs and venues')
+
+        // role=status so that emptying the page is announced rather than only shown
+        const noMatches = document.createElement('p')
+        noMatches.className = 'no-matches'
+        noMatches.setAttribute('role', 'status')
+        noMatches.textContent = 'No gigs match that search.'
+        noMatches.hidden = true
+
+        const header = document.querySelector('.page-header')
+        header.append(search)
+        header.after(noMatches)
+
+        search.addEventListener('input', () => {
+            const query = search.value.trim().toLowerCase()
+            for (const {card, text} of cards) card.hidden = query !== '' && !text.includes(query)
+            // a date whose gigs are all filtered out goes too, or the page fills with headings
+            // standing over nothing
+            for (const group of dateGroups) group.hidden = !group.querySelector('.gig-card:not([hidden])')
+            noMatches.hidden = query === '' || dateGroups.some(group => !group.hidden)
+        })
+    })()
+</script>
 </body>
 </html>
