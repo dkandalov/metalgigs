@@ -148,11 +148,11 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
 
     val validated = likelyContaminatedVenues(gigs)
     if (validated.isNotEmpty()) {
-        println("Descriptions may include site-wide boilerplate - consider scoping their source's eventPageContent:")
+        println("Descriptions may include site-wide boilerplate - consider scoping their source's eventPageContent. Not logging their gigs this run:")
         validated.forEach { (venue, count) -> println("  $venue ($count gig(s))") }
     }
 
-    val observed = toObserve.map { gig -> GigObserved(gig, now) }
+    val observed = toObserve.filterNot { it.id.venue.name in validated.keys }.map { gig -> GigObserved(gig, now) }
     log.append(observed)
 
     val withoutText = observed.filter { it.gig.description.isBlank() }
