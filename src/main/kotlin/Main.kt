@@ -135,7 +135,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val now = Instant.now()
 
     val (skipped, toScrape) = sources.partition { source ->
-        !force && lastScrapedAt[source.venue]?.isAfter(now.minus(scrapeCooldown)) == true
+        !force && lastScrapedAt[source.venue.name]?.isAfter(now.minus(scrapeCooldown)) == true
     }
     skipped.forEach { source -> println("Skipping ${source.venue} - scraped within the last day; pass force to scrape anyway") }
 
@@ -235,13 +235,13 @@ fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
 
     val pendingByVenue = upcoming
         .filter { statusByGig[it.id] !is ClassificationStatus.Classified }
-        .groupingBy { it.id.venue }
+        .groupingBy { it.id.venue.name }
         .eachCount()
 
     if (pendingByVenue.isNotEmpty()) {
         println()
         println("Upcoming Pending by venue:")
-        pendingByVenue.entries.sortedWith(compareByDescending<Map.Entry<Venue, Int>> { it.value }.thenBy { it.key.name })
+        pendingByVenue.entries.sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
             .forEach { (venue, count) -> println("  ${count.toString().padStart(4)}  $venue") }
     }
 }

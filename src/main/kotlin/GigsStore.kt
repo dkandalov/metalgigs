@@ -140,9 +140,9 @@ class GigsLog(private val file: File) {
     // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
     // longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
     // scraped a bit more often than strictly necessary, never less
-    fun lastScrapedAt(): Map<Venue, Instant> =
+    fun lastScrapedAt(): Map<String, Instant> =
         entries.filterIsInstance<GigObserved>()
-            .groupBy { it.id.venue }
+            .groupBy { it.id.venue.name }
             .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
     // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check

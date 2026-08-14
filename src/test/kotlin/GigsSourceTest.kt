@@ -19,7 +19,7 @@ class GigsSourceTest {
         expectThat(events.first()).isEqualTo(first)
         expectThat(events.last()).isEqualTo(last)
         expectThat(events.all { it.id.url.startsWith(urlPrefix) }).isTrue()
-        expectThat(events.all { it.id.venue == first.id.venue }).isTrue()
+        expectThat(events.all { it.id.venue.name == first.id.venue.name }).isTrue()
 
         return events
     }
