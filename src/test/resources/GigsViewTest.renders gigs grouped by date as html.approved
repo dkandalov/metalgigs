@@ -41,26 +41,8 @@
             margin-bottom: 2rem;
         }
         h1 {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
             font-size: 2rem;
-            line-height: 1;
             margin: 0;
-        }
-        /* Sized against the heading's own text rather than in rem, so it stays locked to the title.
-           Short of the 1em line box because only about 0.7em of that is the capitals it sits beside,
-           so a badge filling the box reads as taller than the words. */
-        .brand-mark {
-            display: block;
-            flex: none;
-            /* so the border counts inside the size above rather than growing the badge past it */
-            box-sizing: border-box;
-            width: 0.85em;
-            height: 0.85em;
-            background: #18181b;
-            border: 1px solid #26262a;
-            border-radius: 0.2em;
         }
         h2 {
             font-size: 1.1rem;
@@ -170,17 +152,7 @@
 <body>
 <main>
     <header class="page-header">
-        <h1>
-            <!-- favicon.svg's bolt, but tiled in the surface the cards and the search box use rather
-                 than the favicon's own - that one is the page background, so it would disappear into
-                 it. The tile is css, leaving the svg to carry only the artwork it shares with
-                 favicon.svg - change one and the other wants changing too. Inline to save a request,
-                 and aria-hidden because the heading it sits in already says the name. -->
-            <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
-                <polygon points="310,50 140,290 240,290 190,462 385,215 275,215" fill="#f2f2f2"/>
-            </svg>
-            Metal Gigs in London
-        </h1>
+        <h1>Metal Gigs in London</h1>
     </header>
     
     <section class="date-group">
