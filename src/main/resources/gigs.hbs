@@ -66,20 +66,30 @@
         }
         .gig-card a {
             display: block;
+            position: relative;
             color: inherit;
             text-decoration: none;
         }
         .gig-card a:hover .gig-title {
             text-decoration: underline;
         }
-        /* Two-tone and drawn inside the link rather than a plain outline around it, for two
-           reasons: the link wraps the poster, so a single colour is only guaranteed to show against
-           some artwork, and .gig-card clips anything outside its rounded box, which an outline at a
-           positive offset would be. */
+        /* Two-tone, because the link wraps the poster and one colour is only guaranteed to show
+           against some artwork. Drawn as an overlay rather than as the link's own outline and inset
+           shadow: an inset shadow paints below child content, so the dark half of the ring would sit
+           behind the very image it exists to stand out against. Inside the card rather than around
+           it, because .gig-card clips whatever leaves its rounded box. The transparent outline is
+           what leaves a focus ring in forced-colors mode, where shadows aren't painted at all. */
         .gig-card a:focus-visible {
-            outline: 2px solid #f2f2f2;
-            outline-offset: -4px;
-            box-shadow: inset 0 0 0 4px #0d0d0f;
+            outline: 2px solid transparent;
+            outline-offset: -6px;
+        }
+        .gig-card a:focus-visible::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            /* the card's 10px, less the 1px border this sits inside */
+            border-radius: 9px;
+            box-shadow: inset 0 0 0 4px #0d0d0f, inset 0 0 0 6px #f2f2f2;
         }
         /* Spans rather than divs so one link can wrap the whole card without nesting block-level
            content in it, so they need laying out as blocks explicitly. */
