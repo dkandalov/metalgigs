@@ -40,8 +40,21 @@
             gap: 0.75rem 1.5rem;
             margin-bottom: 2rem;
         }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .brand-mark {
+            display: block;
+            flex: none;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 9px;
+        }
         h1 {
             font-size: 2rem;
+            line-height: 1;
             margin: 0;
         }
         h2 {
@@ -144,7 +157,17 @@
 <body>
 <main>
     <header class="page-header">
-        <h1>London Metal Gigs</h1>
+        <div class="brand">
+            <!-- favicon.svg's bolt with its colours swapped, so the tile reads as a mark against the
+                 page rather than disappearing into it. Inline to save a request and because it's the
+                 second copy of that artwork - change one and the other wants changing too.
+                 aria-hidden because the heading beside it already says the name. -->
+            <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
+                <rect width="512" height="512" fill="#e6e6e6"/>
+                <polygon points="310,50 140,290 240,290 190,462 385,215 275,215" fill="#0d0d0f"/>
+            </svg>
+            <h1>London Metal Gigs</h1>
+        </div>
     </header>
     {{#each dateGroups}}
     <section class="date-group">
