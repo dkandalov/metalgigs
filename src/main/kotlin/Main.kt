@@ -146,17 +146,19 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     // listing costs nothing and the log stays a record of changes rather than of scrapes
     val toObserve = log.newOrChangedGigs(gigs)
 
-    // checked against a projection of the whole log plus this run's new observations, not just what
-    // changed this run - a handful of new observations isn't enough gigs to tell a coincidence from
-    // real contamination, and a first-ever scrape of a venue has no history to check against otherwise
-    val projectedGigs = (log.currentGigs().associateBy { it.id } + toObserve.associateBy { it.id }).values
-    val contaminated = likelyContaminatedVenues(projectedGigs.toList())
+    // Checked over this run's scrape only - each scraped venue's whole current listing, freshly
+    // extracted - so a flag always points at extraction as it behaves now, never at text some past
+    // scrape captured and no rescrape can retire. Report-only: measured against real data, most of
+    // what it flags is legitimate venue boilerplate dominating thin event pages (age policies,
+    // access info, calendar chrome), not mis-scoped extraction - dropping flagged venues' gigs
+    // would have silenced half the venues.
+    val contaminated = likelyContaminatedVenues(gigs)
     if (contaminated.isNotEmpty()) {
-        println("Descriptions may include site-wide boilerplate - consider scoping their source's eventPageContent. Not logging their new gigs this run:")
+        println("Descriptions may include site-wide boilerplate - consider scoping their source's eventPageContent:")
         contaminated.forEach { (venue, count) -> println("  $venue ($count gig(s))") }
     }
 
-    val observed = toObserve.filterNot { it.id.venue.name in contaminated.keys }.map { gig -> GigObserved(gig, now) }
+    val observed = toObserve.map { gig -> GigObserved(gig, now) }
     log.append(observed)
 
     val withoutText = observed.filter { it.gig.description.isBlank() }
