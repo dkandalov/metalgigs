@@ -54,8 +54,12 @@
         .brand-mark {
             display: block;
             flex: none;
+            /* so the border counts inside the size above rather than growing the badge past it */
+            box-sizing: border-box;
             width: 0.85em;
             height: 0.85em;
+            background: #18181b;
+            border: 1px solid #26262a;
             border-radius: 0.2em;
         }
         h2 {
@@ -167,13 +171,13 @@
 <main>
     <header class="page-header">
         <h1>
-            <!-- favicon.svg's bolt with its colours swapped, so the tile reads as a mark against the
-                 page rather than disappearing into it. Inline to save a request and because it's the
-                 second copy of that artwork - change one and the other wants changing too.
-                 aria-hidden because the heading it sits in already says the name. -->
+            <!-- favicon.svg's bolt, but tiled in the surface the cards and the search box use rather
+                 than the favicon's own - that one is the page background, so it would disappear into
+                 it. The tile is css, leaving the svg to carry only the artwork it shares with
+                 favicon.svg - change one and the other wants changing too. Inline to save a request,
+                 and aria-hidden because the heading it sits in already says the name. -->
             <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
-                <rect width="512" height="512" fill="#e6e6e6"/>
-                <polygon points="310,50 140,290 240,290 190,462 385,215 275,215" fill="#0d0d0f"/>
+                <polygon points="310,50 140,290 240,290 190,462 385,215 275,215" fill="#f2f2f2"/>
             </svg>
             London Metal Gigs
         </h1>
