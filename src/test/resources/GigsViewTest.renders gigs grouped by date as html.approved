@@ -64,20 +64,37 @@
             object-fit: cover;
             background: #26262a;
         }
+        .gig-card a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+        .gig-card a:hover .gig-title {
+            text-decoration: underline;
+        }
+        /* Two-tone and drawn inside the link rather than a plain outline around it, for two
+           reasons: the link wraps the poster, so a single colour is only guaranteed to show against
+           some artwork, and .gig-card clips anything outside its rounded box, which an outline at a
+           positive offset would be. */
+        .gig-card a:focus-visible {
+            outline: 2px solid #f2f2f2;
+            outline-offset: -4px;
+            box-shadow: inset 0 0 0 4px #0d0d0f;
+        }
+        /* Spans rather than divs so one link can wrap the whole card without nesting block-level
+           content in it, so they need laying out as blocks explicitly. */
         .gig-info {
+            display: block;
             padding: 0.85rem 1rem 1rem;
         }
-        .gig-card a {
+        .gig-title {
             display: block;
             margin-bottom: 0.4rem;
             color: #f2f2f2;
             font-weight: 600;
-            text-decoration: none;
-        }
-        .gig-card a:hover {
-            text-decoration: underline;
         }
         .gig-venue {
+            display: block;
             color: #a1a1aa;
             font-size: 0.9rem;
         }
@@ -91,19 +108,23 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-one"><img class="gig-image" src="images/2026-08-08-venue-a-e8f74dd6.webp" alt="Early Gig One" loading="lazy"></a>
-            <div class="gig-info">
-                <a href="https://example.com/gigs/early-gig-one">Early Gig One</a>
-                <div class="gig-venue">Venue A</div>
-            </div>
+            <a href="https://example.com/gigs/early-gig-one">
+                <img class="gig-image" src="images/2026-08-08-venue-a-e8f74dd6.webp" alt="" loading="lazy">
+                <span class="gig-info">
+                    <span class="gig-title">Early Gig One</span>
+                    <span class="gig-venue">Venue A</span>
+                </span>
+            </a>
         </li>
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/early-gig-two"><img class="gig-image" src="images/2026-08-08-venue-b-40b1a885.webp" alt="Early Gig Two" loading="lazy"></a>
-            <div class="gig-info">
-                <a href="https://example.com/gigs/early-gig-two">Early Gig Two</a>
-                <div class="gig-venue">Venue B</div>
-            </div>
+            <a href="https://example.com/gigs/early-gig-two">
+                <img class="gig-image" src="images/2026-08-08-venue-b-40b1a885.webp" alt="" loading="lazy">
+                <span class="gig-info">
+                    <span class="gig-title">Early Gig Two</span>
+                    <span class="gig-venue">Venue B</span>
+                </span>
+            </a>
         </li>
         
     </ul>
@@ -112,11 +133,13 @@
     <ul class="gigs-grid">
         
         <li class="gig-card">
-            <a href="https://example.com/gigs/late-gig"><img class="gig-image" src="images/2026-09-01-venue-a-1c8f1c82.webp" alt="Late Gig" loading="lazy"></a>
-            <div class="gig-info">
-                <a href="https://example.com/gigs/late-gig">Late Gig</a>
-                <div class="gig-venue">Venue A</div>
-            </div>
+            <a href="https://example.com/gigs/late-gig">
+                <img class="gig-image" src="images/2026-09-01-venue-a-1c8f1c82.webp" alt="" loading="lazy">
+                <span class="gig-info">
+                    <span class="gig-title">Late Gig</span>
+                    <span class="gig-venue">Venue A</span>
+                </span>
+            </a>
         </li>
         
     </ul>
