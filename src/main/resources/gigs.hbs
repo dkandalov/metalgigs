@@ -80,6 +80,14 @@
             font: inherit;
             font-size: 0.9rem;
         }
+        /* iOS Safari zooms the page in when a focused form control's text is under 16px, and there
+           is no way to decline that other than to clear the threshold. 16px only where a touch
+           keyboard exists, so the control stays compact on a desktop where the zoom never happens. */
+        @media (pointer: coarse) {
+            .gig-search {
+                font-size: 16px;
+            }
+        }
         .gig-search:focus-visible {
             outline: 2px solid #f2f2f2;
             outline-offset: 2px;
