@@ -21,6 +21,7 @@ val allVenues: List<Venue> = listOf(
     blondiesBar,
     helgis,
     electricBallroom,
+    electricBrixton,
     dingwalls,
     theGarage,
     roundhouse,

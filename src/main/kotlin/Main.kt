@@ -87,6 +87,7 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     BlondiesBarGigsSource(client),
     HelgisGigsSource(client),
     ElectricBallroomGigsSource(client, year = LocalDate.now().year),
+    ElectricBrixtonGigsSource(client),
     DingwallsGigsSource(client),
     TheGarageGigsSource(client),
     RoundhouseGigsSource(client),
