@@ -1101,7 +1101,17 @@ class GigsSourceTest {
             <div id="post-1" class="post-1 event type-event event-post">
                 <h1 class="entry-title">Doom Night</h1>
                 <div class="entry-content">
-                    <div class="tb-event-headerbox">Wednesday 19th August 2026 Doom Promotions presents Doom Night Plus Kings Of Thrash 7:30 pm until 10:15 pm Buy tickets Info</div>
+                    <div class="tb-event-headerbox">
+                        <div class="tb-event-headerbox-titlebox">
+                            <p class="event-date">Wednesday 19th August 2026</p>
+                            <p class="promoter">Doom Promotions presents </p>
+                            <h1 class="event-title">Doom Night</h1>
+                            <h2 class="event-subtitle">Plus Kings Of Thrash</h2>
+                            <p class="event-time">7:30 pm until 10:15 pm</p>
+                            <div class="left-morebox"><a href="https://link.dice.fm/x">Buy tickets</a></div>
+                            <div class="right-morebox"><a href="#tickets">Info</a></div>
+                        </div>
+                    </div>
                     <div>Tickets Price: From £36.47 <p class="guide-to">Read our guide to buying and using tickets.</p></div>
                     <div>Admission <p class="event-time">Doors open at 7:30 PM</p><p class="age-restrictions">Age: You must be 18 years of age or more to attend this event (no exceptions). | Photo ID – We require original physical (non-digital) photo ID and use ID scanning.</p></div>
                     <h3>About Doom Night</h3>
@@ -1116,6 +1126,11 @@ class GigsSourceTest {
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("Kings Of Thrash")).isTrue()
+        expectThat(pageText.contains("Doom Promotions presents")).isTrue()
+        // the gig's date is a field of its own, so as prose it only reads as a second one
+        expectThat(pageText.contains("Wednesday 19th August 2026")).isEqualTo(false)
+        expectThat(pageText.contains("7:30 pm until")).isEqualTo(false)
+        expectThat(pageText.contains("Buy tickets")).isEqualTo(false)
         expectThat(pageText.contains("Photo ID")).isEqualTo(false)
         expectThat(pageText.contains("Read our guide")).isEqualTo(false)
         expectThat(pageText.contains("Add to iCal")).isEqualTo(false)

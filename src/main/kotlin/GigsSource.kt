@@ -530,7 +530,10 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     // with calendar links, all of it identical across listings and on a short one longer than the
     // copy. The gig's own copy is what follows the "About <artist>" heading, on every listing read.
     // The header box is kept for the promoter and support acts, which the listing's title leaves out.
-    private val ticketingFurniture = "p.age-restrictions, p.event-time, p.guide-to, p.add-calendar, .button"
+    // Its own date line and buy/info links go with the rest of the furniture though: the date is
+    // already a field on the gig, and reaching the classifier as prose only reads as a second date.
+    private val ticketingFurniture =
+        "p.event-date, p.age-restrictions, p.event-time, p.guide-to, p.add-calendar, .button, .left-morebox, .right-morebox"
 
     internal fun eventPageContent(page: Document): String? {
         val content = page.select(".event-post .entry-content").firstOrNull()?.clone() ?: return null
