@@ -7,7 +7,12 @@ fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"),
 private fun shortHash(value: String): String =
     MessageDigest.getInstance("SHA-256").digest(value.toByteArray()).joinToString("") { "%02x".format(it) }.take(8)
 
-fun imageUrlExtension(url: String): String = url.substringBefore('?').substringAfterLast('.', "jpg")
+// only the last path segment is looked at, because a url whose own file name has no extension - the
+// Music Glue CDN names Windmill Brixton's posters after the event, extensionless - would otherwise
+// take everything after the dot in the *host* as its extension, slashes and all, and the cache file
+// named from that is a path whose directories don't exist
+fun imageUrlExtension(url: String): String =
+    url.substringBefore('?').substringAfterLast('/').substringAfterLast('.', "jpg")
 
 // images are held in two places, for different reasons:
 //

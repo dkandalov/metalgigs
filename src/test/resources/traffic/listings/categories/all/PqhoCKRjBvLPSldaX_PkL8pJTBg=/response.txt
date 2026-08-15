@@ -1,0 +1,1627 @@
+HTTP/1.1 200 
+cache-control: private, max-age=5, s-maxage=10
+content-language: en
+content-length: 54209
+content-security-policy: frame-ancestors https:;
+content-type: text/html;charset=utf-8
+date: Sat, 15 Aug 2026 14:27:38 GMT
+etag: W/"466d5064ca26bb4d1db4232b6501c073"
+set-cookie: mgid2=MTc4NjgwNDA1NnxEdi1YQkFFQ181Z0FBUkFCRUFBQV9nRkdfNWdBQ1FaemRISnBibWNNQkFBQ2FXUUdjM1J5YVc1bkRDWUFKR1V4T1RSaVlUWTVMV0U0WmpZdE5HRmlaaTFpTldRNExURmxOR0kxTmpFME9HTTBZUVp6ZEhKcGJtY01CQUFDU1VRR2MzUnlhVzVuRENZQUpHVXhPVFJpWVRZNUxXRTRaall0TkdGaVppMWlOV1E0TFRGbE5HSTFOakUwT0dNMFlRWnpkSEpwYm1jTUNRQUhRMjkxYm5SeWVRWnpkSEpwYm1jTUJBQUNSMElHYzNSeWFXNW5EQW9BQ0V4aGJtZDFZV2RsQm5OMGNtbHVad3dFQUFKbGJnWnpkSEpwYm1jTUN3QUpSbWx5YzNST1lXMWxCbk4wY21sdVp3d0NBQUFHYzNSeWFXNW5EQW9BQ0VOMWNuSmxibU41Qm5OMGNtbHVad3dGQUFOSFFsQUdjM1J5YVc1bkRBb0FDRXhoYzNST1lXMWxCbk4wY21sdVp3d0NBQUFHYzNSeWFXNW5EQWNBQlVWdFlXbHNCbk4wY21sdVp3d0NBQUFHYzNSeWFXNW5EQWdBQmxWelpYSkpSQUE9fLt-YiMb_D6Hy1pWiA5fBozQva4rC9vsNtW6zYPXW04u; Path=/; Expires=Thu, 14 Aug 2031 14:27:36 GMT; Max-Age=157680000; HttpOnly; Secure; SameSite=None
+set-cookie: mgid2=MTc4NjgwNDA1NnxEdi1YQkFFQ181Z0FBUkFCRUFBQV9nRkdfNWdBQ1FaemRISnBibWNNQ2dBSVRHRnVaM1ZoWjJVR2MzUnlhVzVuREFRQUFtVnVCbk4wY21sdVp3d0xBQWxHYVhKemRFNWhiV1VHYzNSeWFXNW5EQUlBQUFaemRISnBibWNNQkFBQ2FXUUdjM1J5YVc1bkRDWUFKR1V4T1RSaVlUWTVMV0U0WmpZdE5HRmlaaTFpTldRNExURmxOR0kxTmpFME9HTTBZUVp6ZEhKcGJtY01CQUFDU1VRR2MzUnlhVzVuRENZQUpHVXhPVFJpWVRZNUxXRTRaall0TkdGaVppMWlOV1E0TFRGbE5HSTFOakUwT0dNMFlRWnpkSEpwYm1jTUNRQUhRMjkxYm5SeWVRWnpkSEpwYm1jTUJBQUNSMElHYzNSeWFXNW5EQWdBQmxWelpYSkpSQUFHYzNSeWFXNW5EQW9BQ0VOMWNuSmxibU41Qm5OMGNtbHVad3dGQUFOSFFsQUdjM1J5YVc1bkRBb0FDRXhoYzNST1lXMWxCbk4wY21sdVp3d0NBQUFHYzNSeWFXNW5EQWNBQlVWdFlXbHNCbk4wY21sdVp3d0NBQUE9fOgFScVoC9BL_9yonw2LnKNsOMB5NenCGSM60ARb7hZH; Path=/; Expires=Thu, 14 Aug 2031 14:27:36 GMT; Max-Age=157680000; HttpOnly; Secure; SameSite=None
+strict-transport-security: max-age=315360000; preload
+via: HomeOne
+x-content-type-options: nosniff
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+
+<!doctype html>
+<html prefix="og: http://ogp.me/ns#">
+  <head>
+    <link rel="preconnect" href="https://musicglue-images-prod.global.ssl.fastly.net" />
+    <link rel="preconnect" href="https://musicglue-wwwassets.global.ssl.fastly.net" />
+    <link rel="dns-prefetch" href="https://musicglue-images-prod.global.ssl.fastly.net" />
+    <link rel="dns-prefetch" href="https://musicglue-wwwassets.global.ssl.fastly.net" />
+    <link rel="preload" href="https://musicglue-themes.global.ssl.fastly.net/stylesheets/9df1bbf2-0382-42bf-b882-e53378b6a914/108/de1fb018-0d86-451f-bfd8-9365f521e28f/torrent.css?v=1" as="style" />
+    
+    <link rel="preload" href="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/vendor/e7/d1/f9/a1/ed/1a/d7/fb/f0/77.js?v=1" as="script" crossorigin="anonymous" />
+    <link rel="preload" href="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/locale.en/9c/20/c4/f4/b5/41/f8/28/f3/ca.js?v=1" as="script" crossorigin="anonymous" />
+    <link rel="preload" href="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/app/02/25/b3/82/76/82/f4/b3/da/9e.js?v=1" as="script" crossorigin="anonymous" />
+    
+
+
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Listings - All - Windmill Brixton</title>
+
+    
+      <link rel="canonical" href="https://www.windmillbrixton.co.uk/listings/categories/all">
+    
+
+    
+    
+
+    <link rel="icon" type="image/png" href="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/g.png?u=aHR0cHM6Ly9tdXNpY2dsdWV3d3dhc3NldHMuczMuYW1hem9uYXdzLmNvbS9nLnBuZw%3D%3D&amp;height=16&amp;width=16&amp;v=2" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/g.png?u=aHR0cHM6Ly9tdXNpY2dsdWV3d3dhc3NldHMuczMuYW1hem9uYXdzLmNvbS9nLnBuZw%3D%3D&amp;height=32&amp;width=32&amp;v=2" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/g.png?u=aHR0cHM6Ly9tdXNpY2dsdWV3d3dhc3NldHMuczMuYW1hem9uYXdzLmNvbS9nLnBuZw%3D%3D&amp;height=180&amp;width=180&amp;bg=%23ffffff&amp;v=2">
+
+    <link rel="stylesheet" type="text/css" href="https://musicglue-themes.global.ssl.fastly.net/stylesheets/9df1bbf2-0382-42bf-b882-e53378b6a914/108/de1fb018-0d86-451f-bfd8-9365f521e28f/torrent.css?v=1" id="themeStyleSheet">
+
+    <script>
+      window.BASE_URL = 'https://www.windmillbrixton.co.uk';
+      window.GRAPH_URL = '/__graph';
+      window.PREVIEW_ORIGIN = '';
+      window.PROFILE_ID = 'b7fb15f0-4591-0131-d094-46d9c538da0c';
+      
+      window.PROFILE_PATH = '';
+      window.PROFILE_URL = 'https://www.windmillbrixton.co.uk';
+      window.SHRINKRAY_URL = 'https://musicglue-images-prod.global.ssl.fastly.net/resize';
+      window.COUNTRY = 'gb';
+    </script>
+
+    
+
+    
+
+    
+      
+      
+        <meta property="og:title" content="Windmill Brixton - Listings - All" />
+      
+    
+      
+      
+        <meta property="og:description" content="Windmill Brixton. Live event listings and tickets" />
+      
+    
+      
+      
+        <meta name="description" content="Windmill Brixton. Live event listings and tickets" />
+      
+    
+      
+      
+        
+        <script type="application/ld+json">
+          {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.windmillbrixton.co.uk/events/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill"},{"@type":"ListItem","position":2,"url":"https://www.windmillbrixton.co.uk/events/2026-08-15-summer-weird-sin-all-dayer-and-bbq-the-windmill"},{"@type":"ListItem","position":3,"url":"https://www.windmillbrixton.co.uk/events/2026-08-16-magnolia-vampiric-regrets-popstar-crook-decker-the-windmill"},{"@type":"ListItem","position":4,"url":"https://www.windmillbrixton.co.uk/events/2026-08-17-my-new-band-believe-sorrel-exit-stencil-the-windmill"},{"@type":"ListItem","position":5,"url":"https://www.windmillbrixton.co.uk/events/2026-08-18-no-trixx-gan-gemi-the-windmill"},{"@type":"ListItem","position":6,"url":"https://www.windmillbrixton.co.uk/events/2026-08-19-sailor-honeymoon-the-windmill"},{"@type":"ListItem","position":7,"url":"https://www.windmillbrixton.co.uk/events/2026-08-20-envie-leaping-tiger-jean-the-windmill"},{"@type":"ListItem","position":8,"url":"https://www.windmillbrixton.co.uk/events/2026-08-23-pink-eye-clubs-sunday-roast-the-windmill"},{"@type":"ListItem","position":9,"url":"https://www.windmillbrixton.co.uk/events/2026-08-25-star-city-arthur-robijns-redd-dot-jef-jimps-the-windmill"},{"@type":"ListItem","position":10,"url":"https://www.windmillbrixton.co.uk/events/2026-08-26-concrete-vehicles-canada-the-windmill"},{"@type":"ListItem","position":11,"url":"https://www.windmillbrixton.co.uk/events/2026-08-27-morgan-noise-henry-coke-captain-stoney-the-windmill"},{"@type":"ListItem","position":12,"url":"https://www.windmillbrixton.co.uk/events/2026-08-30-south-london-punk-collective-bbq-the-windmill"},{"@type":"ListItem","position":13,"url":"https://www.windmillbrixton.co.uk/events/2026-09-01-twine-ropeburn-the-windmill"},{"@type":"ListItem","position":14,"url":"https://www.windmillbrixton.co.uk/events/2026-09-03-lifeloose-girl-apocrypha-barbados99-grimrite-the-windmill"},{"@type":"ListItem","position":15,"url":"https://www.windmillbrixton.co.uk/events/2026-09-05-garagebashing-vol-40-the-windmill"},{"@type":"ListItem","position":16,"url":"https://www.windmillbrixton.co.uk/events/2026-09-08-chimer-honk-taste-of-cherry-12-apostles-the-windmill"},{"@type":"ListItem","position":17,"url":"https://www.windmillbrixton.co.uk/events/2026-09-09-drook-the-windmill"},{"@type":"ListItem","position":18,"url":"https://www.windmillbrixton.co.uk/events/2026-09-13-the-no-frills-folk-club-the-windmill"},{"@type":"ListItem","position":19,"url":"https://www.windmillbrixton.co.uk/events/2026-09-14-untitled-halo-the-windmill"},{"@type":"ListItem","position":20,"url":"https://www.windmillbrixton.co.uk/events/2026-09-15-untitled-halo-the-windmill"},{"@type":"ListItem","position":21,"url":"https://www.windmillbrixton.co.uk/events/2026-09-19-mptl-microplastics-volk-soup-mabel-clarke-kiss-gem-burn-the-windmill"},{"@type":"ListItem","position":22,"url":"https://www.windmillbrixton.co.uk/events/2026-09-24-glasshouse-red-spider-mite-the-windmill"},{"@type":"ListItem","position":23,"url":"https://www.windmillbrixton.co.uk/events/2026-09-25-bikini-body-cape-orange-ben-katzman-the-windmill"},{"@type":"ListItem","position":24,"url":"https://www.windmillbrixton.co.uk/events/2026-09-26-smash-it-out-all-dayer-the-windmill"}]}
+        </script>
+        
+      
+    
+      
+      
+        <meta property="og:site_name" content="Windmill Brixton" />
+      
+    
+      
+      
+        <meta property="og:type" content="website" />
+      
+    
+      
+      
+        <meta property="og:url" content="https://www.windmillbrixton.co.uk/listings/categories/all" />
+      
+    
+      
+      
+        <meta property="og:image" content="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNmYwOTJkOWUtN2MzOS04Y2E3LWVlNDUtODgyNGU3OTlkODM1&amp;height=1200&amp;mode=fit&amp;width=1200&amp;v=2" />
+      
+    
+  </head>
+
+  <body
+      data-page-categories="All"
+      data-page-layout="default"
+      data-page-path="/listings/categories/all"
+      data-page-tags="live music"
+      data-page-type="events"
+  >
+    <div id="root">
+      <div class="mg-layout">
+        <div class="wrapper">
+          
+            <header>
+  <div class="Header" data-sticky>
+    <span data-component="LoadingBar" class="Component " data-props="e30="></span>
+    <div class="HeaderBar">
+      <a href="/" class="Link InternalLink Logo" title="Windmill Brixton">
+        
+          <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/Windmill-Brixton-Logo.png?u=aHR0cHM6Ly9kMTgwcWJkYTZvN2U0ay5jbG91ZGZyb250Lm5ldC84MS81OC83Ny80My8wNS84NC80My9iYy9hNy81ZC9kYi9lYS9lNC9kMi84YS9hZS9XaW5kbWlsbC1Ccml4dG9uLUxvZ28ucG5n&amp;height=100&amp;mode=contain&amp;v=2" height="100">
+        
+      </a>
+      <div role="main" class="TopMenu">
+        
+        <nav class="Menu Menu_collapsed" data-action="addClass" data-add-class-target=".Menu" data-add-class-value="Menu_collapsed">
+          
+            <a
+              href="/"
+              target="_self"
+              title="Listings"
+              class="Link MenuLink MenuLink_active InternalLink"
+              
+            >
+              Listings
+            </a>
+          
+            <a
+              href="/about"
+              target="_self"
+              title="About"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              About
+            </a>
+          
+            <a
+              href="/visitor-info"
+              target="_self"
+              title="Visitor Info"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              Visitor Info
+            </a>
+          
+            <a
+              href="/band-info"
+              target="_self"
+              title="Band Info"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              Band Info
+            </a>
+          
+            <a
+              href="/store"
+              target="_self"
+              title="Store"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              Store
+            </a>
+          
+            <a
+              href="http://mailinglist.windmillbrixton.co.uk"
+              target="_blank"
+              title="Mailing List"
+              class="Link MenuLink MenuLink_inactive ExternalLink"
+              rel="nofollow"
+            >
+              Mailing List
+            </a>
+          
+        </nav>
+        <a class="Link MobileMenuToggle" data-action="toggleClass" data-toggle-class-target=".Menu" data-toggle-class-value="Menu_collapsed">
+          Menu
+        </a>
+        
+        
+        <div class="HeaderBarBasket">
+          <span data-component="ReservationExpiry" class="Component " data-props="e30="></span>
+
+          <a href="/basket" rel="nofollow" class="Link HeaderBarBasket-link">
+            <span class="icon-trolley"></span>
+            <span data-component="BasketCount" class="Component HeaderBarBasket-count" data-props="e30="></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+          
+
+          <main class="Main content">
+  
+    
+
+
+
+
+<div class="Card Events">
+  
+  <div class="Card-content">
+    
+  
+
+  
+    <div class="events">
+      <div class="linkGrid">
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMzE1MDZlNzEtNTRiZC00YmQzLTk3Y2YtZmE3ZWIxNTUwYzFm&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMzE1MDZlNzEtNTRiZC00YmQzLTk3Y2YtZmE3ZWIxNTUwYzFm&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="bb1a65da-6ac7-4b73-82f1-a7b749b2a71c">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Fri, Aug 14
+        </span>
+      
+
+      
+        <span class="eventTime">
+          8:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          House Arrest, George Jr &amp; the 9/11s, Rampressure, Skunkworm
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £6
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-15-summer-weird-sin-all-dayer-and-bbq-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-15-summer-weird-sin-all-dayer-and-bbq-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMjRiM2RhNzUtMDQxZS00MTI2LWExZjUtMDE2MTU2NmQzOWY0&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-15-summer-weird-sin-all-dayer-and-bbq-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMjRiM2RhNzUtMDQxZS00MTI2LWExZjUtMDE2MTU2NmQzOWY0&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="e9a51b30-f7d6-4fe6-a8f1-04e5742ee5ef">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sat, Aug 15
+        </span>
+      
+
+      
+        <span class="eventTime">
+          4:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Summer Weird Sin all dayer and bbq
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £15
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-16-magnolia-vampiric-regrets-popstar-crook-decker-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-16-magnolia-vampiric-regrets-popstar-crook-decker-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMGJiMjg5YzctNDg2ZC00NTc1LThmZTgtYzI5YjJhMGFlNzY2&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-16-magnolia-vampiric-regrets-popstar-crook-decker-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMGJiMjg5YzctNDg2ZC00NTc1LThmZTgtYzI5YjJhMGFlNzY2&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="317713ba-3a79-481f-8256-55652bbd9659">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sun, Aug 16
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:15 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Magnolia, &quot;Vampiric Regrets&quot;, PopStar, Crook Decker
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-17-my-new-band-believe-sorrel-exit-stencil-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-17-my-new-band-believe-sorrel-exit-stencil-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMTYwNjVjYzMtZThlYy00OGQ1LWJhMzUtZDk2NzlkNmFjMWM5&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-17-my-new-band-believe-sorrel-exit-stencil-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMTYwNjVjYzMtZThlYy00OGQ1LWJhMzUtZDk2NzlkNmFjMWM5&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="4e82db95-3dbe-41b1-83d9-bd3f9c161707">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Mon, Aug 17
+        </span>
+      
+
+      
+        <span class="eventTime">
+          8:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          My New Band Believe, Sorrel, Exit Stencil
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          SOLD OUT
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-18-no-trixx-gan-gemi-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-18-no-trixx-gan-gemi-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvZThkMDk5NzQtMDgwZC00YmQzLWE5M2UtNzEwNzM3ZGFhYjc2&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-18-no-trixx-gan-gemi-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvZThkMDk5NzQtMDgwZC00YmQzLWE5M2UtNzEwNzM3ZGFhYjc2&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="98371e42-565c-46b8-80f8-bff26a5a98c2">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Tue, Aug 18
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          No Trixx, Gan Gemi
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £7
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-19-sailor-honeymoon-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-19-sailor-honeymoon-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNzY5ZDRmMjMtYWIzMC00NDI1LWIwOWItM2VkOTExNjUwYTAx&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-19-sailor-honeymoon-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNzY5ZDRmMjMtYWIzMC00NDI1LWIwOWItM2VkOTExNjUwYTAx&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="6ed1ed8f-c643-4e04-bc33-fd5eeced5f06">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Wed, Aug 19
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Sailor Honeymoon
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          SOLD OUT
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-20-envie-leaping-tiger-jean-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-20-envie-leaping-tiger-jean-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvZTM0OTcxYzQtZTIyYi00OWYwLTlhZDItNjI1M2Y3M2QyYjNi&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-20-envie-leaping-tiger-jean-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvZTM0OTcxYzQtZTIyYi00OWYwLTlhZDItNjI1M2Y3M2QyYjNi&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="c3f7c4d2-8c6a-4ca9-b31f-1585887193d3">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Thu, Aug 20
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          ENVIE, Leaping Tiger, Jean
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-23-pink-eye-clubs-sunday-roast-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-23-pink-eye-clubs-sunday-roast-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNTY1ZmZkNGUtNzA3ZS00YTA2LTgzOTYtZjk4YjU3Yjg4NzQ0&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-23-pink-eye-clubs-sunday-roast-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNTY1ZmZkNGUtNzA3ZS00YTA2LTgzOTYtZjk4YjU3Yjg4NzQ0&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="22dacff0-8a30-4648-9471-54b92bccf72e">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sun, Aug 23
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:30 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Pink Eye Club&#39;s Sunday Roast
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-25-star-city-arthur-robijns-redd-dot-jef-jimps-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-25-star-city-arthur-robijns-redd-dot-jef-jimps-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNGFiMjZiNTMtNjhkYy00YzljLTk3NTgtYjM0YWY5N2Y5ZmY2&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-25-star-city-arthur-robijns-redd-dot-jef-jimps-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNGFiMjZiNTMtNjhkYy00YzljLTk3NTgtYjM0YWY5N2Y5ZmY2&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="a87c222a-ccb2-4625-9be7-3f0c9ebe4dd1">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Tue, Aug 25
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:30 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Star City, Arthur Robijns, REDD., Jef Jimps
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-26-concrete-vehicles-canada-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-26-concrete-vehicles-canada-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmViZGQyNTktZmU5Ni00N2NkLTg3NDEtNDgyNmUyOTZjNzdm&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-26-concrete-vehicles-canada-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmViZGQyNTktZmU5Ni00N2NkLTg3NDEtNDgyNmUyOTZjNzdm&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="4fb65b3f-8c57-4613-85df-b05e33836f18">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Wed, Aug 26
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Concrete Vehicles (Canada)
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £6
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-27-morgan-noise-henry-coke-captain-stoney-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-27-morgan-noise-henry-coke-captain-stoney-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYzY4MzViYzQtNjY0YS00NzJjLWEwNjEtM2FiYTRkZjMwYWFj&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-27-morgan-noise-henry-coke-captain-stoney-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYzY4MzViYzQtNjY0YS00NzJjLWEwNjEtM2FiYTRkZjMwYWFj&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="0541ae05-38bd-4013-9ce9-3e40f9c9af22">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Thu, Aug 27
+        </span>
+      
+
+      
+        <span class="eventTime">
+          8:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Morgan Noise, Henry Coke, Captain Stoney
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-08-30-south-london-punk-collective-bbq-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-30-south-london-punk-collective-bbq-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0yLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvZmU3ZTJlMjktZjA2ZC00MzgxLWI0YTgtOWQ5Y2FjNWQ4NDE5&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-30-south-london-punk-collective-bbq-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0yLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvZmU3ZTJlMjktZjA2ZC00MzgxLWI0YTgtOWQ5Y2FjNWQ4NDE5&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="bb55a43e-83c3-45aa-babd-6b49d1fb2aaa">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sun, Aug 30
+        </span>
+      
+
+      
+        <span class="eventTime">
+          2:30 AM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          South London Punk Collective BBQ
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £10 on the door
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-01-twine-ropeburn-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-01-twine-ropeburn-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0zLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjgwMjIxNmMtOGM3OC00NTA4LTgwMDItNmYzM2ZlN2YwYTcw&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-01-twine-ropeburn-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0zLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjgwMjIxNmMtOGM3OC00NTA4LTgwMDItNmYzM2ZlN2YwYTcw&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="cb5be61e-8c61-4c18-8610-49feef0e1743">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Tue, Sep 1
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:30 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Twine, Ropeburn
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £8
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-03-lifeloose-girl-apocrypha-barbados99-grimrite-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-03-lifeloose-girl-apocrypha-barbados99-grimrite-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYzkyZTlhMGYtNDYwNy00ZGZjLThlMzYtZGRlMDkxZmI3ZDNh&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-03-lifeloose-girl-apocrypha-barbados99-grimrite-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYzkyZTlhMGYtNDYwNy00ZGZjLThlMzYtZGRlMDkxZmI3ZDNh&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="28fd9a5c-38fe-4b42-9e4e-6fd2b5fe805f">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Thu, Sep 3
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:30 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Lifeloose, Girl Apocrypha, Barbados99, Grimrite
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-05-garagebashing-vol-40-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-05-garagebashing-vol-40-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjFkZDEzNjktMDk3ZC00OTMzLWI3OWYtMDUzZjZiMGFmMjYw&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-05-garagebashing-vol-40-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjFkZDEzNjktMDk3ZC00OTMzLWI3OWYtMDUzZjZiMGFmMjYw&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="84a416a1-f62b-43a6-87ca-63df3a1cc443">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sat, Sep 5
+        </span>
+      
+
+      
+        <span class="eventTime">
+          5:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Garagebashing Vol 40
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £8
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-08-chimer-honk-taste-of-cherry-12-apostles-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-08-chimer-honk-taste-of-cherry-12-apostles-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0yLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMTc2NGFjZDQtZGJiYS00M2Y1LTljODgtYjUxY2QyMzZjYmY4&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-08-chimer-honk-taste-of-cherry-12-apostles-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0yLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMTc2NGFjZDQtZGJiYS00M2Y1LTljODgtYjUxY2QyMzZjYmY4&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="55c91bcb-f021-40ec-a8b0-2a5036504c37">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Tue, Sep 8
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:30 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Chimer, Honk, Taste of Cherry, 12 Apostles
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-09-drook-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-09-drook-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYjFkZDJkOWYtYzBkMC00MjI1LThkYmYtNzBjYWM5ODQwYzY5&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-09-drook-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC02LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYjFkZDJkOWYtYzBkMC00MjI1LThkYmYtNzBjYWM5ODQwYzY5&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="33e98d3e-def0-4c22-b3a2-aeef3bfc001b">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Wed, Sep 9
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Drook
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £6
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-13-the-no-frills-folk-club-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-13-the-no-frills-folk-club-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjExNjkzZjAtMWJiZS0wMTM1LTYzYjUtMWVlMTIxMjczMjZi&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-13-the-no-frills-folk-club-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjExNjkzZjAtMWJiZS0wMTM1LTYzYjUtMWVlMTIxMjczMjZi&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="be0e0f09-0ac9-41c5-9d77-acac339973be">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sun, Sep 13
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          The No Frills Folk Club
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          FREE
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-14-untitled-halo-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-14-untitled-halo-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNzQ5NjdkMzQtOTFlNS00Y2U0LTgxZTAtMTZlNzUwOWEyYTRm&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-14-untitled-halo-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNzQ5NjdkMzQtOTFlNS00Y2U0LTgxZTAtMTZlNzUwOWEyYTRm&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="ea89f5aa-548d-403c-aa39-c392989c12dd">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Mon, Sep 14
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          untitled (halo)
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £7
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-15-untitled-halo-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-15-untitled-halo-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0zLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvOTBlNDBkZGItNjBhMC00NzQzLTg3YjAtMDRlMWQ5ZDUyNTQy&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-15-untitled-halo-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0zLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvOTBlNDBkZGItNjBhMC00NzQzLTg3YjAtMDRlMWQ5ZDUyNTQy&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="47b4d61f-1e6f-4dc0-96ae-66217653ff07">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Tue, Sep 15
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          untitled (halo)
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          SOLD OUT
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-19-mptl-microplastics-volk-soup-mabel-clarke-kiss-gem-burn-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-19-mptl-microplastics-volk-soup-mabel-clarke-kiss-gem-burn-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0zLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvOTRlZmYxMDQtOTkzMi00ZDYxLWE0NjQtYzA3ZThmNWY5YmYx&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-19-mptl-microplastics-volk-soup-mabel-clarke-kiss-gem-burn-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0zLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvOTRlZmYxMDQtOTkzMi00ZDYxLWE0NjQtYzA3ZThmNWY5YmYx&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="1a360567-4fa9-4512-8454-753f465fc087">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sat, Sep 19
+        </span>
+      
+
+      
+        <span class="eventTime">
+          8:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          MPTL Microplastics, Volk Soup, Mabel Clarke, Kiss Gem Burn
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £6
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-24-glasshouse-red-spider-mite-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-24-glasshouse-red-spider-mite-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvODU1Nzk4OTMtZjBhNC00OTBjLTgzZTEtMjZlN2Q4MWRhZDQ4&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-24-glasshouse-red-spider-mite-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvODU1Nzk4OTMtZjBhNC00OTBjLTgzZTEtMjZlN2Q4MWRhZDQ4&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="2619419d-875c-4cfe-b166-2c33f91d8cc8">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Thu, Sep 24
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Glasshouse Red Spider Mite
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £8.50
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-25-bikini-body-cape-orange-ben-katzman-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-25-bikini-body-cape-orange-ben-katzman-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYjIyNGQ5ZWYtN2RhNS00YzdlLWI2OWUtNWU5YzQ5MjZiZWI3&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-25-bikini-body-cape-orange-ben-katzman-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYjIyNGQ5ZWYtN2RhNS00YzdlLWI2OWUtNWU5YzQ5MjZiZWI3&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="458b1739-142c-4e12-b282-df982428bb15">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Fri, Sep 25
+        </span>
+      
+
+      
+        <span class="eventTime">
+          1:00 AM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Bikini Body, Cape Orange, Ben Katzman
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £6
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-09-26-smash-it-out-all-dayer-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-26-smash-it-out-all-dayer-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYzRmMWYwZmUtNmI2MC00OTZmLWEwMjMtYTg3YjNiMmQyMzhi&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-09-26-smash-it-out-all-dayer-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYzRmMWYwZmUtNmI2MC00OTZmLWEwMjMtYTg3YjNiMmQyMzhi&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="f1f056c8-c621-4344-9cc6-a2a632e7149c">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sat, Sep 26
+        </span>
+      
+
+      
+        <span class="eventTime">
+          2:30 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Smash It Out all dayer
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £22.25
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+      </div>
+
+      
+        
+          
+
+
+
+<div class="Pagination">
+  <div class="Pagination-link Pagination-previous">
+    
+      <a href="#" class="Link InternalLink PagingLink button" disabled="disabled">
+        Prev
+      </a>
+    
+  </div>
+
+  <div class="Paging-pages">
+    Page 1 of 2
+  </div>
+
+
+  <div class="Pagination-link Pagination-next">
+    
+      <a class="Link InternalLink PagingLink button" href="/listings/categories/all/page/2">
+        Next
+      </a>
+    
+  </div>
+</div>
+
+        
+      
+    </div>
+  
+
+  </div>
+</div>
+
+
+  
+</main>
+
+  <aside class="Bottom-wrap">
+    <div class="Bottom">
+      
+        <div class="Card MailingList">
+  
+    <div class="Card-header">
+      <div class="Card-title">Mailing List</div>
+    </div>
+  
+  <div class="Card-content">
+    
+  <div data-context="eyJpZCI6ImEwZGIyN2I1LWMzN2EtNDFiOS05YWI3LTJmZmQ0ZmE4NzdjMiIsInR5cGUiOiJtYWlsaW5nTGlzdCIsInByb3BzIjp7fX0=">
+    <div class="EmailForm">
+      <span data-component="EmailInput" class="Component EmailForm-input" data-props="eyJsYWJlbCI6bnVsbCwiY2FsbGJhY2tVcmwiOiJodHRwczovL3d3dy53aW5kbWlsbGJyaXh0b24uY28udWsvY29uZmlybS86dG9rZW5JZCIsImNvbnRleHQiOnsiaWQiOiJhMGRiMjdiNS1jMzdhLTQxYjktOWFiNy0yZmZkNGZhODc3YzIiLCJ0eXBlIjoibWFpbGluZ0xpc3QiLCJwcm9wcyI6e319fQ=="></span>
+
+      
+      <div data-component="SubmitButton" class="Component EmailForm-submit" data-props="eyJsYWJlbCI6IlNpZ24gVXAiLCJtb2RhbF9jbGFzcyI6bnVsbCwiY2FsbGJhY2tVcmwiOiJodHRwczovL3d3dy53aW5kbWlsbGJyaXh0b24uY28udWsvY29uZmlybS86dG9rZW5JZCIsImNvbnRleHQiOnsiaWQiOiJhMGRiMjdiNS1jMzdhLTQxYjktOWFiNy0yZmZkNGZhODc3YzIiLCJ0eXBlIjoibWFpbGluZ0xpc3QiLCJwcm9wcyI6e319fQ=="></div>
+    </div>
+    <span class="MailingList-termsAndConditions">
+      
+      <p>By signing up you agree to receive news and offers from Windmill Brixton. You can unsubscribe at any time. For more details see the <a rel="nofollow" href="https://www.musicglue.com/policies" title="">privacy policy</a>.</p>
+
+    </span>
+  </div>
+
+  </div>
+</div>
+
+
+      
+        
+  <div class="Card SocialAccountsWidget">
+  
+    <div class="Card-header">
+      <div class="Card-title">Socials</div>
+    </div>
+  
+  <div class="Card-content">
+    
+    <ul class="SocialAccounts" itemscope itemtype="http://schema.org/Organization">
+      <link itemprop="url" href="/">
+      
+        <li class="SocialAccount">
+          <a itemprop="sameAs" href="https://facebook.com/windmillbrixton" target="_blank" rel="noopener nofollow" class="SocialAccount-link SocialAccount-Facebook"></a>
+        </li>
+      
+        <li class="SocialAccount">
+          <a itemprop="sameAs" href="https://twitter.com/WindmillBrixton" target="_blank" rel="noopener nofollow" class="SocialAccount-link SocialAccount-Twitter"></a>
+        </li>
+      
+        <li class="SocialAccount">
+          <a itemprop="sameAs" href="https://instagram.com/windmillbrixton" target="_blank" rel="noopener nofollow" class="SocialAccount-link SocialAccount-Instagram"></a>
+        </li>
+      
+    </ul>
+  
+  </div>
+</div>
+
+
+
+      
+    </div>
+  </aside>
+
+
+
+          
+            <footer>
+  <div class="Footer-wrap">
+    <div class="Footer">
+      <div class="Footer-settings">
+        <span data-component="ViewerCountrySelect" class="Component Footer-settings-country" data-props="e30="></span>
+        <span data-component="ViewerLanguageSelect" class="Component Footer-settings-language" data-props="e30="></span>
+        <span data-component="ViewerCurrencySelect" class="Component Footer-settings-currency" data-props="e30="></span>
+        <span data-component="ChangeCookieSettings" class="Component " data-props="eyJtYW5hZ2VkQnkiOiJXaW5kbWlsbCBCcml4dG9uIn0="></span>
+      </div>
+
+      <div class="Footer-logos">
+        
+        <a href="https://www.musicglue.com/" target="_blank" rel="noopener" class="Footer-logos-mg Footer-logo">
+          <span class="musicglue-logo"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="StreamPlayer">
+  <div class="StreamPlayer-content">
+    <div class="StreamPlayer-track">
+      <span data-component="NowPlayingPlaylist" class="Component StreamPlayer-track-collection" data-props="e30="></span>
+      <span data-component="NowPlayingTitle" class="Component StreamPlayer-track-title" data-props="e30="></span>
+    </div>
+    <div class="StreamPlayer-controls">
+      <span data-component="PrevTrack" class="Component " data-props="e30="></span>
+      <span data-component="TogglePlayback" class="Component " data-props="e30="></span>
+      <span data-component="NextTrack" class="Component " data-props="e30="></span>
+    </div>
+  </div>
+</div>
+
+
+  <span data-component="CookieFooter" class="Component " data-props="eyJtYW5hZ2VkQnkiOiJXaW5kbWlsbCBCcml4dG9uIn0="></span>
+
+
+          
+        </div>
+      </div>
+    </div>
+    <script>
+      window.initialStore = {"platform":{"homeUrl":"https://www.musicglue.com","name":"Music Glue","policyOwner":"Music Glue","policyUrl":"https://www.musicglue.com/policies","termsUrl":"https://www.musicglue.com/terms-and-conditions"},"profile":{"uuid":"b7fb15f0-4591-0131-d094-46d9c538da0c","websiteMode":true,"name":"Windmill Brixton","slug":"windmill-brixton","supportedCurrencies":["GBP"]},"viewer":{"id":"e194ba69-a8f6-4abf-b5d8-1e4b56148c4a","currency":"gbp","country":{"code":"gb","name":"United Kingdom","region":"Europe"},"eu":false,"language":"en","marketingCookies":null,"analyticsCookies":null},"pixelTrackingConfig":{"__typename":"PixelTrackingConfig","googleAnalytics":null,"googleTagManager":null,"facebookPixel":null,"twitterTag":null,"mgGoogleAnalyticsKey":"UA-1946445-18"},"streams":{"tracks":[],"playback":{"pending":false,"hasNext":false,"streamId":null,"playlistId":"page"}},"page":{"themePreview":null,"secret":null,"eventsQueue":[]}};
+      if (window.hydrateStore) window.hydrateStore();
+    </script>
+    <script>
+      var performance = window.performance;
+      var hasPerf = performance && typeof performance.now === "function";
+      var loadedStates = {
+        UNREPORTED: "unreported",
+        FAILED: "failed to load",
+        LOADED: "loaded"
+      };
+
+      window.__resourcesLoadedState = {
+        app: { state: loadedStates.UNREPORTED, timing: undefined },
+        language: { state: loadedStates.UNREPORTED, timing: undefined },
+        polyfill: { state: loadedStates.UNREPORTED, timing: undefined },
+        preview: { state: loadedStates.UNREPORTED, timing: undefined },
+        vendor: { state: loadedStates.UNREPORTED, timing: undefined },
+      };
+
+      function reportResourceFailure(resource) {
+        window.__resourcesLoadedState[resource].state = loadedStates.FAILED;
+
+        if (hasPerf) {
+          window.__resourcesLoadedState[resource].timing = performance.now();
+        }
+      }
+
+      function reportResourceSuccess(resource) {
+        window.__resourcesLoadedState[resource].state = loadedStates.LOADED;
+
+        if (hasPerf) {
+          window.__resourcesLoadedState[resource].timing = performance.now();
+        }
+      }
+    </script>
+
+    
+    <script
+      crossorigin="anonymous"
+      src="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/vendor/e7/d1/f9/a1/ed/1a/d7/fb/f0/77.js?v=1"
+      onload="reportResourceSuccess('vendor')"
+      onerror="reportResourceFailure('vendor')"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/locale.en/9c/20/c4/f4/b5/41/f8/28/f3/ca.js?v=1"
+      onload="reportResourceSuccess('language')"
+      onerror="reportResourceFailure('language')"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/app/02/25/b3/82/76/82/f4/b3/da/9e.js?v=1"
+      onload="reportResourceSuccess('app')"
+      onerror="reportResourceFailure('app')"
+    ></script>
+    
+    
+
+  <!-- Google Analytics -->
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    
+      ga('create', 'UA-1946445-18', 'auto', 'mgTracker');
+      
+        ga('mgTracker.set', 'anonymizeIp', true);
+      
+      ga('mgTracker.send', 'pageview');
+      ga('mgTracker.require', 'ecommerce');
+    
+
+    
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <!-- End of Google Analytics -->
+
+
+
+
+
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="DLSPGGXO" defer></script>
+    <!-- / Fathom -->
+  </body>
+</html>

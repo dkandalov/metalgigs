@@ -1,0 +1,619 @@
+HTTP/1.1 200 
+cache-control: private, max-age=5, s-maxage=10
+content-language: en
+content-length: 21058
+content-security-policy: frame-ancestors https:;
+content-type: text/html;charset=utf-8
+date: Sat, 15 Aug 2026 14:27:48 GMT
+etag: W/"5fdcde19f5cea4e7eaba6519d4daf7a2"
+set-cookie: mgid2=MTc4NjgwNDA2N3xEdi1YQkFFQ181Z0FBUkFCRUFBQV9nRkdfNWdBQ1FaemRISnBibWNNQkFBQ1NVUUdjM1J5YVc1bkRDWUFKRFppT1dFeU1EQTRMVEExTmpjdE5ETmtOeTA0TjJZekxXVmtNR1ZsTURFeU9XTmtNUVp6ZEhKcGJtY01DZ0FJUTNWeWNtVnVZM2tHYzNSeWFXNW5EQVVBQTBkQ1VBWnpkSEpwYm1jTUNnQUlUR0Z1WjNWaFoyVUdjM1J5YVc1bkRBUUFBbVZ1Qm5OMGNtbHVad3dLQUFoTVlYTjBUbUZ0WlFaemRISnBibWNNQWdBQUJuTjBjbWx1Wnd3SEFBVkZiV0ZwYkFaemRISnBibWNNQWdBQUJuTjBjbWx1Wnd3RUFBSnBaQVp6ZEhKcGJtY01KZ0FrTm1JNVlUSXdNRGd0TURVMk55MDBNMlEzTFRnM1pqTXRaV1F3WldVd01USTVZMlF4Qm5OMGNtbHVad3dKQUFkRGIzVnVkSEo1Qm5OMGNtbHVad3dFQUFKSFFnWnpkSEpwYm1jTUN3QUpSbWx5YzNST1lXMWxCbk4wY21sdVp3d0NBQUFHYzNSeWFXNW5EQWdBQmxWelpYSkpSQUE9fCwImA6NrofZeaFyn3t-KdUHnTW_N-S2hbvzbeWEsgmP; Path=/; Expires=Thu, 14 Aug 2031 14:27:47 GMT; Max-Age=157680000; HttpOnly; Secure; SameSite=None
+set-cookie: mgid2=MTc4NjgwNDA2N3xEdi1YQkFFQ181Z0FBUkFCRUFBQV9nRkdfNWdBQ1FaemRISnBibWNNQkFBQ2FXUUdjM1J5YVc1bkRDWUFKRFppT1dFeU1EQTRMVEExTmpjdE5ETmtOeTA0TjJZekxXVmtNR1ZsTURFeU9XTmtNUVp6ZEhKcGJtY01DUUFIUTI5MWJuUnllUVp6ZEhKcGJtY01CQUFDUjBJR2MzUnlhVzVuREFzQUNVWnBjbk4wVG1GdFpRWnpkSEpwYm1jTUFnQUFCbk4wY21sdVp3d0lBQVpWYzJWeVNVUUFCbk4wY21sdVp3d0VBQUpKUkFaemRISnBibWNNSmdBa05tSTVZVEl3TURndE1EVTJOeTAwTTJRM0xUZzNaak10WldRd1pXVXdNVEk1WTJReEJuTjBjbWx1Wnd3S0FBaERkWEp5Wlc1amVRWnpkSEpwYm1jTUJRQURSMEpRQm5OMGNtbHVad3dLQUFoTVlXNW5kV0ZuWlFaemRISnBibWNNQkFBQ1pXNEdjM1J5YVc1bkRBb0FDRXhoYzNST1lXMWxCbk4wY21sdVp3d0NBQUFHYzNSeWFXNW5EQWNBQlVWdFlXbHNCbk4wY21sdVp3d0NBQUE9fL-izf1GAZPOWqf_g4oNnb4AZMsuIQTdFDDV4DImy5Yv; Path=/; Expires=Thu, 14 Aug 2031 14:27:47 GMT; Max-Age=157680000; HttpOnly; Secure; SameSite=None
+strict-transport-security: max-age=315360000; preload
+via: HomeOne
+x-content-type-options: nosniff
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+
+<!doctype html>
+<html prefix="og: http://ogp.me/ns#">
+  <head>
+    <link rel="preconnect" href="https://musicglue-images-prod.global.ssl.fastly.net" />
+    <link rel="preconnect" href="https://musicglue-wwwassets.global.ssl.fastly.net" />
+    <link rel="dns-prefetch" href="https://musicglue-images-prod.global.ssl.fastly.net" />
+    <link rel="dns-prefetch" href="https://musicglue-wwwassets.global.ssl.fastly.net" />
+    <link rel="preload" href="https://musicglue-themes.global.ssl.fastly.net/stylesheets/9df1bbf2-0382-42bf-b882-e53378b6a914/108/de1fb018-0d86-451f-bfd8-9365f521e28f/torrent.css?v=1" as="style" />
+    
+    <link rel="preload" href="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/vendor/e7/d1/f9/a1/ed/1a/d7/fb/f0/77.js?v=1" as="script" crossorigin="anonymous" />
+    <link rel="preload" href="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/locale.en/9c/20/c4/f4/b5/41/f8/28/f3/ca.js?v=1" as="script" crossorigin="anonymous" />
+    <link rel="preload" href="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/app/02/25/b3/82/76/82/f4/b3/da/9e.js?v=1" as="script" crossorigin="anonymous" />
+    
+
+
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Listings - All - Windmill Brixton</title>
+
+    
+      <link rel="canonical" href="https://www.windmillbrixton.co.uk/listings/categories/all">
+    
+
+    
+    
+
+    <link rel="icon" type="image/png" href="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/g.png?u=aHR0cHM6Ly9tdXNpY2dsdWV3d3dhc3NldHMuczMuYW1hem9uYXdzLmNvbS9nLnBuZw%3D%3D&amp;height=16&amp;width=16&amp;v=2" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/g.png?u=aHR0cHM6Ly9tdXNpY2dsdWV3d3dhc3NldHMuczMuYW1hem9uYXdzLmNvbS9nLnBuZw%3D%3D&amp;height=32&amp;width=32&amp;v=2" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/g.png?u=aHR0cHM6Ly9tdXNpY2dsdWV3d3dhc3NldHMuczMuYW1hem9uYXdzLmNvbS9nLnBuZw%3D%3D&amp;height=180&amp;width=180&amp;bg=%23ffffff&amp;v=2">
+
+    <link rel="stylesheet" type="text/css" href="https://musicglue-themes.global.ssl.fastly.net/stylesheets/9df1bbf2-0382-42bf-b882-e53378b6a914/108/de1fb018-0d86-451f-bfd8-9365f521e28f/torrent.css?v=1" id="themeStyleSheet">
+
+    <script>
+      window.BASE_URL = 'https://www.windmillbrixton.co.uk';
+      window.GRAPH_URL = '/__graph';
+      window.PREVIEW_ORIGIN = '';
+      window.PROFILE_ID = 'b7fb15f0-4591-0131-d094-46d9c538da0c';
+      
+      window.PROFILE_PATH = '';
+      window.PROFILE_URL = 'https://www.windmillbrixton.co.uk';
+      window.SHRINKRAY_URL = 'https://musicglue-images-prod.global.ssl.fastly.net/resize';
+      window.COUNTRY = 'gb';
+    </script>
+
+    
+
+    
+
+    
+      
+      
+        <meta property="og:title" content="Windmill Brixton - Listings - All" />
+      
+    
+      
+      
+        <meta property="og:description" content="Windmill Brixton. Live event listings and tickets" />
+      
+    
+      
+      
+        <meta name="description" content="Windmill Brixton. Live event listings and tickets" />
+      
+    
+      
+      
+        
+        <script type="application/ld+json">
+          {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.windmillbrixton.co.uk/events/2026-11-01-louis-ohara-and-his-burley-chassis-serafima-and-the-shakedowns-gem-stark-youth-rifle-the-windmill"},{"@type":"ListItem","position":2,"url":"https://www.windmillbrixton.co.uk/events/2026-11-11-hiding-places-the-windmill"},{"@type":"ListItem","position":3,"url":"https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill"}]}
+        </script>
+        
+      
+    
+      
+      
+        <meta property="og:site_name" content="Windmill Brixton" />
+      
+    
+      
+      
+        <meta property="og:type" content="website" />
+      
+    
+      
+      
+        <meta property="og:url" content="https://www.windmillbrixton.co.uk/listings/categories/all" />
+      
+    
+      
+      
+        <meta property="og:image" content="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNmYwOTJkOWUtN2MzOS04Y2E3LWVlNDUtODgyNGU3OTlkODM1&amp;height=1200&amp;mode=fit&amp;width=1200&amp;v=2" />
+      
+    
+  </head>
+
+  <body
+      data-page-categories="All"
+      data-page-layout="default"
+      data-page-path="/listings/categories/all"
+      data-page-tags="live music"
+      data-page-type="events"
+  >
+    <div id="root">
+      <div class="mg-layout">
+        <div class="wrapper">
+          
+            <header>
+  <div class="Header" data-sticky>
+    <span data-component="LoadingBar" class="Component " data-props="e30="></span>
+    <div class="HeaderBar">
+      <a href="/" class="Link InternalLink Logo" title="Windmill Brixton">
+        
+          <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/profile/images/Windmill-Brixton-Logo.png?u=aHR0cHM6Ly9kMTgwcWJkYTZvN2U0ay5jbG91ZGZyb250Lm5ldC84MS81OC83Ny80My8wNS84NC80My9iYy9hNy81ZC9kYi9lYS9lNC9kMi84YS9hZS9XaW5kbWlsbC1Ccml4dG9uLUxvZ28ucG5n&amp;height=100&amp;mode=contain&amp;v=2" height="100">
+        
+      </a>
+      <div role="main" class="TopMenu">
+        
+        <nav class="Menu Menu_collapsed" data-action="addClass" data-add-class-target=".Menu" data-add-class-value="Menu_collapsed">
+          
+            <a
+              href="/"
+              target="_self"
+              title="Listings"
+              class="Link MenuLink MenuLink_active InternalLink"
+              
+            >
+              Listings
+            </a>
+          
+            <a
+              href="/about"
+              target="_self"
+              title="About"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              About
+            </a>
+          
+            <a
+              href="/visitor-info"
+              target="_self"
+              title="Visitor Info"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              Visitor Info
+            </a>
+          
+            <a
+              href="/band-info"
+              target="_self"
+              title="Band Info"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              Band Info
+            </a>
+          
+            <a
+              href="/store"
+              target="_self"
+              title="Store"
+              class="Link MenuLink MenuLink_inactive InternalLink"
+              
+            >
+              Store
+            </a>
+          
+            <a
+              href="http://mailinglist.windmillbrixton.co.uk"
+              target="_blank"
+              title="Mailing List"
+              class="Link MenuLink MenuLink_inactive ExternalLink"
+              rel="nofollow"
+            >
+              Mailing List
+            </a>
+          
+        </nav>
+        <a class="Link MobileMenuToggle" data-action="toggleClass" data-toggle-class-target=".Menu" data-toggle-class-value="Menu_collapsed">
+          Menu
+        </a>
+        
+        
+        <div class="HeaderBarBasket">
+          <span data-component="ReservationExpiry" class="Component " data-props="e30="></span>
+
+          <a href="/basket" rel="nofollow" class="Link HeaderBarBasket-link">
+            <span class="icon-trolley"></span>
+            <span data-component="BasketCount" class="Component HeaderBarBasket-count" data-props="e30="></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+          
+
+          <main class="Main content">
+  
+    
+
+
+
+
+<div class="Card Events">
+  
+  <div class="Card-content">
+    
+  
+
+  
+    <div class="events">
+      <div class="linkGrid">
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-11-01-louis-ohara-and-his-burley-chassis-serafima-and-the-shakedowns-gem-stark-youth-rifle-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-01-louis-ohara-and-his-burley-chassis-serafima-and-the-shakedowns-gem-stark-youth-rifle-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0yLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjdjMmZhNzEtYmNiYy00OTFjLTgyYzctM2ZlNTI2ZTc1ZTc2&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-01-louis-ohara-and-his-burley-chassis-serafima-and-the-shakedowns-gem-stark-youth-rifle-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0yLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvNjdjMmZhNzEtYmNiYy00OTFjLTgyYzctM2ZlNTI2ZTc1ZTc2&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="bf0dda75-5744-4cd8-8521-d92ddc1d2b59">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Sun, Nov 1
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:00 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Louis O&#39;Hara &amp; His Burley Chassis, Serafima &amp; The Shakedowns, Gem Stark, Youth Rifle
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £5
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-11-11-hiding-places-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-11-hiding-places-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvOGRhNTZmMWMtNjk1NC00MzQxLTliMmItNTkyNzBiMjEyODAx&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-11-hiding-places-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC0xLXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvOGRhNTZmMWMtNjk1NC00MzQxLTliMmItNTkyNzBiMjEyODAx&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="a0f0836e-042a-4c85-9f67-5084e6387acc">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Wed, Nov 11
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Hiding Places
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £7
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+          <a class="Link InternalLink EventLink" href="/events/2026-11-19-grommet-the-windmill">
+  
+    <div class="Image-wrap">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&amp;mode=contain&amp;width=600&amp;v=2" width="600">
+      <img src="https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&amp;mode=cover&amp;width=100&amp;v=2" width="100" class="Backup">
+    </div>
+  
+
+  <div class="Overlay" data-action="track" data-track-name="VIEW_EVENT_DETAIL" data-track-id="6bf2a3c1-f01e-4977-9dab-55c3564630bd">
+    
+
+    <div class="when">
+      
+        <span class="eventDate">
+          Thu, Nov 19
+        </span>
+      
+
+      
+        <span class="eventTime">
+          7:45 PM
+        </span>
+      
+    </div>
+
+    
+      <div class="what">
+        
+
+        <span class="title name">
+          Grommet
+        </span>
+      </div>
+    
+
+    
+
+    
+      <div class="price">
+        
+          £12.50
+        
+      </div>
+    
+  </div>
+</a>
+
+        
+      </div>
+
+      
+        
+          
+
+
+
+<div class="Pagination">
+  <div class="Pagination-link Pagination-previous">
+    
+      <a class="Link InternalLink PagingLink button" href="/listings/categories/all/page/1">
+        Prev
+      </a>
+    
+  </div>
+
+  <div class="Paging-pages">
+    Page 2 of 2
+  </div>
+
+
+  <div class="Pagination-link Pagination-next">
+    
+      <a href="#" class="Link InternalLink PagingLink button" disabled="disabled">
+        Next
+      </a>
+    
+  </div>
+</div>
+
+        
+      
+    </div>
+  
+
+  </div>
+</div>
+
+
+  
+</main>
+
+  <aside class="Bottom-wrap">
+    <div class="Bottom">
+      
+        <div class="Card MailingList">
+  
+    <div class="Card-header">
+      <div class="Card-title">Mailing List</div>
+    </div>
+  
+  <div class="Card-content">
+    
+  <div data-context="eyJpZCI6IjM1NjlmNGYzLWQ2ZTgtNDUzMC1hNzcxLWY2NmYzYWRlNDIwMiIsInR5cGUiOiJtYWlsaW5nTGlzdCIsInByb3BzIjp7fX0=">
+    <div class="EmailForm">
+      <span data-component="EmailInput" class="Component EmailForm-input" data-props="eyJsYWJlbCI6bnVsbCwiY2FsbGJhY2tVcmwiOiJodHRwczovL3d3dy53aW5kbWlsbGJyaXh0b24uY28udWsvY29uZmlybS86dG9rZW5JZCIsImNvbnRleHQiOnsiaWQiOiIzNTY5ZjRmMy1kNmU4LTQ1MzAtYTc3MS1mNjZmM2FkZTQyMDIiLCJ0eXBlIjoibWFpbGluZ0xpc3QiLCJwcm9wcyI6e319fQ=="></span>
+
+      
+      <div data-component="SubmitButton" class="Component EmailForm-submit" data-props="eyJsYWJlbCI6IlNpZ24gVXAiLCJtb2RhbF9jbGFzcyI6bnVsbCwiY2FsbGJhY2tVcmwiOiJodHRwczovL3d3dy53aW5kbWlsbGJyaXh0b24uY28udWsvY29uZmlybS86dG9rZW5JZCIsImNvbnRleHQiOnsiaWQiOiIzNTY5ZjRmMy1kNmU4LTQ1MzAtYTc3MS1mNjZmM2FkZTQyMDIiLCJ0eXBlIjoibWFpbGluZ0xpc3QiLCJwcm9wcyI6e319fQ=="></div>
+    </div>
+    <span class="MailingList-termsAndConditions">
+      
+      <p>By signing up you agree to receive news and offers from Windmill Brixton. You can unsubscribe at any time. For more details see the <a rel="nofollow" href="https://www.musicglue.com/policies" title="">privacy policy</a>.</p>
+
+    </span>
+  </div>
+
+  </div>
+</div>
+
+
+      
+        
+  <div class="Card SocialAccountsWidget">
+  
+    <div class="Card-header">
+      <div class="Card-title">Socials</div>
+    </div>
+  
+  <div class="Card-content">
+    
+    <ul class="SocialAccounts" itemscope itemtype="http://schema.org/Organization">
+      <link itemprop="url" href="/">
+      
+        <li class="SocialAccount">
+          <a itemprop="sameAs" href="https://facebook.com/windmillbrixton" target="_blank" rel="noopener nofollow" class="SocialAccount-link SocialAccount-Facebook"></a>
+        </li>
+      
+        <li class="SocialAccount">
+          <a itemprop="sameAs" href="https://twitter.com/WindmillBrixton" target="_blank" rel="noopener nofollow" class="SocialAccount-link SocialAccount-Twitter"></a>
+        </li>
+      
+        <li class="SocialAccount">
+          <a itemprop="sameAs" href="https://instagram.com/windmillbrixton" target="_blank" rel="noopener nofollow" class="SocialAccount-link SocialAccount-Instagram"></a>
+        </li>
+      
+    </ul>
+  
+  </div>
+</div>
+
+
+
+      
+    </div>
+  </aside>
+
+
+
+          
+            <footer>
+  <div class="Footer-wrap">
+    <div class="Footer">
+      <div class="Footer-settings">
+        <span data-component="ViewerCountrySelect" class="Component Footer-settings-country" data-props="e30="></span>
+        <span data-component="ViewerLanguageSelect" class="Component Footer-settings-language" data-props="e30="></span>
+        <span data-component="ViewerCurrencySelect" class="Component Footer-settings-currency" data-props="e30="></span>
+        <span data-component="ChangeCookieSettings" class="Component " data-props="eyJtYW5hZ2VkQnkiOiJXaW5kbWlsbCBCcml4dG9uIn0="></span>
+      </div>
+
+      <div class="Footer-logos">
+        
+        <a href="https://www.musicglue.com/" target="_blank" rel="noopener" class="Footer-logos-mg Footer-logo">
+          <span class="musicglue-logo"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="StreamPlayer">
+  <div class="StreamPlayer-content">
+    <div class="StreamPlayer-track">
+      <span data-component="NowPlayingPlaylist" class="Component StreamPlayer-track-collection" data-props="e30="></span>
+      <span data-component="NowPlayingTitle" class="Component StreamPlayer-track-title" data-props="e30="></span>
+    </div>
+    <div class="StreamPlayer-controls">
+      <span data-component="PrevTrack" class="Component " data-props="e30="></span>
+      <span data-component="TogglePlayback" class="Component " data-props="e30="></span>
+      <span data-component="NextTrack" class="Component " data-props="e30="></span>
+    </div>
+  </div>
+</div>
+
+
+  <span data-component="CookieFooter" class="Component " data-props="eyJtYW5hZ2VkQnkiOiJXaW5kbWlsbCBCcml4dG9uIn0="></span>
+
+
+          
+        </div>
+      </div>
+    </div>
+    <script>
+      window.initialStore = {"platform":{"homeUrl":"https://www.musicglue.com","name":"Music Glue","policyOwner":"Music Glue","policyUrl":"https://www.musicglue.com/policies","termsUrl":"https://www.musicglue.com/terms-and-conditions"},"profile":{"uuid":"b7fb15f0-4591-0131-d094-46d9c538da0c","websiteMode":true,"name":"Windmill Brixton","slug":"windmill-brixton","supportedCurrencies":["GBP"]},"viewer":{"id":"6b9a2008-0567-43d7-87f3-ed0ee0129cd1","currency":"gbp","country":{"code":"gb","name":"United Kingdom","region":"Europe"},"eu":false,"language":"en","marketingCookies":null,"analyticsCookies":null},"pixelTrackingConfig":{"__typename":"PixelTrackingConfig","googleAnalytics":null,"googleTagManager":null,"facebookPixel":null,"twitterTag":null,"mgGoogleAnalyticsKey":"UA-1946445-18"},"streams":{"tracks":[],"playback":{"pending":false,"hasNext":false,"streamId":null,"playlistId":"page"}},"page":{"themePreview":null,"secret":null,"eventsQueue":[]}};
+      if (window.hydrateStore) window.hydrateStore();
+    </script>
+    <script>
+      var performance = window.performance;
+      var hasPerf = performance && typeof performance.now === "function";
+      var loadedStates = {
+        UNREPORTED: "unreported",
+        FAILED: "failed to load",
+        LOADED: "loaded"
+      };
+
+      window.__resourcesLoadedState = {
+        app: { state: loadedStates.UNREPORTED, timing: undefined },
+        language: { state: loadedStates.UNREPORTED, timing: undefined },
+        polyfill: { state: loadedStates.UNREPORTED, timing: undefined },
+        preview: { state: loadedStates.UNREPORTED, timing: undefined },
+        vendor: { state: loadedStates.UNREPORTED, timing: undefined },
+      };
+
+      function reportResourceFailure(resource) {
+        window.__resourcesLoadedState[resource].state = loadedStates.FAILED;
+
+        if (hasPerf) {
+          window.__resourcesLoadedState[resource].timing = performance.now();
+        }
+      }
+
+      function reportResourceSuccess(resource) {
+        window.__resourcesLoadedState[resource].state = loadedStates.LOADED;
+
+        if (hasPerf) {
+          window.__resourcesLoadedState[resource].timing = performance.now();
+        }
+      }
+    </script>
+
+    
+    <script
+      crossorigin="anonymous"
+      src="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/vendor/e7/d1/f9/a1/ed/1a/d7/fb/f0/77.js?v=1"
+      onload="reportResourceSuccess('vendor')"
+      onerror="reportResourceFailure('vendor')"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/locale.en/9c/20/c4/f4/b5/41/f8/28/f3/ca.js?v=1"
+      onload="reportResourceSuccess('language')"
+      onerror="reportResourceFailure('language')"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://musicglue-production-profile-components.global.ssl.fastly.net/brkwtr/app/02/25/b3/82/76/82/f4/b3/da/9e.js?v=1"
+      onload="reportResourceSuccess('app')"
+      onerror="reportResourceFailure('app')"
+    ></script>
+    
+    
+
+  <!-- Google Analytics -->
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    
+      ga('create', 'UA-1946445-18', 'auto', 'mgTracker');
+      
+        ga('mgTracker.set', 'anonymizeIp', true);
+      
+      ga('mgTracker.send', 'pageview');
+      ga('mgTracker.require', 'ecommerce');
+    
+
+    
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <!-- End of Google Analytics -->
+
+
+
+
+
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="DLSPGGXO" defer></script>
+    <!-- / Fathom -->
+  </body>
+</html>

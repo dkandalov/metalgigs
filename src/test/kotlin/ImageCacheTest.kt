@@ -36,6 +36,21 @@ class ImageCacheTest {
         expectThat(first.extension).isEqualTo("jpg")
     }
 
+    // Windmill Brixton's CDN names a poster after the event, with no extension at all - and the
+    // dots in the host are no business of the extension's
+    @Test
+    fun `caches an image whose url has no file extension, without taking one from the host`() {
+        val fakeClient: HttpHandler = { Response(OK).body("fake-image-bytes") }
+        val cacheDir = tempDir()
+        val extensionless = "https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM&v=2"
+
+        val cached = downloadToCache(fakeClient, extensionless, cacheDir)
+
+        expectThat(cached.extension).isEqualTo("jpg")
+        expectThat(cached.parentFile).isEqualTo(cacheDir)
+        expectThat(cached.readText()).isEqualTo("fake-image-bytes")
+    }
+
     @Test
     fun `caches one copy of an image shared by several gigs, since it is keyed by url`() {
         var requestCount = 0
