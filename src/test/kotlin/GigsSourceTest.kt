@@ -989,12 +989,23 @@ class GigsSourceTest {
         expectThat(pageText.contains("Other Gig")).isEqualTo(false)
     }
 
+    // the sections after "Book For A Pre-Show Dinner" are verbatim from a real listing, where they
+    // run to some 1,850 characters identical on every page
     @Test
-    fun `scopes Union Chapel page text to the article and event-information sidebar`() {
+    fun `scopes Union Chapel page text to the gig's own copy and the event-information sidebar`() {
         val html = """
             <nav><a>Whats On</a></nav>
             <div id="content">
-                <article class="pt-4"><h1>Doom Night</h1><p>Doom metal night!</p></article>
+                <article class="pt-4">
+                    <h1>Doom Night</h1>
+                    <h4>For tickets to this event click BOOK NOW button above</h4>
+                    <h4>Scroll down for info on reserving a pre-show meal with Margins Cafe.</h4>
+                    <p>Doom metal night!</p>
+                    <h4>Book For A Pre-Show Dinner</h4>
+                    <p>The Margins Cafe serves delicious, freshly prepared food at gigs and events.</p>
+                    <p>More Information:</p>
+                    <p>Alcohol consumption will be limited to the bar area only.</p>
+                </article>
             </div>
             <aside><div class="sidebar p-3"><h6>WHEN</h6><p>7pm</p></div></aside>
             <footer class="pt-4"><a>Instagram</a></footer>
@@ -1004,6 +1015,9 @@ class GigsSourceTest {
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("7pm")).isTrue()
+        expectThat(pageText.contains("Margins Cafe")).isEqualTo(false)
+        expectThat(pageText.contains("Alcohol consumption")).isEqualTo(false)
+        expectThat(pageText.contains("BOOK NOW")).isEqualTo(false)
         expectThat(pageText.contains("Whats On")).isEqualTo(false)
         expectThat(pageText.contains("Instagram")).isEqualTo(false)
     }

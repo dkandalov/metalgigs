@@ -426,7 +426,28 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
     // e.g. background-image:url("...") - the poster is a css background rather than an img element
     private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
 
-    internal fun eventPageContent(page: Document) = page.select("article.pt-4, .sidebar").textOrNull()
+    // The gig's copy and the venue's standard sections are flat siblings in one article, told apart
+    // only by the heading each section starts with. Measured across six listings, everything from
+    // "Book For A Pre-Show Dinner" on is the same ~1,850 characters of cafe, bar and access policy
+    // on every page, which is longer than most gigs' own copy. The remaining ticketing instructions
+    // are dropped line by line, being boilerplate that sits among the copy rather than after it.
+    private val venueSections = Regex(
+        """^(book for a pre-show dinner|more information|for accessibility|the venue is seating only)""",
+        RegexOption.IGNORE_CASE,
+    )
+    private val ticketingNotes = Regex(
+        """book now button above|set ticket reminder|scroll down for info on reserving""",
+        RegexOption.IGNORE_CASE,
+    )
+
+    internal fun eventPageContent(page: Document): String? {
+        val article = page.select("article.pt-4").firstOrNull() ?: return null
+        val ownCopy = article.children()
+            .takeWhile { !venueSections.containsMatchIn(it.text().trim()) }
+            .filterNot { ticketingNotes.containsMatchIn(it.text()) }
+            .joinToString(" ") { it.text() }
+        return "$ownCopy ${page.select(".sidebar").text()}".trim().ifBlank { null }
+    }
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
