@@ -48,7 +48,7 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `round-trips a classification recording which model judged it and whether it saw the poster`() {
+    fun `round-trips a classification recording the model, the poster, and what it billed`() {
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
         val classified = GigClassified(
@@ -58,6 +58,8 @@ class GigsStoreTest {
             source = ClassificationSource.LLM,
             llmModel = "claude-haiku-4-5-20251001",
             useVision = false,
+            inputTokens = 1234,
+            outputTokens = 3,
         )
 
         GigsLog(file).append(listOf(classified))

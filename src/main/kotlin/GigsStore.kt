@@ -63,6 +63,8 @@ object JGigClassified : JAny<GigClassified>() {
     // optional, so entries written before these existed still read back (see GigClassified)
     private val llmModel by str(GigClassified::llmModel)
     private val useVision by bool(GigClassified::useVision)
+    private val inputTokens by num(GigClassified::inputTokens)
+    private val outputTokens by num(GigClassified::outputTokens)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigClassified(
         id = GigId(+venue, +url),
@@ -71,6 +73,8 @@ object JGigClassified : JAny<GigClassified>() {
         source = +source,
         llmModel = +llmModel,
         useVision = +useVision,
+        inputTokens = +inputTokens,
+        outputTokens = +outputTokens,
     )
 }
 

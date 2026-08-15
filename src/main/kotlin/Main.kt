@@ -184,6 +184,7 @@ private fun printClassificationSummary(
     failed: List<Pair<Gig, String>>,
 ) {
     println("Classified this run: ${classifications.size} ($newlyMetal Metal, ${classifications.size - newlyMetal} Other)")
+    classificationCostReport(classifications).forEach { println("  $it") }
     if (failed.isNotEmpty()) {
         println("Could not classify ${failed.size} gig(s) - they stay Pending:")
         failed.forEach { (gig, reason) -> println("  ${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: $reason") }

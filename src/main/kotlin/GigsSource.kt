@@ -48,6 +48,8 @@ data class GigClassified(
     val source: ClassificationSource,
     val llmModel: String? = null,
     val useVision: Boolean? = null,
+    val inputTokens: Int? = null,
+    val outputTokens: Int? = null,
 ) : LogEntry
 
 // logicalDate is the date the page was rendered as of - gigs before it are left off - which is

@@ -9,6 +9,9 @@ import org.http4k.ai.model.ModelName
 import org.http4k.ai.model.Temperature
 import org.http4k.core.HttpHandler
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.util.Locale
 
 val llmClassifierSystemPrompt = """
     You classify UK live music gig listings by genre. Given a gig's title and the text of its own
@@ -82,7 +85,55 @@ fun classifyGigByLLM(
         source = ClassificationSource.LLM,
         llmModel = model.value,
         useVision = useVision,
+        // the API reports what it billed, so nothing here is estimated - but the fields are
+        // nullable all the way down, and a reply that arrives without them is still a verdict
+        inputTokens = response.metadata.usage?.input,
+        outputTokens = response.metadata.usage?.output,
     )
+}
+
+data class LlmRate(val inputPerMillion: Double, val outputPerMillion: Double)
+
+// From platform.claude.com/docs/en/pricing, read on 2026-08-15. Sonnet 5 is on introductory rates
+// until 2026-08-31; the later rates are here too so that a run after that reports what it actually
+// cost rather than two thirds of it.
+fun llmRate(model: String, on: LocalDate): LlmRate? = when (model) {
+    llmClassifierModel.value -> LlmRate(inputPerMillion = 1.00, outputPerMillion = 5.00)
+    visionClassifierModel.value ->
+        if (on < LocalDate.of(2026, 9, 1)) LlmRate(2.00, 10.00) else LlmRate(3.00, 15.00)
+    else -> null
+}
+
+// split by path rather than totalled, because the two differ by much more than their rates: a
+// vision call also carries the poster's own image tokens, which the text path never pays for
+fun classificationCostReport(classifications: List<GigClassified>): List<String> {
+    if (classifications.isEmpty()) return emptyList()
+
+    val (vision, text) = classifications.partition { it.useVision == true }
+    val lines = listOf("text" to text, "vision" to vision)
+        .filter { (_, of) -> of.isNotEmpty() }
+        .map { (label, of) ->
+            "${label.padEnd(6)} ${of.size.toString().padStart(4)} gig(s)  " +
+                "${of.sumOf { it.inputTokens ?: 0 }} in / ${of.sumOf { it.outputTokens ?: 0 }} out  ${money(of)}"
+        }
+
+    val unpriced = classifications.count { classificationCost(it) == null }
+    return lines +
+        listOfNotNull("$unpriced gig(s) reported no token usage, so are not counted above".takeIf { unpriced > 0 }) +
+        "total  ${money(classifications)}"
+}
+
+// ROOT so the decimal separator doesn't follow the machine's locale into a dollar amount
+private fun money(classifications: List<GigClassified>) =
+    String.format(Locale.ROOT, "$%.2f", classifications.sumOf { classificationCost(it) ?: 0.0 })
+
+// null rather than zero for anything unpriced - a user override has no model or tokens at all, and
+// an entry written before tokens were recorded would otherwise read as having been free
+fun classificationCost(classified: GigClassified): Double? {
+    val rate = llmRate(classified.llmModel ?: return null, classified.recordedAt.atZone(ZoneOffset.UTC).toLocalDate())
+    val input = classified.inputTokens ?: return null
+    val output = classified.outputTokens ?: return null
+    return rate?.let { input / 1_000_000.0 * it.inputPerMillion + output / 1_000_000.0 * it.outputPerMillion }
 }
 
 data class ClassificationRun(

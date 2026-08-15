@@ -9,6 +9,7 @@ import org.http4k.ai.model.ModelName
 import org.http4k.connect.model.Base64Blob
 import org.http4k.connect.model.MimeType
 import org.http4k.ai.model.ResponseId
+import org.http4k.ai.model.TokenUsage
 import org.http4k.core.HttpHandler
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
@@ -24,10 +25,10 @@ class GigClassifierTest {
 
     private val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
 
-    private fun chatResponse(reply: String) = Success(
+    private fun chatResponse(reply: String, usage: TokenUsage? = TokenUsage(input = 1200, output = 3)) = Success(
         ChatResponse(
             Message.Assistant(listOf(Content.Text(reply))),
-            ChatResponse.Metadata(ResponseId.of("fake-response-id"), ModelName.of("fake-model")),
+            ChatResponse.Metadata(ResponseId.of("fake-response-id"), ModelName.of("fake-model"), usage),
         ),
     )
 
@@ -50,8 +51,8 @@ class GigClassifierTest {
         // The fixture has no imageUrl, so this is the text path however thin the text is - records
         // which model judged it and confirms useVision = false rather than just leaving it null.
         val textModel = "claude-haiku-4-5-20251001"
-        expectThat(metal).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false))
-        expectThat(other).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Other, ClassificationSource.LLM, textModel, useVision = false))
+        expectThat(metal).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
+        expectThat(other).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Other, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
     }
 
     @Test
