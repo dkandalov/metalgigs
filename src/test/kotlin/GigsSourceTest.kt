@@ -860,15 +860,25 @@ class GigsSourceTest {
     }
 
     @Test
-    fun `scopes New Cross Inn page text to the client-rendered description attribute`() {
+    // the attribute holds a JavaScript string literal rather than markup - angle brackets,
+    // quotes and ampersands all arrive as unicode escapes - so a description read straight off it
+    // is escapes and tags instead of the gig's own copy. The attribute here is verbatim from a
+    // real listing, escapes and all, because a hand-written one without them tests nothing.
+    fun `decodes New Cross Inn's client-rendered description into plain text`() {
         val html = """
-            <p x-ref="desc" x-html="'Doom metal night with support'"></p>
+            <p x-ref="desc" x-html="'\u003Ca href=\u0022https:\/\/www.facebook.com\/newcrosslive\u0022\u003E\u003Cstrong\u003ENew Cross Live\u003C\/strong\u003E\u003C\/a\u003E\u0026nbsp;presents\u003Cbr \/\u003E\r\n\u003Cbr \/\u003E\r\n\u003Cstrong\u003E\u003Ca href=\u0022https:\/\/www.facebook.com\/GhostUKTributeBand\u0022\u003EGhost UK\u003C\/a\u003E\u003C\/strong\u003E\u003Cbr \/\u003E\r\nThe Authentic UK Tribute to the band Ghost!\u003Cbr \/\u003E\r\n\u003Ca href=\u0022https:\/\/www.facebook.com\/GhostUKTributeBand\u0022\u003Ehttps:\/\/www.facebook.com\/GhostUKTributeBand\u003C\/a\u003E\u003Cbr \/\u003E\r\n\u003Cbr \/\u003E\r\nFriday 13th February 2027\u003Cbr \/\u003E\r\nNew Cross Inn\u003Cbr \/\u003E\r\nDoors 6pm\u003Cbr \/\u003E\r\nTickets \u0026pound;15 ADV STBF'"></p>
             <div>KINGS OF THRASH</div>
         """.trimIndent()
 
         val pageText = NewCrossInnGigsSource(noHttp).eventPageContent(pageOf(html))!!
 
-        expectThat(pageText.contains("Doom metal night with support")).isTrue()
+        expectThat(pageText.contains("The Authentic UK Tribute to the band Ghost!")).isTrue()
+        expectThat(pageText.contains("New Cross Live")).isTrue()
+        // the entity decoded too, so a price reads as one rather than as an entity name
+        expectThat(pageText.contains("Tickets £15 ADV STBF")).isTrue()
+        expectThat(pageText.contains("u003C")).isEqualTo(false)
+        expectThat(pageText.contains("<br")).isEqualTo(false)
+        expectThat(pageText.contains("href")).isEqualTo(false)
         expectThat(pageText.contains("KINGS OF THRASH")).isEqualTo(false)
     }
 
