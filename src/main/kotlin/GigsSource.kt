@@ -321,8 +321,22 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
 
     // The outer wrapper div carries ".single-article" too, so selecting that doubles every word of
-    // the text; only the inner section has the list-contains class.
-    internal fun eventPageContent(page: Document) = page.select(".single-article--contains-list").textOrNull()
+    // the text; only the inner section has the list-contains class. Within it, everything but
+    // .single-article__content is ticketing furniture - a title bar, a meta bar of date, time and
+    // price, and the same three repeated as a Date/Doors Open/On Sale list - and the copy itself
+    // closes with a "For more events" link on every listing. What survives is a bio where the
+    // promoter wrote one and a one-line "Tickets are now available for X" template where they
+    // didn't, which is all these pages say about those gigs.
+    private val moreEventsCta = Regex("""for more events|check out what.s on here""", RegexOption.IGNORE_CASE)
+
+    internal fun eventPageContent(page: Document): String? {
+        val content = page.select(".single-article--contains-list .single-article__content").firstOrNull() ?: return null
+        return content.children()
+            .filterNot { moreEventsCta.containsMatchIn(it.text()) }
+            .joinToString(" ") { it.text() }
+            .trim()
+            .ifBlank { null }
+    }
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)

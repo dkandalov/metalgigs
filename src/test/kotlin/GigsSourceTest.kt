@@ -890,15 +890,21 @@ class GigsSourceTest {
 
     // The Garage and The Grace (both DHP Family, sharing DhpVenueGigsSource) share this same
     // WordPress theme - the obvious ".single-article" also matches its own outer wrapper div,
-    // which would double every word of text, so this is scoped to the more specific inner class
+    // which would double every word of text, so this is scoped to the more specific inner class.
+    // The meta bar, list and CTA below are verbatim from a real listing, which they made up most of
     @Test
-    fun `scopes DHP-venue page text to the single-article section, not its own outer wrapper`() {
+    fun `scopes DHP-venue page text to the content block, dropping the meta bar and the CTA`() {
         val html = """
             <nav><a>Home</a><a>News</a></nav>
             <div class="section single-article">
                 <section class="single-article single-article--contains-list">
-                    <h1>Doom Night</h1>
-                    <article class="single-article__content"><p>Doom metal night!</p></article>
+                    <div class="single-article__title-bar"><h1>Doom Night</h1> The Garage, London</div>
+                    <div class="single-article__meta-bar"><a>BUY TICKETS</a> Sat 15th August 2026 7:00 pm £20</div>
+                    <article class="single-article__content">
+                        <p>Doom metal night!</p>
+                        <p><em>For more events, check out what's on here.</em></p>
+                    </article>
+                    <ul class="single-article__list"><li>Date: Sat 15th August 2026</li><li>Doors Open: 7:00 pm</li><li>On Sale: Tickets Open</li><li>Price: £20</li></ul>
                 </section>
             </div>
             <section><h2>ON SPOTIFY</h2></section>
@@ -907,9 +913,7 @@ class GigsSourceTest {
         val source = DhpVenueGigsSource(noHttp, url = "https://example.com/live/", venue = theGarage)
         val pageText = source.eventPageContent(pageOf(html))!!
 
-        expectThat(pageText.contains("Doom metal night!")).isTrue()
-        expectThat(pageText.split("Doom metal night!").size - 1).isEqualTo(1)
-        expectThat(pageText.contains("ON SPOTIFY")).isEqualTo(false)
+        expectThat(pageText).isEqualTo("Doom metal night!")
     }
 
     // the policy paragraph and the meta line are verbatim from a real listing, where together with
