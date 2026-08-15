@@ -912,18 +912,46 @@ class GigsSourceTest {
         expectThat(pageText.contains("ON SPOTIFY")).isEqualTo(false)
     }
 
+    // the policy paragraph and the meta line are verbatim from a real listing, where together with
+    // the repeated title they ran longer than the gig's own copy
     @Test
-    fun `scopes Electric Ballroom page text to the article, ignoring sitewide nav and footer`() {
+    fun `scopes Electric Ballroom page text to the content column, dropping the age policy`() {
         val html = """
-            <header><nav><a>Whats On</a></nav></header>
-            <article><h1>Doom Night</h1><div class="article-content"><p>Doom metal night!</p></div></article>
+            <header><nav><a>Whats On</a></nav><span class="header-address">184 CAMDEN HIGH STREET, CAMDEN TOWN, LONDON, NW1 8QP</span></header>
+            <article>
+                <h1>Doom Night</h1>
+                <div class="cf"><a>← Back</a>
+                    <div class="article-content">
+                        <p>Doom metal night!</p>
+                        <p>Please note this show is 14+ (under 16s must be accompanied by an 18+ adult). Valid physical photo ID is required for entry!</p>
+                    </div>
+                    <div class="event-meta">7.00PM | £25</div>
+                    <div class="buy-share-event">Buy Tickets</div>
+                </div>
+            </article>
             <footer><a>Facebook</a></footer>
         """.trimIndent()
 
         val pageText = ElectricBallroomGigsSource(noHttp, year = 2026).eventPageContent(pageOf(html))!!
 
-        expectThat(pageText.contains("Doom metal night!")).isTrue()
-        expectThat(pageText.contains("Whats On")).isEqualTo(false)
+        expectThat(pageText).isEqualTo("Doom metal night!")
+    }
+
+    // the same policy, worded two other ways the venue also uses
+    @Test
+    fun `drops the Electric Ballroom age policy however it is worded`() {
+        val phrasings = listOf(
+            "Strictly 18+ / physical photo ID required at entry.",
+            "Please note this show is 14+ (under 16s must be accompanied by an 18+ adult / Proof of age is required at entry.)",
+        )
+
+        phrasings.forEach { policy ->
+            val html = """<div class="article-content"><p>Doom metal night!</p><p>$policy</p></div>"""
+
+            val pageText = ElectricBallroomGigsSource(noHttp, year = 2026).eventPageContent(pageOf(html))!!
+
+            expectThat(pageText).isEqualTo("Doom metal night!")
+        }
     }
 
     @Test
