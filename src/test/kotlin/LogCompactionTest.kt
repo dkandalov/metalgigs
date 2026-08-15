@@ -27,7 +27,7 @@ class LogCompactionTest {
             GigObserved(soldOut, at(3)),
         )
 
-        expectThat(compactLogEntries(entries)).containsExactly(
+        expectThat(gigsLog(entries).compact().entries).containsExactly(
             GigObserved(gigB, at(1)),
             GigObserved(soldOut, at(3)),
         )
@@ -43,7 +43,7 @@ class LogCompactionTest {
             GigClassified(gigA.id, at(3), Genre.Other, ClassificationSource.LLM),
         )
 
-        expectThat(compactLogEntries(entries)).containsExactly(
+        expectThat(gigsLog(entries).compact().entries).containsExactly(
             GigClassified(gigA.id, at(2), Genre.Metal, ClassificationSource.User),
         )
     }
@@ -55,7 +55,7 @@ class LogCompactionTest {
             GigClassified(gigA.id, at(3), Genre.Metal, ClassificationSource.LLM),
         )
 
-        expectThat(compactLogEntries(entries)).containsExactly(
+        expectThat(gigsLog(entries).compact().entries).containsExactly(
             GigClassified(gigA.id, at(3), Genre.Metal, ClassificationSource.LLM),
         )
     }
@@ -68,7 +68,7 @@ class LogCompactionTest {
             GigsRendered("2026-08-02T12-00-00Z.html", gigCount = 2, logicalDate = LocalDate.of(2026, 8, 2), recordedAt = at(2)),
         )
 
-        expectThat(compactLogEntries(entries)).isEqualTo(entries)
+        expectThat(gigsLog(entries).compact().entries).isEqualTo(entries)
     }
 
     @Test
@@ -79,7 +79,7 @@ class LogCompactionTest {
             GigsRendered("2026-08-03T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 3), recordedAt = at(3)),
         )
 
-        expectThat(compactLogEntries(entries)).isEqualTo(entries)
+        expectThat(gigsLog(entries).compact().entries).isEqualTo(entries)
     }
 
     @Test
@@ -94,7 +94,7 @@ class LogCompactionTest {
             GigsRendered("2026-08-03T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 3), recordedAt = at(3)),
         )
         val before = gigsLog(entries)
-        val after = gigsLog(compactLogEntries(entries))
+        val after = gigsLog(before.compact().entries)
 
         expectThat(after.currentGigs().toSet()).isEqualTo(before.currentGigs().toSet())
         expectThat(after.classificationStatus()).isEqualTo(before.classificationStatus())

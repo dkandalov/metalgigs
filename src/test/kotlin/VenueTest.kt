@@ -15,13 +15,8 @@ class VenueTest {
     // venue dropped from it while its gigs are still logged would fail the whole render
     @Test
     fun `every venue in the log is one of allVenues`() {
-        val logged = readLogEntries(File("events.ndjson")).mapNotNull {
-            when (it) {
-                is GigObserved -> it.gig.id.venueId
-                is GigClassified -> it.id.venueId
-                is GigsRendered -> null
-            }
-        }.distinct()
+        val log = GigsLog(File("events.ndjson"))
+        val logged = (log.currentGigs().map { it.id.venueId } + log.alreadyClassified().map { it.venueId }).distinct()
 
         expectThat(logged.filter { it !in allVenues.map { venue -> venue.id } }).isEmpty()
     }

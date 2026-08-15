@@ -271,12 +271,11 @@ fun overrideGigGenre(url: String, genre: Genre) {
 // swap is recoverable from git either way - but a failed check should cost nothing at all.
 fun compactLog() {
     val log = GigsLog(eventsFile)
-    val entries = readLogEntries(eventsFile)
-    val compacted = compactLogEntries(entries)
+    val compacted = log.compact()
 
     val compactedFile = File("events-compacted.ndjson").apply { delete() }
     try {
-        GigsLog(compactedFile).append(compacted)
+        GigsLog(compactedFile).append(compacted.entries)
         val compactedLog = GigsLog(compactedFile)
 
         check(compactedLog.currentGigs().toSet() == log.currentGigs().toSet()) { "Compacted log holds different gigs" }
@@ -288,10 +287,14 @@ fun compactLog() {
         val sizeBefore = eventsFile.length()
         compactedFile.copyTo(eventsFile, overwrite = true)
 
-        println("Compacted ${entries.size} log entries to ${compacted.size}:")
-        println("  observed:   ${entries.count { it is GigObserved }} -> ${compacted.count { it is GigObserved }}")
-        println("  classified: ${entries.count { it is GigClassified }} -> ${compacted.count { it is GigClassified }}")
-        println("  rendered:   ${entries.count { it is GigsRendered }} (kept)")
+        val observed = compacted.entries.count { it is GigObserved }
+        val classified = compacted.entries.count { it is GigClassified }
+        val dropped = compacted.observationsDropped + compacted.classificationsDropped
+
+        println("Compacted ${compacted.entries.size + dropped} log entries to ${compacted.entries.size}:")
+        println("  observed:   ${observed + compacted.observationsDropped} -> $observed")
+        println("  classified: ${classified + compacted.classificationsDropped} -> $classified")
+        println("  rendered:   ${compacted.entries.count { it is GigsRendered }} (kept)")
         println("  ${sizeBefore / 1024}KB -> ${eventsFile.length() / 1024}KB")
     } finally {
         compactedFile.delete()
