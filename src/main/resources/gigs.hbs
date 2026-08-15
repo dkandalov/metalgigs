@@ -153,10 +153,24 @@
            or blurring would hide what was typed. The heading gives up some size to make room; at
            2rem it very nearly fills a phone's width on its own. */
         @media (max-width: 30rem) {
+            /* The buttons keep the row and the title is what gives way, since they are a fixed size
+               and it isn't. Flex breaks to a new line before it shrinks anything, so without this
+               the buttons drop to a row of their own the moment the title's natural width plus
+               theirs exceeds the screen - which on a phone it does. min-width lets the title shrink
+               past its own content, wrapping to a second line on the narrowest screens rather than
+               pushing the buttons off the row. */
+            .page-header {
+                flex-wrap: nowrap;
+            }
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.25rem;
+                min-width: 0;
             }
             .header-actions {
+                flex: none;
+            }
+            .page-header:has(.gig-search:focus) .header-actions,
+            .page-header:has(.gig-search:not(:placeholder-shown)) .header-actions {
                 flex: 1 1 auto;
             }
             /* matched squares, so the collapsed field and the about button read as a pair */
