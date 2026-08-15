@@ -371,7 +371,11 @@
             if (group.dataset.date < today) group.remove()
         }
     })()
+</script>
 
+<!-- Separate blocks: without a semicolon between them two IIFEs parse as a call on the first one's
+     result, and a throw in either would otherwise take the other with it. -->
+<script>
     // The search box is built here rather than sitting in the template so that it only ever appears
     // when there is script to run it - the page is otherwise entirely static, and a box that
     // silently does nothing is worse than no box.
