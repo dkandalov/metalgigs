@@ -97,7 +97,7 @@ object JLogEntry : JSealed<LogEntry>() {
     }
 }
 
-fun readLogEntries(file: File): List<LogEntry> =
+private fun readLogEntries(file: File): List<LogEntry> =
     fromNdJsonToList(JLogEntry)(file.readLines().asSequence()).orThrow()
 
 sealed interface ClassificationStatus {
@@ -118,7 +118,9 @@ data class CompactedLog(
 // entries are loaded once and appending updates the same in-memory copy, so e.g. a status computed
 // right after an append reflects it without the caller re-reading the file or concatenating lists
 class GigsLog(private val file: File) {
-    private var entries: List<LogEntry> = if (file.exists()) readLogEntries(file) else emptyList()
+    // what the file held when this was constructed, plus anything appended since
+    var entries: List<LogEntry> = if (file.exists()) readLogEntries(file) else emptyList()
+        private set
 
     fun append(newEntries: List<LogEntry>) {
         FileWriter(file, true).buffered().use { writer ->

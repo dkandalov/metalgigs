@@ -27,7 +27,7 @@ class GigsStoreTest {
 
         GigsLog(file).append(entries)
 
-        expectThat(readLogEntries(file)).isEqualTo(entries)
+        expectThat(GigsLog(file).entries).isEqualTo(entries)
     }
 
     @Test
@@ -62,7 +62,7 @@ class GigsStoreTest {
 
         GigsLog(file).append(listOf(classified))
 
-        expectThat(readLogEntries(file)).isEqualTo(listOf(classified))
+        expectThat(GigsLog(file).entries).isEqualTo(listOf(classified))
     }
 
     // verbatim from the real log, from before llmModel and useVision were added - no keys for
@@ -74,7 +74,7 @@ class GigsStoreTest {
             """{"_type": "classified", "venue": "Signature Brew Blackhorse Road", "url": "https://tixr.com/e/187182", "recordedAt": "2026-08-11T21:20:43.785398Z", "genre": "Other", "source": "LLM"}""" + "\n",
         )
 
-        expectThat(readLogEntries(file)).isEqualTo(
+        expectThat(GigsLog(file).entries).isEqualTo(
             listOf(
                 GigClassified(
                     id = GigId(VenueId("Signature Brew Blackhorse Road"), "https://tixr.com/e/187182"),
@@ -97,7 +97,7 @@ class GigsStoreTest {
 
         GigsLog(file).append(listOf(GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))
 
-        expectThat(readLogEntries(file)).isEqualTo(
+        expectThat(GigsLog(file).entries).isEqualTo(
             listOf(
                 GigObserved(gig, recordedAt),
                 GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60)),
