@@ -312,7 +312,7 @@
         <button class="about-close" popovertarget="about" popovertargetaction="hide" autofocus>Close</button>
     </div>
     {{#each dateGroups}}
-    <section class="date-group">
+    <section class="date-group" data-date="{{isoDate}}">
     <h2>{{date}}</h2>
     <ul class="gigs-grid">
         {{#each gigs}}
@@ -331,6 +331,20 @@
     {{/each}}
 </main>
 <script>
+    // The render drops gigs before its own today, so a day only turns up here once the published
+    // page has outlived the render that produced it - a missed daily run, a tab left open overnight,
+    // a cached copy. Removed rather than hidden, because the search below sets .hidden on every
+    // group from whether it still holds a matching card, which would bring a hidden one back.
+    (() => {
+        // en-CA renders a date as YYYY-MM-DD, which compares against data-date as a plain string.
+        // London rather than the visitor's own zone: these are London gigs, and a visitor further
+        // east would otherwise lose tonight's while it is still to come.
+        const today = new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/London'}).format(new Date())
+        for (const group of document.querySelectorAll('.date-group')) {
+            if (group.dataset.date < today) group.remove()
+        }
+    })()
+
     // The search box is built here rather than sitting in the template so that it only ever appears
     // when there is script to run it - the page is otherwise entirely static, and a box that
     // silently does nothing is worse than no box.

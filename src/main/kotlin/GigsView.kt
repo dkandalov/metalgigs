@@ -5,7 +5,7 @@ import java.util.Locale
 
 data class GigCardView(val title: String, val venue: String, val url: String, val imageUrl: String)
 
-data class DateGroup(val date: String, val gigs: List<GigCardView>)
+data class DateGroup(val date: String, val isoDate: String, val gigs: List<GigCardView>)
 
 data class GigsView(val dateGroups: List<DateGroup>) : ViewModel {
     override fun template() = "gigs"
@@ -27,6 +27,7 @@ fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
         .map { (date, gigsOnDate) ->
             DateGroup(
                 date = date.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.ENGLISH)),
+                isoDate = date.toString(),
                 // within a day the scrape order is just whichever venue happened to be scraped
                 // first, which shuffles between runs - alphabetical keeps the page stable and
                 // makes a given gig findable
