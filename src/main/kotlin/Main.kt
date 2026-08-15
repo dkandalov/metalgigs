@@ -68,7 +68,7 @@ private val renderedDir = File(".rendered")
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
     val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { downloadToCache(client, gig.imageUrl, imageCacheDir) }.exceptionOrNull()
-            ?.let { "${gig.date}  ${gig.id.venue}  ${gig.title}: ${it.message}" }
+            ?.let { "${gig.date}  ${gig.id.venueId}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
         println("Could not download ${failures.size} $what:")
@@ -135,7 +135,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
         validated.forEach { (venue, count) -> println("  $venue ($count gig(s))") }
     }
 
-    val observed = toObserve.filterNot { it.id.venue.name in validated.keys }.map { gig -> GigObserved(gig, now) }
+    val observed = toObserve.filterNot { it.id.venueId.name in validated.keys }.map { gig -> GigObserved(gig, now) }
     log.append(observed)
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped")
 
@@ -184,7 +184,7 @@ private fun printClassificationSummary(
     println("Classified this run: ${classifications.size} ($newlyMetal Metal, ${classifications.size - newlyMetal} Other)")
     if (failed.isNotEmpty()) {
         println("Could not classify ${failed.size} gig(s) - they stay Pending:")
-        failed.forEach { (gig, reason) -> println("  ${gig.date}  ${gig.id.venue}  ${gig.title}: $reason") }
+        failed.forEach { (gig, reason) -> println("  ${gig.date}  ${gig.id.venueId}  ${gig.title}: $reason") }
     }
     println()
 
@@ -214,7 +214,7 @@ fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
 
     val pendingByVenue = upcoming
         .filter { statusByGig[it.id] !is ClassificationStatus.Classified }
-        .groupingBy { it.id.venue.name }
+        .groupingBy { it.id.venueId.name }
         .eachCount()
 
     if (pendingByVenue.isNotEmpty()) {
@@ -240,7 +240,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(posterExtractionSystemPrompt))
 
-    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, Venue(venue))
+    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, VenueId(venue))
     gigs.forEach { println(it) }
 
     val newOrChanged = log.newOrChangedGigs(gigs)
@@ -276,7 +276,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         val shown = if (fullUnresolved) unresolved else unresolved.take(5)
         val listing = shown.joinToString("\n") { gig ->
             val status = statusByGig[gig.id] ?: ClassificationStatus.Pending
-            "  ${gig.date}  ${gig.id.venue}  ${gig.title}\n  $status\n  ${gig.id.url}"
+            "  ${gig.date}  ${gig.id.venueId}  ${gig.title}\n  $status\n  ${gig.id.url}"
         }
         val hint = if (shown.size < unresolved.size) " Soonest ${shown.size} (pass full-unresolved to see all)" else ""
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
@@ -303,7 +303,7 @@ private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
 
     val failures = renderedGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
-            ?.let { "${gig.date}  ${gig.id.venue}  ${gig.title}: ${it.message}" }
+            ?.let { "${gig.date}  ${gig.id.venueId}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
         println("Could not publish ${failures.size} image(s) - those gigs will render with a broken image:")

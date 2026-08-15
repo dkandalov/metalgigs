@@ -25,7 +25,7 @@ fun cachedImageFile(cacheDir: File, imageUrl: String): File =
 // always .webp whatever the source was, since publishing re-encodes rather than copies. The name
 // still hashes the source url, so a gig's identity here is unchanged
 fun publishedImageFileName(gig: Gig): String =
-    "${gig.date}-${slug(gig.id.venue.name)}-${shortHash(gig.imageUrl)}.webp"
+    "${gig.date}-${slug(gig.id.venueId.name)}-${shortHash(gig.imageUrl)}.webp"
 
 fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File {
     val file = cachedImageFile(cacheDir, imageUrl)

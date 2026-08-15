@@ -6,7 +6,7 @@ import kotlin.test.Test
 class GigValidationTest {
 
     private fun gig(title: String, url: String, description: String) =
-        Gig(id = GigId(Venue("Some Venue"), url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = "", description = description)
+        Gig(id = GigId(VenueId("Some Venue"), url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = "", description = description)
 
     @Test
     fun `flags a venue whose gigs share a long stretch of boilerplate text`() {

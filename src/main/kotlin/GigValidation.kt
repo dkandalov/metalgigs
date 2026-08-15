@@ -24,7 +24,7 @@ private fun wordNGrams(words: List<String>): List<String> = words.windowed(SHARE
 
 fun likelyContaminatedVenues(gigs: List<Gig>): Map<String, Int> =
     gigs.filter { it.description.isNotBlank() }
-        .groupBy { it.id.venue.name }
+        .groupBy { it.id.venueId.name }
         .filter { (_, venueGigs) -> venueGigs.size >= 3 }
         .mapNotNull { (venue, venueGigs) ->
             val wordsByGig = venueGigs.associateWith { words(it.description) }

@@ -15,14 +15,14 @@ import java.io.FileWriter
 import java.time.Instant
 import java.time.LocalDate
 
-private object JVenue : JStringRepresentable<Venue>() {
-    override val cons: (String) -> Venue = ::Venue
-    override val render: (Venue) -> String = Venue::name
+private object JVenueId : JStringRepresentable<VenueId>() {
+    override val cons: (String) -> VenueId = ::VenueId
+    override val render: (VenueId) -> String = VenueId::name
 }
 
 object JGig : JAny<Gig>() {
     private val title by str(Gig::title)
-    private val venue by str(JVenue) { id.venue }
+    private val venue by str(JVenueId) { id.venueId }
     private val date by str(Gig::date)
     private val url by str(fun Gig.(): String = id.url)
     private val imageUrl by str(Gig::imageUrl)
@@ -50,7 +50,7 @@ object JGigObserved : JAny<GigObserved>() {
 }
 
 object JGigClassified : JAny<GigClassified>() {
-    private val venue by str(JVenue) { id.venue }
+    private val venue by str(JVenueId) { id.venueId }
     private val url by str(fun GigClassified.(): String = id.url)
     private val recordedAt by str(GigClassified::recordedAt)
     private val genre by str(GigClassified::genre)
@@ -142,7 +142,7 @@ class GigsLog(private val file: File) {
     // scraped a bit more often than strictly necessary, never less
     fun lastScrapedAt(): Map<String, Instant> =
         entries.filterIsInstance<GigObserved>()
-            .groupBy { it.id.venue.name }
+            .groupBy { it.id.venueId.name }
             .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
     // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check

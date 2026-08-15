@@ -46,7 +46,7 @@ private fun isExcluded(venue: String, title: String): Boolean =
 // this specific gig, since that's not something the source itself supports
 fun posterGigUrl(sourceUrl: String, title: String, date: LocalDate): String = "$sourceUrl#gig-${slug(title)}-$date"
 
-fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceUrl: String, venue: Venue): List<Gig> {
+fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceUrl: String, venue: VenueId): List<Gig> {
     val image = fetchImageContent(client, imageUrl)
     val request = ChatRequest(
         Message.User(listOf(image)),

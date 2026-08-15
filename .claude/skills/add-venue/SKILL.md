@@ -8,7 +8,7 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
    pagination explicitly - a "page 2" link or an API cursor field - rather than trusting one page's gig
    count to be the whole listing.
 
-2. **Write the `GigsSource`.** One `Venue` constant declared just above its class, reused by the class,
+2. **Write the `GigsSource`.** One `VenueId` constant declared just above its class, reused by the class,
    its tests, and any delegates. If several venues share a platform, write the shared logic once with
    site-specific bits as constructor parameters, then a thin delegate class per venue (see
    `DhpVenueGigsSource`, `AmgVenueGigsSource`, `DiceVenueGigsSource` for the pattern). Don't set

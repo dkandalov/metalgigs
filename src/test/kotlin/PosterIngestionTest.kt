@@ -31,11 +31,11 @@ class PosterIngestionTest {
         val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
         val reply = "2026-08-14 | Doom Night\n2026-08-21 | Thrash Fest"
 
-        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = Venue("Some Venue"))
+        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = VenueId("Some Venue"))
 
         expectThat(gigs).containsExactly(
-            Gig(id = GigId(Venue("Some Venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = "Doom Night", date = LocalDate.of(2026, 8, 14), imageUrl = "https://example.com/poster.jpg", description = ""),
-            Gig(id = GigId(Venue("Some Venue"), "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = "Thrash Fest", date = LocalDate.of(2026, 8, 21), imageUrl = "https://example.com/poster.jpg", description = ""),
+            Gig(id = GigId(VenueId("Some Venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = "Doom Night", date = LocalDate.of(2026, 8, 14), imageUrl = "https://example.com/poster.jpg", description = ""),
+            Gig(id = GigId(VenueId("Some Venue"), "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = "Thrash Fest", date = LocalDate.of(2026, 8, 21), imageUrl = "https://example.com/poster.jpg", description = ""),
         )
     }
 
@@ -44,7 +44,7 @@ class PosterIngestionTest {
         val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
         val reply = "Here's what I found:\n\n2026-08-14 | Doom Night\n\nThat's everything."
 
-        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = Venue("Some Venue"))
+        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = VenueId("Some Venue"))
 
         expectThat(gigs.map { it.title }).containsExactly("Doom Night")
     }
@@ -54,7 +54,7 @@ class PosterIngestionTest {
         val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
         val reply = "2026-08-06 | Doom Night\n2026-08-13 | RrroooaaarrR Rock/Metal Karaoke\n2026-08-20 | Thrash Fest"
 
-        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = Venue("The Dev"))
+        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = VenueId("The Dev"))
 
         expectThat(gigs.map { it.title }).containsExactly("Doom Night", "Thrash Fest")
     }
@@ -64,7 +64,7 @@ class PosterIngestionTest {
         val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
         val reply = "2026-08-13 | Metal Karaoke Night"
 
-        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = Venue("Some Other Venue"))
+        val gigs = extractPosterGigs(fakeClient, fakeChat(reply), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = VenueId("Some Other Venue"))
 
         expectThat(gigs.map { it.title }).containsExactly("Metal Karaoke Night")
     }
@@ -74,7 +74,7 @@ class PosterIngestionTest {
         val fakeClient: HttpHandler = { Response(OK).body("fake-poster-bytes") }
 
         val error = assertFailsWith<IllegalStateException> {
-            extractPosterGigs(fakeClient, fakeChat("I couldn't make out any dates on this poster."), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = Venue("Some Venue"))
+            extractPosterGigs(fakeClient, fakeChat("I couldn't make out any dates on this poster."), imageUrl = "https://example.com/poster.jpg", sourceUrl = "https://example.com/post/1", venue = VenueId("Some Venue"))
         }
 
         expectThat(error.message!!.contains("Some Venue")).isTrue()

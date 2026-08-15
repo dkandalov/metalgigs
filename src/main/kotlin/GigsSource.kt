@@ -22,14 +22,14 @@ enum class Genre { Metal, Other }
 
 enum class ClassificationSource { LLM, User }
 
-data class Venue(val name: String) {
+data class VenueId(val name: String) {
     override fun toString() = name
 }
 
-data class GigId(val venue: Venue, val url: String) {
+data class GigId(val venueId: VenueId, val url: String) {
     init {
-        require(venue.name.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
-        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venue" }
+        require(venueId.name.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
+        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venueId" }
     }
 }
 
@@ -84,7 +84,7 @@ private fun Element.squarespaceThumbnailUrl(): String {
 }
 
 interface GigsSource {
-    val venue: Venue
+    val venue: VenueId
     fun latestGigs(): List<Gig>
 }
 
@@ -98,7 +98,7 @@ internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
 internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): String =
     runCatching { content(Jsoup.parse(fetchPage(client, url), url)) }.getOrNull() ?: ""
 
-val cartAndHorses = Venue("Cart & Horses")
+val cartAndHorses = VenueId("Cart & Horses")
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://www.cartandhorses.london/news-offers-events/"
@@ -132,7 +132,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
     }
 }
 
-val newCrossInn = Venue("New Cross Inn")
+val newCrossInn = VenueId("New Cross Inn")
 
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.newcrossinn.com/gigs/"
@@ -162,7 +162,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by every Squarespace "Events List" venue page; the venue-specific classes below just
 // supply url/venue
-class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
+class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: VenueId) : GigsSource {
     // article.eventitem also holds the template's own event metadata - the date in both 12- and
     // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
     // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
@@ -185,17 +185,17 @@ class SquarespaceEventsGigsSource(private val client: HttpHandler, private val u
             }
 }
 
-val ourBlackHeart = Venue("Our Black Heart")
+val ourBlackHeart = VenueId("Our Black Heart")
 
 class OurBlackHeartGigsSource(client: HttpHandler) :
     GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = ourBlackHeart)
 
-val theDome = Venue("The Dome")
+val theDome = VenueId("The Dome")
 
 class DomeLondonGigsSource(client: HttpHandler) :
     GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome)
 
-val theUnderworld = Venue("The Underworld")
+val theUnderworld = VenueId("The Underworld")
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.theunderworldcamden.co.uk/search-events/"
@@ -237,7 +237,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-val electricBallroom = Venue("Electric Ballroom")
+val electricBallroom = VenueId("Electric Ballroom")
 
 class ElectricBallroomGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://electricballroom.co.uk/whats-on/"
@@ -285,7 +285,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
     }
 }
 
-val dingwalls = Venue("Dingwalls")
+val dingwalls = VenueId("Dingwalls")
 
 class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://dingwalls.com/whats-on/"
@@ -316,7 +316,7 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by DHP Family's venue sites, which all use the same card markup; the venue-specific
 // classes below just supply url/venue
-class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
+class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: VenueId) : GigsSource {
     // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
 
@@ -359,17 +359,17 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
             }
 }
 
-val theGarage = Venue("The Garage")
+val theGarage = VenueId("The Garage")
 
 class TheGarageGigsSource(client: HttpHandler) :
     GigsSource by DhpVenueGigsSource(client, url = "https://www.thegarage.london/live/", venue = theGarage)
 
-val theGrace = Venue("The Grace")
+val theGrace = VenueId("The Grace")
 
 class TheGraceGigsSource(client: HttpHandler) :
     GigsSource by DhpVenueGigsSource(client, url = "https://www.thegrace.london/whats-on/", venue = theGrace)
 
-val roundhouse = Venue("Roundhouse")
+val roundhouse = VenueId("Roundhouse")
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.roundhouse.org.uk/whats-on/"
@@ -403,7 +403,7 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by both Signature Brew taprooms - they're listed together on one page, each event
 // tagged with its own venue name, so the venue-specific classes below just filter by that
-class SignatureBrewGigsSource(private val client: HttpHandler, override val venue: Venue) : GigsSource {
+class SignatureBrewGigsSource(private val client: HttpHandler, override val venue: VenueId) : GigsSource {
     private val url = "https://events.signaturebrew.co.uk/"
 
     private val dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH)
@@ -431,7 +431,7 @@ class SignatureBrewGigsSource(private val client: HttpHandler, override val venu
             }
 }
 
-val unionChapel = Venue("Union Chapel")
+val unionChapel = VenueId("Union Chapel")
 
 class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://unionchapel.org.uk/whats-on"
@@ -484,7 +484,7 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-val scala = Venue("Scala")
+val scala = VenueId("Scala")
 
 class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://scala.co.uk/events/categories/live-music/"
@@ -548,7 +548,7 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     }
 }
 
-val alexandraPalace = Venue("Alexandra Palace")
+val alexandraPalace = VenueId("Alexandra Palace")
 
 class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.alexandrapalace.com/whats-on/"
@@ -621,7 +621,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-val paperDressVintage = Venue("Paper Dress Vintage")
+val paperDressVintage = VenueId("Paper Dress Vintage")
 
 class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://paperdressvintage.co.uk/by-night"
@@ -661,12 +661,12 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
             }
 }
 
-val signatureBrewBlackhorseRoad = Venue("Signature Brew Blackhorse Road")
+val signatureBrewBlackhorseRoad = VenueId("Signature Brew Blackhorse Road")
 
 class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
     GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewBlackhorseRoad)
 
-val signatureBrewHaggerston = Venue("Signature Brew Haggerston")
+val signatureBrewHaggerston = VenueId("Signature Brew Haggerston")
 
 class SignatureBrewHaggerstonGigsSource(client: HttpHandler) :
     GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewHaggerston)

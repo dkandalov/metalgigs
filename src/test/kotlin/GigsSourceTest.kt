@@ -20,7 +20,7 @@ class GigsSourceTest {
         expectThat(events.first()).isEqualTo(first)
         expectThat(events.last()).isEqualTo(last)
         expectThat(events.all { it.id.url.startsWith(urlPrefix) }).isTrue()
-        expectThat(events.all { it.id.venue.name == first.id.venue.name }).isTrue()
+        expectThat(events.all { it.id.venueId.name == first.id.venueId.name }).isTrue()
 
         return events
     }
@@ -380,11 +380,11 @@ class GigsSourceTest {
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
 
-        val events = DhpVenueGigsSource(fakeClient, url = "https://example.com/whats-on/", venue = Venue("Some Venue")).latestGigs()
+        val events = DhpVenueGigsSource(fakeClient, url = "https://example.com/whats-on/", venue = VenueId("Some Venue")).latestGigs()
 
         expectThat(events).containsExactly(
             Gig(
-                id = GigId(Venue("Some Venue"), "https://example.com/gigs/sold-out-gig/"),
+                id = GigId(VenueId("Some Venue"), "https://example.com/gigs/sold-out-gig/"),
                 title = "SOLD OUT GIG",
                 date = LocalDate.of(2026, 10, 3),
                 imageUrl = "https://example.com/poster.jpg",

@@ -39,7 +39,7 @@ private object JAmgSearchResults : JAny<AmgSearchResults>() {
 // shared by every Academy Music Group venue; the venue-specific classes below just supply the
 // venue's own id(s) (as seen in the API's own venue objects) and display name. More than one id
 // where a site lists several rooms at the same venue together, as its own listing page does
-class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, override val venue: Venue) : GigsSource {
+class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, override val venue: VenueId) : GigsSource {
     // PageSize is well above what any one venue actually lists, so everything comes back in one
     // page - the listing page itself paginates client-side, but the API needn't
     private val url = "https://www.academymusicgroup.com/api/search/events" +
@@ -75,17 +75,17 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
     }
 }
 
-val o2ForumKentishTown = Venue("O2 Forum Kentish Town")
+val o2ForumKentishTown = VenueId("O2 Forum Kentish Town")
 
 class O2ForumKentishTownGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 5597, venue = o2ForumKentishTown)
 
-val o2AcademyBrixton = Venue("O2 Academy Brixton")
+val o2AcademyBrixton = VenueId("O2 Academy Brixton")
 
 class O2AcademyBrixtonGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 3919, venue = o2AcademyBrixton)
 
-val o2AcademyIslington = Venue("O2 Academy Islington")
+val o2AcademyIslington = VenueId("O2 Academy Islington")
 
 // its listing page covers both the main room and the smaller "Academy2" upstairs (which has no
 // listing page of its own), so both are scraped together under the one venue name, exactly as the
@@ -93,7 +93,7 @@ val o2AcademyIslington = Venue("O2 Academy Islington")
 class O2AcademyIslingtonGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4361, 4258, venue = o2AcademyIslington)
 
-val o2ShepherdsBushEmpire = Venue("O2 Shepherd's Bush Empire")
+val o2ShepherdsBushEmpire = VenueId("O2 Shepherd's Bush Empire")
 
 class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4051, venue = o2ShepherdsBushEmpire)

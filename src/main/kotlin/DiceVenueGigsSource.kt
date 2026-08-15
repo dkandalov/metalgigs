@@ -88,7 +88,7 @@ internal fun diceEventPageContent(page: Document): String? {
 }
 
 // shared by every dice.fm venue page; the venue-specific classes below just supply url/venue
-class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
+class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: VenueId) : GigsSource {
 
     // dice.fm blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -113,17 +113,17 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
     }
 }
 
-val blondiesBreweryTaproom = Venue("Blondies Brewery Taproom")
+val blondiesBreweryTaproom = VenueId("Blondies Brewery Taproom")
 
 class BlondiesBreweryTaproomGigsSource(client: HttpHandler) :
     GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-brewery-m9nl?lng=en", venue = blondiesBreweryTaproom)
 
-val blondiesBar = Venue("Blondies Bar")
+val blondiesBar = VenueId("Blondies Bar")
 
 class BlondiesBarGigsSource(client: HttpHandler) :
     GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/blondies-rmvw?lng=en", venue = blondiesBar)
 
-val helgis = Venue("Helgi's")
+val helgis = VenueId("Helgi's")
 
 class HelgisGigsSource(client: HttpHandler) :
     GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = helgis)

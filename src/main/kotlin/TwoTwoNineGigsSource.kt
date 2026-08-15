@@ -43,7 +43,7 @@ private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEventsResponse(data = +data, links = +links)
 }
 
-val twoTwoNine = Venue("229")
+val twoTwoNine = VenueId("229")
 
 class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = twoTwoNine
