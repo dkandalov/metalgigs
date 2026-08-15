@@ -3,6 +3,7 @@ import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import org.jsoup.Jsoup
 import strikt.api.expectThat
+import strikt.assertions.contains
 import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
@@ -108,6 +109,71 @@ class GigsSourceTest {
             ),
             urlPrefix = "https://pit.live/events/",
         )
+    }
+
+    // its event pages are all empty, so unlike the other Squarespace venues the description comes off
+    // the listing itself - asserted separately from first/last, since the excerpts run to a couple of
+    // thousand characters each
+    @Test
+    fun `extracts gig events from The Fiddler's Elbow whos-playing page`() {
+        val events = FiddlersElbowGigsSource(cachedClient()).latestGigs()
+        events.forEach { println(it) }
+
+        expectThat(events).hasSize(10)
+        expectThat(events.first().copy(description = "")).isEqualTo(
+            Gig(
+                id = GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/moonpunx-16-matinee1682026"),
+                title = GigTitle("MoonPunx 16 Matinee"),
+                date = LocalDate.of(2026, 8, 16),
+                imageUrl = "https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1786573507310-PG9FBW6TLI2B45R0QU3D/Unknown-2.png",
+                description = "",
+            ),
+        )
+        expectThat(events.last().copy(description = "")).isEqualTo(
+            Gig(
+                id = GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/neo-rockabilly-explosion-3-the-neutronz-wigsville-spliffs-dj-chris-setzer2692026"),
+                title = GigTitle("NEO ROCKABILLY EXPLOSION #3 The Neutronz, Wigsville Spliffs, DJ Chris Setzer."),
+                date = LocalDate.of(2026, 9, 26),
+                imageUrl = "https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1785973667820-T4D2VFAJ8AY9UAJQ4GHP/69613b4679576_event.jpeg",
+                description = "",
+            ),
+        )
+        expectThat(events.all { it.id.url.startsWith("https://www.thefiddlerselbow.co.uk/whos-playing/") }).isTrue()
+        // the whole reason the description comes off the listing: 80 chars is where the classifier
+        // gives up on the text and judges the poster image instead
+        expectThat(events.all { it.description.length > 80 }).isTrue()
+        expectThat(events.first().description).contains("Steam Kittens are a punk band")
+    }
+
+    @Test
+    fun `takes only the excerpt as a listing-described gig's text, not the item's own meta`() {
+        val html = """
+            <div class="eventlist eventlist--upcoming">
+              <article class="eventlist-event eventlist-event--upcoming">
+                <a href="/whos-playing/some-gig" class="eventlist-column-thumbnail"><img src="https://example.com/poster.jpg"></a>
+                <h1 class="eventlist-title"><a href="/whos-playing/some-gig" class="eventlist-title-link">SOME GIG</a></h1>
+                <time class="event-date" datetime="2026-09-01">Tuesday 1 September 2026</time>
+                <div class="eventlist-excerpt"><p>Doom metal night with support.</p></div>
+                <ul class="eventlist-meta event-meta">
+                  <li class="eventlist-meta-item eventlist-meta-address">
+                    <span class="eventlist-meta-address-line">1 Malden Road</span>
+                    <a class="eventlist-meta-address-maplink">(map)</a>
+                  </li>
+                </ul>
+                <a class="eventlist-button">View Event &#8594;</a>
+              </article>
+            </div>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+
+        val events = SquarespaceEventsGigsSource(
+            fakeClient,
+            url = "https://example.com/whos-playing",
+            venue = fiddlersElbow,
+            descriptionFrom = SquarespaceDescription.ListingExcerpt,
+        ).latestGigs()
+
+        expectThat(events.single().description).isEqualTo("Doom metal night with support.")
     }
 
     @Test

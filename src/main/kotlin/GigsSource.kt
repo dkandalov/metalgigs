@@ -160,9 +160,19 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
+// most Squarespace venues write a gig's blurb on its own event page, but The Fiddler's Elbow leaves
+// every one of those empty and puts the whole thing in the listing's excerpt instead - which also
+// means one request for the listing rather than one more per gig
+enum class SquarespaceDescription { EventPage, ListingExcerpt }
+
 // shared by every Squarespace "Events List" venue page; the venue-specific classes below just
 // supply url/venue
-class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
+class SquarespaceEventsGigsSource(
+    private val client: HttpHandler,
+    private val url: String,
+    override val venue: Venue,
+    private val descriptionFrom: SquarespaceDescription = SquarespaceDescription.EventPage,
+) : GigsSource {
     // article.eventitem also holds the template's own event metadata - the date in both 12- and
     // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
     // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
@@ -180,7 +190,10 @@ class SquarespaceEventsGigsSource(private val client: HttpHandler, private val u
                     title = GigTitle(titleLink.text()),
                     date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
                     imageUrl = item.squarespaceThumbnailUrl(),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                    description = when (descriptionFrom) {
+                        SquarespaceDescription.EventPage -> fetchDescription(client, gigUrl, ::eventPageContent)
+                        SquarespaceDescription.ListingExcerpt -> item.select(".eventlist-excerpt").text()
+                    },
                 )
             }
 }
@@ -194,6 +207,16 @@ val theDome = Venue(VenueId("dome"), "The Dome")
 
 class DomeLondonGigsSource(client: HttpHandler) :
     GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome)
+
+val fiddlersElbow = Venue(VenueId("fiddlers-elbow"), "The Fiddler's Elbow")
+
+class FiddlersElbowGigsSource(client: HttpHandler) :
+    GigsSource by SquarespaceEventsGigsSource(
+        client,
+        url = "https://www.thefiddlerselbow.co.uk/whos-playing",
+        venue = fiddlersElbow,
+        descriptionFrom = SquarespaceDescription.ListingExcerpt,
+    )
 
 val theUnderworld = Venue(VenueId("underworld"), "The Underworld")
 

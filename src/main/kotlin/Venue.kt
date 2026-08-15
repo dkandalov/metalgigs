@@ -16,6 +16,7 @@ val allVenues: List<Venue> = listOf(
     ourBlackHeart,
     theUnderworld,
     theDome,
+    fiddlersElbow,
     blondiesBreweryTaproom,
     blondiesBar,
     helgis,

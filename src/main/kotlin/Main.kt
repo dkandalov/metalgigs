@@ -82,6 +82,7 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     OurBlackHeartGigsSource(client),
     TheUnderworldGigsSource(client),
     DomeLondonGigsSource(client),
+    FiddlersElbowGigsSource(client),
     BlondiesBreweryTaproomGigsSource(client),
     BlondiesBarGigsSource(client),
     HelgisGigsSource(client),
