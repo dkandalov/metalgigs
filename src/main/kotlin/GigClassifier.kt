@@ -123,9 +123,10 @@ fun classificationCostReport(classifications: List<GigClassified>): List<String>
         "total  ${money(classifications)}"
 }
 
-// ROOT so the decimal separator doesn't follow the machine's locale into a dollar amount
+// Four places because a single call is fractions of a cent - two rounded a whole row to $0.00.
+// ROOT so the decimal separator doesn't follow the machine's locale into a dollar amount.
 private fun money(classifications: List<GigClassified>) =
-    String.format(Locale.ROOT, "$%.2f", classifications.sumOf { classificationCost(it) ?: 0.0 })
+    String.format(Locale.ROOT, "$%.4f", classifications.sumOf { classificationCost(it) ?: 0.0 })
 
 // null rather than zero for anything unpriced - a user override has no model or tokens at all, and
 // an entry written before tokens were recorded would otherwise read as having been free

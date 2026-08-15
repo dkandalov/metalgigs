@@ -54,10 +54,11 @@ class ClassificationCostTest {
         )
 
         expectThat(report).containsExactly(
-            "text      3 gig(s)  200000 in / 6 out  $0.20",
-            "vision    1 gig(s)  1000 in / 3 out  $0.00",
+            "text      3 gig(s)  200000 in / 6 out  $0.2000",
+            // the row two decimal places rounded away to $0.00
+            "vision    1 gig(s)  1000 in / 3 out  $0.0020",
             "1 gig(s) reported no token usage, so are not counted above",
-            "total  $0.20",
+            "total  $0.2021",
         )
     }
 
