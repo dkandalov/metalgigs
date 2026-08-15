@@ -1,0 +1,422 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, must-revalidate, max-age=0, no-store, private
+connection: Keep-Alive
+content-type: text/html; charset=UTF-8
+date: Sat, 15 Aug 2026 14:00:33 GMT
+expires: Wed, 11 Jan 1984 05:00:00 GMT
+keep-alive: timeout=2, max=98
+referrer-policy: strict-origin-when-cross-origin
+referrer-policy: 
+server: Apache
+vary: Accept-Encoding
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-robots-tag: noindex
+
+    <h1 class="text-gray-300 font-bold text-xl pb-8 pt-8 text-center nci_month_title">Upcoming Events (November 2026)</h1>
+    <div class="w-full relative float-left px-8 pt-5">
+        <div class="w-60 float-right">
+            <input type="" id="nci_title" name="nci_title" placeholder="Band Search" class="float-left w-60 px-3 py-2 rounded-sm mb-5 border-red-800 text-m">
+            <button id="nci_search"><img src="https://www.newcrossinn.com/wp-content/plugins/BetterWebSpace-newcrossinn-wordpress-915ed5387324/admin/img/search-inn.png" alt="Band Search" class="absolute right-12 top-9"></button>
+        </div>
+    </div>
+    <div class="w-full float-left px-8 pb-8">
+        <div class="w-1/2 float-left">
+            <div class="group inline-block">
+                <button class="outline-none bg-gray-800 border-gray-800 text-gray-300 focus:outline-none border px-3 py-2 bg-white rounded-sm flex items-center w-60" style="background-color:#1f2937;">
+                    <span class="pr-1 font-semibold flex-1 text-sm prev_month">Past Months</span>
+                    <span>
+                        <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+					  transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                    </span>
+                </button>
+                <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top w-60 prev_month_label">
+    <li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="08" data-year="2026">August 2026</li></ul>
+
+            </div>
+        </div>
+        <div class="w-1/2 float-right">
+            <div class="group inline-block float-right">
+                <button class="outline-none focus:outline-none border px-3 py-2 bg-gray-800 border-gray-800 text-gray-300 bg-white rounded-sm flex items-center w-60" style="background-color:#1f2937;">
+                    <span class="pr-1 font-semibold flex-1 text-sm next_month">Upcoming Months</span>
+                    <span>
+                        <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+					  transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                    </span>
+                </button>
+                <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top w-60 bg-gray-200 next_month_label">
+                    <li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="12" data-year="2026">December 2026</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="01" data-year="2027">January 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="02" data-year="2027">February 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="03" data-year="2027">March 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="04" data-year="2027">April 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="05" data-year="2027">May 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="06" data-year="2027">June 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="07" data-year="2027">July 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="08" data-year="2027">August 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="09" data-year="2027">September 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="10" data-year="2027">October 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="11" data-year="2027">November 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="12" data-year="2027">December 2027</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="01" data-year="2028">January 2028</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="02" data-year="2028">February 2028</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="03" data-year="2028">March 2028</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="04" data-year="2028">April 2028</li><li class="rounded-sm px-3 py-1 hover:bg-gray-100 month_label" data-month="05" data-year="2028">May 2028</li>                </ul>
+            </div>
+        </div>
+        </li>
+        </ul>
+    </div>
+    <div class="w-full pb-8">
+        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 px-8">
+                            <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/sheer-terror-1"><img src="https://pit.live/uploads/user/2026/07/29/640x480/JKuHuM8vPdatVm2w.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/sheer-terror-1">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Sheer Terror</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">02 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/sheer-terror-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/tina-sandwich"><img src="https://pit.live/uploads/user/2026/06/17/640x480/S1UZ3IMFDAP6sPx0.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/tina-sandwich">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Tina Sandwich</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">05 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/tina-sandwich" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/reanimation-a-tribute-to-linkin-park"><img src="https://pit.live/uploads/user/2026/03/04/640x480/SZhVGHyPfzDrneg2.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/reanimation-a-tribute-to-linkin-park">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Reanimation - A Tribute to Linkin Park</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">06 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/reanimation-a-tribute-to-linkin-park" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/los-fastidios-7"><img src="https://pit.live/uploads/user/2026/02/06/640x480/5pxMaeCfqYwYN5PP.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/los-fastidios-7">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Los Fastidios</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">08 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/los-fastidios-7" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/lagrimas"><img src="https://pit.live/uploads/user/2026/06/15/640x480/Dr57xE6f1GbPkD7C.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/lagrimas">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Lagrimas</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">09 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/lagrimas" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/poison-ruin"><img src="https://pit.live/uploads/user/2026/08/07/640x480/J1yRs26oqo0bsEcV.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/poison-ruin">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Poison Ruin</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">11 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/poison-ruin" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/ork"><img src="https://pit.live/uploads/user/2026/01/14/640x480/3NOlFYpxPkIDYxtA.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/ork">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">O.R.k.</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">12 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/ork" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/the-ties"><img src="https://pit.live/uploads/user/2026/07/30/640x480/Nq9Z9M3RimxtUt4X.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/the-ties">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">The Ties</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">13 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/the-ties" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/riffs-against-fascism-2"><img src="https://pit.live/uploads/user/2026/07/07/640x480/GYCE2WylhB94V30d.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/riffs-against-fascism-2">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Riffs Against Fascism</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">14 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/riffs-against-fascism-2" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/babe-haven-latter"><img src="https://pit.live/uploads/user/2026/06/03/640x480/LMd9oooTg765iHOq.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/babe-haven-latter">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Babe Haven & Latter</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">15 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/babe-haven-latter" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/the-set"><img src="https://pit.live/uploads/user/2026/05/21/640x480/CYzCUymKWCHIBKvj.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/the-set">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">The S.E.T.</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">16 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/the-set" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/shaki-tavi"><img src="https://pit.live/uploads/user/2026/08/03/640x480/GtNAugDV4bUM01fZ.jpeg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/shaki-tavi">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Shaki Tavi</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">18 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/shaki-tavi" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/ed-tudor-pole-1"><img src="https://pit.live/uploads/user/2026/03/25/640x480/aoMZ6ffGdO7cTUDn.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/ed-tudor-pole-1">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Ed Tudor Pole</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">19 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/ed-tudor-pole-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/ninepages"><img src="https://pit.live/uploads/user/2026/05/26/640x480/WVxyA4af0Huv39LM.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/ninepages">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Ninepages</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">20 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/ninepages" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/capital-death-fest"><img src="https://pit.live/uploads/user/2026/06/26/640x480/1SsT1YxJsIV3NiuC.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/capital-death-fest">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Capital Death Fest</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">21 Nov 2026 @ 13:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/capital-death-fest" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/moral-law"><img src="https://pit.live/uploads/user/2026/05/13/640x480/LSxlCUXC22Uf5jYh.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/moral-law">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Moral Law</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">23 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/moral-law" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/vianova"><img src="https://pit.live/uploads/user/2026/03/31/640x480/V7vpyUD76n4cbPXD.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/vianova">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Vianova</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">26 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/vianova" class="text-white" style="color:red;font-family:;font-size:px;">
+                            SOLD OUT
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/dirty-dc-1"><img src="https://pit.live/uploads/user/2026/04/13/640x480/RLbYYze080aCl0HQ.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/dirty-dc-1">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Chris Hill's Dirty DC (AC/DC Tribute)</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">27 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/dirty-dc-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/hiding-from-mirrors-1"><img src="https://pit.live/uploads/user/2026/08/03/640x480/QM7dhICJvYyKzN9z.jpg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/hiding-from-mirrors-1">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Hiding From Mirrors</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">28 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/hiding-from-mirrors-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+                        <li class="col-span-1 flex flex-col text-center bg-gray-800 rounded-lg shadow" style="background-color:#1f2937;border:0px solid #1f2937;">
+                    <div class="flex-1 flex flex-col p-8">
+                                                    <a href="https://pit.live/events/restraining-order-1"><img src="https://pit.live/uploads/user/2026/07/08/640x480/DC2o6jvxDj1IJlDB.jpeg" alt="img" class="w-48 flex-shrink-0 inline-block"></a>
+                                                <a href="https://pit.live/events/restraining-order-1">
+                            <h3 class="text-blue-400 font-medium lending-5 text-lg mt-6 nci-event-name" style="color:#60a5fa;font-family:;font-size:px;">Restraining Order</h3>
+                        </a>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <dd class="text-red-500 text-sm leading-5" style="color:#ef4444;font-family:;font-size:px;">30 Nov 2026 @ 18:00</dd>
+                        </dl>
+                    </div>
+                    <div class="border-t border-gray-200 py-4">
+                        <div class="mx-auto text-center">
+
+                                                                            <a href="https://pit.live/events/restraining-order-1" class="text-white" style="color:#ffffff;font-family:;font-size:px;">
+                            Book Now
+                            </a>
+                                            			</div>
+		</li>
+        	</ul>
+	</div>
+

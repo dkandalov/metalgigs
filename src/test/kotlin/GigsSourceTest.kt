@@ -88,11 +88,13 @@ class GigsSourceTest {
         expectThat(events.map { it.date.year }).containsExactly(2026, 2027, 2027)
     }
 
+    // the page opens on the current month, so all but the first two months here come from the
+    // dropdown's own admin-ajax call rather than the page itself
     @Test
-    fun `extracts gig events from New Cross Inn gigs page`() {
-        assertScrapesGigs(
+    fun `extracts gig events from New Cross Inn gigs page, following the months dropdown`() {
+        val events = assertScrapesGigs(
             source = NewCrossInnGigsSource(cachedClient()),
-            size = 28,
+            size = 118,
             first = Gig(
                 id = GigId(newCrossInn.id, "https://pit.live/events/greenhat"),
                 title = GigTitle("GREENHAT"),
@@ -101,14 +103,20 @@ class GigsSourceTest {
                 description = "",
             ),
             last = Gig(
-                id = GigId(newCrossInn.id, "https://pit.live/events/rudies-resurrection"),
-                title = GigTitle("Rudies Resurrection"),
-                date = LocalDate.of(2026, 9, 5),
-                imageUrl = "https://pit.live/uploads/user/2026/07/29/640x480/P8wpWnfgGUUPDWcA.jpg",
+                id = GigId(newCrossInn.id, "https://pit.live/events/level-up-festival-7"),
+                title = GigTitle("Level Up Festival 7"),
+                date = LocalDate.of(2027, 7, 23),
+                imageUrl = "https://pit.live/uploads/user/2026/07/24/640x480/t8YfuAmMlTMW6ilv.jpg",
                 description = "",
             ),
             urlPrefix = "https://pit.live/events/",
         )
+
+        // a gig five months past what the page itself lists, and the one that showed the dropdown
+        // was being missed - the page opens on August, and this is only in the February fragment
+        expectThat(events.map { it.id.url }).contains("https://pit.live/events/ghost-uk-1")
+        // the month the page opens on is in the dropdown too, so its gigs arrive from both
+        expectThat(events.map { it.id.url }.distinct().size).isEqualTo(events.size)
     }
 
     // its event pages are all empty, so unlike the other Squarespace venues the description comes off

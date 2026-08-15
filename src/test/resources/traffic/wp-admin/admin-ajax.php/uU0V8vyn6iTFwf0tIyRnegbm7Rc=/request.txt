@@ -1,0 +1,4 @@
+POST https://www.newcrossinn.com/wp-admin/admin-ajax.php HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+action=nci_monthly_events_results&month=06&year=2027
