@@ -282,8 +282,9 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
     }
 
-    val gigs = excludeGigsInThePast(log.metalGigs(), today)
-    publishGigImages(gigs)
+    val metalGigs = log.metalGigs()
+    val gigs = excludeGigsInThePast(metalGigs, today)
+    publishGigImages(gigs, keep = metalGigs)
 
     val renderer = HandlebarsTemplates().CachingClasspath()
     val html = renderer(GigsView(groupGigsByDate(gigs)))
@@ -295,7 +296,9 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     println("Rendered ${gigs.size} gig(s) as of $today to $indexFile, archived as $archived")
 }
 
-private fun publishGigImages(renderedGigs: List<Gig>) {
+// keep is every metal gig, not just the rendered ones, so a gig dropping off the page as its date
+// passes doesn't take its image with it - only an image no gig claims any more is removed
+private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
 
     val failures = renderedGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
@@ -307,9 +310,9 @@ private fun publishGigImages(renderedGigs: List<Gig>) {
         failures.forEach { println("  $it") }
     }
 
-    val unpublished = unpublishedImageFiles(renderedGigs, publishedImagesDir.listFiles()?.toList() ?: emptyList())
+    val unpublished = unpublishedImageFiles(keep, publishedImagesDir.listFiles()?.toList() ?: emptyList())
     unpublished.forEach { it.delete() }
-    if (unpublished.isNotEmpty()) println("Unpublished ${unpublished.size} image(s) no longer on the page (still held in $imageCacheDir)")
+    if (unpublished.isNotEmpty()) println("Unpublished ${unpublished.size} image(s) no gig claims any more (still held in $imageCacheDir)")
 }
 
 fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = false) {

@@ -64,7 +64,7 @@ fun publishGigImage(
 }
 
 // safe to remove precisely because the cache still holds their bytes if a later render needs them
-fun unpublishedImageFiles(renderedGigs: List<Gig>, publishedFiles: List<File>): List<File> {
-    val expectedFileNames = renderedGigs.map { publishedImageFileName(it) }.toSet()
+fun unpublishedImageFiles(keptGigs: List<Gig>, publishedFiles: List<File>): List<File> {
+    val expectedFileNames = keptGigs.map { publishedImageFileName(it) }.toSet()
     return publishedFiles.filter { it.name !in expectedFileNames }
 }

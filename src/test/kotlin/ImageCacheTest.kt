@@ -91,13 +91,26 @@ class ImageCacheTest {
     }
 
     @Test
-    fun `finds published files that the rendered page no longer references`() {
-        val rendered = gig(day = 8)
-        val keptFile = File(publishedImageFileName(rendered))
+    fun `finds published files that no gig claims any more`() {
+        val kept = gig(day = 8)
+        val keptFile = File(publishedImageFileName(kept))
         val staleFile = File("2026-08-09-some-venue-deadbeef.webp")
 
-        val unpublished = unpublishedImageFiles(renderedGigs = listOf(rendered), publishedFiles = listOf(keptFile, staleFile))
+        val unpublished = unpublishedImageFiles(keptGigs = listOf(kept), publishedFiles = listOf(keptFile, staleFile))
 
         expectThat(unpublished).isEqualTo(listOf(staleFile))
+    }
+
+    // a gig whose date has passed is off the page but still in the log, and its image stays put
+    @Test
+    fun `keeps the image of a gig that has dropped off the page`() {
+        val past = gig(day = 8)
+        val upcoming = gig(day = 20, imageUrl = "https://example.com/images/upcoming.jpg")
+        val pastFile = File(publishedImageFileName(past))
+        val upcomingFile = File(publishedImageFileName(upcoming))
+
+        val unpublished = unpublishedImageFiles(keptGigs = listOf(past, upcoming), publishedFiles = listOf(pastFile, upcomingFile))
+
+        expectThat(unpublished).isEqualTo(emptyList())
     }
 }
