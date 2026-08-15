@@ -139,8 +139,10 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     }
     skipped.forEach { source -> println("Skipping ${source.venue} - scraped within the last day; pass force to scrape anyway") }
 
-    val gigs = toScrape.flatMap { it.latestGigs() }
-    gigs.forEach { println(it) }
+    val gigs = toScrape.flatMap { source ->
+        println("Scraping ${source.venue}...")
+        source.latestGigs().also { println("  ${it.size} gig(s) listed") }
+    }
 
     // a gig is recorded only when it's new or its listed details have changed, so an unchanged
     // listing costs nothing and the log stays a record of changes rather than of scrapes
@@ -154,6 +156,7 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
 
     val observed = toObserve.filterNot { it.id.venue.name in validated.keys }.map { gig -> GigObserved(gig, now) }
     log.append(observed)
+    println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped")
 
     val withoutText = observed.filter { it.gig.description.isBlank() }
     if (withoutText.isNotEmpty()) {
