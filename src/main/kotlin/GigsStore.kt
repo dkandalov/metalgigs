@@ -108,6 +108,31 @@ sealed interface ClassificationStatus {
     }
 }
 
+// a user's own classification is always final; otherwise the latest LLM classification stands
+private fun effectiveClassification(classifications: List<GigClassified>): GigClassified? {
+    val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt } }
+    return latestBySource[ClassificationSource.User] ?: latestBySource[ClassificationSource.LLM]
+}
+
+// the log is append-only, so a gig re-observed on a later scrape is logged again in full, event page
+// text and all, and every projection then reads only the newest of them. Compacting keeps just that
+// newest observation per gig, and just the one classification that decides the gig's genre, which is
+// the same one classificationStatus picks. Every render entry survives: they say what was published
+// rather than what a gig is, and there's one per render rather than one per gig.
+//
+// What's lost is the history itself - when a gig gained "- SOLD OUT", was rescheduled or had its
+// text captured, and which model judged a classification since superseded.
+fun compactLogEntries(entries: List<LogEntry>): List<LogEntry> {
+    val observations = entries.filterIsInstance<GigObserved>()
+        .groupBy { it.id }
+        .map { (_, observations) -> observations.maxBy { it.recordedAt } }
+    val classifications = entries.filterIsInstance<GigClassified>()
+        .groupBy { it.id }
+        .mapNotNull { (_, classifications) -> effectiveClassification(classifications) }
+
+    return (observations + classifications + entries.filterIsInstance<GigsRendered>()).sortedBy { it.recordedAt }
+}
+
 // wraps events.ndjson so callers don't thread a List<LogEntry> through several functions by hand -
 // entries are loaded once and appending updates the same in-memory copy, so e.g. a status computed
 // right after an append reflects it without the caller re-reading the file or concatenating lists
@@ -156,17 +181,13 @@ class GigsLog(private val file: File) {
     fun alreadyRenderedFor(date: LocalDate): Boolean =
         entries.filterIsInstance<GigsRendered>().any { it.logicalDate == date }
 
-    // a user's own classification is always final; otherwise the latest LLM classification stands
-    private fun statusFor(classifications: List<GigClassified>): ClassificationStatus {
-        val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt } }
-        val latest = latestBySource[ClassificationSource.User] ?: latestBySource[ClassificationSource.LLM]
-        return latest?.let { ClassificationStatus.Classified(it.genre) } ?: ClassificationStatus.Pending
-    }
-
     fun classificationStatus(): Map<GigId, ClassificationStatus> =
         entries.filterIsInstance<GigClassified>()
             .groupBy { it.id }
-            .mapValues { (_, classifications) -> statusFor(classifications) }
+            .mapValues { (_, classifications) ->
+                effectiveClassification(classifications)
+                    ?.let { ClassificationStatus.Classified(it.genre) } ?: ClassificationStatus.Pending
+            }
 
     fun metalGigs(): List<Gig> {
         val statusByGig = classificationStatus()

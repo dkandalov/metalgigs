@@ -265,6 +265,39 @@ fun overrideGigGenre(url: String, genre: Genre) {
     ))
 }
 
+// rewriting the log is the only thing here that destroys anything, so the compacted file is written
+// alongside and read back first: nothing is overwritten unless it projects to exactly the same gigs,
+// genres, scrape times and renders as the log it would replace. events.ndjson is committed, so the
+// swap is recoverable from git either way - but a failed check should cost nothing at all.
+fun compactLog() {
+    val log = GigsLog(eventsFile)
+    val entries = readLogEntries(eventsFile)
+    val compacted = compactLogEntries(entries)
+
+    val compactedFile = File("events-compacted.ndjson").apply { delete() }
+    try {
+        GigsLog(compactedFile).append(compacted)
+        val compactedLog = GigsLog(compactedFile)
+
+        check(compactedLog.currentGigs().toSet() == log.currentGigs().toSet()) { "Compacted log holds different gigs" }
+        check(compactedLog.classificationStatus() == log.classificationStatus()) { "Compacted log judges gigs differently" }
+        check(compactedLog.metalGigs().toSet() == log.metalGigs().toSet()) { "Compacted log renders different gigs" }
+        check(compactedLog.alreadyClassified() == log.alreadyClassified()) { "Compacted log has classified different gigs" }
+        check(compactedLog.lastScrapedAt() == log.lastScrapedAt()) { "Compacted log dates the last scrape differently" }
+
+        val sizeBefore = eventsFile.length()
+        compactedFile.copyTo(eventsFile, overwrite = true)
+
+        println("Compacted ${entries.size} log entries to ${compacted.size}:")
+        println("  observed:   ${entries.count { it is GigObserved }} -> ${compacted.count { it is GigObserved }}")
+        println("  classified: ${entries.count { it is GigClassified }} -> ${compacted.count { it is GigClassified }}")
+        println("  rendered:   ${entries.count { it is GigsRendered }} (kept)")
+        println("  ${sizeBefore / 1024}KB -> ${eventsFile.length() / 1024}KB")
+    } finally {
+        compactedFile.delete()
+    }
+}
+
 fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
     val log = GigsLog(eventsFile)
     val statusByGig = log.classificationStatus()
@@ -369,6 +402,7 @@ fun main(rawArgs: Array<String>) {
             renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"), fullUnresolved = renderArgs.contains("full-unresolved"))
         }
         "daily-update" -> dailyUpdate(force = args.drop(1).contains("force"))
+        "compact" -> compactLog()
         "ingest-poster" -> {
             val posterArgs = args.drop(1)
             val positional = posterArgs.filterNot { it == "force" }
@@ -379,6 +413,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, VenueId(venueId), force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [daily-update [force]|scrape [venue-id...] [force]|classify [limit]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]]")
+        else -> println("Usage: [daily-update [force]|scrape [venue-id...] [force]|classify [limit]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]|compact]")
     }
 }
