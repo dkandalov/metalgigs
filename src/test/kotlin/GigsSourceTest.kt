@@ -1026,13 +1026,22 @@ class GigsSourceTest {
         expectThat(pageText.contains("Instagram")).isEqualTo(false)
     }
 
+    // the ticketing and access blocks are verbatim from a real listing, where they ran to 414 chars
+    // against the gig's own few hundred
     @Test
-    fun `scopes Scala page text to the event post, excluding the sidebar of other upcoming events`() {
+    fun `scopes Scala page text to the lineup and the About section`() {
         val html = """
             <nav><a>Home</a></nav>
             <div id="post-1" class="post-1 event type-event event-post">
                 <h1 class="entry-title">Doom Night</h1>
-                <div class="entry-content"><p>Doom metal night!</p></div>
+                <div class="entry-content">
+                    <div class="tb-event-headerbox">Wednesday 19th August 2026 Doom Promotions presents Doom Night Plus Kings Of Thrash 7:30 pm until 10:15 pm Buy tickets Info</div>
+                    <div>Tickets Price: From £36.47 <p class="guide-to">Read our guide to buying and using tickets.</p></div>
+                    <div>Admission <p class="event-time">Doors open at 7:30 PM</p><p class="age-restrictions">Age: You must be 18 years of age or more to attend this event (no exceptions). | Photo ID – We require original physical (non-digital) photo ID and use ID scanning.</p></div>
+                    <h3>About Doom Night</h3>
+                    <p>Doom metal night!</p>
+                    <p class="add-calendar">Add to iCal | Add to Google calendar</p>
+                </div>
             </div>
             <div id="sidebar"><ul><li>Other Gig</li></ul></div>
         """.trimIndent()
@@ -1040,6 +1049,10 @@ class GigsSourceTest {
         val pageText = ScalaGigsSource(noHttp).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Kings Of Thrash")).isTrue()
+        expectThat(pageText.contains("Photo ID")).isEqualTo(false)
+        expectThat(pageText.contains("Read our guide")).isEqualTo(false)
+        expectThat(pageText.contains("Add to iCal")).isEqualTo(false)
         expectThat(pageText.contains("Other Gig")).isEqualTo(false)
     }
 

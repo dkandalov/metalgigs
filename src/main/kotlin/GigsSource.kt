@@ -502,7 +502,24 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     // bound a pathological site bug; the real stop condition is the next link disappearing
     private val maxPages = 10
 
-    internal fun eventPageContent(page: Document) = page.select(".event-post").textOrNull()
+    // .entry-content leads with the venue's ticketing and access furniture - price and sale status,
+    // door times, an age/ID/access table, "Read our guide to buying and using tickets" - and closes
+    // with calendar links, all of it identical across listings and on a short one longer than the
+    // copy. The gig's own copy is what follows the "About <artist>" heading, on every listing read.
+    // The header box is kept for the promoter and support acts, which the listing's title leaves out.
+    private val ticketingFurniture = "p.age-restrictions, p.event-time, p.guide-to, p.add-calendar, .button"
+
+    internal fun eventPageContent(page: Document): String? {
+        val content = page.select(".event-post .entry-content").firstOrNull()?.clone() ?: return null
+        content.select(ticketingFurniture).remove()
+        val lineup = content.select(".tb-event-headerbox").also { it.remove() }.text()
+
+        val children = content.children()
+        val about = children.indexOfFirst { it.tagName() == "h3" && it.text().startsWith("About", ignoreCase = true) }
+        val copy = (if (about >= 0) children.drop(about) else children).joinToString(" ") { it.text() }
+
+        return "$lineup $copy".trim().ifBlank { null }
+    }
 
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
