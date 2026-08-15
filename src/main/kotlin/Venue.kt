@@ -39,6 +39,7 @@ val allVenues: List<Venue> = listOf(
     paperDressVintage,
     theDev,
     windmillBrixton,
+    islingtonAssemblyHall,
 )
 
 private val venuesById = allVenues.associateBy { it.id }

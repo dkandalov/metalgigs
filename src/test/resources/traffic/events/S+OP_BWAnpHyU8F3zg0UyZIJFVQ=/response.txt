@@ -1,0 +1,1806 @@
+HTTP/1.1 200 
+cache-control: max-age=0, no-transform
+content-type: text/html; charset=UTF-8
+date: Sat, 15 Aug 2026 14:43:27 GMT
+expires: Sat, 15 Aug 2026 14:43:27 GMT
+server: Apache
+vary: Accept-Encoding
+
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Events Archive - Islington Assembly HallIslington Assembly Hall</title>
+    <meta name="description" content="Horsegirl — the New York-via-Chicago trio of best friends Nora Cheng, Penelope Lowenstein, and Gigi Reece — have released their second album, 'Phonetics On and On,' via Matador Records. Produced by Cate Le Bon and recorded at The Loft in Chicago, (the band’s original and sonic home), 'Phonetics On and On' is an exploration of the lines between pop, minimalism, and playful experimentation. It’s hard to imagine any of these songs being written by anyone but Nora, Penelope, and Gigi. Horsegirl write with unanticipated honesty, leading us through scenes of girlhood and youth. These are moments of their lives. The indelible truth is that Horsegirl is a band of best friends; being around them you can see that love in their eyes and it is always a joyous thing to witness. It’s a love that is ever-present in 'Phonetics On and On' as tenderness reverberates back and forth across the recording.  
+  
+Support by From 2
+
+*By purchasing a ticket to this event you are agreeing to adhere to Islington Assembly Hall's terms and conditions: https://islingtonassemblyhall.co.uk/customer-terms-conditions-2022/*
+
+*All tickets to shows at Islington Assembly Hall are subject to a Venue Levy of £1.50 + VAT. As a Grade II listed building, this levy will be reinvested into Islington Assembly Hall and its services, meaning the customer experience can continue to be enhanced.*
+
+Presented by Bird On The Wire.
+
+This is a 16+ event.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/apple-touch-icon-180x180.png">
+    <link rel="icon" sizes="192x192" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/touch-icon-192x192.png">
+
+    <link rel="icon" type="image/png" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/icons/favicon-192x192.png" sizes="192x192">
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Islington Assembly Hall"/>
+    <meta property="og:url" content="https://islingtonassemblyhall.co.uk/events/"/>
+    <meta property="og:title" content="Islington Assembly Hall - What's on"/>
+    <meta property="og:image" content="https://islingtonassemblyhall.co.uk/app/uploads/2026/03/16a4e407-24c9-482a-9f0b-8f8b7812520a.jpg"/>
+    <meta property="og:description" content="Islington Assembly Hall - What's on"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+
+    <link rel="stylesheet" type="text/css" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/css/main.css">
+	    <link rel="stylesheet" type="text/css" href="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/css/cookie-banner.css">
+	
+    <link rel="alternate" type="application/rss+xml" title="Islington Assembly Hall Events" href="/feed/?post_type=events"/>
+
+
+<!-- Start Silktide Tag -->
+<script defer src="https://analytics.silktide.com/445f4c75b8c7da6df4f13f9226859896.js"></script>
+<script>
+  (function (s,i,l,k,y) {
+    s[i] = s[i] || y;
+    s[l] = s[l] || [];
+    s[k] = function(e, p) { p = p || {}; p.event = e; s[l].push(p); };
+    s[k]('page_load');
+  })(window, 'stConfig', 'stEvents', 'silktide', {});
+</script>
+
+</head>
+<body class="notice-is-active ">
+
+<div class="m-cookie-banner" data-id="cookie-banner">
+    <div class="container">
+        <div class="m-cookie-text">
+<h2>We use cookies on this site</h2>
+<p>If you don't want to accept cookies, you can change your preferences</p>
+</div>
+<div class="m-cookie-btns">
+<a tabindex="1" href="#" data-id="cookie-accept" class="cta cta--xlarge cta-color--white cta-border--white">
+
+
+<span class="cta__foreground">Accept</span>
+        <span class="cta__background">
+                        
+            <!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+            <svg class="cta__svg" viewBox="0 0 190 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button--xlarge">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="#000000" points="174.1338 0.5 162.4588 0.5 150.7838 0.5 12.3668 0.5 0.6918 22.869 12.3668 45.238 150.7838 45.238 165.7128 45.238 174.1338 45.238 185.8088 22.869"></polygon>
+                            <polygon class="cta__stroke" stroke-width="3" points="174.1338 0.5 162.4588 0.5 150.7838 0.5 12.3668 0.5 0.6918 22.869 12.3668 45.238 150.7838 45.238 165.7128 45.238 174.1338 45.238 185.8088 22.869"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span></a>
+<a tabindex="1" href="#" data-id="cookie-manage" class="cta cta--xlarge cta-color--white cta-border--white">
+<span class="cta__foreground">Manage cookies</span>
+        <span class="cta__background">
+                        
+            <!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+            <svg class="cta__svg" viewBox="0 0 190 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button--xlarge">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="#000000" points="174.1338 0.5 162.4588 0.5 150.7838 0.5 12.3668 0.5 0.6918 22.869 12.3668 45.238 150.7838 45.238 165.7128 45.238 174.1338 45.238 185.8088 22.869"></polygon>
+                            <polygon class="cta__stroke" stroke-width="3" points="174.1338 0.5 162.4588 0.5 150.7838 0.5 12.3668 0.5 0.6918 22.869 12.3668 45.238 150.7838 45.238 165.7128 45.238 174.1338 45.238 185.8088 22.869"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+
+
+</a>
+</div>
+
+        <button data-id="cookie-close" type="button" tabindex="1">
+            <span class="icon-close"></span>
+            <span class="visually-hidden">Hide this notice</span>
+        </button>
+    </div>
+</div>
+
+    
+    <div class="search" role="search">
+        <div class="layout--table">
+            <div class="layout--cell">
+                    <a href="#" class="search__close" title="close search" data-js-search-toggle>
+        <span class="search__close__icon"></span>
+        <span class="search__close__title">
+            close
+        </span>
+    </a>
+    <div class="container">
+        <div class="grid">
+            <div class="search__form">
+                <form class="form" role="search" method="get" action="/" data-js-search-form>
+                    <div class="search__form__wrapper">
+					<label for="s">Search</label>
+                        <input class="search__form__input" type="text" value="" placeholder="Search" name="s" id="s" />
+                        <input class="search__form__submit" type="submit" value="Search" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="masthead" role="banner" data-js-scroll-offset data-js-sticky>
+        <div class="masthead__container">
+
+            <div class="masthead__burger">
+                <a class="burger" role="button" href="#" title="Open menu" aria-expanded="false" data-js-navigation-toggle>
+                    <span class="burger__background no-history">
+                        <span class="burger__background--closed"></span>
+                        <span class="burger__background--open"></span>
+                    </span>
+					<span class="burger__status">
+                    <span class="burger__status--closed">Menu</span>
+                    <span class="burger__status--open">Close</span>
+                </span>
+                </a>
+            </div>
+
+            <div class="masthead__brand">
+                <span class="brand brand--main">
+                    <a class="brand__background" href="/" title="home" aria-label="Islington Assembly Hall"></a>
+                </span>
+            </div>
+
+            <div class="masthead__actions">
+
+                                    <div class="masthead__dice">
+                        <div class="social__list">
+                            <div class="social__item">
+                                <a href="https://dice.fm/venue/islington-assembly-hall" tabindex="0" class="social__item__action masthead__dice__action icon " title="Dice event listings" target="_blank">
+                                    <span class="icon__background icon__background--collaborators--dice--black"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="masthead__social">
+                    
+    <ul class="social__list">
+
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon " href="https://www.facebook.com/IslingtonAssemblyHall" title="follow on facebook" target="_blank">
+                    <span class="icon__background icon__background--social--facebook"></span>
+                    facebook
+                </a>
+            </li>
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon " href="https://www.instagram.com/islington_ah/" title="follow on instagram" target="_blank">
+                    <span class="icon__background icon__background--social--instagram"></span>
+                    instagram
+                </a>
+            </li>
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon " href="https://uk.linkedin.com/company/islington-assembly-hall-london" title="follow on linkedin" target="_blank">
+                    <span class="icon__background icon__background--social--linkedin"></span>
+                    linkedin
+                </a>
+            </li>
+        
+        
+    </ul>
+                </div>
+
+                <div class="masthead__search">
+                    
+    <ul class="social__list ">
+                    <li class="social__item">
+                <a href="https://pages.comms.islingtonassemblyhall.co.uk/p/subscribe" class="social__item__action hexagon icon" title="sign up">
+                    <span class="icon__background icon__background--email"></span>
+                    Sign up
+                </a>
+            </li>
+                <li class="social__item">
+            <a href="#search" class="social__item__action hexagon icon no-history" title="open search" data-js-search-toggle>
+                <span class="icon__background icon__background--search"></span>
+                Search
+            </a>
+        </li>
+    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	    <div class="navigation" role="navigation" style="display:none;">
+        <div class="layout--table navigation__top">
+            <div class="layout--cell">
+                
+    <ul class="navigation__list">
+        <li class="navigation__item">
+            <a class="navigation__item__action" href="/" title="home">
+                <span class="navigation__item__underline">Home</span>
+            </a>
+        </li>
+        <li class="navigation__item">
+            <a class="navigation__item__action" data-js-active="/events/" href="/events/" title="events">
+                <span class="navigation__item__underline">What&apos;s on</span>
+            </a>
+        </li>
+                              <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="/FAQs/" href="https://islingtonassemblyhall.co.uk/about/faqs/" title="Venue FAQs">
+                  <span class="navigation__item__underline">Venue FAQs</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="/about/" href="https://islingtonassemblyhall.co.uk/about/getting-here/" title="Getting here">
+                  <span class="navigation__item__underline">Getting here</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="/dicefaqs/" href="https://islingtonassemblyhall.co.uk/dice/" title="Get tickets with DICE">
+                  <span class="navigation__item__underline">Get tickets with DICE</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="/history/" href="/history/" title="About us">
+                  <span class="navigation__item__underline">About us</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="//work-with-us//" href="/work-with-us/" title="Work with us">
+                  <span class="navigation__item__underline">Work with us</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="//blog//" href="/blog/" title="Blog">
+                  <span class="navigation__item__underline">Blog</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="/hire-the-venue/" href="https://islingtonassemblyhall.co.uk/hire-the-venue/" title="Hire the venue">
+                  <span class="navigation__item__underline">Hire the venue</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="/contact-us/" href="https://islingtonassemblyhall.co.uk/contact-us/" title="Contact us">
+                  <span class="navigation__item__underline">Contact us</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="/accessibility/" href="https://islingtonassemblyhall.co.uk/about/accessibility/" title="Venue Accessibility">
+                  <span class="navigation__item__underline">Venue Accessibility</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="Sign up" href="https://pages.comms.islingtonassemblyhall.co.uk/p/subscribe" title="Sign up">
+                  <span class="navigation__item__underline">Sign up</span>
+              </a>
+            </li>
+                      <li class="navigation__item">
+                            <a class="navigation__item__action" data-js-active="Support The Supports" href="https://islingtonassemblyhall.co.uk/?page_id=26478" title="Support The Supports">
+                  <span class="navigation__item__underline">Support The Supports</span>
+              </a>
+            </li>
+                      </ul>
+            </div>
+        </div>
+
+        <div class="navigation__actions">
+
+            <div class="navigation__social">
+                
+    <ul class="social__list">
+
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon " href="https://www.facebook.com/IslingtonAssemblyHall" title="follow on facebook" target="_blank">
+                    <span class="icon__background icon__background--social--facebook"></span>
+                    facebook
+                </a>
+            </li>
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon " href="https://www.instagram.com/islington_ah/" title="follow on instagram" target="_blank">
+                    <span class="icon__background icon__background--social--instagram"></span>
+                    instagram
+                </a>
+            </li>
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon " href="https://uk.linkedin.com/company/islington-assembly-hall-london" title="follow on linkedin" target="_blank">
+                    <span class="icon__background icon__background--social--linkedin"></span>
+                    linkedin
+                </a>
+            </li>
+        
+        
+    </ul>
+            </div>
+
+            <div class="navigation__search">
+                
+    <ul class="social__list ">
+                    <li class="social__item">
+                <a href="https://pages.comms.islingtonassemblyhall.co.uk/p/subscribe" class="social__item__action hexagon icon" title="sign up">
+                    <span class="icon__background icon__background--email"></span>
+                    Sign up
+                </a>
+            </li>
+                <li class="social__item">
+            <a href="#search" class="social__item__action hexagon icon no-history" title="open search" data-js-search-toggle>
+                <span class="icon__background icon__background--search"></span>
+                Search
+            </a>
+        </li>
+    </ul>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="main" role="main" data-js-ajax-target>
+
+        <div class="entry__header background--grey-light">
+            <div class="container">
+                <h1 class="entry__title color--red">
+                    What's on
+                </h1>
+
+                                    <ul class="entry__navigation entry__navigation--shallow" role="navigation">
+
+                        
+    <li>
+	<a href="/events/" class="cta cta--medium cta-color--red"   data-js-active="/events/" >
+        <span class="cta__foreground">all</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+	</li>
+
+                                                    
+    <li>
+	<a href="/event/type/free-events/" class="cta cta--medium cta-color--red"   data-js-active="/event/type/free-events/" >
+        <span class="cta__foreground">Free Events</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+	</li>
+                                                    
+    <li>
+	<a href="/event/type/music/" class="cta cta--medium cta-color--red"   data-js-active="/event/type/music/" >
+        <span class="cta__foreground">Music</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+	</li>
+                                                    
+    <li>
+	<a href="/event/type/other-events/" class="cta cta--medium cta-color--red"   data-js-active="/event/type/other-events/" >
+        <span class="cta__foreground">Other Events</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+	</li>
+                        
+                        <span class="entry__toggle__view" data-js-toggle-view tabindex="0" role="button" aria-live="polite">
+                            hide images
+                        </span>
+
+                    </ul>
+                
+                
+                
+            </div>
+        </div>
+
+        <div class="entry__section entry__section--flush">
+            <div class="container">
+
+                                    <div class="events" data-js-infinite-container>
+                                                                                                                
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/horsegirl-21st-aug-islington-assembly-hall-london-tickets/" title="Horsegirl">
+                    Horsegirl
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Fri</span><span class="event__item__date__numeric">21</span><span class="event__item__date__month">Aug</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/horsegirl-21st-aug-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/ec18d105582e?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/horsegirl-21st-aug-islington-assembly-hall-london-tickets/" title="Horsegirl"  data-js-lazy data-src="/app/uploads/2026/03/16a4e407-24c9-482a-9f0b-8f8b7812520a-750x450-c-center.jpg" role="image" aria-label="Horsegirl" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/red-leather-27th-aug-islington-assembly-hall-london-tickets/" title="Red Leather">
+                    Red Leather
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Thu</span><span class="event__item__date__numeric">27</span><span class="event__item__date__month">Aug</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/red-leather-27th-aug-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/Mac6c516e6b7?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/red-leather-27th-aug-islington-assembly-hall-london-tickets/" title="Red Leather"  data-js-lazy data-src="/app/uploads/2026/01/Red-Leather-750x450-c-center.jpg" role="image" aria-label="Red Leather" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/syd-1st-sep-islington-assembly-hall-london-tickets/" title="Syd">
+                    Syd
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Tue</span><span class="event__item__date__numeric">01</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/syd-1st-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/N349b43c571e?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/syd-1st-sep-islington-assembly-hall-london-tickets/" title="Syd"  data-js-lazy data-src="/app/uploads/2026/08/53cdf6ca-7a01-48f8-bd75-27622c875258-750x450-c-center.jpg" role="image" aria-label="Syd" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/shakey-graves-3rd-sep-islington-assembly-hall-london-tickets/" title="Shakey Graves">
+                    Shakey Graves
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Thu</span><span class="event__item__date__numeric">03</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/shakey-graves-3rd-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                                        
+    <a href="https://link.dice.fm/i857c686e687?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Waiting List</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/shakey-graves-3rd-sep-islington-assembly-hall-london-tickets/" title="Shakey Graves"  data-js-lazy data-src="/app/uploads/2026/03/Untitled-design-750x450-c-center.jpg" role="image" aria-label="Shakey Graves" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/clare-grogan-and-her-band-perform-the-iconic-album-happy-birthday-in-full-4th-sep-islington-assembly-hall-london-tickets/" title="Altered Images: Clare Grogan and her band perform the iconic album ‘Happy Birthday’ in full">
+                    Altered Images: Clare Grogan and her band perform the iconic album ‘Happy Birthday’ in full
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Fri</span><span class="event__item__date__numeric">04</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/clare-grogan-and-her-band-perform-the-iconic-album-happy-birthday-in-full-4th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/Oda4c604d72f?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/clare-grogan-and-her-band-perform-the-iconic-album-happy-birthday-in-full-4th-sep-islington-assembly-hall-london-tickets/" title="Altered Images: Clare Grogan and her band perform the iconic album ‘Happy Birthday’ in full"  data-js-lazy data-src="/app/uploads/2025/11/Untitled-design-4-750x450-c-center.png" role="image" aria-label="Altered Images: Clare Grogan and her band perform the iconic album ‘Happy Birthday’ in full" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/geoff-tates-operation-mindcrime-5th-sep-islington-assembly-hall-london-tickets/" title="Geoff Tate&#039;s Operation: Mindcrime">
+                    Geoff Tate's Operation: Mindcrime
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Sat</span><span class="event__item__date__numeric">05</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/geoff-tates-operation-mindcrime-5th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/z2fbb2406d49?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/geoff-tates-operation-mindcrime-5th-sep-islington-assembly-hall-london-tickets/" title="Geoff Tate&#039;s Operation: Mindcrime"  data-js-lazy data-src="/app/uploads/2025/12/ef667fe3-5654-4fcc-90e0-1283bf854122-750x450-c-center.jpg" role="image" aria-label="Geoff Tate&#039;s Operation: Mindcrime" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/mexican-independence-day-2026-grupo-caaveral-13th-sep-islington-assembly-hall-london-tickets/" title="Mexican Independence Day 2026: Grupo Cañaveral">
+                    Mexican Independence Day 2026: Grupo Cañaveral
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Sun</span><span class="event__item__date__numeric">13</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/mexican-independence-day-2026-grupo-caaveral-13th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/Ha540be66ada?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/mexican-independence-day-2026-grupo-caaveral-13th-sep-islington-assembly-hall-london-tickets/" title="Mexican Independence Day 2026: Grupo Cañaveral"  data-js-lazy data-src="/app/uploads/2026/04/Untitled-design-3-750x450-c-center.jpg" role="image" aria-label="Mexican Independence Day 2026: Grupo Cañaveral" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/allie-sherlock-16th-sep-islington-assembly-hall-london-tickets/" title="Allie Sherlock">
+                    Allie Sherlock
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Wed</span><span class="event__item__date__numeric">16</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/allie-sherlock-16th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/Ob8ed992c19d?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/allie-sherlock-16th-sep-islington-assembly-hall-london-tickets/" title="Allie Sherlock"  data-js-lazy data-src="/app/uploads/2026/02/d4467635-e134-441f-aa5a-62b18498b334-750x450-c-center.jpg" role="image" aria-label="Allie Sherlock" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/wu-lyf-17th-sep-islington-assembly-hall-london-tickets/" title="WU LYF">
+                    WU LYF
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Thu</span><span class="event__item__date__numeric">17</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/wu-lyf-17th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/W5eb4f1e936c?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/wu-lyf-17th-sep-islington-assembly-hall-london-tickets/" title="WU LYF"  data-js-lazy data-src="/app/uploads/2026/04/7fc489fa-5d17-4dd0-82d0-839850c88416-750x450-c-center.jpg" role="image" aria-label="WU LYF" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/gaerea-18th-sep-islington-assembly-hall-london-tickets/" title="Gaerea ">
+                    Gaerea 
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Fri</span><span class="event__item__date__numeric">18</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/gaerea-18th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/Y63afc62391d?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/gaerea-18th-sep-islington-assembly-hall-london-tickets/" title="Gaerea "  data-js-lazy data-src="/app/uploads/2026/02/Untitled-design-1-750x450-c-center.jpg" role="image" aria-label="Gaerea " tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/os-garotin-19th-sep-islington-assembly-hall-london-tickets/" title="Os Garotin">
+                    Os Garotin
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Sat</span><span class="event__item__date__numeric">19</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/os-garotin-19th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/w23e81da8ecd?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/os-garotin-19th-sep-islington-assembly-hall-london-tickets/" title="Os Garotin"  data-js-lazy data-src="/app/uploads/2026/04/Os-Garotin-750x450-c-center.jpg" role="image" aria-label="Os Garotin" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/exploring-birdsong-24th-sep-islington-assembly-hall-london-tickets/" title="Exploring Birdsong">
+                    Exploring Birdsong
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Thu</span><span class="event__item__date__numeric">24</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/exploring-birdsong-24th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/M6169b432c61?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/exploring-birdsong-24th-sep-islington-assembly-hall-london-tickets/" title="Exploring Birdsong"  data-js-lazy data-src="/app/uploads/2025/11/7c124d1a-9fbf-4e67-b2fa-f5974e388d6b-scaled-750x450-c-center.jpg" role="image" aria-label="Exploring Birdsong" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/magnum-25th-sep-islington-assembly-hall-london-tickets/" title="Magnum">
+                    Magnum
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Fri</span><span class="event__item__date__numeric">25</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/magnum-25th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/p5ada40c99bb?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/magnum-25th-sep-islington-assembly-hall-london-tickets/" title="Magnum"  data-js-lazy data-src="/app/uploads/2026/02/60b2b49e-c164-4d93-9b92-ed5d143e9d70-scaled-750x450-c-center.jpg" role="image" aria-label="Magnum" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/8turn-27th-sep-islington-assembly-hall-london-tickets/" title="8TURN">
+                    8TURN
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Sun</span><span class="event__item__date__numeric">27</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/8turn-27th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/Q52dbf3c2b7d?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/8turn-27th-sep-islington-assembly-hall-london-tickets/" title="8TURN"  data-js-lazy data-src="/app/uploads/2026/07/Untitled-design-2026-07-29T164048.668-750x450-c-center.jpg" role="image" aria-label="8TURN" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/laibach-29th-sep-islington-assembly-hall-london-tickets/" title="Laibach">
+                    Laibach
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Tue</span><span class="event__item__date__numeric">29</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/laibach-29th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/Z711b930c370?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/laibach-29th-sep-islington-assembly-hall-london-tickets/" title="Laibach"  data-js-lazy data-src="/app/uploads/2026/02/Laibach_atmosphere_16-9-750x450-c-center.jpg" role="image" aria-label="Laibach" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/the-cleaners-from-venus-30th-sep-islington-assembly-hall-london-tickets/" title="The Cleaners From Venus">
+                    The Cleaners From Venus
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Wed</span><span class="event__item__date__numeric">30</span><span class="event__item__date__month">Sep</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/the-cleaners-from-venus-30th-sep-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                                        
+    <a href="https://link.dice.fm/E004aa1337f5?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Waiting List</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/the-cleaners-from-venus-30th-sep-islington-assembly-hall-london-tickets/" title="The Cleaners From Venus"  data-js-lazy data-src="/app/uploads/2026/05/Untitled-design-55-750x450-c-center.jpg" role="image" aria-label="The Cleaners From Venus" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/sixpence-none-the-richer-1st-oct-islington-assembly-hall-london-tickets/" title="Sixpence None The Richer with DJ sets from 33rd Assassin">
+                    Sixpence None The Richer with DJ sets from 33rd Assassin
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Thu</span><span class="event__item__date__numeric">01</span><span class="event__item__date__month">Oct</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/sixpence-none-the-richer-1st-oct-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                                        
+    <a href="https://link.dice.fm/C310e44918f3?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Cancelled</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/sixpence-none-the-richer-1st-oct-islington-assembly-hall-london-tickets/" title="Sixpence None The Richer with DJ sets from 33rd Assassin"  data-js-lazy data-src="/app/uploads/2025/12/Untitled-design-1-750x450-c-center.png" role="image" aria-label="Sixpence None The Richer with DJ sets from 33rd Assassin" tabindex="-1"></a>
+    </li>
+                                                                                                                                            
+    <li class="event__item">
+        <div class="event__item__foreground background--black">
+            <div class="event__item__details">
+                <h3>
+                    <a class="event__item__title" href="/events/drink-the-sea-2nd-oct-islington-assembly-hall-london-tickets/" title="Drink The Sea">
+                    Drink The Sea
+                    </a>
+                </h3>
+                <span class="event__item__date">
+                    <span class="event__item__date__day">Fri</span><span class="event__item__date__numeric">02</span><span class="event__item__date__month">Oct</span>
+                </span>
+            </div>
+            <div class="event__item__actions">
+
+                
+    <a href="/events/drink-the-sea-2nd-oct-islington-assembly-hall-london-tickets/" class="cta cta-background--black cta-color--white cta-border--charcoal"  >
+        <span class="cta__foreground">More info</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+
+                                                    
+    <a href="https://link.dice.fm/g964f9411421?pid=7d51d4a9" class="cta cta-background--black cta-color--yellow cta-border--charcoal"  target="_blank" >
+        <span class="cta__foreground">Get tickets</span>
+        <span class="cta__background">
+                        
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg class="cta__svg" viewBox="0 0 131 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="cta__path" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g class="button">
+                        <g transform="translate(2.000000, 2.000000)">
+                            <polygon class="cta__fill" fill="" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                            <polygon class="cta__stroke" stroke-width="2" points="116.4489 0 9.8489 0 0.1279 18.624 9.8489 37.249 116.4489 37.249 126.1699 18.624"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+    </a>
+                
+            </div>
+        </div>
+        <a class="event__item__background background--grey-mid" href="/events/drink-the-sea-2nd-oct-islington-assembly-hall-london-tickets/" title="Drink The Sea"  data-js-lazy data-src="/app/uploads/2026/06/a41dfb3f-e3ff-4ae9-b3b5-74bf9c0722e6-750x450-c-center.jpg" role="image" aria-label="Drink The Sea" tabindex="-1"></a>
+    </li>
+                                                                        </div>
+                
+            </div>
+        </div>
+
+                    <div class="entry__pagination background--grey-light" data-js-infinite-pagination>
+                <div class="container">
+                    <div class="grid">
+
+                        <span class="entry__pagination__item">
+                                                            <span class="entry__pagination__action icon is-disabled">
+                                    <span class="icon__background icon__background--pagination--left">Previous</span>
+                                </span>
+                                                    </span>
+
+                        <ul class="entry__pagination__list">
+                                                            <li class="entry__pagination__list__item">
+                                                                            <span class="entry__pagination__list__item__action is-disabled">
+                                            1
+                                        </span>
+                                                                    </li>
+                                                            <li class="entry__pagination__list__item">
+                                                                            <a class="entry__pagination__list__item__action" href="/events/page/2/">
+                                            2
+                                        </a>
+                                                                    </li>
+                                                            <li class="entry__pagination__list__item">
+                                                                            <a class="entry__pagination__list__item__action" href="/events/page/3/">
+                                            3
+                                        </a>
+                                                                    </li>
+                                                            <li class="entry__pagination__list__item">
+                                                                            <a class="entry__pagination__list__item__action" href="/events/page/4/">
+                                            4
+                                        </a>
+                                                                    </li>
+                                                            <li class="entry__pagination__list__item">
+                                                                            <a class="entry__pagination__list__item__action" href="/events/page/5/">
+                                            5
+                                        </a>
+                                                                    </li>
+                                                    </ul>
+
+                        <span class="entry__pagination__item">
+                                                            <a href="/events/page/2/" class="entry__pagination__action icon" data-js-infinite-next>
+                                    <span class="icon__background icon__background--pagination--right">Next</span>
+                                </a>
+                                                    </span>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+
+    
+    <div class="footer background--grey-mid" role="contentinfo">
+        <div class="footer__container">
+
+            <div class="footer__navigation size--small">
+                <ul class="navigation--secondary">
+                                                                                                    <li class="navigation__item">
+                                <a href="/contact-us/" class="navigation__item__action" title="Contact us">
+                                    Contact us
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="/legal-information/" class="navigation__item__action" title="Legal information &amp; privacy notice">
+                                    Legal information & privacy notice
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="http://www.islington.gov.uk/accessibility" class="navigation__item__action" title="Accessibility">
+                                    Accessibility
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="/policies/accessibility-statement/" class="navigation__item__action" title="Accessibility Statement">
+                                    Accessibility Statement
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="/work-with-us/" class="navigation__item__action" title="Work with us">
+                                    Work with us
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="/policies/" class="navigation__item__action" title="Policies">
+                                    Policies
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="/about/faqs/" class="navigation__item__action" title="FAQS">
+                                    FAQS
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="/cookies/" class="navigation__item__action" title="Cookies">
+                                    Cookies
+                                </a>
+                            </li>
+                                                                                <li class="navigation__item">
+                                <a href="/events/horsegirl-21st-aug-islington-assembly-hall-london-tickets/" class="navigation__item__action" title="">
+                                    
+                                </a>
+                            </li>
+                                                                <li class="navigation__item">
+                        <a href="/feed/?post_type=events" class="navigation__item__action no-history" title="open rss feed" target="_blank">RSS feed</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__company size--small">
+                <div class="footer__brand">
+                    <span class="brand brand--main">
+                        <a href="/" class="brand__background" title="home" role="image" aria-label="Islington Assembly Hall"></a>
+                    </span>
+                </div>
+                <div class="footer__icons">
+                    <p>Managed by</p>
+                    <div class="footer__council">
+                        <span class="council council--islington">
+                            <a class="council__background" href="http://www.islington.gov.uk/" title="open islington council website" role="image" aria-label="islington council logo"></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__links size--small">
+
+                <div class="footer__social">
+                    
+    <ul class="social__list">
+
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon hexagon--background--grey-mid" href="https://www.facebook.com/IslingtonAssemblyHall" title="follow on facebook" target="_blank">
+                    <span class="icon__background icon__background--social--facebook"></span>
+                    facebook
+                </a>
+            </li>
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon hexagon--background--grey-mid" href="https://www.instagram.com/islington_ah/" title="follow on instagram" target="_blank">
+                    <span class="icon__background icon__background--social--instagram"></span>
+                    instagram
+                </a>
+            </li>
+                    <li class="social__item">
+                <a class="social__item__action hexagon icon hexagon--background--grey-mid" href="https://uk.linkedin.com/company/islington-assembly-hall-london" title="follow on linkedin" target="_blank">
+                    <span class="icon__background icon__background--social--linkedin"></span>
+                    linkedin
+                </a>
+            </li>
+        
+                    <li class="social__item">
+                <a href="https://pages.comms.islingtonassemblyhall.co.uk/p/subscribe" class="social__item__action hexagon icon hexagon--background--grey-mid" title="sign up">
+                    <span class="icon__background icon__background--email"></span>
+                    Sign up
+                </a>
+            </li>
+        
+    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+            <div class="notice"  style="background-color:#800029;">
+    <div class="container">
+      <span class="notice__close icon">
+        <span class="icon__background icon__background--close--small" data-js-notice-toggle></span>
+      </span>
+      <span class="notice__content">
+        <span class="notice__title">Join our mailing list for all the latest gig announcements and exclusive competitions!</span>
+        <span class="notice__divider">&mdash;</span>
+        <span class="notice__link">
+          <a href="https://pages.comms.islingtonassemblyhall.co.uk/p/subscribe" title="CLICK HERE TO SIGN UP">CLICK HERE TO SIGN UP</a>
+        </span>
+      </span>
+    </div>
+  </div>
+    
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2T7NK4"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+   <script src="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/js/bundle.js"></script>
+      <script src="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/js/jquery-cookie.js"></script>
+       <script src="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/js/enquire.min.js"></script>  
+       <script src="/app/themes/islingtonassemblyhall/assets/dist/e3c0fb4/js/cookieBanner.js"></script>     
+  
+   
+<script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.10.1.min.js"></script>
+<script type="text/javascript">
+  var config = {
+    apiKey: 'fbb8dc650d938720810351158cde7363681aa845',
+    product: 'PRO_MULTISITE',
+    logConsent : true,
+    initialState: "CLOSED",
+    position: "LEFT",
+    theme: "DARK",
+    layout: "SLIDEOUT",
+    consentCookieExpiry: 90,
+    text : {
+      title: 'This site uses cookies',
+      intro:  'Some of these cookies are essential, while others help us to improve your experience by providing insights into how the site is being used.',
+      necessaryTitle : 'Necessary cookies',
+      necessaryDescription : 'Necessary cookies enable core functionality. The website cannot function properly without these cookies and they can only be disabled by changing your browser preferences.',
+      thirdPartyTitle : 'Warning: Some cookies require your attention',
+      thirdPartyDescription : 'Consent for the following cookies could not be automatically revoked. Please follow the link(s) below to opt out manually.',
+      on : 'ON',
+      off : 'OFF',
+      settings : 'Cookie preferences',
+      acceptRecommended : 'Accept cookies',
+      notifyTitle : 'We use cookies on this site',
+      notifyDescription : 'If you don\'t want to accept cookies, you can change your preferences',
+    accept: "Accept",
+    reject: "Reject",
+    acceptSettings: "Accept all cookies",
+    rejectSettings: "Reject all cookies",
+    closeLabel: "Close"
+    },
+	statement: {
+        description: 'For more information and to find out how to delete or disable cookies, visit our',
+        name: 'cookies page',
+        url: '/cookies',
+        updated: '21/10/2025'
+    },
+ accessibility: {
+            outline: true
+        },
+    branding : {
+      fontColor: "#fff",
+      fontFamily: "Arial,sans-serif",
+      fontSizeTitle: "1.35em",
+      fontSizeHeaders: "1.1em",
+      fontSize: "0.95em",
+      backgroundColor: '#313147',
+      toggleText: '#000',
+      toggleColor: '#2f2f5f',
+      toggleBackground: '#fff',
+      alertText: '#fff',
+      alertBackground: '#111125',
+      buttonIcon: null,
+      buttonIconWidth: "64px",
+      buttonIconHeight: "64px",
+      removeIcon: false,
+	  acceptText: "#FFF",
+	  acceptBackground: "#000",
+      removeAbout: true    },
+      necessaryCookies: [ 'wordpress_*','wordpress_logged_in_*','wordpress_test_cookie','comment_author_{HASH}','comment_author_email_{ HASH}','comment_author_url_{HA SH}','wordpress_[hash]','wordpress_logged_in_[ha sh]','wp-settings-{time}-[UID]', 'wordfence_verifiedHuman', 'hideCookieBanner' ],
+
+                optionalCookies: [
+            {
+                name: 'analytics',
+                label: 'Analytics',
+                description: 'Analytical cookies help us to improve our website by collecting and reporting information on its usage.',
+                cookies: ['_ga', '_gid', '_gat', '__utma', '__utmt', '__utmb', '__utmc', '__utmz', '__utmv', 'nmstat', '_clck', '_clsk', 'CLID',],
+                onAccept: function () {
+				$.cookie("hideCookieBanner", true, { expires: 365, path: "/" });
+                    // Google Tag Manager
+                    (function (w, d, s, l, i) {
+                        w[l] = w[l] || []; w[l].push({
+                            'gtm.start':
+                                new Date().getTime(), event: 'gtm.js'
+                        }); var f = d.getElementsByTagName(s)[0],
+                            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                    })(window, document, 'script', 'dataLayer', 'GTM-PZN6JJD');
+                    // send analytics consent to Clarity API
+                    civicCheckConsentCategories()
+                },
+                onRevoke: function () {
+                    // Disable Google Analytics
+                    window['ga-disable-UA-61395129-1'] = true;
+                    // End disable Google Analytics
+                    CookieControl.delete("nmstat");
+                    $.cookie("hideCookieBanner", true, { expires: 365, path: "/" });
+                    // revoke analytics consent to Clarity API
+                    civicCheckConsentCategories()
+                },
+                recommendedState: "ON"
+            },
+            {
+                name: 'advertising',
+                label: 'Advertising',
+                description: 'Marketing cookies are used to track the performance of our marketing campaign.',
+                cookies: ['ANONCHK', 'MR', 'MUID', 'SM'],
+                onAccept: function () {
+				$.cookie("hideCookieBanner", true, { expires: 365, path: "/" });
+                    // send ad consent to Clarity API
+                    civicCheckConsentCategories()
+                },
+                onRevoke: function () {
+                    // revoke ad consent to Clarity API
+                    civicCheckConsentCategories()
+                },
+                recommendedState: "ON"
+            }
+        ]
+  };
+
+  CookieControl.load( config );
+
+</script>
+
+</body>
+</html>
