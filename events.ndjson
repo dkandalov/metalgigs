@@ -4029,3 +4029,5 @@
 {"_type": "classified", "venue": "O2 Shepherd's Bush Empire", "url": "https://www.ticketmaster.co.uk/event/3E00650CB1EA228B", "recordedAt": "2026-08-15T01:24:17.610994Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false}
 {"_type": "classified", "venue": "Alexandra Palace", "url": "https://www.alexandrapalace.com/whats-on/amble/", "recordedAt": "2026-08-15T01:24:17.610994Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false}
 {"_type": "rendered", "file": "2026-08-15T01-35-35Z.html", "gigCount": 261, "logicalDate": "2026-08-15", "recordedAt": "2026-08-15T01:35:35.277904Z"}
+{"_type": "rendered", "file": "2026-08-15T01-51-17Z.html", "gigCount": 261, "logicalDate": "2026-08-15", "recordedAt": "2026-08-15T01:51:17.366879Z"}
+{"_type": "rendered", "file": "2026-08-15T01-53-13Z.html", "gigCount": 261, "logicalDate": "2026-08-15", "recordedAt": "2026-08-15T01:53:13.611355Z"}

@@ -78,6 +78,75 @@
             outline: 2px solid #f2f2f2;
             outline-offset: 2px;
         }
+        .header-actions {
+            display: flex;
+            flex: 1 1 12rem;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.6rem;
+        }
+        .about-icon {
+            display: grid;
+            place-items: center;
+            flex: none;
+            box-sizing: border-box;
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+            background: #18181b;
+            border: 1px solid #26262a;
+            border-radius: 999px;
+            color: #a1a1aa;
+            cursor: pointer;
+        }
+        .about-icon svg {
+            display: block;
+            width: 1.1rem;
+            height: 1.1rem;
+        }
+        .about-icon:hover {
+            color: #e6e6e6;
+            border-color: #4a4a52;
+        }
+        .about-icon:focus-visible {
+            outline: 2px solid #f2f2f2;
+            outline-offset: 2px;
+        }
+        /* the browser centres a popover and puts it above everything itself, so this only has to
+           say what it looks like */
+        .about-panel {
+            box-sizing: border-box;
+            max-width: 32rem;
+            padding: 1.5rem 1.75rem 1.25rem;
+            background: #18181b;
+            border: 1px solid #26262a;
+            border-radius: 10px;
+            color: #e6e6e6;
+        }
+        .about-panel p {
+            margin: 0 0 1rem;
+            line-height: 1.55;
+        }
+        .about-panel a {
+            color: #e6e6e6;
+        }
+        .about-panel::backdrop {
+            background: rgb(0 0 0 / 0.6);
+        }
+        .about-close {
+            padding: 0.4rem 0.9rem;
+            background: none;
+            border: 1px solid #26262a;
+            border-radius: 999px;
+            color: #a1a1aa;
+            font: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .about-close:hover {
+            color: #e6e6e6;
+            border-color: #4a4a52;
+        }
         /* On a phone the field is collapsed to a button so the header stays one row, and the field
            itself is what grows on focus - there is no separate control toggling anything, so this
            needs no script and has no state to keep in sync. It stays open while it holds a query,
@@ -87,10 +156,18 @@
             h1 {
                 font-size: 1.5rem;
             }
+            .header-actions {
+                flex: 1 1 auto;
+            }
+            /* matched squares, so the collapsed field and the about button read as a pair */
+            .gig-search,
+            .about-icon {
+                width: 2.25rem;
+                height: 2.25rem;
+            }
             .gig-search {
                 flex: none;
-                width: 2.4rem;
-                padding: 0.4rem;
+                padding: 0;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.6-3.6'/%3E%3C/svg%3E");
                 background-repeat: no-repeat;
                 background-position: center;
@@ -104,10 +181,24 @@
             .gig-search:focus::placeholder {
                 color: #a1a1aa;
             }
+            /* Searching takes over the row it is already on rather than adding one below it. The
+               title and the about button give way to the field, so tapping search doesn't shove the
+               listing down the page just as the keyboard arrives, and the field gets the whole width
+               instead of what's left beside a button it has nothing to do with. Held open by a query
+               as well as by focus, or blurring would hide what was typed. */
+            .page-header:has(.gig-search:focus) h1,
+            .page-header:has(.gig-search:focus) .about-icon,
+            .page-header:has(.gig-search:not(:placeholder-shown)) h1,
+            .page-header:has(.gig-search:not(:placeholder-shown)) .about-icon {
+                display: none;
+            }
             .gig-search:focus,
             .gig-search:not(:placeholder-shown) {
-                flex: 1 1 100%;
-                width: auto;
+                flex: 1 1 auto;
+                width: 100%;
+                /* the cap keeps it a control beside a title on a desktop; here it is the row */
+                max-width: none;
+                height: auto;
                 padding: 0.4rem 0.8rem 0.4rem 2.2rem;
                 background-position: 0.75rem center;
             }
@@ -187,7 +278,25 @@
 <main>
     <header class="page-header">
         <h1>Metal Gigs in London</h1>
+        <div class="header-actions">
+            <!-- popovertarget is the whole mechanism: the browser shows and hides the panel, puts it
+                 above everything, and closes it on Escape or a click outside, with no script. The
+                 search input is put in front of this button at runtime. -->
+            <button class="about-icon" popovertarget="about" aria-label="About">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 11v5"/>
+                    <path d="M12 7.6v.4"/>
+                </svg>
+            </button>
+        </div>
     </header>
+    <div id="about" class="about-panel" popover>
+        <p>A list of upcoming metal gigs in London. That's it.</p>
+        <p>No cookies. No tracking. No accounts. No newsletter.</p>
+        <p>Something wrong or missing? <a href="mailto:hi@metalgigs.london">hi@metalgigs.london</a></p>
+        <button class="about-close" popovertarget="about" popovertargetaction="hide" autofocus>Close</button>
+    </div>
     
     <section class="date-group">
     <h2>Saturday, 15 August 2026</h2>
@@ -3624,9 +3733,8 @@
         noMatches.textContent = 'No gigs match that search.'
         noMatches.hidden = true
 
-        const header = document.querySelector('.page-header')
-        header.append(search)
-        header.after(noMatches)
+        document.querySelector('.header-actions').prepend(search)
+        document.querySelector('.page-header').after(noMatches)
 
         search.addEventListener('input', () => {
             const query = search.value.trim().toLowerCase()
