@@ -163,7 +163,11 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 // shared by every Squarespace "Events List" venue page; the venue-specific classes below just
 // supply url/venue
 class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
-    internal fun eventPageContent(page: Document) = page.select("article.eventitem").textOrNull()
+    // article.eventitem also holds the template's own event metadata - the date in both 12- and
+    // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
+    // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
+    // separately.
+    internal fun eventPageContent(page: Document) = page.select(".eventitem-column-content").textOrNull()
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)

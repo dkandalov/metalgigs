@@ -812,13 +812,20 @@ class GigsSourceTest {
     }
 
     // Our Black Heart and The Dome share this same Squarespace "Events" template, and both delegate
-    // to this scraper, so one fixture covers both
+    // to this scraper, so one fixture covers both. The meta block here is verbatim from a real
+    // Black Heart page, where it outweighed the gig's own blurb on the shorter listings
     @Test
-    fun `scopes Squarespace-venue page text to the event item, ignoring sitewide nav and footer`() {
+    fun `scopes Squarespace-venue page text to the content column, ignoring the event meta block`() {
         val html = """
             <nav><a>Home</a><a>About</a></nav>
             <article class="eventitem">
                 <h1 class="eventitem-title">Doom Night</h1>
+                <ul class="eventitem-meta event-meta">
+                    <li class="eventitem-meta-date">Wednesday, August 12, 2026</li>
+                    <li class="eventitem-meta-time">7:00 PM 11:00 PM <span>19:00 23:00</span></li>
+                    <li class="eventitem-meta-address">The Black Heart 2 Greenland Place London, England, NW1 United Kingdom (map)</li>
+                    <li class="eventitem-meta-export"><a>Google Calendar</a><a>ICS</a></li>
+                </ul>
                 <div class="eventitem-column-content"><p>Doom metal night!</p></div>
             </article>
             <footer><a>Instagram</a><a>Privacy Policy</a></footer>
@@ -827,8 +834,10 @@ class GigsSourceTest {
         val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = ourBlackHeart)
         val pageText = source.eventPageContent(pageOf(html))!!
 
-        expectThat(pageText.contains("Doom Night")).isTrue()
         expectThat(pageText.contains("Doom metal night!")).isTrue()
+        expectThat(pageText.contains("Greenland Place")).isEqualTo(false)
+        expectThat(pageText.contains("19:00")).isEqualTo(false)
+        expectThat(pageText.contains("Google Calendar")).isEqualTo(false)
         expectThat(pageText.contains("About")).isEqualTo(false)
         expectThat(pageText.contains("Instagram")).isEqualTo(false)
     }
