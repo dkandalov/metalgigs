@@ -318,7 +318,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-one">
-                <img class="gig-image" src="images/2026-08-08-the-underworld-e8f74dd6.webp" alt="" loading="lazy">
+                <img class="gig-image" src="images/2026-08-08-underworld-e8f74dd6.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig One</span>
                     <span class="gig-venue">The Underworld</span>
@@ -345,7 +345,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/late-gig">
-                <img class="gig-image" src="images/2026-09-01-the-underworld-1c8f1c82.webp" alt="" loading="lazy">
+                <img class="gig-image" src="images/2026-09-01-underworld-1c8f1c82.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Late Gig</span>
                     <span class="gig-venue">The Underworld</span>

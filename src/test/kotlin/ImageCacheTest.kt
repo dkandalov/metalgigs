@@ -64,7 +64,7 @@ class ImageCacheTest {
 
         // still 1: publishing copied the cached bytes rather than re-fetching them
         expectThat(requestCount).isEqualTo(1)
-        expectThat(published.name).isEqualTo("2026-08-08-the-underworld-1af7931d.webp")
+        expectThat(published.name).isEqualTo("2026-08-08-underworld-1af7931d.webp")
         expectThat(published.readText()).isEqualTo("fake-image-bytes")
     }
 
@@ -94,7 +94,7 @@ class ImageCacheTest {
     fun `finds published files that no gig claims any more`() {
         val kept = gig(day = 8)
         val keptFile = File(publishedImageFileName(kept))
-        val staleFile = File("2026-08-09-the-underworld-deadbeef.webp")
+        val staleFile = File("2026-08-09-underworld-deadbeef.webp")
 
         val unpublished = unpublishedImageFiles(keptGigs = listOf(kept), publishedFiles = listOf(keptFile, staleFile))
 
