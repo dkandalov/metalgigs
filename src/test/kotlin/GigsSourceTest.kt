@@ -741,11 +741,17 @@ class GigsSourceTest {
 
     private fun pageOf(html: String) = Jsoup.parse(html, "https://example.com/gig")
 
+    // the age policy and the share links are verbatim from a real event page, where between them
+    // they outran the gig's own blurb
     @Test
     fun `scopes The Underworld page text to the gig's own content, ignoring other-events widgets`() {
         val html = """
             <article class="event">
-              <div class="content"><p>Doom metal night!</p></div>
+              <div class="content">
+                <p>Doom metal night!</p>
+                <p>This is a 14+ event. 14 and 15 year olds MUST be accompanied by an adult (18+) / All ticketholders under the age of 25 will be required to carry PHOTO ID</p>
+              </div>
+              <footer class="section"><ul class="event-share"><li><a>Share</a></li><li><a>Tweet</a></li></ul></footer>
             </article>
             <article class="list">
               <h3 class="list-header-title">KINGS OF THRASH</h3>
@@ -756,6 +762,27 @@ class GigsSourceTest {
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("KINGS OF THRASH")).isEqualTo(false)
+        expectThat(pageText.contains("14+")).isEqualTo(false)
+        expectThat(pageText.contains("PHOTO ID")).isEqualTo(false)
+        expectThat(pageText.contains("Share")).isEqualTo(false)
+        expectThat(pageText.contains("Tweet")).isEqualTo(false)
+    }
+
+    // the same policy paragraph, worded the other way round, on a gig with an 18+ door
+    @Test
+    fun `drops The Underworld age policy however it is worded`() {
+        val html = """
+            <article class="event">
+              <div class="content">
+                <p>Doom metal night!</p>
+                <p>This event is an 18+ event</p>
+              </div>
+            </article>
+        """.trimIndent()
+
+        val pageText = TheUnderworldGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText).isEqualTo("Doom metal night!")
     }
 
     @Test

@@ -205,9 +205,22 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val browserUserAgent =
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
+    // The venue's standard age policy sits in the same container as the blurb, as a paragraph of
+    // its own with nothing in the markup to tell it apart, so it goes by its wording. Seen as both
+    // "This is a 14+ event" and "This event is a 14+ event", and on a thin listing it is most of
+    // the text.
+    private val agePolicy = Regex("""^this (is|event is) an? \d+\+ event""", RegexOption.IGNORE_CASE)
+
     // An event page carries the sitewide "other events" widget alongside the gig's own content, so
     // the whole page's text picks up unrelated shows' titles.
-    internal fun eventPageContent(page: Document) = page.select("article.event").textOrNull()
+    internal fun eventPageContent(page: Document): String? {
+        val article = page.select("article.event").firstOrNull()?.clone() ?: return null
+        article.select("footer").remove()
+        article.select("p")
+            .filter { agePolicy.containsMatchIn(it.text().trim()) || it.text().contains("carry PHOTO ID") }
+            .forEach { it.remove() }
+        return article.text().ifBlank { null }
+    }
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
