@@ -127,3 +127,8 @@ val helgis = Venue(VenueId("helgis"), "Helgi's")
 
 class HelgisGigsSource(client: HttpHandler) :
     GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = helgis)
+
+val barflyCamden = Venue(VenueId("barfly-camden"), "Barfly Camden")
+
+class BarflyCamdenGigsSource(client: HttpHandler) :
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/barfly-camden-jqa4?lng=en", venue = barflyCamden)

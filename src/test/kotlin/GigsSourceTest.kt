@@ -340,6 +340,29 @@ class GigsSourceTest {
     }
 
     @Test
+    fun `extracts gig events from Barfly Camden's dice_fm venue page`() {
+        assertScrapesGigs(
+            source = BarflyCamdenGigsSource(cachedClient()),
+            size = 24,
+            first = Gig(
+                id = GigId(barflyCamden.id, "https://dice.fm/event/xe37pm-propaganda-indie-club-night-at-barfly-15th-aug-barfly-camden-london-tickets"),
+                title = GigTitle("Propaganda - Indie Club Night at Barfly!"),
+                date = LocalDate.of(2026, 8, 15),
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-08-06/1c3136b1-128c-4ca2-ac03-809114ab7663.jpg?rect=0%2C0%2C1080%2C1080",
+                description = "",
+            ),
+            last = Gig(
+                id = GigId(barflyCamden.id, "https://dice.fm/event/k6lw79-forever-never-13th-feb-barfly-camden-london-tickets"),
+                title = GigTitle("Forever Never"),
+                date = LocalDate.of(2027, 2, 13),
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-06-16/6f0ca902-24a7-4421-a288-f70e55030959.jpg?rect=0%2C0%2C1400%2C1400",
+                description = "",
+            ),
+            urlPrefix = "https://dice.fm/event/",
+        )
+    }
+
+    @Test
     fun `extracts gig events from Electric Ballroom whats-on page`() {
         assertScrapesGigs(
             source = ElectricBallroomGigsSource(cachedClient(), year = 2026),
@@ -1017,7 +1040,7 @@ class GigsSourceTest {
         expectThat(pageText.contains("Instagram")).isEqualTo(false)
     }
 
-    // dice.fm venues (Blondies Brewery Taproom, Blondies Bar, Helgi's, 229) render almost nothing
+    // dice.fm venues (Blondies Brewery Taproom, Blondies Bar, Helgi's, Barfly Camden, 229) render almost nothing
     // server-side to select from - the real description is nested two JSON parses deep inside
     // __NEXT_DATA__ (itself containing a JSON-encoded string), alongside plenty of sitewide data
     // (i18n strings, nav) this fixture only trims down, not invents. 229's own scraper reads the same
