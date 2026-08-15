@@ -17,7 +17,7 @@ import java.time.LocalDate
 
 private object JVenueId : JStringRepresentable<VenueId>() {
     override val cons: (String) -> VenueId = ::VenueId
-    override val render: (VenueId) -> String = VenueId::name
+    override val render: (VenueId) -> String = VenueId::value
 }
 
 object JGig : JAny<Gig>() {
@@ -140,9 +140,9 @@ class GigsLog(private val file: File) {
     // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
     // longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
     // scraped a bit more often than strictly necessary, never less
-    fun lastScrapedAt(): Map<String, Instant> =
+    fun lastScrapedAt(): Map<VenueId, Instant> =
         entries.filterIsInstance<GigObserved>()
-            .groupBy { it.id.venueId.name }
+            .groupBy { it.id.venueId }
             .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
     // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check

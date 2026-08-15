@@ -22,13 +22,9 @@ enum class Genre { Metal, Other }
 
 enum class ClassificationSource { LLM, User }
 
-data class VenueId(val name: String) {
-    override fun toString() = name
-}
-
 data class GigId(val venueId: VenueId, val url: String) {
     init {
-        require(venueId.name.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
+        require(venueId.value.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
         require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venueId" }
     }
 }
@@ -84,7 +80,7 @@ private fun Element.squarespaceThumbnailUrl(): String {
 }
 
 interface GigsSource {
-    val venue: VenueId
+    val venue: Venue
     fun latestGigs(): List<Gig>
 }
 
@@ -98,7 +94,7 @@ internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
 internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): String =
     runCatching { content(Jsoup.parse(fetchPage(client, url), url)) }.getOrNull() ?: ""
 
-val cartAndHorses = VenueId("Cart & Horses")
+val cartAndHorses = Venue(VenueId("cart-and-horses"), "Cart & Horses")
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://www.cartandhorses.london/news-offers-events/"
@@ -122,7 +118,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 val gigUrl = item.select(".news-carousel__link").attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = item.select(".news-carousel__link").text(),
                     date = LocalDate.of(currentYear, monthsByShortName.getValue(month), item.select(".news-carousel__day").text().toInt()),
                     imageUrl = item.select(".news-carousel__image").attr("abs:src"),
@@ -132,7 +128,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
     }
 }
 
-val newCrossInn = VenueId("New Cross Inn")
+val newCrossInn = Venue(VenueId("new-cross-inn"), "New Cross Inn")
 
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.newcrossinn.com/gigs/"
@@ -151,7 +147,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                 val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
                 val gigUrl = item.select("a:has(h3.nci-event-name)").attr("abs:href")
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = item.select("h3.nci-event-name").text(),
                     date = LocalDate.of(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
                     imageUrl = item.select("img").attr("abs:src"),
@@ -162,7 +158,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by every Squarespace "Events List" venue page; the venue-specific classes below just
 // supply url/venue
-class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: VenueId) : GigsSource {
+class SquarespaceEventsGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
     // article.eventitem also holds the template's own event metadata - the date in both 12- and
     // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
     // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
@@ -176,7 +172,7 @@ class SquarespaceEventsGigsSource(private val client: HttpHandler, private val u
                 val titleLink = item.select(".eventlist-title-link")
                 val gigUrl = titleLink.attr("abs:href")
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = titleLink.text(),
                     date = LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
                     imageUrl = item.squarespaceThumbnailUrl(),
@@ -185,17 +181,17 @@ class SquarespaceEventsGigsSource(private val client: HttpHandler, private val u
             }
 }
 
-val ourBlackHeart = VenueId("Our Black Heart")
+val ourBlackHeart = Venue(VenueId("our-black-heart"), "Our Black Heart")
 
 class OurBlackHeartGigsSource(client: HttpHandler) :
     GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = ourBlackHeart)
 
-val theDome = VenueId("The Dome")
+val theDome = Venue(VenueId("dome"), "The Dome")
 
 class DomeLondonGigsSource(client: HttpHandler) :
     GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome)
 
-val theUnderworld = VenueId("The Underworld")
+val theUnderworld = Venue(VenueId("underworld"), "The Underworld")
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.theunderworldcamden.co.uk/search-events/"
@@ -228,7 +224,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
             .map { item ->
                 val gigUrl = item.select(".list-header-title a").attr("abs:href")
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = item.select(".list-header-title").text(),
                     date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
                     imageUrl = imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src")),
@@ -237,7 +233,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-val electricBallroom = VenueId("Electric Ballroom")
+val electricBallroom = Venue(VenueId("electric-ballroom"), "Electric Ballroom")
 
 class ElectricBallroomGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     private val url = "https://electricballroom.co.uk/whats-on/"
@@ -275,7 +271,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
 
                 val gigUrl = item.select(".event-name a").attr("abs:href")
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = item.select(".event-name a").text(),
                     date = LocalDate.of(currentYear, month, day.toInt()),
                     imageUrl = backgroundImageUrlPattern.find(item.select(".grid-image").attr("style"))?.groupValues?.get(1) ?: "",
@@ -285,7 +281,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
     }
 }
 
-val dingwalls = VenueId("Dingwalls")
+val dingwalls = Venue(VenueId("dingwalls"), "Dingwalls")
 
 class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://dingwalls.com/whats-on/"
@@ -305,7 +301,7 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
                 val gigUrl = item.select(".elementor-widget-theme-post-title a").attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = item.select(".elementor-widget-theme-post-title a").text(),
                     date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                     imageUrl = item.select(".elementor-widget-theme-post-featured-image img").attr("abs:src"),
@@ -316,7 +312,7 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by DHP Family's venue sites, which all use the same card markup; the venue-specific
 // classes below just supply url/venue
-class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: VenueId) : GigsSource {
+class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
     // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
 
@@ -350,7 +346,7 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
                 val gigUrl = heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") }
 
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = heading.text(),
                     date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
                     imageUrl = img.attr("abs:data-lazy-src").ifBlank { img.attr("abs:src") },
@@ -359,17 +355,17 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
             }
 }
 
-val theGarage = VenueId("The Garage")
+val theGarage = Venue(VenueId("the-garage"), "The Garage")
 
 class TheGarageGigsSource(client: HttpHandler) :
     GigsSource by DhpVenueGigsSource(client, url = "https://www.thegarage.london/live/", venue = theGarage)
 
-val theGrace = VenueId("The Grace")
+val theGrace = Venue(VenueId("the-grace"), "The Grace")
 
 class TheGraceGigsSource(client: HttpHandler) :
     GigsSource by DhpVenueGigsSource(client, url = "https://www.thegrace.london/whats-on/", venue = theGrace)
 
-val roundhouse = VenueId("Roundhouse")
+val roundhouse = Venue(VenueId("roundhouse"), "Roundhouse")
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.roundhouse.org.uk/whats-on/"
@@ -392,7 +388,7 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
 
                 val gigUrl = link.attr("abs:href")
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = item.select(".event-card__title").text(),
                     date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
                     imageUrl = item.select(".event-card__image img").attr("abs:src"),
@@ -403,7 +399,7 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by both Signature Brew taprooms - they're listed together on one page, each event
 // tagged with its own venue name, so the venue-specific classes below just filter by that
-class SignatureBrewGigsSource(private val client: HttpHandler, override val venue: VenueId) : GigsSource {
+class SignatureBrewGigsSource(private val client: HttpHandler, override val venue: Venue) : GigsSource {
     private val url = "https://events.signaturebrew.co.uk/"
 
     private val dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH)
@@ -422,7 +418,7 @@ class SignatureBrewGigsSource(private val client: HttpHandler, override val venu
                 val gigUrl = link.attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = item.select(".b-show").text(),
                     date = LocalDate.parse(item.select(".dates p.months.date:not(.hide)").text(), dateFormatter),
                     imageUrl = backgroundImageUrlPattern.find(item.select(".poster").attr("style"))?.groupValues?.get(1) ?: "",
@@ -431,7 +427,7 @@ class SignatureBrewGigsSource(private val client: HttpHandler, override val venu
             }
 }
 
-val unionChapel = VenueId("Union Chapel")
+val unionChapel = Venue(VenueId("union-chapel"), "Union Chapel")
 
 class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://unionchapel.org.uk/whats-on"
@@ -473,7 +469,7 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
                 // ticketing site that gig happens to sell through
                 val gigUrl = item.select("a[href*=/whats-on/]").attr("abs:href")
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     // each card prints its title twice, once for the card and once for the hover
                     // panel inside it, so this takes the first rather than both concatenated
                     title = item.select(".card-title").first()!!.text(),
@@ -484,7 +480,7 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-val scala = VenueId("Scala")
+val scala = Venue(VenueId("scala"), "Scala")
 
 class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://scala.co.uk/events/categories/live-music/"
@@ -535,7 +531,7 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
                 val gigUrl = link.attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = link.text(),
                     date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                     imageUrl = backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1) ?: "",
@@ -548,7 +544,7 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     }
 }
 
-val alexandraPalace = VenueId("Alexandra Palace")
+val alexandraPalace = Venue(VenueId("alexandra-palace"), "Alexandra Palace")
 
 class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://www.alexandrapalace.com/whats-on/"
@@ -612,7 +608,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
                 val gigUrl = link.attr("abs:href")
 
                 Gig(
-                    id = GigId(venue, gigUrl),
+                    id = GigId(venue.id, gigUrl),
                     title = link.text(),
                     date = startDateOf(item.select(".dates").text()),
                     imageUrl = item.widestImageUrl(),
@@ -621,7 +617,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-val paperDressVintage = VenueId("Paper Dress Vintage")
+val paperDressVintage = Venue(VenueId("paper-dress-vintage"), "Paper Dress Vintage")
 
 class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://paperdressvintage.co.uk/by-night"
@@ -651,7 +647,7 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
                     val gigUrl = item.attr("abs:href")
 
                     Gig(
-                        id = GigId(venue, gigUrl),
+                        id = GigId(venue.id, gigUrl),
                         title = item.select("h4").text(),
                         date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                         imageUrl = thumbnailSuffixPattern.replace(thumbnailUrl, "$1"),
@@ -661,12 +657,12 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
             }
 }
 
-val signatureBrewBlackhorseRoad = VenueId("Signature Brew Blackhorse Road")
+val signatureBrewBlackhorseRoad = Venue(VenueId("signature-brew-blackhorse-road"), "Signature Brew Blackhorse Road")
 
 class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
     GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewBlackhorseRoad)
 
-val signatureBrewHaggerston = VenueId("Signature Brew Haggerston")
+val signatureBrewHaggerston = Venue(VenueId("signature-brew-haggerston"), "Signature Brew Haggerston")
 
 class SignatureBrewHaggerstonGigsSource(client: HttpHandler) :
     GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewHaggerston)

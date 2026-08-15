@@ -54,7 +54,7 @@ fun classifyGigByLLM(
     // answer Other when unsure - a verdict indistinguishable from a judged one, which nothing
     // revisits. Left unclassified instead, for a later scrape to capture text for.
     if (gig.description.isBlank() && !useVision) {
-        error("No event page text or poster image to classify ${gig.id.venueId} at ${gig.id.url} by")
+        error("No event page text or poster image to classify ${venue(gig.id.venueId)} at ${gig.id.url} by")
     }
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: ${gig.description}")) +
@@ -70,10 +70,10 @@ fun classifyGigByLLM(
     }
 
     val response = chat(ChatRequest(Message.User(contents), params))
-        .onFailure { error("LLM classification failed for ${gig.id.venueId} at ${gig.id.url}: $it") }
+        .onFailure { error("LLM classification failed for ${venue(gig.id.venueId)} at ${gig.id.url}: $it") }
     val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
     val genre = genreFromReply(reply)
-        ?: error("Unexpected LLM classification reply for ${gig.id.venueId} at ${gig.id.url}: \"$reply\"")
+        ?: error("Unexpected LLM classification reply for ${venue(gig.id.venueId)} at ${gig.id.url}: \"$reply\"")
 
     return GigClassified(
         id = gig.id,

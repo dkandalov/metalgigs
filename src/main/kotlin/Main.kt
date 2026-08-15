@@ -68,7 +68,7 @@ private val renderedDir = File(".rendered")
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
     val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { downloadToCache(client, gig.imageUrl, imageCacheDir) }.exceptionOrNull()
-            ?.let { "${gig.date}  ${gig.id.venueId}  ${gig.title}: ${it.message}" }
+            ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
         println("Could not download ${failures.size} $what:")
@@ -76,49 +76,49 @@ private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, w
     }
 }
 
-private fun sourcesByKey(client: HttpHandler): Map<String, GigsSource> = mapOf(
-    "cart-and-horses" to CartAndHorsesGigsSource(client, year = LocalDate.now().year),
-    "new-cross-inn" to NewCrossInnGigsSource(client),
-    "our-black-heart" to OurBlackHeartGigsSource(client),
-    "underworld" to TheUnderworldGigsSource(client),
-    "dome" to DomeLondonGigsSource(client),
-    "blondies-taproom" to BlondiesBreweryTaproomGigsSource(client),
-    "blondies-bar" to BlondiesBarGigsSource(client),
-    "helgis" to HelgisGigsSource(client),
-    "electric-ballroom" to ElectricBallroomGigsSource(client, year = LocalDate.now().year),
-    "dingwalls" to DingwallsGigsSource(client),
-    "the-garage" to TheGarageGigsSource(client),
-    "roundhouse" to RoundhouseGigsSource(client),
-    "signature-brew-blackhorse-road" to SignatureBrewBlackhorseRoadGigsSource(client),
-    "signature-brew-haggerston" to SignatureBrewHaggerstonGigsSource(client),
-    "o2-forum-kentish-town" to O2ForumKentishTownGigsSource(client),
-    "o2-academy-brixton" to O2AcademyBrixtonGigsSource(client),
-    "the-grace" to TheGraceGigsSource(client),
-    "o2-academy-islington" to O2AcademyIslingtonGigsSource(client),
-    "o2-shepherds-bush-empire" to O2ShepherdsBushEmpireGigsSource(client),
-    "union-chapel" to UnionChapelGigsSource(client),
-    "scala" to ScalaGigsSource(client),
-    "229" to TwoTwoNineGigsSource(client),
-    "alexandra-palace" to AlexandraPalaceGigsSource(client),
-    "paper-dress-vintage" to PaperDressVintageGigsSource(client),
+private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
+    CartAndHorsesGigsSource(client, year = LocalDate.now().year),
+    NewCrossInnGigsSource(client),
+    OurBlackHeartGigsSource(client),
+    TheUnderworldGigsSource(client),
+    DomeLondonGigsSource(client),
+    BlondiesBreweryTaproomGigsSource(client),
+    BlondiesBarGigsSource(client),
+    HelgisGigsSource(client),
+    ElectricBallroomGigsSource(client, year = LocalDate.now().year),
+    DingwallsGigsSource(client),
+    TheGarageGigsSource(client),
+    RoundhouseGigsSource(client),
+    SignatureBrewBlackhorseRoadGigsSource(client),
+    SignatureBrewHaggerstonGigsSource(client),
+    O2ForumKentishTownGigsSource(client),
+    O2AcademyBrixtonGigsSource(client),
+    TheGraceGigsSource(client),
+    O2AcademyIslingtonGigsSource(client),
+    O2ShepherdsBushEmpireGigsSource(client),
+    UnionChapelGigsSource(client),
+    ScalaGigsSource(client),
+    TwoTwoNineGigsSource(client),
+    AlexandraPalaceGigsSource(client),
+    PaperDressVintageGigsSource(client),
 )
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)
 
-fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
+fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val sourcesByKey = sourcesByKey(client)
+    val sourcesByVenueId = allSources(client).associateBy { it.venue.id }
 
-    val unknownKeys = venueKeys - sourcesByKey.keys
-    check(unknownKeys.isEmpty()) { "Unknown venue key(s): $unknownKeys. Known venue keys: ${sourcesByKey.keys}" }
-    val sources = if (venueKeys.isEmpty()) sourcesByKey.values.toList() else venueKeys.map { sourcesByKey.getValue(it) }
+    val unknownIds = venueIds - sourcesByVenueId.keys
+    check(unknownIds.isEmpty()) { "Unknown venue id(s): $unknownIds. Known venue ids: ${sourcesByVenueId.keys}" }
+    val sources = if (venueIds.isEmpty()) sourcesByVenueId.values.toList() else venueIds.map { sourcesByVenueId.getValue(it) }
 
     val log = GigsLog(eventsFile)
     val lastScrapedAt = log.lastScrapedAt()
     val now = Instant.now()
 
     val (skipped, toScrape) = sources.partition { source ->
-        !force && lastScrapedAt[source.venue.name]?.isAfter(now.minus(scrapeCooldown)) == true
+        !force && lastScrapedAt[source.venue.id]?.isAfter(now.minus(scrapeCooldown)) == true
     }
     skipped.forEach { source -> println("Skipping ${source.venue} - scraped within the last day; pass force to scrape anyway") }
 
@@ -132,10 +132,10 @@ fun scrapeGigs(venueKeys: Set<String> = emptySet(), force: Boolean = false) {
     val validated = likelyContaminatedVenues(gigs)
     if (validated.isNotEmpty()) {
         println("Descriptions may include site-wide boilerplate - consider scoping their source's eventPageContent. Not logging their gigs this run:")
-        validated.forEach { (venue, count) -> println("  $venue ($count gig(s))") }
+        validated.forEach { (venueId, count) -> println("  ${venue(venueId)} ($count gig(s))") }
     }
 
-    val observed = toObserve.filterNot { it.id.venueId.name in validated.keys }.map { gig -> GigObserved(gig, now) }
+    val observed = toObserve.filterNot { it.id.venueId in validated.keys }.map { gig -> GigObserved(gig, now) }
     log.append(observed)
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped")
 
@@ -184,7 +184,7 @@ private fun printClassificationSummary(
     println("Classified this run: ${classifications.size} ($newlyMetal Metal, ${classifications.size - newlyMetal} Other)")
     if (failed.isNotEmpty()) {
         println("Could not classify ${failed.size} gig(s) - they stay Pending:")
-        failed.forEach { (gig, reason) -> println("  ${gig.date}  ${gig.id.venueId}  ${gig.title}: $reason") }
+        failed.forEach { (gig, reason) -> println("  ${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: $reason") }
     }
     println()
 
@@ -214,7 +214,7 @@ fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
 
     val pendingByVenue = upcoming
         .filter { statusByGig[it.id] !is ClassificationStatus.Classified }
-        .groupingBy { it.id.venueId.name }
+        .groupingBy { venue(it.id.venueId).name }
         .eachCount()
 
     if (pendingByVenue.isNotEmpty()) {
@@ -225,7 +225,7 @@ fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
     }
 }
 
-fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Boolean = false) {
+fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val log = GigsLog(eventsFile)
 
@@ -240,7 +240,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venue: String, force: Bool
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(posterExtractionSystemPrompt))
 
-    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, VenueId(venue))
+    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, venue(venueId))
     gigs.forEach { println(it) }
 
     val newOrChanged = log.newOrChangedGigs(gigs)
@@ -276,7 +276,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
         val shown = if (fullUnresolved) unresolved else unresolved.take(5)
         val listing = shown.joinToString("\n") { gig ->
             val status = statusByGig[gig.id] ?: ClassificationStatus.Pending
-            "  ${gig.date}  ${gig.id.venueId}  ${gig.title}\n  $status\n  ${gig.id.url}"
+            "  ${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}\n  $status\n  ${gig.id.url}"
         }
         val hint = if (shown.size < unresolved.size) " Soonest ${shown.size} (pass full-unresolved to see all)" else ""
         error("${unresolved.size} upcoming gig(s) not yet classified - run classify/override first, or pass force to render anyway.$hint:\n$listing")
@@ -303,7 +303,7 @@ private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
 
     val failures = renderedGigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
-            ?.let { "${gig.date}  ${gig.id.venueId}  ${gig.title}: ${it.message}" }
+            ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
         println("Could not publish ${failures.size} image(s) - those gigs will render with a broken image:")
@@ -345,7 +345,7 @@ fun main(rawArgs: Array<String>) {
     when (args.firstOrNull()) {
         "scrape" -> {
             val scrapeArgs = args.drop(1)
-            scrapeGigs(venueKeys = (scrapeArgs - "force").toSet(), force = scrapeArgs.contains("force"))
+            scrapeGigs(venueIds = (scrapeArgs - "force").map { VenueId(it) }.toSet(), force = scrapeArgs.contains("force"))
         }
         "classify" -> {
             val classifyArgs = args.drop(1)
@@ -373,12 +373,12 @@ fun main(rawArgs: Array<String>) {
             val posterArgs = args.drop(1)
             val positional = posterArgs.filterNot { it == "force" }
             if (positional.size != 3) {
-                println("Usage: ingest-poster <imageUrl> <sourceUrl> <venue> [force]")
+                println("Usage: ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]")
             } else {
-                val (imageUrl, sourceUrl, venue) = positional
-                ingestPoster(imageUrl, sourceUrl, venue, force = posterArgs.contains("force"))
+                val (imageUrl, sourceUrl, venueId) = positional
+                ingestPoster(imageUrl, sourceUrl, VenueId(venueId), force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [daily-update [force]|scrape [venue-key...] [force]|classify [limit]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue> [force]]")
+        else -> println("Usage: [daily-update [force]|scrape [venue-id...] [force]|classify [limit]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]]")
     }
 }

@@ -8,7 +8,7 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
    pagination explicitly - a "page 2" link or an API cursor field - rather than trusting one page's gig
    count to be the whole listing.
 
-2. **Write the `GigsSource`.** One `VenueId` constant declared just above its class, reused by the class,
+2. **Write the `GigsSource`.** One `Venue` constant declared just above its class, reused by the class,
    its tests, and any delegates. If several venues share a platform, write the shared logic once with
    site-specific bits as constructor parameters, then a thin delegate class per venue (see
    `DhpVenueGigsSource`, `AmgVenueGigsSource`, `DiceVenueGigsSource` for the pattern). Don't set
@@ -17,7 +17,9 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
    often only written once, on the end date); a listing thumbnail that's smaller than a `srcset` or
    CDN-param alternative also on the page; sold-out/cancelled gigs, which are still real listings.
 
-3. **Wire it into `sourcesByKey` in `Main.kt`**, and into the venue list in the `run-main` skill.
+3. **Wire it into `allSources` in `Main.kt` and `allVenues` in `Venue.kt`**, and into the venue list in
+   the `run-main` skill. A gig carries only its venue's `VenueId`, so a venue missing from `allVenues`
+   fails every render and every message naming it; `VenueTest` catches that for anything already logged.
 
 4. **Write the scraping test** with real `first`/`last` values from an actual run, never placeholders.
    `cachedClient()` replays from a recorded fixture and refuses the network unless `RECORD_TRAFFIC=1` is
@@ -41,7 +43,8 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
 6. **Verify against the real thing, not a sample.** `scrapeGigs` runs `likelyContaminatedVenues` after
    every scrape and warns if a venue's gigs share suspiciously much text - read the warning if it fires.
    Also worth reading a couple of gigs' *full* captured `description` directly, not just a prefix. Finish
-   with a real scrape of just the new key (`scrape <key> force`) and confirm the count matches the test.
+   with a real scrape of just the new venue (`scrape <venue-id> force`) and confirm the count matches the
+   test.
 
 ## Traps
 

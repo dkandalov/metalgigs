@@ -13,6 +13,8 @@ import java.time.LocalDate
 // monthly flyer on social media) rather than a page we can scrape normally - not tied to any one
 // platform, just "here's an image, here's something to point the gig's url at"
 
+val theDev = Venue(VenueId("the-dev"), "The Dev")
+
 val posterExtractionSystemPrompt = """
     You extract gig listings from a poster image advertising multiple gigs at one venue, often a
     whole month's calendar. Reply with one gig per line, formatted exactly as:
@@ -33,12 +35,12 @@ private fun parsePosterReply(reply: String): List<Pair<LocalDate, String>> =
 // recurring non-gig event types a venue's own poster doesn't distinguish from actual gigs - e.g.
 // The Dev runs a regular karaoke night on the same monthly flyer as its band shows, with nothing
 // about the listing itself (format, image) marking it apart from a real gig except its title
-private val excludedTitlePatternsByVenue: Map<String, Regex> = mapOf(
-    "The Dev" to Regex("karaoke", RegexOption.IGNORE_CASE),
+private val excludedTitlePatternsByVenue: Map<VenueId, Regex> = mapOf(
+    theDev.id to Regex("karaoke", RegexOption.IGNORE_CASE),
 )
 
-private fun isExcluded(venue: String, title: String): Boolean =
-    excludedTitlePatternsByVenue[venue]?.containsMatchIn(title) == true
+private fun isExcluded(venue: Venue, title: String): Boolean =
+    excludedTitlePatternsByVenue[venue.id]?.containsMatchIn(title) == true
 
 // each gig's url is synthesized from the poster's own source url (the post/page it came from) -
 // there's no per-gig page to link to, so every gig from one poster shares that same real, working
@@ -46,7 +48,7 @@ private fun isExcluded(venue: String, title: String): Boolean =
 // this specific gig, since that's not something the source itself supports
 fun posterGigUrl(sourceUrl: String, title: String, date: LocalDate): String = "$sourceUrl#gig-${slug(title)}-$date"
 
-fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceUrl: String, venue: VenueId): List<Gig> {
+fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceUrl: String, venue: Venue): List<Gig> {
     val image = fetchImageContent(client, imageUrl)
     val request = ChatRequest(
         Message.User(listOf(image)),
@@ -58,6 +60,6 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
     check(parsed.isNotEmpty()) { "Could not parse any gigs from poster extraction reply for $venue at $imageUrl: \"$reply\"" }
 
     return parsed
-        .filterNot { (_, title) -> isExcluded(venue.name, title) }
-        .map { (date, title) -> Gig(id = GigId(venue, posterGigUrl(sourceUrl, title, date)), title = title, date = date, imageUrl = imageUrl, description = "") }
+        .filterNot { (_, title) -> isExcluded(venue, title) }
+        .map { (date, title) -> Gig(id = GigId(venue.id, posterGigUrl(sourceUrl, title, date)), title = title, date = date, imageUrl = imageUrl, description = "") }
 }

@@ -13,7 +13,7 @@ data class GigsView(val dateGroups: List<DateGroup>) : ViewModel {
 
 private fun Gig.toCardView() = GigCardView(
     title = title,
-    venue = id.venueId.name,
+    venue = venue(id.venueId).name,
     url = id.url,
     imageUrl = "images/${publishedImageFileName(this)}",
 )

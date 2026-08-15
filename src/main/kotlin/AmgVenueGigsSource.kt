@@ -37,13 +37,13 @@ private object JAmgSearchResults : JAny<AmgSearchResults>() {
 }
 
 // shared by every Academy Music Group venue; the venue-specific classes below just supply the
-// venue's own id(s) (as seen in the API's own venue objects) and display name. More than one id
-// where a site lists several rooms at the same venue together, as its own listing page does
-class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, override val venue: VenueId) : GigsSource {
+// venue and AMG's own numeric id(s) for it (as seen in the API's own venue objects). More than one
+// id where a site lists several rooms at the same venue together, as its own listing page does
+class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: Int, override val venue: Venue) : GigsSource {
     // PageSize is well above what any one venue actually lists, so everything comes back in one
     // page - the listing page itself paginates client-side, but the API needn't
     private val url = "https://www.academymusicgroup.com/api/search/events" +
-        "?VenueIds=${venueIds.joinToString(",")}&IncludePostponed=true&IncludeCancelled=true&PageSize=500&Page=1"
+        "?VenueIds=${amgVenueIds.joinToString(",")}&IncludePostponed=true&IncludeCancelled=true&PageSize=500&Page=1"
 
     override fun latestGigs(): List<Gig> {
         val results = JAmgSearchResults.fromJson(fetchPage(client, url)).orThrow()
@@ -64,7 +64,7 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
             // still a working link
             val gigUrl = event.tickets.first().ticketUrl.substringBefore('?')
             Gig(
-                id = GigId(venue, gigUrl),
+                id = GigId(venue.id, gigUrl),
                 title = event.name,
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.eventDate).toLocalDate(),
@@ -75,17 +75,17 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg venueIds: Int, 
     }
 }
 
-val o2ForumKentishTown = VenueId("O2 Forum Kentish Town")
+val o2ForumKentishTown = Venue(VenueId("o2-forum-kentish-town"), "O2 Forum Kentish Town")
 
 class O2ForumKentishTownGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 5597, venue = o2ForumKentishTown)
 
-val o2AcademyBrixton = VenueId("O2 Academy Brixton")
+val o2AcademyBrixton = Venue(VenueId("o2-academy-brixton"), "O2 Academy Brixton")
 
 class O2AcademyBrixtonGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 3919, venue = o2AcademyBrixton)
 
-val o2AcademyIslington = VenueId("O2 Academy Islington")
+val o2AcademyIslington = Venue(VenueId("o2-academy-islington"), "O2 Academy Islington")
 
 // its listing page covers both the main room and the smaller "Academy2" upstairs (which has no
 // listing page of its own), so both are scraped together under the one venue name, exactly as the
@@ -93,7 +93,7 @@ val o2AcademyIslington = VenueId("O2 Academy Islington")
 class O2AcademyIslingtonGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4361, 4258, venue = o2AcademyIslington)
 
-val o2ShepherdsBushEmpire = VenueId("O2 Shepherd's Bush Empire")
+val o2ShepherdsBushEmpire = Venue(VenueId("o2-shepherds-bush-empire"), "O2 Shepherd's Bush Empire")
 
 class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4051, venue = o2ShepherdsBushEmpire)

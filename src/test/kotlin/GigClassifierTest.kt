@@ -33,8 +33,8 @@ class GigClassifierTest {
 
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
-    private fun gig(title: String = "Some Gig", venue: VenueId = VenueId("Some Venue"), day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "", description: String = "") =
-        Gig(id = GigId(venue, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = description)
+    private fun gig(title: String = "Some Gig", venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "", description: String = "") =
+        Gig(id = GigId(venue.id, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = description)
 
     // Classifying makes no http request of its own - the only fetch it can do is the vision path's
     // poster, which the tests exercising that path stub out.
@@ -74,7 +74,7 @@ class GigClassifierTest {
         }
 
         expectThat(requests).hasSize(0)
-        expectThat(error.message!!.contains("Some Venue")).isTrue()
+        expectThat(error.message!!.contains(theUnderworld.name)).isTrue()
         expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
     }
 
@@ -201,7 +201,7 @@ class GigClassifierTest {
             classifyGigByLLM(noHttp, fakeChat("I think this is probably a metal gig"), gig(description = "Some event page text"), recordedAt)
         }
 
-        expectThat(error.message!!.contains("Some Venue")).isTrue()
+        expectThat(error.message!!.contains(theUnderworld.name)).isTrue()
         expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
     }
 

@@ -22,9 +22,9 @@ private fun words(text: String): List<String> = text.trim().split(Regex("\\s+"))
 
 private fun wordNGrams(words: List<String>): List<String> = words.windowed(SHARED_PHRASE_WORDS, 1).map { it.joinToString(" ") }
 
-fun likelyContaminatedVenues(gigs: List<Gig>): Map<String, Int> =
+fun likelyContaminatedVenues(gigs: List<Gig>): Map<VenueId, Int> =
     gigs.filter { it.description.isNotBlank() }
-        .groupBy { it.id.venueId.name }
+        .groupBy { it.id.venueId }
         .filter { (_, venueGigs) -> venueGigs.size >= 3 }
         .mapNotNull { (venue, venueGigs) ->
             val wordsByGig = venueGigs.associateWith { words(it.description) }

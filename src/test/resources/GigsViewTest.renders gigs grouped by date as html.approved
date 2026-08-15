@@ -318,20 +318,20 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-one">
-                <img class="gig-image" src="images/2026-08-08-venue-a-e8f74dd6.webp" alt="" loading="lazy">
+                <img class="gig-image" src="images/2026-08-08-the-underworld-e8f74dd6.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig One</span>
-                    <span class="gig-venue">Venue A</span>
+                    <span class="gig-venue">The Underworld</span>
                 </span>
             </a>
         </li>
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-two">
-                <img class="gig-image" src="images/2026-08-08-venue-b-40b1a885.webp" alt="" loading="lazy">
+                <img class="gig-image" src="images/2026-08-08-the-grace-40b1a885.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig Two</span>
-                    <span class="gig-venue">Venue B</span>
+                    <span class="gig-venue">The Grace</span>
                 </span>
             </a>
         </li>
@@ -345,10 +345,10 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/late-gig">
-                <img class="gig-image" src="images/2026-09-01-venue-a-1c8f1c82.webp" alt="" loading="lazy">
+                <img class="gig-image" src="images/2026-09-01-the-underworld-1c8f1c82.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Late Gig</span>
-                    <span class="gig-venue">Venue A</span>
+                    <span class="gig-venue">The Underworld</span>
                 </span>
             </a>
         </li>

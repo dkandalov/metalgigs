@@ -43,7 +43,7 @@ private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEventsResponse(data = +data, links = +links)
 }
 
-val twoTwoNine = VenueId("229")
+val twoTwoNine = Venue(VenueId("229"), "229")
 
 class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = twoTwoNine
@@ -78,7 +78,7 @@ class TwoTwoNineGigsSource(private val client: HttpHandler) : GigsSource {
             // across unrelated calls to the API
             val gigUrl = "https://dice.fm/event/${event.permName}"
             Gig(
-                id = GigId(venue, gigUrl),
+                id = GigId(venue.id, gigUrl),
                 title = event.name,
                 // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.date).toLocalDate(),

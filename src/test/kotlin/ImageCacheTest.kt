@@ -18,8 +18,8 @@ class ImageCacheTest {
     // and naming around it, and their "images" are a few bytes of text, so they just copy
     private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
 
-    private fun gig(day: Int = 8, venue: VenueId = VenueId("Some Venue"), imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
-        Gig(id = GigId(venue, "https://example.com/gigs/some-gig"), title = "Some Gig", date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = "")
+    private fun gig(day: Int = 8, venue: Venue = theUnderworld, imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
+        Gig(id = GigId(venue.id, "https://example.com/gigs/some-gig"), title = "Some Gig", date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = "")
 
     @Test
     fun `caches a downloaded image and skips re-downloading on a cache hit`() {
@@ -64,7 +64,7 @@ class ImageCacheTest {
 
         // still 1: publishing copied the cached bytes rather than re-fetching them
         expectThat(requestCount).isEqualTo(1)
-        expectThat(published.name).isEqualTo("2026-08-08-some-venue-1af7931d.webp")
+        expectThat(published.name).isEqualTo("2026-08-08-the-underworld-1af7931d.webp")
         expectThat(published.readText()).isEqualTo("fake-image-bytes")
     }
 
@@ -94,7 +94,7 @@ class ImageCacheTest {
     fun `finds published files that no gig claims any more`() {
         val kept = gig(day = 8)
         val keptFile = File(publishedImageFileName(kept))
-        val staleFile = File("2026-08-09-some-venue-deadbeef.webp")
+        val staleFile = File("2026-08-09-the-underworld-deadbeef.webp")
 
         val unpublished = unpublishedImageFiles(keptGigs = listOf(kept), publishedFiles = listOf(keptFile, staleFile))
 

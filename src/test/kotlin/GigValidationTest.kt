@@ -17,7 +17,7 @@ class GigValidationTest {
             gig(title = "C", url = "https://example.com/c", description = "Black metal ritual returns. $boilerplate"),
         )
 
-        expectThat(likelyContaminatedVenues(gigs)).isEqualTo(mapOf("Some Venue" to 3))
+        expectThat(likelyContaminatedVenues(gigs)).isEqualTo(mapOf(VenueId("Some Venue") to 3))
     }
 
     // real venues often print the same short policy line (age restriction, ID requirement) on every

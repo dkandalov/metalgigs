@@ -183,9 +183,9 @@ class GigsStoreTest {
         val lastScrapedAt = gigsLog(events).lastScrapedAt()
 
         expectThat(lastScrapedAt).isEqualTo(
-            mapOf("Venue A" to Instant.parse("2026-07-10T00:00:00Z"), "Venue B" to Instant.parse("2026-07-05T00:00:00Z")),
+            mapOf(VenueId("Venue A") to Instant.parse("2026-07-10T00:00:00Z"), VenueId("Venue B") to Instant.parse("2026-07-05T00:00:00Z")),
         )
-        expectThat(lastScrapedAt["Venue Never Scraped"]).isEqualTo(null)
+        expectThat(lastScrapedAt[VenueId("Venue Never Scraped")]).isEqualTo(null)
     }
 
     @Test
@@ -229,7 +229,7 @@ class GigsStoreTest {
         expectThat(log.currentGigs()).isEqualTo(listOf(gig))
         expectThat(log.metalGigs()).isEqualTo(listOf(gig))
         expectThat(log.alreadyClassified()).isEqualTo(setOf(gig.id))
-        expectThat(log.lastScrapedAt()).isEqualTo(mapOf("Test Venue" to recordedAt))
+        expectThat(log.lastScrapedAt()).isEqualTo(mapOf(VenueId("Test Venue") to recordedAt))
         expectThat(log.alreadyIngested("https://example.com/post/1")).isEqualTo(false)
     }
 
