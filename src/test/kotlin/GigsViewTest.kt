@@ -25,6 +25,22 @@ class GigsViewTest {
     }
 
     @Test
+    fun `keeps gigs up to a year ahead and drops the ones past it`() {
+        fun gig(date: LocalDate) =
+            Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/$date"), title = GigTitle("Gig"), date = date, imageUrl = "", description = "")
+
+        val today = LocalDate.of(2026, 8, 10)
+        val onTheDay = gig(today)
+        val aYearOut = gig(LocalDate.of(2027, 8, 10))
+        val aDayTooFar = gig(LocalDate.of(2027, 8, 11))
+        val yesterday = gig(LocalDate.of(2026, 8, 9))
+
+        val gigs = gigsOnThePage(listOf(yesterday, onTheDay, aYearOut, aDayTooFar), today)
+
+        expectThat(gigs).containsExactlyInAnyOrder(onTheDay, aYearOut)
+    }
+
+    @Test
     fun `renders gigs grouped by date as html`(approver: Approver) {
         val gigs = listOf(
             Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/late-gig"), title = GigTitle("Late Gig"), date = LocalDate.of(2026, 9, 1), imageUrl = "https://example.com/images/late-gig.jpg", description = ""),

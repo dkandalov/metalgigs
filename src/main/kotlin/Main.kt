@@ -307,7 +307,9 @@ fun compactLog() {
 fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
     val log = GigsLog(eventsFile)
     val statusByGig = log.classificationStatus()
-    val upcomingGigs = excludeGigsInThePast(log.currentGigs(), today)
+    // the same window the page uses, so an unclassified gig too far out to be rendered doesn't
+    // hold up a render it would never have appeared in
+    val upcomingGigs = gigsOnThePage(log.currentGigs(), today)
     val unresolved = upcomingGigs.filter { gig -> statusByGig[gig.id] !is ClassificationStatus.Classified }
         .sortedBy { it.date }
 
@@ -322,7 +324,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     }
 
     val metalGigs = log.metalGigs()
-    val gigs = excludeGigsInThePast(metalGigs, today)
+    val gigs = gigsOnThePage(metalGigs, today)
     publishGigImages(gigs, keep = metalGigs)
 
     val renderer = HandlebarsTemplates().CachingClasspath()
@@ -335,8 +337,9 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     println("Rendered ${gigs.size} gig(s) as of $today to $indexFile, archived as $archived")
 }
 
-// keep is every metal gig, not just the rendered ones, so a gig dropping off the page as its date
-// passes doesn't take its image with it - only an image no gig claims any more is removed
+// keep is every metal gig, not just the rendered ones, so a gig off either end of the page's window
+// - already played, or further than a year out - doesn't take its image with it. Only an image no
+// gig claims any more is removed, so one coming into range needs no refetch.
 private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
 

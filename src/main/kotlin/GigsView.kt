@@ -23,6 +23,12 @@ private fun Gig.toCardView() = GigCardView(
 fun excludeGigsInThePast(gigs: List<Gig>, today: LocalDate): List<Gig> =
     gigs.filter { it.date >= today }
 
+// the page is a what's-on list rather than a calendar, and a gig a year and a half out is noise on
+// it. Those gigs stay in the log and keep their published image, so one appears here of its own
+// accord once it comes into range, without being rescraped or refetched.
+fun gigsOnThePage(gigs: List<Gig>, today: LocalDate): List<Gig> =
+    excludeGigsInThePast(gigs, today).filter { it.date <= today.plusYears(1) }
+
 fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
     gigs.sortedBy { it.date }
         .groupBy { it.date }

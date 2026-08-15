@@ -2949,3 +2949,4 @@
 {"_type": "classified", "venue": "new-cross-inn", "url": "https://pit.live/events/gbh-5", "recordedAt": "2026-08-15T14:16:46.055612Z", "genre": "Metal", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 283, "outputTokens": 4}
 {"_type": "classified", "venue": "new-cross-inn", "url": "https://pit.live/events/level-up-festival-7", "recordedAt": "2026-08-15T14:16:46.055612Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 314, "outputTokens": 4}
 {"_type": "rendered", "file": "2026-08-15T14-17-54Z.html", "gigCount": 315, "logicalDate": "2026-08-15", "recordedAt": "2026-08-15T14:17:54.889719Z"}
+{"_type": "rendered", "file": "2026-08-15T14-20-24Z.html", "gigCount": 314, "logicalDate": "2026-08-15", "recordedAt": "2026-08-15T14:20:24.642831Z"}
