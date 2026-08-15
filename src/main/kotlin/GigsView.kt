@@ -14,7 +14,7 @@ data class GigsView(val dateGroups: List<DateGroup>) : ViewModel {
 }
 
 private fun Gig.toCardView() = GigCardView(
-    title = title,
+    title = title.value,
     venue = venue(id.venueId).name,
     url = id.url,
     imageUrl = "images/${publishedImageFileName(this)}",
@@ -32,6 +32,6 @@ fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
                 // within a day the scrape order is just whichever venue happened to be scraped
                 // first, which shuffles between runs - alphabetical keeps the page stable and
                 // makes a given gig findable
-                gigs = gigsOnDate.sortedBy { it.title.lowercase() }.map { it.toCardView() },
+                gigs = gigsOnDate.sortedBy { it.title.value.lowercase() }.map { it.toCardView() },
             )
         }

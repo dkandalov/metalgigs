@@ -8,8 +8,8 @@ import kotlin.test.Test
 
 class LogCompactionTest {
 
-    private val gigA = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/a"), title = "Gig A", date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
-    private val gigB = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/b"), title = "Gig B", date = LocalDate.of(2026, 8, 9), imageUrl = "", description = "")
+    private val gigA = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/a"), title = GigTitle("Gig A"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+    private val gigB = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/b"), title = GigTitle("Gig B"), date = LocalDate.of(2026, 8, 9), imageUrl = "", description = "")
 
     private fun at(day: Int) = Instant.parse("2026-08-0${day}T12:00:00Z")
 
@@ -20,7 +20,7 @@ class LogCompactionTest {
 
     @Test
     fun `keeps only the latest observation of each gig`() {
-        val soldOut = gigA.copy(title = "Gig A - SOLD OUT")
+        val soldOut = gigA.copy(title = GigTitle("Gig A - SOLD OUT"))
         val entries = listOf(
             GigObserved(gigA, at(1)),
             GigObserved(gigB, at(1)),
@@ -88,7 +88,7 @@ class LogCompactionTest {
             GigObserved(gigA, at(1)),
             GigObserved(gigB, at(1)),
             GigClassified(gigA.id, at(1), Genre.Other, ClassificationSource.LLM),
-            GigObserved(gigA.copy(title = "Gig A - SOLD OUT"), at(2)),
+            GigObserved(gigA.copy(title = GigTitle("Gig A - SOLD OUT")), at(2)),
             GigClassified(gigA.id, at(2), Genre.Metal, ClassificationSource.User),
             GigClassified(gigB.id, at(2), Genre.Other, ClassificationSource.LLM),
             GigsRendered("2026-08-03T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 3), recordedAt = at(3)),

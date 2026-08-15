@@ -33,7 +33,7 @@ class GigClassifierTest {
 
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
-    private fun gig(title: String = "Some Gig", venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "", description: String = "") =
+    private fun gig(title: GigTitle = GigTitle("Some Gig"), venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "", description: String = "") =
         Gig(id = GigId(venue.id, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = description)
 
     // Classifying makes no http request of its own - the only fetch it can do is the vision path's
@@ -82,21 +82,21 @@ class GigClassifierTest {
     // own verdict and nothing else.
     @Test
     fun `a gig with nothing to judge stays Pending without sinking the run`() {
-        val judgeable = gig(title = "Judgeable", description = "Doom metal night!", url = "https://example.com/judgeable")
-        val blank = gig(title = "Blank", day = 9, url = "https://example.com/blank")
+        val judgeable = gig(title = GigTitle("Judgeable"), description = "Doom metal night!", url = "https://example.com/judgeable")
+        val blank = gig(title = GigTitle("Blank"), day = 9, url = "https://example.com/blank")
 
         val run = classifyGigs(gigs = listOf(judgeable, blank), alreadyClassified = emptySet()) { g ->
             classifyGigByLLM(noHttp, fakeChat("Metal"), g, recordedAt)
         }
 
         expectThat(run.classified.map { it.id.url }).containsExactly(judgeable.id.url)
-        expectThat(run.failed.map { (gig, _) -> gig.title }).containsExactly("Blank")
+        expectThat(run.failed.map { (gig, _) -> gig.title.value }).containsExactly("Blank")
     }
 
     @Test
     fun `skips gigs that are already classified`() {
-        val alreadyDone = gig(title = "Already Done", url = "https://example.com/already-done")
-        val toDo = gig(title = "To Do", day = 9, url = "https://example.com/to-do")
+        val alreadyDone = gig(title = GigTitle("Already Done"), url = "https://example.com/already-done")
+        val toDo = gig(title = GigTitle("To Do"), day = 9, url = "https://example.com/to-do")
         var classified = 0
 
         val classifications = classifyGigs(
@@ -111,9 +111,9 @@ class GigClassifierTest {
 
     @Test
     fun `limits classification to the soonest N not-yet-classified gigs`() {
-        val soonest = gig(title = "Soonest", day = 8, url = "https://example.com/soonest")
-        val middle = gig(title = "Middle", day = 9, url = "https://example.com/middle")
-        val latest = gig(title = "Latest", day = 10, url = "https://example.com/latest")
+        val soonest = gig(title = GigTitle("Soonest"), day = 8, url = "https://example.com/soonest")
+        val middle = gig(title = GigTitle("Middle"), day = 9, url = "https://example.com/middle")
+        val latest = gig(title = GigTitle("Latest"), day = 10, url = "https://example.com/latest")
 
         val classifications = classifyGigs(
             gigs = listOf(latest, soonest, middle),
@@ -128,9 +128,9 @@ class GigClassifierTest {
     // a real run lost 50 gigs' worth of paid calls when the last one had a poster too big to send
     @Test
     fun `keeps the classifications made before and after one that fails`() {
-        val first = gig(title = "First", day = 8, url = "https://example.com/first")
-        val unjudgeable = gig(title = "Unjudgeable", day = 9, url = "https://example.com/unjudgeable")
-        val last = gig(title = "Last", day = 10, url = "https://example.com/last")
+        val first = gig(title = GigTitle("First"), day = 8, url = "https://example.com/first")
+        val unjudgeable = gig(title = GigTitle("Unjudgeable"), day = 9, url = "https://example.com/unjudgeable")
+        val last = gig(title = GigTitle("Last"), day = 10, url = "https://example.com/last")
 
         val run = classifyGigs(
             gigs = listOf(first, unjudgeable, last),
@@ -142,7 +142,7 @@ class GigClassifierTest {
         )
 
         expectThat(run.classified.map { it.id.url }).containsExactly(first.id.url, last.id.url)
-        expectThat(run.failed.map { (gig, reason) -> gig.title to reason })
+        expectThat(run.failed.map { (gig, reason) -> gig.title.value to reason })
             .containsExactly("Unjudgeable" to "image too large")
     }
 

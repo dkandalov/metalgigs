@@ -20,8 +20,13 @@ private object JVenueId : JStringRepresentable<VenueId>() {
     override val render: (VenueId) -> String = VenueId::value
 }
 
+private object JGigTitle : JStringRepresentable<GigTitle>() {
+    override val cons: (String) -> GigTitle = ::GigTitle
+    override val render: (GigTitle) -> String = GigTitle::value
+}
+
 object JGig : JAny<Gig>() {
-    private val title by str(Gig::title)
+    private val title by str(JGigTitle) { title }
     private val venue by str(JVenueId) { id.venueId }
     private val date by str(Gig::date)
     private val url by str(fun Gig.(): String = id.url)

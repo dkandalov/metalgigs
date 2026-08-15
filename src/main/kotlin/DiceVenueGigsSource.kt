@@ -104,7 +104,7 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
             val gigUrl = "https://dice.fm/event/${event.permName}"
             Gig(
                 id = GigId(venue.id, gigUrl),
-                title = event.name,
+                title = GigTitle(event.name),
                 date = OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),
                 imageUrl = event.images.square,
                 description = fetchDescription(client, gigUrl, ::diceEventPageContent),
