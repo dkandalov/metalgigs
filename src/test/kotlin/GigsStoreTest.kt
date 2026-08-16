@@ -126,15 +126,12 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `reads back an observation written before the description existed, and one with it`() {
+    fun `reads back an observation whose page said nothing, and one with text`() {
         val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
-        // No description key at all, which no line in the log currently has - this pins the optional
-        // read, so a hand-edited or truncated line degrades to "" instead of failing the whole read.
-        file.writeText("""{"_type": "observed", "seq": 0, "gig": {"title": "Test Gig", "venue": "Test Venue", "date": "2026-08-08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
 
-        GigsLog(file).append(listOf(GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))
+        GigsLog(file).append(listOf(GigObserved(gig, recordedAt), GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))
 
         expectThat(GigsLog(file).entries).isEqualTo(
             listOf(

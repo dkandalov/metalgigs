@@ -31,16 +31,14 @@ object JGig : JAny<Gig>() {
     private val date by str(Gig::date)
     private val url by str(fun Gig.(): String = id.url)
     private val imageUrl by str(Gig::imageUrl)
-    // The lambda form forces Kondor's optional-field overload despite description not being String? -
-    // a plain Gig::description reference would resolve to the required-field one instead.
-    private val description by str(fun Gig.(): String? = description)
+    private val description by str(Gig::description)
 
     override fun JsonNodeObject.deserializeOrThrow() = Gig(
         id = GigId(+venue, +url),
         title = +title,
         date = +date,
         imageUrl = +imageUrl,
-        description = +description ?: "",
+        description = +description,
     )
 }
 
