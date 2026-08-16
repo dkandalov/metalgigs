@@ -33,7 +33,20 @@ private const val CONTAMINATED_WORD_FRACTION = 0.5
 // far beyond either, so the margin costs nothing and leaves room for a wordier promoter than any
 // seen yet.
 private const val MAX_TITLE_LENGTH = 200
-private const val MAX_DESCRIPTION_LENGTH = 20_000
+private const val MAX_DESCRIPTION_LENGTH = 10_000
+
+// What a page shows instead of its content: a cookie wall, a bot check, a "turn on JavaScript"
+// notice. Length can't find these - the worst of them in the log, Facebook's consent page standing
+// in for a gig, runs to 5990 characters and so sits between two real band biographies - so they're
+// caught by what they say instead.
+//
+// Deliberately narrow, because the near misses are real gig copy: "privacy policy" and "terms and
+// conditions" both appear in blurbs that merely link them, so neither can be a marker. These three
+// phrases and the JSON check match every junk description in the log and nothing else.
+private val boilerplatePhrases = listOf("we use cookies", "allow the use of cookies", "enable javascript")
+
+private fun readsAsBoilerplate(description: String) =
+    description.startsWith("{") || boilerplatePhrases.any { description.contains(it, ignoreCase = true) }
 
 // Paired with its reason so a run says which selector to go and look at, rather than only that
 // something was wrong.
@@ -43,6 +56,7 @@ fun misshapenGigs(gigs: List<Gig>): Map<Gig, String> =
             gig.title.value.isBlank() -> "no title"
             gig.title.value.length > MAX_TITLE_LENGTH -> "title of ${gig.title.value.length} chars"
             gig.description.isBlank() -> "no description"
+            readsAsBoilerplate(gig.description) -> "description is a cookie or bot wall, not gig copy"
             gig.description.length > MAX_DESCRIPTION_LENGTH -> "description of ${gig.description.length} chars"
             else -> null
         }

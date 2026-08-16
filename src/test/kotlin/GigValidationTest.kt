@@ -50,6 +50,30 @@ class GigValidationTest {
         expectThat(misshapenGigs(gigs).keys.map { it.id.url }).isEqualTo(listOf("https://example.com/a"))
     }
 
+    // all three verbatim from the log, and all three sit within the length bounds - the cookie wall
+    // at 5990 chars falls between two real band biographies, so only their wording tells them apart
+    @Test
+    fun `flags a description that is a cookie wall, a bot check, or a JavaScript notice`() {
+        val gigs = listOf(
+            gig(title = GigTitle("A"), url = "https://example.com/a", description = "Facebook ... Allow the use of cookies from Facebook in this browser? We use cookies and similar technologies to help provide and improve content on Meta Products."),
+            gig(title = GigTitle("B"), url = "https://example.com/b", description = """{"response":"identify"}"""),
+            gig(title = GigTitle("C"), url = "https://example.com/c", description = "Gigantic Tickets - Bot Check Enable JavaScript and cookies to continue"),
+        )
+
+        expectThat(misshapenGigs(gigs).values.toSet())
+            .isEqualTo(setOf("description is a cookie or bot wall, not gig copy"))
+    }
+
+    // real gig copy links these often enough that neither can be a marker for boilerplate
+    @Test
+    fun `leaves gig copy that merely mentions terms or a privacy policy alone`() {
+        val gigs = listOf(
+            gig(title = GigTitle("A"), url = "https://example.com/a", description = "Doom night, doors 7pm. Tickets subject to our terms and conditions and privacy policy."),
+        )
+
+        expectThat(misshapenGigs(gigs)).isEqualTo(emptyMap())
+    }
+
     // two characters is a real gig title and nine a real description, so neither has a minimum
     // beyond being non-blank
     @Test
