@@ -10,6 +10,7 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.time.LocalDate
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class GigsSourceTest {
 
@@ -18,8 +19,10 @@ class GigsSourceTest {
         events.forEach { println(it) }
 
         expectThat(events).hasSize(size)
-        expectThat(events.first()).isEqualTo(first)
-        expectThat(events.last()).isEqualTo(last)
+        // a description is its whole event page's text, so the per-venue expectations mask it rather
+        // than carrying thousands of characters each - what's extracted from a page has its own tests
+        expectThat(events.first().copy(description = "")).isEqualTo(first)
+        expectThat(events.last().copy(description = "")).isEqualTo(last)
         expectThat(events.all { it.id.url.startsWith(urlPrefix) }).isTrue()
         expectThat(events.all { it.id.venueId == first.id.venueId }).isTrue()
 
@@ -80,6 +83,9 @@ class GigsSourceTest {
                     <div class="news-carousel__day">01</div>
                 </div>
             </div>
+            <!-- the same body answers this source's event-page requests, which now have to yield a
+                 description rather than being allowed to come back empty -->
+            <div class="page_content_inner">Doom night, doors 7pm.</div>
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
 
@@ -474,6 +480,10 @@ class GigsSourceTest {
                 <h4 class="card__heading">SOLD OUT GIG</h4>
               </div>
             </div>
+            <!-- the same body answers the event-page request, which now has to yield a description -->
+            <section class="single-article single-article--contains-list">
+              <div class="single-article__content"><p>Sold out gig, doors 7pm.</p></div>
+            </section>
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
 
@@ -485,9 +495,7 @@ class GigsSourceTest {
                 title = GigTitle("SOLD OUT GIG"),
                 date = LocalDate.of(2026, 10, 3),
                 imageUrl = "https://example.com/poster.jpg",
-                // the fixture serves this listing markup for the event page too, and DHP's
-                // extraction finds no gig content in it
-                description = "",
+                description = "Sold out gig, doors 7pm.",
             ),
         )
     }
@@ -792,6 +800,8 @@ class GigsSourceTest {
                 <header><p class="dates uc"><strong>$dates</strong></p>
                 <a href="https://example.com/gig" class="event_target"><h3>Gig</h3></a></header>
             </div>
+            <!-- the same body answers the event-page request, which now has to yield a description -->
+            <div class="ap_text_block">An evening of something.</div>
         """.trimIndent()
 
         fun startDateOf(dates: String): LocalDate {
@@ -1391,12 +1401,20 @@ class GigsSourceTest {
     // Extraction that matches nothing is what a changed site looks like, and it reaches the gig as a
     // blank description rather than as a failed scrape.
     @Test
-    fun `extracts nothing from a page whose markup no longer matches`() {
+    fun `fails rather than building a gig whose description its page never gave`() {
         val changedMarkup = "<div>page markup changed, no article.event here</div>"
         val servingChangedMarkup: HttpHandler = { Response(OK).body(changedMarkup) }
         val source = TheUnderworldGigsSource(noHttp)
 
         expectThat(source.eventPageContent(pageOf(changedMarkup))).isEqualTo(null)
-        expectThat(fetchDescription(servingChangedMarkup, "https://example.com/gig", source::eventPageContent)).isEqualTo("")
+        // markup that no longer matches, and a page that won't fetch at all, both fail outright
+        assertFailsWith<IllegalStateException> {
+            fetchDescription(servingChangedMarkup, "https://example.com/gig", source::eventPageContent)
+        }
+        assertFailsWith<IllegalStateException> {
+            fetchDescription(noHttp, "https://example.com/gig", source::eventPageContent)
+        }
+        // "" is only ever a page that was read and had nothing to say about its gig
+        expectThat(fetchDescription(servingChangedMarkup, "https://example.com/gig") { "" }).isEqualTo("")
     }
 }

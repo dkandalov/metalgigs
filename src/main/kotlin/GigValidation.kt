@@ -18,6 +18,22 @@ import kotlin.math.ceil
 private const val SHARED_PHRASE_WORDS = 6
 private const val CONTAMINATED_WORD_FRACTION = 0.5
 
+// A title is the one scraped field with no shape to check against: any string a selector returns is
+// accepted, so a selector that has stopped matching gives "" and one that matches a card's container
+// rather than its heading gives the whole card, and both would be logged and published in silence.
+//
+// Both bounds come from the 1517 distinct titles the log holds as of 2026-08-16: 2 characters at the
+// shortest ("LP", "AZ", "JJ"), 18 at the median, 74 at the 99th percentile and 103 at the longest,
+// with none blank. So there's no lower bound worth having beyond non-blank - any minimum big enough
+// to catch a bug rejects real gigs - and the upper one is set at roughly double the longest real
+// title, with only that one title above 100 characters and nothing at all above 120. A selector that
+// swallowed a whole card brings the date, price and blurb with it and lands far beyond this; the
+// margin is there so a wordier promoter than any seen yet doesn't trip it.
+private const val MAX_TITLE_LENGTH = 200
+
+fun oddlyTitledGigs(gigs: List<Gig>): List<Gig> =
+    gigs.filter { it.title.value.isBlank() || it.title.value.length > MAX_TITLE_LENGTH }
+
 private fun words(text: String): List<String> = text.trim().split(Regex("\\s+")).filter { it.isNotBlank() }
 
 private fun wordNGrams(words: List<String>): List<String> = words.windowed(SHARED_PHRASE_WORDS, 1).map { it.joinToString(" ") }

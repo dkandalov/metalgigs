@@ -8,6 +8,39 @@ class GigValidationTest {
     private fun gig(title: GigTitle, url: String, description: String) =
         Gig(id = GigId(VenueId("Some Venue"), url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = "", description = description)
 
+    // what a selector that has stopped matching leaves behind - Jsoup's text() returns "" rather
+    // than failing, so nothing else in the pipeline would notice
+    @Test
+    fun `flags a gig whose title didn't parse at all`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Real Title"), url = "https://example.com/a", description = ""),
+            gig(title = GigTitle("   "), url = "https://example.com/b", description = ""),
+        )
+
+        expectThat(oddlyTitledGigs(gigs).map { it.id.url }).isEqualTo(listOf("https://example.com/b"))
+    }
+
+    // a selector matching a card's container instead of its heading takes the date, price and blurb
+    // along with the title. The one that must survive is the longest title in the log, at 103 chars
+    @Test
+    fun `flags a title long enough to be a whole card rather than a heading`() {
+        val wholeCard = "Doom Night ".repeat(30)
+        val gigs = listOf(
+            gig(title = GigTitle(wholeCard), url = "https://example.com/a", description = ""),
+            gig(title = GigTitle("FOREVER NU - 25th anniversary of Toxicity & Iowa special! Chop Suey, Slip-Not, A7Xperience, Propa Roach"), url = "https://example.com/b", description = ""),
+        )
+
+        expectThat(oddlyTitledGigs(gigs).map { it.id.url }).isEqualTo(listOf("https://example.com/a"))
+    }
+
+    // two characters is a real gig title, so there's no minimum beyond being non-blank
+    @Test
+    fun `leaves a very short title alone`() {
+        val gigs = listOf(gig(title = GigTitle("LP"), url = "https://example.com/a", description = ""))
+
+        expectThat(oddlyTitledGigs(gigs)).isEqualTo(emptyList())
+    }
+
     @Test
     fun `flags a venue whose gigs share a long stretch of boilerplate text`() {
         val boilerplate = "Sign up for news, offers and events at our venue today"

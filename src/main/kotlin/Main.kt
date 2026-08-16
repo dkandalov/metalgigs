@@ -127,9 +127,15 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
     }
     skipped.forEach { source -> println("Skipping ${source.venue} - scraped within the last day; pass force to scrape anyway") }
 
+    // A gig whose event page won't read fails its source outright rather than being built without a
+    // description, so one dead page costs that venue its whole listing for this run. Caught per
+    // venue so it doesn't cost the other twenty-eight theirs too; nothing is logged for it, so the
+    // cooldown sees it as unscraped and comes back within the day.
     val gigs = toScrape.flatMap { source ->
         println("Scraping ${source.venue}...")
-        source.latestGigs().also { println("  ${it.size} gig(s) listed") }
+        runCatching { source.latestGigs().also { println("  ${it.size} gig(s) listed") } }
+            .onFailure { println("  Could not scrape ${source.venue}, so none of its gigs are logged this run: ${it.message}") }
+            .getOrDefault(emptyList())
     }
 
     val toObserve = log.newOrChangedGigs(gigs)
@@ -140,13 +146,24 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
         validated.forEach { (venueId, count) -> println("  ${venue(venueId)} ($count gig(s))") }
     }
 
-    val observed = toObserve.filterNot { it.id.venueId in validated.keys }.map { gig -> GigObserved(gig, now) }
+    // Per gig rather than per venue, unlike contamination: a title that didn't parse says nothing
+    // about the other gigs on the same listing.
+    val oddlyTitled = oddlyTitledGigs(toObserve).toSet()
+    if (oddlyTitled.isNotEmpty()) {
+        println("Titles that look like a parsing failure - check that source's title selector. Not logging their gigs this run:")
+        oddlyTitled.forEach { gig -> println("  ${venue(gig.id.venueId)} (${gig.title.value.length} chars) ${gig.id.url}") }
+    }
+
+    val observed = toObserve.filterNot { it.id.venueId in validated.keys || it in oddlyTitled }
+        .map { gig -> GigObserved(gig, now) }
     log.append(observed)
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped")
 
+    // Blank now means only that the page said nothing about its gig - one that couldn't be read
+    // fails its venue outright, above, rather than reaching here.
     val withoutText = observed.filter { it.gig.description.isBlank() }
     if (withoutText.isNotEmpty()) {
-        println("Could not capture event page text for ${withoutText.size} gig(s); they'll be classified from their poster instead")
+        println("${withoutText.size} gig(s) have an event page that says nothing about them; they'll be classified from their poster instead")
         val withoutPoster = withoutText.count { it.gig.imageUrl.isBlank() }
         if (withoutPoster > 0) println("  $withoutPoster of those have no poster either, so they stay unclassified until a later scrape captures text")
     }

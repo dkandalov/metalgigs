@@ -119,11 +119,12 @@ interface GigsSource {
 // text is "", which would pass for an event page that says nothing about its gig.
 internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
 
-// one dead event page shouldn't cost the whole scrape - the gig is still worth recording, and one
-// with a poster can still be classified from that. A page whose markup no longer matches the
-// venue's own selectors comes to the same thing: no text, counted in the scrape summary
+// Fails rather than standing in a blank, so no Gig is ever built holding a description its page
+// never gave. A page that won't fetch and markup that no longer matches the venue's own selectors
+// are both that failure; "" is only ever a page that was read and had nothing to say about its gig.
 internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): String =
-    runCatching { content(Jsoup.parse(fetchPage(client, url), url)) }.getOrNull() ?: ""
+    content(Jsoup.parse(fetchPage(client, url), url))
+        ?: error("No description found on event page $url - the venue's selectors may no longer match it")
 
 val cartAndHorses = Venue(VenueId("cart-and-horses"), "Cart & Horses")
 
