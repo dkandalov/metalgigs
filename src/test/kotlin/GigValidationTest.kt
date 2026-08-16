@@ -8,16 +8,21 @@ class GigValidationTest {
     private fun gig(title: GigTitle, url: String, description: String) =
         Gig(id = GigId(VenueId("Some Venue"), url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = "", description = description)
 
+    private val realText = "Doom night with support from three bands, doors 7pm."
+
     // what a selector that has stopped matching leaves behind - Jsoup's text() returns "" rather
     // than failing, so nothing else in the pipeline would notice
     @Test
-    fun `flags a gig whose title didn't parse at all`() {
+    fun `flags a gig whose title or description didn't parse at all`() {
         val gigs = listOf(
-            gig(title = GigTitle("Real Title"), url = "https://example.com/a", description = ""),
-            gig(title = GigTitle("   "), url = "https://example.com/b", description = ""),
+            gig(title = GigTitle("Real Title"), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("   "), url = "https://example.com/b", description = realText),
+            gig(title = GigTitle("Real Title"), url = "https://example.com/c", description = "   "),
         )
 
-        expectThat(oddlyTitledGigs(gigs).map { it.id.url }).isEqualTo(listOf("https://example.com/b"))
+        expectThat(misshapenGigs(gigs).mapKeys { (gig, _) -> gig.id.url }).isEqualTo(
+            mapOf("https://example.com/b" to "no title", "https://example.com/c" to "no description"),
+        )
     }
 
     // a selector matching a card's container instead of its heading takes the date, price and blurb
@@ -26,19 +31,32 @@ class GigValidationTest {
     fun `flags a title long enough to be a whole card rather than a heading`() {
         val wholeCard = "Doom Night ".repeat(30)
         val gigs = listOf(
-            gig(title = GigTitle(wholeCard), url = "https://example.com/a", description = ""),
-            gig(title = GigTitle("FOREVER NU - 25th anniversary of Toxicity & Iowa special! Chop Suey, Slip-Not, A7Xperience, Propa Roach"), url = "https://example.com/b", description = ""),
+            gig(title = GigTitle(wholeCard), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("FOREVER NU - 25th anniversary of Toxicity & Iowa special! Chop Suey, Slip-Not, A7Xperience, Propa Roach"), url = "https://example.com/b", description = realText),
         )
 
-        expectThat(oddlyTitledGigs(gigs).map { it.id.url }).isEqualTo(listOf("https://example.com/a"))
+        expectThat(misshapenGigs(gigs).keys.map { it.id.url }).isEqualTo(listOf("https://example.com/a"))
     }
 
-    // two characters is a real gig title, so there's no minimum beyond being non-blank
+    // a selector that grabbed the whole page brings the nav and footer with it. The one that must
+    // survive is the longest description in the log, at 7492 chars
     @Test
-    fun `leaves a very short title alone`() {
-        val gigs = listOf(gig(title = GigTitle("LP"), url = "https://example.com/a", description = ""))
+    fun `flags a description long enough to be a whole page rather than a gig's own copy`() {
+        val gigs = listOf(
+            gig(title = GigTitle("A"), url = "https://example.com/a", description = "nav footer ".repeat(3000)),
+            gig(title = GigTitle("B"), url = "https://example.com/b", description = "x".repeat(7492)),
+        )
 
-        expectThat(oddlyTitledGigs(gigs)).isEqualTo(emptyList())
+        expectThat(misshapenGigs(gigs).keys.map { it.id.url }).isEqualTo(listOf("https://example.com/a"))
+    }
+
+    // two characters is a real gig title and nine a real description, so neither has a minimum
+    // beyond being non-blank
+    @Test
+    fun `leaves very short text alone`() {
+        val gigs = listOf(gig(title = GigTitle("LP"), url = "https://example.com/a", description = "Lion Babe"))
+
+        expectThat(misshapenGigs(gigs)).isEqualTo(emptyMap())
     }
 
     @Test

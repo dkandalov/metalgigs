@@ -18,21 +18,36 @@ import kotlin.math.ceil
 private const val SHARED_PHRASE_WORDS = 6
 private const val CONTAMINATED_WORD_FRACTION = 0.5
 
-// A title is the one scraped field with no shape to check against: any string a selector returns is
-// accepted, so a selector that has stopped matching gives "" and one that matches a card's container
-// rather than its heading gives the whole card, and both would be logged and published in silence.
+// A gig's title and description are whatever text a selector returned, so a selector that has
+// stopped matching, or started matching a container rather than the thing inside it, shows up in
+// neither field's type - only in its shape. Both would otherwise be logged and published in silence.
 //
-// Both bounds come from the 1517 distinct titles the log holds as of 2026-08-16: 2 characters at the
-// shortest ("LP", "AZ", "JJ"), 18 at the median, 74 at the 99th percentile and 103 at the longest,
-// with none blank. So there's no lower bound worth having beyond non-blank - any minimum big enough
-// to catch a bug rejects real gigs - and the upper one is set at roughly double the longest real
-// title, with only that one title above 100 characters and nothing at all above 120. A selector that
-// swallowed a whole card brings the date, price and blurb with it and lands far beyond this; the
-// margin is there so a wordier promoter than any seen yet doesn't trip it.
+// The bounds come from the log as of 2026-08-16, and neither field has a lower one worth setting
+// beyond non-blank, because any minimum big enough to catch a bug rejects real gigs. Across 1517
+// distinct titles: 2 characters at the shortest ("LP", "AZ", "JJ"), 18 at the median, 74 at the 99th
+// percentile, 103 at the longest, with only that one above 100 and nothing above 120. Across 1126
+// distinct descriptions: 9 at the shortest, 730 at the median, 3826 at the 99th percentile, 7492 at
+// the longest, with six above 5000 and none above 10000.
+//
+// Each cap is set well clear of that - a selector that swallowed a whole card or a whole page lands
+// far beyond either, so the margin costs nothing and leaves room for a wordier promoter than any
+// seen yet.
 private const val MAX_TITLE_LENGTH = 200
+private const val MAX_DESCRIPTION_LENGTH = 20_000
 
-fun oddlyTitledGigs(gigs: List<Gig>): List<Gig> =
-    gigs.filter { it.title.value.isBlank() || it.title.value.length > MAX_TITLE_LENGTH }
+// Paired with its reason so a run says which selector to go and look at, rather than only that
+// something was wrong.
+fun misshapenGigs(gigs: List<Gig>): Map<Gig, String> =
+    gigs.mapNotNull { gig ->
+        val problem = when {
+            gig.title.value.isBlank() -> "no title"
+            gig.title.value.length > MAX_TITLE_LENGTH -> "title of ${gig.title.value.length} chars"
+            gig.description.isBlank() -> "no description"
+            gig.description.length > MAX_DESCRIPTION_LENGTH -> "description of ${gig.description.length} chars"
+            else -> null
+        }
+        problem?.let { gig to it }
+    }.toMap()
 
 private fun words(text: String): List<String> = text.trim().split(Regex("\\s+")).filter { it.isNotBlank() }
 

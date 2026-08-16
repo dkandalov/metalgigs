@@ -146,15 +146,15 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
         validated.forEach { (venueId, count) -> println("  ${venue(venueId)} ($count gig(s))") }
     }
 
-    // Per gig rather than per venue, unlike contamination: a title that didn't parse says nothing
-    // about the other gigs on the same listing.
-    val oddlyTitled = oddlyTitledGigs(toObserve).toSet()
-    if (oddlyTitled.isNotEmpty()) {
-        println("Titles that look like a parsing failure - check that source's title selector. Not logging their gigs this run:")
-        oddlyTitled.forEach { gig -> println("  ${venue(gig.id.venueId)} (${gig.title.value.length} chars) ${gig.id.url}") }
+    // Per gig rather than per venue, unlike contamination: text that didn't parse says nothing about
+    // the other gigs on the same listing.
+    val misshapen = misshapenGigs(toObserve)
+    if (misshapen.isNotEmpty()) {
+        println("Gigs that look like a parsing failure - check that source's selectors. Not logging them this run:")
+        misshapen.forEach { (gig, problem) -> println("  ${venue(gig.id.venueId)} ($problem) ${gig.id.url}") }
     }
 
-    val observed = toObserve.filterNot { it.id.venueId in validated.keys || it in oddlyTitled }
+    val observed = toObserve.filterNot { it.id.venueId in validated.keys || it in misshapen }
         .map { gig -> GigObserved(gig, now) }
     log.append(observed)
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped")
