@@ -58,6 +58,7 @@ class GigValidationTest {
             gig(title = GigTitle("A"), url = "https://example.com/a", description = "Facebook ... Allow the use of cookies from Facebook in this browser? We use cookies and similar technologies to help provide and improve content on Meta Products."),
             gig(title = GigTitle("B"), url = "https://example.com/b", description = """{"response":"identify"}"""),
             gig(title = GigTitle("C"), url = "https://example.com/c", description = "Gigantic Tickets - Bot Check Enable JavaScript and cookies to continue"),
+            gig(title = GigTitle("D"), url = "https://example.com/d", description = "tixr.com Please enable JS and disable any ad blocker"),
         )
 
         expectThat(misshapenGigs(gigs).values.toSet())

@@ -43,10 +43,15 @@ private const val MAX_DESCRIPTION_LENGTH = 10_000
 // Deliberately narrow, because the near misses are real gig copy: "privacy policy" and "terms and
 // conditions" both appear in blurbs that merely link them, so neither can be a marker. These three
 // phrases and the JSON check match every junk description in the log and nothing else.
-private val boilerplatePhrases = listOf("we use cookies", "allow the use of cookies", "enable javascript")
+private val boilerplatePhrases = listOf(
+    Regex("we use cookies", RegexOption.IGNORE_CASE),
+    Regex("allow the use of cookies", RegexOption.IGNORE_CASE),
+    // both spellings appear: Gigantic writes "Enable JavaScript", tixr writes "Please enable JS"
+    Regex("""enable j(ava)?s(cript)?\b""", RegexOption.IGNORE_CASE),
+)
 
 private fun readsAsBoilerplate(description: String) =
-    description.startsWith("{") || boilerplatePhrases.any { description.contains(it, ignoreCase = true) }
+    description.startsWith("{") || boilerplatePhrases.any { it.containsMatchIn(description) }
 
 // Paired with its reason so a run says which selector to go and look at, rather than only that
 // something was wrong.
