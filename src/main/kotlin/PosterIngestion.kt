@@ -59,7 +59,10 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
     val parsed = parsePosterReply(reply)
     check(parsed.isNotEmpty()) { "Could not parse any gigs from poster extraction reply for $venue at $imageUrl: \"$reply\"" }
 
+    // The title is the description because a poster gig has no event page behind it - the flyer is
+    // all there is, and what the extraction read off it is the title. "" would say a page was read
+    // and had nothing to say about the gig, which is the one thing that never happened here.
     return parsed
         .filterNot { (_, title) -> isExcluded(venue, title) }
-        .map { (date, title) -> Gig(id = GigId(venue.id, posterGigUrl(sourceUrl, title, date)), title = GigTitle(title), date = date, imageUrl = imageUrl, description = "") }
+        .map { (date, title) -> Gig(id = GigId(venue.id, posterGigUrl(sourceUrl, title, date)), title = GigTitle(title), date = date, imageUrl = imageUrl, description = title) }
 }
