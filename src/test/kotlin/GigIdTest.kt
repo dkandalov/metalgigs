@@ -36,7 +36,7 @@ class GigIdTest {
 
     @Test
     fun `refuses a blank url read back from the log`() {
-        val line = """{"_type": "classified", "venue": "The Grace", "url": "", "recordedAt": "2026-08-01T12:00:00Z", "genre": "Metal", "source": "User"}"""
+        val line = """{"_type": "classified", "seq": 0, "venue": "The Grace", "url": "", "recordedAt": "2026-08-01T12:00:00Z", "genre": "Metal", "source": "User"}"""
 
         // Kondor catches the failure and rethrows it as its own converter error, so the type is
         // theirs rather than IllegalArgumentException - the require's own message survives inside it

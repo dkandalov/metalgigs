@@ -28,8 +28,8 @@ class LogCompactionTest {
         )
 
         expectThat(gigsLog(entries).compact().entries).containsExactly(
-            GigObserved(gigB, at(1)),
-            GigObserved(soldOut, at(3)),
+            GigObserved(gigB, at(1), seq = 1),
+            GigObserved(soldOut, at(3), seq = 2),
         )
     }
 
@@ -44,7 +44,7 @@ class LogCompactionTest {
         )
 
         expectThat(gigsLog(entries).compact().entries).containsExactly(
-            GigClassified(gigA.id, at(2), Genre.Metal, ClassificationSource.User),
+            GigClassified(gigA.id, at(2), Genre.Metal, ClassificationSource.User, seq = 1),
         )
     }
 
@@ -56,7 +56,7 @@ class LogCompactionTest {
         )
 
         expectThat(gigsLog(entries).compact().entries).containsExactly(
-            GigClassified(gigA.id, at(3), Genre.Metal, ClassificationSource.LLM),
+            GigClassified(gigA.id, at(3), Genre.Metal, ClassificationSource.LLM, seq = 1),
         )
     }
 
@@ -67,8 +67,9 @@ class LogCompactionTest {
             GigsRendered("2026-08-01T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 1), recordedAt = at(1)),
             GigsRendered("2026-08-02T12-00-00Z.html", gigCount = 2, logicalDate = LocalDate.of(2026, 8, 2), recordedAt = at(2)),
         )
+        val log = gigsLog(entries)
 
-        expectThat(gigsLog(entries).compact().entries).isEqualTo(entries)
+        expectThat(log.compact().entries).isEqualTo(log.entries)
     }
 
     @Test
@@ -78,8 +79,9 @@ class LogCompactionTest {
             GigClassified(gigA.id, at(2), Genre.Metal, ClassificationSource.LLM),
             GigsRendered("2026-08-03T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 3), recordedAt = at(3)),
         )
+        val log = gigsLog(entries)
 
-        expectThat(gigsLog(entries).compact().entries).isEqualTo(entries)
+        expectThat(log.compact().entries).isEqualTo(log.entries)
     }
 
     @Test

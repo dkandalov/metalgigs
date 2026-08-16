@@ -6,6 +6,7 @@ import java.io.File
 import java.time.Instant
 import java.time.LocalDate
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class GigsStoreTest {
 
@@ -25,9 +26,43 @@ class GigsStoreTest {
         )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
-        GigsLog(file).append(entries)
+        val log = GigsLog(file).apply { append(entries) }
 
-        expectThat(GigsLog(file).entries).isEqualTo(entries)
+        expectThat(GigsLog(file).entries).isEqualTo(log.entries)
+    }
+
+    @Test
+    fun `numbers appended entries in order, continuing from what the log already holds`() {
+        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+        val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+
+        GigsLog(file).append(listOf(GigObserved(gig, recordedAt), GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM)))
+        GigsLog(file).append(listOf(GigObserved(gig.copy(title = GigTitle("Test Gig - SOLD OUT")), recordedAt)))
+
+        expectThat(GigsLog(file).entries.map { it.seq }).isEqualTo(listOf(0L, 1L, 2L))
+    }
+
+    // compactLog appends already-logged entries to a fresh file, and a seq that changed on the way
+    // wouldn't identify anything - the gaps are what say entries were dropped
+    @Test
+    fun `keeps the seq of an entry that already has one`() {
+        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+        val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+
+        GigsLog(file).append(listOf(GigObserved(gig, recordedAt, seq = 7), GigObserved(gig, recordedAt, seq = 9)))
+
+        expectThat(GigsLog(file).entries.map { it.seq }).isEqualTo(listOf(7L, 9L))
+    }
+
+    @Test
+    fun `refuses an entry whose seq would leave the log out of order`() {
+        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+        val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
+        val log = gigsLog(listOf(GigObserved(gig, recordedAt, seq = 5)))
+
+        assertFailsWith<IllegalArgumentException> { log.append(listOf(GigObserved(gig, recordedAt, seq = 5))) }
     }
 
     @Test
@@ -43,7 +78,7 @@ class GigsStoreTest {
         GigsLog(file).append(listOf(rendered))
 
         expectThat(file.readText().trim()).isEqualTo(
-            """{"_type": "rendered", "file": "2026-08-01T12-00-00Z.html", "gigCount": 42, "logicalDate": "2026-08-01", "recordedAt": "2026-08-01T12:00:00Z"}""",
+            """{"_type": "rendered", "seq": 0, "file": "2026-08-01T12-00-00Z.html", "gigCount": 42, "logicalDate": "2026-08-01", "recordedAt": "2026-08-01T12:00:00Z"}""",
         )
     }
 
@@ -60,6 +95,7 @@ class GigsStoreTest {
             useVision = false,
             inputTokens = 1234,
             outputTokens = 3,
+            seq = 0,
         )
 
         GigsLog(file).append(listOf(classified))
@@ -67,13 +103,13 @@ class GigsStoreTest {
         expectThat(GigsLog(file).entries).isEqualTo(listOf(classified))
     }
 
-    // verbatim from the real log, from before llmModel and useVision were added - no keys for
-    // either, not null-valued keys, so this is what an absent JFieldMaybe actually has to handle
+    // a real log line from before llmModel and useVision were added, renumbered to seq 0 - no keys
+    // for either, not null-valued keys, so this is what an absent JFieldMaybe actually has to handle
     @Test
     fun `reads back a classification written before llmModel and useVision existed`() {
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
         file.writeText(
-            """{"_type": "classified", "venue": "Signature Brew Blackhorse Road", "url": "https://tixr.com/e/187182", "recordedAt": "2026-08-11T21:20:43.785398Z", "genre": "Other", "source": "LLM"}""" + "\n",
+            """{"_type": "classified", "seq": 0, "venue": "Signature Brew Blackhorse Road", "url": "https://tixr.com/e/187182", "recordedAt": "2026-08-11T21:20:43.785398Z", "genre": "Other", "source": "LLM"}""" + "\n",
         )
 
         expectThat(GigsLog(file).entries).isEqualTo(
@@ -83,6 +119,7 @@ class GigsStoreTest {
                     recordedAt = Instant.parse("2026-08-11T21:20:43.785398Z"),
                     genre = Genre.Other,
                     source = ClassificationSource.LLM,
+                    seq = 0,
                 ),
             ),
         )
@@ -95,16 +132,41 @@ class GigsStoreTest {
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
         // No description key at all, which no line in the log currently has - this pins the optional
         // read, so a hand-edited or truncated line degrades to "" instead of failing the whole read.
-        file.writeText("""{"_type": "observed", "gig": {"title": "Test Gig", "venue": "Test Venue", "date": "2026-08-08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
+        file.writeText("""{"_type": "observed", "seq": 0, "gig": {"title": "Test Gig", "venue": "Test Venue", "date": "2026-08-08", "url": "https://example.com/gigs/test-gig", "imageUrl": ""}, "recordedAt": "2026-08-01T12:00:00Z"}""" + "\n")
 
         GigsLog(file).append(listOf(GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60))))
 
         expectThat(GigsLog(file).entries).isEqualTo(
             listOf(
-                GigObserved(gig, recordedAt),
-                GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60)),
+                GigObserved(gig, recordedAt, seq = 0),
+                GigObserved(gig.copy(description = "Doom metal night"), recordedAt.plusSeconds(60), seq = 1),
             ),
         )
+    }
+
+    // The reason seq exists: a scrape stamps every observation it logs with one Instant, and a
+    // classification run does the same, so recordedAt alone can't say which entry came last.
+    @Test
+    fun `takes the later of two observations recorded at the same instant`() {
+        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+        val soldOut = gig.copy(title = GigTitle("Some Gig - SOLD OUT"))
+        val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
+        val events: List<LogEntry> = listOf(GigObserved(gig, recordedAt), GigObserved(soldOut, recordedAt))
+
+        expectThat(gigsLog(events).currentGigs()).isEqualTo(listOf(soldOut))
+    }
+
+    @Test
+    fun `takes the later of two classifications recorded at the same instant`() {
+        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+        val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
+        val events: List<LogEntry> = listOf(
+            GigObserved(gig, recordedAt),
+            GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigClassified(gig.id, recordedAt, Genre.Other, ClassificationSource.LLM),
+        )
+
+        expectThat(gigsLog(events).classificationStatus()[gig.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
     }
 
     @Test

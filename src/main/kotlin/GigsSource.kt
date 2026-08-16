@@ -38,12 +38,26 @@ data class GigId(val venueId: VenueId, val url: String) {
     }
 }
 
+// The seq an entry has before it has been logged. GigsLog.append gives it a real one.
+const val UNSEQUENCED = -1L
+
 sealed interface LogEntry {
     val recordedAt: Instant
+
+    // Says which of two entries was logged later, which recordedAt can't: a scrape or classification
+    // run stamps every entry it appends with one Instant, so equal times are the norm, not the edge case.
+    val seq: Long
+
+    fun withSeq(seq: Long): LogEntry
 }
 
-data class GigObserved(val gig: Gig, override val recordedAt: Instant) : LogEntry {
+data class GigObserved(
+    val gig: Gig,
+    override val recordedAt: Instant,
+    override val seq: Long = UNSEQUENCED,
+) : LogEntry {
     val id get() = gig.id
+    override fun withSeq(seq: Long) = copy(seq = seq)
 }
 
 data class GigClassified(
@@ -55,7 +69,10 @@ data class GigClassified(
     val useVision: Boolean? = null,
     val inputTokens: Int? = null,
     val outputTokens: Int? = null,
-) : LogEntry
+    override val seq: Long = UNSEQUENCED,
+) : LogEntry {
+    override fun withSeq(seq: Long) = copy(seq = seq)
+}
 
 // logicalDate is the date the page was rendered as of - gigs before it are left off - which is
 // today for a normal render but any date for a backdated one. Distinct from recordedAt, the wall
@@ -65,7 +82,10 @@ data class GigsRendered(
     val gigCount: Int,
     val logicalDate: LocalDate,
     override val recordedAt: Instant,
-) : LogEntry
+    override val seq: Long = UNSEQUENCED,
+) : LogEntry {
+    override fun withSeq(seq: Long) = copy(seq = seq)
+}
 
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 

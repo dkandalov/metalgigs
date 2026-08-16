@@ -45,16 +45,19 @@ object JGig : JAny<Gig>() {
 }
 
 object JGigObserved : JAny<GigObserved>() {
+    private val seq by num(GigObserved::seq)
     private val gig by obj(JGig, GigObserved::gig)
     private val recordedAt by str(GigObserved::recordedAt)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigObserved(
         gig = +gig,
         recordedAt = +recordedAt,
+        seq = +seq,
     )
 }
 
 object JGigClassified : JAny<GigClassified>() {
+    private val seq by num(GigClassified::seq)
     private val venue by str(JVenueId) { id.venueId }
     private val url by str(fun GigClassified.(): String = id.url)
     private val recordedAt by str(GigClassified::recordedAt)
@@ -75,10 +78,12 @@ object JGigClassified : JAny<GigClassified>() {
         useVision = +useVision,
         inputTokens = +inputTokens,
         outputTokens = +outputTokens,
+        seq = +seq,
     )
 }
 
 object JGigsRendered : JAny<GigsRendered>() {
+    private val seq by num(GigsRendered::seq)
     private val file by str(GigsRendered::file)
     private val gigCount by num(GigsRendered::gigCount)
     private val logicalDate by str(GigsRendered::logicalDate)
@@ -89,6 +94,7 @@ object JGigsRendered : JAny<GigsRendered>() {
         gigCount = +gigCount,
         logicalDate = +logicalDate,
         recordedAt = +recordedAt,
+        seq = +seq,
     )
 }
 
@@ -132,17 +138,31 @@ class GigsLog(private val file: File) {
         private set
 
     fun append(newEntries: List<LogEntry>) {
+        val sequenced = sequenced(newEntries)
         FileWriter(file, true).buffered().use { writer ->
-            toNdJson(JLogEntry)(newEntries).forEach { writer.appendLine(it) }
+            toNdJson(JLogEntry)(sequenced).forEach { writer.appendLine(it) }
         }
-        entries = entries + newEntries
+        entries = entries + sequenced
+    }
+
+    // An entry that already carries a seq keeps it, so compacting - which appends a whole log's worth
+    // of already-logged entries to an empty file - doesn't renumber what it keeps, and the gaps it
+    // leaves say what was dropped. Anything unsequenced continues this log's numbering.
+    private fun sequenced(newEntries: List<LogEntry>): List<LogEntry> {
+        var previous = entries.lastOrNull()?.seq ?: UNSEQUENCED
+        return newEntries.map { entry ->
+            val seq = if (entry.seq == UNSEQUENCED) previous + 1 else entry.seq
+            require(seq > previous) { "Entry seq $seq doesn't follow $previous, so the log wouldn't be in order: $entry" }
+            previous = seq
+            entry.withSeq(seq)
+        }
     }
 
     fun currentGigs(): List<Gig> =
         entries.filterIsInstance<GigObserved>()
             .groupBy { it.id }
             .values
-            .map { observations -> observations.maxBy { it.recordedAt }.gig }
+            .map { observations -> observations.maxBy { it.seq }.gig }
 
     // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
     // title gaining "- SOLD OUT", a rescheduled date, or a changed description) - compares against
@@ -175,7 +195,7 @@ class GigsLog(private val file: File) {
 
     // a user's own classification is always final; otherwise the latest LLM classification stands
     private fun effectiveClassification(classifications: List<GigClassified>): GigClassified? {
-        val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.recordedAt } }
+        val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.seq } }
         return latestBySource[ClassificationSource.User] ?: latestBySource[ClassificationSource.LLM]
     }
 
@@ -211,14 +231,14 @@ class GigsLog(private val file: File) {
     fun compact(): CompactedLog {
         val observations = entries.filterIsInstance<GigObserved>()
             .groupBy { it.id }
-            .map { (_, observations) -> observations.maxBy { it.recordedAt } }
+            .map { (_, observations) -> observations.maxBy { it.seq } }
         val classifications = entries.filterIsInstance<GigClassified>()
             .groupBy { it.id }
             .mapNotNull { (_, classifications) -> effectiveClassification(classifications) }
         val renders = entries.filterIsInstance<GigsRendered>()
 
         return CompactedLog(
-            entries = (observations + classifications + renders).sortedBy { it.recordedAt },
+            entries = (observations + classifications + renders).sortedBy { it.seq },
             observationsDropped = entries.count { it is GigObserved } - observations.size,
             classificationsDropped = entries.count { it is GigClassified } - classifications.size,
         )
