@@ -978,6 +978,84 @@ class GigsSourceTest {
         expectThat(events.filter { it.date.year == 2027 && it.date.monthValue == 3 }).hasSize(3)
     }
 
+    @Test
+    fun `extracts gig events from indigo at The O2, paging past the listing's first batch`() {
+        val events = assertScrapesGigs(
+            source = IndigoAtTheO2GigsSource(cachedClient()),
+            size = 53,
+            first = Gig(
+                id = GigId(indigoAtTheO2.id, "https://www.theo2.co.uk/events/detail/timaya"),
+                title = GigTitle("TIMAYA"),
+                date = LocalDate.of(2026, 8, 22),
+                imageUrl = "https://www.theo2.co.uk/assets/img/1080X1080-a8eecfe5d3.png",
+                description = "",
+            ),
+            last = Gig(
+                id = GigId(indigoAtTheO2.id, "https://www.theo2.co.uk/events/detail/bat-50th-anniversary-concert"),
+                title = GigTitle("Fuel Injected Magic! 50th Anniversary Concert"),
+                date = LocalDate.of(2027, 10, 30),
+                imageUrl = "https://www.theo2.co.uk/assets/img/Steve-Steinmans-Fuel-Injected-Magic-50th-square-Post3er-jpg-48832cc6ba.jpg",
+                description = "",
+            ),
+            urlPrefix = "https://www.theo2.co.uk/events/detail/",
+        )
+
+        // the venue's own page renders 24 and says nothing about the rest, so a size well past that
+        // is what stands between the paging breaking and a listing quietly losing two thirds of itself
+        expectThat(events.map { it.id.url }.distinct()).hasSize(53)
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(0)
+        expectThat(events.filter { it.date.year == 2027 }).hasSize(11)
+    }
+
+    // The second card on the listing is a run of dates, "23 Aug - 19 Dec 2026", and the year is
+    // written only on the end of it.
+    @Test
+    fun `takes indigo's start date from a range that writes its year only once`() {
+        val html = """
+            <div class="date divider-date">
+              <span class="m-date__rangeFirst"><span class="m-date__day">28 </span><span class="m-date__month">Dec </span></span>
+              <span class="m-date__separator"> - </span>
+              <span class="m-date__rangeLast"><span class="m-date__day">3 </span><span class="m-date__month">Jan </span><span class="m-date__year"> 2027</span></span>
+            </div>
+        """.trimIndent()
+
+        val date = IndigoAtTheO2GigsSource(noHttp).startDateOf(pageOf(html).select(".date").first()!!)
+
+        expectThat(date).isEqualTo(LocalDate.of(2026, 12, 28))
+    }
+
+    @Test
+    fun `takes indigo's start date from a single day that writes its own year`() {
+        val html = """
+            <div class="date divider-date">
+              <span class="m-date__singleDate"><span class="m-date__day">22 </span><span class="m-date__month">Aug </span><span class="m-date__year"> 2026</span></span>
+            </div>
+        """.trimIndent()
+
+        val date = IndigoAtTheO2GigsSource(noHttp).startDateOf(pageOf(html).select(".date").first()!!)
+
+        expectThat(date).isEqualTo(LocalDate.of(2026, 8, 22))
+    }
+
+    // the sign-up block and terms are verbatim from a real event page, where the whole page's text
+    // carries the site nav and both of these into every gig
+    @Test
+    fun `scopes indigo page text to the promoter's copy`() {
+        val html = """
+            <nav><a>Events</a><a>Visit us</a></nav>
+            <div class="content_item textarea">
+              <h2>Event Details</h2>
+              <div class="event_description expandable"><p>German heavy metal pioneers ACCEPT celebrate their 50th anniversary.</p></div>
+            </div>
+            <div class="edp-signup"><h2>Sign up for updates and pre-sales</h2><p>We recommend signing up for alerts.</p></div>
+            <div class="terms_conditions holder"><h3>Terms of entry</h3><p>Unless otherwise stated, all indigo shows are 3+.</p></div>
+        """.trimIndent()
+
+        val pageText = IndigoAtTheO2GigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText).isEqualTo("German heavy metal pioneers ACCEPT celebrate their 50th anniversary.")
+    }
+
     // An AMG event's description comes out of the listing api rather than an event page, so these
     // give the source one event's json instead of one page's markup. The fields are named and
     // shaped as the real api writes them, down to the html the copy is stored as.

@@ -974,3 +974,76 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
         return gigs
     }
 }
+
+val indigoAtTheO2 = Venue(VenueId("indigo-at-the-o2"), "indigo at The O2")
+
+class IndigoAtTheO2GigsSource(private val client: HttpHandler) : GigsSource {
+    override val venue = indigoAtTheO2
+
+    // The venue's own listing page renders only the first 24 events and its "Load More" button
+    // arrives disabled, enabled by the script that fetches the rest - so the page alone reads as a
+    // complete listing when it is a quarter of one. This is what that script calls, one batch of 24
+    // at a time; per_page is in the query it sends but the server ignores it, so the offset in the
+    // path is the only way through. venue=2 is indigo, as the button's own data-venue says.
+    private fun batchUrl(offset: Int) = "https://www.theo2.co.uk/events/events_ajax/$offset" +
+        "?category=0&venue=2&team=0&exclude=&per_page=$batchSize&came_from_page=event-list-page"
+
+    private val batchSize = 24
+
+    // Only to bound a pathological site bug; the real stop condition is a batch coming back empty.
+    private val maxBatches = 20
+
+    // The response is one JSON string holding the html fragment, rather than the fragment itself.
+    private fun eventsHtml(offset: Int): String {
+        val body = fetchPage(client, batchUrl(offset)).trim()
+        if (body.isEmpty()) return ""
+        return (parseJsonNode(body).orThrow() as? JsonNodeString)?.text.orEmpty()
+    }
+
+    // The whole page's text is the site's nav, its own venue furniture and a mailing-list form
+    // around the copy; this is the one block the promoter writes, and every event page read had one.
+    internal fun eventPageContent(page: Document) = page.select(".event_description").textOrNull()
+
+    // A single date writes its day, month and year together. A range writes the year once, on its
+    // end date, so a range crossing new year would date its start a year late - "28 Dec - 3 Jan
+    // 2027" starts in 2026. Only the start date is used, as at Alexandra Palace and Eventim Apollo.
+    internal fun startDateOf(date: Element): LocalDate {
+        val start = date.select(".m-date__rangeFirst").first() ?: date.select(".m-date__singleDate").first()!!
+        val end = date.select(".m-date__rangeLast").first() ?: start
+        val startMonth = monthsByShortName.getValue(start.select(".m-date__month").text().trim())
+        val year = end.select(".m-date__year").text().trim().toInt()
+        return LocalDate.of(
+            if (startMonth > monthsByShortName.getValue(end.select(".m-date__month").text().trim())) year - 1 else year,
+            startMonth,
+            start.select(".m-date__day").text().trim().toInt(),
+        )
+    }
+
+    override fun latestGigs(): List<Gig> {
+        val gigs = mutableListOf<Gig>()
+
+        for (batch in 0 until maxBatches) {
+            val items = Jsoup.parse(eventsHtml(batch * batchSize), venuePageUrl).select(".eventItem")
+            if (items.isEmpty()) break
+
+            gigs += items.map { item ->
+                val link = item.select("h3.title a")
+                val gigUrl = link.attr("abs:href")
+
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(link.text()),
+                    date = startDateOf(item.select(".date").first()!!),
+                    // each card carries a 480x281 crop and a square one of at least 564px, and it's
+                    // the square that survives render's own square crop rather than being letterboxed
+                    imageUrl = item.select(".thumb img.square").attr("abs:src"),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+        }
+        return gigs
+    }
+
+    // The fragments carry absolute urls of their own; this only gives Jsoup a base to resolve against
+    private val venuePageUrl = "https://www.theo2.co.uk/events/venue/indigo-at-the-o2"
+}
