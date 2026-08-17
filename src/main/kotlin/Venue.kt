@@ -42,6 +42,7 @@ val allVenues: List<Venue> = listOf(
     islingtonAssemblyHall,
     barflyCamden,
     indigoAtTheO2,
+    theO2Arena,
     eventimApollo,
     ovoArena,
 )

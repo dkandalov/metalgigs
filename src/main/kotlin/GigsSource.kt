@@ -975,18 +975,16 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
     }
 }
 
-val indigoAtTheO2 = Venue(VenueId("indigo-at-the-o2"), "indigo at The O2")
-
-class IndigoAtTheO2GigsSource(private val client: HttpHandler) : GigsSource {
-    override val venue = indigoAtTheO2
-
-    // The venue's own listing page renders only the first 24 events and its "Load More" button
-    // arrives disabled, enabled by the script that fetches the rest - so the page alone reads as a
-    // complete listing when it is a quarter of one. This is what that script calls, one batch of 24
-    // at a time; per_page is in the query it sends but the server ignores it, so the offset in the
-    // path is the only way through. venue=2 is indigo, as the button's own data-venue says.
+// shared by the two rooms The O2 lists on its own site - the arena and indigo - which differ only
+// in the site's own numeric id for each, as the listing page's own "Load More" button carries
+class TheO2VenueGigsSource(private val client: HttpHandler, private val theO2VenueId: Int, override val venue: Venue) : GigsSource {
+    // A venue's listing page renders only the first 24 events and its "Load More" button arrives
+    // disabled, enabled by the script that fetches the rest - so the page alone reads as a complete
+    // listing when it is a fraction of one, at either room. This is what that script calls, one
+    // batch of 24 at a time; per_page is in the query the site sends but the server ignores it, so
+    // the offset in the path is the only way through.
     private fun batchUrl(offset: Int) = "https://www.theo2.co.uk/events/events_ajax/$offset" +
-        "?category=0&venue=2&team=0&exclude=&per_page=$batchSize&came_from_page=event-list-page"
+        "?category=0&venue=$theO2VenueId&team=0&exclude=&per_page=$batchSize&came_from_page=event-list-page"
 
     private val batchSize = 24
 
@@ -1010,20 +1008,29 @@ class IndigoAtTheO2GigsSource(private val client: HttpHandler) : GigsSource {
     internal fun startDateOf(date: Element): LocalDate {
         val start = date.select(".m-date__rangeFirst").first() ?: date.select(".m-date__singleDate").first()!!
         val end = date.select(".m-date__rangeLast").first() ?: start
-        val startMonth = monthsByShortName.getValue(start.select(".m-date__month").text().trim())
+        val startMonth = monthNamed(start)
         val year = end.select(".m-date__year").text().trim().toInt()
         return LocalDate.of(
-            if (startMonth > monthsByShortName.getValue(end.select(".m-date__month").text().trim())) year - 1 else year,
+            if (startMonth > monthNamed(end)) year - 1 else year,
             startMonth,
             start.select(".m-date__day").text().trim().toInt(),
         )
     }
 
+    // The site abbreviates a month except where the abbreviation would save nothing: the arena's
+    // listing writes "Jun" as "June" and "Jul" as "July" while every other month is three letters.
+    private fun monthNamed(date: Element): Month =
+        date.select(".m-date__month").text().trim()
+            .let { monthsByShortName[it] ?: Month.valueOf(it.uppercase()) }
+
+    // The fragments carry absolute urls of their own; this only gives Jsoup a base to resolve against
+    private val siteUrl = "https://www.theo2.co.uk/"
+
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
 
         for (batch in 0 until maxBatches) {
-            val items = Jsoup.parse(eventsHtml(batch * batchSize), venuePageUrl).select(".eventItem")
+            val items = Jsoup.parse(eventsHtml(batch * batchSize), siteUrl).select(".eventItem")
             if (items.isEmpty()) break
 
             gigs += items.map { item ->
@@ -1043,7 +1050,17 @@ class IndigoAtTheO2GigsSource(private val client: HttpHandler) : GigsSource {
         }
         return gigs
     }
-
-    // The fragments carry absolute urls of their own; this only gives Jsoup a base to resolve against
-    private val venuePageUrl = "https://www.theo2.co.uk/events/venue/indigo-at-the-o2"
 }
+
+val indigoAtTheO2 = Venue(VenueId("indigo-at-the-o2"), "indigo at The O2")
+
+class IndigoAtTheO2GigsSource(client: HttpHandler) :
+    GigsSource by TheO2VenueGigsSource(client, theO2VenueId = 2, venue = indigoAtTheO2)
+
+val theO2Arena = Venue(VenueId("the-o2-arena"), "The O2 Arena")
+
+// The arena's programme is far wider than its indigo room's - boxing, awards ceremonies, family
+// shows - and the site's own genre filter has no metal in it, only Rock. So everything it lists is
+// taken and left to the classifier, as at Alexandra Palace and Eventim Apollo.
+class TheO2ArenaGigsSource(client: HttpHandler) :
+    GigsSource by TheO2VenueGigsSource(client, theO2VenueId = 1, venue = theO2Arena)
