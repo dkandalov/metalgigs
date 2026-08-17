@@ -3,13 +3,27 @@ import com.ubertob.kondor.json.array
 import com.ubertob.kondor.json.jsonnode.JsonNodeObject
 import com.ubertob.kondor.json.str
 import org.http4k.core.HttpHandler
+import org.jsoup.Jsoup
 import java.time.OffsetDateTime
 
 // AMG's venue listing pages are Next.js SPAs that render nothing server-side and paginate
 // client-side, but they feed themselves from this plain JSON API, which happily serves every event
-// in one request - so we call that directly rather than rendering a page and paging through it
+// in one request - so we call that directly rather than rendering a page and paging through it.
+// It carries the promoter's copy too, so a venue's whole listing is this one request.
 private data class AmgTicket(val ticketUrl: String)
-private data class AmgEvent(val name: String, val eventDate: String, val image: String, val tickets: List<AmgTicket>)
+private data class AmgLocalization(val description: String)
+private data class AmgGenre(val name: String)
+private data class AmgAct(val name: String)
+private data class AmgEvent(
+    val name: String,
+    val eventDate: String,
+    val image: String,
+    val tickets: List<AmgTicket>,
+    val localizations: List<AmgLocalization>,
+    val genres: List<AmgGenre>,
+    val lineup: List<AmgAct>,
+)
+
 private data class AmgSearchResults(val documents: List<AmgEvent>)
 
 private object JAmgTicket : JAny<AmgTicket>() {
@@ -17,17 +31,41 @@ private object JAmgTicket : JAny<AmgTicket>() {
     override fun JsonNodeObject.deserializeOrThrow() = AmgTicket(ticketUrl = +ticketUrl)
 }
 
+// Every event carries exactly one localization, always en-GB, whose description is the promoter's
+// copy as html. The sibling mainEventInformation field repeats it word for word wherever there is
+// any, so only one of the two is read.
+private object JAmgLocalization : JAny<AmgLocalization>() {
+    private val description by str(AmgLocalization::description)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgLocalization(description = +description)
+}
+
+private object JAmgGenre : JAny<AmgGenre>() {
+    private val name by str(AmgGenre::name)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgGenre(name = +name)
+}
+
+private object JAmgAct : JAny<AmgAct>() {
+    private val name by str(AmgAct::name)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgAct(name = +name)
+}
+
 private object JAmgEvent : JAny<AmgEvent>() {
     private val name by str(AmgEvent::name)
     private val eventDate by str(AmgEvent::eventDate)
     private val image by str(AmgEvent::image)
     private val tickets by array(JAmgTicket, AmgEvent::tickets)
+    private val localizations by array(JAmgLocalization, AmgEvent::localizations)
+    private val genres by array(JAmgGenre, AmgEvent::genres)
+    private val lineup by array(JAmgAct, AmgEvent::lineup)
 
     override fun JsonNodeObject.deserializeOrThrow() = AmgEvent(
         name = +name,
         eventDate = +eventDate,
         image = +image,
         tickets = +tickets,
+        localizations = +localizations,
+        genres = +genres,
+        lineup = +lineup,
     )
 }
 
@@ -35,6 +73,27 @@ private object JAmgSearchResults : JAny<AmgSearchResults>() {
     private val documents by array(JAmgEvent, AmgSearchResults::documents)
     override fun JsonNodeObject.deserializeOrThrow() = AmgSearchResults(documents = +documents)
 }
+
+// About one event in ten has no copy written for it - 32 of the 334 these four venues listed as of
+// 2026-08-17 - but every one of those still names its acts and its genres, which is what a
+// description is for here: nothing renders it, it only tells the classifier what kind of gig this
+// is. The api lists the acts headliner first, so they're left in its order rather than resorted.
+private fun AmgEvent.actsAndGenres(): String =
+    listOfNotNull(
+        lineup.joinToString(", ") { it.name }.ifBlank { null }?.let { "Lineup: $it." },
+        genres.joinToString(", ") { it.name }.ifBlank { null }?.let { "Genre: $it." },
+    ).joinToString(" ")
+
+// A cancelled show has its copy replaced by AMG's standard notice, word for word across venues, so
+// it stands in for a description without being one - the same thing a blank says, said at length.
+// Taken as copy it would also read as one gig's text on another, which is what it is.
+private val cancellationNotice = Regex("""^sorry, this show has been cancelled""", RegexOption.IGNORE_CASE)
+
+// The copy is html, so it's parsed for its text the way an event page's would be.
+private fun AmgEvent.description(): String =
+    Jsoup.parse(localizations.firstOrNull()?.description ?: "").text().trim()
+        .takeUnless { it.isBlank() || cancellationNotice.containsMatchIn(it) }
+        ?: actsAndGenres()
 
 // shared by every Academy Music Group venue; the venue-specific classes below just supply the
 // venue and AMG's own numeric id(s) for it (as seen in the API's own venue objects). More than one
@@ -69,7 +128,7 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: In
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.eventDate).toLocalDate(),
                 imageUrl = event.image,
-                description = fetchDescription(client, gigUrl) { page -> page.text() },
+                description = event.description(),
             )
         }
     }

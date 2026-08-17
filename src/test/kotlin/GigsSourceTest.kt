@@ -6,6 +6,7 @@ import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
+import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.time.LocalDate
@@ -975,6 +976,99 @@ class GigsSourceTest {
 
         expectThat(events.none { it.date.year == 2027 && it.date.monthValue == 1 }).isTrue()
         expectThat(events.filter { it.date.year == 2027 && it.date.monthValue == 3 }).hasSize(3)
+    }
+
+    // An AMG event's description comes out of the listing api rather than an event page, so these
+    // give the source one event's json instead of one page's markup. The fields are named and
+    // shaped as the real api writes them, down to the html the copy is stored as.
+    private fun amgListingOf(event: String): HttpHandler = { Response(OK).body("""{"documents":[$event]}""") }
+
+    private fun amgEvent(localizations: String, genres: String = "[]", lineup: String = "[]") = """
+        {
+          "name": "Wage War", "eventDate": "2027-01-16T00:00:00Z", "image": "https://example.com/poster.jpg",
+          "tickets": [{"ticketUrl": "https://www.ticketmaster.co.uk/event/ABC?utm_source=amg"}],
+          "localizations": $localizations, "genres": $genres, "lineup": $lineup
+        }
+    """.trimIndent()
+
+    @Test
+    fun `takes an AMG gig's description from the promoter's copy in the listing api`() {
+        val event = amgEvent(
+            localizations = """[{"cultureName": "en-GB", "description": "<p>Metalcore from Florida.</p>\r\n<p>Support TBA.&nbsp;</p>"}]""",
+            genres = """[{"name": "Hard Rock And Metal"}]""",
+            lineup = """[{"name": "Wage War", "type": "headline"}]""",
+        )
+
+        val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
+
+        expectThat(gig.description).isEqualTo("Metalcore from Florida. Support TBA.")
+    }
+
+    // About one AMG event in ten has no copy written for it, and its acts and genres are all the
+    // api says about what kind of gig it is.
+    @Test
+    fun `describes an AMG gig with no copy by its acts and genres`() {
+        val event = amgEvent(
+            localizations = """[{"cultureName": "en-GB", "description": ""}]""",
+            genres = """[{"name": "Hard Rock And Metal"}]""",
+            lineup = """[{"name": "Wage War", "type": "headline"}, {"name": "Invent Animate", "type": "support"}]""",
+        )
+
+        val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
+
+        expectThat(gig.description).isEqualTo("Lineup: Wage War, Invent Animate. Genre: Hard Rock And Metal.")
+    }
+
+    // Verbatim from a real listing, where the same notice stood in for the copy of cancelled shows
+    // at three of the four venues.
+    @Test
+    fun `describes an AMG gig whose copy is the cancellation notice by its acts and genres`() {
+        val notice = "<p>Sorry, this show has been cancelled and there aren't any plans to reschedule. " +
+            "You'll be able to get a full refund from wherever you bought your tickets, and your " +
+            "ticket agent will be in touch to tell you more.</p>"
+        val event = amgEvent(
+            localizations = """[{"cultureName": "en-GB", "description": "$notice"}]""",
+            genres = """[{"name": "Hard Rock And Metal"}]""",
+            lineup = """[{"name": "Wage War", "type": "headline"}]""",
+        )
+
+        val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
+
+        expectThat(gig.description).isEqualTo("Lineup: Wage War. Genre: Hard Rock And Metal.")
+    }
+
+    // Every AMG gig observed while their descriptions came from the ticketing page held that page's
+    // bot wall rather than any copy - 334 of the 335 in the log as of 2026-08-17 - and no run said
+    // so, because the check of the day looked only at gigs that had changed since the last one.
+    @Test
+    fun `no gig the AMG sources list fails validation`() {
+        val client = cachedClient()
+        val scraped = listOf(
+            O2ForumKentishTownGigsSource(client),
+            O2AcademyBrixtonGigsSource(client),
+            O2AcademyIslingtonGigsSource(client),
+            O2ShepherdsBushEmpireGigsSource(client),
+        ).associate { it.venue.id to it.latestGigs() }
+
+        val validation = validateGigs(scraped)
+
+        expectThat(
+            validation.reports.flatMap { report ->
+                report.problems.map { "${it.venueId}: ${it.detail} (${it.gigs.size} gig(s))" }
+            }
+        ).isEmpty()
+    }
+
+    @Test
+    fun `describes an AMG gig with neither copy nor a lineup by its genres alone`() {
+        val event = amgEvent(
+            localizations = """[{"cultureName": "en-GB", "description": ""}]""",
+            genres = """[{"name": "Other"}]""",
+        )
+
+        val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
+
+        expectThat(gig.description).isEqualTo("Genre: Other.")
     }
 
     // Each source parses its own event pages, so these go straight at that parsing - no listing page
