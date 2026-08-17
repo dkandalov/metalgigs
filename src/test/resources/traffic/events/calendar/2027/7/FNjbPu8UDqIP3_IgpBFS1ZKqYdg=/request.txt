@@ -1,0 +1,3 @@
+GET https://www.ovoarena.co.uk/events/calendar/2027/7 HTTP/1.1
+
+

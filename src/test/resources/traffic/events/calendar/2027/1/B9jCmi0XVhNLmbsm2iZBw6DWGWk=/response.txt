@@ -1,0 +1,20 @@
+HTTP/1.1 200 
+accept-ranges: bytes
+age: 0
+cache-control: max-age=15
+content-type: text/html; charset=UTF-8
+date: Mon, 17 Aug 2026 19:50:43 GMT
+expires: Mon, 17 Aug 2026 19:50:58 GMT
+via: 1.1 varnish, 1.1 varnish, 1.1 varnish
+x-cache: MISS, MISS, MISS
+x-cache-hits: 0, 0, 0
+x-device-type: default
+x-microcachable: 1
+x-microcache-status: EXPIRED
+x-request-time: 84
+x-served-by: cache-dub4397-DUB, cache-dub4397-DUB, cache-dub4393-DUB, cache-lhr-egwu1540073-LHR
+x-server: prod06euw1aw02
+x-timer: S1786996243.449872,VS0,VE89
+x-translation: engUS
+
+{"events":[]}

@@ -9,6 +9,7 @@ import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.time.LocalDate
+import java.time.YearMonth
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -934,6 +935,48 @@ class GigsSourceTest {
         expectThat(events.filter { it.date.year == 2027 }).hasSize(24)
     }
 
+    @Test
+    fun `extracts music events from OVO Arena's month calendar, leaving its other categories out`() {
+        val events = assertScrapesGigs(
+            source = OvoArenaGigsSource(cachedClient(), from = YearMonth.of(2026, 8)),
+            size = 40,
+            first = Gig(
+                id = GigId(ovoArena.id, "https://www.ovoarena.co.uk/events/detail/stonebwoy#2026-08-15"),
+                title = GigTitle("Stonebwoy"),
+                date = LocalDate.of(2026, 8, 15),
+                imageUrl = "https://www.ovoarena.co.uk/assets/img/STONEBWOY-BHIM-FEST-LONDON-1440x810-c5b626371c.jpg",
+                description = "",
+            ),
+            last = Gig(
+                id = GigId(ovoArena.id, "https://www.ovoarena.co.uk/events/detail/tash-sultana#2027-03-13"),
+                title = GigTitle("RESCHEDULED DATE: Tash Sultana"),
+                date = LocalDate.of(2027, 3, 13),
+                imageUrl = "https://www.ovoarena.co.uk/assets/img/Tash_2027_-1440x810-1ccd5e6573.jpg",
+                description = "",
+            ),
+            urlPrefix = "https://www.ovoarena.co.uk/events/detail/",
+        )
+
+        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(0)
+        expectThat(events.map { it.id.url }.distinct()).hasSize(40)
+        // the eight months read held 59 events between them, so most of what the calendar returns is
+        // dropped here - a filter that stopped filtering would show up as a much larger listing
+        expectThat(events.filter { it.date.year == 2027 }).hasSize(6)
+        // wrestling, comedy and a religious celebration all sit in those same months under another
+        // category, and the drop-down's Music is what separates them
+        expectThat(events.none { it.title.value.contains("Gladiators") || it.title.value.contains("Sunil Grover") }).isTrue()
+    }
+
+    // A month with nothing in it is not the end of the listing: read on 2026-08-17, this calendar had
+    // no events at all in January 2027 and three in each of February and March.
+    @Test
+    fun `reads on past a month the OVO Arena calendar has nothing in`() {
+        val events = OvoArenaGigsSource(cachedClient(), from = YearMonth.of(2026, 8)).latestGigs()
+
+        expectThat(events.none { it.date.year == 2027 && it.date.monthValue == 1 }).isTrue()
+        expectThat(events.filter { it.date.year == 2027 && it.date.monthValue == 3 }).hasSize(3)
+    }
+
     // Each source parses its own event pages, so these go straight at that parsing - no listing page
     // to scrape first, and no http.
     private val noHttp: HttpHandler = { request -> error("unexpected http request: ${request.uri}") }
@@ -1425,6 +1468,35 @@ class GigsSourceTest {
         expectThat(pageText.contains("Tweet")).isEqualTo(false)
         expectThat(pageText.contains("Visitor Info")).isEqualTo(false)
         expectThat(pageText.contains("news and offers")).isEqualTo(false)
+    }
+
+    // the age policy, the AXS ticket-transfer notice and the travel warning about the stadium next
+    // door are all longer than some gigs' own copy, and none of them is about the act
+    @Test
+    fun `takes OVO Arena's gig copy without the venue's ticketing and travel notices`() {
+        val html = """
+            <div class="event_detail one_sidebar_right has_branding">
+                <div class="ticketcontent">
+                    <p>Find tickets Buy premium Date 04 Sep / 2026 Doors 18:00 Ticket Information</p>
+                    <p>Age Restriction Standing: strictly 14+, with 14-15 year olds to be accompanied by an adult (16+)</p>
+                    <p>For this show, if you&rsquo;ve purchased your tickets via AXS, you&rsquo;ll need to display your ticket on your phone.</p>
+                    <p>Please note, there is a Bon Jovi concert taking place next door at the stadium on 4th September 2026.</p>
+                    <p>There will be road closures in place around the area from early on.</p>
+                </div>
+                <div class="event_description expandable" data-options="event_detail" tabindex="0">
+                    <p>The Neighbourhood is a California-based alternative rock band comprised of Jesse Rutherford and Zach Abels.</p>
+                </div>
+            </div>
+        """.trimIndent()
+
+        val pageText = OvoArenaGigsSource(noHttp).eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("California-based alternative rock band")).isTrue()
+        expectThat(pageText.contains("Age Restriction")).isEqualTo(false)
+        expectThat(pageText.contains("AXS")).isEqualTo(false)
+        expectThat(pageText.contains("road closures")).isEqualTo(false)
+        expectThat(pageText.contains("Bon Jovi")).isEqualTo(false)
+        expectThat(pageText.contains("Doors 18:00")).isEqualTo(false)
     }
 
     // the on-sale line, the buy buttons and the poster's caption are all inside the same hero as the

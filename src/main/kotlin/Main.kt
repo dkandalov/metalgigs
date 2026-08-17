@@ -113,6 +113,7 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     IslingtonAssemblyHallGigsSource(client, year = LocalDate.now().year),
     BarflyCamdenGigsSource(client),
     EventimApolloGigsSource(client),
+    OvoArenaGigsSource(client),
 )
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)
