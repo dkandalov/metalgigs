@@ -504,11 +504,16 @@
         const dateGroups = [...document.querySelectorAll('.date-group')]
         if (!cards.length) return
 
+        // Deliberately not autocomplete=off. iOS empties a field marked that way when it restores a
+        // page from the back/forward cache, while keeping the rest of the DOM as it was - so coming
+        // back from a gig left the listing filtered by a query no longer on screen, with nothing to
+        // explain it and nothing to clear. Measured on iPhone Chrome: pageshow persisted, scripts
+        // not re-run, script-set attributes intact, and only the fields left without that attribute
+        // still holding what had been typed.
         const search = document.createElement('input')
         search.type = 'search'
         search.className = 'gig-search'
         search.placeholder = 'Search gigs and venues'
-        search.autocomplete = 'off'
         search.setAttribute('aria-label', 'Search gigs and venues')
 
         const clear = document.createElement('button')
@@ -542,6 +547,12 @@
         }
 
         search.addEventListener('input', applyQuery)
+        // A desktop rebuilds the page on the way back rather than restoring it whole, so the field
+        // gets its value back but the filtering that went with it does not - the value is assigned
+        // straight onto the field, without the input event this listens for. Filtering again from
+        // whatever the field ends up holding covers that, and costs nothing where the page came
+        // back already filtered.
+        window.addEventListener('pageshow', applyQuery)
         clear.addEventListener('click', () => {
             search.value = ''
             applyQuery()
