@@ -542,6 +542,12 @@
         }
 
         search.addEventListener('input', applyQuery)
+        // Coming back to the page from a gig can restore the cards' filtered state while leaving the
+        // field itself empty, which strands the page showing a filter the reader has no query to
+        // explain and no obvious way to lift. Deriving what is shown from what the field actually
+        // holds settles it whichever half came back. pageshow rather than load, since a page
+        // restored from the back/forward cache fires only the former.
+        window.addEventListener('pageshow', applyQuery)
         clear.addEventListener('click', () => {
             search.value = ''
             applyQuery()
