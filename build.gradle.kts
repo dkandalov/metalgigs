@@ -18,6 +18,9 @@ dependencies {
     implementation("com.ubertob.kondor:kondor-core:3.6.1")
     implementation("org.http4k:http4k-template-handlebars")
     implementation("org.http4k:http4k-ai-llm-anthropic")
+    // handlebars drags in slf4j-api; without a provider on the classpath SLF4J prints a warning on
+    // every run, and nothing here logs through it, so bind it to the no-op implementation
+    runtimeOnly("org.slf4j:slf4j-nop:2.0.12")
 
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-approval")
