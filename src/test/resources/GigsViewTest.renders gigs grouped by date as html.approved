@@ -52,19 +52,67 @@
             padding-bottom: 0.5rem;
             margin: 2.5rem 0 1rem;
         }
-        .gig-search {
-            box-sizing: border-box;
+        /* The clear button sits inside the pill's right edge, which the input cannot be positioned
+           against from the outside, so the two are wrapped in a box that carries the field's width
+           and lets the button be placed within it. */
+        .gig-search-field {
+            position: relative;
+            display: flex;
             /* grows into whatever the title leaves, up to a width that keeps it a control in the
                header rather than a second banner across it */
             flex: 1 1 12rem;
             max-width: 16rem;
-            padding: 0.4rem 0.8rem;
+        }
+        .gig-search {
+            box-sizing: border-box;
+            width: 100%;
+            /* the right side is wide enough to keep the query clear of the button over it */
+            padding: 0.4rem 2.2rem 0.4rem 0.8rem;
             background: #18181b;
             border: 1px solid #26262a;
             border-radius: 999px;
             color: #e6e6e6;
             font: inherit;
             font-size: 0.9rem;
+        }
+        /* Neither iOS Safari nor Chrome on Android draws a search field's own clear button, so the
+           page cannot rely on one and supplies its own. Suppressed rather than left to itself,
+           or the desktops that do draw it would show two. */
+        .gig-search::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .gig-search-clear {
+            position: absolute;
+            top: 50%;
+            right: 0.5rem;
+            transform: translateY(-50%);
+            display: none;
+            place-items: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            padding: 0;
+            background: none;
+            border: none;
+            color: #a1a1aa;
+            cursor: pointer;
+        }
+        /* Shown by the field holding a query rather than by script, so there is nothing to keep in
+           step with what was typed. */
+        .gig-search-field:has(.gig-search:not(:placeholder-shown)) .gig-search-clear {
+            display: grid;
+        }
+        .gig-search-clear svg {
+            display: block;
+            width: 0.85rem;
+            height: 0.85rem;
+        }
+        .gig-search-clear:hover {
+            color: #e6e6e6;
+        }
+        .gig-search-clear:focus-visible {
+            outline: 2px solid #f2f2f2;
+            outline-offset: 2px;
         }
         /* iOS Safari zooms the page in when a focused form control's text is under 16px, and there
            is no way to decline that other than to clear the threshold. 16px only where a touch
@@ -148,10 +196,10 @@
             border-color: #4a4a52;
         }
         /* On a phone the field is collapsed to a button so the header stays one row, and the field
-           itself is what grows on focus - there is no separate control toggling anything, so this
-           needs no script and has no state to keep in sync. It stays open while it holds a query,
-           or blurring would hide what was typed. The heading gives up some size to make room; at
-           2rem it very nearly fills a phone's width on its own. */
+           itself is what grows on focus - nothing toggles it open, so the expansion needs no script
+           and has no state to keep in sync. It stays open while it holds a query, or blurring would
+           hide what was typed. The heading gives up some size to make room; at 2rem it very nearly
+           fills a phone's width on its own. */
         @media (max-width: 30rem) {
             /* The buttons keep the row and the title is what gives way, since they are a fixed size
                and it isn't. Flex breaks to a new line before it shrinks anything, so without this
@@ -174,13 +222,15 @@
                 flex: 1 1 auto;
             }
             /* matched squares, so the collapsed field and the about button read as a pair */
-            .gig-search,
+            .gig-search-field,
             .about-icon {
                 width: 2.25rem;
                 height: 2.25rem;
             }
-            .gig-search {
+            .gig-search-field {
                 flex: none;
+            }
+            .gig-search {
                 padding: 0;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.6-3.6'/%3E%3C/svg%3E");
                 background-repeat: no-repeat;
@@ -206,14 +256,17 @@
             .page-header:has(.gig-search:not(:placeholder-shown)) .about-icon {
                 display: none;
             }
-            .gig-search:focus,
-            .gig-search:not(:placeholder-shown) {
+            .gig-search-field:has(.gig-search:focus),
+            .gig-search-field:has(.gig-search:not(:placeholder-shown)) {
                 flex: 1 1 auto;
                 width: 100%;
                 /* the cap keeps it a control beside a title on a desktop; here it is the row */
                 max-width: none;
                 height: auto;
-                padding: 0.4rem 0.8rem 0.4rem 2.2rem;
+            }
+            .gig-search:focus,
+            .gig-search:not(:placeholder-shown) {
+                padding: 0.4rem 2.2rem;
                 background-position: 0.75rem center;
             }
         }
@@ -359,7 +412,7 @@
         <div class="header-actions">
             <!-- popovertarget is the whole mechanism: the browser shows and hides the panel, puts it
                  above everything, and closes it on Escape or a click outside, with no script. The
-                 search input is put in front of this button at runtime. -->
+                 search field is put in front of this button at runtime. -->
             <button class="about-icon" popovertarget="about" aria-label="About">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="9"/>
@@ -458,6 +511,17 @@
         search.autocomplete = 'off'
         search.setAttribute('aria-label', 'Search gigs and venues')
 
+        const clear = document.createElement('button')
+        clear.type = 'button'
+        clear.className = 'gig-search-clear'
+        clear.setAttribute('aria-label', 'Clear search')
+        clear.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
+            + ' stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>'
+
+        const field = document.createElement('span')
+        field.className = 'gig-search-field'
+        field.append(search, clear)
+
         // role=status so that emptying the page is announced rather than only shown
         const noMatches = document.createElement('p')
         noMatches.className = 'no-matches'
@@ -465,16 +529,25 @@
         noMatches.textContent = 'No gigs match that search.'
         noMatches.hidden = true
 
-        document.querySelector('.header-actions').prepend(search)
+        document.querySelector('.header-actions').prepend(field)
         document.querySelector('.page-header').after(noMatches)
 
-        search.addEventListener('input', () => {
+        const applyQuery = () => {
             const query = search.value.trim().toLowerCase()
             for (const {card, text} of cards) card.hidden = query !== '' && !text.includes(query)
             // a date whose gigs are all filtered out goes too, or the page fills with headings
             // standing over nothing
             for (const group of dateGroups) group.hidden = !group.querySelector('.gig-card:not([hidden])')
             noMatches.hidden = query === '' || dateGroups.some(group => !group.hidden)
+        }
+
+        search.addEventListener('input', applyQuery)
+        clear.addEventListener('click', () => {
+            search.value = ''
+            applyQuery()
+            // on a phone an empty unfocused field collapses back to an icon, so clearing it without
+            // this would take the search off the screen rather than leave it ready for another query
+            search.focus()
         })
     })()
 </script>

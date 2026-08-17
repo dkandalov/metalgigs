@@ -3454,3 +3454,4 @@
 {"_type": "classified", "seq": 3640, "venue": "ovo-arena", "url": "https://www.ovoarena.co.uk/events/detail/megadeth#2027-03-11", "recordedAt": "2026-08-17T20:03:58.207250Z", "genre": "Metal", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 706, "outputTokens": 4}
 {"_type": "classified", "seq": 3641, "venue": "ovo-arena", "url": "https://www.ovoarena.co.uk/events/detail/tash-sultana#2027-03-13", "recordedAt": "2026-08-17T20:03:58.207250Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 438, "outputTokens": 4}
 {"_type": "rendered", "seq": 3642, "file": "2026-08-17T20-04-43Z.html", "gigCount": 323, "logicalDate": "2026-08-17", "recordedAt": "2026-08-17T20:04:43.678934Z"}
+{"_type": "rendered", "seq": 3643, "file": "2026-08-17T20-16-20Z.html", "gigCount": 323, "logicalDate": "2026-08-17", "recordedAt": "2026-08-17T20:16:20.429417Z"}
