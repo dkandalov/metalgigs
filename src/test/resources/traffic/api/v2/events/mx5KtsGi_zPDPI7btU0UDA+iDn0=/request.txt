@@ -1,0 +1,3 @@
+GET https://partners-endpoint.dice.fm/api/v2/events?page%5Bsize%5D=200&types=linkout,event&filter%5Bvenues%5D%5B%5D=Signature+Brew+Haggerston HTTP/1.1
+x-api-key: 9PmJEatQBB8iKSivm8gCbIvKIeU3S4x4MqPoT6Tg
+

@@ -524,53 +524,49 @@ class GigsSourceTest {
     }
 
     @Test
-    fun `extracts only Blackhorse Road gigs from the shared Signature Brew events page`() {
-        val events = assertScrapesGigs(
+    fun `extracts Blackhorse Road gigs from the Dice partner API`() {
+        assertScrapesGigs(
             source = SignatureBrewBlackhorseRoadGigsSource(cachedClient()),
-            size = 29,
+            size = 23,
             first = Gig(
-                id = GigId(signatureBrewBlackhorseRoad.id, "https://tixr.com/e/187182"),
-                title = GigTitle("Suntrap Sessions 2026"),
-                date = LocalDate.of(2026, 7, 27),
-                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/69eb41b1e30251cb31bc631e_7c5b19cb-cd0d-4947-babe-8eed3af2ea87.webp",
+                id = GigId(signatureBrewBlackhorseRoad.id, "https://dice.fm/event/disco-2000-summer-yard-party-london-23rd-aug-signature-brew-blackhorse-road-london-tickets"),
+                title = GigTitle("Disco 2000 Summer Yard Party | London"),
+                date = LocalDate.of(2026, 8, 23),
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-06-18/c2d85f59-1c17-4a96-8291-77270ebeba4b.jpg",
                 description = "",
             ),
             last = Gig(
-                id = GigId(signatureBrewBlackhorseRoad.id, "https://tixr.com/e/198560"),
+                id = GigId(signatureBrewBlackhorseRoad.id, "https://dice.fm/event/dig-it-up-by-the-allergies-london-17th-apr-signature-brew-blackhorse-road-london-tickets"),
                 title = GigTitle("Dig It Up by The Allergies | London"),
                 date = LocalDate.of(2027, 4, 17),
-                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/6a50e7034103b50e0c99a81a_a357afab-1215-423f-be75-579554bd88fb.webp",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-07-10/63524421-198d-4192-bbd4-44bd063bf8e5.jpg",
                 description = "",
             ),
-            urlPrefix = "https://tixr.com/e/",
+            urlPrefix = "https://dice.fm/event/",
         )
-
-        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
     }
 
     @Test
-    fun `extracts only Haggerston gigs from the shared Signature Brew events page`() {
-        val events = assertScrapesGigs(
+    fun `extracts Haggerston gigs from the Dice partner API`() {
+        assertScrapesGigs(
             source = SignatureBrewHaggerstonGigsSource(cachedClient()),
-            size = 55,
+            size = 46,
             first = Gig(
-                id = GigId(signatureBrewHaggerston.id, "https://tixr.com/e/186035"),
-                title = GigTitle("Signature Brew Waterfront - Haggerston's Canalside Terrace"),
-                date = LocalDate.of(2026, 7, 27),
-                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/69e0d1a8d35c853ece44eee1_78d4ade1-c3f1-4277-953e-1bebf8329075.webp",
+                id = GigId(signatureBrewHaggerston.id, "https://dice.fm/event/papangu-zeta-meiotempo-london-18th-aug-signature-brew-haggerston-london-tickets"),
+                title = GigTitle("Papangu + Zeta + Meiotempo | London"),
+                date = LocalDate.of(2026, 8, 18),
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-07-23/7a6ab6c3-0bb0-468a-b158-60bdc49f59c7.jpg",
                 description = "",
             ),
             last = Gig(
-                id = GigId(signatureBrewHaggerston.id, "https://tixr.com/e/176800"),
+                id = GigId(signatureBrewHaggerston.id, "https://dice.fm/event/duck-dive-festival-2027-london-26th-feb-signature-brew-haggerston-london-tickets"),
                 title = GigTitle("DUCK & DIVE FESTIVAL 2027 | LONDON"),
                 date = LocalDate.of(2027, 2, 26),
-                imageUrl = "https://cdn.prod.website-files.com/656d0096af36af2d3cc1cde9/6a57a1a53ae33eb0a8b6c494_df8eea81-0037-4763-8407-53609ce233be.webp",
+                imageUrl = "https://dice-media.imgix.net/attachments/2026-07-15/bab2924f-aa0a-4549-81e9-818da1a845b1.jpg",
                 description = "",
             ),
-            urlPrefix = "https://tixr.com/e/",
+            urlPrefix = "https://dice.fm/event/",
         )
-
-        expectThat(events.count { it.imageUrl.isBlank() }).isEqualTo(1)
     }
 
     @Test
@@ -1050,11 +1046,10 @@ class GigsSourceTest {
         expectThat(pageText.contains("Instagram")).isEqualTo(false)
     }
 
-    // dice.fm venues (Blondies Brewery Taproom, Blondies Bar, Helgi's, Barfly Camden, 229) render almost nothing
+    // dice.fm venues (Blondies Brewery Taproom, Blondies Bar, Helgi's, Barfly Camden) render almost nothing
     // server-side to select from - the real description is nested two JSON parses deep inside
     // __NEXT_DATA__ (itself containing a JSON-encoded string), alongside plenty of sitewide data
-    // (i18n strings, nav) this fixture only trims down, not invents. 229's own scraper reads the same
-    // pages, so both use this one extraction
+    // (i18n strings, nav) this fixture only trims down, not invents
     @Test
     fun `scopes dice-fm page text to the event's own about-description, ignoring the surrounding JSON`() {
         val html = """
@@ -1398,21 +1393,6 @@ class GigsSourceTest {
         expectThat(pageText.contains("Tweet")).isEqualTo(false)
         expectThat(pageText.contains("Visitor Info")).isEqualTo(false)
         expectThat(pageText.contains("news and offers")).isEqualTo(false)
-    }
-
-    // Signature Brew takes the whole page rather than scoping to a container, boilerplate included.
-    @Test
-    fun `takes the whole page text for a venue that scopes nothing`() {
-        val html = """
-            <nav><a>Home</a></nav>
-            <article><p>Doom metal night!</p></article>
-        """.trimIndent()
-
-        val source = SignatureBrewGigsSource(noHttp, venue = signatureBrewHaggerston)
-        val pageText = source.eventPageContent(pageOf(html))
-
-        expectThat(pageText.contains("Doom metal night!")).isTrue()
-        expectThat(pageText.contains("Home")).isTrue()
     }
 
     // Extraction that matches nothing is what a changed site looks like, and it reaches the gig as a

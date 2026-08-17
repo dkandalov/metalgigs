@@ -11,7 +11,6 @@ import org.jsoup.select.Elements
 import java.time.Instant
 import java.time.LocalDate
 import java.time.Month
-import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -499,36 +498,6 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-// shared by both Signature Brew taprooms - they're listed together on one page, each event
-// tagged with its own venue name, so the venue-specific classes below just filter by that
-class SignatureBrewGigsSource(private val client: HttpHandler, override val venue: Venue) : GigsSource {
-    private val url = "https://events.signaturebrew.co.uk/"
-
-    private val dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH)
-
-    // e.g. background-image:url("...") on some events, background-image:none on others (no poster)
-    private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
-
-    internal fun eventPageContent(page: Document) = page.text()
-
-    override fun latestGigs(): List<Gig> =
-        Jsoup.parse(fetchPage(client, url), url)
-            .select(".cal-info.w-dyn-item")
-            .filter { item -> item.select(".venuename").text() == venue.name }
-            .map { item ->
-                val link = item.select("a.button.white.w-button")
-                val gigUrl = link.attr("abs:href")
-
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(item.select(".b-show").text()),
-                    date = LocalDate.parse(item.select(".dates p.months.date:not(.hide)").text(), dateFormatter),
-                    imageUrl = backgroundImageUrlPattern.find(item.select(".poster").attr("style"))?.groupValues?.get(1) ?: "",
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
-}
-
 val unionChapel = Venue(VenueId("union-chapel"), "Union Chapel")
 
 class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
@@ -809,16 +778,6 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
                 }
             }
 }
-
-val signatureBrewBlackhorseRoad = Venue(VenueId("signature-brew-blackhorse-road"), "Signature Brew Blackhorse Road")
-
-class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
-    GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewBlackhorseRoad)
-
-val signatureBrewHaggerston = Venue(VenueId("signature-brew-haggerston"), "Signature Brew Haggerston")
-
-class SignatureBrewHaggerstonGigsSource(client: HttpHandler) :
-    GigsSource by SignatureBrewGigsSource(client, venue = signatureBrewHaggerston)
 
 val islingtonAssemblyHall = Venue(VenueId("islington-assembly-hall"), "Islington Assembly Hall")
 

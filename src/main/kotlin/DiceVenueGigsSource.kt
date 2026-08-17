@@ -75,8 +75,7 @@ private fun JsonNode.stringOrNull(): String? = (this as? JsonNodeString)?.text
 
 // A dice.fm event page renders almost nothing server-side to select from: the description lives in
 // the __NEXT_DATA__ blob, under a props.pageProps.initialState that is itself a JSON-encoded string,
-// so it has to be parsed a second time to reach event.event.about.description. Shared with 229,
-// whose gigs are ticketed through dice.fm and so have dice.fm event pages.
+// so it has to be parsed a second time to reach event.event.about.description.
 internal fun diceEventPageContent(page: Document): String? {
     val nextDataJson = page.select("script#__NEXT_DATA__").firstOrNull()?.data()
     val initialStateJson = nextDataJson
