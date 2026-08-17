@@ -10,6 +10,11 @@ class GigValidationTest {
 
     private val realText = "Doom night with support from three bands, doors 7pm."
 
+    private fun GigsCheck.problemsFor(gigs: List<Gig>) =
+        problems(gigs).map { problem -> problem.detail to problem.gigs.map { it.id.url } }
+
+    private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problems(gigs).flatMap { it.gigs }.map { it.id.url }
+
     // what a selector that has stopped matching leaves behind - Jsoup's text() returns "" rather
     // than failing, so nothing else in the pipeline would notice
     @Test
@@ -20,8 +25,8 @@ class GigValidationTest {
             gig(title = GigTitle("Real Title"), url = "https://example.com/c", description = "   "),
         )
 
-        expectThat(misshapenGigs(gigs).mapKeys { (gig, _) -> gig.id.url }).isEqualTo(
-            mapOf("https://example.com/b" to "no title", "https://example.com/c" to "no description"),
+        expectThat(MisshapenGigsCheck.problemsFor(gigs)).isEqualTo(
+            listOf("no title" to listOf("https://example.com/b"), "no description" to listOf("https://example.com/c")),
         )
     }
 
@@ -35,7 +40,7 @@ class GigValidationTest {
             gig(title = GigTitle("FOREVER NU - 25th anniversary of Toxicity & Iowa special! Chop Suey, Slip-Not, A7Xperience, Propa Roach"), url = "https://example.com/b", description = realText),
         )
 
-        expectThat(misshapenGigs(gigs).keys.map { it.id.url }).isEqualTo(listOf("https://example.com/a"))
+        expectThat(MisshapenGigsCheck.gigsFlaggedIn(gigs)).isEqualTo(listOf("https://example.com/a"))
     }
 
     // a selector that grabbed the whole page brings the nav and footer with it. The one that must
@@ -47,7 +52,7 @@ class GigValidationTest {
             gig(title = GigTitle("B"), url = "https://example.com/b", description = "x".repeat(7492)),
         )
 
-        expectThat(misshapenGigs(gigs).keys.map { it.id.url }).isEqualTo(listOf("https://example.com/a"))
+        expectThat(MisshapenGigsCheck.gigsFlaggedIn(gigs)).isEqualTo(listOf("https://example.com/a"))
     }
 
     // all three verbatim from the log, and all three sit within the length bounds - the cookie wall
@@ -61,8 +66,8 @@ class GigValidationTest {
             gig(title = GigTitle("D"), url = "https://example.com/d", description = "tixr.com Please enable JS and disable any ad blocker"),
         )
 
-        expectThat(misshapenGigs(gigs).values.toSet())
-            .isEqualTo(setOf("description is a cookie or bot wall, not gig copy"))
+        expectThat(MisshapenGigsCheck.problemsFor(gigs))
+            .isEqualTo(listOf("description is a cookie or bot wall, not gig copy" to gigs.map { it.id.url }))
     }
 
     // real gig copy links these often enough that neither can be a marker for boilerplate
@@ -72,7 +77,7 @@ class GigValidationTest {
             gig(title = GigTitle("A"), url = "https://example.com/a", description = "Doom night, doors 7pm. Tickets subject to our terms and conditions and privacy policy."),
         )
 
-        expectThat(misshapenGigs(gigs)).isEqualTo(emptyMap())
+        expectThat(MisshapenGigsCheck.problems(gigs)).isEqualTo(emptyList())
     }
 
     // two characters is a real gig title and nine a real description, so neither has a minimum
@@ -81,11 +86,11 @@ class GigValidationTest {
     fun `leaves very short text alone`() {
         val gigs = listOf(gig(title = GigTitle("LP"), url = "https://example.com/a", description = "Lion Babe"))
 
-        expectThat(misshapenGigs(gigs)).isEqualTo(emptyMap())
+        expectThat(MisshapenGigsCheck.problems(gigs)).isEqualTo(emptyList())
     }
 
     // the same text on unrelated events is text belonging to the venue rather than to any of them,
-    // and too short a stretch of it for likelyContaminatedVenues' six-word windows to see
+    // and too short a stretch of it for the contamination check's six-word windows to see
     @Test
     fun `flags gigs given the same description as another gig they have nothing to do with`() {
         val venueBlurb = "Camden's home of live music since 1975"
@@ -95,7 +100,22 @@ class GigValidationTest {
             gig(title = GigTitle("Kawehi"), url = "https://example.com/c", description = realText),
         )
 
-        expectThat(gigsSharingADescription(gigs).keys.map { it.id.url }).isEqualTo(listOf("https://example.com/a", "https://example.com/b"))
+        expectThat(SharedDescriptionCheck.problemsFor(gigs))
+            .isEqualTo(listOf("\"$venueBlurb\"" to listOf("https://example.com/a", "https://example.com/b")))
+    }
+
+    // the report shows the shared text in place of the gigs' own copy, cut short so a page of it
+    // can't fill a run's output
+    @Test
+    fun `reports the shared text itself, shortened`() {
+        val venueBlurb = "Camden's home of live music since 1975, open seven nights a week, doors at 7pm"
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = venueBlurb),
+            gig(title = GigTitle("The Black Keys"), url = "https://example.com/b", description = venueBlurb),
+        )
+
+        expectThat(SharedDescriptionCheck.problemsFor(gigs))
+            .isEqualTo(listOf("\"${venueBlurb.take(60)}...\"" to listOf("https://example.com/a", "https://example.com/b")))
     }
 
     // a venue booking the same thing twice writes one blurb for both dates, and says so in the
@@ -111,7 +131,7 @@ class GigValidationTest {
             gig(title = GigTitle("Paper Dress 80’s Club"), url = "https://example.com/d", description = club),
         )
 
-        expectThat(gigsSharingADescription(gigs)).isEqualTo(emptyMap())
+        expectThat(SharedDescriptionCheck.problems(gigs)).isEqualTo(emptyList())
     }
 
     // an event page that says nothing about its gig is a poster-only gig, not a repeated description
@@ -122,7 +142,40 @@ class GigValidationTest {
             gig(title = GigTitle("The Black Keys"), url = "https://example.com/b", description = ""),
         )
 
-        expectThat(gigsSharingADescription(gigs)).isEqualTo(emptyMap())
+        expectThat(SharedDescriptionCheck.problems(gigs)).isEqualTo(emptyList())
+    }
+
+    // a bot wall trips two checks at once - it is not gig copy, and it is the same non-copy on every
+    // gig at the venue - and it is the first that says what to go and fix
+    @Test
+    fun `reports a gig under the first check to claim it, and withholds it whoever claimed it`() {
+        val botWall = "tixr.com Please enable JS and disable any ad blocker"
+        val gigs = listOf(
+            gig(title = GigTitle("Suntrap Sessions 2026"), url = "https://example.com/a", description = botWall),
+            gig(title = GigTitle("Weekly Wednesday Pub Quiz"), url = "https://example.com/b", description = botWall),
+            gig(title = GigTitle("The Beertles"), url = "https://example.com/c", description = botWall),
+        )
+
+        val validation = validateGigs(gigs)
+
+        expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(MisshapenGigsCheck.heading))
+        expectThat(validation.withheld).isEqualTo(gigs.toSet())
+    }
+
+    @Test
+    fun `withholds every gig at a contaminated venue, not only those measured as contaminated`() {
+        val boilerplate = "Sign up for news, offers and events at our venue today"
+        val gigs = listOf(
+            gig(title = GigTitle("A"), url = "https://example.com/a", description = "Doom metal night with support. $boilerplate"),
+            gig(title = GigTitle("B"), url = "https://example.com/b", description = "Thrash revival show tonight. $boilerplate"),
+            gig(title = GigTitle("C"), url = "https://example.com/c", description = "Black metal ritual returns. $boilerplate"),
+            gig(title = GigTitle("D"), url = "https://example.com/d", description = "Grindcore all-dayer, twelve bands from noon, tickets on the door"),
+        )
+
+        val validation = validateGigs(gigs)
+
+        expectThat(validation.reports.single().problems.single().detail).isEqualTo("3 of 4 gig(s) mostly shared text")
+        expectThat(validation.withheld).isEqualTo(gigs.toSet())
     }
 
     @Test
@@ -134,7 +187,8 @@ class GigValidationTest {
             gig(title = GigTitle("C"), url = "https://example.com/c", description = "Black metal ritual returns. $boilerplate"),
         )
 
-        expectThat(likelyContaminatedVenues(gigs)).isEqualTo(mapOf(VenueId("Some Venue") to 3))
+        expectThat(ContaminationCheck.problemsFor(gigs))
+            .isEqualTo(listOf("3 of 3 gig(s) mostly shared text" to gigs.map { it.id.url }))
     }
 
     // real venues often print the same short policy line (age restriction, ID requirement) on every
@@ -148,7 +202,7 @@ class GigValidationTest {
             gig(title = GigTitle("C"), url = "https://example.com/c", description = "unique-c ".repeat(100) + disclaimer),
         )
 
-        expectThat(likelyContaminatedVenues(gigs)).isEqualTo(emptyMap())
+        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
     }
 
     @Test
@@ -159,7 +213,7 @@ class GigValidationTest {
             gig(title = GigTitle("C"), url = "https://example.com/c", description = "Black metal ritual with atmospheric visuals tonight"),
         )
 
-        expectThat(likelyContaminatedVenues(gigs)).isEqualTo(emptyMap())
+        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
     }
 
     @Test
@@ -170,7 +224,7 @@ class GigValidationTest {
             gig(title = GigTitle("B"), url = "https://example.com/b", description = "Thrash revival show. $boilerplate"),
         )
 
-        expectThat(likelyContaminatedVenues(gigs)).isEqualTo(emptyMap())
+        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
     }
 
     @Test
@@ -182,6 +236,6 @@ class GigValidationTest {
             gig(title = GigTitle("C"), url = "https://example.com/c", description = ""),
         )
 
-        expectThat(likelyContaminatedVenues(gigs)).isEqualTo(emptyMap())
+        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
     }
 }

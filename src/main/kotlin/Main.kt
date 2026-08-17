@@ -65,6 +65,9 @@ private val imageCacheDir = File(".image-cache")
 private val indexFile = File("index.html")
 private val renderedDir = File(".rendered")
 
+private fun GigsProblem.where() =
+    if (gigs.size == 1) gigs.first().id.url else "${gigs.size} gigs, e.g. ${gigs.first().id.url}"
+
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
     val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
         runCatching { downloadToCache(client, gig.imageUrl, imageCacheDir) }.exceptionOrNull()
@@ -140,33 +143,17 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
 
     val toObserve = log.newOrChangedGigs(gigs)
 
-    val validated = likelyContaminatedVenues(gigs)
-    if (validated.isNotEmpty()) {
-        println("Descriptions may include site-wide boilerplate - consider scoping their source's eventPageContent. Not logging their gigs this run:")
-        validated.forEach { (venueId, count) -> println("  ${venue(venueId)} ($count gig(s))") }
+    val validation = validateGigs(gigs)
+    validation.reports.forEach { (heading, problems) ->
+        println(heading)
+        problems.forEach { println("  ${venue(it.venueId)} (${it.detail}) ${it.where()}") }
     }
 
-    // Per gig rather than per venue, unlike contamination: text that didn't parse says nothing about
-    // the other gigs on the same listing.
-    val misshapen = misshapenGigs(toObserve)
-    if (misshapen.isNotEmpty()) {
-        println("Gigs that look like a parsing failure - check that source's selectors. Not logging them this run:")
-        misshapen.forEach { (gig, problem) -> println("  ${venue(gig.id.venueId)} ($problem) ${gig.id.url}") }
-    }
-
-    // Across everything scraped rather than only what is about to be logged, so a new gig repeating
-    // text already logged for one of that venue's other gigs is caught too.
-    val observing = toObserve.toSet()
-    val duplicated = gigsSharingADescription(gigs).filterKeys { it in observing && it !in misshapen }
-    if (duplicated.isNotEmpty()) {
-        println("Gigs given another gig's description word for word - check that source's event page selector. Not logging them this run:")
-        duplicated.forEach { (gig, problem) -> println("  ${venue(gig.id.venueId)} ($problem) ${gig.id.url}") }
-    }
-
-    val observed = toObserve.filterNot { it.id.venueId in validated.keys || it in misshapen || it in duplicated }
-        .map { gig -> GigObserved(gig, now) }
+    val observed = toObserve.filterNot { it in validation.withheld }.map { gig -> GigObserved(gig, now) }
     log.append(observed)
-    println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped")
+    val withheld = toObserve.size - observed.size
+    println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped" +
+        if (withheld > 0) ", withholding $withheld that failed validation" else "")
 
     // Blank now means only that the page said nothing about its gig - one that couldn't be read
     // fails its venue outright, above, rather than reaching here.

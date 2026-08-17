@@ -40,8 +40,9 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
    the gig as a blank description, so a gig with a poster is judged from that alone and a gig without
    one is refused and left Pending.
 
-6. **Verify against the real thing, not a sample.** `scrapeGigs` runs `likelyContaminatedVenues` after
-   every scrape and warns if a venue's gigs share suspiciously much text - read the warning if it fires.
+6. **Verify against the real thing, not a sample.** `scrapeGigs` runs `validateGigs` over every gig a
+   source lists and reports what looks like a parsing failure, a description repeated word for word,
+   or a venue's gigs sharing suspiciously much text - read the report if the new venue appears in it.
    Also worth reading a couple of gigs' *full* captured `description` directly, not just a prefix. Finish
    with a real scrape of just the new venue (`scrape <venue-id> force`) and confirm the count matches the
    test.
