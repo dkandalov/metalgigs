@@ -65,8 +65,11 @@ private val imageCacheDir = File(".image-cache")
 private val indexFile = File("index.html")
 private val renderedDir = File(".rendered")
 
-private fun GigsProblem.where() =
-    if (gigs.size == 1) gigs.first().id.url else "${gigs.size} gigs, e.g. ${gigs.first().id.url}"
+private fun GigsProblem.where() = when {
+    gigs.isEmpty() -> ""
+    gigs.size == 1 -> gigs.first().id.url
+    else -> "${gigs.size} gigs, e.g. ${gigs.first().id.url}"
+}
 
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
     val failures = gigs.filter { it.imageUrl.isNotBlank() }.mapNotNull { gig ->
@@ -134,19 +137,23 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
     // description, so one dead page costs that venue its whole listing for this run. Caught per
     // venue so it doesn't cost the other twenty-eight theirs too; nothing is logged for it, so the
     // cooldown sees it as unscraped and comes back within the day.
-    val gigs = toScrape.flatMap { source ->
+    //
+    // A venue that failed is left out of what's validated rather than entered against an empty list,
+    // so it isn't reported a second time as having listed nothing.
+    val scrapedByVenue = toScrape.mapNotNull { source ->
         println("Scraping ${source.venue}...")
         runCatching { source.latestGigs().also { println("  ${it.size} gig(s) listed") } }
             .onFailure { println("  Could not scrape ${source.venue}, so none of its gigs are logged this run: ${it.message}") }
-            .getOrDefault(emptyList())
-    }
+            .getOrNull()?.let { source.venue.id to it }
+    }.toMap()
+    val gigs = scrapedByVenue.values.flatten()
 
     val toObserve = log.newOrChangedGigs(gigs)
 
-    val validation = validateGigs(gigs)
+    val validation = validateGigs(scrapedByVenue, log.currentGigs())
     validation.reports.forEach { (heading, problems) ->
         println(heading)
-        problems.forEach { println("  ${venue(it.venueId)} (${it.detail}) ${it.where()}") }
+        problems.forEach { println("  ${venue(it.venueId)} (${it.detail}) ${it.where()}".trimEnd()) }
     }
 
     val observed = toObserve.filterNot { it in validation.withheld }.map { gig -> GigObserved(gig, now) }

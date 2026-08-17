@@ -3,18 +3,23 @@ import kotlin.math.ceil
 // Every check answers the same two questions - what is wrong, and which gigs are not to be logged
 // over it - so a whole venue's worth of shared boilerplate and one gig's unparsed title arrive in
 // the same shape, and scrapeGigs no longer has to know which check speaks about which.
-data class GigsProblem(val detail: String, val gigs: Set<Gig>) {
+//
+// The venue is named rather than read off the gigs, because a venue that listed nothing has a
+// problem worth reporting and no gigs to point at.
+data class GigsProblem(val venueId: VenueId, val detail: String, val gigs: Set<Gig>) {
     init {
-        require(gigs.isNotEmpty()) { "A problem with no gigs to point at can't be reported: $detail" }
-        require(gigs.map { it.id.venueId }.distinct().size == 1) { "A problem is a venue's to fix, so it can't span several: $detail" }
+        require(gigs.all { it.id.venueId == venueId }) {
+            "A problem is $venueId's to fix, so it can't point at another venue's gigs: $detail"
+        }
     }
-
-    val venueId: VenueId get() = gigs.first().id.venueId
 }
 
+// Called once per venue that was actually scraped, with what that run listed for it and what the
+// log already holds. A venue whose source threw never reaches a check - it's reported where it's
+// caught - so an empty `scraped` means the page was fetched and read, and matched nothing.
 interface GigsCheck {
     val heading: String
-    fun problems(gigs: List<Gig>): List<GigsProblem>
+    fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem>
 }
 
 data class GigsReport(val heading: String, val problems: List<GigsProblem>)
@@ -23,39 +28,72 @@ data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
 // for a gig several of them catch.
-val gigsChecks: List<GigsCheck> = listOf(MisshapenGigsCheck, SharedDescriptionCheck, ContaminationCheck)
+val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, SharedDescriptionCheck, ContaminationCheck)
 
 // Every gig a source lists is checked, not only the new or changed ones: a venue whose selectors
 // have broken serves the same broken text every run, and a gig logged before a check existed is
 // wrong until someone is told about it, however long ago it was scraped.
 //
+// Keyed by the venue each source was asked for rather than taking one flat list of gigs, because a
+// venue that listed nothing is absent from such a list entirely - there would be nothing to notice.
+// The keys carry that, and can't fall out of step with the gigs the way a separate set of ids could.
+//
 // A gig is spoken for by the first check to claim it, so the bot walls that are both misshapen and
 // repeated word for word are reported once, as the parsing failure they are. Withholding follows no
 // such rule: whatever any check claims stays out of the log.
-fun validateGigs(gigs: List<Gig>, checks: List<GigsCheck> = gigsChecks): GigsValidation {
+fun validateGigs(
+    scraped: Map<VenueId, List<Gig>>,
+    previous: List<Gig> = emptyList(),
+    checks: List<GigsCheck> = gigsChecks,
+): GigsValidation {
+    val previousByVenue = previous.groupBy { it.id.venueId }
     val withheld = mutableSetOf<Gig>()
     val reports = checks.mapNotNull { check ->
-        val problems = check.problems(gigs)
-        val worthSaying = problems.filterNot { withheld.containsAll(it.gigs) }
+        val problems = scraped.flatMap { (venue, gigs) ->
+            check.problems(venue, gigs, previousByVenue[venue].orEmpty())
+        }
+        // A problem pointing at no gigs can't be one an earlier check already spoke for, and
+        // containsAll would say the opposite of an empty set.
+        val worthSaying = problems.filterNot { it.gigs.isNotEmpty() && withheld.containsAll(it.gigs) }
         withheld += problems.flatMap { it.gigs }
         worthSaying.takeIf { it.isNotEmpty() }?.let { GigsReport(check.heading, it) }
     }
     return GigsValidation(reports, withheld)
 }
 
+// A listing selector that has stopped matching returns an empty selection rather than failing, so
+// the venue leaves the run in silence: nothing is logged for it, nothing is withheld, and the only
+// trace is one "0 gig(s) listed" line among twenty-eight others. The cooldown then reads it as
+// unscraped and comes back for it tomorrow, to find the same nothing.
+//
+// What the log already holds for the venue is what separates the two ways of listing nothing: a
+// venue whose gigs are all in the log and have simply stopped appearing is a broken source, while
+// one the log has never held any for is more likely a venue that has yet to announce anything.
+object EmptyListingCheck : GigsCheck {
+    override val heading = "Venues that listed no gigs at all - check that source's listing selector:"
+
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
+        if (scraped.isNotEmpty()) emptyList()
+        else listOf(GigsProblem(venue, detailFor(previous), emptySet()))
+
+    private fun detailFor(previous: List<Gig>) =
+        if (previous.isEmpty()) "listed nothing, and the log holds no gigs for it either"
+        else "listed nothing, though the log holds ${previous.size} gig(s) for it"
+}
+
 // A gig's title and description are whatever text a selector returned, so a selector that has
 // stopped matching, or started matching a container rather than the thing inside it, shows up in
 // neither field's type - only in its shape. Both would otherwise be logged and published in silence.
 //
-// Gigs are gathered by venue and reason so a broken listing reads as the one thing it is, rather
-// than as ninety-six of them.
+// Gigs are gathered by reason so a broken listing reads as the one thing it is, rather than as
+// ninety-six of them.
 object MisshapenGigsCheck : GigsCheck {
     override val heading = "Gigs that look like a parsing failure - check that source's selectors:"
 
-    override fun problems(gigs: List<Gig>): List<GigsProblem> =
-        gigs.mapNotNull { gig -> problemWith(gig)?.let { gig to it } }
-            .groupBy { (gig, problem) -> gig.id.venueId to problem }
-            .map { (venueAndProblem, found) -> GigsProblem(venueAndProblem.second, found.map { it.first }.toSet()) }
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
+        scraped.mapNotNull { gig -> problemWith(gig)?.let { gig to it } }
+            .groupBy { (_, problem) -> problem }
+            .map { (problem, found) -> GigsProblem(venue, problem, found.map { it.first }.toSet()) }
 
     // The bounds come from the log as of 2026-08-16, and neither field has a lower one worth setting
     // beyond non-blank, because any minimum big enough to catch a bug rejects real gigs. Across 1517
@@ -116,12 +154,12 @@ object MisshapenGigsCheck : GigsCheck {
 object SharedDescriptionCheck : GigsCheck {
     override val heading = "Gigs given another gig's description word for word - check that source's event page selector:"
 
-    override fun problems(gigs: List<Gig>): List<GigsProblem> =
-        gigs.filter { it.description.isNotBlank() }
-            .groupBy { it.id.venueId to it.description }
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
+        scraped.filter { it.description.isNotBlank() }
+            .groupBy { it.description }
             .values
             .filter { group -> group.size > 1 && group.map { titleWords(it.title) }.reduce(Set<String>::intersect).isEmpty() }
-            .map { group -> GigsProblem(shortened(group.first().description), group.toSet()) }
+            .map { group -> GigsProblem(venue, shortened(group.first().description), group.toSet()) }
 
     private const val QUOTED_DESCRIPTION_CHARS = 60
 
@@ -155,11 +193,11 @@ object SharedDescriptionCheck : GigsCheck {
 object ContaminationCheck : GigsCheck {
     override val heading = "Venues whose gigs may carry site-wide boilerplate - consider scoping their source's eventPageContent:"
 
-    override fun problems(gigs: List<Gig>): List<GigsProblem> =
-        gigs.groupBy { it.id.venueId }.values.mapNotNull { venueGigs ->
-            val affected = contaminatedGigs(venueGigs.filter { it.description.isNotBlank() })
-            if (affected == 0) null else GigsProblem("$affected of ${venueGigs.size} gig(s) mostly shared text", venueGigs.toSet())
-        }
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> {
+        val affected = contaminatedGigs(scraped.filter { it.description.isNotBlank() })
+        return if (affected == 0) emptyList()
+        else listOf(GigsProblem(venue, "$affected of ${scraped.size} gig(s) mostly shared text", scraped.toSet()))
+    }
 
     private const val SHARED_PHRASE_WORDS = 6
     private const val CONTAMINATED_WORD_FRACTION = 0.5

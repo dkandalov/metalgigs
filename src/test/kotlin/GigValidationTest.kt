@@ -5,15 +5,20 @@ import kotlin.test.Test
 
 class GigValidationTest {
 
+    private val someVenue = VenueId("Some Venue")
+
     private fun gig(title: GigTitle, url: String, description: String) =
-        Gig(id = GigId(VenueId("Some Venue"), url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = "", description = description)
+        Gig(id = GigId(someVenue, url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = "", description = description)
 
     private val realText = "Doom night with support from three bands, doors 7pm."
 
-    private fun GigsCheck.problemsFor(gigs: List<Gig>) =
-        problems(gigs).map { problem -> problem.detail to problem.gigs.map { it.id.url } }
+    private fun GigsCheck.problemsIn(gigs: List<Gig>, previous: List<Gig> = emptyList()) =
+        problems(someVenue, gigs, previous)
 
-    private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problems(gigs).flatMap { it.gigs }.map { it.id.url }
+    private fun GigsCheck.problemsFor(gigs: List<Gig>) =
+        problemsIn(gigs).map { problem -> problem.detail to problem.gigs.map { it.id.url } }
+
+    private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problemsIn(gigs).flatMap { it.gigs }.map { it.id.url }
 
     // what a selector that has stopped matching leaves behind - Jsoup's text() returns "" rather
     // than failing, so nothing else in the pipeline would notice
@@ -77,7 +82,7 @@ class GigValidationTest {
             gig(title = GigTitle("A"), url = "https://example.com/a", description = "Doom night, doors 7pm. Tickets subject to our terms and conditions and privacy policy."),
         )
 
-        expectThat(MisshapenGigsCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(MisshapenGigsCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
     // two characters is a real gig title and nine a real description, so neither has a minimum
@@ -86,7 +91,7 @@ class GigValidationTest {
     fun `leaves very short text alone`() {
         val gigs = listOf(gig(title = GigTitle("LP"), url = "https://example.com/a", description = "Lion Babe"))
 
-        expectThat(MisshapenGigsCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(MisshapenGigsCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
     // the same text on unrelated events is text belonging to the venue rather than to any of them,
@@ -131,7 +136,7 @@ class GigValidationTest {
             gig(title = GigTitle("Paper Dress 80’s Club"), url = "https://example.com/d", description = club),
         )
 
-        expectThat(SharedDescriptionCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(SharedDescriptionCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
     // an event page that says nothing about its gig is a poster-only gig, not a repeated description
@@ -142,7 +147,7 @@ class GigValidationTest {
             gig(title = GigTitle("The Black Keys"), url = "https://example.com/b", description = ""),
         )
 
-        expectThat(SharedDescriptionCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(SharedDescriptionCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
     // a bot wall trips two checks at once - it is not gig copy, and it is the same non-copy on every
@@ -156,7 +161,7 @@ class GigValidationTest {
             gig(title = GigTitle("The Beertles"), url = "https://example.com/c", description = botWall),
         )
 
-        val validation = validateGigs(gigs)
+        val validation = validateGigs(mapOf(someVenue to gigs))
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(MisshapenGigsCheck.heading))
         expectThat(validation.withheld).isEqualTo(gigs.toSet())
@@ -172,7 +177,7 @@ class GigValidationTest {
             gig(title = GigTitle("D"), url = "https://example.com/d", description = "Grindcore all-dayer, twelve bands from noon, tickets on the door"),
         )
 
-        val validation = validateGigs(gigs)
+        val validation = validateGigs(mapOf(someVenue to gigs))
 
         expectThat(validation.reports.single().problems.single().detail).isEqualTo("3 of 4 gig(s) mostly shared text")
         expectThat(validation.withheld).isEqualTo(gigs.toSet())
@@ -202,7 +207,7 @@ class GigValidationTest {
             gig(title = GigTitle("C"), url = "https://example.com/c", description = "unique-c ".repeat(100) + disclaimer),
         )
 
-        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(ContaminationCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
     @Test
@@ -213,7 +218,7 @@ class GigValidationTest {
             gig(title = GigTitle("C"), url = "https://example.com/c", description = "Black metal ritual with atmospheric visuals tonight"),
         )
 
-        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(ContaminationCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
     @Test
@@ -224,7 +229,7 @@ class GigValidationTest {
             gig(title = GigTitle("B"), url = "https://example.com/b", description = "Thrash revival show. $boilerplate"),
         )
 
-        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(ContaminationCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
     @Test
@@ -236,6 +241,69 @@ class GigValidationTest {
             gig(title = GigTitle("C"), url = "https://example.com/c", description = ""),
         )
 
-        expectThat(ContaminationCheck.problems(gigs)).isEqualTo(emptyList())
+        expectThat(ContaminationCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
+    // a listing selector that no longer matches returns nothing rather than failing, so the venue
+    // would otherwise leave the run without a word said about it
+    @Test
+    fun `flags a venue that scraped without listing anything`() {
+        val known = listOf(gig(title = GigTitle("A"), url = "https://example.com/a", description = realText))
+
+        expectThat(EmptyListingCheck.problemsIn(gigs = emptyList(), previous = known))
+            .isEqualTo(listOf(GigsProblem(someVenue, "listed nothing, though the log holds 1 gig(s) for it", emptySet())))
+    }
+
+    // a venue nothing has ever been logged for is more likely one with nothing announced yet than a
+    // source that has broken, and the report says which it's looking at
+    @Test
+    fun `says so when the log holds nothing for the venue either`() {
+        expectThat(EmptyListingCheck.problemsIn(gigs = emptyList()).map { it.detail })
+            .isEqualTo(listOf("listed nothing, and the log holds no gigs for it either"))
+    }
+
+    @Test
+    fun `leaves a venue that listed something alone`() {
+        val gigs = listOf(gig(title = GigTitle("A"), url = "https://example.com/a", description = realText))
+
+        expectThat(EmptyListingCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
+    // the trap: an empty listing has no gigs to withhold, and "have all of these already been
+    // withheld?" is vacuously true of no gigs at all, which would drop the report
+    @Test
+    fun `reports an empty listing though it withholds nothing`() {
+        val validation = validateGigs(mapOf(someVenue to emptyList()))
+
+        expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(EmptyListingCheck.heading))
+        expectThat(validation.withheld).isEqualTo(emptySet())
+    }
+
+    // a venue that has stopped listing is told from one that never listed by what the log holds for
+    // it, so handing a check another venue's gigs - or none at all - would swap one story for the other
+    @Test
+    fun `hands each venue the log's gigs for that venue alone`() {
+        val otherVenue = VenueId("Other Venue")
+        val known = gig(title = GigTitle("A"), url = "https://example.com/a", description = realText)
+
+        val validation = validateGigs(
+            scraped = mapOf(someVenue to emptyList(), otherVenue to emptyList()),
+            previous = listOf(known),
+        )
+
+        expectThat(validation.reports.single().problems.map { it.venueId to it.detail }).isEqualTo(
+            listOf(
+                someVenue to "listed nothing, though the log holds 1 gig(s) for it",
+                otherVenue to "listed nothing, and the log holds no gigs for it either",
+            ),
+        )
+    }
+
+    // a venue the run never reached says nothing about whether its source works
+    @Test
+    fun `says nothing about a venue that was not scraped`() {
+        val validation = validateGigs(scraped = emptyMap())
+
+        expectThat(validation.reports).isEqualTo(emptyList())
     }
 }
