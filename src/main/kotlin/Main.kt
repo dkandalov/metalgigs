@@ -176,11 +176,22 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
     cacheImagesReportingFailures(client, gigs, "gig image(s) - those gigs will have no poster")
 }
 
-fun classifyUnclassifiedGigs(limit: Int? = null) {
+// Scoped by venue and forced the way scrape is, and for the same reason: a source that has changed
+// what it says about its gigs leaves that venue's verdicts standing on text it no longer serves,
+// and nothing else revisits a gig once it has been judged. Forcing re-asks about gigs that already
+// have an LLM verdict, at a paid call each, which is why it's never what a routine run does.
+//
+// Unlike scrape, the venues here are every venue in the log rather than every venue with a source:
+// a poster-only venue's gigs are classified like any other.
+fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = null, force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val log = GigsLog(eventsFile)
     val currentGigs = log.currentGigs()
     val recordedAt = Instant.now()
+
+    val unknownIds = venueIds - allVenues.map { it.id }.toSet()
+    check(unknownIds.isEmpty()) { "Unknown venue id(s): $unknownIds. Known venue ids: ${allVenues.map { it.id }}" }
+    val toConsider = if (venueIds.isEmpty()) currentGigs else currentGigs.filter { it.id.venueId in venueIds }
 
     val apiKey = ApiKey.of(
         System.getenv("ANTHROPIC_API_KEY")
@@ -188,7 +199,8 @@ fun classifyUnclassifiedGigs(limit: Int? = null) {
     )
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
-    val run = classifyGigs(currentGigs, log.alreadyClassified(), limit) { gig ->
+    val settled = if (force) log.overriddenByUser() else log.alreadyClassified()
+    val run = classifyGigs(toConsider, settled, limit) { gig ->
         classifyGigByLLM(client, chat, gig, recordedAt)
     }
     val classifications = run.classified
@@ -427,7 +439,14 @@ fun main(rawArgs: Array<String>) {
                     overrideGigGenre(url, genre)
                 }
             } else {
-                classifyUnclassifiedGigs(limit = classifyArgs.firstOrNull()?.toIntOrNull())
+                // a limit is the numeric argument and a venue id is any other, so the two are told
+                // apart by shape rather than by position, as force already is
+                val named = classifyArgs - "force"
+                classifyUnclassifiedGigs(
+                    venueIds = named.filter { it.toIntOrNull() == null }.map { VenueId(it) }.toSet(),
+                    limit = named.firstNotNullOfOrNull { it.toIntOrNull() },
+                    force = classifyArgs.contains("force"),
+                )
             }
         }
         "render" -> {
@@ -447,6 +466,6 @@ fun main(rawArgs: Array<String>) {
                 ingestPoster(imageUrl, sourceUrl, VenueId(venueId), force = posterArgs.contains("force"))
             }
         }
-        else -> println("Usage: [daily-update [force]|scrape [venue-id...] [force]|classify [limit]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]|compact]")
+        else -> println("Usage: [daily-update [force]|scrape [venue-id...] [force]|classify [venue-id...] [limit] [force]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]|compact]")
     }
 }

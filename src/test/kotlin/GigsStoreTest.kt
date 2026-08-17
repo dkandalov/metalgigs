@@ -368,4 +368,23 @@ class GigsStoreTest {
 
         expectThat(gigsLog(events).alreadyClassified()).containsExactlyInAnyOrder(classified.id, userOverridden.id)
     }
+
+    // What a forced classify run skips, against what an ordinary one does: only the gig whose genre
+    // a user asserted, since re-asking about that one changes nothing it would then read back.
+    @Test
+    fun `counts only a user's overrides as settled against the classifier`() {
+        val classified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/classified"), title = GigTitle("Classified"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+        val userOverridden = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/user-overridden"), title = GigTitle("User Overridden"), date = LocalDate.of(2026, 8, 10), imageUrl = "", description = "")
+        val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
+        val events: List<LogEntry> = listOf(
+            GigObserved(classified, recordedAt),
+            GigClassified(classified.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+            GigObserved(userOverridden, recordedAt),
+            // the classifier having since had its own say doesn't unsettle the override
+            GigClassified(userOverridden.id, recordedAt, Genre.Metal, ClassificationSource.User),
+            GigClassified(userOverridden.id, recordedAt, Genre.Other, ClassificationSource.LLM),
+        )
+
+        expectThat(gigsLog(events).overriddenByUser()).containsExactlyInAnyOrder(userOverridden.id)
+    }
 }

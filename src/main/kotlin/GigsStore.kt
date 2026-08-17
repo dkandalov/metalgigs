@@ -215,6 +215,15 @@ class GigsLog(private val file: File) {
     fun alreadyClassified(): Set<GigId> =
         entries.filterIsInstance<GigClassified>().map { it.id }.toSet()
 
+    // What a forced reclassification leaves alone. A user's override wins over any LLM verdict
+    // whenever it was recorded, so asking the classifier about such a gig again buys a paid call
+    // whose answer effectiveClassification then discards.
+    fun overriddenByUser(): Set<GigId> =
+        entries.filterIsInstance<GigClassified>()
+            .filter { it.source == ClassificationSource.User }
+            .map { it.id }
+            .toSet()
+
     // the log is append-only, so a gig re-observed on a later scrape is logged again in full, event
     // page text and all, and every projection then reads only the newest of them. Compacting keeps
     // just that newest observation per gig, and just the one classification that decides the gig's
