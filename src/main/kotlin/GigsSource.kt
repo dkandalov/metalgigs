@@ -459,16 +459,27 @@ class TheGraceGigsSource(client: HttpHandler) :
 val roundhouse = Venue(VenueId("roundhouse"), "Roundhouse")
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.roundhouse.org.uk/whats-on/"
+    // type=event drops the venue's youth-programme courses, which share 145 words of standard access
+    // and bursary copy embedded in each course's own text block - unscopeable, and enough to read as
+    // site-wide boilerplate.
+    private val url = "https://www.roundhouse.org.uk/whats-on/?type=event"
     override val venue = roundhouse
 
     // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
     private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")
 
-    // The "Related events" carousel is nested inside .event-about rather than sitting beside it, so
-    // excluding that one block by class is what keeps other shows' titles out.
-    internal fun eventPageContent(page: Document) =
-        page.select(".event-hero__heading-wrapper, section.event-about .layout-block:not(.layout-block--related-events-list)").textOrNull()
+    // Promoter-run shows put their copy straight into .event-about while the venue's own listings
+    // wrap it in .layout-block elements, so the section itself is what both have in common. The
+    // "Related events" carousel is nested inside it rather than sitting beside it, and its heading
+    // wrapper is absent on the promoter-run pages.
+    internal fun eventPageContent(page: Document): String? {
+        val content = page.select(".event-hero__heading-wrapper, section.event-about")
+        // Both sit inside .event-about rather than beside it: the carousel would bring other shows'
+        // titles, and the listing card carries 142 words of booking schedule, digital-ticket notice
+        // and restoration-levy small print that every venue-run page repeats verbatim.
+        content.select(".layout-block--related-events-list, .layout-block--event-listing-card").remove()
+        return content.textOrNull()
+    }
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
