@@ -63,7 +63,7 @@ fun validateGigs(
 
 // A listing selector that has stopped matching returns an empty selection rather than failing, so
 // the venue leaves the run in silence: nothing is logged for it, nothing is withheld, and the only
-// trace is one "0 gig(s) listed" line among twenty-eight others. The cooldown then reads it as
+// trace is one "0 gig(s) listed" line among every other venue's. The cooldown then reads it as
 // unscraped and comes back for it tomorrow, to find the same nothing.
 //
 // What the log already holds for the venue is what separates the two ways of listing nothing: a

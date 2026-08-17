@@ -112,6 +112,7 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     WindmillBrixtonGigsSource(client),
     IslingtonAssemblyHallGigsSource(client, year = LocalDate.now().year),
     BarflyCamdenGigsSource(client),
+    EventimApolloGigsSource(client),
 )
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)
@@ -135,7 +136,7 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
 
     // A gig whose event page won't read fails its source outright rather than being built without a
     // description, so one dead page costs that venue its whole listing for this run. Caught per
-    // venue so it doesn't cost the other twenty-eight theirs too; nothing is logged for it, so the
+    // venue so it doesn't cost the other twenty-nine theirs too; nothing is logged for it, so the
     // cooldown sees it as unscraped and comes back within the day.
     //
     // A venue that failed is left out of what's validated rather than entered against an empty list,

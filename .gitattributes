@@ -1,0 +1,5 @@
+# Recorded traffic fixtures are raw HTTP messages, where CRLF separates the headers from the body
+# and from each other. Git normalises line endings in anything it reads as text, which rewrites those
+# separators and leaves the fixture unparseable on checkout - so it must store these byte for byte.
+# Most fixtures escape this only by looking binary to git; one that happens to be clean UTF-8 doesn't.
+src/test/resources/traffic/** -text
