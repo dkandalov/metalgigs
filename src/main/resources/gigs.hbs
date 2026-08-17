@@ -533,6 +533,12 @@
             // this would take the search off the screen rather than leave it ready for another query
             search.focus()
         })
+        // iOS leaves a field focused when the tap lands on something that cannot take focus itself,
+        // so the keyboard sits over the listing until something gives it up. On pointerdown rather
+        // than click, so that starting to scroll the listing dismisses it too.
+        document.addEventListener('pointerdown', event => {
+            if (document.activeElement === search && !field.contains(event.target)) search.blur()
+        })
     })()
 </script>
 </body>
