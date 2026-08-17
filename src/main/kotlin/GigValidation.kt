@@ -68,6 +68,34 @@ fun misshapenGigs(gigs: List<Gig>): Map<Gig, String> =
         problem?.let { gig to it }
     }.toMap()
 
+// A description repeated word for word can only tell one of two stories, and the titles say which.
+// The bug is a selector that returns text belonging to the venue rather than to the gig, so the same
+// blurb lands on unrelated events; the innocent case is a venue booking the same thing more than
+// once - a two-night stand, a weekly residency - where one blurb genuinely covers every date.
+//
+// Both are common in the log as of 2026-08-17: of 21 groups of gigs sharing a description at the
+// same venue, 6 were a bot wall or JS notice repeated across a whole listing and 15 were repeat
+// bookings (Blondies' Sunday karaoke, three nights of Leo Kottke at 229, two nights of The Alarm at
+// The Garage). Every one of the 15 titles its repeat: "Leo Kottke - SOLD OUT" against "Leo Kottke",
+// "(NIGHT 1)" against "(NIGHT 2)", the same club night named identically week after week. So a
+// shared word between every title in the group is what separates them, and it has to survive the
+// venue's typography - "Paper Dress 80s Club" and "Paper Dress 80's Club" are the same night.
+private fun titleWords(title: GigTitle): Set<String> =
+    words(title.value.lowercase()).map { it.filter(Char::isLetterOrDigit) }.filter { it.isNotBlank() }.toSet()
+
+fun gigsSharingADescription(gigs: List<Gig>): Map<Gig, String> =
+    gigs.filter { it.description.isNotBlank() }
+        .groupBy { it.id.venueId to it.description }
+        .values
+        .filter { group -> group.size > 1 && group.map { titleWords(it.title) }.reduce(Set<String>::intersect).isEmpty() }
+        .flatMap { group ->
+            group.map { gig ->
+                val other = group.first { it != gig }
+                gig to "same description as ${group.size - 1} other gig(s) here, e.g. ${other.id.url}"
+            }
+        }
+        .toMap()
+
 private fun words(text: String): List<String> = text.trim().split(Regex("\\s+")).filter { it.isNotBlank() }
 
 private fun wordNGrams(words: List<String>): List<String> = words.windowed(SHARED_PHRASE_WORDS, 1).map { it.joinToString(" ") }

@@ -154,7 +154,16 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
         misshapen.forEach { (gig, problem) -> println("  ${venue(gig.id.venueId)} ($problem) ${gig.id.url}") }
     }
 
-    val observed = toObserve.filterNot { it.id.venueId in validated.keys || it in misshapen }
+    // Across everything scraped rather than only what is about to be logged, so a new gig repeating
+    // text already logged for one of that venue's other gigs is caught too.
+    val observing = toObserve.toSet()
+    val duplicated = gigsSharingADescription(gigs).filterKeys { it in observing && it !in misshapen }
+    if (duplicated.isNotEmpty()) {
+        println("Gigs given another gig's description word for word - check that source's event page selector. Not logging them this run:")
+        duplicated.forEach { (gig, problem) -> println("  ${venue(gig.id.venueId)} ($problem) ${gig.id.url}") }
+    }
+
+    val observed = toObserve.filterNot { it.id.venueId in validated.keys || it in misshapen || it in duplicated }
         .map { gig -> GigObserved(gig, now) }
     log.append(observed)
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped")

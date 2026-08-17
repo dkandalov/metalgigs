@@ -84,6 +84,47 @@ class GigValidationTest {
         expectThat(misshapenGigs(gigs)).isEqualTo(emptyMap())
     }
 
+    // the same text on unrelated events is text belonging to the venue rather than to any of them,
+    // and too short a stretch of it for likelyContaminatedVenues' six-word windows to see
+    @Test
+    fun `flags gigs given the same description as another gig they have nothing to do with`() {
+        val venueBlurb = "Camden's home of live music since 1975"
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = venueBlurb),
+            gig(title = GigTitle("The Black Keys"), url = "https://example.com/b", description = venueBlurb),
+            gig(title = GigTitle("Kawehi"), url = "https://example.com/c", description = realText),
+        )
+
+        expectThat(gigsSharingADescription(gigs).keys.map { it.id.url }).isEqualTo(listOf("https://example.com/a", "https://example.com/b"))
+    }
+
+    // a venue booking the same thing twice writes one blurb for both dates, and says so in the
+    // titles - a two-night stand at The Garage and a weekly club night, both verbatim from the log
+    @Test
+    fun `leaves a repeat booking alone, however its title is spelt across the dates`() {
+        val alarm = "Tickets are now available for THE ALARM 2.0 at The Garage, over two days."
+        val club = "Simply the best hits and dancefloor fillers from the 80s, 10:30pm - 2:30am."
+        val gigs = listOf(
+            gig(title = GigTitle("THE ALARM 2.0 - REUNION (NIGHT 1)"), url = "https://example.com/a", description = alarm),
+            gig(title = GigTitle("THE ALARM 2.0 - REUNION (NIGHT 2)"), url = "https://example.com/b", description = alarm),
+            gig(title = GigTitle("Paper Dress 80s Club"), url = "https://example.com/c", description = club),
+            gig(title = GigTitle("Paper Dress 80’s Club"), url = "https://example.com/d", description = club),
+        )
+
+        expectThat(gigsSharingADescription(gigs)).isEqualTo(emptyMap())
+    }
+
+    // an event page that says nothing about its gig is a poster-only gig, not a repeated description
+    @Test
+    fun `does not read gigs with no captured description as sharing one`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = ""),
+            gig(title = GigTitle("The Black Keys"), url = "https://example.com/b", description = ""),
+        )
+
+        expectThat(gigsSharingADescription(gigs)).isEqualTo(emptyMap())
+    }
+
     @Test
     fun `flags a venue whose gigs share a long stretch of boilerplate text`() {
         val boilerplate = "Sign up for news, offers and events at our venue today"
