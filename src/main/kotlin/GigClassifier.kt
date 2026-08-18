@@ -54,7 +54,7 @@ fun classifyGigByLLM(
     val useVision = gig.description.length < THIN_TEXT_THRESHOLD
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: ${gig.description}")) +
-        if (useVision) listOf(posterImage(client, gig.imageUrl.value)) else emptyList()
+        if (useVision) listOf(posterImage(client, gig.posterUrl.value)) else emptyList()
 
     // the vision model rejects a temperature override outright; the text model accepts one and we
     // want its verdicts reproducible, so only that path pins it

@@ -72,8 +72,8 @@ private fun GigsProblem.where() = when {
 }
 
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
-    val failures = gigs.filter { it.imageUrl.value.isNotBlank() }.mapNotNull { gig ->
-        runCatching { downloadToCache(client, gig.imageUrl.value, imageCacheDir) }.exceptionOrNull()
+    val failures = gigs.filter { it.posterUrl.value.isNotBlank() }.mapNotNull { gig ->
+        runCatching { downloadToCache(client, gig.posterUrl.value, imageCacheDir) }.exceptionOrNull()
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
@@ -171,7 +171,7 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
     val withoutText = observed.filter { it.gig.description.isBlank() }
     if (withoutText.isNotEmpty()) {
         println("${withoutText.size} gig(s) have an event page that says nothing about them; they'll be classified from their poster instead")
-        val withoutPoster = withoutText.count { it.gig.imageUrl.value.isBlank() }
+        val withoutPoster = withoutText.count { it.gig.posterUrl.value.isBlank() }
         if (withoutPoster > 0) println("  $withoutPoster of those have no poster either, so they stay unclassified until a later scrape captures text")
     }
 
@@ -382,7 +382,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
 private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
 
-    val failures = renderedGigs.filter { it.imageUrl.value.isNotBlank() }.mapNotNull { gig ->
+    val failures = renderedGigs.filter { it.posterUrl.value.isNotBlank() }.mapNotNull { gig ->
         runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }

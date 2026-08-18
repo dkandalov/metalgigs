@@ -34,8 +34,8 @@ class GigClassifierTest {
 
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
-    private fun gig(title: GigTitle = GigTitle("Some Gig"), venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "https://example.com/poster.jpg", description: String = "") =
-        Gig(id = GigId(venue.id, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = PosterUrl(imageUrl), description = description)
+    private fun gig(title: GigTitle = GigTitle("Some Gig"), venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", posterUrl: String = "https://example.com/poster.jpg", description: String = "") =
+        Gig(id = GigId(venue.id, url), title = title, date = LocalDate.of(2026, 8, day), posterUrl = PosterUrl(posterUrl), description = description)
 
     // Classifying makes no http request of its own - the only fetch it can do is the vision path's
     // poster, which the tests exercising that path stub out.
@@ -137,7 +137,7 @@ class GigClassifierTest {
     fun `falls back to the poster image with a vision model when event page text is too thin`() {
         val (chat, requests) = capturingChat()
         val posterUrls = mutableListOf<String>()
-        val thin = gig(imageUrl = "https://example.com/poster.jpg", description = "Thin")
+        val thin = gig(posterUrl = "https://example.com/poster.jpg", description = "Thin")
 
         val classified = classifyGigByLLM(noHttp, chat, thin, recordedAt, stubPoster(posterUrls))
 
@@ -153,7 +153,7 @@ class GigClassifierTest {
     fun `does not fetch the poster image when the event page text is long enough`() {
         val (chat, requests) = capturingChat()
         val posterUrls = mutableListOf<String>()
-        val described = gig(imageUrl = "https://example.com/poster.jpg", description = "A".repeat(200))
+        val described = gig(posterUrl = "https://example.com/poster.jpg", description = "A".repeat(200))
 
         val classified = classifyGigByLLM(noHttp, chat, described, recordedAt, stubPoster(posterUrls))
 

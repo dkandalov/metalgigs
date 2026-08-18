@@ -150,7 +150,7 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: In
                 title = GigTitle(event.name),
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.eventDate).toLocalDate(),
-                imageUrl = PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
+                posterUrl = PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
                 description = event.description(),
             )
         }

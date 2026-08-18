@@ -18,8 +18,8 @@ class ImageCacheTest {
     // and naming around it, and their "images" are a few bytes of text, so they just copy
     private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
 
-    private fun gig(day: Int = 8, venue: Venue = theUnderworld, imageUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
-        Gig(id = GigId(venue.id, "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, day), imageUrl = PosterUrl(imageUrl), description = "")
+    private fun gig(day: Int = 8, venue: Venue = theUnderworld, posterUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
+        Gig(id = GigId(venue.id, "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, day), posterUrl = PosterUrl(posterUrl), description = "")
 
     @Test
     fun `caches a downloaded image and skips re-downloading on a cache hit`() {
@@ -27,8 +27,8 @@ class ImageCacheTest {
         val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
         val cacheDir = tempDir()
 
-        val first = downloadToCache(fakeClient, gig().imageUrl.value, cacheDir)
-        val second = downloadToCache(fakeClient, gig().imageUrl.value, cacheDir)
+        val first = downloadToCache(fakeClient, gig().posterUrl.value, cacheDir)
+        val second = downloadToCache(fakeClient, gig().posterUrl.value, cacheDir)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(first).isEqualTo(second)
@@ -59,8 +59,8 @@ class ImageCacheTest {
         val sharedPoster = "https://example.com/images/monthly-poster.jpg"
 
         // the same poster advertising gigs on different days, as a venue's monthly flyer does
-        downloadToCache(fakeClient, gig(day = 8, imageUrl = sharedPoster).imageUrl.value, cacheDir)
-        downloadToCache(fakeClient, gig(day = 9, imageUrl = sharedPoster).imageUrl.value, cacheDir)
+        downloadToCache(fakeClient, gig(day = 8, posterUrl = sharedPoster).posterUrl.value, cacheDir)
+        downloadToCache(fakeClient, gig(day = 9, posterUrl = sharedPoster).posterUrl.value, cacheDir)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(cacheDir.listFiles()!!.size).isEqualTo(1)
@@ -72,7 +72,7 @@ class ImageCacheTest {
         val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
         val cacheDir = tempDir()
         val publishedDir = tempDir()
-        downloadToCache(fakeClient, gig().imageUrl.value, cacheDir)
+        downloadToCache(fakeClient, gig().posterUrl.value, cacheDir)
         expectThat(requestCount).isEqualTo(1)
 
         val published = publishGigImage(fakeClient, gig(), cacheDir, publishedDir, copyingConvert)
@@ -99,7 +99,7 @@ class ImageCacheTest {
         val fakeClient: HttpHandler = { Response(NOT_FOUND) }
 
         val error = assertFailsWith<IllegalStateException> {
-            publishGigImage(fakeClient, gig(imageUrl = "https://example.com/images/broken.jpg"), tempDir(), tempDir(), copyingConvert)
+            publishGigImage(fakeClient, gig(posterUrl = "https://example.com/images/broken.jpg"), tempDir(), tempDir(), copyingConvert)
         }
 
         expectThat(error.message!!.contains("https://example.com/images/broken.jpg")).isTrue()
@@ -120,7 +120,7 @@ class ImageCacheTest {
     @Test
     fun `keeps the image of a gig that has dropped off the page`() {
         val past = gig(day = 8)
-        val upcoming = gig(day = 20, imageUrl = "https://example.com/images/upcoming.jpg")
+        val upcoming = gig(day = 20, posterUrl = "https://example.com/images/upcoming.jpg")
         val pastFile = File(publishedImageFileName(past))
         val upcomingFile = File(publishedImageFileName(upcoming))
 

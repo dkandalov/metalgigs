@@ -35,14 +35,14 @@ object JGig : JAny<Gig>() {
     private val venue by str(JVenueId) { id.venueId }
     private val date by str(Gig::date)
     private val url by str(fun Gig.(): String = id.url)
-    private val imageUrl by str(JPosterUrl) { imageUrl }
+    private val posterUrl by str(JPosterUrl) { posterUrl }
     private val description by str(Gig::description)
 
     override fun JsonNodeObject.deserializeOrThrow() = Gig(
         id = GigId(+venue, +url),
         title = +title,
         date = +date,
-        imageUrl = +imageUrl,
+        posterUrl = +posterUrl,
         description = +description,
     )
 }

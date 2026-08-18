@@ -105,7 +105,7 @@ class DiceVenueGigsSource(private val client: HttpHandler, private val url: Stri
                 id = GigId(venue.id, gigUrl),
                 title = GigTitle(event.name),
                 date = OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),
-                imageUrl = PosterUrl(event.images.square),
+                posterUrl = PosterUrl(event.images.square),
                 description = fetchDescription(client, gigUrl, ::diceEventPageContent),
             )
         }

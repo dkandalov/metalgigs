@@ -8,8 +8,8 @@ import kotlin.test.Test
 
 class LogCompactionTest {
 
-    private val gigA = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/a"), title = GigTitle("Gig A"), date = LocalDate.of(2026, 8, 8), imageUrl = PosterUrl("https://example.com/poster.jpg"), description = "")
-    private val gigB = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/b"), title = GigTitle("Gig B"), date = LocalDate.of(2026, 8, 9), imageUrl = PosterUrl("https://example.com/poster.jpg"), description = "")
+    private val gigA = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/a"), title = GigTitle("Gig A"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = "")
+    private val gigB = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/b"), title = GigTitle("Gig B"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = "")
 
     private fun at(day: Int) = Instant.parse("2026-08-0${day}T12:00:00Z")
 
