@@ -106,20 +106,6 @@ class ImageCacheTest {
     }
 
     @Test
-    fun `names the published files`() {
-        val publishedDir = tempDir()
-        publishedDir.mkdirs()
-        File(publishedDir, "2026-08-08-underworld-1af7931d.webp").writeText("fake-image-bytes")
-
-        expectThat(publishedImageNames(publishedDir)).isEqualTo(setOf("2026-08-08-underworld-1af7931d.webp"))
-    }
-
-    @Test
-    fun `names nothing when nothing has been published`() {
-        expectThat(publishedImageNames(tempDir())).isEqualTo(emptySet())
-    }
-
-    @Test
     fun `finds published files that no gig claims any more`() {
         val kept = gig(day = 8)
         val keptFile = File(publishedImageFileName(kept))

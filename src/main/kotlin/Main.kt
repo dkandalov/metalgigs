@@ -366,12 +366,8 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     val gigs = gigsOnThePage(metalGigs, today)
     publishGigImages(gigs, keep = metalGigs)
 
-    val published = publishedImageNames(publishedImagesDir)
     val renderer = HandlebarsTemplates().CachingClasspath()
-    val html = renderer(GigsView(groupGigsByDate(gigs, published)))
-
-    val imageless = gigs.count { publishedImageFileName(it) !in published }
-    if (imageless > 0) println("$imageless gig(s) have no published image and render without one")
+    val html = renderer(GigsView(groupGigsByDate(gigs)))
 
     val renderedAt = Instant.now()
     val archived = archiveRender(html, renderedDir, indexFile, renderedAt)
@@ -391,7 +387,7 @@ private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
-        println("Could not publish ${failures.size} image(s) - those gigs will render without a poster:")
+        println("Could not publish ${failures.size} image(s) - those gigs will render with a broken image:")
         failures.forEach { println("  $it") }
     }
 

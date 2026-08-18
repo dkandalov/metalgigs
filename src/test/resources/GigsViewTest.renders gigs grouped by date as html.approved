@@ -445,7 +445,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-two">
-                <span class="gig-image"></span>
+                <img class="gig-image" src="images/2026-08-08-the-grace-40b1a885.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig Two</span>
                     <span class="gig-venue">The Grace</span>
