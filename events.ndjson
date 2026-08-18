@@ -4419,3 +4419,4 @@
 {"_type": "classified", "seq": 4605, "venue": "the-o2-arena", "url": "https://www.theo2.co.uk/events/detail/papa-roach", "recordedAt": "2026-08-17T23:25:29.505117Z", "genre": "Other", "source": "User"}
 {"_type": "rendered", "seq": 4606, "file": "2026-08-17T23-26-15Z.html", "gigCount": 338, "logicalDate": "2026-08-18", "recordedAt": "2026-08-17T23:26:15.006972Z"}
 {"_type": "rendered", "seq": 4607, "file": "2026-08-18T16-52-37Z.html", "gigCount": 338, "logicalDate": "2026-08-18", "recordedAt": "2026-08-18T16:52:37.319856Z"}
+{"_type": "observed", "seq": 4608, "gig": {"title": "DC/UK (Formerly AC/DC UK)", "venue": "o2-academy-islington", "date": "2026-10-17", "url": "https://www.ticketmaster.co.uk/event/3E006465DB375B05", "imageUrl": "https://networksites.livenationinternational.com/networksites/krfjkan0/defualt-event-image-amg.jpg", "description": "Lineup: DC/UK (Formerly AC/DC UK). Genre: Hard Rock And Metal, Rock."}, "recordedAt": "2026-08-18T18:46:15Z"}
