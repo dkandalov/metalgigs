@@ -13,9 +13,10 @@ import java.time.OffsetDateTime
 private data class AmgTicket(val ticketUrl: String)
 private data class AmgLocalization(val description: String)
 private data class AmgGenre(val name: String)
-private data class AmgAct(val name: String)
+private data class AmgAct(val id: String, val name: String)
 private data class AmgEvent(
     val name: String,
+    val encodedName: String,
     val eventDate: String,
     val image: String,
     val tickets: List<AmgTicket>,
@@ -45,12 +46,14 @@ private object JAmgGenre : JAny<AmgGenre>() {
 }
 
 private object JAmgAct : JAny<AmgAct>() {
+    private val id by str(AmgAct::id)
     private val name by str(AmgAct::name)
-    override fun JsonNodeObject.deserializeOrThrow() = AmgAct(name = +name)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgAct(id = +id, name = +name)
 }
 
 private object JAmgEvent : JAny<AmgEvent>() {
     private val name by str(AmgEvent::name)
+    private val encodedName by str(AmgEvent::encodedName)
     private val eventDate by str(AmgEvent::eventDate)
     private val image by str(AmgEvent::image)
     private val tickets by array(JAmgTicket, AmgEvent::tickets)
@@ -60,6 +63,7 @@ private object JAmgEvent : JAny<AmgEvent>() {
 
     override fun JsonNodeObject.deserializeOrThrow() = AmgEvent(
         name = +name,
+        encodedName = +encodedName,
         eventDate = +eventDate,
         image = +image,
         tickets = +tickets,
@@ -99,6 +103,25 @@ private fun AmgEvent.description(): String =
 // venue and AMG's own numeric id(s) for it (as seen in the API's own venue objects). More than one
 // id where a site lists several rooms at the same venue together, as its own listing page does
 class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: Int, override val venue: Venue) : GigsSource {
+    // The event pages live under the site path, which is the venue id with its dashes dropped -
+    // and only that: both rooms list there, while an Academy2 event names its own room in the api
+    // (o2-academy2-islington), whose slug is no page at all.
+    private val sitePath = venue.id.value.replace("-", "")
+
+    // The api serves image "" for an event with no artwork of its own while the event page still
+    // renders one - AMG's shared default poster - so the page is asked for the image it shows. Its
+    // hero is the page's only full-bleed image (sizes=100vw), served as a CDN resize whose query
+    // string is dropped to recover the bare asset. A listing's encodedName can lag the page's
+    // canonical slug, which the site answers with a 308 the client follows.
+    private fun imageFromEventPage(event: AmgEvent): String {
+        val act = event.lineup.firstOrNull()
+            ?: error("No lineup on \"${event.name}\" to build its event page url from, so its poster can't be found")
+        val pageUrl = "https://www.academymusicgroup.com/$sitePath/events/${event.encodedName}-tickets-ae${act.id}"
+        val src = Jsoup.parse(fetchPage(client, pageUrl), pageUrl).select("img[sizes=100vw]").attr("abs:src")
+        check(src.isNotBlank()) { "No hero image on $pageUrl - every event page renders one, its own or AMG's default" }
+        return src.substringBefore('?')
+    }
+
     // PageSize is well above what any one venue actually lists, so everything comes back in one
     // page - the listing page itself paginates client-side, but the API needn't
     private val url = "https://www.academymusicgroup.com/api/search/events" +
@@ -127,7 +150,7 @@ class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: In
                 title = GigTitle(event.name),
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.eventDate).toLocalDate(),
-                imageUrl = event.image,
+                imageUrl = PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
                 description = event.description(),
             )
         }

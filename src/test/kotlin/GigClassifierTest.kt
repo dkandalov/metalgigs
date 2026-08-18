@@ -34,8 +34,8 @@ class GigClassifierTest {
 
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
-    private fun gig(title: GigTitle = GigTitle("Some Gig"), venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "", description: String = "") =
-        Gig(id = GigId(venue.id, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = imageUrl, description = description)
+    private fun gig(title: GigTitle = GigTitle("Some Gig"), venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", imageUrl: String = "https://example.com/poster.jpg", description: String = "") =
+        Gig(id = GigId(venue.id, url), title = title, date = LocalDate.of(2026, 8, day), imageUrl = PosterUrl(imageUrl), description = description)
 
     // Classifying makes no http request of its own - the only fetch it can do is the vision path's
     // poster, which the tests exercising that path stub out.
@@ -43,12 +43,12 @@ class GigClassifierTest {
 
     @Test
     fun `classifies a gig as Metal or Other from the LLM's reply`() {
-        val judgeable = gig(description = "Some event page text")
+        val judgeable = gig(description = "Some event page text, long enough to be judged on its own rather than through the poster.")
 
         val metal = classifyGigByLLM(noHttp, fakeChat("Metal"), judgeable, recordedAt)
         val other = classifyGigByLLM(noHttp, fakeChat("Other"), judgeable, recordedAt)
 
-        // The fixture has no imageUrl, so this is the text path however thin the text is - records
+        // The text clears the thin-text threshold, so this is the text path - records
         // which model judged it and confirms useVision = false rather than just leaving it null.
         val textModel = "claude-haiku-4-5-20251001"
         expectThat(metal).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
@@ -59,39 +59,9 @@ class GigClassifierTest {
     fun `judges a gig on the page text captured at scrape time`() {
         val (chat, requests) = capturingChat()
 
-        classifyGigByLLM(noHttp, chat, gig(description = "text captured at scrape time"), recordedAt)
+        classifyGigByLLM(noHttp, chat, gig(description = "text captured at scrape time, and enough more of it that the text path is the one taken"), recordedAt)
 
         expectThat(requests.first().promptText().contains("text captured at scrape time")).isTrue()
-    }
-
-    // Asking with nothing but a title gets an answer - Other - rather than an error, and no later run
-    // reclassifies a gig that already has a verdict.
-    @Test
-    fun `refuses to classify a gig with neither page text nor a poster`() {
-        val (chat, requests) = capturingChat()
-
-        val error = assertFailsWith<IllegalStateException> {
-            classifyGigByLLM(noHttp, chat, gig(description = "", imageUrl = ""), recordedAt)
-        }
-
-        expectThat(requests).hasSize(0)
-        expectThat(error.message!!.contains(theUnderworld.name)).isTrue()
-        expectThat(error.message!!.contains("https://example.com/gig")).isTrue()
-    }
-
-    // The gigs the classifier refuses are collected like any other failure, so one of them costs its
-    // own verdict and nothing else.
-    @Test
-    fun `a gig with nothing to judge stays Pending without sinking the run`() {
-        val judgeable = gig(title = GigTitle("Judgeable"), description = "Doom metal night!", url = "https://example.com/judgeable")
-        val blank = gig(title = GigTitle("Blank"), day = 9, url = "https://example.com/blank")
-
-        val run = classifyGigs(gigs = listOf(judgeable, blank), alreadyClassified = emptySet()) { g ->
-            classifyGigByLLM(noHttp, fakeChat("Metal"), g, recordedAt)
-        }
-
-        expectThat(run.classified.map { it.id.url }).containsExactly(judgeable.id.url)
-        expectThat(run.failed.map { (gig, _) -> gig.title.value }).containsExactly("Blank")
     }
 
     @Test
@@ -199,7 +169,7 @@ class GigClassifierTest {
     @Test
     fun `fails fast when the LLM chat replies with something other than a genre name`() {
         val error = assertFailsWith<IllegalStateException> {
-            classifyGigByLLM(noHttp, fakeChat("I think this is probably a metal gig"), gig(description = "Some event page text"), recordedAt)
+            classifyGigByLLM(noHttp, fakeChat("I think this is probably a metal gig"), gig(description = "Some event page text, long enough to be judged on its own rather than through the poster."), recordedAt)
         }
 
         expectThat(error.message!!.contains(theUnderworld.name)).isTrue()

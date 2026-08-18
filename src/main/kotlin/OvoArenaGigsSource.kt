@@ -102,7 +102,7 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
                     id = GigId(venue.id, gigUrl(event, date)),
                     title = GigTitle(event.title),
                     date = date,
-                    imageUrl = event.imageUrl,
+                    imageUrl = PosterUrl(event.imageUrl),
                     description = fetchDescription(client, event.url, ::eventPageContent),
                 )
             }

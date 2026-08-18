@@ -8,7 +8,7 @@ class GigValidationTest {
     private val someVenue = VenueId("Some Venue")
 
     private fun gig(title: GigTitle, url: String, description: String) =
-        Gig(id = GigId(someVenue, url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = "", description = description)
+        Gig(id = GigId(someVenue, url), title = title, date = LocalDate.of(2026, 8, 8), imageUrl = PosterUrl("https://example.com/poster.jpg"), description = description)
 
     private val realText = "Doom night with support from three bands, doors 7pm."
 

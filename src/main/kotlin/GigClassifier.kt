@@ -51,17 +51,10 @@ fun classifyGigByLLM(
     recordedAt: Instant,
     posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
 ): GigClassified {
-    val useVision = gig.description.length < THIN_TEXT_THRESHOLD && gig.imageUrl.isNotBlank()
-
-    // With neither text nor poster the model has only the title to go on, and the prompt tells it to
-    // answer Other when unsure - a verdict indistinguishable from a judged one, which nothing
-    // revisits. Left unclassified instead, for a later scrape to capture text for.
-    if (gig.description.isBlank() && !useVision) {
-        error("No event page text or poster image to classify ${venue(gig.id.venueId)} at ${gig.id.url} by")
-    }
+    val useVision = gig.description.length < THIN_TEXT_THRESHOLD
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: ${gig.description}")) +
-        if (useVision) listOf(posterImage(client, gig.imageUrl)) else emptyList()
+        if (useVision) listOf(posterImage(client, gig.imageUrl.value)) else emptyList()
 
     // the vision model rejects a temperature override outright; the text model accepts one and we
     // want its verdicts reproducible, so only that path pins it
