@@ -68,6 +68,13 @@ fun publishGigImage(
     return published
 }
 
+// What the page is allowed to point at. Read off the directory after publishing rather than worked
+// out from the gigs, so that a poster the venue never listed, one whose download failed, and one
+// deleted from images/ by hand are all simply absent here, and the card is rendered without an
+// image instead of with a src that 404s.
+fun publishedImageNames(publishedDir: File): Set<String> =
+    publishedDir.listFiles().orEmpty().map { it.name }.toSet()
+
 // safe to remove precisely because the cache still holds their bytes if a later render needs them
 fun unpublishedImageFiles(keptGigs: List<Gig>, publishedFiles: List<File>): List<File> {
     val expectedFileNames = keptGigs.map { publishedImageFileName(it) }.toSet()

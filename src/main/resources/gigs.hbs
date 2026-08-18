@@ -435,7 +435,7 @@
         {{#each gigs}}
         <li class="gig-card">
             <a href="{{url}}">
-                <img class="gig-image" src="{{imageUrl}}" alt="" loading="lazy">
+                {{#if imageUrl}}<img class="gig-image" src="{{imageUrl}}" alt="" loading="lazy">{{else}}<span class="gig-image"></span>{{/if}}
                 <span class="gig-info">
                     <span class="gig-title">{{title}}</span>
                     <span class="gig-venue">{{venue}}</span>

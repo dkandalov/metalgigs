@@ -47,11 +47,29 @@ class GigsViewTest {
             Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/early-gig-one"), title = GigTitle("Early Gig One"), date = LocalDate.of(2026, 8, 8), imageUrl = "https://example.com/images/early-gig-one.jpg", description = ""),
             Gig(id = GigId(theGrace.id, "https://example.com/gigs/early-gig-two"), title = GigTitle("Early Gig Two"), date = LocalDate.of(2026, 8, 8), imageUrl = "https://example.com/images/early-gig-two.jpg", description = ""),
         )
+        // The last of them is left out of the published set, so the approved html covers both the
+        // card with a poster and the one standing in for a poster that isn't there.
+        val published = gigs.dropLast(1).map { publishedImageFileName(it) }.toSet()
         val renderer = HandlebarsTemplates().CachingClasspath()
 
-        val html = renderer(GigsView(groupGigsByDate(gigs)))
+        val html = renderer(GigsView(groupGigsByDate(gigs, published)))
 
         approver.assertApproved(Response(OK).body(html))
+    }
+
+    @Test
+    fun `links only to images that have been published`() {
+        val withPoster = Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/with"), title = GigTitle("With Poster"), date = LocalDate.of(2026, 8, 8), imageUrl = "https://example.com/images/with.jpg", description = "")
+        // A gig the venue listed without a poster at all, and one whose poster failed to publish,
+        // are the same thing to the page - neither has a file in images/ to point at.
+        val withoutPoster = Gig(id = GigId(theGrace.id, "https://example.com/gigs/without"), title = GigTitle("Without Poster"), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
+        val unpublished = Gig(id = GigId(theGrace.id, "https://example.com/gigs/unpublished"), title = GigTitle("Unpublished Poster"), date = LocalDate.of(2026, 8, 8), imageUrl = "https://example.com/images/unpublished.jpg", description = "")
+
+        val cards = groupGigsByDate(listOf(withPoster, withoutPoster, unpublished), setOf(publishedImageFileName(withPoster))).single().gigs
+
+        // Alphabetical within the day, so the unpublished one leads.
+        expectThat(cards.map { it.imageUrl })
+            .containsExactly(null, "images/${publishedImageFileName(withPoster)}", null)
     }
 
     @Test
@@ -59,7 +77,7 @@ class GigsViewTest {
         fun gig(title: String) =
             Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/$title"), title = GigTitle(title), date = LocalDate.of(2026, 8, 8), imageUrl = "", description = "")
 
-        val groups = groupGigsByDate(listOf(gig("zebra"), gig("Apple"), gig("banana"), gig("Cherry")))
+        val groups = groupGigsByDate(listOf(gig("zebra"), gig("Apple"), gig("banana"), gig("Cherry")), emptySet())
 
         expectThat(groups.single().gigs.map { it.title }).containsExactly("Apple", "banana", "Cherry", "zebra")
     }
