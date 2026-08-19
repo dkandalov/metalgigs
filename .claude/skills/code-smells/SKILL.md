@@ -47,6 +47,20 @@ it. It reads as a tolerated fallback when nothing tolerates it.
 Instead, let an absent value stay absent - nullable to the boundary that decides - so the type that
 refuses it is the only thing that has to know.
 
+## Implementation details before the declaration they serve
+
+`GigsSource`, the interface the file is named for and every class in it implements, is declared after
+the tiny types, the log entries and two private url helpers. Inside each source class the inversion
+repeats: `latestGigs`, the interface method, comes last, below the private regexes and
+`eventPageContent` it calls.
+
+Declare high-level interfaces, classes, functions and properties before the details that implement
+them, so a reader meets what the file is for first and every reference points back towards its top
+(https://dmitrykandalov.com/tidy-kotlin#high-level-declarations-first).
+
+GigsSource.kt is like this throughout, so reorder a file you are already restructuring rather than
+sweeping.
+
 ## Adding to this list
 
 Only shapes actually seen in this repo, each anchored to a named instance rather than a line number.
