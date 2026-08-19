@@ -15,9 +15,9 @@ class GigsViewTest {
 
     @Test
     fun `excludes gigs before today but keeps gigs on today`() {
-        val yesterday = Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/yesterday"), title = GigTitle("Yesterday Gig"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val today = Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/today"), title = GigTitle("Today Gig"), date = LocalDate.of(2026, 8, 10), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val tomorrow = Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/tomorrow"), title = GigTitle("Tomorrow Gig"), date = LocalDate.of(2026, 8, 11), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val yesterday = Gig(GigId(theUnderworld.id, "https://example.com/gigs/yesterday"), GigTitle("Yesterday Gig"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val today = Gig(GigId(theUnderworld.id, "https://example.com/gigs/today"), GigTitle("Today Gig"), LocalDate.of(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val tomorrow = Gig(GigId(theUnderworld.id, "https://example.com/gigs/tomorrow"), GigTitle("Tomorrow Gig"), LocalDate.of(2026, 8, 11), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
 
         val gigs = excludeGigsInThePast(listOf(yesterday, today, tomorrow), today = LocalDate.of(2026, 8, 10))
 
@@ -27,7 +27,7 @@ class GigsViewTest {
     @Test
     fun `keeps gigs up to a year ahead and drops the ones past it`() {
         fun gig(date: LocalDate) =
-            Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/$date"), title = GigTitle("Gig"), date = date, posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+            Gig(GigId(theUnderworld.id, "https://example.com/gigs/$date"), GigTitle("Gig"), date = date, PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
 
         val today = LocalDate.of(2026, 8, 10)
         val onTheDay = gig(today)
@@ -43,9 +43,9 @@ class GigsViewTest {
     @Test
     fun `renders gigs grouped by date as html`(approver: Approver) {
         val gigs = listOf(
-            Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/late-gig"), title = GigTitle("Late Gig"), date = LocalDate.of(2026, 9, 1), posterUrl = PosterUrl("https://example.com/images/late-gig.jpg"), description = GigDescription("")),
-            Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/early-gig-one"), title = GigTitle("Early Gig One"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/images/early-gig-one.jpg"), description = GigDescription("")),
-            Gig(id = GigId(theGrace.id, "https://example.com/gigs/early-gig-two"), title = GigTitle("Early Gig Two"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/images/early-gig-two.jpg"), description = GigDescription("")),
+            Gig(GigId(theUnderworld.id, "https://example.com/gigs/late-gig"), GigTitle("Late Gig"), LocalDate.of(2026, 9, 1), PosterUrl("https://example.com/images/late-gig.jpg"), GigDescription("")),
+            Gig(GigId(theUnderworld.id, "https://example.com/gigs/early-gig-one"), GigTitle("Early Gig One"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/images/early-gig-one.jpg"), GigDescription("")),
+            Gig(GigId(theGrace.id, "https://example.com/gigs/early-gig-two"), GigTitle("Early Gig Two"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/images/early-gig-two.jpg"), GigDescription("")),
         )
         val renderer = HandlebarsTemplates().CachingClasspath()
 
@@ -57,7 +57,7 @@ class GigsViewTest {
     @Test
     fun `sorts gigs alphabetically within a day, ignoring case`() {
         fun gig(title: String) =
-            Gig(id = GigId(theUnderworld.id, "https://example.com/gigs/$title"), title = GigTitle(title), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+            Gig(GigId(theUnderworld.id, "https://example.com/gigs/$title"), GigTitle(title), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
 
         val groups = groupGigsByDate(listOf(gig("zebra"), gig("Apple"), gig("banana"), gig("Cherry")))
 

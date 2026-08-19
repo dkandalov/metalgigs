@@ -27,11 +27,11 @@ fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
         .groupBy { it.date }
         .map { (date, gigsOnDate) ->
             DateGroup(
-                date = date,
+                date,
                 // within a day the scrape order is just whichever venue happened to be scraped
                 // first, which shuffles between runs - alphabetical keeps the page stable and
                 // makes a given gig findable
-                gigs = gigsOnDate.sortedBy { it.title.value.lowercase() }.map { it.toCardView() },
+                gigsOnDate.sortedBy { it.title.value.lowercase() }.map { it.toCardView() },
             )
         }
 

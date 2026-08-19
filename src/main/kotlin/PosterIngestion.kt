@@ -29,7 +29,7 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
     // and had nothing to say about the gig, which is the one thing that never happened here.
     return parsed
         .filterNot { (_, title) -> isExcluded(venue, title) }
-        .map { (date, title) -> Gig(id = GigId(venue.id, posterGigUrl(sourceUrl, title, date)), title = GigTitle(title), date = date, posterUrl = PosterUrl(imageUrl), description = GigDescription(title)) }
+        .map { (date, title) -> Gig(GigId(venue.id, posterGigUrl(sourceUrl, title, date)), GigTitle(title), date, PosterUrl(imageUrl), GigDescription(title)) }
 }
 
 // each gig's url is synthesized from the poster's own source url (the post/page it came from) -

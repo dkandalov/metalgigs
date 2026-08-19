@@ -24,11 +24,11 @@ internal class DiceVenueGigsSource(private val client: HttpHandler, private val 
         return events.map { event ->
             val gigUrl = "https://dice.fm/event/${event.permName}"
             Gig(
-                id = GigId(venue.id, gigUrl),
-                title = GigTitle(event.name),
-                date = OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),
-                posterUrl = posterUrlFrom(gigUrl, event.images.square),
-                description = fetchDescription(client, gigUrl, ::diceEventPageContent),
+                GigId(venue.id, gigUrl),
+                GigTitle(event.name),
+                OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),
+                posterUrlFrom(gigUrl, event.images.square),
+                fetchDescription(client, gigUrl, ::diceEventPageContent),
             )
         }
     }
@@ -76,27 +76,27 @@ private fun JsonNode.stringOrNull(): String? = (this as? JsonNodeString)?.text
 
 private object JDiceNextData : JAny<DiceNextData>() {
     private val props by obj(JDiceProps, DiceNextData::props)
-    override fun JsonNodeObject.deserializeOrThrow() = DiceNextData(props = +props)
+    override fun JsonNodeObject.deserializeOrThrow() = DiceNextData(+props)
 }
 
 private object JDiceProps : JAny<DiceProps>() {
     private val pageProps by obj(JDicePageProps, DiceProps::pageProps)
-    override fun JsonNodeObject.deserializeOrThrow() = DiceProps(pageProps = +pageProps)
+    override fun JsonNodeObject.deserializeOrThrow() = DiceProps(+pageProps)
 }
 
 private object JDicePageProps : JAny<DicePageProps>() {
     private val profile by obj(JDiceProfile, DicePageProps::profile)
-    override fun JsonNodeObject.deserializeOrThrow() = DicePageProps(profile = +profile)
+    override fun JsonNodeObject.deserializeOrThrow() = DicePageProps(+profile)
 }
 
 private object JDiceProfile : JAny<DiceProfile>() {
     private val sections by array(JDiceSection, DiceProfile::sections)
-    override fun JsonNodeObject.deserializeOrThrow() = DiceProfile(sections = +sections)
+    override fun JsonNodeObject.deserializeOrThrow() = DiceProfile(+sections)
 }
 
 private object JDiceSection : JAny<DiceSection>() {
     private val events by array(JDiceEvent, DiceSection::events)
-    override fun JsonNodeObject.deserializeOrThrow() = DiceSection(events = +events)
+    override fun JsonNodeObject.deserializeOrThrow() = DiceSection(+events)
 }
 
 private object JDiceEvent : JAny<DiceEvent>() {
@@ -114,12 +114,12 @@ private object JDiceEvent : JAny<DiceEvent>() {
 
 private object JDiceEventVenue : JAny<DiceEventVenue>() {
     private val doors_open_date by str(DiceEventVenue::doorsOpenDate)
-    override fun JsonNodeObject.deserializeOrThrow() = DiceEventVenue(doorsOpenDate = +doors_open_date)
+    override fun JsonNodeObject.deserializeOrThrow() = DiceEventVenue(+doors_open_date)
 }
 
 private object JDiceImages : JAny<DiceImages>() {
     private val square by str(DiceImages::square)
-    override fun JsonNodeObject.deserializeOrThrow() = DiceImages(square = +square)
+    override fun JsonNodeObject.deserializeOrThrow() = DiceImages(+square)
 }
 
 private data class DiceNextData(val props: DiceProps)

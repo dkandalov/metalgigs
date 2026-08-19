@@ -17,12 +17,12 @@ class GigsStoreTest {
 
     @Test
     fun `appends and reads back gig log entries of different kinds`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/images/test-gig.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), GigTitle("Test Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/images/test-gig.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val entries: List<LogEntry> = listOf(
             GigObserved(gig, recordedAt),
             GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
-            GigsRendered("2026-08-01T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 1), recordedAt = recordedAt),
+            GigsRendered("2026-08-01T12-00-00Z.html", 1, LocalDate.of(2026, 8, 1), recordedAt),
         )
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
@@ -33,7 +33,7 @@ class GigsStoreTest {
 
     @Test
     fun `numbers appended entries in order, continuing from what the log already holds`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), GigTitle("Test Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
@@ -47,7 +47,7 @@ class GigsStoreTest {
     // wouldn't identify anything - the gaps are what say entries were dropped
     @Test
     fun `keeps the seq of an entry that already has one`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), GigTitle("Test Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
@@ -58,7 +58,7 @@ class GigsStoreTest {
 
     @Test
     fun `refuses an entry whose seq would leave the log out of order`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), GigTitle("Test Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val log = gigsLog(listOf(GigObserved(gig, recordedAt, seq = 5)))
 
@@ -69,10 +69,10 @@ class GigsStoreTest {
     fun `writes a render entry with its logical date as a plain ISO date`() {
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
         val rendered = GigsRendered(
-            file = "2026-08-01T12-00-00Z.html",
-            gigCount = 42,
-            logicalDate = LocalDate.of(2026, 8, 1),
-            recordedAt = Instant.parse("2026-08-01T12:00:00Z"),
+            "2026-08-01T12-00-00Z.html",
+            42,
+            LocalDate.of(2026, 8, 1),
+            Instant.parse("2026-08-01T12:00:00Z"),
         )
 
         GigsLog(file).append(listOf(rendered))
@@ -115,10 +115,10 @@ class GigsStoreTest {
         expectThat(GigsLog(file).entries).isEqualTo(
             listOf(
                 GigClassified(
-                    id = GigId(VenueId("Signature Brew Blackhorse Road"), "https://tixr.com/e/187182"),
-                    recordedAt = Instant.parse("2026-08-11T21:20:43.785398Z"),
-                    genre = Genre.Other,
-                    source = ClassificationSource.LLM,
+                    GigId(VenueId("Signature Brew Blackhorse Road"), "https://tixr.com/e/187182"),
+                    Instant.parse("2026-08-11T21:20:43.785398Z"),
+                    Genre.Other,
+                    ClassificationSource.LLM,
                     seq = 0,
                 ),
             ),
@@ -127,7 +127,7 @@ class GigsStoreTest {
 
     @Test
     fun `reads back an observation whose page said nothing, and one with text`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), title = GigTitle("Test Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/test-gig"), GigTitle("Test Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-08-01T12:00:00Z")
         val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
 
@@ -145,7 +145,7 @@ class GigsStoreTest {
     // classification run does the same, so recordedAt alone can't say which entry came last.
     @Test
     fun `takes the later of two observations recorded at the same instant`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), GigTitle("Some Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val soldOut = gig.copy(title = GigTitle("Some Gig - SOLD OUT"))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(GigObserved(gig, recordedAt), GigObserved(soldOut, recordedAt))
@@ -155,7 +155,7 @@ class GigsStoreTest {
 
     @Test
     fun `takes the later of two classifications recorded at the same instant`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), GigTitle("Some Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(
             GigObserved(gig, recordedAt),
@@ -168,7 +168,7 @@ class GigsStoreTest {
 
     @Test
     fun `a changed description makes a gig count as changed`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription("3 tickets left"))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), GigTitle("Some Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription("3 tickets left"))
         val existing: List<LogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
         val log = gigsLog(existing)
 
@@ -179,7 +179,7 @@ class GigsStoreTest {
 
     @Test
     fun `projects the latest observation per gig, ignoring classification entries`() {
-        val firstSeen = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/images/some-gig.jpg"), description = GigDescription(""))
+        val firstSeen = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/some-gig"), GigTitle("Some Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/images/some-gig.jpg"), GigDescription(""))
         val soldOut = firstSeen.copy(title = GigTitle("Some Gig - SOLD OUT"))
         val events: List<LogEntry> = listOf(
             GigObserved(firstSeen, Instant.parse("2026-07-01T00:00:00Z")),
@@ -192,8 +192,8 @@ class GigsStoreTest {
 
     @Test
     fun `keeps separate gigs from different venues distinct`() {
-        val gigA = Gig(id = GigId(VenueId("Venue A"), "https://example.com/gigs/same-slug"), title = GigTitle("Gig A"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/images/gig-a.jpg"), description = GigDescription(""))
-        val gigB = Gig(id = GigId(VenueId("Venue B"), "https://example.com/gigs/same-slug"), title = GigTitle("Gig B"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/images/gig-b.jpg"), description = GigDescription(""))
+        val gigA = Gig(GigId(VenueId("Venue A"), "https://example.com/gigs/same-slug"), GigTitle("Gig A"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/images/gig-a.jpg"), GigDescription(""))
+        val gigB = Gig(GigId(VenueId("Venue B"), "https://example.com/gigs/same-slug"), GigTitle("Gig B"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/images/gig-b.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events = listOf(GigObserved(gigA, recordedAt), GigObserved(gigB, recordedAt))
 
@@ -202,9 +202,9 @@ class GigsStoreTest {
 
     @Test
     fun `treats a gig as new or changed if it's unseen or differs from its latest observation`() {
-        val unseen = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/unseen"), title = GigTitle("Unseen Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val unchangedGig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/unchanged"), title = GigTitle("Unchanged Gig"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val soldOutBefore = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/changed"), title = GigTitle("Changed Gig"), date = LocalDate.of(2026, 8, 10), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val unseen = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/unseen"), GigTitle("Unseen Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val unchangedGig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/unchanged"), GigTitle("Unchanged Gig"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val soldOutBefore = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/changed"), GigTitle("Changed Gig"), LocalDate.of(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val soldOutNow = soldOutBefore.copy(title = GigTitle("Changed Gig - SOLD OUT"))
         val existingEntries: List<LogEntry> = listOf(
             GigObserved(unchangedGig, Instant.parse("2026-07-01T00:00:00Z")),
@@ -218,7 +218,7 @@ class GigsStoreTest {
 
     @Test
     fun `treats a gig as changed again if it reverts to a state seen earlier than its latest observation`() {
-        val original = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/reverting"), title = GigTitle("Reverting Gig"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val original = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/reverting"), GigTitle("Reverting Gig"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val soldOut = original.copy(title = GigTitle("Reverting Gig - SOLD OUT"))
         val existingEntries: List<LogEntry> = listOf(
             GigObserved(original, Instant.parse("2026-07-01T00:00:00Z")),
@@ -232,9 +232,9 @@ class GigsStoreTest {
 
     @Test
     fun `derives last-scraped time per venue from the latest observation, ignoring venues never observed`() {
-        val gigA1 = Gig(id = GigId(VenueId("Venue A"), "https://example.com/gigs/a1"), title = GigTitle("Gig A1"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val gigA2 = Gig(id = GigId(VenueId("Venue A"), "https://example.com/gigs/a2"), title = GigTitle("Gig A2"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val gigB = Gig(id = GigId(VenueId("Venue B"), "https://example.com/gigs/b"), title = GigTitle("Gig B"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gigA1 = Gig(GigId(VenueId("Venue A"), "https://example.com/gigs/a1"), GigTitle("Gig A1"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val gigA2 = Gig(GigId(VenueId("Venue A"), "https://example.com/gigs/a2"), GigTitle("Gig A2"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val gigB = Gig(GigId(VenueId("Venue B"), "https://example.com/gigs/b"), GigTitle("Gig B"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val events: List<LogEntry> = listOf(
             GigObserved(gigA1, Instant.parse("2026-07-01T00:00:00Z")),
             GigObserved(gigA2, Instant.parse("2026-07-10T00:00:00Z")),
@@ -251,7 +251,7 @@ class GigsStoreTest {
 
     @Test
     fun `detects an already-ingested poster by its gigs' shared source-url prefix`() {
-        val gig = Gig(id = GigId(VenueId("Some Venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = GigTitle("Doom Night"), date = LocalDate.of(2026, 8, 14), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Some Venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), GigTitle("Doom Night"), LocalDate.of(2026, 8, 14), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val events: List<LogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
 
         val log = gigsLog(events)
@@ -262,9 +262,9 @@ class GigsStoreTest {
     @Test
     fun `knows whether the page has been rendered for a given date`() {
         val entries: List<LogEntry> = listOf(
-            GigsRendered("2026-08-10T09-00-00Z.html", gigCount = 3, logicalDate = LocalDate.of(2026, 8, 10), recordedAt = Instant.parse("2026-08-10T09:00:00Z")),
+            GigsRendered("2026-08-10T09-00-00Z.html", 3, LocalDate.of(2026, 8, 10), Instant.parse("2026-08-10T09:00:00Z")),
             // a backdated render, made later than the one above but for an earlier page
-            GigsRendered("2026-08-11T09-00-00Z.html", gigCount = 9, logicalDate = LocalDate.of(2026, 1, 1), recordedAt = Instant.parse("2026-08-11T09:00:00Z")),
+            GigsRendered("2026-08-11T09-00-00Z.html", 9, LocalDate.of(2026, 1, 1), Instant.parse("2026-08-11T09:00:00Z")),
         )
 
         val log = gigsLog(entries)
@@ -278,12 +278,12 @@ class GigsStoreTest {
     // than assume each entry names a gig
     @Test
     fun `ignores a render entry when projecting gigs`() {
-        val gig = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/metal"), title = GigTitle("Metal"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val gig = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/metal"), GigTitle("Metal"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(
             GigObserved(gig, recordedAt),
             GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
-            GigsRendered("2026-07-01T00-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 1), recordedAt = recordedAt),
+            GigsRendered("2026-07-01T00-00-00Z.html", 1, LocalDate.of(2026, 8, 1), recordedAt),
         )
 
         val log = gigsLog(events)
@@ -296,9 +296,9 @@ class GigsStoreTest {
 
     @Test
     fun `projects only gigs classified Metal, excluding never-classified ones`() {
-        val neverClassified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/never-classified"), title = GigTitle("Never Classified"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val metal = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/metal"), title = GigTitle("Metal"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val other = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/other"), title = GigTitle("Other"), date = LocalDate.of(2026, 8, 10), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val neverClassified = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/never-classified"), GigTitle("Never Classified"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val metal = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/metal"), GigTitle("Metal"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val other = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/other"), GigTitle("Other"), LocalDate.of(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(
             GigObserved(neverClassified, recordedAt),
@@ -313,9 +313,9 @@ class GigsStoreTest {
 
     @Test
     fun `computes classification status per gig, using the latest classification`() {
-        val classified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/classified"), title = GigTitle("Classified"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val reclassified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/reclassified"), title = GigTitle("Reclassified"), date = LocalDate.of(2026, 8, 10), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val neverClassified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/never-classified"), title = GigTitle("Never Classified"), date = LocalDate.of(2026, 8, 11), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val classified = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/classified"), GigTitle("Classified"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val reclassified = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/reclassified"), GigTitle("Reclassified"), LocalDate.of(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val neverClassified = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/never-classified"), GigTitle("Never Classified"), LocalDate.of(2026, 8, 11), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(
             GigObserved(classified, recordedAt),
@@ -335,8 +335,8 @@ class GigsStoreTest {
 
     @Test
     fun `a user override always beats the classifier's verdict`() {
-        val overriddenToMetal = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/overridden-to-metal"), title = GigTitle("Overridden To Metal"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val overriddenToOther = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/overridden-to-other"), title = GigTitle("Overridden To Other"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val overriddenToMetal = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/overridden-to-metal"), GigTitle("Overridden To Metal"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val overriddenToOther = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/overridden-to-other"), GigTitle("Overridden To Other"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(
             GigObserved(overriddenToMetal, recordedAt),
@@ -354,9 +354,9 @@ class GigsStoreTest {
 
     @Test
     fun `treats any classification as already-classified, whoever made it`() {
-        val classified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/classified"), title = GigTitle("Classified"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val userOverridden = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/user-overridden"), title = GigTitle("User Overridden"), date = LocalDate.of(2026, 8, 10), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val neverClassified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/never-classified"), title = GigTitle("Never Classified"), date = LocalDate.of(2026, 8, 11), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val classified = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/classified"), GigTitle("Classified"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val userOverridden = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/user-overridden"), GigTitle("User Overridden"), LocalDate.of(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val neverClassified = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/never-classified"), GigTitle("Never Classified"), LocalDate.of(2026, 8, 11), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(
             GigObserved(classified, recordedAt),
@@ -373,8 +373,8 @@ class GigsStoreTest {
     // a user asserted, since re-asking about that one changes nothing it would then read back.
     @Test
     fun `counts only a user's overrides as settled against the classifier`() {
-        val classified = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/classified"), title = GigTitle("Classified"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-        val userOverridden = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/user-overridden"), title = GigTitle("User Overridden"), date = LocalDate.of(2026, 8, 10), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+        val classified = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/classified"), GigTitle("Classified"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val userOverridden = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/user-overridden"), GigTitle("User Overridden"), LocalDate.of(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
         val recordedAt = Instant.parse("2026-07-01T00:00:00Z")
         val events: List<LogEntry> = listOf(
             GigObserved(classified, recordedAt),

@@ -8,8 +8,8 @@ import kotlin.test.Test
 
 class LogCompactionTest {
 
-    private val gigA = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/a"), title = GigTitle("Gig A"), date = LocalDate.of(2026, 8, 8), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
-    private val gigB = Gig(id = GigId(VenueId("Test Venue"), "https://example.com/gigs/b"), title = GigTitle("Gig B"), date = LocalDate.of(2026, 8, 9), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription(""))
+    private val gigA = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/a"), GigTitle("Gig A"), LocalDate.of(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+    private val gigB = Gig(GigId(VenueId("Test Venue"), "https://example.com/gigs/b"), GigTitle("Gig B"), LocalDate.of(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
 
     private fun at(day: Int) = Instant.parse("2026-08-0${day}T12:00:00Z")
 
@@ -64,8 +64,8 @@ class LogCompactionTest {
     @Test
     fun `keeps every render entry`() {
         val entries = listOf(
-            GigsRendered("2026-08-01T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 1), recordedAt = at(1)),
-            GigsRendered("2026-08-02T12-00-00Z.html", gigCount = 2, logicalDate = LocalDate.of(2026, 8, 2), recordedAt = at(2)),
+            GigsRendered("2026-08-01T12-00-00Z.html", 1, LocalDate.of(2026, 8, 1), at(1)),
+            GigsRendered("2026-08-02T12-00-00Z.html", 2, LocalDate.of(2026, 8, 2), at(2)),
         )
         val log = gigsLog(entries)
 
@@ -77,7 +77,7 @@ class LogCompactionTest {
         val entries = listOf(
             GigObserved(gigA, at(1)),
             GigClassified(gigA.id, at(2), Genre.Metal, ClassificationSource.LLM),
-            GigsRendered("2026-08-03T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 3), recordedAt = at(3)),
+            GigsRendered("2026-08-03T12-00-00Z.html", 1, LocalDate.of(2026, 8, 3), at(3)),
         )
         val log = gigsLog(entries)
 
@@ -93,7 +93,7 @@ class LogCompactionTest {
             GigObserved(gigA.copy(title = GigTitle("Gig A - SOLD OUT")), at(2)),
             GigClassified(gigA.id, at(2), Genre.Metal, ClassificationSource.User),
             GigClassified(gigB.id, at(2), Genre.Other, ClassificationSource.LLM),
-            GigsRendered("2026-08-03T12-00-00Z.html", gigCount = 1, logicalDate = LocalDate.of(2026, 8, 3), recordedAt = at(3)),
+            GigsRendered("2026-08-03T12-00-00Z.html", 1, LocalDate.of(2026, 8, 3), at(3)),
         )
         val before = gigsLog(entries)
         val after = gigsLog(before.compact().entries)

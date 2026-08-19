@@ -19,7 +19,7 @@ class ImageCacheTest {
     private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
 
     private fun gig(day: Int = 8, venue: Venue = theUnderworld, posterUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
-        Gig(id = GigId(venue.id, "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, day), posterUrl = PosterUrl(posterUrl), description = GigDescription(""))
+        Gig(GigId(venue.id, "https://example.com/gigs/some-gig"), GigTitle("Some Gig"), LocalDate.of(2026, 8, day), PosterUrl(posterUrl), GigDescription(""))
 
     @Test
     fun `caches a downloaded image and skips re-downloading on a cache hit`() {
@@ -111,7 +111,7 @@ class ImageCacheTest {
         val keptFile = File(publishedImageFileName(kept))
         val staleFile = File("2026-08-09-underworld-deadbeef.webp")
 
-        val unpublished = unpublishedImageFiles(keptGigs = listOf(kept), publishedFiles = listOf(keptFile, staleFile))
+        val unpublished = unpublishedImageFiles(listOf(kept), listOf(keptFile, staleFile))
 
         expectThat(unpublished).isEqualTo(listOf(staleFile))
     }
@@ -124,7 +124,7 @@ class ImageCacheTest {
         val pastFile = File(publishedImageFileName(past))
         val upcomingFile = File(publishedImageFileName(upcoming))
 
-        val unpublished = unpublishedImageFiles(keptGigs = listOf(past, upcoming), publishedFiles = listOf(pastFile, upcomingFile))
+        val unpublished = unpublishedImageFiles(listOf(past, upcoming), listOf(pastFile, upcomingFile))
 
         expectThat(unpublished).isEqualTo(emptyList())
     }

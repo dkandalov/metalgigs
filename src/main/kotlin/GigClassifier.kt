@@ -27,8 +27,8 @@ fun classifyGigs(
         .map { gig -> gig to runCatching { classifyGig(gig) } }
 
     return ClassificationRun(
-        classified = results.mapNotNull { (_, result) -> result.getOrNull() },
-        failed = results.mapNotNull { (gig, result) ->
+        results.mapNotNull { (_, result) -> result.getOrNull() },
+        results.mapNotNull { (gig, result) ->
             result.exceptionOrNull()?.let { gig to (it.message ?: it.toString()) }
         },
     )
@@ -148,7 +148,8 @@ internal fun classificationCost(classified: GigClassified): Double? {
 private fun llmRate(model: String, on: LocalDate): LlmRate? = when (model) {
     llmClassifierModel.value -> LlmRate(inputPerMillion = 1.00, outputPerMillion = 5.00)
     visionClassifierModel.value ->
-        if (on < LocalDate.of(2026, 9, 1)) LlmRate(2.00, 10.00) else LlmRate(3.00, 15.00)
+        if (on < LocalDate.of(2026, 9, 1)) LlmRate(inputPerMillion = 2.00, outputPerMillion = 10.00)
+        else LlmRate(inputPerMillion = 3.00, outputPerMillion = 15.00)
     else -> null
 }
 

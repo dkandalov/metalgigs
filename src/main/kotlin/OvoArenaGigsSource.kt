@@ -37,11 +37,11 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
             .distinctBy { (event, date) -> gigUrl(event, date) }
             .map { (event, date) ->
                 Gig(
-                    id = GigId(venue.id, gigUrl(event, date)),
-                    title = GigTitle(event.title),
-                    date = date,
-                    posterUrl = posterUrlFrom(gigUrl(event, date), event.imageUrl),
-                    description = fetchDescription(client, event.url, ::eventPageContent),
+                    GigId(venue.id, gigUrl(event, date)),
+                    GigTitle(event.title),
+                    date,
+                    posterUrlFrom(gigUrl(event, date), event.imageUrl),
+                    fetchDescription(client, event.url, ::eventPageContent),
                 )
             }
 
@@ -74,7 +74,7 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
 
 private object JOvoArenaCalendar : JAny<OvoArenaCalendar>() {
     private val events by array(JOvoArenaEvent, OvoArenaCalendar::events)
-    override fun JsonNodeObject.deserializeOrThrow() = OvoArenaCalendar(events = +events)
+    override fun JsonNodeObject.deserializeOrThrow() = OvoArenaCalendar(+events)
 }
 
 private object JOvoArenaEvent : JAny<OvoArenaEvent>() {

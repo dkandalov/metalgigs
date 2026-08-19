@@ -34,12 +34,12 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
             // still a working link
             val gigUrl = event.tickets.first().ticketUrl.substringBefore('?')
             Gig(
-                id = GigId(venue.id, gigUrl),
-                title = GigTitle(event.name),
+                GigId(venue.id, gigUrl),
+                GigTitle(event.name),
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
-                date = OffsetDateTime.parse(event.eventDate).toLocalDate(),
-                posterUrl = PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
-                description = event.description(),
+                OffsetDateTime.parse(event.eventDate).toLocalDate(),
+                PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
+                event.description(),
             )
         }
     }
@@ -117,7 +117,7 @@ private fun AmgEvent.actsAndGenres(): String =
 
 private object JAmgSearchResults : JAny<AmgSearchResults>() {
     private val documents by array(JAmgEvent, AmgSearchResults::documents)
-    override fun JsonNodeObject.deserializeOrThrow() = AmgSearchResults(documents = +documents)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgSearchResults(+documents)
 }
 
 private object JAmgEvent : JAny<AmgEvent>() {
@@ -144,7 +144,7 @@ private object JAmgEvent : JAny<AmgEvent>() {
 
 private object JAmgTicket : JAny<AmgTicket>() {
     private val ticketUrl by str(AmgTicket::ticketUrl)
-    override fun JsonNodeObject.deserializeOrThrow() = AmgTicket(ticketUrl = +ticketUrl)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgTicket(+ticketUrl)
 }
 
 // Every event carries exactly one localization, always en-GB, whose description is the promoter's
@@ -152,12 +152,12 @@ private object JAmgTicket : JAny<AmgTicket>() {
 // any, so only one of the two is read.
 private object JAmgLocalization : JAny<AmgLocalization>() {
     private val description by str(AmgLocalization::description)
-    override fun JsonNodeObject.deserializeOrThrow() = AmgLocalization(description = +description)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgLocalization(+description)
 }
 
 private object JAmgGenre : JAny<AmgGenre>() {
     private val name by str(AmgGenre::name)
-    override fun JsonNodeObject.deserializeOrThrow() = AmgGenre(name = +name)
+    override fun JsonNodeObject.deserializeOrThrow() = AmgGenre(+name)
 }
 
 private object JAmgAct : JAny<AmgAct>() {

@@ -171,11 +171,7 @@ private object JGigObserved : JAny<GigObserved>() {
     private val gig by obj(JGig, GigObserved::gig)
     private val recordedAt by str(GigObserved::recordedAt)
 
-    override fun JsonNodeObject.deserializeOrThrow() = GigObserved(
-        gig = +gig,
-        recordedAt = +recordedAt,
-        seq = +seq,
-    )
+    override fun JsonNodeObject.deserializeOrThrow() = GigObserved(+gig, +recordedAt, +seq)
 }
 
 private object JGigClassified : JAny<GigClassified>() {
@@ -211,13 +207,7 @@ private object JGigsRendered : JAny<GigsRendered>() {
     private val logicalDate by str(GigsRendered::logicalDate)
     private val recordedAt by str(GigsRendered::recordedAt)
 
-    override fun JsonNodeObject.deserializeOrThrow() = GigsRendered(
-        file = +file,
-        gigCount = +gigCount,
-        logicalDate = +logicalDate,
-        recordedAt = +recordedAt,
-        seq = +seq,
-    )
+    override fun JsonNodeObject.deserializeOrThrow() = GigsRendered(+file, +gigCount, +logicalDate, +recordedAt, +seq)
 }
 
 private object JGig : JAny<Gig>() {
@@ -228,13 +218,7 @@ private object JGig : JAny<Gig>() {
     private val posterUrl by str(JPosterUrl) { posterUrl }
     private val description by str(JGigDescription) { description }
 
-    override fun JsonNodeObject.deserializeOrThrow() = Gig(
-        id = GigId(+venue, +url),
-        title = +title,
-        date = +date,
-        posterUrl = +posterUrl,
-        description = +description,
-    )
+    override fun JsonNodeObject.deserializeOrThrow() = Gig(GigId(+venue, +url), +title, +date, +posterUrl, +description)
 }
 
 private object JVenueId : JStringRepresentable<VenueId>() {

@@ -251,7 +251,7 @@ private fun overrideGigGenre(url: String, genre: Genre) {
         ?: error("No current gig found with url $url")
 
     log.append(listOf(
-        GigClassified(id = gig.id, recordedAt = Instant.now(), genre = genre, source = ClassificationSource.User),
+        GigClassified(gig.id, Instant.now(), genre, ClassificationSource.User),
     ))
 }
 
@@ -277,7 +277,7 @@ private fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, 
     val recordedAt = Instant.now()
     val observed = newOrChanged.map { GigObserved(it, recordedAt) }
     val classified = gigs.map { gig ->
-        GigClassified(id = gig.id, recordedAt = recordedAt, genre = Genre.Metal, source = ClassificationSource.User)
+        GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.User)
     }
     log.append(observed + classified)
     cacheImagesReportingFailures(client, gigs, "poster image(s)")
@@ -322,7 +322,7 @@ internal fun compactLog() {
 }
 
 private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
-    CartAndHorsesGigsSource(client, year = LocalDate.now().year),
+    CartAndHorsesGigsSource(client, LocalDate.now().year),
     NewCrossInnGigsSource(client),
     OurBlackHeartGigsSource(client),
     TheUnderworldGigsSource(client),
@@ -331,7 +331,7 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     BlondiesBreweryTaproomGigsSource(client),
     BlondiesBarGigsSource(client),
     HelgisGigsSource(client),
-    ElectricBallroomGigsSource(client, year = LocalDate.now().year),
+    ElectricBallroomGigsSource(client, LocalDate.now().year),
     ElectricBrixtonGigsSource(client),
     DingwallsGigsSource(client),
     TheGarageGigsSource(client),
@@ -349,7 +349,7 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     AlexandraPalaceGigsSource(client),
     PaperDressVintageGigsSource(client),
     WindmillBrixtonGigsSource(client),
-    IslingtonAssemblyHallGigsSource(client, year = LocalDate.now().year),
+    IslingtonAssemblyHallGigsSource(client, LocalDate.now().year),
     BarflyCamdenGigsSource(client),
     EventimApolloGigsSource(client),
     OvoArenaGigsSource(client),

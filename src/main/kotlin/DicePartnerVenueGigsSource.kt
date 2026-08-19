@@ -45,12 +45,12 @@ private class DicePartnerVenueGigsSource(
             // (link.dice.fm/...), which is opaque and reused across unrelated calls to the API
             val gigUrl = "https://dice.fm/event/${event.permName}"
             Gig(
-                id = GigId(venue.id, gigUrl),
-                title = GigTitle(event.name),
+                GigId(venue.id, gigUrl),
+                GigTitle(event.name),
                 // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
-                date = OffsetDateTime.parse(event.date).toLocalDate(),
-                posterUrl = posterUrlFrom(gigUrl, event.images.firstOrNull()),
-                description = GigDescription(event.rawDescription),
+                OffsetDateTime.parse(event.date).toLocalDate(),
+                posterUrlFrom(gigUrl, event.images.firstOrNull()),
+                GigDescription(event.rawDescription),
             )
         }
     }
@@ -88,7 +88,7 @@ class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
 private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
     private val data by array(JDicePartnerEvent, DicePartnerEventsResponse::data)
     private val links by obj(JDicePartnerLinks, DicePartnerEventsResponse::links)
-    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEventsResponse(data = +data, links = +links)
+    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEventsResponse(+data, +links)
 }
 
 private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
@@ -101,7 +101,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
         name = +name,
         permName = +perm_name,
-        date = +date,
+        +date,
         images = +images,
         rawDescription = +raw_description,
     )
@@ -109,7 +109,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
 
 private object JDicePartnerLinks : JAny<DicePartnerLinks>() {
     private val next by str(DicePartnerLinks::next)
-    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerLinks(next = +next)
+    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerLinks(+next)
 }
 
 private data class DicePartnerEventsResponse(val data: List<DicePartnerEvent>, val links: DicePartnerLinks)
