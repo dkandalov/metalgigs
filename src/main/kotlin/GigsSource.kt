@@ -250,10 +250,10 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 // most Squarespace venues write a gig's blurb on its own event page, but The Fiddler's Elbow leaves
 // every one of those empty and puts the whole thing in the listing's excerpt instead - which also
 // means one request for the listing rather than one more per gig
-enum class SquarespaceDescription { EventPage, ListingExcerpt }
+internal enum class SquarespaceDescription { EventPage, ListingExcerpt }
 
 // shared by every Squarespace "Events List" venue page
-class SquarespaceEventsGigsSource(
+internal class SquarespaceEventsGigsSource(
     private val client: HttpHandler,
     private val url: String,
     override val venue: Venue,
@@ -427,7 +427,7 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
 }
 
 // shared by DHP Family's venue sites, which all use the same card markup
-class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
+internal class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".card.card--full")
@@ -1021,7 +1021,7 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
 
 // shared by the two rooms The O2 lists on its own site - the arena and indigo - which differ only
 // in the site's own numeric id for each, as the listing page's own "Load More" button carries
-class TheO2VenueGigsSource(private val client: HttpHandler, private val theO2VenueId: Int, override val venue: Venue) : GigsSource {
+internal class TheO2VenueGigsSource(private val client: HttpHandler, private val theO2VenueId: Int, override val venue: Venue) : GigsSource {
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
 

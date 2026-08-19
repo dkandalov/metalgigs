@@ -96,7 +96,7 @@ val llmClassifierSystemPrompt = """
 // answer with a caveat (notably "I can't identify people in images" when judging a poster), so a
 // preamble on earlier lines is tolerated. The answer line itself still has to be just the genre,
 // give or take trailing punctuation, rather than the genre being fished out of a sentence
-fun genreFromReply(reply: String): Genre? {
+internal fun genreFromReply(reply: String): Genre? {
     val answer = reply.lines().lastOrNull { it.isNotBlank() }?.trim()?.trimEnd('.', '!') ?: return null
     return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
 }
@@ -135,7 +135,7 @@ private fun money(classifications: List<GigClassified>) =
 
 // null rather than zero for anything unpriced - a user override has no model or tokens at all, and
 // an entry written before tokens were recorded would otherwise read as having been free
-fun classificationCost(classified: GigClassified): Double? {
+internal fun classificationCost(classified: GigClassified): Double? {
     val rate = llmRate(classified.llmModel ?: return null, classified.recordedAt.atZone(ZoneOffset.UTC).toLocalDate())
     val input = classified.inputTokens ?: return null
     val output = classified.outputTokens ?: return null
@@ -145,11 +145,11 @@ fun classificationCost(classified: GigClassified): Double? {
 // From platform.claude.com/docs/en/pricing, read on 2026-08-15. Sonnet 5 is on introductory rates
 // until 2026-08-31; the later rates are here too so that a run after that reports what it actually
 // cost rather than two thirds of it.
-fun llmRate(model: String, on: LocalDate): LlmRate? = when (model) {
+private fun llmRate(model: String, on: LocalDate): LlmRate? = when (model) {
     llmClassifierModel.value -> LlmRate(inputPerMillion = 1.00, outputPerMillion = 5.00)
     visionClassifierModel.value ->
         if (on < LocalDate.of(2026, 9, 1)) LlmRate(2.00, 10.00) else LlmRate(3.00, 15.00)
     else -> null
 }
 
-data class LlmRate(val inputPerMillion: Double, val outputPerMillion: Double)
+private data class LlmRate(val inputPerMillion: Double, val outputPerMillion: Double)

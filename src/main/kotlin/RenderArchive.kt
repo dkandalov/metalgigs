@@ -15,7 +15,7 @@ fun archiveRender(html: String, renderedDir: File, indexFile: File, at: Instant)
     return archived
 }
 
-fun renderedFileName(at: Instant): String = "${renderedFileTimestamp.format(at)}.html"
+internal fun renderedFileName(at: Instant): String = "${renderedFileTimestamp.format(at)}.html"
 
 // colons would be the natural ISO separator but make the file miserable to handle in a shell, so
 // the time part uses dashes; still sorts chronologically as a plain string

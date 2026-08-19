@@ -33,7 +33,7 @@ fun validateGigs(
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
 // for a gig several of them catch.
-val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, SharedDescriptionCheck, ContaminationCheck)
+private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, SharedDescriptionCheck, ContaminationCheck)
 
 data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
@@ -69,7 +69,7 @@ data class GigsProblem(val venueId: VenueId, val detail: String, val gigs: Set<G
 // What the log already holds for the venue is what separates the two ways of listing nothing: a
 // venue whose gigs are all in the log and have simply stopped appearing is a broken source, while
 // one the log has never held any for is more likely a venue that has yet to announce anything.
-object EmptyListingCheck : GigsCheck {
+internal object EmptyListingCheck : GigsCheck {
     override val heading = "Venues that listed no gigs at all - check that source's listing selector:"
 
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
@@ -87,7 +87,7 @@ object EmptyListingCheck : GigsCheck {
 //
 // Gigs are gathered by reason so a broken listing reads as the one thing it is, rather than as
 // ninety-six of them.
-object MisshapenGigsCheck : GigsCheck {
+internal object MisshapenGigsCheck : GigsCheck {
     override val heading = "Gigs that look like a parsing failure - check that source's selectors:"
 
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
@@ -151,7 +151,7 @@ object MisshapenGigsCheck : GigsCheck {
 //
 // Reported as the shared text itself, since what makes this worth chasing is whether it reads as a
 // bot wall, a venue's own blurb, or one gig's copy on all the others.
-object SharedDescriptionCheck : GigsCheck {
+internal object SharedDescriptionCheck : GigsCheck {
     override val heading = "Gigs given another gig's description word for word - check that source's event page selector:"
 
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
@@ -190,7 +190,7 @@ object SharedDescriptionCheck : GigsCheck {
 // The whole venue is withheld rather than only the gigs measured as contaminated: the fix is to that
 // source's scoping, and until it lands its cleaner-looking gigs are only ones that fell the right
 // side of a threshold.
-object ContaminationCheck : GigsCheck {
+internal object ContaminationCheck : GigsCheck {
     override val heading = "Venues whose gigs may carry site-wide boilerplate - consider scoping their source's eventPageContent:"
 
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> {

@@ -152,7 +152,7 @@ data class CompactedLog(
 private fun readLogEntries(file: File): List<LogEntry> =
     fromNdJsonToList(JLogEntry)(file.readLines().asSequence()).orThrow()
 
-object JLogEntry : JSealed<LogEntry>() {
+internal object JLogEntry : JSealed<LogEntry>() {
     override val subConverters: Map<String, ObjectNodeConverter<out LogEntry>> = mapOf(
         "observed" to JGigObserved,
         "classified" to JGigClassified,
@@ -166,7 +166,7 @@ object JLogEntry : JSealed<LogEntry>() {
     }
 }
 
-object JGigObserved : JAny<GigObserved>() {
+private object JGigObserved : JAny<GigObserved>() {
     private val seq by num(GigObserved::seq)
     private val gig by obj(JGig, GigObserved::gig)
     private val recordedAt by str(GigObserved::recordedAt)
@@ -178,7 +178,7 @@ object JGigObserved : JAny<GigObserved>() {
     )
 }
 
-object JGigClassified : JAny<GigClassified>() {
+private object JGigClassified : JAny<GigClassified>() {
     private val seq by num(GigClassified::seq)
     private val venue by str(JVenueId) { id.venueId }
     private val url by str(fun GigClassified.(): String = id.url)
@@ -204,7 +204,7 @@ object JGigClassified : JAny<GigClassified>() {
     )
 }
 
-object JGigsRendered : JAny<GigsRendered>() {
+private object JGigsRendered : JAny<GigsRendered>() {
     private val seq by num(GigsRendered::seq)
     private val file by str(GigsRendered::file)
     private val gigCount by num(GigsRendered::gigCount)
@@ -220,7 +220,7 @@ object JGigsRendered : JAny<GigsRendered>() {
     )
 }
 
-object JGig : JAny<Gig>() {
+private object JGig : JAny<Gig>() {
     private val title by str(JGigTitle) { title }
     private val venue by str(JVenueId) { id.venueId }
     private val date by str(Gig::date)

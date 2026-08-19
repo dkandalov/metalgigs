@@ -20,7 +20,7 @@ import java.time.OffsetDateTime
 // The key is not scoped to 229: the same one answers for any venue named in the filter, which is
 // what lets the Signature Brew taprooms below share it. That coupling is the risk in doing so - if
 // Dice ever scopes or rotates the key, every venue here stops listing at once, not just 229's.
-class DicePartnerVenueGigsSource(
+private class DicePartnerVenueGigsSource(
     private val client: HttpHandler,
     private val venueFilter: String,
     override val venue: Venue,

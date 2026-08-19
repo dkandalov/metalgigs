@@ -57,7 +57,7 @@ fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File
 fun publishedImageFileName(gig: Gig): String =
     "${gig.date}-${gig.id.venueId}-${shortHash(gig.posterUrl.value)}.webp"
 
-fun cachedImageFile(cacheDir: File, imageUrl: String): File =
+private fun cachedImageFile(cacheDir: File, imageUrl: String): File =
     File(cacheDir, "${shortHash(imageUrl)}.${imageUrlExtension(imageUrl)}")
 
 // only the last path segment is looked at, because a url whose own file name has no extension - the

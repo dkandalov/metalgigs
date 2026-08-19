@@ -75,7 +75,7 @@ fun main(rawArgs: Array<String>) {
 private fun decodeArgs(rawArgs: Array<String>): List<String> =
     if (rawArgs.size == 1) rawArgs[0].split('\u001F').map { it.replace('\u001E', ' ') } else rawArgs.toList()
 
-fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = false) {
+private fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = false) {
     val log = GigsLog(eventsFile)
     if (!force && log.alreadyRenderedFor(today)) {
         println("Skipping - already updated for $today; pass force to update anyway")
@@ -94,7 +94,7 @@ fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = false) {
     renderGigsHtml(today = today)
 }
 
-fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
+internal fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val sourcesByVenueId = allSources(client).associateBy { it.venue.id }
 
@@ -159,7 +159,7 @@ fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
 //
 // Unlike scrape, the venues here are every venue in the log rather than every venue with a source:
 // a poster-only venue's gigs are classified like any other.
-fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = null, force: Boolean = false) {
+private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = null, force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val log = GigsLog(eventsFile)
     val currentGigs = log.currentGigs()
@@ -189,7 +189,7 @@ fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = 
     printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig, run.failed)
 }
 
-fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
+private fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
     val log = GigsLog(eventsFile)
     val statusByGig = log.classificationStatus()
     // the same window the page uses, so an unclassified gig too far out to be rendered doesn't
@@ -222,7 +222,7 @@ fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, f
     println("Rendered ${gigs.size} gig(s) as of $today to $indexFile, archived as $archived")
 }
 
-fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
+private fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
     val log = GigsLog(eventsFile)
     val statusByGig = log.classificationStatus()
     val currentGigs = log.currentGigs()
@@ -245,7 +245,7 @@ fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
     }
 }
 
-fun overrideGigGenre(url: String, genre: Genre) {
+private fun overrideGigGenre(url: String, genre: Genre) {
     val log = GigsLog(eventsFile)
     val gig = log.currentGigs().find { it.id.url == url }
         ?: error("No current gig found with url $url")
@@ -255,7 +255,7 @@ fun overrideGigGenre(url: String, genre: Genre) {
     ))
 }
 
-fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, force: Boolean = false) {
+private fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val log = GigsLog(eventsFile)
 
@@ -289,7 +289,7 @@ fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, force: B
 // alongside and read back first: nothing is overwritten unless it projects to exactly the same gigs,
 // genres, scrape times and renders as the log it would replace. events.ndjson is committed, so the
 // swap is recoverable from git either way - but a failed check should cost nothing at all.
-fun compactLog() {
+internal fun compactLog() {
     val log = GigsLog(eventsFile)
     val compacted = log.compact()
 

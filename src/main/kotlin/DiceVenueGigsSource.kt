@@ -14,7 +14,7 @@ import java.time.OffsetDateTime
 // shared by every dice.fm venue page. dice.fm renders those pages client-side (Next.js), but embeds
 // the full event list as JSON in a <script id="__NEXT_DATA__"> tag, so we parse that directly
 // instead of the rendered DOM
-class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
+internal class DiceVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
     override fun latestGigs(): List<Gig> {
         val page = Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
         val nextData = page.select("script#__NEXT_DATA__").first()

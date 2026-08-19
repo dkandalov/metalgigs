@@ -14,7 +14,7 @@ import java.time.OffsetDateTime
 // client-side, but they feed themselves from this plain JSON API, which happily serves every event
 // in one request - so we call that directly rather than rendering a page and paging through it.
 // It carries the promoter's copy too, so a venue's whole listing is this one request.
-class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: Int, override val venue: Venue) : GigsSource {
+private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: Int, override val venue: Venue) : GigsSource {
     override fun latestGigs(): List<Gig> {
         val results = JAmgSearchResults.fromJson(fetchPage(client, url)).orThrow()
         check(results.documents.isNotEmpty()) { "No events returned by $url" }
