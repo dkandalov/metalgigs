@@ -48,10 +48,13 @@ says why: top-level properties initialise in file order, so `venuesById` can onl
 Make declarations as private as their use allows
 (https://dmitrykandalov.com/tidy-kotlin#maximum-privacy): a private one is read with all its use
 sites in view, and the compiler answers "used anywhere else?" where a search over a public name
-cannot. GigsStore.kt's gig converters, `llmRate`, `cachedImageFile` and most of Main.kt's commands
-are private; `internal` is for the ones only a test reaches, like `eventPageContent`. Public is for
-what a public signature exposes - `CompactedLog`, `GigCardView` and five others, where narrowing is
-a compile error. Public for any other reason is the smell.
+cannot. GigsStore.kt's gig converters, `llmRate`, `cachedImageFile` and every command in Main.kt are
+private; `internal` is for the ones only a test reaches, like `eventPageContent`. Public is for what
+a public signature exposes - `CompactedLog`, `GigCardView` and five others, where narrowing is a
+compile error. Public for any other reason is the smell.
+
+When deciding, check that the outside "use" is a call and not a comment naming the function -
+`scrapeGigs`, `compactLog` and `DiceVenueGigsSource` were each left `internal` on the strength of one.
 
 ## Argument names the types already give
 

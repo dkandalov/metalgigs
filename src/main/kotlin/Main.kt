@@ -94,7 +94,7 @@ private fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = fal
     renderGigsHtml(today = today)
 }
 
-internal fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
+private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val sourcesByVenueId = allSources(client).associateBy { it.venue.id }
 
@@ -285,7 +285,7 @@ private fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, 
 // alongside and read back first: nothing is overwritten unless it projects to exactly the same gigs,
 // genres, scrape times and renders as the log it would replace. events.ndjson is committed, so the
 // swap is recoverable from git either way - but a failed check should cost nothing at all.
-internal fun compactLog() {
+private fun compactLog() {
     val log = GigsLog(eventsFile)
     val compacted = log.compact()
 
