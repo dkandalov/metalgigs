@@ -13,6 +13,15 @@
     <meta property="og:description" content="Upcoming metal, hardcore and heavy gigs in London, listed by date and updated daily. The Underworld, New Cross Inn, Our Black Heart, The Dev and more.">
     <meta property="og:url" content="https://metalgigs.london/">
     <meta property="og:image" content="https://metalgigs.london/apple-touch-icon.png">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Metal Gigs in London",
+            "alternateName": "metalgigs.london",
+            "url": "https://metalgigs.london/"
+        }
+    </script>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="icon" href="favicon.ico" sizes="48x48 32x32 16x16">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
