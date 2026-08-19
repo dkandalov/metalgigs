@@ -284,10 +284,10 @@ internal class SquarespaceEventsGigsSource(
     internal fun eventPageContent(page: Document) = page.select(".eventitem-column-content").textOrNull()
 }
 
-val ourBlackHeart = Venue(VenueId("our-black-heart"), "Our Black Heart")
+val theBlackHeart = Venue(VenueId("black-heart"), "The Black Heart")
 
-class OurBlackHeartGigsSource(client: HttpHandler) :
-    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = ourBlackHeart)
+class TheBlackHeartGigsSource(client: HttpHandler) :
+    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = theBlackHeart)
 
 val theDome = Venue(VenueId("dome"), "The Dome")
 

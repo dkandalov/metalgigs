@@ -324,7 +324,7 @@ internal fun compactLog() {
 private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     CartAndHorsesGigsSource(client, LocalDate.now().year),
     NewCrossInnGigsSource(client),
-    OurBlackHeartGigsSource(client),
+    TheBlackHeartGigsSource(client),
     TheUnderworldGigsSource(client),
     DomeLondonGigsSource(client),
     FiddlersElbowGigsSource(client),

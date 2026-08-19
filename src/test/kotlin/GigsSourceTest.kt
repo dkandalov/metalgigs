@@ -196,19 +196,19 @@ class GigsSourceTest {
     }
 
     @Test
-    fun `extracts gig events from Our Black Heart events page`() {
+    fun `extracts gig events from The Black Heart events page`() {
         assertScrapesGigs(
-            source = OurBlackHeartGigsSource(cachedClient()),
+            source = TheBlackHeartGigsSource(cachedClient()),
             size = 50,
             first = Gig(
-                GigId(ourBlackHeart.id, "https://www.ourblackheart.com/events/2026/8/8/you-win-again-gravity"),
+                GigId(theBlackHeart.id, "https://www.ourblackheart.com/events/2026/8/8/you-win-again-gravity"),
                 GigTitle("YOU WIN AGAIN GRAVITY"),
                 LocalDate.of(2026, 8, 8),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1782745761879-UVSUIG341XJIY3MEB9MI/LBPHOTO%2B-%2B%2BYou%2BWin%2BAgain%2BGravity%2B-%2BPromo%2B-%2B20.10.2024%2B6.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(ourBlackHeart.id, "https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii"),
+                GigId(theBlackHeart.id, "https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii"),
                 GigTitle("NECROPOLIS VOL. III"),
                 LocalDate.of(2027, 3, 19),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1781025655512-MHR6PMWPOOE3TJFOSWAB/Necropolis_2027_IG_Feed_Poster_2nd_announcement%2B%25281%2529.jpg"),
@@ -1362,7 +1362,7 @@ class GigsSourceTest {
         expectThat(pageText.contains("Opening times")).isEqualTo(false)
     }
 
-    // Our Black Heart and The Dome share this same Squarespace "Events" template, and both delegate
+    // The Black Heart and The Dome share this same Squarespace "Events" template, and both delegate
     // to this scraper, so one fixture covers both. The meta block here is verbatim from a real
     // Black Heart page, where it outweighed the gig's own blurb on the shorter listings
     @Test
@@ -1382,7 +1382,7 @@ class GigsSourceTest {
             <footer><a>Instagram</a><a>Privacy Policy</a></footer>
         """.trimIndent()
 
-        val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = ourBlackHeart)
+        val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = theBlackHeart)
         val pageText = source.eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()

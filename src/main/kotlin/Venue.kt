@@ -5,7 +5,7 @@ fun venue(id: VenueId): Venue = venuesById[id] ?: error("Unknown venue id: $id. 
 val allVenues: List<Venue> = listOf(
     cartAndHorses,
     newCrossInn,
-    ourBlackHeart,
+    theBlackHeart,
     theUnderworld,
     theDome,
     fiddlersElbow,
@@ -44,7 +44,9 @@ val allVenues: List<Venue> = listOf(
 private val venuesById = allVenues.associateBy { it.id }
 
 // The id is what a venue is known by wherever it's stored or typed - in the log, on the command
-// line - and so stays put even if the venue renames itself. The name is only ever displayed.
+// line, in published image file names - and is independent of the name, which is only ever
+// displayed, so a venue renaming itself needn't touch it. Changing one anyway means rewriting every
+// log line carrying it and renaming those images with it (see the migrate-log-format skill).
 data class VenueId(val value: String) {
     override fun toString() = value
 }
