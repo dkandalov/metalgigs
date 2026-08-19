@@ -81,9 +81,10 @@ internal object EmptyListingCheck : GigsCheck {
         else "listed nothing, though the log holds ${previous.size} gig(s) for it"
 }
 
-// A gig's title and description are whatever text a selector returned, so a selector that has
-// stopped matching, or started matching a container rather than the thing inside it, shows up in
-// neither field's type - only in its shape. Both would otherwise be logged and published in silence.
+// A gig's title and description are whatever text a selector returned, so a selector that started
+// matching a container rather than the thing inside it, or stopped matching a description
+// altogether, shows up in neither field's type - only in its shape. Both would otherwise be logged
+// and published in silence.
 //
 // Gigs are gathered by reason so a broken listing reads as the one thing it is, rather than as
 // ninety-six of them.
@@ -109,7 +110,6 @@ internal object MisshapenGigsCheck : GigsCheck {
     private const val MAX_DESCRIPTION_LENGTH = 10_000
 
     private fun problemWith(gig: Gig): String? = when {
-        gig.title.value.isBlank() -> "no title"
         gig.title.value.length > MAX_TITLE_LENGTH -> "title of ${gig.title.value.length} chars"
         gig.description.value.isBlank() -> "no description"
         readsAsBoilerplate(gig.description.value) -> "description is a cookie or bot wall, not gig copy"

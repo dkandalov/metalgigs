@@ -35,6 +35,9 @@ data class GigId(val venueId: VenueId, val url: String) {
 }
 
 data class GigTitle(val value: String) {
+    init {
+        require(value.isNotBlank()) { "A gig title can't be blank - a source whose title selector matched nothing has stopped parsing" }
+    }
     override fun toString() = value
 }
 

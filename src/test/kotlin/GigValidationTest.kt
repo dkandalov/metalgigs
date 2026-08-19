@@ -23,15 +23,14 @@ class GigValidationTest {
     // what a selector that has stopped matching leaves behind - Jsoup's text() returns "" rather
     // than failing, so nothing else in the pipeline would notice
     @Test
-    fun `flags a gig whose title or description didn't parse at all`() {
+    fun `flags a gig whose description didn't parse at all`() {
         val gigs = listOf(
             gig(title = GigTitle("Real Title"), url = "https://example.com/a", description = realText),
-            gig(title = GigTitle("   "), url = "https://example.com/b", description = realText),
-            gig(title = GigTitle("Real Title"), url = "https://example.com/c", description = "   "),
+            gig(title = GigTitle("Real Title"), url = "https://example.com/b", description = "   "),
         )
 
         expectThat(MisshapenGigsCheck.problemsFor(gigs)).isEqualTo(
-            listOf("no title" to listOf("https://example.com/b"), "no description" to listOf("https://example.com/c")),
+            listOf("no description" to listOf("https://example.com/b")),
         )
     }
 
