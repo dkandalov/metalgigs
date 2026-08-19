@@ -111,9 +111,9 @@ object MisshapenGigsCheck : GigsCheck {
     private fun problemWith(gig: Gig): String? = when {
         gig.title.value.isBlank() -> "no title"
         gig.title.value.length > MAX_TITLE_LENGTH -> "title of ${gig.title.value.length} chars"
-        gig.description.isBlank() -> "no description"
-        readsAsBoilerplate(gig.description) -> "description is a cookie or bot wall, not gig copy"
-        gig.description.length > MAX_DESCRIPTION_LENGTH -> "description of ${gig.description.length} chars"
+        gig.description.value.isBlank() -> "no description"
+        readsAsBoilerplate(gig.description.value) -> "description is a cookie or bot wall, not gig copy"
+        gig.description.value.length > MAX_DESCRIPTION_LENGTH -> "description of ${gig.description.value.length} chars"
         else -> null
     }
 
@@ -155,7 +155,7 @@ object SharedDescriptionCheck : GigsCheck {
     override val heading = "Gigs given another gig's description word for word - check that source's event page selector:"
 
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
-        scraped.filter { it.description.isNotBlank() }
+        scraped.filter { it.description.value.isNotBlank() }
             .groupBy { it.description }
             .values
             .filter { group -> group.size > 1 && group.map { titleWords(it.title) }.reduce(Set<String>::intersect).isEmpty() }
@@ -166,8 +166,8 @@ object SharedDescriptionCheck : GigsCheck {
     private fun titleWords(title: GigTitle): Set<String> =
         words(title.value.lowercase()).map { it.filter(Char::isLetterOrDigit) }.filter { it.isNotBlank() }.toSet()
 
-    private fun shortened(description: String): String =
-        words(description).joinToString(" ")
+    private fun shortened(description: GigDescription): String =
+        words(description.value).joinToString(" ")
             .let { if (it.length <= QUOTED_DESCRIPTION_CHARS) "\"$it\"" else "\"${it.take(QUOTED_DESCRIPTION_CHARS)}...\"" }
 }
 
@@ -194,7 +194,7 @@ object ContaminationCheck : GigsCheck {
     override val heading = "Venues whose gigs may carry site-wide boilerplate - consider scoping their source's eventPageContent:"
 
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> {
-        val affected = contaminatedGigs(scraped.filter { it.description.isNotBlank() })
+        val affected = contaminatedGigs(scraped.filter { it.description.value.isNotBlank() })
         return if (affected == 0) emptyList()
         else listOf(GigsProblem(venue, "$affected of ${scraped.size} gig(s) mostly shared text", scraped.toSet()))
     }
@@ -206,7 +206,7 @@ object ContaminationCheck : GigsCheck {
     private fun contaminatedGigs(venueGigs: List<Gig>): Int {
         if (venueGigs.size < MIN_GIGS_TO_COMPARE) return 0
 
-        val wordsByGig = venueGigs.associateWith { words(it.description) }
+        val wordsByGig = venueGigs.associateWith { words(it.description.value) }
         val ngramsByGig = wordsByGig.mapValues { (_, ws) -> wordNGrams(ws) }
         // a phrase has to recur across at least half that venue's gigs (never fewer than two) to
         // count as shared - one coincidental overlap between two unrelated blurbs isn't boilerplate.

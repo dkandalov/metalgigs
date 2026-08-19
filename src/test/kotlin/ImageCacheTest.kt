@@ -19,7 +19,7 @@ class ImageCacheTest {
     private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
 
     private fun gig(day: Int = 8, venue: Venue = theUnderworld, posterUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
-        Gig(id = GigId(venue.id, "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, day), posterUrl = PosterUrl(posterUrl), description = "")
+        Gig(id = GigId(venue.id, "https://example.com/gigs/some-gig"), title = GigTitle("Some Gig"), date = LocalDate.of(2026, 8, day), posterUrl = PosterUrl(posterUrl), description = GigDescription(""))
 
     @Test
     fun `caches a downloaded image and skips re-downloading on a cache hit`() {

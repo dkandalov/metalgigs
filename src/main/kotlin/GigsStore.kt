@@ -30,13 +30,18 @@ private object JPosterUrl : JStringRepresentable<PosterUrl>() {
     override val render: (PosterUrl) -> String = PosterUrl::value
 }
 
+private object JGigDescription : JStringRepresentable<GigDescription>() {
+    override val cons: (String) -> GigDescription = ::GigDescription
+    override val render: (GigDescription) -> String = GigDescription::value
+}
+
 object JGig : JAny<Gig>() {
     private val title by str(JGigTitle) { title }
     private val venue by str(JVenueId) { id.venueId }
     private val date by str(Gig::date)
     private val url by str(fun Gig.(): String = id.url)
     private val posterUrl by str(JPosterUrl) { posterUrl }
-    private val description by str(Gig::description)
+    private val description by str(JGigDescription) { description }
 
     override fun JsonNodeObject.deserializeOrThrow() = Gig(
         id = GigId(+venue, +url),

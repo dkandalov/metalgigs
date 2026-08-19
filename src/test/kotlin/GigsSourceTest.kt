@@ -23,8 +23,8 @@ class GigsSourceTest {
         expectThat(events).hasSize(size)
         // a description is its whole event page's text, so the per-venue expectations mask it rather
         // than carrying thousands of characters each - what's extracted from a page has its own tests
-        expectThat(events.first().copy(description = "")).isEqualTo(first)
-        expectThat(events.last().copy(description = "")).isEqualTo(last)
+        expectThat(events.first().copy(description = GigDescription(""))).isEqualTo(first)
+        expectThat(events.last().copy(description = GigDescription(""))).isEqualTo(last)
         expectThat(events.all { it.id.url.startsWith(urlPrefix) }).isTrue()
         expectThat(events.all { it.id.venueId == first.id.venueId }).isTrue()
 
@@ -41,14 +41,14 @@ class GigsSourceTest {
                 title = GigTitle("THREE BIRDS WHISPER - The Positive Rebellion Tour UK 2026 + PSYCHEDELIC SKIES + BORDERLINE"),
                 date = LocalDate.of(2026, 8, 8),
                 posterUrl = PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/240726-012017_threebirds-upd.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(cartAndHorses.id, "https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/"),
                 title = GigTitle("Jbm presents SMELLS LIKE NIRVANA"),
                 date = LocalDate.of(2026, 10, 10),
                 posterUrl = PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.cartandhorses.london/",
         )
@@ -111,14 +111,14 @@ class GigsSourceTest {
                 title = GigTitle("GREENHAT"),
                 date = LocalDate.of(2026, 8, 8),
                 posterUrl = PosterUrl("https://pit.live/uploads/user/2026/07/07/640x480/5d05ygXA94bMG95I.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(newCrossInn.id, "https://pit.live/events/level-up-festival-7"),
                 title = GigTitle("Level Up Festival 7"),
                 date = LocalDate.of(2027, 7, 23),
                 posterUrl = PosterUrl("https://pit.live/uploads/user/2026/07/24/640x480/t8YfuAmMlTMW6ilv.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://pit.live/events/",
         )
@@ -139,29 +139,29 @@ class GigsSourceTest {
         events.forEach { println(it) }
 
         expectThat(events).hasSize(10)
-        expectThat(events.first().copy(description = "")).isEqualTo(
+        expectThat(events.first().copy(description = GigDescription(""))).isEqualTo(
             Gig(
                 id = GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/moonpunx-16-matinee1682026"),
                 title = GigTitle("MoonPunx 16 Matinee"),
                 date = LocalDate.of(2026, 8, 16),
                 posterUrl = PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1786573507310-PG9FBW6TLI2B45R0QU3D/Unknown-2.png"),
-                description = "",
+                description = GigDescription(""),
             ),
         )
-        expectThat(events.last().copy(description = "")).isEqualTo(
+        expectThat(events.last().copy(description = GigDescription(""))).isEqualTo(
             Gig(
                 id = GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/neo-rockabilly-explosion-3-the-neutronz-wigsville-spliffs-dj-chris-setzer2692026"),
                 title = GigTitle("NEO ROCKABILLY EXPLOSION #3 The Neutronz, Wigsville Spliffs, DJ Chris Setzer."),
                 date = LocalDate.of(2026, 9, 26),
                 posterUrl = PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1785973667820-T4D2VFAJ8AY9UAJQ4GHP/69613b4679576_event.jpeg"),
-                description = "",
+                description = GigDescription(""),
             ),
         )
         expectThat(events.all { it.id.url.startsWith("https://www.thefiddlerselbow.co.uk/whos-playing/") }).isTrue()
         // the whole reason the description comes off the listing: 80 chars is where the classifier
         // gives up on the text and judges the poster image instead
-        expectThat(events.all { it.description.length > 80 }).isTrue()
-        expectThat(events.first().description).contains("Steam Kittens are a punk band")
+        expectThat(events.all { it.description.value.length > 80 }).isTrue()
+        expectThat(events.first().description.value).contains("Steam Kittens are a punk band")
     }
 
     @Test
@@ -192,7 +192,7 @@ class GigsSourceTest {
             descriptionFrom = SquarespaceDescription.ListingExcerpt,
         ).latestGigs()
 
-        expectThat(events.single().description).isEqualTo("Doom metal night with support.")
+        expectThat(events.single().description).isEqualTo(GigDescription("Doom metal night with support."))
     }
 
     @Test
@@ -205,14 +205,14 @@ class GigsSourceTest {
                 title = GigTitle("YOU WIN AGAIN GRAVITY"),
                 date = LocalDate.of(2026, 8, 8),
                 posterUrl = PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1782745761879-UVSUIG341XJIY3MEB9MI/LBPHOTO%2B-%2B%2BYou%2BWin%2BAgain%2BGravity%2B-%2BPromo%2B-%2B20.10.2024%2B6.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(ourBlackHeart.id, "https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii"),
                 title = GigTitle("NECROPOLIS VOL. III"),
                 date = LocalDate.of(2027, 3, 19),
                 posterUrl = PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1781025655512-MHR6PMWPOOE3TJFOSWAB/Necropolis_2027_IG_Feed_Poster_2nd_announcement%2B%25281%2529.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.ourblackheart.com/events/",
         )
@@ -228,14 +228,14 @@ class GigsSourceTest {
                 title = GigTitle("THE PARTISANS"),
                 date = LocalDate.of(2026, 8, 8),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-04-15/644411f7-5f86-484c-b29b-b71dc309b89e.jpg?rect=734%2C0%2C2682%2C2682"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(theUnderworld.id, "https://www.theunderworldcamden.co.uk/event/alive-a-tribute-to-pearl-jam-20th-nov-the-underworld-london-tickets/"),
                 title = GigTitle("ALIVE, A TRIBUTE TO PEARL JAM"),
                 date = LocalDate.of(2027, 12, 4),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-02-10/cf613856-3e58-41a8-b0f0-af044c77c97b.jpg?rect=228%2C0%2C2045%2C2045"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.theunderworldcamden.co.uk/event/",
         )
@@ -268,14 +268,14 @@ class GigsSourceTest {
                 title = GigTitle("BATTLESNAKE"),
                 date = LocalDate.of(2026, 8, 8),
                 posterUrl = PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1777381588492-CAQQZA5RRSD026668882/Cathedral%2BColour.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(theDome.id, "https://www.domelondon.co.uk/whatson/03/07-draconian"),
                 title = GigTitle("DRACONIAN"),
                 date = LocalDate.of(2027, 3, 7),
                 posterUrl = PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1771509016965-K3W9K2G4J853EZ97RETL/Draconian+done-56+%28low+res%29.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.domelondon.co.uk/whatson/",
         )
@@ -291,14 +291,14 @@ class GigsSourceTest {
                 title = GigTitle("It's Never Over, Jeff Buckley > Screening"),
                 date = LocalDate.of(2026, 8, 12),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-08-03/6088fc1d-076f-4946-b1d6-342519c36355.jpg?rect=0%2C49%2C2159%2C2159"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(blondiesBreweryTaproom.id, "https://dice.fm/event/8eq9dw-forlorn-birdwitch-27th-nov-blondies-brewery-london-tickets"),
                 title = GigTitle("FORLORN / BIRDWITCH"),
                 date = LocalDate.of(2026, 11, 27),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-07-13/d2e1f34c-9f57-4a47-811c-5e6d4efbc40a.jpg?rect=0%2C135%2C1080%2C1080"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dice.fm/event/",
         )
@@ -314,14 +314,14 @@ class GigsSourceTest {
                 title = GigTitle("Midweek Mayhem – £4 Pints All Night"),
                 date = LocalDate.of(2026, 8, 12),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2025-07-23/03c4258d-44cc-4c61-8612-5d5495f6684b.jpg?rect=0%2C0%2C4385%2C4385"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(blondiesBar.id, "https://dice.fm/event/bboxdm-1986-support-5th-dec-blondies-london-tickets"),
                 title = GigTitle("1986 + Support"),
                 date = LocalDate.of(2026, 12, 5),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-04-27/4c005268-bc5b-43c7-a69f-8117623d0232.jpg?rect=0%2C0%2C2048%2C2048"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dice.fm/event/",
         )
@@ -337,14 +337,14 @@ class GigsSourceTest {
                 title = GigTitle("Sceptocrypt + In Gods Way + Cariad"),
                 date = LocalDate.of(2026, 8, 14),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-08-09/bcabb7e3-0777-4c15-929c-9192d05503fb.jpg?rect=0%2C32%2C1187%2C1187"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(helgis.id, "https://dice.fm/event/xedvra-holocaust-hyena-14th-nov-helgis-london-tickets"),
                 title = GigTitle("HOLOCAUST + HYENA"),
                 date = LocalDate.of(2026, 11, 14),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-04-07/cdca232f-2df2-41a6-a2b1-cdaa5c827aa3.jpg?rect=0%2C135%2C1080%2C1080"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dice.fm/event/",
         )
@@ -360,14 +360,14 @@ class GigsSourceTest {
                 title = GigTitle("Propaganda - Indie Club Night at Barfly!"),
                 date = LocalDate.of(2026, 8, 15),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-08-06/1c3136b1-128c-4ca2-ac03-809114ab7663.jpg?rect=0%2C0%2C1080%2C1080"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(barflyCamden.id, "https://dice.fm/event/k6lw79-forever-never-13th-feb-barfly-camden-london-tickets"),
                 title = GigTitle("Forever Never"),
                 date = LocalDate.of(2027, 2, 13),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-06-16/6f0ca902-24a7-4421-a288-f70e55030959.jpg?rect=0%2C0%2C1400%2C1400"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dice.fm/event/",
         )
@@ -383,14 +383,14 @@ class GigsSourceTest {
                 title = GigTitle("Lion Babe – RESCHEDULED!"),
                 date = LocalDate.of(2026, 8, 13),
                 posterUrl = PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/07/LION-BABE-.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(electricBallroom.id, "https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/"),
                 title = GigTitle("Indiepalooza Tribute – Killers v Monkeys v Fender v Oasis v Kasabian v Kaiser"),
                 date = LocalDate.of(2027, 6, 19),
                 posterUrl = PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/06/Indiepalooza-2027.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://electricballroom.co.uk/",
         )
@@ -406,14 +406,14 @@ class GigsSourceTest {
                 title = GigTitle("BANG YONGGUK"),
                 date = LocalDate.of(2026, 9, 2),
                 posterUrl = PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-5-ropdtf0hg2d9yqdycam42ynoc5vdz4n4gsylj8c3l8.png"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(dingwalls.id, "https://dingwalls.com/gig/rock-for-hope-2/"),
                 title = GigTitle("Rock For Hope"),
                 date = LocalDate.of(2026, 11, 7),
                 posterUrl = PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-27-rr5voszodg8dz4qw6s0thhnj6cm8eai4qgy0bw9ru4.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dingwalls.com/gig/",
         )
@@ -429,14 +429,14 @@ class GigsSourceTest {
                 title = GigTitle("THE FLATLINERS + A WILHELM SCREAM"),
                 date = LocalDate.of(2026, 8, 22),
                 posterUrl = PosterUrl("https://www.thegarage.london/wp-content/uploads/2026/03/Flatliners_2026_Ig-819x1024.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(theGarage.id, "https://www.thegarage.london/gigs/black-altar-xxx-anniversary-show-the-garage-london-tickets-2026/"),
                 title = GigTitle("BLACK ALTAR - XXX ANNIVERSARY SHOW"),
                 date = LocalDate.of(2026, 10, 31),
                 posterUrl = PosterUrl("https://www.thegarage.london/wp-content/uploads/2026/07/XXXYears-Poster-4-insta-819x1024.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.thegarage.london/gigs/",
         )
@@ -452,14 +452,14 @@ class GigsSourceTest {
                 title = GigTitle("FLAMEBEARER"),
                 date = LocalDate.of(2026, 8, 14),
                 posterUrl = PosterUrl("https://www.thegrace.london/wp-content/uploads/2026/05/FLAMEBEARER_IGNITER_ALBUM_LAUNCH_POSTER_SQUARE_v3_MED_RES_RGB-1-1024x1024.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(theGrace.id, "https://www.thegrace.london/gigs/dreamdnvr-the-grace-london-tickets-2026/"),
                 title = GigTitle("DREAMDNVR"),
                 date = LocalDate.of(2026, 10, 31),
                 posterUrl = PosterUrl("https://www.thegrace.london/wp-content/uploads/2026/05/PRESS-PHOTO-DD-3-1-1024x683.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.thegrace.london/gigs/",
         )
@@ -524,7 +524,7 @@ class GigsSourceTest {
                 title = GigTitle("SOLD OUT GIG"),
                 date = LocalDate.of(2026, 10, 3),
                 posterUrl = PosterUrl("https://example.com/poster.jpg"),
-                description = "Sold out gig, doors 7pm.",
+                description = GigDescription("Sold out gig, doors 7pm."),
             ),
         )
     }
@@ -539,14 +539,14 @@ class GigsSourceTest {
                 title = GigTitle("Kristen Schaal: The Legend of Crystal Shell"),
                 date = LocalDate.of(2026, 8, 17),
                 posterUrl = PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/04/Kristen-Schaal-4.png"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(roundhouse.id, "https://www.roundhouse.org.uk/whats-on/roger-taylor/"),
                 title = GigTitle("Roger Taylor"),
                 date = LocalDate.of(2026, 9, 28),
                 posterUrl = PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/06/Roger_Taylor_London_1260x1280.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.roundhouse.org.uk/whats-on/",
         )
@@ -562,14 +562,14 @@ class GigsSourceTest {
                 title = GigTitle("Disco 2000 Summer Yard Party | London"),
                 date = LocalDate.of(2026, 8, 23),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-06-18/c2d85f59-1c17-4a96-8291-77270ebeba4b.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(signatureBrewBlackhorseRoad.id, "https://dice.fm/event/dig-it-up-by-the-allergies-london-17th-apr-signature-brew-blackhorse-road-london-tickets"),
                 title = GigTitle("Dig It Up by The Allergies | London"),
                 date = LocalDate.of(2027, 4, 17),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-07-10/63524421-198d-4192-bbd4-44bd063bf8e5.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dice.fm/event/",
         )
@@ -585,14 +585,14 @@ class GigsSourceTest {
                 title = GigTitle("Papangu + Zeta + Meiotempo | London"),
                 date = LocalDate.of(2026, 8, 18),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-07-23/7a6ab6c3-0bb0-468a-b158-60bdc49f59c7.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(signatureBrewHaggerston.id, "https://dice.fm/event/duck-dive-festival-2027-london-26th-feb-signature-brew-haggerston-london-tickets"),
                 title = GigTitle("DUCK & DIVE FESTIVAL 2027 | LONDON"),
                 date = LocalDate.of(2027, 2, 26),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-07-15/bab2924f-aa0a-4549-81e9-818da1a845b1.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dice.fm/event/",
         )
@@ -610,14 +610,14 @@ class GigsSourceTest {
                 title = GigTitle("Ronnie Wood & His Band featuring Imelda May"),
                 date = LocalDate.of(2026, 8, 21),
                 posterUrl = PosterUrl("https://dynamicmedia.livenationinternational.com/g/v/y/79807d88-4cc2-4da8-acda-d434e0df08b2.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(o2ForumKentishTown.id, "https://www.ticketmaster.co.uk/event/3E0065059E6A1198"),
                 title = GigTitle("MASS OF THE FERMENTING DREGS"),
                 date = LocalDate.of(2027, 10, 14),
                 posterUrl = PosterUrl("https://dynamicmedia.livenationinternational.com/t/a/f/03bb4ec9-ed69-4d30-b4d4-1e516b000455.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.ticketmaster.co.uk/event/",
         )
@@ -635,14 +635,14 @@ class GigsSourceTest {
                 title = GigTitle("Primus"),
                 date = LocalDate.of(2026, 8, 19),
                 posterUrl = PosterUrl(amgDefaultPoster),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(o2AcademyBrixton.id, "https://www.ticketmaster.co.uk/event/3E006452FC929180"),
                 title = GigTitle("Loreen: THE WILDFIRE TOUR"),
                 date = LocalDate.of(2026, 9, 26),
                 posterUrl = PosterUrl("https://dynamicmedia.livenationinternational.com/i/l/u/977ca756-1a25-4148-b46a-e2667effd53f.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             // unlike every other venue so far, these gigs don't share one url prefix: most sell via
             // ticketmaster but a few link elsewhere entirely, and a couple are http rather than https
@@ -664,14 +664,14 @@ class GigsSourceTest {
                 title = GigTitle("OCT (On Company Time) UK Tour"),
                 date = LocalDate.of(2026, 8, 29),
                 posterUrl = PosterUrl("https://dynamicmedia.livenationinternational.com/v/v/w/023063cb-a764-4f67-9d96-075a1bd3d454.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(o2AcademyIslington.id, "https://www.ticketmaster.co.uk/event/3E0064F5350835B8"),
                 title = GigTitle("The Reggae Orchestra comes to London"),
                 date = LocalDate.of(2027, 5, 1),
                 posterUrl = PosterUrl("https://dynamicmedia.livenationinternational.com/m/a/b/e51bb674-c586-4164-9477-c725574f74ca.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.ticketmaster.co.uk/event/",
         )
@@ -689,14 +689,14 @@ class GigsSourceTest {
                 title = GigTitle("AFI"),
                 date = LocalDate.of(2026, 8, 20),
                 posterUrl = PosterUrl("https://dynamicmedia.livenationinternational.com/s/x/l/353f9994-6437-4ccd-b401-a48c39f23a4b.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(o2ShepherdsBushEmpire.id, "https://www.ticketmaster.co.uk/event/3E0064D0EB10676E"),
                 title = GigTitle("Clearwater Creedence Revival: '60th Anniversary of C.C.R' Tour 2027"),
                 date = LocalDate.of(2027, 11, 27),
                 posterUrl = PosterUrl("https://dynamicmedia.livenationinternational.com/e/o/k/21247638-dba8-45ed-9a31-5943a3bf78a6.png"),
-                description = "",
+                description = GigDescription(""),
             ),
             // not the usual "/event/<id>" for every gig here - one is a slug-style ticketmaster
             // link instead, so only the host is common to them all
@@ -717,14 +717,14 @@ class GigsSourceTest {
                 title = GigTitle("MAVIS STAPLES: 12 AUG 2026"),
                 date = LocalDate.of(2026, 8, 12),
                 posterUrl = PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/MAVIS%20S.png"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(unionChapel.id, "https://unionchapel.org.uk/whats-on/fairport-convention-60th-anniversary"),
                 title = GigTitle("Fairport Convention 60th Anniversary"),
                 date = LocalDate.of(2027, 5, 27),
                 posterUrl = PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/Fairport%20Convention%2060th%20logo.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://unionchapel.org.uk/whats-on/",
         )
@@ -746,14 +746,14 @@ class GigsSourceTest {
                 title = GigTitle("Digable Planets"),
                 date = LocalDate.of(2026, 8, 19),
                 posterUrl = PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/03/Digable-Planets-2026_colour-c-Emilio-Herce-scaled-e1774636627462.jpeg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(scala.id, "https://scala.co.uk/events/split-the-dealer-deva-st-john/"),
                 title = GigTitle("SPLIT THE DEALER & DEVA ST.JOHN"),
                 date = LocalDate.of(2027, 5, 20),
                 posterUrl = PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/05/Scala-poster-Prf2_page-0001-1-e1779370004481.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://scala.co.uk/events/",
         )
@@ -774,14 +774,14 @@ class GigsSourceTest {
                 title = GigTitle("LUN8 "),
                 date = LocalDate.of(2026, 8, 14),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-06-23/baa8fed2-8ece-4006-83d7-f9610c6622f3.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(twoTwoNine.id, "https://dice.fm/event/leo-kottke-9th-jun-229-london-tickets"),
                 title = GigTitle("Leo Kottke"),
                 date = LocalDate.of(2027, 6, 9),
                 posterUrl = PosterUrl("https://dice-media.imgix.net/attachments/2026-06-01/e83611c7-842b-4a07-ae83-b29386d816dc.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://dice.fm/event/",
         )
@@ -800,14 +800,14 @@ class GigsSourceTest {
                 title = GigTitle("Upside Down London "),
                 date = LocalDate.of(2026, 8, 1),
                 posterUrl = PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/05/pl-udl-approved-media-assets-14-of-17-marked-2048x1536.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(alexandraPalace.id, "https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/"),
                 title = GigTitle("Kaleidoscope Festival"),
                 date = LocalDate.of(2027, 7, 10),
                 posterUrl = PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/07/Kaleidescope-11.07.26-www.harbinson.uk-7159-2048x1366.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.alexandrapalace.com/whats-on/",
         )
@@ -854,14 +854,14 @@ class GigsSourceTest {
                 title = GigTitle("That 70s Night ft. Vintage Voltage"),
                 date = LocalDate.of(2026, 8, 14),
                 posterUrl = PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/poster-aug-14th-pd1-scaled.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(paperDressVintage.id, "https://paperdressvintage.co.uk/?p=18815"),
                 title = GigTitle("Sam Scherdel"),
                 date = LocalDate.of(2026, 12, 10),
                 posterUrl = PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://paperdressvintage.co.uk/",
         )
@@ -877,14 +877,14 @@ class GigsSourceTest {
                 title = GigTitle("Horsegirl"),
                 date = LocalDate.of(2026, 8, 21),
                 posterUrl = PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2026/03/16a4e407-24c9-482a-9f0b-8f8b7812520a.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(islingtonAssemblyHall.id, "https://islingtonassemblyhall.co.uk/events/seckou-keita-and-the-homeland-band-featuring-special-guests-30th-anniversary-tour-10th-feb-islington-assembly-hall-london-tickets/"),
                 title = GigTitle("Seckou Keita and The Homeland Band ft Special Guests: 30th Anniversary Tour"),
                 date = LocalDate.of(2027, 11, 28),
                 posterUrl = PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2025/11/Untitled-design-1.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://islingtonassemblyhall.co.uk/events/",
         )
@@ -909,14 +909,14 @@ class GigsSourceTest {
                 title = GigTitle("House Arrest, George Jr & the 9/11s, Rampressure, Skunkworm"),
                 date = LocalDate.of(2026, 8, 14),
                 posterUrl = PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMzE1MDZlNzEtNTRiZC00YmQzLTk3Y2YtZmE3ZWIxNTUwYzFm&v=2"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(windmillBrixton.id, "https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill"),
                 title = GigTitle("Grommet"),
                 date = LocalDate.of(2026, 11, 19),
                 posterUrl = PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&v=2"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.windmillbrixton.co.uk/events/",
         )
@@ -941,14 +941,14 @@ class GigsSourceTest {
                 title = GigTitle("Eventim Apollo OPEN: Venue Tours"),
                 date = LocalDate.of(2026, 8, 16),
                 posterUrl = PosterUrl("https://aeg-media-assets.b-cdn.net/eventim/images/0e5e0082-1ed9-4180-97a0-5cb66a922ce7.jpg?width=768&height=768&focus_crop=1200,1200,0.5,0.5"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(eventimApollo.id, "https://www.eventimapollo.com/events/il-volo"),
                 title = GigTitle("Il Volo"),
                 date = LocalDate.of(2027, 11, 5),
                 posterUrl = PosterUrl("https://aeg-media-assets.b-cdn.net/eventim/images/IL-VOLO-1080x1080-copy-1.jpg?width=768&height=768&focus_crop=1080,1080,0.5,0.5"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.eventimapollo.com/events/",
         )
@@ -973,14 +973,14 @@ class GigsSourceTest {
                 title = GigTitle("Stonebwoy"),
                 date = LocalDate.of(2026, 8, 15),
                 posterUrl = PosterUrl("https://www.ovoarena.co.uk/assets/img/STONEBWOY-BHIM-FEST-LONDON-1440x810-c5b626371c.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(ovoArena.id, "https://www.ovoarena.co.uk/events/detail/tash-sultana#2027-03-13"),
                 title = GigTitle("RESCHEDULED DATE: Tash Sultana"),
                 date = LocalDate.of(2027, 3, 13),
                 posterUrl = PosterUrl("https://www.ovoarena.co.uk/assets/img/Tash_2027_-1440x810-1ccd5e6573.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.ovoarena.co.uk/events/detail/",
         )
@@ -1015,14 +1015,14 @@ class GigsSourceTest {
                 title = GigTitle("TIMAYA"),
                 date = LocalDate.of(2026, 8, 22),
                 posterUrl = PosterUrl("https://www.theo2.co.uk/assets/img/1080X1080-a8eecfe5d3.png"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(indigoAtTheO2.id, "https://www.theo2.co.uk/events/detail/bat-50th-anniversary-concert"),
                 title = GigTitle("Fuel Injected Magic! 50th Anniversary Concert"),
                 date = LocalDate.of(2027, 10, 30),
                 posterUrl = PosterUrl("https://www.theo2.co.uk/assets/img/Steve-Steinmans-Fuel-Injected-Magic-50th-square-Post3er-jpg-48832cc6ba.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.theo2.co.uk/events/detail/",
         )
@@ -1044,14 +1044,14 @@ class GigsSourceTest {
                 title = GigTitle("Ariana Grande"),
                 date = LocalDate.of(2026, 8, 19),
                 posterUrl = PosterUrl("https://www.theo2.co.uk/assets/img/Static_TM-ArtistImage_2426x1365_ArianaGrande_2026_Photo-copy-square-b4f4051fe8.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(theO2Arena.id, "https://www.theo2.co.uk/events/detail/dungeons-dragons-fan-expo-london-2027"),
                 title = GigTitle("Dungeons & Dragons Fan Expo: London 2027 | Rescheduled"),
                 date = LocalDate.of(2027, 9, 5),
                 posterUrl = PosterUrl("https://www.theo2.co.uk/assets/img/DD_1080-x-1080-Press-shot-32a180fd24.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.theo2.co.uk/events/detail/",
         )
@@ -1179,7 +1179,7 @@ class GigsSourceTest {
 
         val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
 
-        expectThat(gig.description).isEqualTo("Metalcore from Florida. Support TBA.")
+        expectThat(gig.description).isEqualTo(GigDescription("Metalcore from Florida. Support TBA."))
     }
 
     // About one AMG event in ten has no copy written for it, and its acts and genres are all the
@@ -1194,7 +1194,7 @@ class GigsSourceTest {
 
         val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
 
-        expectThat(gig.description).isEqualTo("Lineup: Wage War, Invent Animate. Genre: Hard Rock And Metal.")
+        expectThat(gig.description).isEqualTo(GigDescription("Lineup: Wage War, Invent Animate. Genre: Hard Rock And Metal."))
     }
 
     // Verbatim from a real listing, where the same notice stood in for the copy of cancelled shows
@@ -1212,7 +1212,7 @@ class GigsSourceTest {
 
         val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
 
-        expectThat(gig.description).isEqualTo("Lineup: Wage War. Genre: Hard Rock And Metal.")
+        expectThat(gig.description).isEqualTo(GigDescription("Lineup: Wage War. Genre: Hard Rock And Metal."))
     }
 
     // Every AMG gig observed while their descriptions came from the ticketing page held that page's
@@ -1246,7 +1246,7 @@ class GigsSourceTest {
 
         val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
 
-        expectThat(gig.description).isEqualTo("Genre: Other.")
+        expectThat(gig.description).isEqualTo(GigDescription("Genre: Other."))
     }
 
     // Each source parses its own event pages, so these go straight at that parsing - no listing page
@@ -1576,14 +1576,14 @@ class GigsSourceTest {
                 title = GigTitle("Bacchanal Friday"),
                 date = LocalDate.of(2026, 8, 28),
                 posterUrl = PosterUrl("https://e2h4j4t3.rocketcdn.me/wp-content/uploads/2025/01/Busspepper-1200.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             last = Gig(
                 id = GigId(electricBrixton.id, "https://www.electricbrixton.uk.com/events/elder/"),
                 title = GigTitle("Elder"),
                 date = LocalDate.of(2027, 2, 27),
                 posterUrl = PosterUrl("https://e2h4j4t3.rocketcdn.me/wp-content/uploads/2026/06/Elder-1200.jpg"),
-                description = "",
+                description = GigDescription(""),
             ),
             urlPrefix = "https://www.electricbrixton.uk.com/events/",
         )
@@ -1822,6 +1822,6 @@ class GigsSourceTest {
             fetchDescription(noHttp, "https://example.com/gig", source::eventPageContent)
         }
         // "" is only ever a page that was read and had nothing to say about its gig
-        expectThat(fetchDescription(servingChangedMarkup, "https://example.com/gig") { "" }).isEqualTo("")
+        expectThat(fetchDescription(servingChangedMarkup, "https://example.com/gig") { "" }).isEqualTo(GigDescription(""))
     }
 }

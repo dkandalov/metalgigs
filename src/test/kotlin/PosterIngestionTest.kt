@@ -35,8 +35,8 @@ class PosterIngestionTest {
 
         // the poster is the only source there is, so a gig's title is also all its text
         expectThat(gigs).containsExactly(
-            Gig(id = GigId(VenueId("some-venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = GigTitle("Doom Night"), date = LocalDate.of(2026, 8, 14), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = "Doom Night"),
-            Gig(id = GigId(VenueId("some-venue"), "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = GigTitle("Thrash Fest"), date = LocalDate.of(2026, 8, 21), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = "Thrash Fest"),
+            Gig(id = GigId(VenueId("some-venue"), "https://example.com/post/1#gig-doom-night-2026-08-14"), title = GigTitle("Doom Night"), date = LocalDate.of(2026, 8, 14), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription("Doom Night")),
+            Gig(id = GigId(VenueId("some-venue"), "https://example.com/post/1#gig-thrash-fest-2026-08-21"), title = GigTitle("Thrash Fest"), date = LocalDate.of(2026, 8, 21), posterUrl = PosterUrl("https://example.com/poster.jpg"), description = GigDescription("Thrash Fest")),
         )
     }
 

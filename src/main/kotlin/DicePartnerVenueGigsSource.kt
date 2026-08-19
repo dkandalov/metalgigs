@@ -109,7 +109,7 @@ class DicePartnerVenueGigsSource(
                 // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
                 date = OffsetDateTime.parse(event.date).toLocalDate(),
                 posterUrl = PosterUrl(event.images.firstOrNull() ?: ""),
-                description = event.rawDescription,
+                description = GigDescription(event.rawDescription),
             )
         }
     }

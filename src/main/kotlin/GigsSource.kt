@@ -25,12 +25,18 @@ data class PosterUrl(val value: String) {
     override fun toString() = value
 }
 
+// Blank is allowed, unlike a poster url: a page that was read and had nothing to say about its gig
+// is a real answer, reported by MisshapenGigsCheck rather than failed over where it's scraped.
+data class GigDescription(val value: String) {
+    override fun toString() = value
+}
+
 data class Gig(
     val id: GigId,
     val title: GigTitle,
     val date: LocalDate,
     val posterUrl: PosterUrl,
-    val description: String,
+    val description: GigDescription,
 )
 
 enum class Genre { Metal, Other }
@@ -128,12 +134,14 @@ internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
 // Fails rather than standing in a blank, so no Gig is ever built holding a description its page
 // never gave. A page that won't fetch and markup that no longer matches the venue's own selectors
 // are both that failure; "" is only ever a page that was read and had nothing to say about its gig.
-internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): String =
+internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): GigDescription =
     descriptionFrom(Jsoup.parse(fetchPage(client, url), url), url, content)
 
-internal fun descriptionFrom(page: Document, url: String, content: (Document) -> String?): String =
-    content(page)
-        ?: error("No description found on event page $url - the venue's selectors may no longer match it")
+internal fun descriptionFrom(page: Document, url: String, content: (Document) -> String?): GigDescription =
+    GigDescription(
+        content(page)
+            ?: error("No description found on event page $url - the venue's selectors may no longer match it")
+    )
 
 val cartAndHorses = Venue(VenueId("cart-and-horses"), "Cart & Horses")
 
@@ -265,7 +273,7 @@ class SquarespaceEventsGigsSource(
                     posterUrl = PosterUrl(item.squarespaceThumbnailUrl()),
                     description = when (descriptionFrom) {
                         SquarespaceDescription.EventPage -> fetchDescription(client, gigUrl, ::eventPageContent)
-                        SquarespaceDescription.ListingExcerpt -> item.select(".eventlist-excerpt").text()
+                        SquarespaceDescription.ListingExcerpt -> GigDescription(item.select(".eventlist-excerpt").text())
                     },
                 )
             }

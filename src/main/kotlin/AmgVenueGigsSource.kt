@@ -94,10 +94,12 @@ private fun AmgEvent.actsAndGenres(): String =
 private val cancellationNotice = Regex("""^sorry, this show has been cancelled""", RegexOption.IGNORE_CASE)
 
 // The copy is html, so it's parsed for its text the way an event page's would be.
-private fun AmgEvent.description(): String =
-    Jsoup.parse(localizations.firstOrNull()?.description ?: "").text().trim()
-        .takeUnless { it.isBlank() || cancellationNotice.containsMatchIn(it) }
-        ?: actsAndGenres()
+private fun AmgEvent.description(): GigDescription =
+    GigDescription(
+        Jsoup.parse(localizations.firstOrNull()?.description ?: "").text().trim()
+            .takeUnless { it.isBlank() || cancellationNotice.containsMatchIn(it) }
+            ?: actsAndGenres()
+    )
 
 // shared by every Academy Music Group venue; the venue-specific classes below just supply the
 // venue and AMG's own numeric id(s) for it (as seen in the API's own venue objects). More than one

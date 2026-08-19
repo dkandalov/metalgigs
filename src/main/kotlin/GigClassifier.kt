@@ -51,7 +51,7 @@ fun classifyGigByLLM(
     recordedAt: Instant,
     posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
 ): GigClassified {
-    val useVision = gig.description.length < THIN_TEXT_THRESHOLD
+    val useVision = gig.description.value.length < THIN_TEXT_THRESHOLD
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: ${gig.description}")) +
         if (useVision) listOf(posterImage(client, gig.posterUrl.value)) else emptyList()
