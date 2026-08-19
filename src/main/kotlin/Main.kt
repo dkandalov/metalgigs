@@ -142,12 +142,8 @@ internal fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fa
 
     // Blank means only that the page said nothing about its gig - one that couldn't be read fails
     // its venue outright, above, rather than reaching here.
-    val withoutText = observed.filter { it.gig.description.value.isBlank() }
-    if (withoutText.isNotEmpty()) {
-        println("${withoutText.size} gig(s) have an event page that says nothing about them; they'll be classified from their poster instead")
-        val withoutPoster = withoutText.count { it.gig.posterUrl.value.isBlank() }
-        if (withoutPoster > 0) println("  $withoutPoster of those have no poster either, so they stay unclassified until a later scrape captures text")
-    }
+    val withoutText = observed.count { it.gig.description.value.isBlank() }
+    if (withoutText > 0) println("$withoutText gig(s) have an event page that says nothing about them; they'll be classified from their poster instead")
 
     cacheImagesReportingFailures(client, gigs, "gig image(s) - those gigs will have no poster")
 }
@@ -366,7 +362,7 @@ private fun GigsProblem.where() = when {
 }
 
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
-    val failures = gigs.filter { it.posterUrl.value.isNotBlank() }.mapNotNull { gig ->
+    val failures = gigs.mapNotNull { gig ->
         runCatching { downloadToCache(client, gig.posterUrl.value, imageCacheDir) }.exceptionOrNull()
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
@@ -382,7 +378,7 @@ private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, w
 private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
 
-    val failures = renderedGigs.filter { it.posterUrl.value.isNotBlank() }.mapNotNull { gig ->
+    val failures = renderedGigs.mapNotNull { gig ->
         runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }

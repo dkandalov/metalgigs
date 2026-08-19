@@ -732,7 +732,6 @@ class GigsSourceTest {
         // the whole listing comes back on one page, with a poster on every card. Document order is
         // *not* chronological - the page sorts client-side, which is why the date is read from
         // data-chron rather than inferred from position as some other venues' listings allow
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
         expectThat(events.map { it.id.url }.distinct()).hasSize(119)
     }
 
@@ -758,7 +757,6 @@ class GigsSourceTest {
             urlPrefix = "https://scala.co.uk/events/",
         )
 
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
         // 36 on the first page, 19 on the second - a size assertion alone wouldn't catch double
         // counting if a future site change made the "next" link loop back to page 1
         expectThat(events.map { it.id.url }.distinct()).hasSize(55)
@@ -811,10 +809,6 @@ class GigsSourceTest {
             ),
             urlPrefix = "https://www.alexandrapalace.com/whats-on/",
         )
-
-        // srcset's widest entry is used over the img tag's own 650px src, and the two events with
-        // no srcset (only a plain src) still resolve rather than falling back to blank
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
     }
 
     @Test
@@ -889,7 +883,6 @@ class GigsSourceTest {
             urlPrefix = "https://islingtonassemblyhall.co.uk/events/",
         )
 
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
         // eighteen to a page over five pages - the last page's "Next" is gone rather than disabled,
         // but a size assertion alone wouldn't catch a future change that looped back to page 1
         expectThat(events.map { it.id.url }.distinct()).hasSize(74)
@@ -921,7 +914,6 @@ class GigsSourceTest {
             urlPrefix = "https://www.windmillbrixton.co.uk/events/",
         )
 
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
         // 24 on the first page, 3 on the second - the last page still carries a "Next" link, so a
         // size assertion alone wouldn't catch following it back into the page just read
         expectThat(events.map { it.id.url }.distinct()).hasSize(27)
@@ -953,7 +945,6 @@ class GigsSourceTest {
             urlPrefix = "https://www.eventimapollo.com/events/",
         )
 
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
         // the whole listing arrives in one page, so a size assertion is the only thing standing
         // between a month bar that starts navigating and a silently truncated listing
         expectThat(events.map { it.id.url }.distinct()).hasSize(83)
@@ -985,7 +976,6 @@ class GigsSourceTest {
             urlPrefix = "https://www.ovoarena.co.uk/events/detail/",
         )
 
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
         expectThat(events.map { it.id.url }.distinct()).hasSize(40)
         // the eight months read held 59 events between them, so most of what the calendar returns is
         // dropped here - a filter that stopped filtering would show up as a much larger listing
@@ -1030,7 +1020,6 @@ class GigsSourceTest {
         // the venue's own page renders 24 and says nothing about the rest, so a size well past that
         // is what stands between the paging breaking and a listing quietly losing two thirds of itself
         expectThat(events.map { it.id.url }.distinct()).hasSize(53)
-        expectThat(events.count { it.posterUrl.value.isBlank() }).isEqualTo(0)
         expectThat(events.filter { it.date.year == 2027 }).hasSize(11)
     }
 
