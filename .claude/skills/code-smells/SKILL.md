@@ -77,6 +77,21 @@ source is `internal`, and `renderedFileName` and `genreFromReply` are public, fo
 Reach for `internal` before public when doing so, and don't let a test be the usage that argues for
 public.
 
+## Argument names the types already give
+
+Every source builds `Gig(id = ..., title = ..., date = ..., posterUrl = ..., description = ...)`,
+where the five types are distinct and each value is a constructor call naming its own type. The
+compiler already refuses what those labels guard against, so they are only verbosity
+(https://dmitrykandalov.com/tidy-kotlin#remove-argument-names-when-their-types-are-distinct).
+IntelliJ's "Remove all argument names" intention drops them in one step.
+
+Two cases keep their names, both live here. A literal names nothing, so
+`SquarespaceEventsGigsSource(client, url = "https://...", venue = ourBlackHeart)` keeps `url =`. And
+two arguments of one type are exactly what the labels are for - `llmRate` writes
+`LlmRate(inputPerMillion = 1.00, outputPerMillion = 5.00)` on one line and `LlmRate(2.00, 10.00)` on
+the next, and it is the unnamed pair of Doubles a reader cannot check. `GigClassified`'s
+inputTokens/outputTokens and `CompactedLog`'s two counts are the same shape.
+
 ## Adding to this list
 
 Only shapes actually seen in this repo, each anchored to a named instance rather than a line number.
