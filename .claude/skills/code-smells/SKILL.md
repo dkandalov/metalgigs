@@ -1,0 +1,54 @@
+---
+name: code-smells
+description: Check a change against the shapes this project rejects, and say so without reverting on your own. Use before writing a comment, before reporting a change complete, when reviewing a diff, and when a fix you are about to write would introduce one of these shapes.
+---
+
+A smell is a shape, not a rule. Name it, say what it costs, and keep building - the call on whether
+it is worth taking is the user's, and some of these were taken deliberately.
+
+Raise one in a sentence or two at the point you notice it. Do not quietly restructure code to avoid
+a smell the user has already accepted, and do not present the smelly shape as clean when you choose
+it anyway.
+
+## False and derivable comments
+
+The default is no comment: prose rots while the code around it keeps working. One earns its place by
+being true - verified against the code - and not derivable from the declaration, the adjacent code,
+or a well-known pattern. Delete a weak one rather than rewording it, and touch only those you are
+already editing.
+
+Cut on sight: change history, renames, rejected alternatives, restatements of the declaration, which
+caller populates a field, explanations of familiar patterns. Keep what reading the code cannot
+recover: site behaviour, measurements, library traps (Ovo Arena's `"ImageURL": false`, which Kondor
+would fail the whole month's parse over), distinctions between similar things (`logicalDate` versus
+`recordedAt`).
+
+Wording: sentence capitalisation ending in a full stop, an identifier keeping its own case when it
+leads.
+
+## A parameter a function takes only for its error message
+
+`posterUrlFrom` in GigsSource.kt takes `gigUrl` for nothing but the string inside its `check`;
+`descriptionFrom` takes `url` the same way, and predates it. The identity of the thing being built
+gets threaded into a leaf function so a failure can name it.
+
+Instead, attribute the failure where that identity already lives - the call site constructing the
+object, or a wrapper whose subject is that object.
+
+Both instances above stand, deliberately: naming the gig turns one unactionable line in the daily
+log into a fix. Consistency with them is not an argument for a third.
+
+## A value built only to be rejected a call later
+
+The poster sources used to elide a missing image to `""` and hand it straight to `PosterUrl`, whose
+`require` forbids exactly that - an empty string constructed one call before the code that rejects
+it. It reads as a tolerated fallback when nothing tolerates it.
+
+Instead, let an absent value stay absent - nullable to the boundary that decides - so the type that
+refuses it is the only thing that has to know.
+
+## Adding to this list
+
+Only shapes actually seen in this repo, each anchored to a named instance rather than a line number.
+When an instance is fixed, point the entry at the next real one or delete it - an entry with nothing
+behind it is the same rot as a comment nobody can check.
