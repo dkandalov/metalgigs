@@ -73,6 +73,14 @@ IntelliJ's "Remove all argument names" does it in one step. Every source builds 
 (`LlmRate`'s Doubles, `GigClassified`'s token counts), where the value is a literal that explains
 nothing (`url = "https://..."`), and where one is compulsory to skip a defaulted parameter (`seq = 0`).
 
+## A tiny type's wrapped value taken where the type itself would do
+
+`GigTitle("Doom Night")` in an assertion says which type it is, where `.value` against `"Doom Night"`
+says only that two strings match - it would pass for a description or a url just as well. Take the
+type in signatures too, and no caller has to unwrap: `downloadToCache` takes `PosterUrl`. `.value` is
+for what needs the characters - `contains("imgix.net")`, `shortHash`, the text `MisshapenGigsCheck`
+measures - and a `String` parameter under a tiny type is what forces the rest.
+
 ## Adding to this list
 
 Only shapes seen in this repo, each anchored to a named instance rather than a line number. When an
