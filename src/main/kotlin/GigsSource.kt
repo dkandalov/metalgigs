@@ -14,6 +14,26 @@ import java.time.Month
 import java.time.format.TextStyle
 import java.util.Locale
 
+interface GigsSource {
+    val venue: Venue
+    fun latestGigs(): List<Gig>
+}
+
+data class Gig(
+    val id: GigId,
+    val title: GigTitle,
+    val date: LocalDate,
+    val posterUrl: PosterUrl,
+    val description: GigDescription,
+)
+
+data class GigId(val venueId: VenueId, val url: String) {
+    init {
+        require(venueId.value.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
+        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venueId" }
+    }
+}
+
 data class GigTitle(val value: String) {
     override fun toString() = value
 }
@@ -28,27 +48,6 @@ data class PosterUrl(val value: String) {
 data class GigDescription(val value: String) {
     override fun toString() = value
 }
-
-data class Gig(
-    val id: GigId,
-    val title: GigTitle,
-    val date: LocalDate,
-    val posterUrl: PosterUrl,
-    val description: GigDescription,
-)
-
-enum class Genre { Metal, Other }
-
-enum class ClassificationSource { LLM, User }
-
-data class GigId(val venueId: VenueId, val url: String) {
-    init {
-        require(venueId.value.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
-        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venueId" }
-    }
-}
-
-const val UNSEQUENCED = -1L
 
 sealed interface LogEntry {
     val recordedAt: Instant
@@ -96,7 +95,34 @@ data class GigsRendered(
     override fun withSeq(seq: Long) = copy(seq = seq)
 }
 
-private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
+enum class Genre { Metal, Other }
+
+enum class ClassificationSource { LLM, User }
+
+const val UNSEQUENCED = -1L
+
+// Fails rather than standing in a blank, so no Gig is ever built holding a description its page
+// never gave. A page that won't fetch and markup that no longer matches the venue's own selectors
+// are both that failure; "" is only ever a page that was read and had nothing to say about its gig.
+internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): GigDescription =
+    descriptionFrom(Jsoup.parse(fetchPage(client, url), url), url, content)
+
+internal fun descriptionFrom(page: Document, url: String, content: (Document) -> String?): GigDescription =
+    GigDescription(
+        content(page)
+            ?: error("No description found on event page $url - the venue's selectors may no longer match it")
+    )
+
+// Jsoup returns an empty selection rather than null when nothing matches, and an empty selection's
+// text is "", which would pass for an event page that says nothing about its gig.
+internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
+
+// An unmatched selector and an empty API field both arrive as "" rather than as a failure, and
+// PosterUrl's own message has no gig to name when it rejects one.
+internal fun posterUrlFrom(gigUrl: String, url: String?): PosterUrl {
+    check(!url.isNullOrBlank()) { "No poster for $gigUrl - the venue's listing no longer gives one" }
+    return PosterUrl(url)
+}
 
 // imgix renders whatever size the url asks for, and The Underworld's listing asks for w=200 - a
 // thumbnail sized for its own page, and 8x fewer pixels than the crop behind it (measured: w=200
@@ -119,43 +145,12 @@ private fun Element.squarespaceThumbnailUrl(): String {
     return img.attr("abs:src").ifBlank { img.attr("abs:data-image") }
 }
 
-interface GigsSource {
-    val venue: Venue
-    fun latestGigs(): List<Gig>
-}
-
-// Jsoup returns an empty selection rather than null when nothing matches, and an empty selection's
-// text is "", which would pass for an event page that says nothing about its gig.
-internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
-
-// Fails rather than standing in a blank, so no Gig is ever built holding a description its page
-// never gave. A page that won't fetch and markup that no longer matches the venue's own selectors
-// are both that failure; "" is only ever a page that was read and had nothing to say about its gig.
-internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): GigDescription =
-    descriptionFrom(Jsoup.parse(fetchPage(client, url), url), url, content)
-
-internal fun descriptionFrom(page: Document, url: String, content: (Document) -> String?): GigDescription =
-    GigDescription(
-        content(page)
-            ?: error("No description found on event page $url - the venue's selectors may no longer match it")
-    )
-
-// An unmatched selector and an empty API field both arrive as "" rather than as a failure, and
-// PosterUrl's own message has no gig to name when it rejects one.
-internal fun posterUrlFrom(gigUrl: String, url: String?): PosterUrl {
-    check(!url.isNullOrBlank()) { "No poster for $gigUrl - the venue's listing no longer gives one" }
-    return PosterUrl(url)
-}
+private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
 val cartAndHorses = Venue(VenueId("cart-and-horses"), "Cart & Horses")
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
-    private val url = "https://www.cartandhorses.london/news-offers-events/"
     override val venue = cartAndHorses
-
-    // The Useyourlocal pub-website platform scopes an event page to nothing, so the whole page's
-    // text carries the nav and footer - opening times, address, social links - into every gig.
-    internal fun eventPageContent(page: Document) = page.select(".page_header, .page_content_inner").textOrNull()
 
     override fun latestGigs(): List<Gig> {
         var currentYear = year
@@ -179,13 +174,44 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 )
             }
     }
+
+    private val url = "https://www.cartandhorses.london/news-offers-events/"
+
+    // The Useyourlocal pub-website platform scopes an event page to nothing, so the whole page's
+    // text carries the nav and footer - opening times, address, social links - into every gig.
+    internal fun eventPageContent(page: Document) = page.select(".page_header, .page_content_inner").textOrNull()
 }
 
 val newCrossInn = Venue(VenueId("new-cross-inn"), "New Cross Inn")
 
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.newcrossinn.com/gigs/"
     override val venue = newCrossInn
+
+    override fun latestGigs(): List<Gig> {
+        val listing = Jsoup.parse(fetchPage(client, url), url)
+        val laterMonths = listing.select("ul.next_month_label li.month_label")
+            .map { monthlyEvents(it.attr("data-month"), it.attr("data-year")) }
+            .map { Jsoup.parse(it, url) }
+
+        return (listOf(listing) + laterMonths)
+            .flatMap { it.select("li:has(h3.nci-event-name)") }
+            // the month the page opens on is in the dropdown too, so its gigs come back twice -
+            // deduped here rather than after the map, so no gig's event page is fetched twice
+            .distinctBy { it.select("a:has(h3.nci-event-name)").attr("abs:href") }
+            .map { item ->
+                val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
+                val gigUrl = item.select("a:has(h3.nci-event-name)").attr("abs:href")
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(item.select("h3.nci-event-name").text()),
+                    date = LocalDate.of(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
+                    posterUrl = posterUrlFrom(gigUrl, item.select("img").attr("abs:src")),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+    }
+
+    private val url = "https://www.newcrossinn.com/gigs/"
 
     private val datePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
 
@@ -219,30 +245,6 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                 .form("month", month)
                 .form("year", year)
         ).bodyString()
-
-    override fun latestGigs(): List<Gig> {
-        val listing = Jsoup.parse(fetchPage(client, url), url)
-        val laterMonths = listing.select("ul.next_month_label li.month_label")
-            .map { monthlyEvents(it.attr("data-month"), it.attr("data-year")) }
-            .map { Jsoup.parse(it, url) }
-
-        return (listOf(listing) + laterMonths)
-            .flatMap { it.select("li:has(h3.nci-event-name)") }
-            // the month the page opens on is in the dropdown too, so its gigs come back twice -
-            // deduped here rather than after the map, so no gig's event page is fetched twice
-            .distinctBy { it.select("a:has(h3.nci-event-name)").attr("abs:href") }
-            .map { item ->
-                val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
-                val gigUrl = item.select("a:has(h3.nci-event-name)").attr("abs:href")
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(item.select("h3.nci-event-name").text()),
-                    date = LocalDate.of(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
-                    posterUrl = posterUrlFrom(gigUrl, item.select("img").attr("abs:src")),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
-    }
 }
 
 // most Squarespace venues write a gig's blurb on its own event page, but The Fiddler's Elbow leaves
@@ -257,12 +259,6 @@ class SquarespaceEventsGigsSource(
     override val venue: Venue,
     private val descriptionFrom: SquarespaceDescription = SquarespaceDescription.EventPage,
 ) : GigsSource {
-    // article.eventitem also holds the template's own event metadata - the date in both 12- and
-    // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
-    // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
-    // separately.
-    internal fun eventPageContent(page: Document) = page.select(".eventitem-column-content").textOrNull()
-
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("article.eventlist-event--upcoming")
@@ -280,6 +276,12 @@ class SquarespaceEventsGigsSource(
                     },
                 )
             }
+
+    // article.eventitem also holds the template's own event metadata - the date in both 12- and
+    // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
+    // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
+    // separately.
+    internal fun eventPageContent(page: Document) = page.select(".eventitem-column-content").textOrNull()
 }
 
 val ourBlackHeart = Venue(VenueId("our-black-heart"), "Our Black Heart")
@@ -305,8 +307,23 @@ class FiddlersElbowGigsSource(client: HttpHandler) :
 val theUnderworld = Venue(VenueId("underworld"), "The Underworld")
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.theunderworldcamden.co.uk/search-events/"
     override val venue = theUnderworld
+
+    override fun latestGigs(): List<Gig> =
+        Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
+            .select("#gigs article.list")
+            .map { item ->
+                val gigUrl = item.select(".list-header-title a").attr("abs:href")
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(item.select(".list-header-title").text()),
+                    date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
+                    posterUrl = posterUrlFrom(gigUrl, imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src"))),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+
+    private val url = "https://www.theunderworldcamden.co.uk/search-events/"
 
     // the site blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -328,45 +345,12 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
             .forEach { it.remove() }
         return article.text().ifBlank { null }
     }
-
-    override fun latestGigs(): List<Gig> =
-        Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
-            .select("#gigs article.list")
-            .map { item ->
-                val gigUrl = item.select(".list-header-title a").attr("abs:href")
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(item.select(".list-header-title").text()),
-                    date = LocalDate.parse(item.select("time").first()!!.attr("datetime")),
-                    posterUrl = posterUrlFrom(gigUrl, imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src"))),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
 }
 
 val electricBallroom = Venue(VenueId("electric-ballroom"), "Electric Ballroom")
 
 class ElectricBallroomGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
-    private val url = "https://electricballroom.co.uk/whats-on/"
     override val venue = electricBallroom
-
-    // dates have no year, e.g. "Thursday 13th August"; ordinal suffix is discarded
-    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
-    private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
-
-    // The listing's own copy is a few paragraphs in .article-content - the title above it repeats
-    // the gig's name, and the door time, price and Buy Tickets sit outside it. One of those
-    // paragraphs is the venue's age and ID policy, which nothing in the markup tells apart from the
-    // copy, so it goes by its wording: "Please note this show is 14+...", "Strictly 18+ / physical
-    // photo ID required at entry", "Proof of age is required at entry" all appear across the
-    // listings, and on a thin one the policy is most of the text.
-    private val agePolicy = Regex("""please note this show is|strictly \d+\+|proof of age|photo id""", RegexOption.IGNORE_CASE)
-
-    internal fun eventPageContent(page: Document): String? {
-        val content = page.select(".article-content").firstOrNull()?.clone() ?: return null
-        content.select("p").filter { agePolicy.containsMatchIn(it.text()) }.forEach { it.remove() }
-        return content.text().ifBlank { null }
-    }
 
     override fun latestGigs(): List<Gig> {
         var currentYear = year
@@ -390,19 +374,32 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
                 )
             }
     }
+
+    private val url = "https://electricballroom.co.uk/whats-on/"
+
+    // dates have no year, e.g. "Thursday 13th August"; ordinal suffix is discarded
+    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
+    private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
+
+    // The listing's own copy is a few paragraphs in .article-content - the title above it repeats
+    // the gig's name, and the door time, price and Buy Tickets sit outside it. One of those
+    // paragraphs is the venue's age and ID policy, which nothing in the markup tells apart from the
+    // copy, so it goes by its wording: "Please note this show is 14+...", "Strictly 18+ / physical
+    // photo ID required at entry", "Proof of age is required at entry" all appear across the
+    // listings, and on a thin one the policy is most of the text.
+    private val agePolicy = Regex("""please note this show is|strictly \d+\+|proof of age|photo id""", RegexOption.IGNORE_CASE)
+
+    internal fun eventPageContent(page: Document): String? {
+        val content = page.select(".article-content").firstOrNull()?.clone() ?: return null
+        content.select("p").filter { agePolicy.containsMatchIn(it.text()) }.forEach { it.remove() }
+        return content.text().ifBlank { null }
+    }
 }
 
 val dingwalls = Venue(VenueId("dingwalls"), "Dingwalls")
 
 class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://dingwalls.com/whats-on/"
     override val venue = dingwalls
-
-    // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
-    // September 2026", "Saturday 26th September, 2026 (Afternoon Show)"
-    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+),?\s+(\d{4})""")
-
-    internal fun eventPageContent(page: Document) = page.select(".elementor-location-single").textOrNull()
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
@@ -419,10 +416,40 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
                     description = fetchDescription(client, gigUrl, ::eventPageContent),
                 )
             }
+
+    private val url = "https://dingwalls.com/whats-on/"
+
+    // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
+    // September 2026", "Saturday 26th September, 2026 (Afternoon Show)"
+    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+),?\s+(\d{4})""")
+
+    internal fun eventPageContent(page: Document) = page.select(".elementor-location-single").textOrNull()
 }
 
 // shared by DHP Family's venue sites, which all use the same card markup
 class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
+    override fun latestGigs(): List<Gig> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select(".card.card--full")
+            .map { item ->
+                val (day, monthName, year) = datePattern.find(item.select(".card__strip-heading").text())!!.destructured
+                val img = item.select(".card__grid-media img")
+                val heading = item.select(".card__heading")
+                // a sold-out gig's heading isn't a link at all - its only link is the "Gig Sold Out"
+                // notification, which points at the same gig page
+                val gigUrl = heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") }
+                val cardImage = img.attr("abs:data-lazy-src").ifBlank { img.attr("abs:src") }
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl), gigUrl)
+
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(heading.text()),
+                    date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
+                    posterUrl = PosterUrl(cardImage.ifBlank { articleImage(eventPage, gigUrl) }),
+                    description = descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                )
+            }
+
     // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
 
@@ -452,28 +479,6 @@ class DhpVenueGigsSource(private val client: HttpHandler, private val url: Strin
         check(src.isNotBlank()) { "No poster on the card for $gigUrl, and none on its page either" }
         return src
     }
-
-    override fun latestGigs(): List<Gig> =
-        Jsoup.parse(fetchPage(client, url), url)
-            .select(".card.card--full")
-            .map { item ->
-                val (day, monthName, year) = datePattern.find(item.select(".card__strip-heading").text())!!.destructured
-                val img = item.select(".card__grid-media img")
-                val heading = item.select(".card__heading")
-                // a sold-out gig's heading isn't a link at all - its only link is the "Gig Sold Out"
-                // notification, which points at the same gig page
-                val gigUrl = heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") }
-                val cardImage = img.attr("abs:data-lazy-src").ifBlank { img.attr("abs:src") }
-                val eventPage = Jsoup.parse(fetchPage(client, gigUrl), gigUrl)
-
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(heading.text()),
-                    date = LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
-                    posterUrl = PosterUrl(cardImage.ifBlank { articleImage(eventPage, gigUrl) }),
-                    description = descriptionFrom(eventPage, gigUrl, ::eventPageContent),
-                )
-            }
 }
 
 val theGarage = Venue(VenueId("the-garage"), "The Garage")
@@ -489,27 +494,7 @@ class TheGraceGigsSource(client: HttpHandler) :
 val roundhouse = Venue(VenueId("roundhouse"), "Roundhouse")
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
-    // type=event drops the venue's youth-programme courses, which share 145 words of standard access
-    // and bursary copy embedded in each course's own text block - unscopeable, and enough to read as
-    // site-wide boilerplate.
-    private val url = "https://www.roundhouse.org.uk/whats-on/?type=event"
     override val venue = roundhouse
-
-    // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
-    private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")
-
-    // Promoter-run shows put their copy straight into .event-about while the venue's own listings
-    // wrap it in .layout-block elements, so the section itself is what both have in common. The
-    // "Related events" carousel is nested inside it rather than sitting beside it, and its heading
-    // wrapper is absent on the promoter-run pages.
-    internal fun eventPageContent(page: Document): String? {
-        val content = page.select(".event-hero__heading-wrapper, section.event-about")
-        // Both sit inside .event-about rather than beside it: the carousel would bring other shows'
-        // titles, and the listing card carries 142 words of booking schedule, digital-ticket notice
-        // and restoration-levy small print that every venue-run page repeats verbatim.
-        content.select(".layout-block--related-events-list, .layout-block--event-listing-card").remove()
-        return content.textOrNull()
-    }
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
@@ -527,13 +512,55 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                     description = fetchDescription(client, gigUrl, ::eventPageContent),
                 )
             }
+
+    // type=event drops the venue's youth-programme courses, which share 145 words of standard access
+    // and bursary copy embedded in each course's own text block - unscopeable, and enough to read as
+    // site-wide boilerplate.
+    private val url = "https://www.roundhouse.org.uk/whats-on/?type=event"
+
+    // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
+    private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")
+
+    // Promoter-run shows put their copy straight into .event-about while the venue's own listings
+    // wrap it in .layout-block elements, so the section itself is what both have in common. The
+    // "Related events" carousel is nested inside it rather than sitting beside it, and its heading
+    // wrapper is absent on the promoter-run pages.
+    internal fun eventPageContent(page: Document): String? {
+        val content = page.select(".event-hero__heading-wrapper, section.event-about")
+        // Both sit inside .event-about rather than beside it: the carousel would bring other shows'
+        // titles, and the listing card carries 142 words of booking schedule, digital-ticket notice
+        // and restoration-levy small print that every venue-run page repeats verbatim.
+        content.select(".layout-block--related-events-list, .layout-block--event-listing-card").remove()
+        return content.textOrNull()
+    }
 }
 
 val unionChapel = Venue(VenueId("union-chapel"), "Union Chapel")
 
 class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://unionchapel.org.uk/whats-on"
     override val venue = unionChapel
+
+    override fun latestGigs(): List<Gig> =
+        Jsoup.parse(fetchPage(client, url), url)
+            // every card carries its own sortable timestamp for the page's client-side sorting,
+            // which beats parsing the human date ("Thu 27 May 2027") printed alongside it
+            .select(".item[data-chron]")
+            .map { item ->
+                // matched on the path, since the other link on a card goes to whichever external
+                // ticketing site that gig happens to sell through
+                val gigUrl = item.select("a[href*=/whats-on/]").attr("abs:href")
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    // each card prints its title twice, once for the card and once for the hover
+                    // panel inside it, so this takes the first rather than both concatenated
+                    title = GigTitle(item.select(".card-title").first()!!.text()),
+                    date = LocalDate.parse(item.attr("data-chron").substringBefore(' ')),
+                    posterUrl = posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".card-image").attr("style"))?.groupValues?.get(1)),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+
+    private val url = "https://unionchapel.org.uk/whats-on"
 
     // e.g. background-image:url("...") - the poster is a css background rather than an img element
     private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
@@ -560,33 +587,40 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
             .joinToString(" ") { it.text() }
         return "$ownCopy ${page.select(".sidebar").text()}".trim().ifBlank { null }
     }
-
-    override fun latestGigs(): List<Gig> =
-        Jsoup.parse(fetchPage(client, url), url)
-            // every card carries its own sortable timestamp for the page's client-side sorting,
-            // which beats parsing the human date ("Thu 27 May 2027") printed alongside it
-            .select(".item[data-chron]")
-            .map { item ->
-                // matched on the path, since the other link on a card goes to whichever external
-                // ticketing site that gig happens to sell through
-                val gigUrl = item.select("a[href*=/whats-on/]").attr("abs:href")
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    // each card prints its title twice, once for the card and once for the hover
-                    // panel inside it, so this takes the first rather than both concatenated
-                    title = GigTitle(item.select(".card-title").first()!!.text()),
-                    date = LocalDate.parse(item.attr("data-chron").substringBefore(' ')),
-                    posterUrl = posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".card-image").attr("style"))?.groupValues?.get(1)),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
 }
 
 val scala = Venue(VenueId("scala"), "Scala")
 
 class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://scala.co.uk/events/categories/live-music/"
     override val venue = scala
+
+    override fun latestGigs(): List<Gig> {
+        val gigs = mutableListOf<Gig>()
+        var pageUrl: String? = url
+        var pagesFetched = 0
+
+        while (pageUrl != null && pagesFetched < maxPages) {
+            val page = Jsoup.parse(fetchPage(client, pageUrl), pageUrl)
+            pagesFetched++
+            gigs += page.select(".tb-event-item").map { item ->
+                val (day, monthName, year) = datePattern.find(item.select(".date").text())!!.destructured
+                val link = item.select("h2 a")
+                val gigUrl = link.attr("abs:href")
+
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(link.text()),
+                    date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
+                    posterUrl = posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1)),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+            pageUrl = page.select(".em-pagination a.next").attr("abs:href").ifBlank { null }
+        }
+        return gigs
+    }
+
+    private val url = "https://scala.co.uk/events/categories/live-music/"
 
     // e.g. "19th August 2026" - full month name, ordinal suffix discarded
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)\s+(\d{4})""")
@@ -621,52 +655,12 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
 
         return "$lineup $copy".trim().ifBlank { null }
     }
-
-    override fun latestGigs(): List<Gig> {
-        val gigs = mutableListOf<Gig>()
-        var pageUrl: String? = url
-        var pagesFetched = 0
-
-        while (pageUrl != null && pagesFetched < maxPages) {
-            val page = Jsoup.parse(fetchPage(client, pageUrl), pageUrl)
-            pagesFetched++
-            gigs += page.select(".tb-event-item").map { item ->
-                val (day, monthName, year) = datePattern.find(item.select(".date").text())!!.destructured
-                val link = item.select("h2 a")
-                val gigUrl = link.attr("abs:href")
-
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(link.text()),
-                    date = LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
-                    posterUrl = posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1)),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
-            pageUrl = page.select(".em-pagination a.next").attr("abs:href").ifBlank { null }
-        }
-        return gigs
-    }
 }
 
 val electricBrixton = Venue(VenueId("electric-brixton"), "Electric Brixton")
 
 class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.electricbrixton.uk.com/events/"
     override val venue = electricBrixton
-
-    // e.g. "28th August 2026" - full month name, ordinal suffix discarded
-    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)\s+(\d{4})""")
-
-    // twelve to a page, walked by following the listing's own next link rather than guessing at
-    // /events/page/N/. maxPages exists only to bound a pathological site bug; the real stop
-    // condition is that link disappearing
-    private val maxPages = 10
-
-    // the page around this holds the venue's own furniture - door times, price, age and ID policy,
-    // a mailing-list form, the footer - none of it about the gig, and on a short listing longer
-    // than the copy
-    internal fun eventPageContent(page: Document) = page.select(".event-context").textOrNull()
 
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
@@ -695,13 +689,45 @@ class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
         }
         return gigs
     }
+
+    private val url = "https://www.electricbrixton.uk.com/events/"
+
+    // e.g. "28th August 2026" - full month name, ordinal suffix discarded
+    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)\s+(\d{4})""")
+
+    // twelve to a page, walked by following the listing's own next link rather than guessing at
+    // /events/page/N/. maxPages exists only to bound a pathological site bug; the real stop
+    // condition is that link disappearing
+    private val maxPages = 10
+
+    // the page around this holds the venue's own furniture - door times, price, age and ID policy,
+    // a mailing-list form, the footer - none of it about the gig, and on a short listing longer
+    // than the copy
+    internal fun eventPageContent(page: Document) = page.select(".event-context").textOrNull()
 }
 
 val alexandraPalace = Venue(VenueId("alexandra-palace"), "Alexandra Palace")
 
 class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.alexandrapalace.com/whats-on/"
     override val venue = alexandraPalace
+
+    override fun latestGigs(): List<Gig> =
+        Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
+            .select(".event_card_wrapper")
+            .map { item ->
+                val link = item.select(".event_target")
+                val gigUrl = link.attr("abs:href")
+
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(link.text()),
+                    date = startDateOf(item.select(".dates").text()),
+                    posterUrl = posterUrlFrom(gigUrl, item.widestImageUrl()),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+
+    private val url = "https://www.alexandrapalace.com/whats-on/"
 
     // the site blocks requests without a browser-like User-Agent
     private val browserUserAgent =
@@ -752,42 +778,12 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
         }.maxByOrNull { it.first }?.second
         return widest ?: img.attr("abs:src")
     }
-
-    override fun latestGigs(): List<Gig> =
-        Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
-            .select(".event_card_wrapper")
-            .map { item ->
-                val link = item.select(".event_target")
-                val gigUrl = link.attr("abs:href")
-
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(link.text()),
-                    date = startDateOf(item.select(".dates").text()),
-                    posterUrl = posterUrlFrom(gigUrl, item.widestImageUrl()),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
 }
 
 val paperDressVintage = Venue(VenueId("paper-dress-vintage"), "Paper Dress Vintage")
 
 class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://paperdressvintage.co.uk/by-night"
     override val venue = paperDressVintage
-
-    // e.g. "Fri 14 Aug" - no year on the card itself; each month's block of cards is wrapped in a
-    // div carrying the year, e.g. data-event-month="August 2026"
-    private val dayPattern = Regex("""\w{3}\s+(\d{1,2})\s+\w{3}""")
-    private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
-
-    // the listing's own poster is a 550x300 thumbnail - below the 768px render target. Every one is
-    // named "<original>-lbox-<W>x<H>-FFF.<ext>"; stripping that suffix recovers the original upload
-    // (measured: 800px-2560px across a sample) with no extra request, the same trick as dropping The
-    // Underworld's imgix w= parameter
-    private val thumbnailSuffixPattern = Regex("""-lbox-\d+x\d+-FFF(\.\w+)$""")
-
-    internal fun eventPageContent(page: Document) = page.select(".event__content").textOrNull()
 
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
@@ -808,45 +804,27 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
                     )
                 }
             }
+
+    private val url = "https://paperdressvintage.co.uk/by-night"
+
+    // e.g. "Fri 14 Aug" - no year on the card itself; each month's block of cards is wrapped in a
+    // div carrying the year, e.g. data-event-month="August 2026"
+    private val dayPattern = Regex("""\w{3}\s+(\d{1,2})\s+\w{3}""")
+    private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
+
+    // the listing's own poster is a 550x300 thumbnail - below the 768px render target. Every one is
+    // named "<original>-lbox-<W>x<H>-FFF.<ext>"; stripping that suffix recovers the original upload
+    // (measured: 800px-2560px across a sample) with no extra request, the same trick as dropping The
+    // Underworld's imgix w= parameter
+    private val thumbnailSuffixPattern = Regex("""-lbox-\d+x\d+-FFF(\.\w+)$""")
+
+    internal fun eventPageContent(page: Document) = page.select(".event__content").textOrNull()
 }
 
 val islingtonAssemblyHall = Venue(VenueId("islington-assembly-hall"), "Islington Assembly Hall")
 
 class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
-    private val url = "https://islingtonassemblyhall.co.uk/events/"
     override val venue = islingtonAssemblyHall
-
-    // eighteen to a page, walked by following the listing's own next link. maxPages exists only to
-    // bound a pathological site bug; the real stop condition is that link disappearing
-    private val maxPages = 10
-
-    // the listing's poster is a 750x450 crop of the upload, and the uploads measured behind those
-    // crops ran to 2560x1536. Every one is named "<original>-<W>x<H>-c-center.<ext>"; stripping that
-    // suffix recovers the original with no extra request, the same trick as Paper Dress Vintage's
-    // -lbox- thumbnails
-    private val thumbnailSuffixPattern = Regex("""-\d+x\d+-c-center(\.\w+)$""")
-
-    // Two paragraphs close every listing's copy: the terms and conditions the ticket buyer agrees to,
-    // and the £1.50 Venue Levy explained at some length. Together they run to about 470 characters,
-    // which on a listing whose promoter wrote nothing is the entire description. Nothing in the
-    // markup tells them from the copy - they're sibling paragraphs in the same wysiwyg block, with
-    // the leading asterisk they're usually typed with sometimes missing - so they go by their
-    // wording, as the age line does at The Underworld and Electric Ballroom.
-    private val ticketingBoilerplate = Regex(
-        """by purchasing a ticket to this event|subject to a venue levy|^\*?this is an? \d+\+ event""",
-        RegexOption.IGNORE_CASE,
-    )
-
-    // the "Presented by <promoter>" line is left in: it names who booked the show, which is the one
-    // thing some of these listings say beyond the boilerplate
-    internal fun eventPageContent(page: Document): String? {
-        val description = page.select(".event__description").firstOrNull() ?: return null
-        return description.select("p")
-            .filterNot { ticketingBoilerplate.containsMatchIn(it.text().trim()) }
-            .joinToString(" ") { it.text() }
-            .trim()
-            .ifBlank { null }
-    }
 
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
@@ -885,16 +863,68 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
         }
         return gigs
     }
+
+    private val url = "https://islingtonassemblyhall.co.uk/events/"
+
+    // eighteen to a page, walked by following the listing's own next link. maxPages exists only to
+    // bound a pathological site bug; the real stop condition is that link disappearing
+    private val maxPages = 10
+
+    // the listing's poster is a 750x450 crop of the upload, and the uploads measured behind those
+    // crops ran to 2560x1536. Every one is named "<original>-<W>x<H>-c-center.<ext>"; stripping that
+    // suffix recovers the original with no extra request, the same trick as Paper Dress Vintage's
+    // -lbox- thumbnails
+    private val thumbnailSuffixPattern = Regex("""-\d+x\d+-c-center(\.\w+)$""")
+
+    // Two paragraphs close every listing's copy: the terms and conditions the ticket buyer agrees to,
+    // and the £1.50 Venue Levy explained at some length. Together they run to about 470 characters,
+    // which on a listing whose promoter wrote nothing is the entire description. Nothing in the
+    // markup tells them from the copy - they're sibling paragraphs in the same wysiwyg block, with
+    // the leading asterisk they're usually typed with sometimes missing - so they go by their
+    // wording, as the age line does at The Underworld and Electric Ballroom.
+    private val ticketingBoilerplate = Regex(
+        """by purchasing a ticket to this event|subject to a venue levy|^\*?this is an? \d+\+ event""",
+        RegexOption.IGNORE_CASE,
+    )
+
+    // the "Presented by <promoter>" line is left in: it names who booked the show, which is the one
+    // thing some of these listings say beyond the boilerplate
+    internal fun eventPageContent(page: Document): String? {
+        val description = page.select(".event__description").firstOrNull() ?: return null
+        return description.select("p")
+            .filterNot { ticketingBoilerplate.containsMatchIn(it.text().trim()) }
+            .joinToString(" ") { it.text() }
+            .trim()
+            .ifBlank { null }
+    }
 }
 
 val eventimApollo = Venue(VenueId("eventim-apollo"), "Eventim Apollo")
 
 class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.eventimapollo.com/events/"
     override val venue = eventimApollo
 
     // The listing carries every month it knows about in one page - the month bar above the cards
     // filters what's already there rather than navigating - so there's nothing to paginate through.
+    override fun latestGigs(): List<Gig> =
+        Jsoup.parse(fetchPage(client, url), url)
+            .select(".search-item")
+            .map { item ->
+                val gigUrl = item.select("a.cover-link").attr("abs:href")
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(item.select(".card__title").text()),
+                    date = startDateOf(item.select("p.date").text()),
+                    // Each card holds two <picture> elements, one shown at each breakpoint, and the
+                    // narrow one is a generic house image on some listings rather than the gig's own.
+                    // The first is the gig's, and its url already asks the CDN for 768 square - the
+                    // size render targets - so unlike the other sources there's nothing to rewrite.
+                    posterUrl = posterUrlFrom(gigUrl, item.select(".card__image img").first()?.attr("abs:src")),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+
+    private val url = "https://www.eventimapollo.com/events/"
 
     // a single day is written "Thursday 20th August 2026", with the month in full; a run of dates is
     // written "Aug 16th - Aug 23rd 2026", abbreviated and with the year only on the end date. Only
@@ -927,55 +957,12 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
     // is the venue's own furniture. Measured across five listings this ran from 82 to 1343
     // characters, the short ones being a single sentence naming the act and the month.
     internal fun eventPageContent(page: Document) = page.select(".event-hero .variable-color.mt-sm").textOrNull()
-
-    override fun latestGigs(): List<Gig> =
-        Jsoup.parse(fetchPage(client, url), url)
-            .select(".search-item")
-            .map { item ->
-                val gigUrl = item.select("a.cover-link").attr("abs:href")
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(item.select(".card__title").text()),
-                    date = startDateOf(item.select("p.date").text()),
-                    // Each card holds two <picture> elements, one shown at each breakpoint, and the
-                    // narrow one is a generic house image on some listings rather than the gig's own.
-                    // The first is the gig's, and its url already asks the CDN for 768 square - the
-                    // size render targets - so unlike the other sources there's nothing to rewrite.
-                    posterUrl = posterUrlFrom(gigUrl, item.select(".card__image img").first()?.attr("abs:src")),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
 }
 
 val windmillBrixton = Venue(VenueId("windmill-brixton"), "Windmill Brixton")
 
 class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
-    private val url = "https://www.windmillbrixton.co.uk/listings/categories/all/"
     override val venue = windmillBrixton
-
-    // a card prints "Sun, Aug 16" with no year anywhere near it; the only year on the listing is the
-    // one Music Glue puts at the front of every event's own path, e.g. /events/2026-08-16-magnolia-...
-    private val slugDatePattern = Regex("""/events/(\d{4}-\d{2}-\d{2})-""")
-
-    // twelve to a page, walked by following the listing's own next link. maxPages exists only to
-    // bound a pathological site bug; the real stop condition is that link being disabled
-    private val maxPages = 10
-
-    // the whole page's text is the venue's nav, its mailing-list form and its socials wrapped around
-    // ticketing furniture - price, entry requirements, a per-ticket-type buy panel - none of it about
-    // the gig. This is the one block the promoter writes, and every listing read had one.
-    internal fun eventPageContent(page: Document) = page.select(".EventDetailDescription").textOrNull()
-
-    // the listing's thumbnail asks the Music Glue image CDN to fit the image into 600px, which is
-    // below the 768px render target; dropping the resize parameters returns the original upload
-    // (measured: 600x750 with them against 1080x1350 without) with no extra request, the same
-    // reasoning as dropping The Underworld's imgix w= parameter
-    private fun originalSizeImageUrl(url: String): String {
-        val base = url.substringBefore('?')
-        val params = url.substringAfter('?', "").split("&")
-            .filterNot { it.startsWith("mode=") || it.startsWith("width=") || it.isBlank() }
-        return if (params.isEmpty()) base else "$base?${params.joinToString("&")}"
-    }
 
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
@@ -1004,11 +991,62 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
         }
         return gigs
     }
+
+    private val url = "https://www.windmillbrixton.co.uk/listings/categories/all/"
+
+    // a card prints "Sun, Aug 16" with no year anywhere near it; the only year on the listing is the
+    // one Music Glue puts at the front of every event's own path, e.g. /events/2026-08-16-magnolia-...
+    private val slugDatePattern = Regex("""/events/(\d{4}-\d{2}-\d{2})-""")
+
+    // twelve to a page, walked by following the listing's own next link. maxPages exists only to
+    // bound a pathological site bug; the real stop condition is that link being disabled
+    private val maxPages = 10
+
+    // the whole page's text is the venue's nav, its mailing-list form and its socials wrapped around
+    // ticketing furniture - price, entry requirements, a per-ticket-type buy panel - none of it about
+    // the gig. This is the one block the promoter writes, and every listing read had one.
+    internal fun eventPageContent(page: Document) = page.select(".EventDetailDescription").textOrNull()
+
+    // the listing's thumbnail asks the Music Glue image CDN to fit the image into 600px, which is
+    // below the 768px render target; dropping the resize parameters returns the original upload
+    // (measured: 600x750 with them against 1080x1350 without) with no extra request, the same
+    // reasoning as dropping The Underworld's imgix w= parameter
+    private fun originalSizeImageUrl(url: String): String {
+        val base = url.substringBefore('?')
+        val params = url.substringAfter('?', "").split("&")
+            .filterNot { it.startsWith("mode=") || it.startsWith("width=") || it.isBlank() }
+        return if (params.isEmpty()) base else "$base?${params.joinToString("&")}"
+    }
 }
 
 // shared by the two rooms The O2 lists on its own site - the arena and indigo - which differ only
 // in the site's own numeric id for each, as the listing page's own "Load More" button carries
 class TheO2VenueGigsSource(private val client: HttpHandler, private val theO2VenueId: Int, override val venue: Venue) : GigsSource {
+    override fun latestGigs(): List<Gig> {
+        val gigs = mutableListOf<Gig>()
+
+        for (batch in 0 until maxBatches) {
+            val items = Jsoup.parse(eventsHtml(batch * batchSize), siteUrl).select(".eventItem")
+            if (items.isEmpty()) break
+
+            gigs += items.map { item ->
+                val link = item.select("h3.title a")
+                val gigUrl = link.attr("abs:href")
+
+                Gig(
+                    id = GigId(venue.id, gigUrl),
+                    title = GigTitle(link.text()),
+                    date = startDateOf(item.select(".date").first()!!),
+                    // each card carries a 480x281 crop and a square one of at least 564px, and it's
+                    // the square that survives render's own square crop rather than being letterboxed
+                    posterUrl = posterUrlFrom(gigUrl, item.select(".thumb img.square").attr("abs:src")),
+                    description = fetchDescription(client, gigUrl, ::eventPageContent),
+                )
+            }
+        }
+        return gigs
+    }
+
     // A venue's listing page renders only the first 24 events and its "Load More" button arrives
     // disabled, enabled by the script that fetches the rest - so the page alone reads as a complete
     // listing when it is a fraction of one, at either room. This is what that script calls, one
@@ -1056,31 +1094,6 @@ class TheO2VenueGigsSource(private val client: HttpHandler, private val theO2Ven
 
     // The fragments carry absolute urls of their own; this only gives Jsoup a base to resolve against
     private val siteUrl = "https://www.theo2.co.uk/"
-
-    override fun latestGigs(): List<Gig> {
-        val gigs = mutableListOf<Gig>()
-
-        for (batch in 0 until maxBatches) {
-            val items = Jsoup.parse(eventsHtml(batch * batchSize), siteUrl).select(".eventItem")
-            if (items.isEmpty()) break
-
-            gigs += items.map { item ->
-                val link = item.select("h3.title a")
-                val gigUrl = link.attr("abs:href")
-
-                Gig(
-                    id = GigId(venue.id, gigUrl),
-                    title = GigTitle(link.text()),
-                    date = startDateOf(item.select(".date").first()!!),
-                    // each card carries a 480x281 crop and a square one of at least 564px, and it's
-                    // the square that survives render's own square crop rather than being letterboxed
-                    posterUrl = posterUrlFrom(gigUrl, item.select(".thumb img.square").attr("abs:src")),
-                    description = fetchDescription(client, gigUrl, ::eventPageContent),
-                )
-            }
-        }
-        return gigs
-    }
 }
 
 val indigoAtTheO2 = Venue(VenueId("indigo-at-the-o2"), "indigo at The O2")
