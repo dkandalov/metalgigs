@@ -113,8 +113,8 @@ class GigClassifierTest {
         )
 
         expectThat(run.classified.map { it.id.url }).containsExactly(first.id.url, last.id.url)
-        expectThat(run.failed.map { (gig, reason) -> gig.title.value to reason })
-            .containsExactly("Unjudgeable" to "image too large")
+        expectThat(run.failed.map { (gig, reason) -> gig.title to reason })
+            .containsExactly(GigTitle("Unjudgeable") to "image too large")
     }
 
     private fun capturingChat(): Pair<Chat, MutableList<ChatRequest>> {
@@ -127,7 +127,7 @@ class GigClassifierTest {
 
     // the real one downloads and runs the image through ImageMagick; these tests are about when the
     // vision path is taken and with which model, so they record the request and hand back a stub
-    private fun stubPoster(requestedUrls: MutableList<String>): (HttpHandler, String) -> Content.Image =
+    private fun stubPoster(requestedUrls: MutableList<PosterUrl>): (HttpHandler, PosterUrl) -> Content.Image =
         { _, url ->
             requestedUrls.add(url)
             Content.Image(Resource.Binary(Base64Blob.encode("fake-image-bytes".toByteArray()), MimeType.IMAGE_WEBP))
@@ -136,12 +136,12 @@ class GigClassifierTest {
     @Test
     fun `falls back to the poster image with a vision model when event page text is too thin`() {
         val (chat, requests) = capturingChat()
-        val posterUrls = mutableListOf<String>()
+        val posterUrls = mutableListOf<PosterUrl>()
         val thin = gig(posterUrl = "https://example.com/poster.jpg", description = "Thin")
 
         val classified = classifyGigByLLM(noHttp, chat, thin, recordedAt, stubPoster(posterUrls))
 
-        expectThat(posterUrls).containsExactly("https://example.com/poster.jpg")
+        expectThat(posterUrls).containsExactly(PosterUrl("https://example.com/poster.jpg"))
         val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(1)
         expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-sonnet-5"))
@@ -152,7 +152,7 @@ class GigClassifierTest {
     @Test
     fun `does not fetch the poster image when the event page text is long enough`() {
         val (chat, requests) = capturingChat()
-        val posterUrls = mutableListOf<String>()
+        val posterUrls = mutableListOf<PosterUrl>()
         val described = gig(posterUrl = "https://example.com/poster.jpg", description = "A".repeat(200))
 
         val classified = classifyGigByLLM(noHttp, chat, described, recordedAt, stubPoster(posterUrls))

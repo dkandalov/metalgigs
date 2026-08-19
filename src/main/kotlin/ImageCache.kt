@@ -32,7 +32,7 @@ fun publishGigImage(
 ): File {
     val published = File(publishedDir, publishedImageFileName(gig))
     if (!published.exists()) {
-        val cached = downloadToCache(client, gig.posterUrl.value, cacheDir)
+        val cached = downloadToCache(client, gig.posterUrl, cacheDir)
         publishedDir.mkdirs()
         convert(cached, published)
     }
@@ -45,11 +45,11 @@ fun unpublishedImageFiles(keptGigs: List<Gig>, publishedFiles: List<File>): List
     return publishedFiles.filter { it.name !in expectedFileNames }
 }
 
-fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File {
+fun downloadToCache(client: HttpHandler, imageUrl: PosterUrl, cacheDir: File): File {
     val file = cachedImageFile(cacheDir, imageUrl)
     if (!file.exists()) {
         cacheDir.mkdirs()
-        file.writeBytes(fetchBytes(client, imageUrl, "image at $imageUrl"))
+        file.writeBytes(fetchBytes(client, imageUrl.value, "image at $imageUrl"))
     }
     return file
 }
@@ -57,8 +57,8 @@ fun downloadToCache(client: HttpHandler, imageUrl: String, cacheDir: File): File
 fun publishedImageFileName(gig: Gig): String =
     "${gig.date}-${gig.id.venueId}-${shortHash(gig.posterUrl.value)}.webp"
 
-private fun cachedImageFile(cacheDir: File, imageUrl: String): File =
-    File(cacheDir, "${shortHash(imageUrl)}.${imageUrlExtension(imageUrl)}")
+private fun cachedImageFile(cacheDir: File, imageUrl: PosterUrl): File =
+    File(cacheDir, "${shortHash(imageUrl.value)}.${imageUrlExtension(imageUrl.value)}")
 
 // only the last path segment is looked at, because a url whose own file name has no extension - the
 // Music Glue CDN names Windmill Brixton's posters after the event, extensionless - would otherwise

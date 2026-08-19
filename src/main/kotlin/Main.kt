@@ -363,7 +363,7 @@ private fun GigsProblem.where() = when {
 
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
     val failures = gigs.mapNotNull { gig ->
-        runCatching { downloadToCache(client, gig.posterUrl.value, imageCacheDir) }.exceptionOrNull()
+        runCatching { downloadToCache(client, gig.posterUrl, imageCacheDir) }.exceptionOrNull()
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
@@ -442,7 +442,7 @@ fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
     return Content.Image(Resource.Binary(Base64Blob.encode(bytes), mimeType))
 }
 
-fun fetchPosterForClassifying(client: HttpHandler, imageUrl: String): Content.Image {
+fun fetchPosterForClassifying(client: HttpHandler, imageUrl: PosterUrl): Content.Image {
     val resized = File.createTempFile("classify-poster", ".webp")
     try {
         convertToWebp(downloadToCache(client, imageUrl, imageCacheDir), resized)

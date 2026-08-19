@@ -44,12 +44,12 @@ fun classifyGigByLLM(
     chat: Chat,
     gig: Gig,
     recordedAt: Instant,
-    posterImage: (HttpHandler, String) -> Content.Image = ::fetchPosterForClassifying,
+    posterImage: (HttpHandler, PosterUrl) -> Content.Image = ::fetchPosterForClassifying,
 ): GigClassified {
     val useVision = gig.description.value.length < THIN_TEXT_THRESHOLD
 
     val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: ${gig.description}")) +
-        if (useVision) listOf(posterImage(client, gig.posterUrl.value)) else emptyList()
+        if (useVision) listOf(posterImage(client, gig.posterUrl)) else emptyList()
 
     // the vision model rejects a temperature override outright; the text model accepts one and we
     // want its verdicts reproducible, so only that path pins it

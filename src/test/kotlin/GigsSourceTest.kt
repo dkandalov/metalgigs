@@ -622,7 +622,7 @@ class GigsSourceTest {
             urlPrefix = "https://www.ticketmaster.co.uk/event/",
         )
 
-        expectThat(events.count { it.posterUrl.value == amgDefaultPoster }).isEqualTo(3)
+        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(3)
     }
 
     @Test
@@ -634,7 +634,7 @@ class GigsSourceTest {
                 GigId(o2AcademyBrixton.id, "https://www.ticketmaster.co.uk/event/3E006464ACEB4803"),
                 GigTitle("Primus"),
                 LocalDate.of(2026, 8, 19),
-                PosterUrl(amgDefaultPoster),
+                amgDefaultPoster,
                 GigDescription(""),
             ),
             last = Gig(
@@ -649,7 +649,7 @@ class GigsSourceTest {
             urlPrefix = "http",
         )
 
-        expectThat(events.count { it.posterUrl.value == amgDefaultPoster }).isEqualTo(1)
+        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(1)
         expectThat(events.count { !it.id.url.startsWith("https://www.ticketmaster.co.uk/") }).isEqualTo(3)
     }
 
@@ -676,7 +676,7 @@ class GigsSourceTest {
             urlPrefix = "https://www.ticketmaster.co.uk/event/",
         )
 
-        expectThat(events.count { it.posterUrl.value == amgDefaultPoster }).isEqualTo(4)
+        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(4)
     }
 
     @Test
@@ -703,7 +703,7 @@ class GigsSourceTest {
             urlPrefix = "https://www.ticketmaster.co.uk/",
         )
 
-        expectThat(events.count { it.posterUrl.value == amgDefaultPoster }).isEqualTo(2)
+        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(2)
         expectThat(events.count { !it.id.url.startsWith("https://www.ticketmaster.co.uk/event/") }).isEqualTo(1)
     }
 
@@ -919,7 +919,7 @@ class GigsSourceTest {
         expectThat(events.map { it.id.url }.distinct()).hasSize(27)
         // the two untitled (halo) shows are consecutive nights, and the cards only say "Mon, Sep 14"
         // and "Tue, Sep 15" - the year comes from the event path
-        expectThat(events.filter { it.title.value == "untitled (halo)" }.map { it.date })
+        expectThat(events.filter { it.title == GigTitle("untitled (halo)") }.map { it.date })
             .containsExactly(LocalDate.of(2026, 9, 14), LocalDate.of(2026, 9, 15))
     }
 
@@ -1100,7 +1100,7 @@ class GigsSourceTest {
         expectThat(pageText).isEqualTo("German heavy metal pioneers ACCEPT celebrate their 50th anniversary.")
     }
 
-    private val amgDefaultPoster = "https://networksites.livenationinternational.com/networksites/krfjkan0/defualt-event-image-amg.jpg"
+    private val amgDefaultPoster = PosterUrl("https://networksites.livenationinternational.com/networksites/krfjkan0/defualt-event-image-amg.jpg")
 
     @Test
     fun `takes a posterless AMG gig's image from the page the event renders`() {
@@ -1117,7 +1117,7 @@ class GigsSourceTest {
         val gig = O2ForumKentishTownGigsSource(client).latestGigs().single()
 
         expectThat(pageUrls).containsExactly("https://www.academymusicgroup.com/o2forumkentishtown/events/wage-war-tickets-ae497715")
-        expectThat(gig.posterUrl).isEqualTo(PosterUrl(amgDefaultPoster))
+        expectThat(gig.posterUrl).isEqualTo(amgDefaultPoster)
     }
 
     @Test

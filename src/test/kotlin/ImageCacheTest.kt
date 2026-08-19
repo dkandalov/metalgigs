@@ -27,8 +27,8 @@ class ImageCacheTest {
         val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
         val cacheDir = tempDir()
 
-        val first = downloadToCache(fakeClient, gig().posterUrl.value, cacheDir)
-        val second = downloadToCache(fakeClient, gig().posterUrl.value, cacheDir)
+        val first = downloadToCache(fakeClient, gig().posterUrl, cacheDir)
+        val second = downloadToCache(fakeClient, gig().posterUrl, cacheDir)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(first).isEqualTo(second)
@@ -44,7 +44,7 @@ class ImageCacheTest {
         val cacheDir = tempDir()
         val extensionless = "https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM&v=2"
 
-        val cached = downloadToCache(fakeClient, extensionless, cacheDir)
+        val cached = downloadToCache(fakeClient, PosterUrl(extensionless), cacheDir)
 
         expectThat(cached.extension).isEqualTo("jpg")
         expectThat(cached.parentFile).isEqualTo(cacheDir)
@@ -59,8 +59,8 @@ class ImageCacheTest {
         val sharedPoster = "https://example.com/images/monthly-poster.jpg"
 
         // the same poster advertising gigs on different days, as a venue's monthly flyer does
-        downloadToCache(fakeClient, gig(day = 8, posterUrl = sharedPoster).posterUrl.value, cacheDir)
-        downloadToCache(fakeClient, gig(day = 9, posterUrl = sharedPoster).posterUrl.value, cacheDir)
+        downloadToCache(fakeClient, gig(day = 8, posterUrl = sharedPoster).posterUrl, cacheDir)
+        downloadToCache(fakeClient, gig(day = 9, posterUrl = sharedPoster).posterUrl, cacheDir)
 
         expectThat(requestCount).isEqualTo(1)
         expectThat(cacheDir.listFiles()!!.size).isEqualTo(1)
@@ -72,7 +72,7 @@ class ImageCacheTest {
         val fakeClient: HttpHandler = { requestCount++; Response(OK).body("fake-image-bytes") }
         val cacheDir = tempDir()
         val publishedDir = tempDir()
-        downloadToCache(fakeClient, gig().posterUrl.value, cacheDir)
+        downloadToCache(fakeClient, gig().posterUrl, cacheDir)
         expectThat(requestCount).isEqualTo(1)
 
         val published = publishGigImage(fakeClient, gig(), cacheDir, publishedDir, copyingConvert)
