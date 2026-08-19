@@ -25,8 +25,6 @@ data class PosterUrl(val value: String) {
     override fun toString() = value
 }
 
-// Blank is allowed, unlike a poster url: a page that was read and had nothing to say about its gig
-// is a real answer, reported by MisshapenGigsCheck rather than failed over where it's scraped.
 data class GigDescription(val value: String) {
     override fun toString() = value
 }
@@ -50,7 +48,6 @@ data class GigId(val venueId: VenueId, val url: String) {
     }
 }
 
-// The seq an entry has before it has been logged. GigsLog.append gives it a real one.
 const val UNSEQUENCED = -1L
 
 sealed interface LogEntry {
@@ -246,8 +243,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 // means one request for the listing rather than one more per gig
 enum class SquarespaceDescription { EventPage, ListingExcerpt }
 
-// shared by every Squarespace "Events List" venue page; the venue-specific classes below just
-// supply url/venue
+// shared by every Squarespace "Events List" venue page
 class SquarespaceEventsGigsSource(
     private val client: HttpHandler,
     private val url: String,
@@ -418,8 +414,7 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
             }
 }
 
-// shared by DHP Family's venue sites, which all use the same card markup; the venue-specific
-// classes below just supply url/venue
+// shared by DHP Family's venue sites, which all use the same card markup
 class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
     // e.g. "Fri.14.Aug.26" - two-digit year; some gigs have no image at all, just placeholder text
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
@@ -740,7 +735,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     // the img tag's own src is a 650px thumbnail; srcset carries the same image up to 2048px, so
     // the widest entry is used instead - the same reasoning as dropping The Underworld's imgix w=
     // parameter, just a different mechanism for the same problem. A couple of events have no image
-    // at all (no img tag, not just a missing srcset), so this falls back to "" like everywhere else
+    // at all - no img tag, not just a missing srcset.
     private fun Element.widestImageUrl(): String {
         val img = select(".event_img img")
         val widest = img.attr("srcset").split(",").mapNotNull { entry ->
