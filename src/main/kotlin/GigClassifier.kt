@@ -13,37 +13,32 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import java.util.Locale
 
-val llmClassifierSystemPrompt = """
-    You classify UK live music gig listings by genre. Given a gig's title and the text of its own
-    event page, reply with exactly one word and nothing else:
-    Metal - if the gig is metal, doom, sludge, grindcore, black/death metal, metalcore, deathcore,
-    thrash, stoner, hardcore, crust, or a closely related heavy genre.
-    Other - for anything else, including when you're not sure.
-    When the event page text is too sparse to judge and a poster image is included instead, use the
-    image the same way - band logos, artwork style, and typography can indicate metal even without text.
-    You are never being asked to identify anyone pictured, only to judge the genre, so don't say so -
-    just give the one-word answer, on its own, with no explanation or caveats before it.
-""".trimIndent()
+// one gig the model can't judge - a poster too big to send, an event page that won't load - must
+// not discard the classifications made before it: classifying is slow and every call is paid for.
+// Failures are collected and reported instead, and those gigs simply stay Pending for a later run
+fun classifyGigs(
+    gigs: List<Gig>,
+    alreadyClassified: Set<GigId>,
+    limit: Int? = null,
+    classifyGig: (Gig) -> GigClassified,
+): ClassificationRun {
+    val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date }
+    val results = (if (limit != null) toClassify.take(limit) else toClassify)
+        .map { gig -> gig to runCatching { classifyGig(gig) } }
 
-private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
-
-// Below this, the text extracted from an event page is usually boilerplate/placeholder rather than
-// anything descriptive - fall back to the poster image (with a stronger, vision-capable model)
-// instead of guessing from it.
-private const val THIN_TEXT_THRESHOLD = 80
-private val visionClassifierModel = ModelName.of("claude-sonnet-5")
-
-// the prompt asks for one bare word, and usually gets it - but the model sometimes prefixes the
-// answer with a caveat (notably "I can't identify people in images" when judging a poster), so a
-// preamble on earlier lines is tolerated. The answer line itself still has to be just the genre,
-// give or take trailing punctuation, rather than the genre being fished out of a sentence
-fun genreFromReply(reply: String): Genre? {
-    val answer = reply.lines().lastOrNull { it.isNotBlank() }?.trim()?.trimEnd('.', '!') ?: return null
-    return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
+    return ClassificationRun(
+        classified = results.mapNotNull { (_, result) -> result.getOrNull() },
+        failed = results.mapNotNull { (gig, result) ->
+            result.exceptionOrNull()?.let { gig to (it.message ?: it.toString()) }
+        },
+    )
 }
 
-// posterImage is injectable so tests can exercise the vision path without a real image or
-// ImageMagick; the default resizes to what the model actually needs (see fetchPosterForClassifying)
+data class ClassificationRun(
+    val classified: List<GigClassified>,
+    val failed: List<Pair<Gig, String>>,
+)
+
 fun classifyGigByLLM(
     client: HttpHandler,
     chat: Chat,
@@ -85,17 +80,34 @@ fun classifyGigByLLM(
     )
 }
 
-data class LlmRate(val inputPerMillion: Double, val outputPerMillion: Double)
+val llmClassifierSystemPrompt = """
+    You classify UK live music gig listings by genre. Given a gig's title and the text of its own
+    event page, reply with exactly one word and nothing else:
+    Metal - if the gig is metal, doom, sludge, grindcore, black/death metal, metalcore, deathcore,
+    thrash, stoner, hardcore, crust, or a closely related heavy genre.
+    Other - for anything else, including when you're not sure.
+    When the event page text is too sparse to judge and a poster image is included instead, use the
+    image the same way - band logos, artwork style, and typography can indicate metal even without text.
+    You are never being asked to identify anyone pictured, only to judge the genre, so don't say so -
+    just give the one-word answer, on its own, with no explanation or caveats before it.
+""".trimIndent()
 
-// From platform.claude.com/docs/en/pricing, read on 2026-08-15. Sonnet 5 is on introductory rates
-// until 2026-08-31; the later rates are here too so that a run after that reports what it actually
-// cost rather than two thirds of it.
-fun llmRate(model: String, on: LocalDate): LlmRate? = when (model) {
-    llmClassifierModel.value -> LlmRate(inputPerMillion = 1.00, outputPerMillion = 5.00)
-    visionClassifierModel.value ->
-        if (on < LocalDate.of(2026, 9, 1)) LlmRate(2.00, 10.00) else LlmRate(3.00, 15.00)
-    else -> null
+// the prompt asks for one bare word, and usually gets it - but the model sometimes prefixes the
+// answer with a caveat (notably "I can't identify people in images" when judging a poster), so a
+// preamble on earlier lines is tolerated. The answer line itself still has to be just the genre,
+// give or take trailing punctuation, rather than the genre being fished out of a sentence
+fun genreFromReply(reply: String): Genre? {
+    val answer = reply.lines().lastOrNull { it.isNotBlank() }?.trim()?.trimEnd('.', '!') ?: return null
+    return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
 }
+
+private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
+
+// Below this, the text extracted from an event page is usually boilerplate/placeholder rather than
+// anything descriptive - fall back to the poster image (with a stronger, vision-capable model)
+// instead of guessing from it.
+private const val THIN_TEXT_THRESHOLD = 80
+private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
 // split by path rather than totalled, because the two differ by much more than their rates: a
 // vision call also carries the poster's own image tokens, which the text path never pays for
@@ -130,29 +142,14 @@ fun classificationCost(classified: GigClassified): Double? {
     return rate?.let { input / 1_000_000.0 * it.inputPerMillion + output / 1_000_000.0 * it.outputPerMillion }
 }
 
-data class ClassificationRun(
-    val classified: List<GigClassified>,
-    val failed: List<Pair<Gig, String>>,
-)
-
-// one gig the model can't judge - a poster too big to send, an event page that won't load - must
-// not discard the classifications made before it. Classifying is slow and every call is paid for,
-// so a failure late in a long run used to throw away everything earlier in it. Failures are
-// collected and reported instead, and those gigs simply stay Pending for a later run
-fun classifyGigs(
-    gigs: List<Gig>,
-    alreadyClassified: Set<GigId>,
-    limit: Int? = null,
-    classifyGig: (Gig) -> GigClassified,
-): ClassificationRun {
-    val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date }
-    val results = (if (limit != null) toClassify.take(limit) else toClassify)
-        .map { gig -> gig to runCatching { classifyGig(gig) } }
-
-    return ClassificationRun(
-        classified = results.mapNotNull { (_, result) -> result.getOrNull() },
-        failed = results.mapNotNull { (gig, result) ->
-            result.exceptionOrNull()?.let { gig to (it.message ?: it.toString()) }
-        },
-    )
+// From platform.claude.com/docs/en/pricing, read on 2026-08-15. Sonnet 5 is on introductory rates
+// until 2026-08-31; the later rates are here too so that a run after that reports what it actually
+// cost rather than two thirds of it.
+fun llmRate(model: String, on: LocalDate): LlmRate? = when (model) {
+    llmClassifierModel.value -> LlmRate(inputPerMillion = 1.00, outputPerMillion = 5.00)
+    visionClassifierModel.value ->
+        if (on < LocalDate.of(2026, 9, 1)) LlmRate(2.00, 10.00) else LlmRate(3.00, 15.00)
+    else -> null
 }
+
+data class LlmRate(val inputPerMillion: Double, val outputPerMillion: Double)

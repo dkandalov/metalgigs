@@ -8,10 +8,10 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets.UTF_8
 import java.time.OffsetDateTime
 
-// 229's listing page renders nothing itself - it just embeds Dice.fm's "event list" widget
-// (widgets.dice.fm/dice-event-list-widget.js), a different Dice surface from the dice.fm venue
-// pages DiceVenueGigsSource reads. The widget's own config, inline in the page, names the partner
-// API it calls and the credentials to call it with:
+// shared by every venue listed through the Dice partner API. 229's listing page renders nothing
+// itself - it just embeds Dice.fm's "event list" widget (widgets.dice.fm/dice-event-list-widget.js),
+// a different Dice surface from the dice.fm venue pages DiceVenueGigsSource reads. The widget's own
+// config, inline in the page, names the partner API it calls and the credentials to call it with:
 //   DiceEventListWidget.create({"partnerId":"206d7605","apiKey":"9PmJEatQBB8iKSivm8gCbIvKIeU3S4x4MqPoT6Tg","venues":["229"]})
 // That apiKey is a public widget key shipped to every browser that loads the page, not a secret -
 // found by fetching the widget script and reading where it builds its request (it reads
@@ -20,70 +20,11 @@ import java.time.OffsetDateTime
 // The key is not scoped to 229: the same one answers for any venue named in the filter, which is
 // what lets the Signature Brew taprooms below share it. That coupling is the risk in doing so - if
 // Dice ever scopes or rotates the key, every venue here stops listing at once, not just 229's.
-//
-// rawDescription is the venue's own copy, the same text the dice.fm event page shows. The response
-// carries a second `description` too, which appends Dice's own footer ("Presented by ...", "This is
-// an 18+ event"), so it is the wrong one to keep - and having either means no per-gig page fetch.
-private data class DicePartnerEvent(
-    val name: String,
-    val permName: String,
-    val date: String,
-    val images: List<String>,
-    val rawDescription: String,
-)
-
-private data class DicePartnerLinks(val next: String?)
-private data class DicePartnerEventsResponse(val data: List<DicePartnerEvent>, val links: DicePartnerLinks)
-
-private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
-    private val name by str(DicePartnerEvent::name)
-    private val perm_name by str(DicePartnerEvent::permName)
-    private val date by str(DicePartnerEvent::date)
-    private val images by array(DicePartnerEvent::images)
-    private val raw_description by str(DicePartnerEvent::rawDescription)
-
-    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
-        name = +name,
-        permName = +perm_name,
-        date = +date,
-        images = +images,
-        rawDescription = +raw_description,
-    )
-}
-
-private object JDicePartnerLinks : JAny<DicePartnerLinks>() {
-    private val next by str(DicePartnerLinks::next)
-    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerLinks(next = +next)
-}
-
-private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
-    private val data by array(JDicePartnerEvent, DicePartnerEventsResponse::data)
-    private val links by obj(JDicePartnerLinks, DicePartnerEventsResponse::links)
-    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEventsResponse(data = +data, links = +links)
-}
-
-// shared by every venue listed through the Dice partner API; the venue-specific classes below just
-// supply the venue and the name to filter by
 class DicePartnerVenueGigsSource(
     private val client: HttpHandler,
     private val venueFilter: String,
     override val venue: Venue,
 ) : GigsSource {
-
-    private val apiKey = "9PmJEatQBB8iKSivm8gCbIvKIeU3S4x4MqPoT6Tg"
-    private val baseUrl = "https://partners-endpoint.dice.fm/api/v2/events"
-
-    // The filter matches the venue's name, not any id: passing the numeric id a dice.fm venue page
-    // carries (2427 for Signature Brew Haggerston) returns an empty listing rather than an error.
-    //
-    // page[size]=200 already brings back the whole listing in one request for every venue here
-    // today - the largest, 229's, is 77 events, with the response's own links.next confirming
-    // there's nothing more - but that's a fact about today's listings, not a guarantee, so this
-    // still follows links.next like a real "load more" would rather than trusting the page size to
-    // stay big enough forever
-    private val firstPageUrl =
-        "$baseUrl?page%5Bsize%5D=200&types=linkout,event&filter%5Bvenues%5D%5B%5D=${URLEncoder.encode(venueFilter, UTF_8)}"
-
     override fun latestGigs(): List<Gig> {
         val events = mutableListOf<DicePartnerEvent>()
         var pageUrl: String? = firstPageUrl
@@ -113,6 +54,20 @@ class DicePartnerVenueGigsSource(
             )
         }
     }
+
+    private val apiKey = "9PmJEatQBB8iKSivm8gCbIvKIeU3S4x4MqPoT6Tg"
+    private val baseUrl = "https://partners-endpoint.dice.fm/api/v2/events"
+
+    // The filter matches the venue's name, not any id: passing the numeric id a dice.fm venue page
+    // carries (2427 for Signature Brew Haggerston) returns an empty listing rather than an error.
+    //
+    // page[size]=200 already brings back the whole listing in one request for every venue here
+    // today - the largest, 229's, is 77 events, with the response's own links.next confirming
+    // there's nothing more - but that's a fact about today's listings, not a guarantee, so this
+    // still follows links.next like a real "load more" would rather than trusting the page size to
+    // stay big enough forever
+    private val firstPageUrl =
+        "$baseUrl?page%5Bsize%5D=200&types=linkout,event&filter%5Bvenues%5D%5B%5D=${URLEncoder.encode(venueFilter, UTF_8)}"
 }
 
 val twoTwoNine = Venue(VenueId("229"), "229")
@@ -129,3 +84,45 @@ val signatureBrewBlackhorseRoad = Venue(VenueId("signature-brew-blackhorse-road"
 
 class SignatureBrewBlackhorseRoadGigsSource(client: HttpHandler) :
     GigsSource by DicePartnerVenueGigsSource(client, venueFilter = "Signature Brew Blackhorse Road", venue = signatureBrewBlackhorseRoad)
+
+private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
+    private val data by array(JDicePartnerEvent, DicePartnerEventsResponse::data)
+    private val links by obj(JDicePartnerLinks, DicePartnerEventsResponse::links)
+    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEventsResponse(data = +data, links = +links)
+}
+
+private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
+    private val name by str(DicePartnerEvent::name)
+    private val perm_name by str(DicePartnerEvent::permName)
+    private val date by str(DicePartnerEvent::date)
+    private val images by array(DicePartnerEvent::images)
+    private val raw_description by str(DicePartnerEvent::rawDescription)
+
+    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
+        name = +name,
+        permName = +perm_name,
+        date = +date,
+        images = +images,
+        rawDescription = +raw_description,
+    )
+}
+
+private object JDicePartnerLinks : JAny<DicePartnerLinks>() {
+    private val next by str(DicePartnerLinks::next)
+    override fun JsonNodeObject.deserializeOrThrow() = DicePartnerLinks(next = +next)
+}
+
+private data class DicePartnerEventsResponse(val data: List<DicePartnerEvent>, val links: DicePartnerLinks)
+
+// rawDescription is the venue's own copy, the same text the dice.fm event page shows. The response
+// carries a second `description` too, which appends Dice's own footer ("Presented by ...", "This is
+// an 18+ event"), so it is the wrong one to keep - and having either means no per-gig page fetch.
+private data class DicePartnerEvent(
+    val name: String,
+    val permName: String,
+    val date: String,
+    val images: List<String>,
+    val rawDescription: String,
+)
+
+private data class DicePartnerLinks(val next: String?)

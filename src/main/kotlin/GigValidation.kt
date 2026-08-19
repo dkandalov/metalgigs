@@ -1,35 +1,5 @@
 import kotlin.math.ceil
 
-// Every check answers the same two questions - what is wrong, and which gigs are not to be logged
-// over it - so a whole venue's worth of shared boilerplate and one gig's unparsed title arrive in
-// the same shape, and scrapeGigs no longer has to know which check speaks about which.
-//
-// The venue is named rather than read off the gigs, because a venue that listed nothing has a
-// problem worth reporting and no gigs to point at.
-data class GigsProblem(val venueId: VenueId, val detail: String, val gigs: Set<Gig>) {
-    init {
-        require(gigs.all { it.id.venueId == venueId }) {
-            "A problem is $venueId's to fix, so it can't point at another venue's gigs: $detail"
-        }
-    }
-}
-
-// Called once per venue that was actually scraped, with what that run listed for it and what the
-// log already holds. A venue whose source threw never reaches a check - it's reported where it's
-// caught - so an empty `scraped` means the page was fetched and read, and matched nothing.
-interface GigsCheck {
-    val heading: String
-    fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem>
-}
-
-data class GigsReport(val heading: String, val problems: List<GigsProblem>)
-
-data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
-
-// Ordered by how precisely each names what went wrong, because that decides which of them speaks
-// for a gig several of them catch.
-val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, SharedDescriptionCheck, ContaminationCheck)
-
 // Every gig a source lists is checked, not only the new or changed ones: a venue whose selectors
 // have broken serves the same broken text every run, and a gig logged before a check existed is
 // wrong until someone is told about it, however long ago it was scraped.
@@ -59,6 +29,36 @@ fun validateGigs(
         worthSaying.takeIf { it.isNotEmpty() }?.let { GigsReport(check.heading, it) }
     }
     return GigsValidation(reports, withheld)
+}
+
+// Ordered by how precisely each names what went wrong, because that decides which of them speaks
+// for a gig several of them catch.
+val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, SharedDescriptionCheck, ContaminationCheck)
+
+data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
+
+data class GigsReport(val heading: String, val problems: List<GigsProblem>)
+
+// Called once per venue that was actually scraped, with what that run listed for it and what the
+// log already holds. A venue whose source threw never reaches a check - it's reported where it's
+// caught - so an empty `scraped` means the page was fetched and read, and matched nothing.
+interface GigsCheck {
+    val heading: String
+    fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem>
+}
+
+// Every check answers the same two questions - what is wrong, and which gigs are not to be logged
+// over it - so a whole venue's worth of shared boilerplate and one gig's unparsed title arrive in
+// the same shape, and the caller doesn't have to know which check speaks about which.
+//
+// The venue is named rather than read off the gigs, because a venue that listed nothing has a
+// problem worth reporting and no gigs to point at.
+data class GigsProblem(val venueId: VenueId, val detail: String, val gigs: Set<Gig>) {
+    init {
+        require(gigs.all { it.id.venueId == venueId }) {
+            "A problem is $venueId's to fix, so it can't point at another venue's gigs: $detail"
+        }
+    }
 }
 
 // A listing selector that has stopped matching returns an empty selection rather than failing, so
