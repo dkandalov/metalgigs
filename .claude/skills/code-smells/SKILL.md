@@ -61,6 +61,22 @@ them, so a reader meets what the file is for first and every reference points ba
 GigsSource.kt is like this throughout, so reorder a file you are already restructuring rather than
 sweeping.
 
+## Wider visibility than anything uses
+
+`JGig`, `JGigObserved`, `JGigClassified` and `JGigsRendered` are public objects that only `JLogEntry`,
+in the same file, ever names. `llmRate` and `LlmRate` are public and reach no further than
+`classificationCost` beside them. `cachedImageFile` is public and used once, by `downloadToCache`.
+
+Make values, functions and classes as private as their use allows
+(https://dmitrykandalov.com/tidy-kotlin#maximum-privacy). A private declaration is read with all of
+its use sites in view and deleted or changed on that evidence, and the compiler answers "is this used
+anywhere else" where a search over a public name cannot.
+
+Widening for a test is the accepted exception, and this project takes it: `eventPageContent` on every
+source is `internal`, and `renderedFileName` and `genreFromReply` are public, for no other reason.
+Reach for `internal` before public when doing so, and don't let a test be the usage that argues for
+public.
+
 ## Adding to this list
 
 Only shapes actually seen in this repo, each anchored to a named instance rather than a line number.
