@@ -29,7 +29,6 @@ data class Gig(
 
 data class GigId(val venueId: VenueId, val url: String) {
     init {
-        require(venueId.value.isNotBlank()) { "Gig has no venue, so it can't be identified: $url" }
         require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venueId" }
     }
 }

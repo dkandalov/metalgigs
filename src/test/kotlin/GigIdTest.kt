@@ -14,13 +14,6 @@ class GigIdTest {
     }
 
     @Test
-    fun `refuses a blank venue, naming the url it came from`() {
-        val error = assertFailsWith<IllegalArgumentException> { GigId(venueId = VenueId(""), url = "https://example.com/gigs/a") }
-
-        expectThat(error.message!!).contains("https://example.com/gigs/a")
-    }
-
-    @Test
     fun `refuses a blank url on a classification too`() {
         assertFailsWith<IllegalArgumentException> {
             GigClassified(GigId(VenueId("The Grace"), ""), Instant.parse("2026-08-01T12:00:00Z"), Genre.Metal, ClassificationSource.User)

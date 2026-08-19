@@ -3,8 +3,14 @@ import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import java.io.File
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class VenueTest {
+
+    @Test
+    fun `refuses a blank id`() {
+        assertFailsWith<IllegalArgumentException> { VenueId("") }
+    }
 
     @Test
     fun `no two venues share an id`() {

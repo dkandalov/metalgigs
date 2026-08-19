@@ -48,6 +48,9 @@ private val venuesById = allVenues.associateBy { it.id }
 // displayed, so a venue renaming itself needn't touch it. Changing one anyway means rewriting every
 // log line carrying it and renaming those images with it (see the migrate-log-format skill).
 data class VenueId(val value: String) {
+    init {
+        require(value.isNotBlank()) { "A venue id can't be blank - nothing stored or typed under it could name a venue" }
+    }
     override fun toString() = value
 }
 
