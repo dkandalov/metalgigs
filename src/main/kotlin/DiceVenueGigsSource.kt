@@ -53,10 +53,10 @@ val helgis = Venue(VenueId("helgis"), "Helgi's")
 class HelgisGigsSource(client: HttpHandler) :
     GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/helgis-berx?lng=en", venue = helgis)
 
-val barflyCamden = Venue(VenueId("barfly-camden"), "Barfly Camden")
+val barfly = Venue(VenueId("barfly"), "Barfly")
 
-class BarflyCamdenGigsSource(client: HttpHandler) :
-    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/barfly-camden-jqa4?lng=en", venue = barflyCamden)
+class BarflyGigsSource(client: HttpHandler) :
+    GigsSource by DiceVenueGigsSource(client, url = "https://dice.fm/venue/barfly-camden-jqa4?lng=en", venue = barfly)
 
 // A dice.fm event page renders almost nothing server-side to select from: the description lives in
 // the __NEXT_DATA__ blob, under a props.pageProps.initialState that is itself a JSON-encoded string,

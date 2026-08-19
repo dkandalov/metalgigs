@@ -350,7 +350,7 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     PaperDressVintageGigsSource(client),
     WindmillBrixtonGigsSource(client),
     IslingtonAssemblyHallGigsSource(client, LocalDate.now().year),
-    BarflyCamdenGigsSource(client),
+    BarflyGigsSource(client),
     EventimApolloGigsSource(client),
     OvoArenaGigsSource(client),
     IndigoAtTheO2GigsSource(client),
