@@ -45,7 +45,7 @@ fi
 
 # only the files the update produces. Never `git add -A`: this repo also carries untracked local
 # editor and tool config that has no business being committed
-git add -A events.ndjson index.html images/
+git add -A events.ndjson index.html sitemap.xml images/
 
 if git diff --cached --quiet; then
     echo

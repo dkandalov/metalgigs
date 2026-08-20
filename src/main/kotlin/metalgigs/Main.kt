@@ -218,10 +218,15 @@ private fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = 
     val html = renderer(GigsView(groupGigsByDate(gigs)))
 
     val renderedAt = Instant.now()
+    // Read before archiveRender overwrites it, since the sitemap dates the page by whether this
+    // render differs from the published one.
+    val publishedHtml = indexFile.takeIf { it.exists() }?.readText()
     val archived = archiveRender(html, renderedDir, indexFile, renderedAt)
+    val sitemapUpdated = updateSitemap(sitemapFile, publishedHtml, html, today)
     log.append(listOf(GigsRendered(archived.name, gigs.size, today, renderedAt)))
 
     println("Rendered ${gigs.size} gig(s) as of $today to $indexFile, archived as $archived")
+    println(if (sitemapUpdated) "  $sitemapFile now says lastmod $today" else "  page unchanged, so $sitemapFile keeps its lastmod")
 }
 
 private fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
@@ -444,4 +449,5 @@ private val eventsFile = File("events.ndjson")
 private val publishedImagesDir = File("images")
 private val imageCacheDir = File(".image-cache")
 private val indexFile = File("index.html")
+private val sitemapFile = File("sitemap.xml")
 private val renderedDir = File(".rendered")
