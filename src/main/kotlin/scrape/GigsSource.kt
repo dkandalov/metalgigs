@@ -8,7 +8,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
-import java.time.Instant
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.TextStyle
@@ -18,90 +17,6 @@ interface GigsSource {
     val venue: Venue
     fun latestGigs(): List<Gig>
 }
-
-data class Gig(
-    val id: GigId,
-    val title: GigTitle,
-    val date: LocalDate,
-    val posterUrl: PosterUrl,
-    val description: GigDescription,
-)
-
-data class GigId(val venueId: VenueId, val url: String) {
-    init {
-        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venueId" }
-    }
-}
-
-data class GigTitle(val value: String) {
-    init {
-        require(value.isNotBlank()) { "A gig title can't be blank - a source whose title selector matched nothing has stopped parsing" }
-    }
-    override fun toString() = value
-}
-
-data class PosterUrl(val value: String) {
-    init {
-        require(value.isNotBlank()) { "A poster url can't be blank - a source with no poster for a gig must find one or fail" }
-    }
-    override fun toString() = value
-}
-
-data class GigDescription(val value: String) {
-    override fun toString() = value
-}
-
-sealed interface LogEntry {
-    val recordedAt: Instant
-
-    // Says which of two entries was logged later, which recordedAt can't: a scrape or classification
-    // run stamps every entry it appends with one Instant, so equal times are the norm, not the edge case.
-    val seq: Long
-
-    fun withSeq(seq: Long): LogEntry
-}
-
-data class GigObserved(
-    val gig: Gig,
-    override val recordedAt: Instant,
-    override val seq: Long = UNSEQUENCED,
-) : LogEntry {
-    val id get() = gig.id
-    override fun withSeq(seq: Long) = copy(seq = seq)
-}
-
-data class GigClassified(
-    val id: GigId,
-    override val recordedAt: Instant,
-    val genre: Genre,
-    val source: ClassificationSource,
-    val llmModel: String? = null,
-    val useVision: Boolean? = null,
-    val inputTokens: Int? = null,
-    val outputTokens: Int? = null,
-    override val seq: Long = UNSEQUENCED,
-) : LogEntry {
-    override fun withSeq(seq: Long) = copy(seq = seq)
-}
-
-// logicalDate is the date the page was rendered as of - gigs before it are left off - which is
-// today for a normal render but any date for a backdated one. Distinct from recordedAt, the wall
-// clock: without it two renders of very different pages are told apart only by their gig count.
-data class GigsRendered(
-    val file: String,
-    val gigCount: Int,
-    val logicalDate: LocalDate,
-    override val recordedAt: Instant,
-    override val seq: Long = UNSEQUENCED,
-) : LogEntry {
-    override fun withSeq(seq: Long) = copy(seq = seq)
-}
-
-enum class Genre { Metal, Other }
-
-enum class ClassificationSource { LLM, User }
-
-const val UNSEQUENCED = -1L
 
 // Fails rather than standing in a blank, so no Gig is ever built holding a description its page
 // never gave. A page that won't fetch and markup that no longer matches the venue's own selectors
