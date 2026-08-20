@@ -28,7 +28,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("metalgigs.MainKt")
     // main() sets this itself too, so a plain `java -jar` gets it as well - see the comment there
     applicationDefaultJvmArgs = listOf("-Dcom.sun.security.enableAIAcaIssuers=true")
 }
