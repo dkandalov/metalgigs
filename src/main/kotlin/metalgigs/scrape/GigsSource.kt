@@ -58,13 +58,6 @@ internal fun imgixUrlWithoutWidth(url: String): String {
     return if (params.isEmpty()) base else "$base?${params.joinToString("&")}"
 }
 
-// Squarespace's "Events List" block sometimes resolves the thumbnail's `src` eagerly and sometimes
-// leaves it lazy-loaded with only `data-image` set, depending on the site
-private fun Element.squarespaceThumbnailUrl(): String {
-    val img = select(".eventlist-column-thumbnail img")
-    return img.attr("abs:src").ifBlank { img.attr("abs:data-image") }
-}
-
 private val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }
 
 val cartAndHorses = Venue(VenueId("cart-and-horses"), "Cart & Horses")
@@ -196,6 +189,13 @@ internal class SquarespaceEventsGigsSource(
                     },
                 )
             }
+
+    // Squarespace's "Events List" block sometimes resolves the thumbnail's `src` eagerly and sometimes
+    // leaves it lazy-loaded with only `data-image` set, depending on the site
+    private fun Element.squarespaceThumbnailUrl(): String {
+        val img = select(".eventlist-column-thumbnail img")
+        return img.attr("abs:src").ifBlank { img.attr("abs:data-image") }
+    }
 
     // article.eventitem also holds the template's own event metadata - the date in both 12- and
     // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer

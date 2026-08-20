@@ -1,6 +1,8 @@
 package metalgigs
 
 import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
 import java.io.File
 import java.security.MessageDigest
 
@@ -72,4 +74,8 @@ fun imageUrlExtension(url: String): String =
 private fun shortHash(value: String): String =
     MessageDigest.getInstance("SHA-256").digest(value.toByteArray()).joinToString("") { "%02x".format(it) }.take(8)
 
-fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
+private fun fetchBytes(client: HttpHandler, url: String, errorContext: String): ByteArray {
+    val response = client(Request(GET, url))
+    check(response.status.successful) { "Failed to fetch $errorContext: ${response.status}" }
+    return response.body.stream.readBytes()
+}

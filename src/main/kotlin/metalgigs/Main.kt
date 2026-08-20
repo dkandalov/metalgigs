@@ -429,24 +429,6 @@ private fun printBreakdown(label: String, gigs: List<Gig>, statusByGig: Map<GigI
 fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, String>> = emptyList()): String =
     client(headers.fold(Request(GET, url)) { request, (name, value) -> request.header(name, value) }).bodyString()
 
-fun fetchBytes(client: HttpHandler, url: String, errorContext: String = url): ByteArray {
-    val response = client(Request(GET, url))
-    check(response.status.successful) { "Failed to fetch $errorContext: ${response.status}" }
-    return response.body.stream.readBytes()
-}
-
-fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
-    val response = client(Request(GET, imageUrl))
-    check(response.status.successful) { "Failed to fetch image at $imageUrl: ${response.status}" }
-    val mimeType = response.header("Content-Type")?.substringBefore(';')?.trim()?.takeIf { it.isNotBlank() }
-        ?.let { MimeType.of(it) } ?: mimeTypeForImageUrl(imageUrl)
-    val bytes = response.body.stream.readBytes()
-    check(bytes.size <= MAX_IMAGE_BYTES) {
-        "Image at $imageUrl is ${bytes.size} bytes, too large to send (limit ~$MAX_IMAGE_BYTES)"
-    }
-    return Content.Image(Resource.Binary(Base64Blob.encode(bytes), mimeType))
-}
-
 fun fetchPosterForClassifying(client: HttpHandler, imageUrl: PosterUrl): Content.Image {
     val resized = File.createTempFile("classify-poster", ".webp")
     try {
@@ -456,16 +438,6 @@ fun fetchPosterForClassifying(client: HttpHandler, imageUrl: PosterUrl): Content
         resized.delete()
     }
 }
-
-private fun mimeTypeForImageUrl(url: String) =
-    when (imageUrlExtension(url).lowercase()) {
-        "png" -> MimeType.IMAGE_PNG
-        "gif" -> MimeType.IMAGE_GIF
-        "webp" -> MimeType.IMAGE_WEBP
-        else -> MimeType.IMAGE_JPG
-    }
-
-private const val MAX_IMAGE_BYTES = 7_000_000
 
 private val eventsFile = File("events.ndjson")
 private val publishedImagesDir = File("images")

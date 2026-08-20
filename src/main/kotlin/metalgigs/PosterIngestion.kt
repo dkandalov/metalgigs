@@ -7,8 +7,13 @@ import org.http4k.ai.llm.chat.ChatResponseFormat
 import org.http4k.ai.llm.model.Content
 import org.http4k.ai.llm.model.Message
 import org.http4k.ai.llm.model.ModelParams
+import org.http4k.ai.llm.model.Resource
 import org.http4k.ai.model.ModelName
+import org.http4k.connect.model.Base64Blob
+import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
 import java.time.LocalDate
 
 // a venue that only posts its gig calendar as a single poster image covering many gigs (e.g. a
@@ -68,3 +73,27 @@ val theDev = Venue(VenueId("the-dev"), "The Dev")
 private val excludedTitlePatternsByVenue: Map<VenueId, Regex> = mapOf(
     theDev.id to Regex("karaoke", RegexOption.IGNORE_CASE),
 )
+
+private fun fetchImageContent(client: HttpHandler, imageUrl: String): Content.Image {
+    val response = client(Request(GET, imageUrl))
+    check(response.status.successful) { "Failed to fetch image at $imageUrl: ${response.status}" }
+    val mimeType = response.header("Content-Type")?.substringBefore(';')?.trim()?.takeIf { it.isNotBlank() }
+        ?.let { MimeType.of(it) } ?: mimeTypeForImageUrl(imageUrl)
+    val bytes = response.body.stream.readBytes()
+    check(bytes.size <= MAX_IMAGE_BYTES) {
+        "Image at $imageUrl is ${bytes.size} bytes, too large to send (limit ~$MAX_IMAGE_BYTES)"
+    }
+    return Content.Image(Resource.Binary(Base64Blob.encode(bytes), mimeType))
+}
+
+private fun mimeTypeForImageUrl(url: String) =
+    when (imageUrlExtension(url).lowercase()) {
+        "png" -> MimeType.IMAGE_PNG
+        "gif" -> MimeType.IMAGE_GIF
+        "webp" -> MimeType.IMAGE_WEBP
+        else -> MimeType.IMAGE_JPG
+    }
+
+private const val MAX_IMAGE_BYTES = 7_000_000
+
+private fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')

@@ -51,6 +51,16 @@ reads that way - GigsSource.kt opens with the interface, Main.kt with `main` - a
 puts `venue` and `latestGigs` above the url and patterns they use. Venue.kt is the one deviation and
 says why: top-level properties initialise in file order, so `venuesById` can only follow `allVenues`.
 
+## A declaration kept in a file that isn't about it
+
+Is this what the file is about, and does anything else call it? No to both and it belongs where it's
+used, private - which is the point. `slug` sat in ImageCache.kt for one call in `posterGigUrl`, and
+`fetchImageContent` and `fetchBytes` sat public in Main.kt for one call each in `extractPosterGigs`
+and `downloadToCache`; all three are now private in the file that calls them, and
+`Element.squarespaceThumbnailUrl` is a member of the one source using it, as `browserUserAgent`
+already was. Either question answered the other way leaves it where it is: `fetchPage` has 24 call
+sites, and `fetchPosterForClassifying` has one but reads Main.kt's private `imageCacheDir`.
+
 ## Wider visibility than anything uses
 
 Make declarations as private as their use allows
