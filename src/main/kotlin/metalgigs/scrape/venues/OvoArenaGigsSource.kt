@@ -41,7 +41,7 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
             .map { (event, date) ->
                 Gig(
                     GigId(venue.id, gigUrl(event, date)),
-                    GigTitle(event.title),
+                    titleFrom(event.title),
                     date,
                     posterUrlFrom(gigUrl(event, date), event.imageUrl),
                     fetchDescription(client, event.url, ::eventPageContent),

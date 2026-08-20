@@ -21,7 +21,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
 
                 Gig(
                     GigId(venue.id, gigUrl),
-                    GigTitle(link.text()),
+                    titleFrom(link.text()),
                     startDateOf(item.select(".dates").text()),
                     posterUrlFrom(gigUrl, item.widestImageUrl()),
                     fetchDescription(client, gigUrl, ::eventPageContent),

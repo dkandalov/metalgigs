@@ -17,12 +17,32 @@ data class GigId(val venueId: VenueId, val url: String) {
     }
 }
 
+// Refused in the type rather than reported by a check, though that costs the venue its whole listing
+// for the run: whitespace out of markup is a source that has stopped parsing rather than one gig
+// that came out wrong, and the gigs beside it on that listing are no better for having landed the
+// right side of it. The length bound stays a check for the opposite reason - it is a measured
+// threshold that a wordier promoter could cross honestly.
 data class GigTitle(val value: String) {
     init {
         require(value.isNotBlank()) { "A gig title can't be blank - a source whose title selector matched nothing has stopped parsing" }
+        val odd = value.filter { (it.isWhitespace() && it != ' ') || it.isISOControl() || it in invisibleCharacters }
+        require(odd.isEmpty()) {
+            val named = odd.toSortedSet().joinToString(", ") { "U+%04X".format(it.code) }
+            "A gig title holds no whitespace but ordinary spaces, and \"$value\" carries $named. A selector " +
+                "matching a card's markup rather than its heading is what puts them there, so a source has to let " +
+                "them reach here rather than tidying them away"
+        }
+        require(value == value.trim(' ') && !value.contains("  ")) {
+            "A gig title is trimmed and singly spaced - a venue that types otherwise is its own source's to normalise: \"$value\""
+        }
     }
     override fun toString() = value
 }
+
+// None was in a scraped title as of the migration on 2026-08-21, and none has a place in one: a
+// zero-width space, a byte order mark or a soft hyphen reaches a title only by being carried out of
+// markup along with it.
+private val invisibleCharacters = setOf('​', '‌', '‍', '﻿', '­')
 
 data class GigDate(val value: LocalDate) : Comparable<GigDate> {
     val year: Int get() = value.year

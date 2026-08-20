@@ -49,7 +49,7 @@ private class DicePartnerVenueGigsSource(
             val gigUrl = "https://dice.fm/event/${event.permName}"
             Gig(
                 GigId(venue.id, gigUrl),
-                GigTitle(event.name),
+                titleFrom(event.name),
                 // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
                 GigDate.parse(event.date.substringBefore('T')),
                 posterUrlFrom(gigUrl, event.images.firstOrNull()),

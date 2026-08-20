@@ -40,7 +40,7 @@ class GigValidationTest {
     // along with the title. The one that must survive is the longest title in the log, at 103 chars
     @Test
     fun `flags a title long enough to be a whole card rather than a heading`() {
-        val wholeCard = "Doom Night ".repeat(30)
+        val wholeCard = List(30) { "Doom Night" }.joinToString(" ")
         val gigs = listOf(
             gig(title = GigTitle(wholeCard), url = "https://example.com/a", description = realText),
             gig(title = GigTitle("FOREVER NU - 25th anniversary of Toxicity & Iowa special! Chop Suey, Slip-Not, A7Xperience, Propa Roach"), url = "https://example.com/b", description = realText),

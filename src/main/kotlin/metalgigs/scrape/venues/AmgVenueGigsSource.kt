@@ -38,7 +38,7 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
             val gigUrl = event.tickets.first().ticketUrl.substringBefore('?')
             Gig(
                 GigId(venue.id, gigUrl),
-                GigTitle(event.name),
+                titleFrom(event.name),
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 GigDate.parse(event.eventDate.substringBefore('T')),
                 PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),

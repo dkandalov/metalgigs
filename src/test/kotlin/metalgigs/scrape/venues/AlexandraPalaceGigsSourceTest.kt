@@ -22,7 +22,7 @@ class AlexandraPalaceGigsSourceTest {
                 // trailing   (narrow no-break space), not a plain space - it's what the
                 // page's own title text actually contains, confirmed character-by-character
                 // against a failed run before this literal was written
-                GigTitle("Upside Down London "),
+                GigTitle("Upside Down London"),
                 GigDate(2026, 8, 1),
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/05/pl-udl-approved-media-assets-14-of-17-marked-2048x1536.jpg"),
                 GigDescription(""),

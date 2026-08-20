@@ -59,7 +59,7 @@ class DicePartnerVenueGigsSourceTest {
             size = 75,
             first = Gig(
                 GigId(twoTwoNine.id, "https://dice.fm/event/lun8-14th-aug-229-london-tickets"),
-                GigTitle("LUN8 "),
+                GigTitle("LUN8"),
                 GigDate(2026, 8, 14),
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-06-23/baa8fed2-8ece-4006-83d7-f9610c6622f3.jpg"),
                 GigDescription(""),

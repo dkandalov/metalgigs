@@ -26,6 +26,24 @@ internal fun descriptionFrom(page: Document, url: String, content: (Document) ->
             ?: error("No description found on event page $url - the venue's selectors may no longer match it")
     )
 
+// For the sources whose venue types the spacing GigTitle refuses, where no better parse avoids it.
+// As of the log's migration on 2026-08-21 that is 229, the Signature Brews, Blondies, Helgi's and
+// Barfly through Dice, whose API hands a promoter's name back verbatim ("LUN8 "); Alexandra Palace
+// and Eventim Apollo, whose own headings carry a narrow no-break space; and Ovo Arena and the AMG
+// venues, whose listing APIs do the same. Jsoup's text() already normalises the ASCII whitespace and
+// trims, and a JSON name field has nothing else to read, so there is nothing left to parse better.
+//
+// Deliberately blind to line breaks, tabs and control characters, which no venue types and no API
+// returns: those are what a selector matching a card's container rather than its heading brings, so
+// they have to reach GigTitle and fail rather than being tidied into a title that looks fine.
+internal fun titleFrom(text: String): GigTitle =
+    GigTitle(
+        text.map { if (it.category == CharCategory.SPACE_SEPARATOR) ' ' else it }
+            .joinToString("")
+            .replace(Regex(" +"), " ")
+            .trim(' '),
+    )
+
 // Jsoup returns an empty selection rather than null when nothing matches, and an empty selection's
 // text is "", which would pass for an event page that says nothing about its gig.
 internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()

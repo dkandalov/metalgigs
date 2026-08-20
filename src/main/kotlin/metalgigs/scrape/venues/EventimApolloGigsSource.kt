@@ -21,7 +21,7 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
                 val gigUrl = item.select("a.cover-link").attr("abs:href")
                 Gig(
                     GigId(venue.id, gigUrl),
-                    GigTitle(item.select(".card__title").text()),
+                    titleFrom(item.select(".card__title").text()),
                     startDateOf(item.select("p.date").text()),
                     // Each card holds two <picture> elements, one shown at each breakpoint, and the
                     // narrow one is a generic house image on some listings rather than the gig's own.
