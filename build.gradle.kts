@@ -25,6 +25,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("org.http4k:http4k-testing-approval")
     testImplementation("io.strikt:strikt-core:0.34.1")
+    testImplementation("com.lemonappdev:konsist:0.17.3")
 }
 
 application {
