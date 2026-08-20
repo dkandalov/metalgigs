@@ -1,0 +1,862 @@
+HTTP/1.1 200 OK
+connection: Keep-Alive
+content-type: text/html; charset=UTF-8
+date: Thu, 20 Aug 2026 19:33:27 GMT
+keep-alive: timeout=5, max=100
+server: Apache/2.4.62 (AlmaLinux) OpenSSL/3.5.5
+vary: Accept-Encoding
+x-powered-by: PHP/7.4.33
+
+
+
+
+    <div class="guide__month" data-month="November" data-year="2026" data-month-number="11" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>November&nbsp;2026</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/druha-rika-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="683" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/KOR07759-min-1-683x1024.jpg" class="img img--bg link__image" alt="DRUHA RIKA PHOTO" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/KOR07759-min-1-683x1024.jpg 683w, https://www.thegarage.london/wp-content/uploads/2026/05/KOR07759-min-1-200x300.jpg 200w, https://www.thegarage.london/wp-content/uploads/2026/05/KOR07759-min-1-768x1152.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/KOR07759-min-1-1024x1536.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/05/KOR07759-min-1-1365x2048.jpg 1365w, https://www.thegarage.london/wp-content/uploads/2026/05/KOR07759-min-1-scaled.jpg 1707w" sizes="(max-width: 683px) 100vw, 683px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/druha-rika-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            DRUGA RIKA                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sun.01.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/druha-rika-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/druga-rika-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/cola-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/03/Cola-Poster-5x4_-819x1024.jpg" class="img img--bg link__image" alt="COLA POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/03/Cola-Poster-5x4_-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/03/Cola-Poster-5x4_-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/03/Cola-Poster-5x4_-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/03/Cola-Poster-5x4_-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/03/Cola-Poster-5x4_-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/03/Cola-Poster-5x4_.jpg 2000w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/cola-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            COLA                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Tue.03.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/cola-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/cola-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/future-palace/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2025/12/Future-Palace_2026_tour-IG-819x1024.jpg" class="img img--bg link__image" alt="" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2025/12/Future-Palace_2026_tour-IG-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2025/12/Future-Palace_2026_tour-IG-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2025/12/Future-Palace_2026_tour-IG-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2025/12/Future-Palace_2026_tour-IG-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2025/12/Future-Palace_2026_tour-IG-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2025/12/Future-Palace_2026_tour-IG-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/future-palace/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            FUTURE PALACE                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Wed.04.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/future-palace/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/future-palace-tickets/london-the-garage/2026-11-04-19-00" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/danko-jones-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/02/Danko-Jones_2026_tour-ig-819x1024.jpg" class="img img--bg link__image" alt="DANKO POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/02/Danko-Jones_2026_tour-ig-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/02/Danko-Jones_2026_tour-ig-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/02/Danko-Jones_2026_tour-ig-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/02/Danko-Jones_2026_tour-ig-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/02/Danko-Jones_2026_tour-ig-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/02/Danko-Jones_2026_tour-ig-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/danko-jones-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            DANKO JONES                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Thu.05.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/danko-jones-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/danko-jones-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/holy-fawn-mol-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="768" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/holy-fawn_2026_03-768x1024.jpg" class="img img--bg link__image" alt="HOLY FAWN POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/holy-fawn_2026_03-768x1024.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/holy-fawn_2026_03-225x300.jpg 225w, https://www.thegarage.london/wp-content/uploads/2026/05/holy-fawn_2026_03-1152x1536.jpg 1152w, https://www.thegarage.london/wp-content/uploads/2026/05/holy-fawn_2026_03-1536x2048.jpg 1536w, https://www.thegarage.london/wp-content/uploads/2026/05/holy-fawn_2026_03-scaled.jpg 1920w" sizes="(max-width: 768px) 100vw, 768px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/holy-fawn-mol-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            HOLY FAWN & MØL                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Fri.06.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/holy-fawn-mol-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/holy-fawn-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/messa-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/02/Square-7-1024x1024.jpg" class="img img--bg link__image" alt="MESSA POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/02/Square-7-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/02/Square-7-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/02/Square-7-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/02/Square-7-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/02/Square-7-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/02/Square-7.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/messa-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            MESSA                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sat.07.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/messa-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/messa-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/allt-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/02/ALLT_2026_tour-IG-1-819x1024.jpg" class="img img--bg link__image" alt="ALLT POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/02/ALLT_2026_tour-IG-1-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/02/ALLT_2026_tour-IG-1-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/02/ALLT_2026_tour-IG-1-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/02/ALLT_2026_tour-IG-1-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/02/ALLT_2026_tour-IG-1-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/02/ALLT_2026_tour-IG-1-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/allt-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            ALLT                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sun.08.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/allt-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/allt-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/dave-lofts-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/06/Dave-Lofts-SQ-1024x1024.jpg" class="img img--bg link__image" alt="DAVE POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/Dave-Lofts-SQ-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/06/Dave-Lofts-SQ-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/06/Dave-Lofts-SQ-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/06/Dave-Lofts-SQ-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/Dave-Lofts-SQ-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/06/Dave-Lofts-SQ.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/dave-lofts-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            DAVE LOFTS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Wed.11.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/dave-lofts-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/dave-lofts-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/syd-matters-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/03/Syd-Matters_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="syd matters poster" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/03/Syd-Matters_2026_IG-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/03/Syd-Matters_2026_IG-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/03/Syd-Matters_2026_IG-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/03/Syd-Matters_2026_IG-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/03/Syd-Matters_2026_IG-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/03/Syd-Matters_2026_IG-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/syd-matters-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            SYD MATTERS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sat.14.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/syd-matters-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/syd-matters-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/tophouse-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="514" src="https://www.thegarage.london/wp-content/uploads/2026/07/DSC02035-1-1024x514.jpg" class="img img--bg link__image" alt="TOPSHOUSE PHOTO" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/07/DSC02035-1-1024x514.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/07/DSC02035-1-300x150.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/07/DSC02035-1-768x385.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/07/DSC02035-1-1536x770.jpg 1536w, https://www.thegarage.london/wp-content/uploads/2026/07/DSC02035-1-2048x1027.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/tophouse-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            TOPHOUSE                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sun.15.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/tophouse-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/tophouse-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/hey-nothing-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="683" src="https://www.thegarage.london/wp-content/uploads/2026/06/260430_AElloway_HeyNothing_1234-1024x683.jpg" class="img img--bg link__image" alt="HEY, NOTHING PHOTO" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/260430_AElloway_HeyNothing_1234-1024x683.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/06/260430_AElloway_HeyNothing_1234-300x200.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/06/260430_AElloway_HeyNothing_1234-768x512.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/260430_AElloway_HeyNothing_1234-1536x1025.jpg 1536w, https://www.thegarage.london/wp-content/uploads/2026/06/260430_AElloway_HeyNothing_1234-2048x1366.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/hey-nothing-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            HEY, NOTHING                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Tue.17.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/hey-nothing-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/hey-nothing-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/shearwater-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="810" height="1012" src="https://www.thegarage.london/wp-content/uploads/2026/05/SW-LOMA-TOUR-DATES-1080-x-1350-px-2.jpg" class="img img--bg link__image" alt="LOMA POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/SW-LOMA-TOUR-DATES-1080-x-1350-px-2.jpg 810w, https://www.thegarage.london/wp-content/uploads/2026/05/SW-LOMA-TOUR-DATES-1080-x-1350-px-2-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/05/SW-LOMA-TOUR-DATES-1080-x-1350-px-2-768x960.jpg 768w" sizes="(max-width: 810px) 100vw, 810px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/shearwater-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            SHEARWATER                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Thu.19.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/shearwater-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/shearwater-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/oh-my-god-its-the-church-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/03/Oh-My-God-Its-The-Church_2026_tour-IG-1-819x1024.jpg" class="img img--bg link__image" alt="OMG POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/03/Oh-My-God-Its-The-Church_2026_tour-IG-1-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/03/Oh-My-God-Its-The-Church_2026_tour-IG-1-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/03/Oh-My-God-Its-The-Church_2026_tour-IG-1-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/03/Oh-My-God-Its-The-Church_2026_tour-IG-1-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/03/Oh-My-God-Its-The-Church_2026_tour-IG-1-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/03/Oh-My-God-Its-The-Church_2026_tour-IG-1-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/oh-my-god-its-the-church-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            OH MY GOD! IT'S THE CHURCH                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Fri.20.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/oh-my-god-its-the-church-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/oh-my-god-its-the-church-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/northside/" class="card__grid-media media card__grid-media--other link">
+                        <p>Image not found</p>                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/northside/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            NORTHSIDE                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sat.21.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/northside/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/northside-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/sace6/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/04/Sace6-SQ-1024x1024.jpg" class="img img--bg link__image" alt="SACE6 POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/04/Sace6-SQ-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/04/Sace6-SQ-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/04/Sace6-SQ-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/04/Sace6-SQ-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/04/Sace6-SQ-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/04/Sace6-SQ.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/sace6/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            SACE6                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Tue.24.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/sace6/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/sace6-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/bodega-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/06/BODEGA_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="BODEGA POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/BODEGA_2026_IG-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/06/BODEGA_2026_IG-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/06/BODEGA_2026_IG-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/BODEGA_2026_IG-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/06/BODEGA_2026_IG-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/06/BODEGA_2026_IG-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/bodega-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            BODEGA                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Wed.25.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/bodega-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/bodega-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/look-mum-no-computer-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/LOOK-MUM-NO-COMPUTER-SQ-1024x1024.jpg" class="img img--bg link__image" alt="LMNC POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/LOOK-MUM-NO-COMPUTER-SQ-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/05/LOOK-MUM-NO-COMPUTER-SQ-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/05/LOOK-MUM-NO-COMPUTER-SQ-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/05/LOOK-MUM-NO-COMPUTER-SQ-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/LOOK-MUM-NO-COMPUTER-SQ-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/05/LOOK-MUM-NO-COMPUTER-SQ.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/look-mum-no-computer-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            LOOK MUM NO COMPUTER                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Thu.26.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/look-mum-no-computer-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/look-mum-no-computer-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/these-wicked-rivers-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="683" src="https://www.thegarage.london/wp-content/uploads/2026/03/THESE-WICKED-RIVERS-BOARDROOM-FEB-26-BLACKHAM-IMAGES-C3-1855-1-1024x683.jpg" class="img img--bg link__image" alt="THESE WICKED RIVERS PHOTO" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/03/THESE-WICKED-RIVERS-BOARDROOM-FEB-26-BLACKHAM-IMAGES-C3-1855-1-1024x683.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/03/THESE-WICKED-RIVERS-BOARDROOM-FEB-26-BLACKHAM-IMAGES-C3-1855-1-300x200.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/03/THESE-WICKED-RIVERS-BOARDROOM-FEB-26-BLACKHAM-IMAGES-C3-1855-1-768x512.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/03/THESE-WICKED-RIVERS-BOARDROOM-FEB-26-BLACKHAM-IMAGES-C3-1855-1-1536x1024.jpg 1536w, https://www.thegarage.london/wp-content/uploads/2026/03/THESE-WICKED-RIVERS-BOARDROOM-FEB-26-BLACKHAM-IMAGES-C3-1855-1-2048x1365.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/these-wicked-rivers-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            THESE WICKED RIVERS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Fri.27.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/these-wicked-rivers-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/these-wicked-rivers-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/republica/" class="card__grid-media media card__grid-media--other link">
+                        <img width="724" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/03/Republica_2026_london-724x1024.jpg" class="img img--bg link__image" alt="" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/03/Republica_2026_london-724x1024.jpg 724w, https://www.thegarage.london/wp-content/uploads/2026/03/Republica_2026_london-212x300.jpg 212w, https://www.thegarage.london/wp-content/uploads/2026/03/Republica_2026_london-768x1086.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/03/Republica_2026_london-1086x1536.jpg 1086w, https://www.thegarage.london/wp-content/uploads/2026/03/Republica_2026_london-1448x2048.jpg 1448w, https://www.thegarage.london/wp-content/uploads/2026/03/Republica_2026_london.jpg 1754w" sizes="(max-width: 724px) 100vw, 724px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/republica/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            REPUBLICA                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sat.28.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/republica/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/republica-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/1000mods-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="903" src="https://www.thegarage.london/wp-content/uploads/2026/01/1000MODS-1024x903.jpg" class="img img--bg link__image" alt="1000MODS PHOTO" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/01/1000MODS-1024x903.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/01/1000MODS-300x264.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/01/1000MODS-768x677.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/01/1000MODS-1536x1354.jpg 1536w, https://www.thegarage.london/wp-content/uploads/2026/01/1000MODS-2048x1805.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/1000mods-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            1000MODS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sun.29.Nov.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/1000mods-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/1000mods-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->
+
+    <div class="guide__month" data-month="December" data-year="2026" data-month-number="12" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>December&nbsp;2026</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/tokyo-tea-room-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/Tokyo-Tea-Room-Feed-819x1024.jpg" class="img img--bg link__image" alt="TOKYO TEA ROOM POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/Tokyo-Tea-Room-Feed-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/05/Tokyo-Tea-Room-Feed-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/05/Tokyo-Tea-Room-Feed-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/Tokyo-Tea-Room-Feed.jpg 1080w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/tokyo-tea-room-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            TOKYO TEA ROOM                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Wed.02.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/tokyo-tea-room-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/tokyo-tea-room-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/covenant-2-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="724" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/02/COVENANT-THE-GARAGE-724x1024.jpg" class="img img--bg link__image" alt="" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/02/COVENANT-THE-GARAGE-724x1024.jpg 724w, https://www.thegarage.london/wp-content/uploads/2026/02/COVENANT-THE-GARAGE-212x300.jpg 212w, https://www.thegarage.london/wp-content/uploads/2026/02/COVENANT-THE-GARAGE-768x1086.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/02/COVENANT-THE-GARAGE-1086x1536.jpg 1086w, https://www.thegarage.london/wp-content/uploads/2026/02/COVENANT-THE-GARAGE.jpg 1448w" sizes="(max-width: 724px) 100vw, 724px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/covenant-2-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            COVENANT                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sun.06.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/covenant-2-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/covenant-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/andrew-cushin-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/06/1x1-Square-1080x1080-3-1024x1024.jpg" class="img img--bg link__image" alt="ANDREW CUSHIN POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/1x1-Square-1080x1080-3-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/06/1x1-Square-1080x1080-3-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/06/1x1-Square-1080x1080-3-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/06/1x1-Square-1080x1080-3-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/1x1-Square-1080x1080-3-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/06/1x1-Square-1080x1080-3.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/andrew-cushin-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            ANDREW CUSHIN                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Mon.07.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/andrew-cushin-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/andrew-cushin-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/kevin-atwater-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/06/Kevin-Atwater_1x1-1024x1024.jpg" class="img img--bg link__image" alt="KEVIN POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/Kevin-Atwater_1x1-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/06/Kevin-Atwater_1x1-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/06/Kevin-Atwater_1x1-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/06/Kevin-Atwater_1x1-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/Kevin-Atwater_1x1-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/06/Kevin-Atwater_1x1.jpg 1200w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/kevin-atwater-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            KEVIN ATWATER                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Tue.08.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/kevin-atwater-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/kevin-atwater-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/boston-manor-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-1024x1024.jpg" class="img img--bg link__image" alt="BOSTON MANOR POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/boston-manor-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            BOSTON MANOR NIGHT 1                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sun.13.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/boston-manor-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/boston-manor-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/boston-manor-the-garage-london-tickets-2026-2/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-1024x1024.jpg" class="img img--bg link__image" alt="BOSTON MANOR POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/05/Boston-Manor-SQ.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/boston-manor-the-garage-london-tickets-2026-2/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            BOSTON MANOR NIGHT 2                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Mon.14.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/boston-manor-the-garage-london-tickets-2026-2/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/boston-manor-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/boston-manor-night-3-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/UK-4x5-1-819x1024.jpg" class="img img--bg link__image" alt="bm poster" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/UK-4x5-1-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/05/UK-4x5-1-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/05/UK-4x5-1-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/UK-4x5-1-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/05/UK-4x5-1-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/05/UK-4x5-1-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/boston-manor-night-3-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            BOSTON MANOR NIGHT 3                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Tue.15.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/boston-manor-night-3-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/boston-manor-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/the-wurzels-christmas-show-the-garage-london-tickets-2026/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/02/Wurzlers_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="WURZELS XMAS POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/02/Wurzlers_2026_IG-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/02/Wurzlers_2026_IG-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/02/Wurzlers_2026_IG-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/02/Wurzlers_2026_IG-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/02/Wurzlers_2026_IG-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/02/Wurzlers_2026_IG-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/the-wurzels-christmas-show-the-garage-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            THE WURZELS CHRISTMAS SHOW                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sun.20.Dec.26                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/the-wurzels-christmas-show-the-garage-london-tickets-2026/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/the-wurzels-christmas-show-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->
+
+    <div class="guide__month" data-month="January" data-year="2027" data-month-number="1" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>January&nbsp;2027</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/sawyer-hill-the-garage-london-tickets-2027/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/06/Sawyer-Hill_UK_27_Socials_1080-x-1350-819x1024.jpg" class="img img--bg link__image" alt="SAWYER HILL POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/Sawyer-Hill_UK_27_Socials_1080-x-1350-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/06/Sawyer-Hill_UK_27_Socials_1080-x-1350-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/06/Sawyer-Hill_UK_27_Socials_1080-x-1350-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/Sawyer-Hill_UK_27_Socials_1080-x-1350.jpg 1080w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/sawyer-hill-the-garage-london-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            SAWYER HILL                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Thu.14.Jan.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/sawyer-hill-the-garage-london-tickets-2027/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/sawyer-hill-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/nightmare-of-you-the-garage-london-tickets-2027/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="683" src="https://www.thegarage.london/wp-content/uploads/2026/06/38a28095-4f67-4e31-a4ba-2ac2d633ba37.jpg" class="img img--bg link__image" alt="NIGHTMARE OF YOU PHOTO" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/38a28095-4f67-4e31-a4ba-2ac2d633ba37.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/06/38a28095-4f67-4e31-a4ba-2ac2d633ba37-300x200.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/06/38a28095-4f67-4e31-a4ba-2ac2d633ba37-768x512.jpg 768w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/nightmare-of-you-the-garage-london-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            NIGHTMARE OF YOU                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sat.30.Jan.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/nightmare-of-you-the-garage-london-tickets-2027/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/nightmare-of-you-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->

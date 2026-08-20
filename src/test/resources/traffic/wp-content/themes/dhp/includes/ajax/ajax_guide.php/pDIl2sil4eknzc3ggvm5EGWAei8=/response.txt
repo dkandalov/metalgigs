@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+connection: Keep-Alive
+content-type: text/html; charset=UTF-8
+date: Thu, 20 Aug 2026 19:33:28 GMT
+keep-alive: timeout=5, max=98
+server: Apache/2.4.62 (AlmaLinux) OpenSSL/3.5.5
+vary: Accept-Encoding
+x-powered-by: PHP/7.4.33
+
+
+
+
+    <div class="visually-hidden guide__month" data-month="May" data-year="2027" data-month-number="5" data-has-posts="false"></div>
+
+    <div class="visually-hidden guide__month" data-month="June" data-year="2027" data-month-number="6" data-has-posts="false"></div>
+
+    <div class="visually-hidden guide__month" data-month="July" data-year="2027" data-month-number="7" data-has-posts="false"></div>

@@ -3,6 +3,7 @@ package metalgigs
 import org.http4k.client.OkHttp
 import org.http4k.core.Filter
 import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import org.http4k.core.then
@@ -40,11 +41,14 @@ private val noLiveRequests: HttpHandler =
 //
 // Only urls the exact cache misses land here, so a listing - recorded under its own url - is never
 // answered with it. A host with no sample yet still goes live under RECORD_TRAFFIC, which is how a
-// newly added venue records one.
+// newly added venue records one. Restricted to GET because the listing calls some sources make are
+// POSTs to their site's own api, and standing an event page in for one of those hides the miss:
+// it parses as a page with none of the venue's listing markup on it, so the source reads it as a
+// listing that has run out rather than as an unrecorded call.
 private val serveSharedEventPage = Filter { next ->
     { request ->
         val shared = File(sharedEventPages, "${request.uri.host}.html")
-        if (shared.exists()) Response(OK).body(shared.readText()) else next(request)
+        if (request.method == GET && shared.exists()) Response(OK).body(shared.readText()) else next(request)
     }
 }
 

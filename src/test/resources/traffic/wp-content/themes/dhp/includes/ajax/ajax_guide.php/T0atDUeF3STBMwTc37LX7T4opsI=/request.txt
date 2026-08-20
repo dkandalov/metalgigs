@@ -1,0 +1,4 @@
+POST https://www.thegarage.london/wp-content/themes/dhp/includes/ajax/ajax_guide.php HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+guide_post_type=gigs&guide_post_type_date_field=gig_date&guide_prev_month=January&guide_prev_year=2027

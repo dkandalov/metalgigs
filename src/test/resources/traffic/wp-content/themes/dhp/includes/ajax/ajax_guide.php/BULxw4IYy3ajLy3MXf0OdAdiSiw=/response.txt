@@ -1,0 +1,778 @@
+HTTP/1.1 200 OK
+connection: Keep-Alive
+content-type: text/html; charset=UTF-8
+date: Thu, 20 Aug 2026 19:33:29 GMT
+keep-alive: timeout=5, max=100
+server: Apache/2.4.62 (AlmaLinux) OpenSSL/3.5.5
+vary: Accept-Encoding
+x-powered-by: PHP/7.4.33
+
+
+
+
+    <div class="guide__month" data-month="November" data-year="2026" data-month-number="11" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>November&nbsp;2026</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Wed.04.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/boo-seeka-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/Boo-Seeka_2026_tour-IG-819x1024.jpg" class="img img--bg link__image" alt="BOO SEEKA POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/Boo-Seeka_2026_tour-IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/06/Boo-Seeka_2026_tour-IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/06/Boo-Seeka_2026_tour-IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/boo-seeka-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        BOO SEEKA                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/boo-seeka-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/boo-seeka-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Thu.05.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/lance-roark-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/03/Lance-Roark_2026_IG-2-819x1024.jpg" class="img img--bg link__image" alt="LANCE POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/03/Lance-Roark_2026_IG-2-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/03/Lance-Roark_2026_IG-2-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/03/Lance-Roark_2026_IG-2-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/lance-roark-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        Lance Roark                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/lance-roark-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/lance-roark-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sat.07.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/how-to-disappear-and-never-be-found-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="724" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/05/image0-724x1024.png" class="img img--bg link__image" alt="HOW TO POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/05/image0-724x1024.png 724w, https://www.thegrace.london/wp-content/uploads/2026/05/image0-212x300.png 212w, https://www.thegrace.london/wp-content/uploads/2026/05/image0-768x1086.png 768w" sizes="(max-width: 724px) 100vw, 724px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/how-to-disappear-and-never-be-found-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        HOW TO DISAPPEAR AND NEVER BE FOUND                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                            <p class="card__description">Support: THE DARK + DISTRICT 13</p><!-- /.card__description -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/how-to-disappear-and-never-be-found-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/how-to-disappear-and-never-be-found-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sun.08.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/noah-guthrie-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/04/Noah-Guthrie_2026_Ig-1-819x1024.jpg" class="img img--bg link__image" alt="NOAH POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/04/Noah-Guthrie_2026_Ig-1-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/04/Noah-Guthrie_2026_Ig-1-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/04/Noah-Guthrie_2026_Ig-1-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/noah-guthrie-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        NOAH GUTHRIE                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                            <p class="card__description">Support: ROOFMAN</p><!-- /.card__description -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/noah-guthrie-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Thu.12.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/cristina-hart-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/07/LONDON-POSTER-4_5-1-819x1024.jpg" class="img img--bg link__image" alt="CRISTINA POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/07/LONDON-POSTER-4_5-1-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/07/LONDON-POSTER-4_5-1-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/07/LONDON-POSTER-4_5-1-768x960.jpg 768w, https://www.thegrace.london/wp-content/uploads/2026/07/LONDON-POSTER-4_5-1.jpg 1080w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/cristina-hart-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        CRISTINA HART                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/cristina-hart-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/cristina-hart-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Fri.13.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/sharp-class-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/04/Sharp-Class_2026_tour-IG-819x1024.jpg" class="img img--bg link__image" alt="SHARP CLASS POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/04/Sharp-Class_2026_tour-IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/04/Sharp-Class_2026_tour-IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/04/Sharp-Class_2026_tour-IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/sharp-class-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        SHARP CLASS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                            <p class="card__description">Support: South Street + TR5s</p><!-- /.card__description -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/sharp-class-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/sharp-class-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sat.14.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/jewelia-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="724" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/Poster-1-724x1024.jpg" class="img img--bg link__image" alt="JEWELIA POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/Poster-1-724x1024.jpg 724w, https://www.thegrace.london/wp-content/uploads/2026/06/Poster-1-212x300.jpg 212w, https://www.thegrace.london/wp-content/uploads/2026/06/Poster-1-768x1086.jpg 768w" sizes="(max-width: 724px) 100vw, 724px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/jewelia-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        JEWELIA                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/jewelia-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/jewelia-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Thu.19.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/8lanco-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="1024" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/8lanco-SQ-1024x1024.jpg" class="img img--bg link__image" alt="8LANCO POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/8lanco-SQ-1024x1024.jpg 1024w, https://www.thegrace.london/wp-content/uploads/2026/06/8lanco-SQ-150x150.jpg 150w, https://www.thegrace.london/wp-content/uploads/2026/06/8lanco-SQ-300x300.jpg 300w, https://www.thegrace.london/wp-content/uploads/2026/06/8lanco-SQ-768x768.jpg 768w, https://www.thegrace.london/wp-content/uploads/2026/06/8lanco-SQ.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/8lanco-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        8LANCO                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                            <p class="card__description">Support: Charlie Baker</p><!-- /.card__description -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/8lanco-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/8lanco-tickets/" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Fri.20.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/harry-hudson-taylor-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/04/Harry-Hudson-Taylor_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="HT POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/04/Harry-Hudson-Taylor_2026_IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/04/Harry-Hudson-Taylor_2026_IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/04/Harry-Hudson-Taylor_2026_IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/harry-hudson-taylor-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        HARRY HUDSON TAYLOR                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/harry-hudson-taylor-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/harry-hudson-taylor-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sat.21.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/deja-vega-2-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/DEJA-VEGA_2026_tour-ig-819x1024.jpg" class="img img--bg link__image" alt="DEJA VEGA POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/DEJA-VEGA_2026_tour-ig-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/06/DEJA-VEGA_2026_tour-ig-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/06/DEJA-VEGA_2026_tour-ig-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/deja-vega-2-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        Déjà Vega                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/deja-vega-2-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/deja-vega-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sun.22.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/the-rabbitts-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="1024" height="683" src="https://www.thegrace.london/wp-content/uploads/2026/04/The-Rabbitts-Photo-Horizontal-credit_-@itsalexroams-1-1024x683.jpg" class="img img--bg link__image" alt="THE RABBITTS PHOTO" srcset="https://www.thegrace.london/wp-content/uploads/2026/04/The-Rabbitts-Photo-Horizontal-credit_-@itsalexroams-1-1024x683.jpg 1024w, https://www.thegrace.london/wp-content/uploads/2026/04/The-Rabbitts-Photo-Horizontal-credit_-@itsalexroams-1-300x200.jpg 300w, https://www.thegrace.london/wp-content/uploads/2026/04/The-Rabbitts-Photo-Horizontal-credit_-@itsalexroams-1-768x512.jpg 768w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/the-rabbitts-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        THE RABBITTS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/the-rabbitts-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/the-rabbitts-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Tue.24.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/turbobier-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="1024" height="960" src="https://www.thegrace.london/wp-content/uploads/2026/04/TURBOBIER-PRESS-SHOT-2026-1024x960.jpg" class="img img--bg link__image" alt="TURBOBIER PHOTO" srcset="https://www.thegrace.london/wp-content/uploads/2026/04/TURBOBIER-PRESS-SHOT-2026-1024x960.jpg 1024w, https://www.thegrace.london/wp-content/uploads/2026/04/TURBOBIER-PRESS-SHOT-2026-300x281.jpg 300w, https://www.thegrace.london/wp-content/uploads/2026/04/TURBOBIER-PRESS-SHOT-2026-768x720.jpg 768w, https://www.thegrace.london/wp-content/uploads/2026/04/TURBOBIER-PRESS-SHOT-2026.jpg 1563w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/turbobier-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        TURBOBIER                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/turbobier-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/turbobier-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Wed.25.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/haunt-me-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/Haunt-Me_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="HAUNT ME POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/Haunt-Me_2026_IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/06/Haunt-Me_2026_IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/06/Haunt-Me_2026_IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/haunt-me-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        HAUNT ME                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/haunt-me-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/haunt-me-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Thu.26.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/ellie-gowers-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/05/Ellie-Gowers_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="ELLIE GOWERS POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/05/Ellie-Gowers_2026_IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/05/Ellie-Gowers_2026_IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/05/Ellie-Gowers_2026_IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/ellie-gowers-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        ELLIE GOWERS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/ellie-gowers-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/ellie-gowers-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Fri.27.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/the-publics-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/04/Publics_2026_tour-IG-819x1024.jpg" class="img img--bg link__image" alt="THE PUBLICS POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/04/Publics_2026_tour-IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/04/Publics_2026_tour-IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/04/Publics_2026_tour-IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/the-publics-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        THE PUBLICS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                            <p class="card__description">Support: ISLA RICO</p><!-- /.card__description -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/the-publics-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/the-publics-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sat.28.Nov.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/blair-dunlop-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/Blair-Dunlop_2026_tour-IG-819x1024.jpg" class="img img--bg link__image" alt="BLAIR DUNLOP POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/Blair-Dunlop_2026_tour-IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/06/Blair-Dunlop_2026_tour-IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/06/Blair-Dunlop_2026_tour-IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/blair-dunlop-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        BLAIR DUNLOP                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/blair-dunlop-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/blair-dunlop-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->
+
+    <div class="guide__month" data-month="December" data-year="2026" data-month-number="12" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>December&nbsp;2026</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Wed.02.Dec.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/trixie-whitley-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/03/Trixie-Whitley_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="TRIXIE POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/03/Trixie-Whitley_2026_IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/03/Trixie-Whitley_2026_IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/03/Trixie-Whitley_2026_IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/trixie-whitley-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        TRIXIE WHITLEY                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/trixie-whitley-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/trixie-whitley-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Thu.03.Dec.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/magnetic-skies/" class="card__grid-media media link">
+                        <img width="724" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/magnetic-skies-poster-724x1024.jpg" class="img img--bg link__image" alt="" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/magnetic-skies-poster-724x1024.jpg 724w, https://www.thegrace.london/wp-content/uploads/2026/06/magnetic-skies-poster-212x300.jpg 212w, https://www.thegrace.london/wp-content/uploads/2026/06/magnetic-skies-poster-768x1086.jpg 768w" sizes="(max-width: 724px) 100vw, 724px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/magnetic-skies/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        MAGNETIC SKIES                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/magnetic-skies/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/magnetic-skies-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sat.05.Dec.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/tez-the-grace-london-tickets-2026-2/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/05/TEZ_2026_IG-819x1024.jpg" class="img img--bg link__image" alt="TEZ POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/05/TEZ_2026_IG-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/05/TEZ_2026_IG-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/05/TEZ_2026_IG-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/tez-the-grace-london-tickets-2026-2/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        TEZ                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/tez-the-grace-london-tickets-2026-2/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/tez-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Tue.08.Dec.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/connolly-hayes-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/Purple-and-Black-Retro-Music-Tour-Instagram-Post-819x1024.jpg" class="img img--bg link__image" alt="HAYES POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/Purple-and-Black-Retro-Music-Tour-Instagram-Post-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/06/Purple-and-Black-Retro-Music-Tour-Instagram-Post-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/06/Purple-and-Black-Retro-Music-Tour-Instagram-Post-768x960.jpg 768w, https://www.thegrace.london/wp-content/uploads/2026/06/Purple-and-Black-Retro-Music-Tour-Instagram-Post.jpg 1080w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/connolly-hayes-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        CONNOLLY HAYES                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/connolly-hayes-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/connolly-hayes-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Fri.11.Dec.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/chris-boldt-the-gracelondon-tickets-2026/" class="card__grid-media media link">
+                        <img width="1024" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/07/Chris-Boldt-SQ-1024x1024.jpg" class="img img--bg link__image" alt="CHRIS POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/07/Chris-Boldt-SQ-1024x1024.jpg 1024w, https://www.thegrace.london/wp-content/uploads/2026/07/Chris-Boldt-SQ-150x150.jpg 150w, https://www.thegrace.london/wp-content/uploads/2026/07/Chris-Boldt-SQ-300x300.jpg 300w, https://www.thegrace.london/wp-content/uploads/2026/07/Chris-Boldt-SQ-768x768.jpg 768w, https://www.thegrace.london/wp-content/uploads/2026/07/Chris-Boldt-SQ.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/chris-boldt-the-gracelondon-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        CHRIS BOLDT                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/chris-boldt-the-gracelondon-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/chris-boldt-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Sat.12.Dec.26            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/fire-in-her-eyes-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="819" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/01/FIRE-IN-HER-EYES_2026_IG-1-1-819x1024.jpg" class="img img--bg link__image" alt="FIRE IN HER EYES POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/01/FIRE-IN-HER-EYES_2026_IG-1-1-819x1024.jpg 819w, https://www.thegrace.london/wp-content/uploads/2026/01/FIRE-IN-HER-EYES_2026_IG-1-1-240x300.jpg 240w, https://www.thegrace.london/wp-content/uploads/2026/01/FIRE-IN-HER-EYES_2026_IG-1-1-768x960.jpg 768w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/fire-in-her-eyes-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        FIRE IN HER EYES                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/fire-in-her-eyes-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/fire-in-her-eyes-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->
+
+    <div class="guide__month" data-month="January" data-year="2027" data-month-number="1" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>January&nbsp;2027</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Tue.19.Jan.27            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/nickless-the-grace-london-tickets-2027/" class="card__grid-media media link">
+                        <img width="853" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/8184C899-7084-4D9C-A076-B6653A7461CE-853x1024.jpg" class="img img--bg link__image" alt="NICKLESS POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/8184C899-7084-4D9C-A076-B6653A7461CE-853x1024.jpg 853w, https://www.thegrace.london/wp-content/uploads/2026/06/8184C899-7084-4D9C-A076-B6653A7461CE-250x300.jpg 250w, https://www.thegrace.london/wp-content/uploads/2026/06/8184C899-7084-4D9C-A076-B6653A7461CE-768x922.jpg 768w" sizes="(max-width: 853px) 100vw, 853px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/nickless-the-grace-london-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        NICKLESS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                        </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/nickless-the-grace-london-tickets-2027/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/nickless-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__strip ">
+            <h6 class="card__strip-heading">
+                                                                            Live                                                </h6><!-- /.card__strip-heading -->
+            <h6 class="card__strip-heading card__strip-heading--last">
+                Tue.19.Jan.27            </h6><!-- /.card__strip-heading card__strip-heading--last -->
+        </div><!-- /.card__strip -->
+        <div class="card__inside">
+            <div class="card__grid ">
+                                    <a href="https://www.thegrace.london/gigs/nontaines-d-c-the-grace-london-tickets-2026/" class="card__grid-media media link">
+                        <img width="1024" height="1024" src="https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1-1024x1024.jpg" class="img img--bg link__image" alt="NONTAINES D.C. POSTER" srcset="https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1-1024x1024.jpg 1024w, https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1-150x150.jpg 150w, https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1-300x300.jpg 300w, https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1-768x768.jpg 768w, https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content text__reset">
+                                            <a href="https://www.thegrace.london/gigs/nontaines-d-c-the-grace-london-tickets-2026/" class="card__heading card__heading--last h4 text-link text-link--color">
+                        NONTAINES D.C.                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                                                            <p class="card__description">Support: THE TIVOLIS</p><!-- /.card__description -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegrace.london/gigs/nontaines-d-c-the-grace-london-tickets-2026/" class="button card__button js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                                                        <a href="https://www.alttickets.com/nickless-tickets" target="_new" class="button button--2 card__button js-gig-guide-tickets">
+                                BUY TICKETS
+                            </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->

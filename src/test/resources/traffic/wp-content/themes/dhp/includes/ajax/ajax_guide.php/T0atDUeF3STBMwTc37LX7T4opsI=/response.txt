@@ -1,0 +1,240 @@
+HTTP/1.1 200 OK
+connection: Keep-Alive
+content-type: text/html; charset=UTF-8
+date: Thu, 20 Aug 2026 19:33:28 GMT
+keep-alive: timeout=5, max=99
+server: Apache/2.4.62 (AlmaLinux) OpenSSL/3.5.5
+vary: Accept-Encoding
+x-powered-by: PHP/7.4.33
+
+
+
+
+    <div class="guide__month" data-month="February" data-year="2027" data-month-number="2" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>February&nbsp;2027</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/ariel-posen-the-garage-london-tickets-2027/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/06/Ariel-Posen_2027_tour-IG-819x1024.jpg" class="img img--bg link__image" alt="ARIEL POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/Ariel-Posen_2027_tour-IG-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/06/Ariel-Posen_2027_tour-IG-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/06/Ariel-Posen_2027_tour-IG-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/Ariel-Posen_2027_tour-IG-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/06/Ariel-Posen_2027_tour-IG-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/06/Ariel-Posen_2027_tour-IG-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/ariel-posen-the-garage-london-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            ARIEL POSEN                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Tue.16.Feb.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/ariel-posen-the-garage-london-tickets-2027/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/ariel-posen-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/esprit-dair-the-garage-london-tickets-2027/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/IG-Feed-London-Web-Poster-819x1024.jpg" class="img img--bg link__image" alt="ESPRIT POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/IG-Feed-London-Web-Poster-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/05/IG-Feed-London-Web-Poster-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/05/IG-Feed-London-Web-Poster-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/IG-Feed-London-Web-Poster.jpg 1080w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/esprit-dair-the-garage-london-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            ESPRIT D'AIR                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Fri.19.Feb.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/esprit-dair-the-garage-london-tickets-2027/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/esprit-d-air-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/the-bones-of-j-r-jones-the-garage-london-tickets-2027/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/05/1x1-Square-1080x1080-2-1024x1024.jpg" class="img img--bg link__image" alt="BONES POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/05/1x1-Square-1080x1080-2-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/05/1x1-Square-1080x1080-2-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/05/1x1-Square-1080x1080-2-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/05/1x1-Square-1080x1080-2-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/05/1x1-Square-1080x1080-2-400x400.jpg 400w, https://www.thegarage.london/wp-content/uploads/2026/05/1x1-Square-1080x1080-2.jpg 1080w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/the-bones-of-j-r-jones-the-garage-london-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            THE BONES OF J.R. JONES                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sat.20.Feb.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/the-bones-of-j-r-jones-the-garage-london-tickets-2027/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/the-bones-of-j-r-jones-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/steve-n-seagulls-2/" class="card__grid-media media card__grid-media--other link">
+                        <p>Image not found</p>                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/steve-n-seagulls-2/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            STEVE 'N' SEAGULLS                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Fri.26.Feb.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/steve-n-seagulls-2/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/stevenseagulls-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->
+
+    <div class="guide__month" data-month="March" data-year="2027" data-month-number="3" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>March&nbsp;2027</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/steve-ignorant-band-the-garage-london-tickets-2027/" class="card__grid-media media card__grid-media--other link">
+                        <img width="1024" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-1024x1024.jpg" class="img img--bg link__image" alt="STEVE POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-1024x1024.jpg 1024w, https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-300x300.jpg 300w, https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-150x150.jpg 150w, https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-768x768.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-1536x1536.jpg 1536w, https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-2048x2048.jpg 2048w, https://www.thegarage.london/wp-content/uploads/2026/06/Steve-Ignorant-London-Square-400x400.jpg 400w" sizes="(max-width: 1024px) 100vw, 1024px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/steve-ignorant-band-the-garage-london-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            STEVE IGNORANT BAND                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Sat.06.Mar.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/steve-ignorant-band-the-garage-london-tickets-2027/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/steve-ignorant-band-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/ajj-the-garage-londo-tickets-2027/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/08/AJJ_2027_London_IG-819x1024.jpg" class="img img--bg link__image" alt="AJJ POSTER" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/08/AJJ_2027_London_IG-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/08/AJJ_2027_London_IG-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/08/AJJ_2027_London_IG-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/08/AJJ_2027_London_IG-1229x1536.jpg 1229w, https://www.thegarage.london/wp-content/uploads/2026/08/AJJ_2027_London_IG-1638x2048.jpg 1638w, https://www.thegarage.london/wp-content/uploads/2026/08/AJJ_2027_London_IG-scaled.jpg 2048w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/ajj-the-garage-londo-tickets-2027/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            AJJ                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Tue.23.Mar.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/ajj-the-garage-londo-tickets-2027/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/ajj-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->
+
+    <div class="guide__month" data-month="April" data-year="2027" data-month-number="4" data-has-posts="true">
+        <header class="guide__month-header">
+            <h2>April&nbsp;2027</h2>
+        </header><!-- /.guide__month-header -->
+        <div class="grid guide__grid">
+            
+<div class="grid__col guide__grid-col">
+    <div class="card card--full card--alt-layout ">
+                    <div class="card__inside card__inside--other">
+            <div class="card__grid card__grid--center">
+                                    <a href="https://www.thegarage.london/gigs/st-lundi/" class="card__grid-media media card__grid-media--other link">
+                        <img width="819" height="1024" src="https://www.thegarage.london/wp-content/uploads/2026/08/ST-LUNDI-LONDON-SPECIFIC-819x1024.jpg" class="img img--bg link__image" alt="" loading="lazy" srcset="https://www.thegarage.london/wp-content/uploads/2026/08/ST-LUNDI-LONDON-SPECIFIC-819x1024.jpg 819w, https://www.thegarage.london/wp-content/uploads/2026/08/ST-LUNDI-LONDON-SPECIFIC-240x300.jpg 240w, https://www.thegarage.london/wp-content/uploads/2026/08/ST-LUNDI-LONDON-SPECIFIC-768x960.jpg 768w, https://www.thegarage.london/wp-content/uploads/2026/08/ST-LUNDI-LONDON-SPECIFIC.jpg 1080w" sizes="(max-width: 819px) 100vw, 819px" />                    </a><!-- /.card__grid-media media -->
+                                <div class="card__grid-content card__grid-content--other text__reset">
+                                            <a href="https://www.thegarage.london/gigs/st-lundi/" class="card__heading card__heading--last h4 text-link text-link--color">
+                            ST LUNDI                        </a><!-- /.card__heading card__heading--last h4 text-link text-link--color -->
+                        <h6 class="card__strip-heading">
+                            Thu.01.Apr.27                        </h6><!-- /.card__strip-heading card__strip-heading--last -->
+                                    </div><!-- /.card__grid-content text__reset -->
+            </div><!-- /.card__grid -->
+                        <span class="card__push-bottom">
+                <span class="card__buttons card__buttons--alt">
+                    <a href="https://www.thegarage.london/gigs/st-lundi/" class="button card__button button--3 js-gig-guide-more-info">
+                        More Info
+                    </a><!--.button card__button -->
+                                            <a href="https://www.alttickets.com/st-lundi-tickets" target="_new" class="button button--1 card__button js-gig-guide-tickets 
+                                                    ">
+                            BUY TICKETS
+                        </a><!--.button button--1 card__button -->
+                                                            </span><!-- /.card__buttons card__buttons--alt -->
+            </span><!-- /.card__push-bottom -->
+                    </div><!-- /.card__inside -->
+    </div><!-- /.card card--full card--alt-layout -->
+</div><!-- /.grid__col guide__grid-col -->        </div><!-- /.grid guide__grid -->
+        <div class="guide__month-end-image-banner">
+            <div class="grid guide__grid">
+            
+            </div><!-- /.grid guide__grid -->
+        </div><!-- /.guide__month-end-image-banner -->
+    </div><!-- /.guide__month -->
