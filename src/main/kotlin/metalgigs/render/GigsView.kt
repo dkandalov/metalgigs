@@ -1,6 +1,7 @@
 package metalgigs.render
 
 import metalgigs.Gig
+import metalgigs.GigDate
 import metalgigs.publishedImageFileName
 import metalgigs.venue
 import org.http4k.template.ViewModel
@@ -12,8 +13,8 @@ data class GigsView(val dateGroups: List<DateGroup>) : ViewModel {
     override fun template() = "gigs"
 }
 
-data class DateGroup(val date: LocalDate, val gigs: List<GigCardView>) {
-    val displayDate: String = date.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.ENGLISH))
+data class DateGroup(val date: GigDate, val gigs: List<GigCardView>) {
+    val displayDate: String = date.value.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.ENGLISH))
 }
 
 data class GigCardView(val title: String, val venue: String, val url: String, val imageUrl: String)
@@ -22,10 +23,10 @@ data class GigCardView(val title: String, val venue: String, val url: String, va
 // it. Those gigs stay in the log and keep their published image, so one appears here of its own
 // accord once it comes into range, without being rescraped or refetched.
 fun gigsOnThePage(gigs: List<Gig>, today: LocalDate): List<Gig> =
-    excludeGigsInThePast(gigs, today).filter { it.date <= today.plusYears(1) }
+    excludeGigsInThePast(gigs, today).filter { it.date <= GigDate(today.plusYears(1)) }
 
 fun excludeGigsInThePast(gigs: List<Gig>, today: LocalDate): List<Gig> =
-    gigs.filter { it.date >= today }
+    gigs.filter { it.date >= GigDate(today) }
 
 fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
     gigs.sortedBy { it.date }

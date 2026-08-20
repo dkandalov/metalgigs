@@ -14,7 +14,6 @@ import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
-import java.time.LocalDate
 
 // a venue that only posts its gig calendar as a single poster image covering many gigs (e.g. a
 // monthly flyer on social media) rather than a page we can scrape normally - not tied to any one
@@ -43,7 +42,7 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
 // there's no per-gig page to link to, so every gig from one poster shares that same real, working
 // url, disambiguated by a fragment; clicking it lands on the actual poster, just not scrolled to
 // this specific gig, since that's not something the source itself supports
-fun posterGigUrl(sourceUrl: String, title: String, date: LocalDate): String = "$sourceUrl#gig-${slug(title)}-$date"
+fun posterGigUrl(sourceUrl: String, title: String, date: GigDate): String = "$sourceUrl#gig-${slug(title)}-$date"
 
 val posterExtractionSystemPrompt = """
     You extract gig listings from a poster image advertising multiple gigs at one venue, often a
@@ -55,9 +54,9 @@ val posterExtractionSystemPrompt = """
 
 private val posterExtractionModel = ModelName.of("claude-sonnet-5")
 
-private fun parsePosterReply(reply: String): List<Pair<LocalDate, String>> =
+private fun parsePosterReply(reply: String): List<Pair<GigDate, String>> =
     reply.lines().mapNotNull { line ->
-        posterGigLinePattern.matchEntire(line.trim())?.let { m -> LocalDate.parse(m.groupValues[1]) to m.groupValues[2].trim() }
+        posterGigLinePattern.matchEntire(line.trim())?.let { m -> GigDate.parse(m.groupValues[1]) to m.groupValues[2].trim() }
     }
 
 private val posterGigLinePattern = Regex("""(\d{4}-\d{2}-\d{2})\s*\|\s*(.+)""")

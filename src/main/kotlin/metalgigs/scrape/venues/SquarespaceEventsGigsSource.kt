@@ -6,7 +6,6 @@ import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
-import java.time.LocalDate
 
 // most Squarespace venues write a gig's blurb on its own event page, but The Fiddler's Elbow leaves
 // every one of those empty and puts the whole thing in the listing's excerpt instead - which also
@@ -29,7 +28,7 @@ internal class SquarespaceEventsGigsSource(
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(titleLink.text()),
-                    LocalDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
+                    GigDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
                     posterUrlFrom(gigUrl, item.squarespaceThumbnailUrl()),
                     when (descriptionFrom) {
                         SquarespaceDescription.EventPage -> fetchDescription(client, gigUrl, ::eventPageContent)

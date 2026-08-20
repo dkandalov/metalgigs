@@ -8,7 +8,6 @@ import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class AlexandraPalaceGigsSourceTest {
@@ -24,14 +23,14 @@ class AlexandraPalaceGigsSourceTest {
                 // page's own title text actually contains, confirmed character-by-character
                 // against a failed run before this literal was written
                 GigTitle("Upside Down London "),
-                LocalDate.of(2026, 8, 1),
+                GigDate(2026, 8, 1),
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/05/pl-udl-approved-media-assets-14-of-17-marked-2048x1536.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(alexandraPalace.id, "https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/"),
                 GigTitle("Kaleidoscope Festival"),
-                LocalDate.of(2027, 7, 10),
+                GigDate(2027, 7, 10),
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/07/Kaleidescope-11.07.26-www.harbinson.uk-7159-2048x1366.jpg"),
                 GigDescription(""),
             ),
@@ -51,19 +50,19 @@ class AlexandraPalaceGigsSourceTest {
             <div class="ap_text_block">An evening of something.</div>
         """.trimIndent()
 
-        fun startDateOf(dates: String): LocalDate {
+        fun startDateOf(dates: String): GigDate {
             val fakeClient: HttpHandler = { Response(OK).body(eventPage(dates)) }
             return AlexandraPalaceGigsSource(fakeClient).latestGigs().single().date
         }
 
-        expectThat(startDateOf("21 Aug 2026")).isEqualTo(LocalDate.of(2026, 8, 21))
+        expectThat(startDateOf("21 Aug 2026")).isEqualTo(GigDate(2026, 8, 21))
         // same month range - the year and month are only written once, on the end day
-        expectThat(startDateOf("1 - 9 Aug 2026")).isEqualTo(LocalDate.of(2026, 8, 1))
+        expectThat(startDateOf("1 - 9 Aug 2026")).isEqualTo(GigDate(2026, 8, 1))
         // cross-month range within one year - both start and end take the written year
-        expectThat(startDateOf("19 Sep - 5 Dec 2026")).isEqualTo(LocalDate.of(2026, 9, 19))
+        expectThat(startDateOf("19 Sep - 5 Dec 2026")).isEqualTo(GigDate(2026, 9, 19))
         // cross-month range crossing new year's day - the written year belongs to the end date
         // (Jan 2027), so the start date (Dec) must roll back to the year before it
-        expectThat(startDateOf("11 Dec - 3 Jan 2027")).isEqualTo(LocalDate.of(2026, 12, 11))
+        expectThat(startDateOf("11 Dec - 3 Jan 2027")).isEqualTo(GigDate(2026, 12, 11))
     }
 
     // two different kinds of boilerplate reach the whole page: the sitewide nav ("Summer Season",

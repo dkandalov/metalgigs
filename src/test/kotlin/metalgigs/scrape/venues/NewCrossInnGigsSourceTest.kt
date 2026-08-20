@@ -6,7 +6,6 @@ import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class NewCrossInnGigsSourceTest {
@@ -21,14 +20,14 @@ class NewCrossInnGigsSourceTest {
             first = Gig(
                 GigId(newCrossInn.id, "https://pit.live/events/greenhat"),
                 GigTitle("GREENHAT"),
-                LocalDate.of(2026, 8, 8),
+                GigDate(2026, 8, 8),
                 PosterUrl("https://pit.live/uploads/user/2026/07/07/640x480/5d05ygXA94bMG95I.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(newCrossInn.id, "https://pit.live/events/level-up-festival-7"),
                 GigTitle("Level Up Festival 7"),
-                LocalDate.of(2027, 7, 23),
+                GigDate(2027, 7, 23),
                 PosterUrl("https://pit.live/uploads/user/2026/07/24/640x480/t8YfuAmMlTMW6ilv.jpg"),
                 GigDescription(""),
             ),

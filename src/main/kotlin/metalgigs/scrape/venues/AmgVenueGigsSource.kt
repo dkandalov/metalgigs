@@ -8,7 +8,6 @@ import metalgigs.*
 import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
-import java.time.OffsetDateTime
 
 // shared by every Academy Music Group venue; the venue-specific classes below just supply the
 // venue and AMG's own numeric id(s) for it (as seen in the API's own venue objects). More than one
@@ -41,7 +40,7 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
                 GigId(venue.id, gigUrl),
                 GigTitle(event.name),
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
-                OffsetDateTime.parse(event.eventDate).toLocalDate(),
+                GigDate.parse(event.eventDate.substringBefore('T')),
                 PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
                 event.description(),
             )

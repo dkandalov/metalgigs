@@ -4,7 +4,6 @@ import metalgigs.*
 import metalgigs.scrape.*
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
-import java.time.LocalDate
 import kotlin.test.Test
 
 class ElectricBallroomGigsSourceTest {
@@ -17,14 +16,14 @@ class ElectricBallroomGigsSourceTest {
             first = Gig(
                 GigId(electricBallroom.id, "https://electricballroom.co.uk/lion-babe/"),
                 GigTitle("Lion Babe – RESCHEDULED!"),
-                LocalDate.of(2026, 8, 13),
+                GigDate(2026, 8, 13),
                 PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/07/LION-BABE-.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(electricBallroom.id, "https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/"),
                 GigTitle("Indiepalooza Tribute – Killers v Monkeys v Fender v Oasis v Kasabian v Kaiser"),
-                LocalDate.of(2027, 6, 19),
+                GigDate(2027, 6, 19),
                 PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/06/Indiepalooza-2027.jpg"),
                 GigDescription(""),
             ),

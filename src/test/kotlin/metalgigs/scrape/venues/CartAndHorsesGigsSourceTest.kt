@@ -9,7 +9,6 @@ import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class CartAndHorsesGigsSourceTest {
@@ -22,14 +21,14 @@ class CartAndHorsesGigsSourceTest {
             first = Gig(
                 GigId(cartAndHorses.id, "https://www.cartandhorses.london/news-offers-events/523846-three-birds-whisper-the-positive-rebellion-tour-uk-2026-psychedelic-skies-borderline/"),
                 GigTitle("THREE BIRDS WHISPER - The Positive Rebellion Tour UK 2026 + PSYCHEDELIC SKIES + BORDERLINE"),
-                LocalDate.of(2026, 8, 8),
+                GigDate(2026, 8, 8),
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/240726-012017_threebirds-upd.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(cartAndHorses.id, "https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/"),
                 GigTitle("Jbm presents SMELLS LIKE NIRVANA"),
-                LocalDate.of(2026, 10, 10),
+                GigDate(2026, 10, 10),
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg"),
                 GigDescription(""),
             ),
@@ -37,7 +36,7 @@ class CartAndHorsesGigsSourceTest {
         )
 
         expectThat(events.take(3).map { it.date })
-            .containsExactly(LocalDate.of(2026, 8, 8), LocalDate.of(2026, 8, 14), LocalDate.of(2026, 8, 15))
+            .containsExactly(GigDate(2026, 8, 8), GigDate(2026, 8, 14), GigDate(2026, 8, 15))
 
         val titles = events.map { it.title.value }
         listOf("RHABSTALLION", "HELLBENT FOREVER", "DEAD WITCHES", "POSTMORTEM", "LESBIAN BED DEATH")

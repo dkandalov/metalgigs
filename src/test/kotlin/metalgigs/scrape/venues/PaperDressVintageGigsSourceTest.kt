@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class PaperDressVintageGigsSourceTest {
@@ -18,14 +17,14 @@ class PaperDressVintageGigsSourceTest {
             first = Gig(
                 GigId(paperDressVintage.id, "https://paperdressvintage.co.uk/?p=18710"),
                 GigTitle("That 70s Night ft. Vintage Voltage"),
-                LocalDate.of(2026, 8, 14),
+                GigDate(2026, 8, 14),
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/poster-aug-14th-pd1-scaled.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(paperDressVintage.id, "https://paperdressvintage.co.uk/?p=18815"),
                 GigTitle("Sam Scherdel"),
-                LocalDate.of(2026, 12, 10),
+                GigDate(2026, 12, 10),
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel.jpg"),
                 GigDescription(""),
             ),

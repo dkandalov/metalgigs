@@ -7,7 +7,6 @@ import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class WindmillBrixtonGigsSourceTest {
@@ -20,14 +19,14 @@ class WindmillBrixtonGigsSourceTest {
             first = Gig(
                 GigId(windmillBrixton.id, "https://www.windmillbrixton.co.uk/events/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill"),
                 GigTitle("House Arrest, George Jr & the 9/11s, Rampressure, Skunkworm"),
-                LocalDate.of(2026, 8, 14),
+                GigDate(2026, 8, 14),
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMzE1MDZlNzEtNTRiZC00YmQzLTk3Y2YtZmE3ZWIxNTUwYzFm&v=2"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(windmillBrixton.id, "https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill"),
                 GigTitle("Grommet"),
-                LocalDate.of(2026, 11, 19),
+                GigDate(2026, 11, 19),
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&v=2"),
                 GigDescription(""),
             ),
@@ -40,7 +39,7 @@ class WindmillBrixtonGigsSourceTest {
         // the two untitled (halo) shows are consecutive nights, and the cards only say "Mon, Sep 14"
         // and "Tue, Sep 15" - the year comes from the event path
         expectThat(events.filter { it.title == GigTitle("untitled (halo)") }.map { it.date })
-            .containsExactly(LocalDate.of(2026, 9, 14), LocalDate.of(2026, 9, 15))
+            .containsExactly(GigDate(2026, 9, 14), GigDate(2026, 9, 15))
     }
 
     // the entry, ticket and sharing furniture is verbatim from a real listing, where between them

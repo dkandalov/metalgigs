@@ -9,7 +9,6 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.io.File
-import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -22,7 +21,7 @@ class ImageCacheTest {
     private val copyingConvert: (File, File) -> Unit = { source, target -> source.copyTo(target, overwrite = true) }
 
     private fun gig(day: Int = 8, venue: Venue = theUnderworld, posterUrl: String = "https://example.com/images/some-gig.jpg?w=200") =
-        Gig(GigId(venue.id, "https://example.com/gigs/some-gig"), GigTitle("Some Gig"), LocalDate.of(2026, 8, day), PosterUrl(posterUrl), GigDescription(""))
+        Gig(GigId(venue.id, "https://example.com/gigs/some-gig"), GigTitle("Some Gig"), GigDate(2026, 8, day), PosterUrl(posterUrl), GigDescription(""))
 
     @Test
     fun `caches a downloaded image and skips re-downloading on a cache hit`() {

@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 
 val theUnderworld = Venue(VenueId("underworld"), "The Underworld")
 
@@ -20,7 +19,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".list-header-title").text()),
-                    LocalDate.parse(item.select("time").first()!!.attr("datetime")),
+                    GigDate.parse(item.select("time").first()!!.attr("datetime")),
                     posterUrlFrom(gigUrl, imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src"))),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )

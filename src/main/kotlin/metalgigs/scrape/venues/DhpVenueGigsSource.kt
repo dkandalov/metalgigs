@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 
 // shared by DHP Family's venue sites, which all use the same card markup
 internal class DhpVenueGigsSource(private val client: HttpHandler, private val url: String, override val venue: Venue) : GigsSource {
@@ -25,7 +24,7 @@ internal class DhpVenueGigsSource(private val client: HttpHandler, private val u
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(heading.text()),
-                    LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
+                    GigDate(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
                     PosterUrl(cardImage.ifBlank { articleImage(eventPage, gigUrl) }),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                 )

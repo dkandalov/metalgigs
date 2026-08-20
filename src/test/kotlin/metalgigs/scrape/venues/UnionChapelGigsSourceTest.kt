@@ -6,7 +6,6 @@ import strikt.api.expectThat
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class UnionChapelGigsSourceTest {
@@ -19,14 +18,14 @@ class UnionChapelGigsSourceTest {
             first = Gig(
                 GigId(unionChapel.id, "https://unionchapel.org.uk/whats-on/mavis-staples-12-aug-2026"),
                 GigTitle("MAVIS STAPLES: 12 AUG 2026"),
-                LocalDate.of(2026, 8, 12),
+                GigDate(2026, 8, 12),
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/MAVIS%20S.png"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(unionChapel.id, "https://unionchapel.org.uk/whats-on/fairport-convention-60th-anniversary"),
                 GigTitle("Fairport Convention 60th Anniversary"),
-                LocalDate.of(2027, 5, 27),
+                GigDate(2027, 5, 27),
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/Fairport%20Convention%2060th%20logo.jpg"),
                 GigDescription(""),
             ),

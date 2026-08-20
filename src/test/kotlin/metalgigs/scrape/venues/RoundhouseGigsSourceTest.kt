@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class RoundhouseGigsSourceTest {
@@ -18,14 +17,14 @@ class RoundhouseGigsSourceTest {
             first = Gig(
                 GigId(roundhouse.id, "https://www.roundhouse.org.uk/whats-on/cf-kristen-schaal-the-legend/"),
                 GigTitle("Kristen Schaal: The Legend of Crystal Shell"),
-                LocalDate.of(2026, 8, 17),
+                GigDate(2026, 8, 17),
                 PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/04/Kristen-Schaal-4.png"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(roundhouse.id, "https://www.roundhouse.org.uk/whats-on/roger-taylor/"),
                 GigTitle("Roger Taylor"),
-                LocalDate.of(2026, 9, 28),
+                GigDate(2026, 9, 28),
                 PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/06/Roger_Taylor_London_1260x1280.jpg"),
                 GigDescription(""),
             ),

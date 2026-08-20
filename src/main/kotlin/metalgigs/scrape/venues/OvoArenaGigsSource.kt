@@ -10,7 +10,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 import java.time.YearMonth
 
 val ovoArena = Venue(VenueId("ovo-arena"), "OVO Arena Wembley")
@@ -34,7 +33,7 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
             .map { event ->
                 // e.g. "2026-09-02T18:30:00.0000000" - a local time with no zone, and the gig's own
                 // date is the whole of what's wanted from it
-                event to LocalDate.parse(event.startDateTime.take(10))
+                event to GigDate.parse(event.startDateTime.take(10))
             }
             // an afternoon and an evening showing of the same thing are two rows on one date, and one
             // gig as far as the page is concerned - Big Gig 2026 ran 11:45 and 16:45 on 10 October
@@ -60,7 +59,7 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
     // change the url of a gig already logged the day the venue announces a second night, and it would
     // read as a new gig rather than the one already there. The fragment is inert - the link still
     // opens the page it names.
-    private fun gigUrl(event: OvoArenaEvent, date: LocalDate) = "${event.url}#$date"
+    private fun gigUrl(event: OvoArenaEvent, date: GigDate) = "${event.url}#$date"
 
     // Everything around this is the venue's own: door times and ticket links above it, then age
     // policy, an AXS ticket-transfer notice, and travel warnings about whatever is on at the stadium

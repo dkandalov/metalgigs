@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 import java.time.Month
 
 val islingtonAssemblyHall = Venue(VenueId("islington-assembly-hall"), "Islington Assembly Hall")
@@ -41,7 +40,7 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(link.text()),
-                    LocalDate.of(currentYear, month, item.select(".event__item__date__numeric").text().toInt()),
+                    GigDate(currentYear, month, item.select(".event__item__date__numeric").text().toInt()),
                     posterUrlFrom(gigUrl, thumbnailSuffixPattern.replace(thumbnailUrl, "$1")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )

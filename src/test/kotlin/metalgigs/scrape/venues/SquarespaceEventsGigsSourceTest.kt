@@ -10,7 +10,6 @@ import strikt.assertions.contains
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class SquarespaceEventsGigsSourceTest {
@@ -28,7 +27,7 @@ class SquarespaceEventsGigsSourceTest {
             Gig(
                 GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/moonpunx-16-matinee1682026"),
                 GigTitle("MoonPunx 16 Matinee"),
-                LocalDate.of(2026, 8, 16),
+                GigDate(2026, 8, 16),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1786573507310-PG9FBW6TLI2B45R0QU3D/Unknown-2.png"),
                 GigDescription(""),
             ),
@@ -37,7 +36,7 @@ class SquarespaceEventsGigsSourceTest {
             Gig(
                 GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/neo-rockabilly-explosion-3-the-neutronz-wigsville-spliffs-dj-chris-setzer2692026"),
                 GigTitle("NEO ROCKABILLY EXPLOSION #3 The Neutronz, Wigsville Spliffs, DJ Chris Setzer."),
-                LocalDate.of(2026, 9, 26),
+                GigDate(2026, 9, 26),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1785973667820-T4D2VFAJ8AY9UAJQ4GHP/69613b4679576_event.jpeg"),
                 GigDescription(""),
             ),
@@ -88,14 +87,14 @@ class SquarespaceEventsGigsSourceTest {
             first = Gig(
                 GigId(theBlackHeart.id, "https://www.ourblackheart.com/events/2026/8/8/you-win-again-gravity"),
                 GigTitle("YOU WIN AGAIN GRAVITY"),
-                LocalDate.of(2026, 8, 8),
+                GigDate(2026, 8, 8),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1782745761879-UVSUIG341XJIY3MEB9MI/LBPHOTO%2B-%2B%2BYou%2BWin%2BAgain%2BGravity%2B-%2BPromo%2B-%2B20.10.2024%2B6.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(theBlackHeart.id, "https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii"),
                 GigTitle("NECROPOLIS VOL. III"),
-                LocalDate.of(2027, 3, 19),
+                GigDate(2027, 3, 19),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1781025655512-MHR6PMWPOOE3TJFOSWAB/Necropolis_2027_IG_Feed_Poster_2nd_announcement%2B%25281%2529.jpg"),
                 GigDescription(""),
             ),
@@ -111,14 +110,14 @@ class SquarespaceEventsGigsSourceTest {
             first = Gig(
                 GigId(theDome.id, "https://www.domelondon.co.uk/whatson/08/08-battlesnake"),
                 GigTitle("BATTLESNAKE"),
-                LocalDate.of(2026, 8, 8),
+                GigDate(2026, 8, 8),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1777381588492-CAQQZA5RRSD026668882/Cathedral%2BColour.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(theDome.id, "https://www.domelondon.co.uk/whatson/03/07-draconian"),
                 GigTitle("DRACONIAN"),
-                LocalDate.of(2027, 3, 7),
+                GigDate(2027, 3, 7),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1771509016965-K3W9K2G4J853EZ97RETL/Draconian+done-56+%28low+res%29.jpg"),
                 GigDescription(""),
             ),

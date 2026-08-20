@@ -10,7 +10,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets.UTF_8
-import java.time.OffsetDateTime
 
 // shared by every venue listed through the Dice partner API. 229's listing page renders nothing
 // itself - it just embeds Dice.fm's "event list" widget (widgets.dice.fm/dice-event-list-widget.js),
@@ -52,7 +51,7 @@ private class DicePartnerVenueGigsSource(
                 GigId(venue.id, gigUrl),
                 GigTitle(event.name),
                 // e.g. "2026-08-14T17:30:00Z" - only the date part is meaningful here
-                OffsetDateTime.parse(event.date).toLocalDate(),
+                GigDate.parse(event.date.substringBefore('T')),
                 posterUrlFrom(gigUrl, event.images.firstOrNull()),
                 GigDescription(event.rawDescription),
             )

@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 
 val roundhouse = Venue(VenueId("roundhouse"), "Roundhouse")
 
@@ -23,7 +22,7 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".event-card__title").text()),
-                    LocalDate.of(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
+                    GigDate(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
                     posterUrlFrom(gigUrl, item.select(".event-card__image img").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )

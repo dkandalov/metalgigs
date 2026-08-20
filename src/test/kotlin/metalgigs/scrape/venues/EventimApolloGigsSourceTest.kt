@@ -6,7 +6,6 @@ import strikt.api.expectThat
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class EventimApolloGigsSourceTest {
@@ -19,14 +18,14 @@ class EventimApolloGigsSourceTest {
             first = Gig(
                 GigId(eventimApollo.id, "https://www.eventimapollo.com/events/venue-tours"),
                 GigTitle("Eventim Apollo OPEN: Venue Tours"),
-                LocalDate.of(2026, 8, 16),
+                GigDate(2026, 8, 16),
                 PosterUrl("https://aeg-media-assets.b-cdn.net/eventim/images/0e5e0082-1ed9-4180-97a0-5cb66a922ce7.jpg?width=768&height=768&focus_crop=1200,1200,0.5,0.5"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(eventimApollo.id, "https://www.eventimapollo.com/events/il-volo"),
                 GigTitle("Il Volo"),
-                LocalDate.of(2027, 11, 5),
+                GigDate(2027, 11, 5),
                 PosterUrl("https://aeg-media-assets.b-cdn.net/eventim/images/IL-VOLO-1080x1080-copy-1.jpg?width=768&height=768&focus_crop=1080,1080,0.5,0.5"),
                 GigDescription(""),
             ),
@@ -38,7 +37,7 @@ class EventimApolloGigsSourceTest {
         expectThat(events.map { it.id.url }.distinct()).hasSize(83)
         // both date shapes are exercised by the two cards above: the first is a run of dates taking
         // its start, the last a single day. The listing runs from this August into late 2027.
-        expectThat(events.map { it.date }.min()).isEqualTo(LocalDate.of(2026, 8, 16))
+        expectThat(events.map { it.date }.min()).isEqualTo(GigDate(2026, 8, 16))
         expectThat(events.filter { it.date.year == 2027 }).hasSize(24)
     }
 

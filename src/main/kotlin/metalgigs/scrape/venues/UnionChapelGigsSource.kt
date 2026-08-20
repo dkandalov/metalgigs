@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 
 val unionChapel = Venue(VenueId("union-chapel"), "Union Chapel")
 
@@ -26,7 +25,7 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
                     // each card prints its title twice, once for the card and once for the hover
                     // panel inside it, so this takes the first rather than both concatenated
                     GigTitle(item.select(".card-title").first()!!.text()),
-                    LocalDate.parse(item.attr("data-chron").substringBefore(' ')),
+                    GigDate.parse(item.attr("data-chron").substringBefore(' ')),
                     posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".card-image").attr("style"))?.groupValues?.get(1)),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )

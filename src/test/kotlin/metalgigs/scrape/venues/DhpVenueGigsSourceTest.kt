@@ -8,7 +8,6 @@ import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.isEqualTo
-import java.time.LocalDate
 import kotlin.test.Test
 
 class DhpVenueGigsSourceTest {
@@ -21,14 +20,14 @@ class DhpVenueGigsSourceTest {
             first = Gig(
                 GigId(theGarage.id, "https://www.thegarage.london/gigs/the-flatliners-a-wilhelm-scream-the-garage-lonodn-tickets-2026/"),
                 GigTitle("THE FLATLINERS + A WILHELM SCREAM"),
-                LocalDate.of(2026, 8, 22),
+                GigDate(2026, 8, 22),
                 PosterUrl("https://www.thegarage.london/wp-content/uploads/2026/03/Flatliners_2026_Ig-819x1024.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(theGarage.id, "https://www.thegarage.london/gigs/black-altar-xxx-anniversary-show-the-garage-london-tickets-2026/"),
                 GigTitle("BLACK ALTAR - XXX ANNIVERSARY SHOW"),
-                LocalDate.of(2026, 10, 31),
+                GigDate(2026, 10, 31),
                 PosterUrl("https://www.thegarage.london/wp-content/uploads/2026/07/XXXYears-Poster-4-insta-819x1024.jpg"),
                 GigDescription(""),
             ),
@@ -44,14 +43,14 @@ class DhpVenueGigsSourceTest {
             first = Gig(
                 GigId(theGrace.id, "https://www.thegrace.london/gigs/flamebearer-the-grace-london-tickets-2026/"),
                 GigTitle("FLAMEBEARER"),
-                LocalDate.of(2026, 8, 14),
+                GigDate(2026, 8, 14),
                 PosterUrl("https://www.thegrace.london/wp-content/uploads/2026/05/FLAMEBEARER_IGNITER_ALBUM_LAUNCH_POSTER_SQUARE_v3_MED_RES_RGB-1-1024x1024.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(theGrace.id, "https://www.thegrace.london/gigs/dreamdnvr-the-grace-london-tickets-2026/"),
                 GigTitle("DREAMDNVR"),
-                LocalDate.of(2026, 10, 31),
+                GigDate(2026, 10, 31),
                 PosterUrl("https://www.thegrace.london/wp-content/uploads/2026/05/PRESS-PHOTO-DD-3-1-1024x683.jpg"),
                 GigDescription(""),
             ),
@@ -116,7 +115,7 @@ class DhpVenueGigsSourceTest {
             Gig(
                 GigId(VenueId("some-venue"), "https://example.com/gigs/sold-out-gig/"),
                 GigTitle("SOLD OUT GIG"),
-                LocalDate.of(2026, 10, 3),
+                GigDate(2026, 10, 3),
                 PosterUrl("https://example.com/poster.jpg"),
                 GigDescription("Sold out gig, doors 7pm."),
             ),

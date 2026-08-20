@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 import java.time.Month
 
 val electricBrixton = Venue(VenueId("electric-brixton"), "Electric Brixton")
@@ -29,7 +28,7 @@ class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(link.text()),
-                    LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
+                    GigDate(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                     // .event-image also holds an empty img for the rollover animation, so the
                     // thumbnail is taken from its own container rather than the first img in there
                     posterUrlFrom(gigUrl, item.select(".uabb-post-thumbnail img").attr("abs:src")),

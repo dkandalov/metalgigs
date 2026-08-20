@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 
 val windmillBrixton = Venue(VenueId("windmill-brixton"), "Windmill Brixton")
 
@@ -26,7 +25,7 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".title.name").text()),
-                    LocalDate.parse(slugDatePattern.find(gigUrl)!!.groupValues[1]),
+                    GigDate.parse(slugDatePattern.find(gigUrl)!!.groupValues[1]),
                     // the second img in the card is a small backup the theme swaps in if the first
                     // fails to load, so this takes the first rather than both
                     posterUrlFrom(gigUrl, item.select(".Image-wrap img").first()?.attr("abs:src")?.let { originalSizeImageUrl(it) }),

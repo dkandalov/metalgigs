@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.time.LocalDate
 import kotlin.test.Test
 
 class DingwallsGigsSourceTest {
@@ -18,14 +17,14 @@ class DingwallsGigsSourceTest {
             first = Gig(
                 GigId(dingwalls.id, "https://dingwalls.com/gig/root-company/"),
                 GigTitle("BANG YONGGUK"),
-                LocalDate.of(2026, 9, 2),
+                GigDate(2026, 9, 2),
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-5-ropdtf0hg2d9yqdycam42ynoc5vdz4n4gsylj8c3l8.png"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(dingwalls.id, "https://dingwalls.com/gig/rock-for-hope-2/"),
                 GigTitle("Rock For Hope"),
-                LocalDate.of(2026, 11, 7),
+                GigDate(2026, 11, 7),
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-27-rr5voszodg8dz4qw6s0thhnj6cm8eai4qgy0bw9ru4.jpg"),
                 GigDescription(""),
             ),

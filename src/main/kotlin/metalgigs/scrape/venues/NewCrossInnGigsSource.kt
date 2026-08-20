@@ -10,7 +10,6 @@ import org.http4k.core.Request
 import org.http4k.core.body.form
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 
 val newCrossInn = Venue(VenueId("new-cross-inn"), "New Cross Inn")
 
@@ -34,7 +33,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select("h3.nci-event-name").text()),
-                    LocalDate.of(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
+                    GigDate(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
                     posterUrlFrom(gigUrl, item.select("img").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )

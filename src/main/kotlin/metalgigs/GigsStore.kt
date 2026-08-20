@@ -215,7 +215,7 @@ private object JGigsRendered : JAny<GigsRendered>() {
 private object JGig : JAny<Gig>() {
     private val title by str(JGigTitle) { title }
     private val venue by str(JVenueId) { id.venueId }
-    private val date by str(Gig::date)
+    private val date by str(JGigDate) { date }
     private val url by str(fun Gig.(): String = id.url)
     private val posterUrl by str(JPosterUrl) { posterUrl }
     private val description by str(JGigDescription) { description }
@@ -231,6 +231,11 @@ private object JVenueId : JStringRepresentable<VenueId>() {
 private object JGigTitle : JStringRepresentable<GigTitle>() {
     override val cons: (String) -> GigTitle = ::GigTitle
     override val render: (GigTitle) -> String = GigTitle::value
+}
+
+private object JGigDate : JStringRepresentable<GigDate>() {
+    override val cons: (String) -> GigDate = GigDate::parse
+    override val render: (GigDate) -> String = GigDate::toString
 }
 
 private object JPosterUrl : JStringRepresentable<PosterUrl>() {

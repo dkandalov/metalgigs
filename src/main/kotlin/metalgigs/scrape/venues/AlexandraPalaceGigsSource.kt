@@ -6,7 +6,6 @@ import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
-import java.time.LocalDate
 
 val alexandraPalace = Venue(VenueId("alexandra-palace"), "Alexandra Palace")
 
@@ -48,12 +47,12 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     // year is only ever written once, on the end date, which is wrong for a cross-month range that
     // crosses a calendar year boundary: "11 Dec - 3 Jan 2027" starts in 2026, not 2027, so the start
     // year is rolled back a year whenever the start month sorts after the end month
-    private fun startDateOf(text: String): LocalDate {
+    private fun startDateOf(text: String): GigDate {
         val trimmed = text.trim()
         val rangeSplit = trimmed.split("-", limit = 2).map { it.trim() }
         if (rangeSplit.size == 1) {
             val (day, month, year) = singleDatePattern.find(trimmed)!!.destructured
-            return LocalDate.of(year.toInt(), monthsByShortName.getValue(month), day.toInt())
+            return GigDate(year.toInt(), monthsByShortName.getValue(month), day.toInt())
         }
 
         val (startLeft, endText) = rangeSplit
@@ -64,7 +63,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
         val startMonth = monthsByShortName.getValue(startMonthName)
         val endMonth = monthsByShortName.getValue(endMonthName)
         val startYear = if (startMonth > endMonth) yearText.toInt() - 1 else yearText.toInt()
-        return LocalDate.of(startYear, startMonth, startDay)
+        return GigDate(startYear, startMonth, startDay)
     }
 
     // the img tag's own src is a 650px thumbnail; srcset carries the same image up to 2048px, so

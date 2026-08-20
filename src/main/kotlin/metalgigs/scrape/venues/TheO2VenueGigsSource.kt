@@ -8,7 +8,6 @@ import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
-import java.time.LocalDate
 import java.time.Month
 
 // shared by the two rooms The O2 lists on its own site - the arena and indigo - which differ only
@@ -66,12 +65,12 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
     // A single date writes its day, month and year together. A range writes the year once, on its
     // end date, so a range crossing new year would date its start a year late - "28 Dec - 3 Jan
     // 2027" starts in 2026. Only the start date is used, as at Alexandra Palace and Eventim Apollo.
-    internal fun startDateOf(date: Element): LocalDate {
+    internal fun startDateOf(date: Element): GigDate {
         val start = date.select(".m-date__rangeFirst").first() ?: date.select(".m-date__singleDate").first()!!
         val end = date.select(".m-date__rangeLast").first() ?: start
         val startMonth = monthNamed(start)
         val year = end.select(".m-date__year").text().trim().toInt()
-        return LocalDate.of(
+        return GigDate(
             if (startMonth > monthNamed(end)) year - 1 else year,
             startMonth,
             start.select(".m-date__day").text().trim().toInt(),

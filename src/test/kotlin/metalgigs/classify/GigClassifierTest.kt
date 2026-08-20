@@ -21,7 +21,6 @@ import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.time.Instant
-import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -39,7 +38,7 @@ class GigClassifierTest {
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
     private fun gig(title: GigTitle = GigTitle("Some Gig"), venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", posterUrl: String = "https://example.com/poster.jpg", description: String = "") =
-        Gig(GigId(venue.id, url), title = title, LocalDate.of(2026, 8, day), PosterUrl(posterUrl), GigDescription(description))
+        Gig(GigId(venue.id, url), title = title, GigDate(2026, 8, day), PosterUrl(posterUrl), GigDescription(description))
 
     // Classifying makes no http request of its own - the only fetch it can do is the vision path's
     // poster, which the tests exercising that path stub out.

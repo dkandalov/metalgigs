@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 import java.time.Month
 
 val eventimApollo = Venue(VenueId("eventim-apollo"), "Eventim Apollo")
@@ -47,18 +46,18 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
     // Written once, on the end date, so a range crossing new year would otherwise date its start a
     // year late: "Dec 28th - Jan 3rd 2027" starts in 2026. Nothing in the listing crosses one today,
     // which is exactly why it has to be handled here rather than noticed later.
-    private fun startDateOf(text: String): LocalDate {
+    private fun startDateOf(text: String): GigDate {
         val trimmed = text.trim()
         val end = rangeEnd.find(trimmed)
             ?: return singleDate.find(trimmed)!!.destructured.let { (day, month, year) ->
-                LocalDate.of(year.toInt(), monthNamed(month), day.toInt())
+                GigDate(year.toInt(), monthNamed(month), day.toInt())
             }
 
         val (startMonthName, startDay) = rangeStart.find(trimmed)!!.destructured
         val (endMonthName, yearText) = end.destructured
         val startMonth = monthNamed(startMonthName)
         val year = if (startMonth > monthNamed(endMonthName)) yearText.toInt() - 1 else yearText.toInt()
-        return LocalDate.of(year, startMonth, startDay.toInt())
+        return GigDate(year, startMonth, startDay.toInt())
     }
 
     // The gig's copy is the one thing in the hero that belongs to it: the title, the on-sale date,

@@ -13,7 +13,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.OffsetDateTime
 
 // shared by every dice.fm venue page. dice.fm renders those pages client-side (Next.js), but embeds
 // the full event list as JSON in a <script id="__NEXT_DATA__"> tag, so we parse that directly
@@ -30,7 +29,7 @@ private class DiceVenueGigsSource(private val client: HttpHandler, private val u
             Gig(
                 GigId(venue.id, gigUrl),
                 GigTitle(event.name),
-                OffsetDateTime.parse(event.venues.first().doorsOpenDate).toLocalDate(),
+                GigDate.parse(event.venues.first().doorsOpenDate.substringBefore('T')),
                 posterUrlFrom(gigUrl, event.images.square),
                 fetchDescription(client, gigUrl, ::diceEventPageContent),
             )

@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.time.LocalDate
 import java.time.Month
 
 val scala = Venue(VenueId("scala"), "Scala")
@@ -29,7 +28,7 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(link.text()),
-                    LocalDate.of(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
+                    GigDate(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                     posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1)),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )

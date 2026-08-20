@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import strikt.api.expectThat
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
-import java.time.LocalDate
 import kotlin.test.Test
 
 class TheO2VenueGigsSourceTest {
@@ -18,14 +17,14 @@ class TheO2VenueGigsSourceTest {
             first = Gig(
                 GigId(indigoAtTheO2.id, "https://www.theo2.co.uk/events/detail/timaya"),
                 GigTitle("TIMAYA"),
-                LocalDate.of(2026, 8, 22),
+                GigDate(2026, 8, 22),
                 PosterUrl("https://www.theo2.co.uk/assets/img/1080X1080-a8eecfe5d3.png"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(indigoAtTheO2.id, "https://www.theo2.co.uk/events/detail/bat-50th-anniversary-concert"),
                 GigTitle("Fuel Injected Magic! 50th Anniversary Concert"),
-                LocalDate.of(2027, 10, 30),
+                GigDate(2027, 10, 30),
                 PosterUrl("https://www.theo2.co.uk/assets/img/Steve-Steinmans-Fuel-Injected-Magic-50th-square-Post3er-jpg-48832cc6ba.jpg"),
                 GigDescription(""),
             ),
@@ -46,14 +45,14 @@ class TheO2VenueGigsSourceTest {
             first = Gig(
                 GigId(theO2Arena.id, "https://www.theo2.co.uk/events/detail/ariana-grande-2026"),
                 GigTitle("Ariana Grande"),
-                LocalDate.of(2026, 8, 19),
+                GigDate(2026, 8, 19),
                 PosterUrl("https://www.theo2.co.uk/assets/img/Static_TM-ArtistImage_2426x1365_ArianaGrande_2026_Photo-copy-square-b4f4051fe8.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(theO2Arena.id, "https://www.theo2.co.uk/events/detail/dungeons-dragons-fan-expo-london-2027"),
                 GigTitle("Dungeons & Dragons Fan Expo: London 2027 | Rescheduled"),
-                LocalDate.of(2027, 9, 5),
+                GigDate(2027, 9, 5),
                 PosterUrl("https://www.theo2.co.uk/assets/img/DD_1080-x-1080-Press-shot-32a180fd24.jpg"),
                 GigDescription(""),
             ),
@@ -80,7 +79,7 @@ class TheO2VenueGigsSourceTest {
 
         val date = TheO2VenueGigsSource(noHttp, theO2VenueId = 2, venue = indigoAtTheO2).startDateOf(pageOf(html).select(".date").first()!!)
 
-        expectThat(date).isEqualTo(LocalDate.of(2026, 12, 28))
+        expectThat(date).isEqualTo(GigDate(2026, 12, 28))
     }
 
     @Test
@@ -93,7 +92,7 @@ class TheO2VenueGigsSourceTest {
 
         val date = TheO2VenueGigsSource(noHttp, theO2VenueId = 2, venue = indigoAtTheO2).startDateOf(pageOf(html).select(".date").first()!!)
 
-        expectThat(date).isEqualTo(LocalDate.of(2026, 8, 22))
+        expectThat(date).isEqualTo(GigDate(2026, 8, 22))
     }
 
     // the sign-up block and terms are verbatim from a real event page, where the whole page's text

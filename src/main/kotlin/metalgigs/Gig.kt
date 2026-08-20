@@ -1,11 +1,12 @@
 package metalgigs
 
 import java.time.LocalDate
+import java.time.Month
 
 data class Gig(
     val id: GigId,
     val title: GigTitle,
-    val date: LocalDate,
+    val date: GigDate,
     val posterUrl: PosterUrl,
     val description: GigDescription,
 )
@@ -21,6 +22,21 @@ data class GigTitle(val value: String) {
         require(value.isNotBlank()) { "A gig title can't be blank - a source whose title selector matched nothing has stopped parsing" }
     }
     override fun toString() = value
+}
+
+data class GigDate(val value: LocalDate) : Comparable<GigDate> {
+    val year: Int get() = value.year
+    val monthValue: Int get() = value.monthValue
+
+    constructor(year: Int, month: Month, dayOfMonth: Int) : this(LocalDate.of(year, month, dayOfMonth))
+    constructor(year: Int, month: Int, dayOfMonth: Int) : this(LocalDate.of(year, month, dayOfMonth))
+
+    override fun compareTo(other: GigDate) = value.compareTo(other.value)
+    override fun toString() = value.toString()
+
+    companion object {
+        fun parse(text: String) = GigDate(LocalDate.parse(text))
+    }
 }
 
 data class PosterUrl(val value: String) {
