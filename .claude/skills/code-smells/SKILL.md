@@ -51,6 +51,16 @@ reads that way - GigsSource.kt opens with the interface, Main.kt with `main` - a
 puts `venue` and `latestGigs` above the url and patterns they use. Venue.kt is the one deviation and
 says why: top-level properties initialise in file order, so `venuesById` can only follow `allVenues`.
 
+## A file past 500 lines
+
+Past 500 lines a file has stopped being one thing, and what it splits into says what it was
+accumulating. GigsSource.kt carried the interface, the shared helpers and 20 venue scrapers at 1030
+lines; it is 40 now, the scrapers having moved to scrape/venues/ - one file per venue, except where
+venues share a scraper, as The Black Heart, The Dome and The Fiddler's Elbow share
+SquarespaceEventsGigsSource. GigsSourceTest.kt went the same way from 1831 lines, one test file per
+source file, with assertScrapesGigs, noHttp and pageOf left behind in GigsSourceFixtures.kt. Nothing
+in src is above 447 lines now, so this entry names what was split rather than anything still over.
+
 ## A declaration kept in a file that isn't about it
 
 Is this what the file is about, and does anything else call it? No to both and it belongs where it's

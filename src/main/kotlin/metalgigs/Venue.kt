@@ -1,6 +1,6 @@
 package metalgigs
 
-import metalgigs.scrape.*
+import metalgigs.scrape.venues.*
 
 fun venue(id: VenueId): Venue = venuesById[id] ?: error("Unknown venue id: $id. Known venue ids: ${venuesById.keys}")
 

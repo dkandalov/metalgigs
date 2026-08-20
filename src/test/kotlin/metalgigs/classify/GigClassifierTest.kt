@@ -2,7 +2,7 @@ package metalgigs.classify
 
 import dev.forkhandles.result4k.Success
 import metalgigs.*
-import metalgigs.scrape.theUnderworld
+import metalgigs.scrape.venues.theUnderworld
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.llm.chat.ChatRequest
 import org.http4k.ai.llm.chat.ChatResponse

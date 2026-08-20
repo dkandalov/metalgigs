@@ -1,4 +1,4 @@
-package metalgigs.scrape
+package metalgigs.scrape.venues
 
 import com.ubertob.kondor.json.JAny
 import com.ubertob.kondor.json.array
@@ -9,6 +9,7 @@ import com.ubertob.kondor.json.jsonnode.parseJsonNode
 import com.ubertob.kondor.json.obj
 import com.ubertob.kondor.json.str
 import metalgigs.*
+import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
