@@ -24,7 +24,7 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".title.name").text()),
-                    GigDate.parse(slugDatePattern.find(gigUrl)!!.groupValues[1]),
+                    GigDate.parse(slugDatePattern.find(gigUrl.value)!!.groupValues[1]),
                     // the second img in the card is a small backup the theme swaps in if the first
                     // fails to load, so this takes the first rather than both
                     posterUrlFrom(gigUrl, item.select(".Image-wrap img").first()?.attr("abs:src")?.let { originalSizeImageUrl(it) }),

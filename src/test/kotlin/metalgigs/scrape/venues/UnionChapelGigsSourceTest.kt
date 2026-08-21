@@ -16,14 +16,14 @@ class UnionChapelGigsSourceTest {
             source = UnionChapelGigsSource(cachedClient()),
             size = 119,
             first = Gig(
-                GigId(unionChapel.id, "https://unionchapel.org.uk/whats-on/mavis-staples-12-aug-2026"),
+                GigId(unionChapel.id, GigUrl("https://unionchapel.org.uk/whats-on/mavis-staples-12-aug-2026")),
                 GigTitle("MAVIS STAPLES: 12 AUG 2026"),
                 GigDate(2026, 8, 12),
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/MAVIS%20S.png"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(unionChapel.id, "https://unionchapel.org.uk/whats-on/fairport-convention-60th-anniversary"),
+                GigId(unionChapel.id, GigUrl("https://unionchapel.org.uk/whats-on/fairport-convention-60th-anniversary")),
                 GigTitle("Fairport Convention 60th Anniversary"),
                 GigDate(2027, 5, 27),
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/Fairport%20Convention%2060th%20logo.jpg"),

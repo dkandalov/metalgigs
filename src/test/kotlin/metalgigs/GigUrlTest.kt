@@ -6,27 +6,25 @@ import java.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class GigIdTest {
+class GigUrlTest {
 
     @Test
-    fun `refuses a blank url, naming the venue it came from`() {
-        val error = assertFailsWith<IllegalArgumentException> { GigId(venueId = VenueId("The Grace"), url = "") }
-
-        expectThat(error.message!!).contains("The Grace")
+    fun `refuses a blank url`() {
+        assertFailsWith<IllegalArgumentException> { GigUrl("") }
     }
 
     @Test
     fun `refuses a blank url on a classification too`() {
         assertFailsWith<IllegalArgumentException> {
-            GigClassified(GigId(VenueId("The Grace"), ""), Instant.parse("2026-08-01T12:00:00Z"), Genre.Metal, ClassificationSource.User)
+            GigClassified(GigId(VenueId("The Grace"), GigUrl("")), Instant.parse("2026-08-01T12:00:00Z"), Genre.Metal, ClassificationSource.User)
         }
     }
 
     @Test
     fun `refuses a blank url introduced by copy`() {
-        val id = GigId(venueId = VenueId("The Grace"), url = "https://example.com/gigs/a")
+        val id = GigId(venueId = VenueId("The Grace"), url = GigUrl("https://example.com/gigs/a"))
 
-        assertFailsWith<IllegalArgumentException> { id.copy(url = "") }
+        assertFailsWith<IllegalArgumentException> { id.copy(url = GigUrl("")) }
     }
 
     @Test
@@ -37,6 +35,6 @@ class GigIdTest {
         // theirs rather than IllegalArgumentException - the require's own message survives inside it
         val error = assertFailsWith<Exception> { JLogEntry.fromJson(line).orThrow() }
 
-        expectThat(error.message!!).contains("has no url")
+        expectThat(error.message!!).contains("A gig url can't be blank")
     }
 }

@@ -17,7 +17,7 @@ class ClassificationCostTest {
         outputTokens: Int? = 1_000_000,
         at: String = "2026-08-15T12:00:00Z",
     ) = GigClassified(
-        id = GigId(VenueId("Test Venue"), "https://example.com/gigs/a"),
+        id = GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/a")),
         recordedAt = Instant.parse(at),
         genre = Genre.Metal,
         source = ClassificationSource.LLM,

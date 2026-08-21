@@ -11,10 +11,15 @@ data class Gig(
     val description: GigDescription,
 )
 
-data class GigId(val venueId: VenueId, val url: String) {
+data class GigId(val venueId: VenueId, val url: GigUrl)
+
+// A gig is identified by where it lives, so tidying a url adds a gig to the log rather than changing
+// one - which makes it a decision to take once and keep.
+data class GigUrl(val value: String) {
     init {
-        require(url.isNotBlank()) { "Gig has no url, so it can't be identified: gig at $venueId" }
+        require(value.isNotBlank()) { "A gig url can't be blank - a gig with no url can be neither identified nor linked to" }
     }
+    override fun toString() = value
 }
 
 // Refused in the type rather than reported by a check, though that costs the venue its whole listing

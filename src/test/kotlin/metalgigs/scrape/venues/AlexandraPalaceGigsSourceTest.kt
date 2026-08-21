@@ -18,7 +18,7 @@ class AlexandraPalaceGigsSourceTest {
             source = AlexandraPalaceGigsSource(cachedClient()),
             size = 41,
             first = Gig(
-                GigId(alexandraPalace.id, "https://www.alexandrapalace.com/whats-on/upside-down-london/"),
+                GigId(alexandraPalace.id, GigUrl("https://www.alexandrapalace.com/whats-on/upside-down-london/")),
                 // trailing   (narrow no-break space), not a plain space - it's what the
                 // page's own title text actually contains, confirmed character-by-character
                 // against a failed run before this literal was written
@@ -28,7 +28,7 @@ class AlexandraPalaceGigsSourceTest {
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(alexandraPalace.id, "https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/"),
+                GigId(alexandraPalace.id, GigUrl("https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/")),
                 GigTitle("Kaleidoscope Festival"),
                 GigDate(2027, 7, 10),
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/07/Kaleidescope-11.07.26-www.harbinson.uk-7159-2048x1366.jpg"),

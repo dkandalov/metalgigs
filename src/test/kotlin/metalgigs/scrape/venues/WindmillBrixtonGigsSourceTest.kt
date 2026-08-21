@@ -17,14 +17,14 @@ class WindmillBrixtonGigsSourceTest {
             source = WindmillBrixtonGigsSource(cachedClient()),
             size = 27,
             first = Gig(
-                GigId(windmillBrixton.id, "https://www.windmillbrixton.co.uk/events/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill"),
+                GigId(windmillBrixton.id, GigUrl("https://www.windmillbrixton.co.uk/events/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill")),
                 GigTitle("House Arrest, George Jr & the 9/11s, Rampressure, Skunkworm"),
                 GigDate(2026, 8, 14),
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMzE1MDZlNzEtNTRiZC00YmQzLTk3Y2YtZmE3ZWIxNTUwYzFm&v=2"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(windmillBrixton.id, "https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill"),
+                GigId(windmillBrixton.id, GigUrl("https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill")),
                 GigTitle("Grommet"),
                 GigDate(2026, 11, 19),
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&v=2"),

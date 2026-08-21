@@ -23,14 +23,14 @@ class AmgVenueGigsSourceTest {
             // back with no tickets at all, so it has no url to identify or link it by
             size = 87,
             first = Gig(
-                GigId(o2ForumKentishTown.id, "https://www.ticketmaster.co.uk/event/3E00648FA8A634C8"),
+                GigId(o2ForumKentishTown.id, GigUrl("https://www.ticketmaster.co.uk/event/3E00648FA8A634C8")),
                 GigTitle("Ronnie Wood & His Band featuring Imelda May"),
                 GigDate(2026, 8, 21),
                 PosterUrl("https://dynamicmedia.livenationinternational.com/g/v/y/79807d88-4cc2-4da8-acda-d434e0df08b2.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(o2ForumKentishTown.id, "https://www.ticketmaster.co.uk/event/3E0065059E6A1198"),
+                GigId(o2ForumKentishTown.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0065059E6A1198")),
                 GigTitle("MASS OF THE FERMENTING DREGS"),
                 GigDate(2027, 10, 14),
                 PosterUrl("https://dynamicmedia.livenationinternational.com/t/a/f/03bb4ec9-ed69-4d30-b4d4-1e516b000455.jpg"),
@@ -47,14 +47,14 @@ class AmgVenueGigsSourceTest {
             source = O2AcademyBrixtonGigsSource(cachedClient()),
             size = 67,
             first = Gig(
-                GigId(o2AcademyBrixton.id, "https://www.ticketmaster.co.uk/event/3E006464ACEB4803"),
+                GigId(o2AcademyBrixton.id, GigUrl("https://www.ticketmaster.co.uk/event/3E006464ACEB4803")),
                 GigTitle("Primus"),
                 GigDate(2026, 8, 19),
                 amgDefaultPoster,
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(o2AcademyBrixton.id, "https://www.ticketmaster.co.uk/event/3E006452FC929180"),
+                GigId(o2AcademyBrixton.id, GigUrl("https://www.ticketmaster.co.uk/event/3E006452FC929180")),
                 GigTitle("Loreen: THE WILDFIRE TOUR"),
                 GigDate(2026, 9, 26),
                 PosterUrl("https://dynamicmedia.livenationinternational.com/i/l/u/977ca756-1a25-4148-b46a-e2667effd53f.jpg"),
@@ -63,7 +63,7 @@ class AmgVenueGigsSourceTest {
         )
 
         expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(1)
-        expectThat(events.count { !it.id.url.startsWith("https://www.ticketmaster.co.uk/") }).isEqualTo(3)
+        expectThat(events.count { !it.id.url.value.startsWith("https://www.ticketmaster.co.uk/") }).isEqualTo(3)
     }
 
     @Test
@@ -73,14 +73,14 @@ class AmgVenueGigsSourceTest {
             // the main room and the smaller Academy2 upstairs, listed together as the site does
             size = 83,
             first = Gig(
-                GigId(o2AcademyIslington.id, "https://www.ticketmaster.co.uk/event/3E00646A8FB52ACA"),
+                GigId(o2AcademyIslington.id, GigUrl("https://www.ticketmaster.co.uk/event/3E00646A8FB52ACA")),
                 GigTitle("OCT (On Company Time) UK Tour"),
                 GigDate(2026, 8, 29),
                 PosterUrl("https://dynamicmedia.livenationinternational.com/v/v/w/023063cb-a764-4f67-9d96-075a1bd3d454.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(o2AcademyIslington.id, "https://www.ticketmaster.co.uk/event/3E0064F5350835B8"),
+                GigId(o2AcademyIslington.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064F5350835B8")),
                 GigTitle("The Reggae Orchestra comes to London"),
                 GigDate(2027, 5, 1),
                 PosterUrl("https://dynamicmedia.livenationinternational.com/m/a/b/e51bb674-c586-4164-9477-c725574f74ca.jpg"),
@@ -97,14 +97,14 @@ class AmgVenueGigsSourceTest {
             source = O2ShepherdsBushEmpireGigsSource(cachedClient()),
             size = 95,
             first = Gig(
-                GigId(o2ShepherdsBushEmpire.id, "https://www.ticketmaster.co.uk/event/3E0064AFD611527C"),
+                GigId(o2ShepherdsBushEmpire.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064AFD611527C")),
                 GigTitle("AFI"),
                 GigDate(2026, 8, 20),
                 PosterUrl("https://dynamicmedia.livenationinternational.com/s/x/l/353f9994-6437-4ccd-b401-a48c39f23a4b.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(o2ShepherdsBushEmpire.id, "https://www.ticketmaster.co.uk/event/3E0064D0EB10676E"),
+                GigId(o2ShepherdsBushEmpire.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064D0EB10676E")),
                 GigTitle("Clearwater Creedence Revival: '60th Anniversary of C.C.R' Tour 2027"),
                 GigDate(2027, 11, 27),
                 PosterUrl("https://dynamicmedia.livenationinternational.com/e/o/k/21247638-dba8-45ed-9a31-5943a3bf78a6.png"),
@@ -113,7 +113,7 @@ class AmgVenueGigsSourceTest {
         )
 
         expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(2)
-        expectThat(events.count { !it.id.url.startsWith("https://www.ticketmaster.co.uk/event/") }).isEqualTo(1)
+        expectThat(events.count { !it.id.url.value.startsWith("https://www.ticketmaster.co.uk/event/") }).isEqualTo(1)
     }
 
     private val amgDefaultPoster = PosterUrl("https://networksites.livenationinternational.com/networksites/krfjkan0/defualt-event-image-amg.jpg")

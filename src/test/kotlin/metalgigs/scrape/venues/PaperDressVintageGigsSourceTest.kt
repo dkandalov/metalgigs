@@ -15,14 +15,14 @@ class PaperDressVintageGigsSourceTest {
             source = PaperDressVintageGigsSource(cachedClient()),
             size = 46,
             first = Gig(
-                GigId(paperDressVintage.id, "https://paperdressvintage.co.uk/?p=18710"),
+                GigId(paperDressVintage.id, GigUrl("https://paperdressvintage.co.uk/?p=18710")),
                 GigTitle("That 70s Night ft. Vintage Voltage"),
                 GigDate(2026, 8, 14),
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/poster-aug-14th-pd1-scaled.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(paperDressVintage.id, "https://paperdressvintage.co.uk/?p=18815"),
+                GigId(paperDressVintage.id, GigUrl("https://paperdressvintage.co.uk/?p=18815")),
                 GigTitle("Sam Scherdel"),
                 GigDate(2026, 12, 10),
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel.jpg"),

@@ -16,14 +16,14 @@ class EventimApolloGigsSourceTest {
             source = EventimApolloGigsSource(cachedClient()),
             size = 83,
             first = Gig(
-                GigId(eventimApollo.id, "https://www.eventimapollo.com/events/venue-tours"),
+                GigId(eventimApollo.id, GigUrl("https://www.eventimapollo.com/events/venue-tours")),
                 GigTitle("Eventim Apollo OPEN: Venue Tours"),
                 GigDate(2026, 8, 16),
                 PosterUrl("https://aeg-media-assets.b-cdn.net/eventim/images/0e5e0082-1ed9-4180-97a0-5cb66a922ce7.jpg?width=768&height=768&focus_crop=1200,1200,0.5,0.5"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(eventimApollo.id, "https://www.eventimapollo.com/events/il-volo"),
+                GigId(eventimApollo.id, GigUrl("https://www.eventimapollo.com/events/il-volo")),
                 GigTitle("Il Volo"),
                 GigDate(2027, 11, 5),
                 PosterUrl("https://aeg-media-assets.b-cdn.net/eventim/images/IL-VOLO-1080x1080-copy-1.jpg?width=768&height=768&focus_crop=1080,1080,0.5,0.5"),

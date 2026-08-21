@@ -19,14 +19,14 @@ class CartAndHorsesGigsSourceTest {
             source = CartAndHorsesGigsSource(cachedClient(), year = 2026),
             size = 21,
             first = Gig(
-                GigId(cartAndHorses.id, "https://www.cartandhorses.london/news-offers-events/523846-three-birds-whisper-the-positive-rebellion-tour-uk-2026-psychedelic-skies-borderline/"),
+                GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/523846-three-birds-whisper-the-positive-rebellion-tour-uk-2026-psychedelic-skies-borderline/")),
                 GigTitle("THREE BIRDS WHISPER - The Positive Rebellion Tour UK 2026 + PSYCHEDELIC SKIES + BORDERLINE"),
                 GigDate(2026, 8, 8),
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/240726-012017_threebirds-upd.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(cartAndHorses.id, "https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/"),
+                GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/")),
                 GigTitle("Jbm presents SMELLS LIKE NIRVANA"),
                 GigDate(2026, 10, 10),
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg"),

@@ -25,7 +25,7 @@ class SquarespaceEventsGigsSourceTest {
         expectThat(events).hasSize(10)
         expectThat(events.first().copy(description = GigDescription(""))).isEqualTo(
             Gig(
-                GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/moonpunx-16-matinee1682026"),
+                GigId(fiddlersElbow.id, GigUrl("https://www.thefiddlerselbow.co.uk/whos-playing/moonpunx-16-matinee1682026")),
                 GigTitle("MoonPunx 16 Matinee"),
                 GigDate(2026, 8, 16),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1786573507310-PG9FBW6TLI2B45R0QU3D/Unknown-2.png"),
@@ -34,14 +34,14 @@ class SquarespaceEventsGigsSourceTest {
         )
         expectThat(events.last().copy(description = GigDescription(""))).isEqualTo(
             Gig(
-                GigId(fiddlersElbow.id, "https://www.thefiddlerselbow.co.uk/whos-playing/neo-rockabilly-explosion-3-the-neutronz-wigsville-spliffs-dj-chris-setzer2692026"),
+                GigId(fiddlersElbow.id, GigUrl("https://www.thefiddlerselbow.co.uk/whos-playing/neo-rockabilly-explosion-3-the-neutronz-wigsville-spliffs-dj-chris-setzer2692026")),
                 GigTitle("NEO ROCKABILLY EXPLOSION #3 The Neutronz, Wigsville Spliffs, DJ Chris Setzer."),
                 GigDate(2026, 9, 26),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1785973667820-T4D2VFAJ8AY9UAJQ4GHP/69613b4679576_event.jpeg"),
                 GigDescription(""),
             ),
         )
-        expectThat(events.all { it.id.url.startsWith("https://www.thefiddlerselbow.co.uk/whos-playing/") }).isTrue()
+        expectThat(events.all { it.id.url.value.startsWith("https://www.thefiddlerselbow.co.uk/whos-playing/") }).isTrue()
         // the whole reason the description comes off the listing: 80 chars is where the classifier
         // gives up on the text and judges the poster image instead
         expectThat(events.all { it.description.value.length > 80 }).isTrue()
@@ -85,14 +85,14 @@ class SquarespaceEventsGigsSourceTest {
             source = TheBlackHeartGigsSource(cachedClient()),
             size = 50,
             first = Gig(
-                GigId(theBlackHeart.id, "https://www.ourblackheart.com/events/2026/8/8/you-win-again-gravity"),
+                GigId(theBlackHeart.id, GigUrl("https://www.ourblackheart.com/events/2026/8/8/you-win-again-gravity")),
                 GigTitle("YOU WIN AGAIN GRAVITY"),
                 GigDate(2026, 8, 8),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1782745761879-UVSUIG341XJIY3MEB9MI/LBPHOTO%2B-%2B%2BYou%2BWin%2BAgain%2BGravity%2B-%2BPromo%2B-%2B20.10.2024%2B6.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(theBlackHeart.id, "https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii"),
+                GigId(theBlackHeart.id, GigUrl("https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii")),
                 GigTitle("NECROPOLIS VOL. III"),
                 GigDate(2027, 3, 19),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1781025655512-MHR6PMWPOOE3TJFOSWAB/Necropolis_2027_IG_Feed_Poster_2nd_announcement%2B%25281%2529.jpg"),
@@ -107,14 +107,14 @@ class SquarespaceEventsGigsSourceTest {
             source = DomeLondonGigsSource(cachedClient()),
             size = 70,
             first = Gig(
-                GigId(theDome.id, "https://www.domelondon.co.uk/whatson/08/08-battlesnake"),
+                GigId(theDome.id, GigUrl("https://www.domelondon.co.uk/whatson/08/08-battlesnake")),
                 GigTitle("BATTLESNAKE"),
                 GigDate(2026, 8, 8),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1777381588492-CAQQZA5RRSD026668882/Cathedral%2BColour.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(theDome.id, "https://www.domelondon.co.uk/whatson/03/07-draconian"),
+                GigId(theDome.id, GigUrl("https://www.domelondon.co.uk/whatson/03/07-draconian")),
                 GigTitle("DRACONIAN"),
                 GigDate(2027, 3, 7),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1771509016965-K3W9K2G4J853EZ97RETL/Draconian+done-56+%28low+res%29.jpg"),

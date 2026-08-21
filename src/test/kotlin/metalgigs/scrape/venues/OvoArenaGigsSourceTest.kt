@@ -17,14 +17,14 @@ class OvoArenaGigsSourceTest {
             source = OvoArenaGigsSource(cachedClient(), from = YearMonth.of(2026, 8)),
             size = 40,
             first = Gig(
-                GigId(ovoArena.id, "https://www.ovoarena.co.uk/events/detail/stonebwoy#2026-08-15"),
+                GigId(ovoArena.id, GigUrl("https://www.ovoarena.co.uk/events/detail/stonebwoy#2026-08-15")),
                 GigTitle("Stonebwoy"),
                 GigDate(2026, 8, 15),
                 PosterUrl("https://www.ovoarena.co.uk/assets/img/STONEBWOY-BHIM-FEST-LONDON-1440x810-c5b626371c.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(ovoArena.id, "https://www.ovoarena.co.uk/events/detail/tash-sultana#2027-03-13"),
+                GigId(ovoArena.id, GigUrl("https://www.ovoarena.co.uk/events/detail/tash-sultana#2027-03-13")),
                 GigTitle("RESCHEDULED DATE: Tash Sultana"),
                 GigDate(2027, 3, 13),
                 PosterUrl("https://www.ovoarena.co.uk/assets/img/Tash_2027_-1440x810-1ccd5e6573.jpg"),

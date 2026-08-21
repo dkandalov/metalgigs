@@ -15,14 +15,14 @@ class RoundhouseGigsSourceTest {
             source = RoundhouseGigsSource(cachedClient()),
             size = 9,
             first = Gig(
-                GigId(roundhouse.id, "https://www.roundhouse.org.uk/whats-on/cf-kristen-schaal-the-legend/"),
+                GigId(roundhouse.id, GigUrl("https://www.roundhouse.org.uk/whats-on/cf-kristen-schaal-the-legend/")),
                 GigTitle("Kristen Schaal: The Legend of Crystal Shell"),
                 GigDate(2026, 8, 17),
                 PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/04/Kristen-Schaal-4.png"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(roundhouse.id, "https://www.roundhouse.org.uk/whats-on/roger-taylor/"),
+                GigId(roundhouse.id, GigUrl("https://www.roundhouse.org.uk/whats-on/roger-taylor/")),
                 GigTitle("Roger Taylor"),
                 GigDate(2026, 9, 28),
                 PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/06/Roger_Taylor_London_1260x1280.jpg"),

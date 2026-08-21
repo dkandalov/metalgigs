@@ -16,14 +16,14 @@ class ScalaGigsSourceTest {
             source = ScalaGigsSource(cachedClient()),
             size = 55,
             first = Gig(
-                GigId(scala.id, "https://scala.co.uk/events/digable-planets/"),
+                GigId(scala.id, GigUrl("https://scala.co.uk/events/digable-planets/")),
                 GigTitle("Digable Planets"),
                 GigDate(2026, 8, 19),
                 PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/03/Digable-Planets-2026_colour-c-Emilio-Herce-scaled-e1774636627462.jpeg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(scala.id, "https://scala.co.uk/events/split-the-dealer-deva-st-john/"),
+                GigId(scala.id, GigUrl("https://scala.co.uk/events/split-the-dealer-deva-st-john/")),
                 GigTitle("SPLIT THE DEALER & DEVA ST.JOHN"),
                 GigDate(2027, 5, 20),
                 PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/05/Scala-poster-Prf2_page-0001-1-e1779370004481.jpg"),

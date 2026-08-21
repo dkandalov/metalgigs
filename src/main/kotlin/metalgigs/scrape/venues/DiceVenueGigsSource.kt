@@ -25,7 +25,7 @@ private class DiceVenueGigsSource(private val client: HttpHandler, private val u
         val events = JDiceNextData.fromJson(nextData.data()).orThrow().props.pageProps.profile.sections.flatMap { it.events }
 
         return events.map { event ->
-            val gigUrl = "https://dice.fm/event/${event.permName}"
+            val gigUrl = GigUrl("https://dice.fm/event/${event.permName}")
             Gig(
                 GigId(venue.id, gigUrl),
                 titleFrom(event.name),

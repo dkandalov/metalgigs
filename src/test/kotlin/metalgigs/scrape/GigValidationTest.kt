@@ -7,21 +7,6 @@ import kotlin.test.Test
 
 class GigValidationTest {
 
-    private val someVenue = VenueId("Some Venue")
-
-    private fun gig(title: GigTitle, url: String, description: String, poster: PosterUrl = PosterUrl("https://example.com/poster.jpg"), date: GigDate = GigDate(2026, 8, 8)) =
-        Gig(GigId(someVenue, url), title = title, date, poster, GigDescription(description))
-
-    private val realText = "Doom night with support from three bands, doors 7pm."
-
-    private fun GigsCheck.problemsIn(gigs: List<Gig>, previous: List<Gig> = emptyList()) =
-        problems(someVenue, gigs, previous)
-
-    private fun GigsCheck.problemsFor(gigs: List<Gig>) =
-        problemsIn(gigs).map { problem -> problem.detail to problem.gigs.map { it.id.url } }
-
-    private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problemsIn(gigs).flatMap { it.gigs }.map { it.id.url }
-
     // The Black Heart's own event pages print a Bandcamp embed's code as visible text below the gig
     // copy, so .text() faithfully returns it - verbatim from the log
     @Test
@@ -107,18 +92,6 @@ class GigValidationTest {
         expectThat(UnparsedTextCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
-    // each gig its own url and description, so the day they land on is the only thing about them any
-    // check has to say anything about
-    private fun gigsOn(date: GigDate, count: Int) = (1..count).map {
-        Gig(
-            GigId(someVenue, "https://example.com/$date/$it"),
-            GigTitle("Gig $it"),
-            date,
-            PosterUrl("https://example.com/poster.jpg"),
-            GigDescription("Gig $it"),
-        )
-    }
-
     // a date parse that has drifted returns the same wrong date for every gig it reads, so a whole
     // listing lands on one day with nothing wrong about any gig of it
     @Test
@@ -152,11 +125,6 @@ class GigValidationTest {
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(CrowdedDayCheck.heading))
         expectThat(validation.withheld).isEqualTo((crowded + theNextDay).toSet())
-    }
-
-    // a day apart each, so a venue sharing one picture is the only thing odd about them
-    private fun gigsSharing(poster: PosterUrl, count: Int, from: Int = 1) = (from until from + count).map {
-        gig(title = GigTitle("Gig $it"), url = "https://example.com/$it", description = "Gig $it", poster = poster, date = GigDate(2026, 8, it))
     }
 
     // a poster selector that has stopped matching takes the whole listing with it, and every other
@@ -303,7 +271,7 @@ class GigValidationTest {
         )
 
         expectThat(MisshapenGigsCheck.problemsFor(gigs))
-            .isEqualTo(listOf("description is a cookie or bot wall, not gig copy" to gigs.map { it.id.url }))
+            .isEqualTo(listOf("description is a cookie or bot wall, not gig copy" to gigs.map { it.id.url.value }))
     }
 
     // real gig copy links these often enough that neither can be a marker for boilerplate
@@ -424,7 +392,7 @@ class GigValidationTest {
         )
 
         expectThat(ContaminationCheck.problemsFor(gigs))
-            .isEqualTo(listOf("3 of 3 gig(s) mostly shared text" to gigs.map { it.id.url }))
+            .isEqualTo(listOf("3 of 3 gig(s) mostly shared text" to gigs.map { it.id.url.value }))
     }
 
     // real venues often print the same short policy line (age restriction, ID requirement) on every

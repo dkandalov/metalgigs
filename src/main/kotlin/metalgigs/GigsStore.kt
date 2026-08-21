@@ -56,7 +56,7 @@ class GigsLog(private val file: File) {
     // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check
     // covers the whole poster
     fun alreadyIngested(sourceUrl: String): Boolean =
-        entries.filterIsInstance<GigObserved>().any { it.id.url.startsWith("$sourceUrl#") }
+        entries.filterIsInstance<GigObserved>().any { it.id.url.value.startsWith("$sourceUrl#") }
 
     // has the page already been rendered for this date? Matches on logicalDate rather than the newest
     // render's own timestamp, so a backdated render of some past date doesn't count as having done
@@ -179,7 +179,7 @@ private object JGigObserved : JAny<GigObserved>() {
 private object JGigClassified : JAny<GigClassified>() {
     private val seq by num(GigClassified::seq)
     private val venue by str(JVenueId) { id.venueId }
-    private val url by str(fun GigClassified.(): String = id.url)
+    private val url by str(JGigUrl) { id.url }
     private val recordedAt by str(GigClassified::recordedAt)
     private val genre by str(GigClassified::genre)
     private val source by str(GigClassified::source)
@@ -216,7 +216,7 @@ private object JGig : JAny<Gig>() {
     private val title by str(JGigTitle) { title }
     private val venue by str(JVenueId) { id.venueId }
     private val date by str(JGigDate) { date }
-    private val url by str(fun Gig.(): String = id.url)
+    private val url by str(JGigUrl) { id.url }
     private val posterUrl by str(JPosterUrl) { posterUrl }
     private val description by str(JGigDescription) { description }
 
@@ -226,6 +226,11 @@ private object JGig : JAny<Gig>() {
 private object JVenueId : JStringRepresentable<VenueId>() {
     override val cons: (String) -> VenueId = ::VenueId
     override val render: (VenueId) -> String = VenueId::value
+}
+
+private object JGigUrl : JStringRepresentable<GigUrl>() {
+    override val cons: (String) -> GigUrl = ::GigUrl
+    override val render: (GigUrl) -> String = GigUrl::value
 }
 
 private object JGigTitle : JStringRepresentable<GigTitle>() {

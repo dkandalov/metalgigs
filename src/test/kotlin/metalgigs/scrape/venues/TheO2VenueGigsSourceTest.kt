@@ -15,14 +15,14 @@ class TheO2VenueGigsSourceTest {
             source = IndigoAtTheO2GigsSource(cachedClient()),
             size = 53,
             first = Gig(
-                GigId(indigoAtTheO2.id, "https://www.theo2.co.uk/events/detail/timaya"),
+                GigId(indigoAtTheO2.id, GigUrl("https://www.theo2.co.uk/events/detail/timaya")),
                 GigTitle("TIMAYA"),
                 GigDate(2026, 8, 22),
                 PosterUrl("https://www.theo2.co.uk/assets/img/1080X1080-a8eecfe5d3.png"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(indigoAtTheO2.id, "https://www.theo2.co.uk/events/detail/bat-50th-anniversary-concert"),
+                GigId(indigoAtTheO2.id, GigUrl("https://www.theo2.co.uk/events/detail/bat-50th-anniversary-concert")),
                 GigTitle("Fuel Injected Magic! 50th Anniversary Concert"),
                 GigDate(2027, 10, 30),
                 PosterUrl("https://www.theo2.co.uk/assets/img/Steve-Steinmans-Fuel-Injected-Magic-50th-square-Post3er-jpg-48832cc6ba.jpg"),
@@ -42,14 +42,14 @@ class TheO2VenueGigsSourceTest {
             source = TheO2ArenaGigsSource(cachedClient()),
             size = 86,
             first = Gig(
-                GigId(theO2Arena.id, "https://www.theo2.co.uk/events/detail/ariana-grande-2026"),
+                GigId(theO2Arena.id, GigUrl("https://www.theo2.co.uk/events/detail/ariana-grande-2026")),
                 GigTitle("Ariana Grande"),
                 GigDate(2026, 8, 19),
                 PosterUrl("https://www.theo2.co.uk/assets/img/Static_TM-ArtistImage_2426x1365_ArianaGrande_2026_Photo-copy-square-b4f4051fe8.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(theO2Arena.id, "https://www.theo2.co.uk/events/detail/dungeons-dragons-fan-expo-london-2027"),
+                GigId(theO2Arena.id, GigUrl("https://www.theo2.co.uk/events/detail/dungeons-dragons-fan-expo-london-2027")),
                 GigTitle("Dungeons & Dragons Fan Expo: London 2027 | Rescheduled"),
                 GigDate(2027, 9, 5),
                 PosterUrl("https://www.theo2.co.uk/assets/img/DD_1080-x-1080-Press-shot-32a180fd24.jpg"),

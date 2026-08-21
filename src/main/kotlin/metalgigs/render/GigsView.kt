@@ -44,6 +44,6 @@ fun groupGigsByDate(gigs: List<Gig>): List<DateGroup> =
 private fun Gig.toCardView() = GigCardView(
     title = title.value,
     venue = venue(id.venueId).name,
-    url = id.url,
+    url = id.url.value,
     imageUrl = "images/${publishedImageFileName(this)}",
 )

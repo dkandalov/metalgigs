@@ -15,14 +15,14 @@ class TheUnderworldGigsSourceTest {
             source = TheUnderworldGigsSource(cachedClient()),
             size = 74,
             first = Gig(
-                GigId(theUnderworld.id, "https://www.theunderworldcamden.co.uk/event/the-partisans-8th-aug-the-underworld-london-tickets/"),
+                GigId(theUnderworld.id, GigUrl("https://www.theunderworldcamden.co.uk/event/the-partisans-8th-aug-the-underworld-london-tickets/")),
                 GigTitle("THE PARTISANS"),
                 GigDate(2026, 8, 8),
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-04-15/644411f7-5f86-484c-b29b-b71dc309b89e.jpg?rect=734%2C0%2C2682%2C2682"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(theUnderworld.id, "https://www.theunderworldcamden.co.uk/event/alive-a-tribute-to-pearl-jam-20th-nov-the-underworld-london-tickets/"),
+                GigId(theUnderworld.id, GigUrl("https://www.theunderworldcamden.co.uk/event/alive-a-tribute-to-pearl-jam-20th-nov-the-underworld-london-tickets/")),
                 GigTitle("ALIVE, A TRIBUTE TO PEARL JAM"),
                 GigDate(2027, 12, 4),
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-02-10/cf613856-3e58-41a8-b0f0-af044c77c97b.jpg?rect=228%2C0%2C2045%2C2045"),

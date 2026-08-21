@@ -28,10 +28,10 @@ internal fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<Stri
 // Fails rather than standing in a blank, so no Gig is ever built holding a description its page
 // never gave. A page that won't fetch and markup that no longer matches the venue's own selectors
 // are both that failure; "" is only ever a page that was read and had nothing to say about its gig.
-internal fun fetchDescription(client: HttpHandler, url: String, content: (Document) -> String?): GigDescription =
-    descriptionFrom(Jsoup.parse(fetchPage(client, url), url), url, content)
+internal fun fetchDescription(client: HttpHandler, url: GigUrl, content: (Document) -> String?): GigDescription =
+    descriptionFrom(Jsoup.parse(fetchPage(client, url.value), url.value), url, content)
 
-internal fun descriptionFrom(page: Document, url: String, content: (Document) -> String?): GigDescription =
+internal fun descriptionFrom(page: Document, url: GigUrl, content: (Document) -> String?): GigDescription =
     GigDescription(
         content(page)
             ?: error("No description found on event page $url - the venue's selectors may no longer match it")
@@ -68,16 +68,16 @@ internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
 // beside the selector it guards and fails the venue's scrape the way an unreadable event page
 // already does. Several sources honestly span more than one prefix - the AMG venues link to
 // Ticketmaster under either scheme and fall back to Gigantic.
-internal fun gigUrlFrom(url: String, vararg under: String): String {
+internal fun gigUrlFrom(url: String, vararg under: String): GigUrl {
     check(under.any { url.startsWith(it) }) {
         "Gig url $url isn't under ${under.joinToString(" or ")} - the listing selector is matching more than this venue's gigs"
     }
-    return url
+    return GigUrl(url)
 }
 
 // An unmatched selector and an empty API field both arrive as "" rather than as a failure, and
 // PosterUrl's own message has no gig to name when it rejects one.
-internal fun posterUrlFrom(gigUrl: String, url: String?): PosterUrl {
+internal fun posterUrlFrom(gigUrl: GigUrl, url: String?): PosterUrl {
     check(!url.isNullOrBlank()) { "No poster for $gigUrl - the venue's listing no longer gives one" }
     return PosterUrl(url)
 }

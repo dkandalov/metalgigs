@@ -46,7 +46,7 @@ private class DicePartnerVenueGigsSource(
             // none of these venues gives a gig its own page on its own site, so a stable url built
             // from the event's own perm_name identifies it instead - not the short ticketing link
             // (link.dice.fm/...), which is opaque and reused across unrelated calls to the API
-            val gigUrl = "https://dice.fm/event/${event.permName}"
+            val gigUrl = GigUrl("https://dice.fm/event/${event.permName}")
             Gig(
                 GigId(venue.id, gigUrl),
                 titleFrom(event.name),

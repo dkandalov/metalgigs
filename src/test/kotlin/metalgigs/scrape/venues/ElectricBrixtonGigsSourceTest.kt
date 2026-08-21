@@ -15,14 +15,14 @@ class ElectricBrixtonGigsSourceTest {
             source = ElectricBrixtonGigsSource(cachedClient()),
             size = 54,
             first = Gig(
-                GigId(electricBrixton.id, "https://www.electricbrixton.uk.com/events/bacchanal-friday-4/"),
+                GigId(electricBrixton.id, GigUrl("https://www.electricbrixton.uk.com/events/bacchanal-friday-4/")),
                 GigTitle("Bacchanal Friday"),
                 GigDate(2026, 8, 28),
                 PosterUrl("https://e2h4j4t3.rocketcdn.me/wp-content/uploads/2025/01/Busspepper-1200.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(electricBrixton.id, "https://www.electricbrixton.uk.com/events/elder/"),
+                GigId(electricBrixton.id, GigUrl("https://www.electricbrixton.uk.com/events/elder/")),
                 GigTitle("Elder"),
                 GigDate(2027, 2, 27),
                 PosterUrl("https://e2h4j4t3.rocketcdn.me/wp-content/uploads/2026/06/Elder-1200.jpg"),

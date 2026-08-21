@@ -36,7 +36,7 @@ internal class DhpVenueGigsSource(
                     heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") },
                     gigsPath,
                 )
-                val eventPage = Jsoup.parse(fetchPage(client, gigUrl), gigUrl)
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
 
                 Gig(
                     GigId(venue.id, gigUrl),
@@ -129,7 +129,7 @@ internal class DhpVenueGigsSource(
     // A venue with a house image of its own stands that in, so such a gig is published showing the
     // room it's in rather than being dropped or failing the whole listing. A venue without one
     // still fails, which is the answer for The Grace, whose site has no such image to use.
-    private fun poster(card: Element, eventPage: Document, gigUrl: String): PosterUrl {
+    private fun poster(card: Element, eventPage: Document, gigUrl: GigUrl): PosterUrl {
         val cardImage = card.select(".card__grid-media img")
         val src = cardImage.attr("abs:data-lazy-src")
             .ifBlank { cardImage.attr("abs:src") }

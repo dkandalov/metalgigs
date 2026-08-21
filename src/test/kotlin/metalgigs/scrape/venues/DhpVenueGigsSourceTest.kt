@@ -22,7 +22,7 @@ class DhpVenueGigsSourceTest {
             source = TheGarageGigsSource(cachedClient()),
             size = 80,
             first = Gig(
-                GigId(theGarage.id, "https://www.thegarage.london/gigs/the-flatliners-a-wilhelm-scream-the-garage-lonodn-tickets-2026/"),
+                GigId(theGarage.id, GigUrl("https://www.thegarage.london/gigs/the-flatliners-a-wilhelm-scream-the-garage-lonodn-tickets-2026/")),
                 GigTitle("THE FLATLINERS + A WILHELM SCREAM"),
                 GigDate(2026, 8, 22),
                 PosterUrl("https://www.thegarage.london/wp-content/uploads/2026/03/Flatliners_2026_Ig-819x1024.jpg"),
@@ -31,7 +31,7 @@ class DhpVenueGigsSourceTest {
             // six months past 31 Oct 2026, where the listing page's own markup ends - only the
             // guide walk reaches this, and the 80 above is against the 43 without it
             last = Gig(
-                GigId(theGarage.id, "https://www.thegarage.london/gigs/st-lundi/"),
+                GigId(theGarage.id, GigUrl("https://www.thegarage.london/gigs/st-lundi/")),
                 GigTitle("ST LUNDI"),
                 GigDate(2027, 4, 1),
                 PosterUrl("https://www.thegarage.london/wp-content/uploads/2026/08/ST-LUNDI-LONDON-SPECIFIC-819x1024.jpg"),
@@ -46,14 +46,14 @@ class DhpVenueGigsSourceTest {
             source = TheGraceGigsSource(cachedClient()),
             size = 72,
             first = Gig(
-                GigId(theGrace.id, "https://www.thegrace.london/gigs/flamebearer-the-grace-london-tickets-2026/"),
+                GigId(theGrace.id, GigUrl("https://www.thegrace.london/gigs/flamebearer-the-grace-london-tickets-2026/")),
                 GigTitle("FLAMEBEARER"),
                 GigDate(2026, 8, 14),
                 PosterUrl("https://www.thegrace.london/wp-content/uploads/2026/05/FLAMEBEARER_IGNITER_ALBUM_LAUNCH_POSTER_SQUARE_v3_MED_RES_RGB-1-1024x1024.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(theGrace.id, "https://www.thegrace.london/gigs/nontaines-d-c-the-grace-london-tickets-2026/"),
+                GigId(theGrace.id, GigUrl("https://www.thegrace.london/gigs/nontaines-d-c-the-grace-london-tickets-2026/")),
                 GigTitle("NONTAINES D.C."),
                 GigDate(2027, 1, 19),
                 PosterUrl("https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1-1024x1024.jpg"),
@@ -227,7 +227,7 @@ class DhpVenueGigsSourceTest {
 
         expectThat(events).containsExactly(
             Gig(
-                GigId(VenueId("some-venue"), "https://example.com/gigs/sold-out-gig/"),
+                GigId(VenueId("some-venue"), GigUrl("https://example.com/gigs/sold-out-gig/")),
                 GigTitle("SOLD OUT GIG"),
                 GigDate(2026, 10, 3),
                 PosterUrl("https://example.com/poster.jpg"),

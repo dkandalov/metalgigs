@@ -18,14 +18,14 @@ class NewCrossInnGigsSourceTest {
             source = NewCrossInnGigsSource(cachedClient()),
             size = 118,
             first = Gig(
-                GigId(newCrossInn.id, "https://pit.live/events/greenhat"),
+                GigId(newCrossInn.id, GigUrl("https://pit.live/events/greenhat")),
                 GigTitle("GREENHAT"),
                 GigDate(2026, 8, 8),
                 PosterUrl("https://pit.live/uploads/user/2026/07/07/640x480/5d05ygXA94bMG95I.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(newCrossInn.id, "https://pit.live/events/level-up-festival-7"),
+                GigId(newCrossInn.id, GigUrl("https://pit.live/events/level-up-festival-7")),
                 GigTitle("Level Up Festival 7"),
                 GigDate(2027, 7, 23),
                 PosterUrl("https://pit.live/uploads/user/2026/07/24/640x480/t8YfuAmMlTMW6ilv.jpg"),
@@ -35,7 +35,7 @@ class NewCrossInnGigsSourceTest {
 
         // a gig five months past what the page itself lists, and the one that showed the dropdown
         // was being missed - the page opens on August, and this is only in the February fragment
-        expectThat(events.map { it.id.url }).contains("https://pit.live/events/ghost-uk-1")
+        expectThat(events.map { it.id.url }).contains(GigUrl("https://pit.live/events/ghost-uk-1"))
         // the month the page opens on is in the dropdown too, so its gigs arrive from both
         expectThat(events.map { it.id.url }.distinct().size).isEqualTo(events.size)
     }

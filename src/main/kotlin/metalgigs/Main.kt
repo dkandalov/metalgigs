@@ -252,7 +252,7 @@ private fun printClassificationStatus(today: LocalDate = LocalDate.now()) {
 
 private fun overrideGigGenre(url: String, genre: Genre) {
     val log = GigsLog(eventsFile)
-    val gig = log.currentGigs().find { it.id.url == url }
+    val gig = log.currentGigs().find { it.id.url == GigUrl(url) }
         ?: error("No current gig found with url $url")
 
     log.append(listOf(

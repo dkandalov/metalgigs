@@ -42,7 +42,7 @@ fun extractPosterGigs(client: HttpHandler, chat: Chat, imageUrl: String, sourceU
 // there's no per-gig page to link to, so every gig from one poster shares that same real, working
 // url, disambiguated by a fragment; clicking it lands on the actual poster, just not scrolled to
 // this specific gig, since that's not something the source itself supports
-fun posterGigUrl(sourceUrl: String, title: String, date: GigDate): String = "$sourceUrl#gig-${slug(title)}-$date"
+fun posterGigUrl(sourceUrl: String, title: String, date: GigDate) = GigUrl("$sourceUrl#gig-${slug(title)}-$date")
 
 val posterExtractionSystemPrompt = """
     You extract gig listings from a poster image advertising multiple gigs at one venue, often a

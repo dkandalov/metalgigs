@@ -15,14 +15,14 @@ class DingwallsGigsSourceTest {
             source = DingwallsGigsSource(cachedClient()),
             size = 24,
             first = Gig(
-                GigId(dingwalls.id, "https://dingwalls.com/gig/root-company/"),
+                GigId(dingwalls.id, GigUrl("https://dingwalls.com/gig/root-company/")),
                 GigTitle("BANG YONGGUK"),
                 GigDate(2026, 9, 2),
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-5-ropdtf0hg2d9yqdycam42ynoc5vdz4n4gsylj8c3l8.png"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(dingwalls.id, "https://dingwalls.com/gig/rock-for-hope-2/"),
+                GigId(dingwalls.id, GigUrl("https://dingwalls.com/gig/rock-for-hope-2/")),
                 GigTitle("Rock For Hope"),
                 GigDate(2026, 11, 7),
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-27-rr5voszodg8dz4qw6s0thhnj6cm8eai4qgy0bw9ru4.jpg"),

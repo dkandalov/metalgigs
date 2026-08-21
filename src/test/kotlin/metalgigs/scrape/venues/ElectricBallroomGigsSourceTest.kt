@@ -14,14 +14,14 @@ class ElectricBallroomGigsSourceTest {
             source = ElectricBallroomGigsSource(cachedClient(), year = 2026),
             size = 89,
             first = Gig(
-                GigId(electricBallroom.id, "https://electricballroom.co.uk/lion-babe/"),
+                GigId(electricBallroom.id, GigUrl("https://electricballroom.co.uk/lion-babe/")),
                 GigTitle("Lion Babe – RESCHEDULED!"),
                 GigDate(2026, 8, 13),
                 PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/07/LION-BABE-.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(electricBallroom.id, "https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/"),
+                GigId(electricBallroom.id, GigUrl("https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/")),
                 GigTitle("Indiepalooza Tribute – Killers v Monkeys v Fender v Oasis v Kasabian v Kaiser"),
                 GigDate(2027, 6, 19),
                 PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/06/Indiepalooza-2027.jpg"),

@@ -16,14 +16,14 @@ class IslingtonAssemblyHallGigsSourceTest {
             source = IslingtonAssemblyHallGigsSource(cachedClient(), year = 2026),
             size = 74,
             first = Gig(
-                GigId(islingtonAssemblyHall.id, "https://islingtonassemblyhall.co.uk/events/horsegirl-21st-aug-islington-assembly-hall-london-tickets/"),
+                GigId(islingtonAssemblyHall.id, GigUrl("https://islingtonassemblyhall.co.uk/events/horsegirl-21st-aug-islington-assembly-hall-london-tickets/")),
                 GigTitle("Horsegirl"),
                 GigDate(2026, 8, 21),
                 PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2026/03/16a4e407-24c9-482a-9f0b-8f8b7812520a.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(islingtonAssemblyHall.id, "https://islingtonassemblyhall.co.uk/events/seckou-keita-and-the-homeland-band-featuring-special-guests-30th-anniversary-tour-10th-feb-islington-assembly-hall-london-tickets/"),
+                GigId(islingtonAssemblyHall.id, GigUrl("https://islingtonassemblyhall.co.uk/events/seckou-keita-and-the-homeland-band-featuring-special-guests-30th-anniversary-tour-10th-feb-islington-assembly-hall-london-tickets/")),
                 GigTitle("Seckou Keita and The Homeland Band ft Special Guests: 30th Anniversary Tour"),
                 GigDate(2027, 11, 28),
                 PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2025/11/Untitled-design-1.jpg"),

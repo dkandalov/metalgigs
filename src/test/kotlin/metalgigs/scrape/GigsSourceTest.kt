@@ -1,6 +1,7 @@
 package metalgigs.scrape
 
 import metalgigs.GigDescription
+import metalgigs.GigUrl
 import metalgigs.GigTitle
 import metalgigs.PosterUrl
 import metalgigs.scrape.venues.TheUnderworldGigsSource
@@ -51,22 +52,22 @@ class GigsSourceTest {
         expectThat(source.eventPageContent(pageOf(changedMarkup))).isEqualTo(null)
         // markup that no longer matches, and a page that won't fetch at all, both fail outright
         assertFailsWith<IllegalStateException> {
-            fetchDescription(servingChangedMarkup, "https://example.com/gig", source::eventPageContent)
+            fetchDescription(servingChangedMarkup, GigUrl("https://example.com/gig"), source::eventPageContent)
         }
         assertFailsWith<IllegalStateException> {
-            fetchDescription(noHttp, "https://example.com/gig", source::eventPageContent)
+            fetchDescription(noHttp, GigUrl("https://example.com/gig"), source::eventPageContent)
         }
         // "" is only ever a page that was read and had nothing to say about its gig
-        expectThat(fetchDescription(servingChangedMarkup, "https://example.com/gig") { "" }).isEqualTo(GigDescription(""))
+        expectThat(fetchDescription(servingChangedMarkup, GigUrl("https://example.com/gig")) { "" }).isEqualTo(GigDescription(""))
     }
 
     @Test
     fun `names the gig when a listing gives no poster`() {
-        expectThat(posterUrlFrom("https://example.com/gig", "https://example.com/poster.jpg"))
+        expectThat(posterUrlFrom(GigUrl("https://example.com/gig"), "https://example.com/poster.jpg"))
             .isEqualTo(PosterUrl("https://example.com/poster.jpg"))
         // an unmatched selector and an absent api field, which is what each source can hand it
         listOf("", null).forEach { missing ->
-            expectThat(assertFailsWith<IllegalStateException> { posterUrlFrom("https://example.com/gig", missing) }.message.orEmpty())
+            expectThat(assertFailsWith<IllegalStateException> { posterUrlFrom(GigUrl("https://example.com/gig"), missing) }.message.orEmpty())
                 .contains("https://example.com/gig")
         }
     }
