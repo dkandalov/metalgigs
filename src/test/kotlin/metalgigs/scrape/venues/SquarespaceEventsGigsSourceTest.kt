@@ -153,4 +153,26 @@ class SquarespaceEventsGigsSourceTest {
         expectThat(pageText.contains("About")).isEqualTo(false)
         expectThat(pageText.contains("Instagram")).isEqualTo(false)
     }
+
+    // A Bandcamp embed's fallback markup reaches the content column html-escaped rather than as
+    // elements, so Jsoup's own text() decodes it to visible "<a href=...>" in the middle of the
+    // gig's copy - three Black Heart descriptions in the log end that way. The link names the album
+    // and the band, which is worth keeping, so the text is read a second time rather than dropped.
+    @Test
+    fun `reads a squarespace embed's escaped markup as the text it holds`() {
+        val html = """
+            <div class="eventitem-column-content">
+                <p>MORAG TONG DRUIDESS OUTBACK</p>
+                &lt;a href="https://moragtong.bandcamp.com/album/grieve-5"&gt;Grieve by Morag Tong&lt;/a&gt;
+            </div>
+        """.trimIndent()
+
+        val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = theBlackHeart)
+        val pageText = source.eventPageContent(pageOf(html))!!
+
+        expectThat(pageText.contains("MORAG TONG DRUIDESS OUTBACK")).isTrue()
+        expectThat(pageText.contains("Grieve by Morag Tong")).isTrue()
+        expectThat(pageText.contains("<a href")).isEqualTo(false)
+        expectThat(pageText.contains("bandcamp.com")).isEqualTo(false)
+    }
 }

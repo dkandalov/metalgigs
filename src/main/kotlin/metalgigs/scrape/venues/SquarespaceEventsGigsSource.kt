@@ -50,7 +50,14 @@ internal class SquarespaceEventsGigsSource(
     // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
     // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
     // separately.
-    internal fun eventPageContent(page: Document) = page.select(".eventitem-column-content").textOrNull()
+    //
+    // Squarespace hands an embed block's fallback markup to the page html-escaped rather than as
+    // elements of its own, so text() decodes it back into a visible "<a href=...>Grieve by Morag
+    // Tong</a>" at the end of the gig's copy. Reading that once more as the html it is keeps what
+    // the link says - an album and the band who made it, which the classifier can use - and drops
+    // the tags around it, which it would otherwise have to read past.
+    internal fun eventPageContent(page: Document) =
+        page.select(".eventitem-column-content").textOrNull()?.let { Jsoup.parse(it).text() }
 }
 
 val theBlackHeart = Venue(VenueId("black-heart"), "The Black Heart")
