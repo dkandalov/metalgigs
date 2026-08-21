@@ -237,12 +237,13 @@ private object JGigReplaced : JAny<GigReplaced>() {
     private val seq by num(GigReplaced::seq)
     private val venue by str(JVenueId) { replaced.venueId }
     private val url by str(JGigUrl) { replaced.url }
+    private val byVenue by str(JVenueId) { by.venueId }
     private val byUrl by str(JGigUrl) { by.url }
     private val recordedAt by str(GigReplaced::recordedAt)
 
     override fun JsonNodeObject.deserializeOrThrow() = GigReplaced(
         replaced = GigId(+venue, +url),
-        by = GigId(+venue, +byUrl),
+        by = GigId(+byVenue, +byUrl),
         recordedAt = +recordedAt,
         seq = +seq,
     )

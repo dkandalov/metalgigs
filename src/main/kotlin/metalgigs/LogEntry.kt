@@ -42,8 +42,7 @@ data class GigClassified(
 // twice; this says which of the two the venue has moved on from.
 //
 // Recorded rather than worked out on read, because what it rests on is that a run's listing no longer
-// held the old url, and no later run can see that. Both ids are the same venue's: this is a venue
-// relisting its own gig, where a show that moves to another venue is a gig of that venue's.
+// held the old url, and no later run can see that.
 data class GigReplaced(
     val replaced: GigId,
     val by: GigId,
@@ -51,7 +50,6 @@ data class GigReplaced(
     override val seq: Long = UNSEQUENCED,
 ) : LogEntry {
     init {
-        require(replaced.venueId == by.venueId) { "A gig is relisted by the venue listing it, but $replaced was replaced by $by" }
         require(replaced != by) { "A gig can't replace itself: $replaced" }
     }
 

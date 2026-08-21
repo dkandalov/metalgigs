@@ -498,4 +498,17 @@ class GigsStoreTest {
 
         expectThat(log.classificationStatus()[listed.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
     }
+    // A gig moved between rooms is a gig at another venue, and nothing about a replacement says the
+    // two are the same venue's - what makes them one gig is the venue saying so, not where it is.
+    @Test
+    fun `reads back a replacement whose two gigs are at different venues`() {
+        val moved = GigId(VenueId("Blondies Bar"), GigUrl("https://example.com/lola-aus"))
+        val listed = GigId(VenueId("Blondies Brewery Taproom"), GigUrl("https://example.com/eo6xmw-lola-aus"))
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+
+        val log = GigsLog(file).apply { append(listOf(GigReplaced(moved, listed, recordedAt))) }
+
+        expectThat(GigsLog(file).entries).isEqualTo(log.entries)
+        expectThat(GigsLog(file).entries.filterIsInstance<GigReplaced>().single().by.venueId).isEqualTo(VenueId("Blondies Brewery Taproom"))
+    }
 }
