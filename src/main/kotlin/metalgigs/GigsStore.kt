@@ -17,6 +17,7 @@ import java.io.FileWriter
 import java.time.Instant
 import java.time.LocalDate
 
+// Why every state is a projection: docs/adr/0001-the-log-is-append-only.md
 class GigsLog(private val file: File) {
     var entries: List<LogEntry> = if (file.exists()) readLogEntries(file) else emptyList()
         private set
@@ -51,10 +52,8 @@ class GigsLog(private val file: File) {
         return scrapedGigs.filter { gig -> latestByGig[gig.id] != gig }
     }
 
-    // when each venue was last seen changing - an approximation of "last scraped" derived from
-    // GigObserved entries rather than a dedicated scrape-event type; a venue with no changes for
-    // longer than the cooldown looks stale here and gets rescraped anyway, which just means it's
-    // scraped a bit more often than strictly necessary, never less
+    // When each venue was last seen changing, which only approximates when it was last scraped.
+    // Why that's enough: docs/adr/0001-the-log-is-append-only.md
     fun lastScrapedAt(): Map<VenueId, Instant> =
         entries.filterIsInstance<GigObserved>()
             .groupBy { it.id.venueId }
@@ -101,20 +100,7 @@ class GigsLog(private val file: File) {
             .toSet()
             .let { it + inheritedFrom(it).keys }
 
-    // the log is append-only, so a gig re-observed on a later scrape is logged again in full, event
-    // page text and all, and every projection then reads only the newest of them. Compacting keeps
-    // just that newest observation per gig, and just the one classification that decides the gig's
-    // genre, which is the same one classificationStatus picks. Every render entry survives, and every
-    // replacement: they say what was published and what a venue did rather than what a gig is, and
-    // there is one of each per render and per move rather than one per gig. A replaced gig keeps its
-    // own newest observation as well - dropping that would lose the url it used to live at, which is
-    // the only thing saying the gig listed now is the one already classified.
-    //
-    // What's lost is the history itself - when a gig gained "- SOLD OUT", was rescheduled or had its
-    // text captured, and which model judged a classification since superseded.
-    //
-    // Hands back what to write rather than writing it, so the caller can check the compacted copy
-    // projects identically before anything replaces the log it came from.
+    // Why compaction keeps what it keeps: docs/adr/0001-the-log-is-append-only.md
     fun compact(): CompactedLog {
         val observations = entries.filterIsInstance<GigObserved>()
             .groupBy { it.id }

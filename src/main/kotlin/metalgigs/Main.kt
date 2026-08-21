@@ -313,10 +313,7 @@ private fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, 
     println("${gigs.size} gig(s) extracted from poster (${newOrChanged.size} new/changed), all assumed Metal")
 }
 
-// rewriting the log is the only thing here that destroys anything, so the compacted file is written
-// alongside and read back first: nothing is overwritten unless it projects to exactly the same gigs,
-// genres, scrape times and renders as the log it would replace. events.ndjson is committed, so the
-// swap is recoverable from git either way - but a failed check should cost nothing at all.
+// Why these checks: docs/adr/0001-the-log-is-append-only.md
 private fun compactLog() {
     val log = GigsLog(eventsFile)
     val compacted = log.compact()

@@ -3,11 +3,9 @@ package metalgigs
 import java.time.Instant
 import java.time.LocalDate
 
+// Why the log looks like this: docs/adr/0001-the-log-is-append-only.md
 sealed interface LogEntry {
     val recordedAt: Instant
-
-    // Says which of two entries was logged later, which recordedAt can't: a scrape or classification
-    // run stamps every entry it appends with one Instant, so equal times are the norm, not the edge case.
     val seq: Long
 
     fun withSeq(seq: Long): LogEntry
@@ -41,8 +39,7 @@ data class GigClassified(
 // room, but a gig is identified by where it lives, so the log holds it twice and the page prints it
 // twice; this says which of the two the venue has moved on from.
 //
-// Recorded rather than worked out on read, because what it rests on is that a run's listing no longer
-// held the old url, and no later run can see that.
+// Why recorded, not derived: docs/adr/0001-the-log-is-append-only.md
 data class GigReplaced(
     val replaced: GigId,
     val by: GigId,
