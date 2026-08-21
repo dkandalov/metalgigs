@@ -141,17 +141,17 @@ class GigValidationTest {
         expectThat(CrowdedDayCheck.problemsIn(gigs)).isEqualTo(emptyList())
     }
 
-    // the rest of the listing is dated by the same parse, but only the day it piled up on says so -
-    // the gigs either side of it are as good as any other venue's
+    // a day that piled up condemns the listing it arrived in rather than just itself: the gigs either
+    // side of it came off the same parse and are only ones whose dates happened to land apart
     @Test
-    fun `withholds the crowded day alone, not the listing around it`() {
+    fun `withholds the venue's whole listing, not only the crowded day`() {
         val crowded = gigsOn(GigDate(2026, 9, 12), 6)
         val theNextDay = gigsOn(GigDate(2026, 9, 13), 1)
 
         val validation = validateGigs(mapOf(someVenue to crowded + theNextDay))
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(CrowdedDayCheck.heading))
-        expectThat(validation.withheld).isEqualTo(crowded.toSet())
+        expectThat(validation.withheld).isEqualTo((crowded + theNextDay).toSet())
     }
 
     // a day apart each, so a venue sharing one picture is the only thing odd about them
@@ -188,7 +188,7 @@ class GigValidationTest {
     }
 
     @Test
-    fun `withholds only the gigs published under the shared picture`() {
+    fun `withholds the venue's whole listing, not only the gigs under the shared picture`() {
         val logo = PosterUrl("https://example.com/venue-logo.png")
         val shared = gigsSharing(logo, 21)
         val ownPoster = gig(title = GigTitle("Primus"), url = "https://example.com/own", description = "Primus", poster = PosterUrl("https://example.com/primus.jpg"))
@@ -196,7 +196,7 @@ class GigValidationTest {
         val validation = validateGigs(mapOf(someVenue to shared + ownPoster))
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(SharedPosterCheck.heading))
-        expectThat(validation.withheld).isEqualTo(shared.toSet())
+        expectThat(validation.withheld).isEqualTo((shared + ownPoster).toSet())
     }
 
     // a paging loop that re-serves a page, or a gig that appears in a "featured" strip as well as

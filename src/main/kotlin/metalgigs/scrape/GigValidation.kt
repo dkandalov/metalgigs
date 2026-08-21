@@ -16,26 +16,37 @@ import kotlin.math.ceil
 // The keys carry that, and can't fall out of step with the gigs the way a separate set of ids could.
 //
 // A gig is spoken for by the first check to claim it, so the bot walls that are both misshapen and
-// repeated word for word are reported once, as the parsing failure they are. Withholding follows no
-// such rule: whatever any check claims stays out of the log.
+// repeated word for word are reported once, as the parsing failure they are.
+//
+// Withholding follows no such rule, and isn't per gig at all: a venue any check names a gig of
+// loses its whole listing for the run. What a check finds is evidence about the source, not about
+// the one gig it happened to catch - the gigs beside it came off the same selectors and are only
+// ones that fell the right side of a threshold. A problem naming no gigs is the exception, and says
+// so by naming none: an empty listing has nothing to withhold, and text a venue's own page prints
+// wrong is not a reason to drop that venue's gigs.
+//
+// Nothing is logged for a failed venue, so the cooldown reads it as unscraped and comes back within
+// the day, exactly as it does for a source that threw.
 fun validateGigs(
     scraped: Map<VenueId, List<Gig>>,
     previous: List<Gig> = emptyList(),
     checks: List<GigsCheck> = gigsChecks,
 ): GigsValidation {
     val previousByVenue = previous.groupBy { it.id.venueId }
-    val withheld = mutableSetOf<Gig>()
+    val spokenFor = mutableSetOf<Gig>()
+    val failedVenues = mutableSetOf<VenueId>()
     val reports = checks.mapNotNull { check ->
         val problems = scraped.flatMap { (venue, gigs) ->
             check.problems(venue, gigs, previousByVenue[venue].orEmpty())
         }
         // A problem pointing at no gigs can't be one an earlier check already spoke for, and
         // containsAll would say the opposite of an empty set.
-        val worthSaying = problems.filterNot { it.gigs.isNotEmpty() && withheld.containsAll(it.gigs) }
-        withheld += problems.flatMap { it.gigs }
+        val worthSaying = problems.filterNot { it.gigs.isNotEmpty() && spokenFor.containsAll(it.gigs) }
+        spokenFor += problems.flatMap { it.gigs }
+        failedVenues += problems.filter { it.gigs.isNotEmpty() }.map { it.venueId }
         worthSaying.takeIf { it.isNotEmpty() }?.let { GigsReport(check.heading, it) }
     }
-    return GigsValidation(reports, withheld)
+    return GigsValidation(reports, scraped.filterKeys { it in failedVenues }.values.flatten().toSet())
 }
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
@@ -54,9 +65,10 @@ interface GigsCheck {
     fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem>
 }
 
-// Every check answers the same two questions - what is wrong, and which gigs are not to be logged
-// over it - so a whole venue's worth of shared boilerplate and one gig's unparsed title arrive in
-// the same shape, and the caller doesn't have to know which check speaks about which.
+// Every check answers the same two questions - what is wrong, and which gigs it found wrong - so a
+// whole venue's worth of shared boilerplate and one gig's unparsed title arrive in the same shape,
+// and the caller doesn't have to know which check speaks about which. Naming a gig is what costs the
+// venue its listing, so the gigs decide whether the venue failed rather than which of them are kept.
 //
 // The venue is named rather than read off the gigs, because a venue that listed nothing has a
 // problem worth reporting and no gigs to point at.
@@ -179,11 +191,12 @@ internal object DuplicateGigsCheck : GigsCheck {
 internal object UnparsedTextCheck : GigsCheck {
     override val heading = "Gigs whose text was taken unparsed - check what that source reads it from:"
 
-    // A title is published, so one carrying markup is withheld like any other parsing failure. A
-    // description is not - it is what the classifier reads - and the log's only real case is The
-    // Black Heart, whose own event pages print a Bandcamp embed's code as visible text below real
-    // gig copy. Withholding those would cost the site actual metal gigs over a venue's broken embed,
-    // so the venue is told and the gigs are kept.
+    // A title is published, so one carrying markup costs its venue the listing like any other
+    // parsing failure. A description is not - it is what the classifier reads - and the log's only
+    // real case is The Black Heart, whose own event pages print a Bandcamp embed's code as visible
+    // text below real gig copy. Withholding those would cost the site actual metal gigs over a venue's broken embed,
+    // so the venue is named and no gig of it is claimed - the one problem here that leaves a listing
+    // standing, and the reason a check may report without naming a gig at all.
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
         byMarker(scraped) { it.title.value }
             .map { (marker, gigs) -> GigsProblem(venue, "title holds $marker", gigs.toSet()) } +
@@ -324,9 +337,9 @@ internal object SharedDescriptionCheck : GigsCheck {
 // far above this 50% line (0.91-1.00) while a venue with only a recurring disclaimer sat well below
 // it (0.76 for one already-fixed venue whose extraction has nothing left to narrow further)
 //
-// The whole venue is withheld rather than only the gigs measured as contaminated: the fix is to that
-// source's scoping, and until it lands its cleaner-looking gigs are only ones that fell the right
-// side of a threshold.
+// That every check now costs a venue its whole listing was first this one's rule alone: the fix is to
+// that source's scoping, and until it lands the cleaner-looking gigs are only ones that fell the
+// right side of a threshold.
 internal object ContaminationCheck : GigsCheck {
     override val heading = "Venues whose gigs may carry site-wide boilerplate - consider scoping their source's eventPageContent:"
 
