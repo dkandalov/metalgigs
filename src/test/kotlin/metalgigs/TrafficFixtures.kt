@@ -4,6 +4,7 @@ import org.http4k.client.OkHttp
 import org.http4k.core.Filter
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
+import org.http4k.core.NoOp
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import org.http4k.core.then
@@ -52,11 +53,16 @@ private val serveSharedEventPage = Filter { next ->
     }
 }
 
-fun cachedClient(): HttpHandler = TrafficFilters.ServeCachedFrom(cache)
+// followRedirects matches the client scrapeGigs hands the source: on by default, because without
+// it a venue that links its gigs by shortlink (Paper Dress Vintage's ?p= urls) records empty bodies
+// rather than pages - and off for the Dice sources, which read a gig's own url off the redirect, so
+// recording a followed one would store the page it lands on and lose where the gig lives.
+fun cachedClient(followRedirects: Boolean = true): HttpHandler = TrafficFilters.ServeCachedFrom(cache)
     .then(serveSharedEventPage)
     .then(
         if (System.getenv("RECORD_TRAFFIC") == null) noLiveRequests
-        // FollowRedirects to match the client scrapeGigs builds: without it a venue that links its
-        // gigs by shortlink (Paper Dress Vintage's ?p= urls) records empty bodies rather than pages
-        else TrafficFilters.RecordTo(cache).then(redactSecretsFilter).then(ClientFilters.FollowRedirects()).then(OkHttp()),
+        else TrafficFilters.RecordTo(cache)
+            .then(redactSecretsFilter)
+            .then(if (followRedirects) ClientFilters.FollowRedirects() else Filter.NoOp)
+            .then(OkHttp()),
     )

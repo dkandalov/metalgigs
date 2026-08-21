@@ -1,0 +1,14 @@
+HTTP/1.1 308 
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+cdn-cache-control: private, no-store
+cf-cache-status: BYPASS
+cf-ray: a2e8e5123b05bee4-LHR
+date: Fri, 21 Aug 2026 10:18:37 GMT
+location: https://dice.fm/event/rykwbv-live-n-loud-free-karaoke-sundays-sing-wtf-you-want-27th-sep-blondies-london-tickets
+refresh: 0;url=https://dice.fm/event/rykwbv-live-n-loud-free-karaoke-sundays-sing-wtf-you-want-27th-sep-blondies-london-tickets
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains
+x-powered-by: Express
+x-ssr-cache: MISS
+
+https://dice.fm/event/rykwbv-live-n-loud-free-karaoke-sundays-sing-wtf-you-want-27th-sep-blondies-london-tickets

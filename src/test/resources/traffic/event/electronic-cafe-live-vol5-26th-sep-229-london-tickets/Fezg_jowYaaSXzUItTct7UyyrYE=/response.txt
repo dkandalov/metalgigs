@@ -1,0 +1,14 @@
+HTTP/1.1 308 
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+cdn-cache-control: private, no-store
+cf-cache-status: BYPASS
+cf-ray: a2e8e4312f48e839-LHR
+date: Fri, 21 Aug 2026 10:18:01 GMT
+location: https://dice.fm/event/925rqn-electronic-cafe-live-vol5-26th-sep-229-london-tickets
+refresh: 0;url=https://dice.fm/event/925rqn-electronic-cafe-live-vol5-26th-sep-229-london-tickets
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains
+x-powered-by: Express
+x-ssr-cache: MISS
+
+https://dice.fm/event/925rqn-electronic-cafe-live-vol5-26th-sep-229-london-tickets

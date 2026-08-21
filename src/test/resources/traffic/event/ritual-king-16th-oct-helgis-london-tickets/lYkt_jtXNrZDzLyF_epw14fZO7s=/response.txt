@@ -1,0 +1,14 @@
+HTTP/1.1 308 
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+cdn-cache-control: private, no-store
+cf-cache-status: BYPASS
+cf-ray: a2e8e49f88b6ef40-LHR
+date: Fri, 21 Aug 2026 10:18:19 GMT
+location: https://dice.fm/event/6d8poq-ritual-king-16th-oct-helgis-london-tickets
+refresh: 0;url=https://dice.fm/event/6d8poq-ritual-king-16th-oct-helgis-london-tickets
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains
+x-powered-by: Express
+x-ssr-cache: MISS
+
+https://dice.fm/event/6d8poq-ritual-king-16th-oct-helgis-london-tickets

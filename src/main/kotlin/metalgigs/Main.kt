@@ -99,8 +99,12 @@ private fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = fal
 }
 
 private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
-    val client = ClientFilters.FollowRedirects().then(OkHttp())
-    val sourcesByVenueId = allSources(client).associateBy { it.venue.id }
+    // Most sources want a redirect followed - Paper Dress Vintage links its gigs by shortlink - but
+    // the Dice ones read a gig's own url off the redirect itself, so they take the client that hands
+    // one back rather than the one that follows it.
+    val unredirectedClient = OkHttp()
+    val client = ClientFilters.FollowRedirects().then(unredirectedClient)
+    val sourcesByVenueId = allSources(client, unredirectedClient).associateBy { it.venue.id }
 
     val unknownIds = venueIds - sourcesByVenueId.keys
     check(unknownIds.isEmpty()) { "Unknown venue id(s): $unknownIds. Known venue ids: ${sourcesByVenueId.keys}" }
@@ -326,23 +330,23 @@ private fun compactLog() {
     }
 }
 
-private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
+private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): List<GigsSource> = listOf(
     CartAndHorsesGigsSource(client, LocalDate.now().year),
     NewCrossInnGigsSource(client),
     TheBlackHeartGigsSource(client),
     TheUnderworldGigsSource(client),
     DomeLondonGigsSource(client),
     FiddlersElbowGigsSource(client),
-    BlondiesBreweryTaproomGigsSource(client),
-    BlondiesBarGigsSource(client),
-    HelgisGigsSource(client),
+    BlondiesBreweryTaproomGigsSource(unredirectedClient),
+    BlondiesBarGigsSource(unredirectedClient),
+    HelgisGigsSource(unredirectedClient),
     ElectricBallroomGigsSource(client, LocalDate.now().year),
     ElectricBrixtonGigsSource(client),
     DingwallsGigsSource(client),
     TheGarageGigsSource(client),
     RoundhouseGigsSource(client),
-    SignatureBrewBlackhorseRoadGigsSource(client),
-    SignatureBrewHaggerstonGigsSource(client),
+    SignatureBrewBlackhorseRoadGigsSource(unredirectedClient),
+    SignatureBrewHaggerstonGigsSource(unredirectedClient),
     O2ForumKentishTownGigsSource(client),
     O2AcademyBrixtonGigsSource(client),
     TheGraceGigsSource(client),
@@ -350,12 +354,12 @@ private fun allSources(client: HttpHandler): List<GigsSource> = listOf(
     O2ShepherdsBushEmpireGigsSource(client),
     UnionChapelGigsSource(client),
     ScalaGigsSource(client),
-    TwoTwoNineGigsSource(client),
+    TwoTwoNineGigsSource(unredirectedClient),
     AlexandraPalaceGigsSource(client),
     PaperDressVintageGigsSource(client),
     WindmillBrixtonGigsSource(client),
     IslingtonAssemblyHallGigsSource(client, LocalDate.now().year),
-    BarflyGigsSource(client),
+    BarflyGigsSource(unredirectedClient),
     EventimApolloGigsSource(client),
     OvoArenaGigsSource(client),
     IndigoAtTheO2GigsSource(client),
