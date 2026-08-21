@@ -2,6 +2,8 @@ package metalgigs.scrape.venues
 
 import metalgigs.*
 import metalgigs.scrape.*
+import strikt.api.expectThat
+import strikt.assertions.contains
 import kotlin.test.Test
 
 // Every Dice venue reads the same partner API, and each is given a client that hands back the
@@ -77,7 +79,7 @@ class DicePartnerVenueGigsSourceTest {
 
     @Test
     fun `extracts gig events from Blondies Brewery Taproom's listing`() {
-        assertScrapesGigs(
+        val events = assertScrapesGigs(
             source = BlondiesBreweryTaproomGigsSource(cachedClient(followRedirects = false)),
             size = 13,
             first = Gig(
@@ -95,6 +97,10 @@ class DicePartnerVenueGigsSourceTest {
                 GigDescription(""),
             ),
         )
+
+        // a cancelled gig stays on the listing looking like any other - Dice's own event page marks
+        // it with a "Cancelled" button where the ticket one goes, and the API with its status
+        expectThat(events.map { it.title }).contains(GigTitle("BLONDIES 11TH BIRTHDAY PARTY - CANCELLED"))
     }
 
     @Test

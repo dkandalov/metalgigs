@@ -56,7 +56,7 @@ private class DicePartnerVenueGigsSource(
             val gigUrl = gigUrlFor(event.permName)
             Gig(
                 GigId(venue.id, gigUrl),
-                titleFrom(event.name),
+                titleWithCancellation(event),
                 // e.g. "2026-08-18T17:00:00Z" - stamped in UTC however late the gig is, so a door
                 // after midnight in London is a day early until it's read back in the venue's own zone
                 GigDate(Instant.parse(event.date).atZone(ZoneId.of(event.timezone)).toLocalDate()),
@@ -65,6 +65,9 @@ private class DicePartnerVenueGigsSource(
             )
         }
     }
+
+    private fun titleWithCancellation(event: DicePartnerEvent): GigTitle =
+        titleFrom(if (event.status == "cancelled") "${event.name} - CANCELLED" else event.name)
 
     // None of these venues gives a gig a page of its own, so a gig lives at its dice.fm event page -
     // not at the short ticketing link (link.dice.fm/...) this API also carries, which is opaque and
@@ -159,6 +162,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
     private val timezone by str(DicePartnerEvent::timezone)
     private val images by array(DicePartnerEvent::images)
     private val raw_description by str(DicePartnerEvent::rawDescription)
+    private val status by str(DicePartnerEvent::status)
 
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
         name = +name,
@@ -167,6 +171,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
         timezone = +timezone,
         images = +images,
         rawDescription = +raw_description,
+        status = +status,
     )
 }
 
@@ -187,6 +192,7 @@ private data class DicePartnerEvent(
     val timezone: String,
     val images: List<String>,
     val rawDescription: String,
+    val status: String,
 )
 
 private data class DicePartnerLinks(val next: String?)
