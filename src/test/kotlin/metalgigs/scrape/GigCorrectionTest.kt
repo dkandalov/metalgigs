@@ -65,12 +65,50 @@ class GigCorrectionTest {
     // else, which is the closest two different gigs came in the log as of 2026-08-21
     @Test
     fun `leaves a deleted url alone when that night's gigs are other gigs`() {
-        val dropped = gig(GigTitle("Camden Fringe: Kari - a Modern Mythical Tale 28 AUG"), "https://example.com/kari", realText, date = GigDate(2026, 9, 10))
-        val another = gig(GigTitle("Camden Fringe: Getting to Iona 28 AUG"), "https://example.com/iona", realText, date = GigDate(2026, 9, 10))
+        val dropped = gig(GigTitle("Camden Fringe: Kari - a Modern Mythical Tale 28 AUG"), "https://example.com/kari", realText, PosterUrl("https://example.com/kari.jpg"), GigDate(2026, 9, 10))
+        val another = gig(GigTitle("Camden Fringe: Getting to Iona 28 AUG"), "https://example.com/iona", realText, PosterUrl("https://example.com/iona.jpg"), GigDate(2026, 9, 10))
+        val asked = mutableListOf<GigUrl>()
 
-        val replacements = replacementsIn(listOf(another), listOf(dropped), today) { MissingGig.Gone }
+        val replacements = replacementsIn(listOf(another), listOf(dropped), today) {
+            asked += it
+            MissingGig.Gone
+        }
 
         expectThat(replacements).isEqualTo(emptyList())
+        expectThat(asked.toList()).isEqualTo(emptyList())
+    }
+
+    // the request is what says whether a gig moved, so it is spent only where there is an answer to
+    // be had: a gig cancelled outright, with nothing like it listed that night, could not have been
+    // paired whatever its url said - and would be asked again every run, since a run that pairs
+    // nothing records nothing
+    @Test
+    fun `asks nothing about a gig with nothing like it listed that night`() {
+        val cancelled = gig(GigTitle("Primus"), "https://example.com/primus", realText, PosterUrl("https://example.com/primus.jpg"), GigDate(2026, 9, 10))
+        val unrelated = gig(GigTitle("Kawehi"), "https://example.com/kawehi", realText, PosterUrl("https://example.com/kawehi.jpg"), GigDate(2026, 9, 10))
+        val asked = mutableListOf<GigUrl>()
+
+        val replacements = replacementsIn(listOf(unrelated), listOf(cancelled), today) {
+            asked += it
+            MissingGig.MovedTo(unrelated.id.url)
+        }
+
+        expectThat(asked.toList()).isEqualTo(emptyList())
+        expectThat(replacements).isEqualTo(emptyList())
+    }
+
+    // Dice re-uploaded LOLA (AUS)'s picture two days after the first, so a poster alone won't do; a
+    // venue that rewrites more of a title than it keeps, as Cart and Horses did at 0.44, is why the
+    // picture is asked about too
+    @Test
+    fun `asks about a gig that shares only its picture with that night's listing`() {
+        val poster = PosterUrl("https://example.com/lesbian-bed-death.jpeg")
+        val moved = gig(GigTitle("LESBIAN BED DEATH + SUBATOMIC CHILDREN"), "https://example.com/534086-subatomic", realText, poster, GigDate(2026, 9, 10))
+        val relisted = gig(GigTitle("Some Other Billing Entirely"), "https://example.com/534086-better-dead", realText, poster, GigDate(2026, 9, 10))
+
+        val replacements = replacementsIn(listOf(relisted), listOf(moved), today) { MissingGig.Gone }
+
+        expectThat(replacements).isEqualTo(listOf(moved.id to relisted.id))
     }
 
     // Union Chapel's matinee and evening sittings share a picture, a night and most of a title, and

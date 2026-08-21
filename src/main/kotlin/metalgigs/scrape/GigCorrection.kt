@@ -33,9 +33,16 @@ internal sealed interface MissingGig {
 }
 
 // A url the venue redirects is followed to its target and needs nothing else: the site is naming the
-// gig's new home. A url it has deleted names nothing, so a gig on the same night whose title is
-// mostly the same words is what stands in for it - the edits that move a url are small ones, an
-// added support band or a settled festival name.
+// gig's new home. A url it has deleted names nothing, so a gig on the same night that looks like the
+// missing one is what stands in for it - the edits that move a url are small ones, an added support
+// band or a settled festival name.
+//
+// Which is why looking for that gig comes first, before the url is asked about at all. A missing gig
+// with nothing like it listed that night is a gig that could not have been paired whatever its url
+// said, and the request would be spent to learn nothing - daily, because a run that pairs nothing
+// records nothing, so the same gig is missing again tomorrow. Cancelled gigs are the bulk of that,
+// and they now cost no request at all. What it gives up is a redirect's ability to surprise us: a
+// venue that renames a gig past recognition, or moves it to another night, is no longer asked.
 //
 // Similarity alone would not do. Measured over the 1874 upcoming gigs in the log on 2026-08-21, the
 // pairs sharing a venue and a night rank Union Chapel's matinee and evening sittings of one show
@@ -57,17 +64,22 @@ internal fun replacementsIn(
 
     return previous.filter { it.date >= from && it.id !in listed }
         .mapNotNull { missing ->
-            when (val says = missingGigSays(missing.id.url)) {
+            val lookalikes = scraped.filter { it.date == missing.date && it.looksLike(missing) }
+            if (lookalikes.isEmpty()) null
+            else when (val says = missingGigSays(missing.id.url)) {
                 is MissingGig.MovedTo -> byUrl[says.url]
-                MissingGig.Gone -> scraped.filter { it.date == missing.date }
-                    .map { it to titleSimilarity(it, missing) }
-                    .filter { (_, similarity) -> similarity >= LEAST_SIMILAR_TITLE }
-                    .maxByOrNull { (_, similarity) -> similarity }
-                    ?.first
+                MissingGig.Gone -> lookalikes.maxByOrNull { titleSimilarity(it, missing) }
                 MissingGig.Live -> null
             }?.let { replacement -> missing.id to replacement.id }
         }
 }
+
+// Enough to be worth asking about, which is all this decides - a venue that has deleted the page or
+// redirects it is what says the two are one gig. Either arm on its own would miss a move seen today:
+// Signature Brew's LOLA (AUS) came back with a picture Dice re-uploaded two days after the first,
+// and Cart and Horses' relisting swapped enough of the title to score 0.44 while keeping its poster.
+private fun Gig.looksLike(missing: Gig) =
+    titleSimilarity(this, missing) >= LEAST_SIMILAR_TITLE || posterUrl == missing.posterUrl
 
 // A title's words rather than its characters, so the edit that moved the url - a band added, a word
 // dropped - counts once however long it is, and "LOLA (AUS) | London" reads as the same gig as
