@@ -22,6 +22,91 @@ class GigValidationTest {
 
     private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problemsIn(gigs).flatMap { it.gigs }.map { it.id.url }
 
+    // The Black Heart's own event pages print a Bandcamp embed's code as visible text below the gig
+    // copy, so .text() faithfully returns it - verbatim from the log
+    @Test
+    fun `flags a description holding markup the page showed as text`() {
+        val embed = """MORAG TONG DRUIDESS OUTBACK <a href="https://moragtong.bandcamp.com/album/grieve-5">Grieve by Morag Tong</a>"""
+        val gigs = listOf(gig(title = GigTitle("Morag Tong"), url = "https://example.com/a", description = embed))
+
+        expectThat(UnparsedTextCheck.problemsFor(gigs))
+            .isEqualTo(listOf("1 description(s) hold unparsed markup, e.g. https://example.com/a" to emptyList()))
+    }
+
+    // a description is never published - it is what the classifier reads - so a venue's broken embed
+    // is told about rather than costing the site a real metal gig
+    @Test
+    fun `keeps a gig whose description holds markup`() {
+        val gigs = listOf(gig(title = GigTitle("Erdling"), url = "https://example.com/a", description = "<p>Plus support</p>"))
+
+        expectThat(validateGigs(mapOf(someVenue to gigs)).withheld).isEqualTo(emptySet())
+    }
+
+    // a title is published, so markup in one is withheld like any other parsing failure
+    @Test
+    fun `flags and withholds a title holding markup`() {
+        val gigs = listOf(gig(title = GigTitle("<strong>Doom Night</strong>"), url = "https://example.com/a", description = realText))
+
+        expectThat(UnparsedTextCheck.problemsFor(gigs))
+            .isEqualTo(listOf("title holds unparsed markup" to listOf("https://example.com/a")))
+        expectThat(validateGigs(mapOf(someVenue to gigs)).withheld).isEqualTo(gigs.toSet())
+    }
+
+    // both verbatim from Ovo Arena's listing: a tour that brackets its own name is not a tag, and
+    // the naive pattern for one reads both of these as markup
+    @Test
+    fun `leaves a tour that brackets its name in angle brackets alone`() {
+        val gigs = listOf(
+            gig(title = GigTitle("2026-27 TAEMIN WORLD TOUR <LiMiNaL>"), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("ITZY 3RD WORLD TOUR <TUNNEL VISION>"), url = "https://example.com/b", description = realText),
+            gig(title = GigTitle("It's Never Over, Jeff Buckley > Screening"), url = "https://example.com/c", description = realText),
+        )
+
+        expectThat(UnparsedTextCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
+    @Test
+    fun `flags an html entity the page never decoded`() {
+        val gigs = listOf(gig(title = GigTitle("A-Sun Amissa &amp; Lauren Mason"), url = "https://example.com/a", description = realText))
+
+        expectThat(UnparsedTextCheck.problemsFor(gigs))
+            .isEqualTo(listOf("title holds an html entity" to listOf("https://example.com/a")))
+    }
+
+    // 112 titles and 411 descriptions in the log hold a bare ampersand, so only a closed entity counts
+    @Test
+    fun `leaves a bare ampersand alone`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Gurt & Bleeding Antlers"), url = "https://example.com/a", description = "Rock & roll, doors 7pm & support at 8"),
+        )
+
+        expectThat(UnparsedTextCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
+    // the second reads as a UTF-8 misread, the first is the accented title the log really holds -
+    // telling them apart is the whole difficulty, since both look like letters with marks on
+    @Test
+    fun `flags text read in the wrong charset`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Mägick Ritüal"), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("Doom Night"), url = "https://example.com/b", description = "Support from Fanchonâ€™s band, Â£10 on the door"),
+        )
+
+        expectThat(UnparsedTextCheck.problemsFor(gigs))
+            .isEqualTo(listOf("1 description(s) hold mis-decoded characters, e.g. https://example.com/b" to emptyList()))
+    }
+
+    // the accents the log actually holds, correctly decoded, are ordinary letters
+    @Test
+    fun `leaves correctly decoded accents alone`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Parish + Mägick Ritüal"), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("Fat Freddy's Drop"), url = "https://example.com/b", description = "Kamil Bednarek w Londynie, 18-nastka Bednarka"),
+        )
+
+        expectThat(UnparsedTextCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
     // each gig its own url and description, so the day they land on is the only thing about them any
     // check has to say anything about
     private fun gigsOn(date: GigDate, count: Int) = (1..count).map {

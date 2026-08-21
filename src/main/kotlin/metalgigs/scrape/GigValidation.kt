@@ -40,7 +40,7 @@ fun validateGigs(
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
 // for a gig several of them catch.
-private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, DuplicateGigsCheck, CrowdedDayCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
+private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, UnparsedTextCheck, DuplicateGigsCheck, CrowdedDayCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
 
 data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
@@ -163,6 +163,54 @@ internal object DuplicateGigsCheck : GigsCheck {
     private fun detailFor(copies: List<Gig>): String =
         if (copies.distinct().size == 1) "listed ${copies.size} times"
         else "listed ${copies.size} times, and not identically"
+}
+
+// Text that was never parsed, only copied. A source reading .html() where .text() was meant, a JSON
+// field the site never decoded, or bytes read in the wrong charset - each leaves its own mark, and
+// none of them is anything a venue would type.
+//
+// The patterns are drawn against the log as of 2026-08-21 rather than from first principles, because
+// the obvious ones are wrong. Any <word> reads as a tag, but "2026-27 TAEMIN WORLD TOUR <LiMiNaL>"
+// and "ITZY 3RD WORLD TOUR <TUNNEL VISION>" are real Ovo Arena listings bracketing a tour's name
+// that way, so only the names HTML itself uses count as one. Any &word; reads as an entity, but 112
+// titles and 411 descriptions hold a bare ampersand, so the semicolon has to be there. And mojibake
+// is matched as the byte pairs a UTF-8 misread leaves rather than by the characters in them, a lone
+// A-tilde being a letter some band may yet put in its name.
+internal object UnparsedTextCheck : GigsCheck {
+    override val heading = "Gigs whose text was taken unparsed - check what that source reads it from:"
+
+    // A title is published, so one carrying markup is withheld like any other parsing failure. A
+    // description is not - it is what the classifier reads - and the log's only real case is The
+    // Black Heart, whose own event pages print a Bandcamp embed's code as visible text below real
+    // gig copy. Withholding those would cost the site actual metal gigs over a venue's broken embed,
+    // so the venue is told and the gigs are kept.
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
+        byMarker(scraped) { it.title.value }
+            .map { (marker, gigs) -> GigsProblem(venue, "title holds $marker", gigs.toSet()) } +
+            byMarker(scraped) { it.description.value }
+                .map { (marker, gigs) -> GigsProblem(venue, "${gigs.size} description(s) hold $marker, e.g. ${gigs.first().id.url}", emptySet()) }
+
+    private fun byMarker(scraped: List<Gig>, read: (Gig) -> String): Map<String, List<Gig>> =
+        scraped.mapNotNull { gig -> markerIn(read(gig))?.let { gig to it } }
+            .groupBy({ (_, marker) -> marker }, { (gig, _) -> gig })
+
+    private fun markerIn(text: String): String? = when {
+        htmlTag.containsMatchIn(text) -> "unparsed markup"
+        htmlEntity.containsMatchIn(text) -> "an html entity"
+        mojibake.containsMatchIn(text) -> "mis-decoded characters"
+        else -> null
+    }
+
+    // Only the tag names HTML itself uses, each closed off by a word boundary, so a tour bracketed
+    // as <LiMiNaL> isn't read as a list item and <TUNNEL VISION> isn't read as a table row.
+    private val htmlTag =
+        Regex("""</?(?:a|p|br|div|span|img|li|ul|ol|em|strong|b|i|h[1-6]|iframe|script|table|tr|td|figure|blockquote)\b[^<>]*>""", RegexOption.IGNORE_CASE)
+
+    private val htmlEntity = Regex("""&(?:[a-zA-Z][a-zA-Z0-9]{1,31}|#\d{1,7}|#[xX][0-9a-fA-F]{1,6});""")
+
+    // What UTF-8 read as Latin-1 leaves behind: a lead byte standing alone in front of a continuation
+    // byte, and the E2 80 pair behind every curled quote and dash.
+    private val mojibake = Regex("[ÃÂ][-¿]|â€.")
 }
 
 // A date parse that has drifted doesn't fail - it returns a date, and the same wrong one for every
