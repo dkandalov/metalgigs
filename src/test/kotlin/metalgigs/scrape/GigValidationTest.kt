@@ -22,6 +22,59 @@ class GigValidationTest {
 
     private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problemsIn(gigs).flatMap { it.gigs }.map { it.id.url }
 
+    // a paging loop that re-serves a page, or a gig that appears in a "featured" strip as well as
+    // the run of them - the log would take both copies and every projection quietly keep one
+    @Test
+    fun `flags a gig its source listed more than once`() {
+        val listedTwice = gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText)
+        val gigs = listOf(
+            listedTwice,
+            listedTwice,
+            gig(title = GigTitle("Kawehi"), url = "https://example.com/b", description = realText),
+        )
+
+        expectThat(DuplicateGigsCheck.problemsFor(gigs))
+            .isEqualTo(listOf("listed 2 times" to listOf("https://example.com/a")))
+    }
+
+    // the worse of the two, and the reason the count alone won't do: the source built two different
+    // gigs from one url, so which one the log keeps is decided by which was scraped last
+    @Test
+    fun `says so when the copies its source listed are not the same gig`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("Primus - SOLD OUT"), url = "https://example.com/a", description = realText),
+        )
+
+        expectThat(DuplicateGigsCheck.problemsFor(gigs).map { it.first })
+            .isEqualTo(listOf("listed 2 times, and not identically"))
+    }
+
+    // two gigs at one venue are two gigs, however alike a venue's own booking makes them look - only
+    // the url they are identified by says they are the same one twice
+    @Test
+    fun `leaves a listing whose gigs each appear once alone`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("Primus"), url = "https://example.com/b", description = realText),
+        )
+
+        expectThat(DuplicateGigsCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
+    @Test
+    fun `withholds every copy of a gig its source listed more than once`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText),
+            gig(title = GigTitle("Primus - SOLD OUT"), url = "https://example.com/a", description = realText),
+        )
+
+        val validation = validateGigs(mapOf(someVenue to gigs))
+
+        expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(DuplicateGigsCheck.heading))
+        expectThat(validation.withheld).isEqualTo(gigs.toSet())
+    }
+
     // what a selector that has stopped matching leaves behind - Jsoup's text() returns "" rather
     // than failing, so nothing else in the pipeline would notice
     @Test

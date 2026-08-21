@@ -39,7 +39,7 @@ fun validateGigs(
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
 // for a gig several of them catch.
-private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, SharedDescriptionCheck, ContaminationCheck)
+private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, DuplicateGigsCheck, SharedDescriptionCheck, ContaminationCheck)
 
 data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
@@ -140,6 +140,28 @@ internal object MisshapenGigsCheck : GigsCheck {
 
     private fun readsAsBoilerplate(description: String) =
         description.startsWith("{") || boilerplatePhrases.any { it.containsMatchIn(description) }
+}
+
+// Nothing downstream would notice a source listing one gig more than once. The log takes every copy
+// as its own observation, and each projection groups by id and keeps the newest, so a paging loop
+// that re-serves a page - or a listing whose gig appears in a "featured" strip as well as the run of
+// them - reads only as a venue with more gigs than it has.
+//
+// Told apart by whether the copies agree, because they are different bugs. Copies that match are one
+// listing read twice, and the gig itself is fine. Copies that differ mean the source built two
+// different gigs from one url, and which of them the log ends up holding is decided by nothing
+// better than which was scraped last.
+internal object DuplicateGigsCheck : GigsCheck {
+    override val heading = "Gigs their source listed more than once - check that source's listing selector and paging:"
+
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
+        scraped.groupBy { it.id }
+            .filterValues { it.size > 1 }
+            .map { (_, copies) -> GigsProblem(venue, detailFor(copies), copies.toSet()) }
+
+    private fun detailFor(copies: List<Gig>): String =
+        if (copies.distinct().size == 1) "listed ${copies.size} times"
+        else "listed ${copies.size} times, and not identically"
 }
 
 // A description repeated word for word can only tell one of two stories, and the titles say which.
