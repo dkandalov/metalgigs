@@ -3,6 +3,7 @@ package metalgigs.scrape
 import metalgigs.Gig
 import metalgigs.GigDescription
 import metalgigs.GigTitle
+import metalgigs.PosterUrl
 import metalgigs.VenueId
 import kotlin.math.ceil
 
@@ -39,7 +40,7 @@ fun validateGigs(
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
 // for a gig several of them catch.
-private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, DuplicateGigsCheck, SharedDescriptionCheck, ContaminationCheck)
+private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, DuplicateGigsCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
 
 data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
@@ -162,6 +163,39 @@ internal object DuplicateGigsCheck : GigsCheck {
     private fun detailFor(copies: List<Gig>): String =
         if (copies.distinct().size == 1) "listed ${copies.size} times"
         else "listed ${copies.size} times, and not identically"
+}
+
+// A poster selector that has stopped matching doesn't fail - it matches something else, and the
+// something else is the same for every card on the page: the venue's logo, its Facebook banner, a
+// ticketing network's placeholder. Every gig is then published under one picture, which no other
+// check would notice, all of them reading the gigs' text rather than what is shown with it.
+//
+// Measured over the log as of 2026-08-21, across scraped venues alone - a poster-only venue's gigs
+// all carry the one image its poster was read from, by design, and never reach a check. The largest
+// group of gigs genuinely sharing a poster is 7, Blondies' weekly Free Karaoke Sundays, then two of
+// 5 (a four-night Mission run at the Forum, a recurring comedy night at Signature Brew) and three of
+// 4. A broken selector doesn't land near those: it takes the whole listing, which is 20 to 122 gigs
+// at every venue here.
+//
+// Deliberately above Live Nation's own defualt-event-image-amg.jpg, which stands in for 3 gigs at
+// O2 Academy Islington. That is the same picture doing the same job, and no count tells it from a
+// residency - a venue whose artwork is late is not a source that has broken, which is what this is
+// for.
+internal object SharedPosterCheck : GigsCheck {
+    override val heading = "Venues whose gigs are published under one picture - check that source's poster selector:"
+
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
+        scraped.groupBy { it.posterUrl }
+            .filterValues { it.size > MAX_GIGS_SHARING_A_POSTER }
+            .map { (poster, sharing) -> GigsProblem(venue, "${sharing.size} gig(s) share ${fileName(poster)}", sharing.toSet()) }
+
+    // A weekly night is what sets this, not the bug: it grows with how far ahead a venue lists, so 20
+    // is about five months of one. A venue listing a year of the same Sunday would be reported.
+    private const val MAX_GIGS_SHARING_A_POSTER = 20
+
+    // The file name is what tells a placeholder from real artwork at a glance, where the url it sits
+    // in is mostly host and imgix parameters.
+    private fun fileName(poster: PosterUrl) = poster.value.substringBefore('?').substringAfterLast('/')
 }
 
 // A description repeated word for word can only tell one of two stories, and the titles say which.

@@ -9,8 +9,8 @@ class GigValidationTest {
 
     private val someVenue = VenueId("Some Venue")
 
-    private fun gig(title: GigTitle, url: String, description: String) =
-        Gig(GigId(someVenue, url), title = title, GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(description))
+    private fun gig(title: GigTitle, url: String, description: String, poster: PosterUrl = PosterUrl("https://example.com/poster.jpg")) =
+        Gig(GigId(someVenue, url), title = title, GigDate(2026, 8, 8), poster, GigDescription(description))
 
     private val realText = "Doom night with support from three bands, doors 7pm."
 
@@ -21,6 +21,50 @@ class GigValidationTest {
         problemsIn(gigs).map { problem -> problem.detail to problem.gigs.map { it.id.url } }
 
     private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problemsIn(gigs).flatMap { it.gigs }.map { it.id.url }
+
+    private fun gigsSharing(poster: PosterUrl, count: Int, from: Int = 1) = (from until from + count).map {
+        gig(title = GigTitle("Gig $it"), url = "https://example.com/$it", description = "Gig $it", poster = poster)
+    }
+
+    // a poster selector that has stopped matching takes the whole listing with it, and every other
+    // check reads the gigs' text rather than what is shown beside it
+    @Test
+    fun `flags a venue whose gigs are nearly all published under one picture`() {
+        val logo = PosterUrl("https://example.com/assets/venue-logo.png?w=400")
+
+        expectThat(SharedPosterCheck.problemsFor(gigsSharing(logo, 21)).map { it.first })
+            .isEqualTo(listOf("21 gig(s) share venue-logo.png"))
+    }
+
+    // a weekly night reuses one poster for every date it runs, which is the shape that sets the
+    // threshold rather than the bug it looks for
+    @Test
+    fun `leaves a residency sharing its poster right up to the threshold alone`() {
+        val residency = PosterUrl("https://example.com/karaoke-sundays.jpg")
+
+        expectThat(SharedPosterCheck.problemsIn(gigsSharing(residency, 20))).isEqualTo(emptyList())
+    }
+
+    // two residencies at one venue are two pictures, and neither says anything about the other
+    @Test
+    fun `counts each poster on its own rather than every gig that shares any`() {
+        val gigs = gigsSharing(PosterUrl("https://example.com/a.jpg"), 15) +
+            gigsSharing(PosterUrl("https://example.com/b.jpg"), 15, from = 16)
+
+        expectThat(SharedPosterCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
+    @Test
+    fun `withholds only the gigs published under the shared picture`() {
+        val logo = PosterUrl("https://example.com/venue-logo.png")
+        val shared = gigsSharing(logo, 21)
+        val ownPoster = gig(title = GigTitle("Primus"), url = "https://example.com/own", description = "Primus", poster = PosterUrl("https://example.com/primus.jpg"))
+
+        val validation = validateGigs(mapOf(someVenue to shared + ownPoster))
+
+        expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(SharedPosterCheck.heading))
+        expectThat(validation.withheld).isEqualTo(shared.toSet())
+    }
 
     // a paging loop that re-serves a page, or a gig that appears in a "featured" strip as well as
     // the run of them - the log would take both copies and every projection quietly keep one
