@@ -9,8 +9,8 @@ class GigValidationTest {
 
     private val someVenue = VenueId("Some Venue")
 
-    private fun gig(title: GigTitle, url: String, description: String, poster: PosterUrl = PosterUrl("https://example.com/poster.jpg")) =
-        Gig(GigId(someVenue, url), title = title, GigDate(2026, 8, 8), poster, GigDescription(description))
+    private fun gig(title: GigTitle, url: String, description: String, poster: PosterUrl = PosterUrl("https://example.com/poster.jpg"), date: GigDate = GigDate(2026, 8, 8)) =
+        Gig(GigId(someVenue, url), title = title, date, poster, GigDescription(description))
 
     private val realText = "Doom night with support from three bands, doors 7pm."
 
@@ -22,8 +22,56 @@ class GigValidationTest {
 
     private fun GigsCheck.gigsFlaggedIn(gigs: List<Gig>) = problemsIn(gigs).flatMap { it.gigs }.map { it.id.url }
 
+    // each gig its own url and description, so the day they land on is the only thing about them any
+    // check has to say anything about
+    private fun gigsOn(date: GigDate, count: Int) = (1..count).map {
+        Gig(
+            GigId(someVenue, "https://example.com/$date/$it"),
+            GigTitle("Gig $it"),
+            date,
+            PosterUrl("https://example.com/poster.jpg"),
+            GigDescription("Gig $it"),
+        )
+    }
+
+    // a date parse that has drifted returns the same wrong date for every gig it reads, so a whole
+    // listing lands on one day with nothing wrong about any gig of it
+    @Test
+    fun `flags a venue showing more gigs on one day than it could`() {
+        expectThat(CrowdedDayCheck.problemsFor(gigsOn(GigDate(2026, 9, 12), 6)).map { it.first })
+            .isEqualTo(listOf("6 gig(s) on 2026-09-12"))
+    }
+
+    // Roundhouse's Centre 59 Theatre Week ran four in a day, the most any venue in the log has, so
+    // five is a venue having a busier evening than any of them yet rather than a source gone wrong
+    @Test
+    fun `leaves a venue's busiest real day alone`() {
+        expectThat(CrowdedDayCheck.problemsIn(gigsOn(GigDate(2026, 9, 12), 5))).isEqualTo(emptyList())
+    }
+
+    @Test
+    fun `counts each day on its own rather than the whole listing`() {
+        val gigs = gigsOn(GigDate(2026, 9, 12), 5) + gigsOn(GigDate(2026, 9, 13), 5)
+
+        expectThat(CrowdedDayCheck.problemsIn(gigs)).isEqualTo(emptyList())
+    }
+
+    // the rest of the listing is dated by the same parse, but only the day it piled up on says so -
+    // the gigs either side of it are as good as any other venue's
+    @Test
+    fun `withholds the crowded day alone, not the listing around it`() {
+        val crowded = gigsOn(GigDate(2026, 9, 12), 6)
+        val theNextDay = gigsOn(GigDate(2026, 9, 13), 1)
+
+        val validation = validateGigs(mapOf(someVenue to crowded + theNextDay))
+
+        expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(CrowdedDayCheck.heading))
+        expectThat(validation.withheld).isEqualTo(crowded.toSet())
+    }
+
+    // a day apart each, so a venue sharing one picture is the only thing odd about them
     private fun gigsSharing(poster: PosterUrl, count: Int, from: Int = 1) = (from until from + count).map {
-        gig(title = GigTitle("Gig $it"), url = "https://example.com/$it", description = "Gig $it", poster = poster)
+        gig(title = GigTitle("Gig $it"), url = "https://example.com/$it", description = "Gig $it", poster = poster, date = GigDate(2026, 8, it))
     }
 
     // a poster selector that has stopped matching takes the whole listing with it, and every other

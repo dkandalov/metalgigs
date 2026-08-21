@@ -40,7 +40,7 @@ fun validateGigs(
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
 // for a gig several of them catch.
-private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, DuplicateGigsCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
+private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, DuplicateGigsCheck, CrowdedDayCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
 
 data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
@@ -163,6 +163,33 @@ internal object DuplicateGigsCheck : GigsCheck {
     private fun detailFor(copies: List<Gig>): String =
         if (copies.distinct().size == 1) "listed ${copies.size} times"
         else "listed ${copies.size} times, and not identically"
+}
+
+// A date parse that has drifted doesn't fail - it returns a date, and the same wrong one for every
+// gig it reads, so a listing lands entire on a single day. Nothing about any one of those gigs is
+// wrong to look at: only how many of them a venue is showing at once.
+//
+// Measured over the log as of 2026-08-21, across 1850 venue-days: a venue lists one gig on a day at
+// the median, two at the 99th percentile, and four at the most - Roundhouse's Centre 59 Theatre
+// Week, then an Alexandra Palace expo day and two of Union Chapel's Camden Fringe. Unlike a day's
+// gigs across the whole city, that ceiling holds still. It is what one venue can physically run in
+// an evening, so adding sources doesn't raise it and a listing thinning out further ahead doesn't
+// lower it, which is what makes it worth setting a number against.
+//
+// Five leaves a gig's room above the busiest day ever listed, and a collapsed listing lands nowhere
+// near it - the smallest listing in the log is 10 gigs and the largest 122, so every venue here
+// would be caught by it. A venue that grows into a sixth event in one evening is reported rather
+// than a bug, which is the trade for headroom that narrow.
+internal object CrowdedDayCheck : GigsCheck {
+    override val heading = "Venues showing more gigs on one day than they could - check what that source has read of its dates:"
+
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
+        scraped.groupBy { it.date }
+            .filterValues { it.size > MAX_GIGS_A_VENUE_SHOWS_IN_A_DAY }
+            .entries.sortedBy { it.key }
+            .map { (date, onDay) -> GigsProblem(venue, "${onDay.size} gig(s) on $date", onDay.toSet()) }
+
+    private const val MAX_GIGS_A_VENUE_SHOWS_IN_A_DAY = 5
 }
 
 // A poster selector that has stopped matching doesn't fail - it matches something else, and the
