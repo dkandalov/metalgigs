@@ -13,11 +13,21 @@ The default is no comment: prose rots while the code keeps working. One earns it
 true - verified against the code - and not derivable from the declaration, the adjacent code, or a
 well-known pattern. Delete a weak one rather than rewording it, and touch only those you are editing.
 
-Cut on sight: change history, renames, rejected alternatives, restatements of the declaration, which
-caller populates a field, explanations of familiar patterns. Keep what reading the code cannot
-recover: site behaviour, measurements, library traps (Ovo Arena's `"ImageURL": false`, which Kondor
-would fail the whole month's parse over), distinctions between similar things (`logicalDate` versus
-`recordedAt`). Wording: sentence capitalisation ending in a full stop, an identifier keeping its case.
+Cut on sight: change history, renames, rejected alternatives (which move to an ADR rather than being
+lost - below), restatements of the declaration, which caller populates a field, explanations of
+familiar patterns. Keep what reading the code cannot recover: site behaviour, measurements, library
+traps (Ovo Arena's `"ImageURL": false`, which Kondor would fail the whole month's parse over),
+distinctions between similar things (`logicalDate` versus `recordedAt`). Wording: sentence
+capitalisation ending in a full stop, an identifier keeping its case.
+
+Over three lines, or the same reasoning at a second site, and it is a decision being explained rather
+than a fact recorded - write `docs/adr/`. ADR-1 was five such comments across three files, a piece of
+one decision each, none able to hold what the list above cuts. What stands at each is a label naming
+the question, seven words before the path, on the declaration the decision is about: `class GigsLog`
+carries `// Why every state is a projection: docs/adr/0001-the-log-is-append-only.md`, where the prose
+had grown on `compact` and `seq`. Length alone isn't the smell - `MAX_TITLE_LENGTH`'s measured bounds
+record something nobody decided, and have no ADR to go in. Nothing checks the path, so grep `docs/adr/`
+before renaming one.
 
 ## A parameter a function takes only for its error message
 
