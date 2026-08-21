@@ -30,7 +30,6 @@ class WindmillBrixtonGigsSourceTest {
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&v=2"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.windmillbrixton.co.uk/events/",
         )
 
         // 24 on the first page, 3 on the second - the last page still carries a "Next" link, so a

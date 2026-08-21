@@ -29,7 +29,6 @@ class ScalaGigsSourceTest {
                 PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/05/Scala-poster-Prf2_page-0001-1-e1779370004481.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://scala.co.uk/events/",
         )
 
         // 36 on the first page, 19 on the second - a size assertion alone wouldn't catch double

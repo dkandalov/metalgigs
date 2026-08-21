@@ -29,7 +29,6 @@ class UnionChapelGigsSourceTest {
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/Fairport%20Convention%2060th%20logo.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://unionchapel.org.uk/whats-on/",
         )
 
         // the whole listing comes back on one page, with a poster on every card. Document order is

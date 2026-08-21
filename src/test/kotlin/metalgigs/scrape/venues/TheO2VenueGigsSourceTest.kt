@@ -28,7 +28,6 @@ class TheO2VenueGigsSourceTest {
                 PosterUrl("https://www.theo2.co.uk/assets/img/Steve-Steinmans-Fuel-Injected-Magic-50th-square-Post3er-jpg-48832cc6ba.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.theo2.co.uk/events/detail/",
         )
 
         // the venue's own page renders 24 and says nothing about the rest, so a size well past that
@@ -56,7 +55,6 @@ class TheO2VenueGigsSourceTest {
                 PosterUrl("https://www.theo2.co.uk/assets/img/DD_1080-x-1080-Press-shot-32a180fd24.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.theo2.co.uk/events/detail/",
         )
 
         expectThat(events.map { it.id.url }.distinct()).hasSize(86)

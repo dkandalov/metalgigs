@@ -32,7 +32,6 @@ class CartAndHorsesGigsSourceTest {
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.cartandhorses.london/",
         )
 
         expectThat(events.take(3).map { it.date })

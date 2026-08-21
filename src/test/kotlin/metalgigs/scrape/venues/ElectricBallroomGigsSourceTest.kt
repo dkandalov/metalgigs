@@ -27,7 +27,6 @@ class ElectricBallroomGigsSourceTest {
                 PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/06/Indiepalooza-2027.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://electricballroom.co.uk/",
         )
     }
 

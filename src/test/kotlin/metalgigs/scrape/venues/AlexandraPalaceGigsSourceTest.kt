@@ -34,7 +34,6 @@ class AlexandraPalaceGigsSourceTest {
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/07/Kaleidescope-11.07.26-www.harbinson.uk-7159-2048x1366.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.alexandrapalace.com/whats-on/",
         )
     }
 
@@ -44,7 +43,7 @@ class AlexandraPalaceGigsSourceTest {
             <div class="event_card_wrapper">
                 <div class="event_img proportional_container"><img src="https://example.com/poster.jpg"></div>
                 <header><p class="dates uc"><strong>$dates</strong></p>
-                <a href="https://example.com/gig" class="event_target"><h3>Gig</h3></a></header>
+                <a href="https://www.alexandrapalace.com/whats-on/gig" class="event_target"><h3>Gig</h3></a></header>
             </div>
             <!-- the same body answers the event-page request, which now has to yield a description -->
             <div class="ap_text_block">An evening of something.</div>

@@ -10,7 +10,6 @@ val roundhouse = Venue(VenueId("roundhouse"), "Roundhouse")
 
 class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = roundhouse
-
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".event-card")
@@ -18,7 +17,7 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                 val link = item.select(".event-card__link")
                 val (day, monthName, year) = datePattern.find(item.select(".event-card__date").text())!!.destructured
 
-                val gigUrl = link.attr("abs:href")
+                val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://www.roundhouse.org.uk/whats-on/")
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".event-card__title").text()),

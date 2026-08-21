@@ -14,8 +14,6 @@ import org.http4k.client.OkHttp
 import org.http4k.connect.model.Base64Blob
 import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
 import org.http4k.core.then
 import org.http4k.filter.ClientFilters
 import org.http4k.template.HandlebarsTemplates
@@ -431,9 +429,6 @@ private fun printBreakdown(label: String, gigs: List<Gig>, statusByGig: Map<GigI
     println("  Other:   $other")
     println("  Pending: ${gigs.size - metal - other}")
 }
-
-fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, String>> = emptyList()): String =
-    client(headers.fold(Request(GET, url)) { request, (name, value) -> request.header(name, value) }).bodyString()
 
 fun fetchPosterForClassifying(client: HttpHandler, imageUrl: PosterUrl): Content.Image {
     val resized = File.createTempFile("classify-poster", ".webp")

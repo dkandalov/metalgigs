@@ -35,7 +35,15 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
             // stable between gigs, so the same gig would otherwise keep changing identity. Everything
             // after "?" is dropped, leaving the ticket platform's own event id, which is stable and
             // still a working link
-            val gigUrl = event.tickets.first().ticketUrl.substringBefore('?')
+            // Ticketmaster serves the same event under either scheme - the log holds two gigs at
+            // http:// among hundreds at https:// - and Gigantic stands in where Ticketmaster has no
+            // listing for a show.
+            val gigUrl = gigUrlFrom(
+                event.tickets.first().ticketUrl.substringBefore('?'),
+                "https://www.ticketmaster.co.uk/",
+                "http://www.ticketmaster.co.uk/",
+                "https://www.gigantic.com/",
+            )
             Gig(
                 GigId(venue.id, gigUrl),
                 titleFrom(event.name),

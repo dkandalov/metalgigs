@@ -10,7 +10,6 @@ val windmillBrixton = Venue(VenueId("windmill-brixton"), "Windmill Brixton")
 
 class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = windmillBrixton
-
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
@@ -20,7 +19,7 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
             val page = Jsoup.parse(fetchPage(client, pageUrl), pageUrl)
             pagesFetched++
             gigs += page.select("a.EventLink").map { item ->
-                val gigUrl = item.attr("abs:href")
+                val gigUrl = gigUrlFrom(item.attr("abs:href"), "https://www.windmillbrixton.co.uk/events/")
 
                 Gig(
                     GigId(venue.id, gigUrl),

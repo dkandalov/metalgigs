@@ -28,7 +28,6 @@ class TheUnderworldGigsSourceTest {
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-02-10/cf613856-3e58-41a8-b0f0-af044c77c97b.jpg?rect=228%2C0%2C2045%2C2045"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.theunderworldcamden.co.uk/event/",
         )
 
         // the listing asks imgix for w=200 thumbnails; keeping that would publish 200px images for

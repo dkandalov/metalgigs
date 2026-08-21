@@ -11,13 +11,12 @@ val alexandraPalace = Venue(VenueId("alexandra-palace"), "Alexandra Palace")
 
 class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = alexandraPalace
-
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
             .select(".event_card_wrapper")
             .map { item ->
                 val link = item.select(".event_target")
-                val gigUrl = link.attr("abs:href")
+                val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://www.alexandrapalace.com/whats-on/")
 
                 Gig(
                     GigId(venue.id, gigUrl),

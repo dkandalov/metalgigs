@@ -36,7 +36,6 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/t/a/f/03bb4ec9-ed69-4d30-b4d4-1e516b000455.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.ticketmaster.co.uk/event/",
         )
 
         expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(3)
@@ -61,9 +60,6 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/i/l/u/977ca756-1a25-4148-b46a-e2667effd53f.jpg"),
                 GigDescription(""),
             ),
-            // unlike every other venue so far, these gigs don't share one url prefix: most sell via
-            // ticketmaster but a few link elsewhere entirely, and a couple are http rather than https
-            urlPrefix = "http",
         )
 
         expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(1)
@@ -90,7 +86,6 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/m/a/b/e51bb674-c586-4164-9477-c725574f74ca.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.ticketmaster.co.uk/event/",
         )
 
         expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(4)
@@ -115,9 +110,6 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/e/o/k/21247638-dba8-45ed-9a31-5943a3bf78a6.png"),
                 GigDescription(""),
             ),
-            // not the usual "/event/<id>" for every gig here - one is a slug-style ticketmaster
-            // link instead, so only the host is common to them all
-            urlPrefix = "https://www.ticketmaster.co.uk/",
         )
 
         expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(2)

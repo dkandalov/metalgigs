@@ -37,7 +37,6 @@ class DhpVenueGigsSourceTest {
                 PosterUrl("https://www.thegarage.london/wp-content/uploads/2026/08/ST-LUNDI-LONDON-SPECIFIC-819x1024.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.thegarage.london/gigs/",
         )
     }
 
@@ -60,7 +59,6 @@ class DhpVenueGigsSourceTest {
                 PosterUrl("https://www.thegrace.london/wp-content/uploads/2026/06/Nontaines-Sep-26-Grace-Square-1-1024x1024.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.thegrace.london/gigs/",
         )
     }
 

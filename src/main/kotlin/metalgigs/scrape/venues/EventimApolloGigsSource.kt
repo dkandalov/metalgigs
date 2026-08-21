@@ -11,14 +11,13 @@ val eventimApollo = Venue(VenueId("eventim-apollo"), "Eventim Apollo")
 
 class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = eventimApollo
-
     // The listing carries every month it knows about in one page - the month bar above the cards
     // filters what's already there rather than navigating - so there's nothing to paginate through.
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".search-item")
             .map { item ->
-                val gigUrl = item.select("a.cover-link").attr("abs:href")
+                val gigUrl = gigUrlFrom(item.select("a.cover-link").attr("abs:href"), "https://www.eventimapollo.com/events/")
                 Gig(
                     GigId(venue.id, gigUrl),
                     titleFrom(item.select(".card__title").text()),

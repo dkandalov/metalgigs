@@ -30,7 +30,6 @@ class OvoArenaGigsSourceTest {
                 PosterUrl("https://www.ovoarena.co.uk/assets/img/Tash_2027_-1440x810-1ccd5e6573.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.ovoarena.co.uk/events/detail/",
         )
 
         expectThat(events.map { it.id.url }.distinct()).hasSize(40)

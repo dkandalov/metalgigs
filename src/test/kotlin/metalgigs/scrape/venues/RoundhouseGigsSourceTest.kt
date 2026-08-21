@@ -28,7 +28,6 @@ class RoundhouseGigsSourceTest {
                 PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/06/Roger_Taylor_London_1260x1280.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.roundhouse.org.uk/whats-on/",
         )
     }
 

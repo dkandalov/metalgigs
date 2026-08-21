@@ -98,7 +98,6 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1781025655512-MHR6PMWPOOE3TJFOSWAB/Necropolis_2027_IG_Feed_Poster_2nd_announcement%2B%25281%2529.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.ourblackheart.com/events/",
         )
     }
 
@@ -121,7 +120,6 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1771509016965-K3W9K2G4J853EZ97RETL/Draconian+done-56+%28low+res%29.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.domelondon.co.uk/whatson/",
         )
     }
 

@@ -11,7 +11,6 @@ val electricBallroom = Venue(VenueId("electric-ballroom"), "Electric Ballroom")
 
 class ElectricBallroomGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     override val venue = electricBallroom
-
     override fun latestGigs(): List<Gig> {
         var currentYear = year
         var previousMonth: Month? = null
@@ -24,7 +23,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
                 if (previousMonth != null && month < previousMonth) currentYear++
                 previousMonth = month
 
-                val gigUrl = item.select(".event-name a").attr("abs:href")
+                val gigUrl = gigUrlFrom(item.select(".event-name a").attr("abs:href"), "https://electricballroom.co.uk/")
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".event-name a").text()),

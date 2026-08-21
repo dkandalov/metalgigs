@@ -2,6 +2,8 @@ package metalgigs.scrape
 
 import metalgigs.*
 import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -12,6 +14,15 @@ import java.util.Locale
 interface GigsSource {
     val venue: Venue
     fun latestGigs(): List<Gig>
+}
+
+// A page that doesn't open is told apart from one whose markup has changed. Without this a 404's own
+// body is parsed like any other, matches nothing, and surfaces as "the venue's selectors may no
+// longer match it" - which sends whoever reads it looking at selectors that are fine.
+internal fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, String>> = emptyList()): String {
+    val response = client(headers.fold(Request(GET, url)) { request, (name, value) -> request.header(name, value) })
+    check(response.status.successful) { "Failed to fetch $url: ${response.status}" }
+    return response.bodyString()
 }
 
 // Fails rather than standing in a blank, so no Gig is ever built holding a description its page
@@ -47,6 +58,22 @@ internal fun titleFrom(text: String): GigTitle =
 // Jsoup returns an empty selection rather than null when nothing matches, and an empty selection's
 // text is "", which would pass for an event page that says nothing about its gig.
 internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
+
+// A listing selector that has widened doesn't come back empty, it comes back with the nav, the
+// footer, the "more events" rail - and those links go where this venue's gigs never do. It is the
+// one part of a stray link that can't look right: a title, a date and a poster taken off a footer
+// are all plausible strings, but a url is a fact about where the thing lives.
+//
+// Checked by each source as it builds the url, rather than declared to anything, so the answer sits
+// beside the selector it guards and fails the venue's scrape the way an unreadable event page
+// already does. Several sources honestly span more than one prefix - the AMG venues link to
+// Ticketmaster under either scheme and fall back to Gigantic.
+internal fun gigUrlFrom(url: String, vararg under: String): String {
+    check(under.any { url.startsWith(it) }) {
+        "Gig url $url isn't under ${under.joinToString(" or ")} - the listing selector is matching more than this venue's gigs"
+    }
+    return url
+}
 
 // An unmatched selector and an empty API field both arrive as "" rather than as a failure, and
 // PosterUrl's own message has no gig to name when it rejects one.

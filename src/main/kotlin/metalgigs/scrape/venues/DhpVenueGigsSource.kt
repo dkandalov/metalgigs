@@ -18,6 +18,10 @@ internal class DhpVenueGigsSource(
     override val venue: Venue,
     private val venueImage: PosterUrl? = null,
 ) : GigsSource {
+    // DHP puts every venue gig under /gigs/ whatever the listing itself is called: The Garage lists
+    // at /live/ and The Grace at /whats-on/, and both link their gigs to /gigs/.
+    private val gigsPath = url.split("/").take(3).joinToString("/") + "/gigs/"
+
     override fun latestGigs(): List<Gig> {
         val listing = Jsoup.parse(fetchPage(client, url), url)
 
@@ -28,7 +32,10 @@ internal class DhpVenueGigsSource(
                 val heading = item.select(".card__heading")
                 // a sold-out gig's heading isn't a link at all - its only link is the "Gig Sold Out"
                 // notification, which points at the same gig page
-                val gigUrl = heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") }
+                val gigUrl = gigUrlFrom(
+                    heading.attr("abs:href").ifBlank { item.select(".card__notification a").attr("abs:href") },
+                    gigsPath,
+                )
                 val eventPage = Jsoup.parse(fetchPage(client, gigUrl), gigUrl)
 
                 Gig(

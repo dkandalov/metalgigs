@@ -29,7 +29,6 @@ class EventimApolloGigsSourceTest {
                 PosterUrl("https://aeg-media-assets.b-cdn.net/eventim/images/IL-VOLO-1080x1080-copy-1.jpg?width=768&height=768&focus_crop=1080,1080,0.5,0.5"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.eventimapollo.com/events/",
         )
 
         // the whole listing arrives in one page, so a size assertion is the only thing standing

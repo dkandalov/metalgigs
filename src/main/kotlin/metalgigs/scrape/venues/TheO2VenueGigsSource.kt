@@ -22,7 +22,7 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
 
             gigs += items.map { item ->
                 val link = item.select("h3.title a")
-                val gigUrl = link.attr("abs:href")
+                val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://www.theo2.co.uk/events/detail/")
 
                 Gig(
                     GigId(venue.id, gigUrl),

@@ -9,7 +9,7 @@ import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 
-internal fun assertScrapesGigs(source: GigsSource, size: Int, first: Gig, last: Gig, urlPrefix: String): List<Gig> {
+internal fun assertScrapesGigs(source: GigsSource, size: Int, first: Gig, last: Gig): List<Gig> {
     val events = source.latestGigs()
     events.forEach { println(it) }
 
@@ -18,7 +18,6 @@ internal fun assertScrapesGigs(source: GigsSource, size: Int, first: Gig, last: 
     // than carrying thousands of characters each - what's extracted from a page has its own tests
     expectThat(events.first().copy(description = GigDescription(""))).isEqualTo(first)
     expectThat(events.last().copy(description = GigDescription(""))).isEqualTo(last)
-    expectThat(events.all { it.id.url.startsWith(urlPrefix) }).isTrue()
     expectThat(events.all { it.id.venueId == first.id.venueId }).isTrue()
 
     return events

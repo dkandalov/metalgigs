@@ -10,7 +10,6 @@ val cartAndHorses = Venue(VenueId("cart-and-horses"), "Cart & Horses")
 
 class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     override val venue = cartAndHorses
-
     override fun latestGigs(): List<Gig> {
         var currentYear = year
         var previousMonth: String? = null
@@ -22,7 +21,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 val month = item.select(".news-carousel__month").text()
                 if (month == "Jan" && previousMonth != null && previousMonth != "Jan") currentYear++
                 previousMonth = month
-                val gigUrl = item.select(".news-carousel__link").attr("abs:href")
+                val gigUrl = gigUrlFrom(item.select(".news-carousel__link").attr("abs:href"), "https://www.cartandhorses.london/")
 
                 Gig(
                     GigId(venue.id, gigUrl),

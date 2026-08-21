@@ -11,7 +11,6 @@ val paperDressVintage = Venue(VenueId("paper-dress-vintage"), "Paper Dress Vinta
 
 class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = paperDressVintage
-
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("[data-event-month]")
@@ -20,7 +19,7 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
                 monthBlock.select(".events__event").map { item ->
                     val day = dayPattern.find(item.select("p.margin__bottom--1").text())!!.groupValues[1]
                     val thumbnailUrl = backgroundImageUrlPattern.find(item.select(".event__poster").attr("style"))?.groupValues?.get(1)
-                    val gigUrl = item.attr("abs:href")
+                    val gigUrl = gigUrlFrom(item.attr("abs:href"), "https://paperdressvintage.co.uk/")
 
                     Gig(
                         GigId(venue.id, gigUrl),

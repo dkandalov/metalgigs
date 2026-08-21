@@ -28,7 +28,6 @@ class DingwallsGigsSourceTest {
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-27-rr5voszodg8dz4qw6s0thhnj6cm8eai4qgy0bw9ru4.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://dingwalls.com/gig/",
         )
     }
 

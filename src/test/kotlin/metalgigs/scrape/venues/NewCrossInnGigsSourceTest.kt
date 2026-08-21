@@ -31,7 +31,6 @@ class NewCrossInnGigsSourceTest {
                 PosterUrl("https://pit.live/uploads/user/2026/07/24/640x480/t8YfuAmMlTMW6ilv.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://pit.live/events/",
         )
 
         // a gig five months past what the page itself lists, and the one that showed the dropdown

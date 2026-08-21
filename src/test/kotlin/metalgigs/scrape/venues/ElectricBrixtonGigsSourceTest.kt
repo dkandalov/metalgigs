@@ -28,7 +28,6 @@ class ElectricBrixtonGigsSourceTest {
                 PosterUrl("https://e2h4j4t3.rocketcdn.me/wp-content/uploads/2026/06/Elder-1200.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://www.electricbrixton.uk.com/events/",
         )
     }
 

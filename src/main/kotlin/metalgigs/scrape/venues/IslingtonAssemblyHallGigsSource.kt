@@ -11,7 +11,6 @@ val islingtonAssemblyHall = Venue(VenueId("islington-assembly-hall"), "Islington
 
 class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
     override val venue = islingtonAssemblyHall
-
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
@@ -32,7 +31,7 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
                 previousMonth = month
 
                 val link = item.select("a.event__item__title")
-                val gigUrl = link.attr("abs:href")
+                val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://islingtonassemblyhall.co.uk/events/")
                 // the poster is the background of an anchor the theme lazy-loads, so it has no src
                 // at all until its own JavaScript runs - only data-src
                 val thumbnailUrl = item.select("a.event__item__background").attr("abs:data-src")

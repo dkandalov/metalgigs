@@ -11,7 +11,6 @@ val scala = Venue(VenueId("scala"), "Scala")
 
 class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = scala
-
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
@@ -23,7 +22,7 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
             gigs += page.select(".tb-event-item").map { item ->
                 val (day, monthName, year) = datePattern.find(item.select(".date").text())!!.destructured
                 val link = item.select("h2 a")
-                val gigUrl = link.attr("abs:href")
+                val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://scala.co.uk/events/")
 
                 Gig(
                     GigId(venue.id, gigUrl),

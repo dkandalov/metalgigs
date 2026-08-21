@@ -10,12 +10,11 @@ val theUnderworld = Venue(VenueId("underworld"), "The Underworld")
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = theUnderworld
-
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
             .select("#gigs article.list")
             .map { item ->
-                val gigUrl = item.select(".list-header-title a").attr("abs:href")
+                val gigUrl = gigUrlFrom(item.select(".list-header-title a").attr("abs:href"), "https://www.theunderworldcamden.co.uk/event/")
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".list-header-title").text()),

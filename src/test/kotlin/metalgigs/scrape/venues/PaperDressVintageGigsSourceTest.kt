@@ -28,7 +28,6 @@ class PaperDressVintageGigsSourceTest {
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://paperdressvintage.co.uk/",
         )
     }
 

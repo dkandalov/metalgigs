@@ -29,7 +29,6 @@ class IslingtonAssemblyHallGigsSourceTest {
                 PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2025/11/Untitled-design-1.jpg"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://islingtonassemblyhall.co.uk/events/",
         )
 
         // eighteen to a page over five pages - the last page's "Next" is gone rather than disabled,

@@ -10,7 +10,6 @@ val unionChapel = Venue(VenueId("union-chapel"), "Union Chapel")
 
 class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = unionChapel
-
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             // every card carries its own sortable timestamp for the page's client-side sorting,
@@ -19,7 +18,7 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
             .map { item ->
                 // matched on the path, since the other link on a card goes to whichever external
                 // ticketing site that gig happens to sell through
-                val gigUrl = item.select("a[href*=/whats-on/]").attr("abs:href")
+                val gigUrl = gigUrlFrom(item.select("a[href*=/whats-on/]").attr("abs:href"), "https://unionchapel.org.uk/whats-on/")
                 Gig(
                     GigId(venue.id, gigUrl),
                     // each card prints its title twice, once for the card and once for the hover

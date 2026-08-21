@@ -28,7 +28,6 @@ class DiceVenueGigsSourceTest {
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-07-13/d2e1f34c-9f57-4a47-811c-5e6d4efbc40a.jpg?rect=0%2C135%2C1080%2C1080"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://dice.fm/event/",
         )
     }
 
@@ -51,7 +50,6 @@ class DiceVenueGigsSourceTest {
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-04-27/4c005268-bc5b-43c7-a69f-8117623d0232.jpg?rect=0%2C0%2C2048%2C2048"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://dice.fm/event/",
         )
     }
 
@@ -74,7 +72,6 @@ class DiceVenueGigsSourceTest {
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-04-07/cdca232f-2df2-41a6-a2b1-cdaa5c827aa3.jpg?rect=0%2C135%2C1080%2C1080"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://dice.fm/event/",
         )
     }
 
@@ -97,7 +94,6 @@ class DiceVenueGigsSourceTest {
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-06-16/6f0ca902-24a7-4421-a288-f70e55030959.jpg?rect=0%2C0%2C1400%2C1400"),
                 GigDescription(""),
             ),
-            urlPrefix = "https://dice.fm/event/",
         )
     }
 

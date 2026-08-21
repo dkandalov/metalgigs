@@ -15,7 +15,6 @@ val newCrossInn = Venue(VenueId("new-cross-inn"), "New Cross Inn")
 
 class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = newCrossInn
-
     override fun latestGigs(): List<Gig> {
         val listing = Jsoup.parse(fetchPage(client, url), url)
         val laterMonths = listing.select("ul.next_month_label li.month_label")
@@ -29,7 +28,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
             .distinctBy { it.select("a:has(h3.nci-event-name)").attr("abs:href") }
             .map { item ->
                 val (day, month, year) = datePattern.find(item.select("dd").text())!!.destructured
-                val gigUrl = item.select("a:has(h3.nci-event-name)").attr("abs:href")
+                val gigUrl = gigUrlFrom(item.select("a:has(h3.nci-event-name)").attr("abs:href"), "https://pit.live/events/")
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select("h3.nci-event-name").text()),

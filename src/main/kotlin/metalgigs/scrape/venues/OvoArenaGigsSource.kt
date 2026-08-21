@@ -59,7 +59,8 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
     // change the url of a gig already logged the day the venue announces a second night, and it would
     // read as a new gig rather than the one already there. The fragment is inert - the link still
     // opens the page it names.
-    private fun gigUrl(event: OvoArenaEvent, date: GigDate) = "${event.url}#$date"
+    private fun gigUrl(event: OvoArenaEvent, date: GigDate) =
+        gigUrlFrom("${event.url}#$date", "https://www.ovoarena.co.uk/events/detail/")
 
     // Everything around this is the venue's own: door times and ticket links above it, then age
     // policy, an AXS ticket-transfer notice, and travel warnings about whatever is on at the stadium

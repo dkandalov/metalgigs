@@ -24,7 +24,9 @@ internal class SquarespaceEventsGigsSource(
             .select("article.eventlist-event--upcoming")
             .map { item ->
                 val titleLink = item.select(".eventlist-title-link")
-                val gigUrl = titleLink.attr("abs:href")
+                // a Squarespace events list hangs each event off the listing page's own path, so
+                // The Black Heart lists at /events and its gigs sit at /events/2026/9/30/morag-tong
+                val gigUrl = gigUrlFrom(titleLink.attr("abs:href"), "$url/")
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(titleLink.text()),

@@ -11,13 +11,12 @@ val dingwalls = Venue(VenueId("dingwalls"), "Dingwalls")
 
 class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = dingwalls
-
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select(".gig")
             .map { item ->
                 val (day, monthName, year) = datePattern.find(item.select(".elementor-widget-heading:not(.elementor-widget-theme-post-title)").text())!!.destructured
-                val gigUrl = item.select(".elementor-widget-theme-post-title a").attr("abs:href")
+                val gigUrl = gigUrlFrom(item.select(".elementor-widget-theme-post-title a").attr("abs:href"), "https://dingwalls.com/gig/")
 
                 Gig(
                     GigId(venue.id, gigUrl),

@@ -11,7 +11,6 @@ val electricBrixton = Venue(VenueId("electric-brixton"), "Electric Brixton")
 
 class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = electricBrixton
-
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
@@ -23,7 +22,7 @@ class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
             gigs += page.select(".fl-post-grid-post").map { item ->
                 val (day, monthName, year) = datePattern.find(item.select(".event-date").text())!!.destructured
                 val link = item.select(".event-title a")
-                val gigUrl = link.attr("abs:href")
+                val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://www.electricbrixton.uk.com/events/")
 
                 Gig(
                     GigId(venue.id, gigUrl),
