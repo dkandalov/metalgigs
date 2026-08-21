@@ -29,11 +29,18 @@ class GigsLog(private val file: File) {
         entries = entries + sequenced
     }
 
-    fun currentGigs(): List<Gig> =
-        entries.filterIsInstance<GigObserved>()
+    // A gig the log holds under a url its venue has moved on from isn't a gig any more, it's where
+    // one used to live, so it leaves here rather than being published a second time beside the gig
+    // that replaced it. A gig moved twice drops both of the urls it has left, each of them being
+    // some replacement's `replaced`.
+    fun currentGigs(): List<Gig> {
+        val replaced = entries.filterIsInstance<GigReplaced>().map { it.replaced }.toSet()
+        return entries.filterIsInstance<GigObserved>()
             .groupBy { it.id }
             .values
             .map { observations -> observations.maxBy { it.seq }.gig }
+            .filterNot { it.id in replaced }
+    }
 
     // scraped gigs not yet in the log, or that differ from their latest logged observation (e.g. a
     // title gaining "- SOLD OUT", a rescheduled date, or a changed description) - compares against
@@ -64,13 +71,15 @@ class GigsLog(private val file: File) {
     fun alreadyRenderedFor(date: LocalDate): Boolean =
         entries.filterIsInstance<GigsRendered>().any { it.logicalDate == date }
 
-    fun classificationStatus(): Map<GigId, ClassificationStatus> =
-        entries.filterIsInstance<GigClassified>()
+    fun classificationStatus(): Map<GigId, ClassificationStatus> {
+        val own = entries.filterIsInstance<GigClassified>()
             .groupBy { it.id }
             .mapValues { (_, classifications) ->
                 effectiveClassification(classifications)
                     ?.let { ClassificationStatus.Classified(it.genre) } ?: ClassificationStatus.Pending
             }
+        return inheritedFrom(own.keys).mapNotNull { (gig, answers) -> own[answers]?.let { gig to it } }.toMap() + own
+    }
 
     fun metalGigs(): List<Gig> {
         val statusByGig = classificationStatus()
@@ -80,7 +89,7 @@ class GigsLog(private val file: File) {
     }
 
     fun alreadyClassified(): Set<GigId> =
-        entries.filterIsInstance<GigClassified>().map { it.id }.toSet()
+        entries.filterIsInstance<GigClassified>().map { it.id }.toSet().let { it + inheritedFrom(it).keys }
 
     // What a forced reclassification leaves alone. A user's override wins over any LLM verdict
     // whenever it was recorded, so asking the classifier about such a gig again buys a paid call
@@ -90,12 +99,16 @@ class GigsLog(private val file: File) {
             .filter { it.source == ClassificationSource.User }
             .map { it.id }
             .toSet()
+            .let { it + inheritedFrom(it).keys }
 
     // the log is append-only, so a gig re-observed on a later scrape is logged again in full, event
     // page text and all, and every projection then reads only the newest of them. Compacting keeps
     // just that newest observation per gig, and just the one classification that decides the gig's
-    // genre, which is the same one classificationStatus picks. Every render entry survives: they say
-    // what was published rather than what a gig is, and there's one per render rather than per gig.
+    // genre, which is the same one classificationStatus picks. Every render entry survives, and every
+    // replacement: they say what was published and what a venue did rather than what a gig is, and
+    // there is one of each per render and per move rather than one per gig. A replaced gig keeps its
+    // own newest observation as well - dropping that would lose the url it used to live at, which is
+    // the only thing saying the gig listed now is the one already classified.
     //
     // What's lost is the history itself - when a gig gained "- SOLD OUT", was rescheduled or had its
     // text captured, and which model judged a classification since superseded.
@@ -110,9 +123,10 @@ class GigsLog(private val file: File) {
             .groupBy { it.id }
             .mapNotNull { (_, classifications) -> effectiveClassification(classifications) }
         val renders = entries.filterIsInstance<GigsRendered>()
+        val replacements = entries.filterIsInstance<GigReplaced>()
 
         return CompactedLog(
-            entries = (observations + classifications + renders).sortedBy { it.seq },
+            entries = (observations + classifications + renders + replacements).sortedBy { it.seq },
             observationsDropped = entries.count { it is GigObserved } - observations.size,
             classificationsDropped = entries.count { it is GigClassified } - classifications.size,
         )
@@ -131,7 +145,22 @@ class GigsLog(private val file: File) {
         }
     }
 
-    private fun effectiveClassification(classifications: List<GigClassified>): GigClassified? {
+    // Which gig each gig that replaced another takes its answer from. Nothing is recorded against a
+    // url a venue has only just written, so what the log holds about the gig at the old one is read
+    // for it: a venue renaming a listing costs neither a paid call nor the verdict a user typed. The
+    // chain is walked rather than followed one step, so a gig moved twice still reaches back to
+    // where it was classified, and gigs that answer for themselves are left out of it entirely.
+    private fun inheritedFrom(known: Set<GigId>): Map<GigId, GigId> {
+        val replacedBy = entries.filterIsInstance<GigReplaced>().sortedBy { it.seq }.associate { it.by to it.replaced }
+        return replacedBy.keys.filterNot { it in known }
+            .mapNotNull { gig ->
+                generateSequence(replacedBy[gig]) { replacedBy[it] }.firstOrNull { it in known }?.let { gig to it }
+            }
+            .toMap()
+    }
+
+    private fun effectiveClassification
+(classifications: List<GigClassified>): GigClassified? {
         val latestBySource = classifications.groupBy { it.source }.mapValues { (_, cs) -> cs.maxBy { it.seq } }
         return latestBySource[ClassificationSource.User] ?: latestBySource[ClassificationSource.LLM]
     }
@@ -159,12 +188,14 @@ internal object JLogEntry : JSealed<LogEntry>() {
         "observed" to JGigObserved,
         "classified" to JGigClassified,
         "rendered" to JGigsRendered,
+        "replaced" to JGigReplaced,
     )
 
     override fun extractTypeName(obj: LogEntry): String = when (obj) {
         is GigObserved -> "observed"
         is GigClassified -> "classified"
         is GigsRendered -> "rendered"
+        is GigReplaced -> "replaced"
     }
 }
 
@@ -198,6 +229,21 @@ private object JGigClassified : JAny<GigClassified>() {
         useVision = +useVision,
         inputTokens = +inputTokens,
         outputTokens = +outputTokens,
+        seq = +seq,
+    )
+}
+
+private object JGigReplaced : JAny<GigReplaced>() {
+    private val seq by num(GigReplaced::seq)
+    private val venue by str(JVenueId) { replaced.venueId }
+    private val url by str(JGigUrl) { replaced.url }
+    private val byUrl by str(JGigUrl) { by.url }
+    private val recordedAt by str(GigReplaced::recordedAt)
+
+    override fun JsonNodeObject.deserializeOrThrow() = GigReplaced(
+        replaced = GigId(+venue, +url),
+        by = GigId(+venue, +byUrl),
+        recordedAt = +recordedAt,
         seq = +seq,
     )
 }

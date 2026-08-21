@@ -107,4 +107,23 @@ class LogCompactionTest {
         expectThat(after.lastScrapedAt()).isEqualTo(before.lastScrapedAt())
         expectThat(after.alreadyRenderedFor(LocalDate.of(2026, 8, 3))).isEqualTo(true)
     }
+    // a replacement says what a venue did rather than what a gig is, so there is nothing to
+    // supersede it - and dropping one would put the gig at the old url back on the page
+    @Test
+    fun `keeps every replacement entry, and the observation of the gig that moved`() {
+        val entries = listOf(
+            GigObserved(gigA, at(1)),
+            GigObserved(gigB, at(1)),
+            GigReplaced(gigA.id, gigB.id, at(2)),
+        )
+
+        val compacted = gigsLog(entries).compact()
+
+        expectThat(compacted.entries).containsExactly(
+            GigObserved(gigA, at(1), seq = 0),
+            GigObserved(gigB, at(1), seq = 1),
+            GigReplaced(gigA.id, gigB.id, at(2), seq = 2),
+        )
+        expectThat(gigsLog(compacted.entries).currentGigs()).isEqualTo(listOf(gigB))
+    }
 }

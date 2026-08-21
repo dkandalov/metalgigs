@@ -1,6 +1,7 @@
 package metalgigs
 
 import strikt.api.expectThat
+import strikt.assertions.contains
 import strikt.assertions.containsExactly
 import strikt.assertions.containsExactlyInAnyOrder
 import strikt.assertions.isEqualTo
@@ -388,5 +389,113 @@ class GigsStoreTest {
         )
 
         expectThat(gigsLog(events).overriddenByUser()).containsExactlyInAnyOrder(userOverridden.id)
+    }
+    private val venue = VenueId("Signature Brew Haggerston")
+    private val recordedAt = Instant.parse("2026-08-21T12:00:00Z")
+
+    private fun gigAt(url: String, title: String = "LOLA (AUS)") =
+        Gig(GigId(venue, GigUrl(url)), GigTitle(title), GigDate(2026, 9, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+
+    @Test
+    fun `reads back a replacement, both urls under the venue that listed them`() {
+        val moved = gigAt("https://example.com/lola-aus")
+        val listed = gigAt("https://example.com/eo6xmw-lola-aus-lucky-hit")
+        val file = File.createTempFile("events", ".ndjson").apply { deleteOnExit() }
+
+        val log = GigsLog(file).apply { append(listOf(GigReplaced(moved.id, listed.id, recordedAt))) }
+
+        expectThat(GigsLog(file).entries).isEqualTo(log.entries)
+    }
+
+    @Test
+    fun `leaves a gig its venue has relisted out of the current gigs`() {
+        val moved = gigAt("https://example.com/lola-aus")
+        val listed = gigAt("https://example.com/eo6xmw-lola-aus-lucky-hit")
+        val log = gigsLog(listOf(GigObserved(moved, recordedAt), GigObserved(listed, recordedAt), GigReplaced(moved.id, listed.id, recordedAt)))
+
+        expectThat(log.currentGigs()).isEqualTo(listOf(listed))
+    }
+
+    // a listing edited twice leaves two urls behind, and each of them is some replacement's own
+    // `replaced`, so nothing has to walk the chain to drop them
+    @Test
+    fun `leaves every url a twice-relisted gig has left behind out of the current gigs`() {
+        val first = gigAt("https://example.com/lola-aus")
+        val second = gigAt("https://example.com/lola-aus-lucky-hit")
+        val third = gigAt("https://example.com/lola-aus-lucky-hit-and-support")
+        val log = gigsLog(
+            listOf(
+                GigObserved(first, recordedAt), GigObserved(second, recordedAt), GigObserved(third, recordedAt),
+                GigReplaced(first.id, second.id, recordedAt), GigReplaced(second.id, third.id, recordedAt),
+            )
+        )
+
+        expectThat(log.currentGigs()).isEqualTo(listOf(third))
+    }
+
+    @Test
+    fun `reads a relisted gig's genre from the gig it replaced`() {
+        val moved = gigAt("https://example.com/lola-aus")
+        val listed = gigAt("https://example.com/eo6xmw-lola-aus-lucky-hit")
+        val log = gigsLog(
+            listOf(
+                GigObserved(moved, recordedAt),
+                GigClassified(moved.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+                GigObserved(listed, recordedAt),
+                GigReplaced(moved.id, listed.id, recordedAt),
+            )
+        )
+
+        expectThat(log.classificationStatus()[listed.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
+        expectThat(log.metalGigs()).isEqualTo(listOf(listed))
+    }
+
+    // the verdict was recorded against the first url of three, and it is the gig at the third that
+    // gets published
+    @Test
+    fun `reads a genre back through a gig relisted twice`() {
+        val first = gigAt("https://example.com/lola-aus")
+        val second = gigAt("https://example.com/lola-aus-lucky-hit")
+        val third = gigAt("https://example.com/lola-aus-lucky-hit-and-support")
+        val log = gigsLog(
+            listOf(
+                GigObserved(first, recordedAt),
+                GigClassified(first.id, recordedAt, Genre.Metal, ClassificationSource.User),
+                GigObserved(second, recordedAt), GigObserved(third, recordedAt),
+                GigReplaced(first.id, second.id, recordedAt), GigReplaced(second.id, third.id, recordedAt),
+            )
+        )
+
+        expectThat(log.classificationStatus()[third.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
+        expectThat(log.overriddenByUser()).contains(third.id)
+    }
+
+    // what classify skips, so a venue rewriting a title costs no paid call - and what a forced run
+    // skips, so it doesn't ask an LLM about a gig whose genre a user typed at its old url
+    @Test
+    fun `counts a relisted gig as classified already, and as overridden if its old url was`() {
+        val moved = gigAt("https://example.com/lola-aus")
+        val listed = gigAt("https://example.com/eo6xmw-lola-aus-lucky-hit")
+        val llmJudged = gigsLog(listOf(GigClassified(moved.id, recordedAt, Genre.Metal, ClassificationSource.LLM), GigReplaced(moved.id, listed.id, recordedAt)))
+
+        expectThat(llmJudged.alreadyClassified()).contains(listed.id)
+        expectThat(llmJudged.overriddenByUser()).isEqualTo(emptySet())
+    }
+
+    // the gig at the new url has been judged on its own text since it moved, and that is the verdict
+    // about the gig as it is listed now
+    @Test
+    fun `prefers a relisted gig's own classification to the one it inherits`() {
+        val moved = gigAt("https://example.com/lola-aus")
+        val listed = gigAt("https://example.com/eo6xmw-lola-aus-lucky-hit")
+        val log = gigsLog(
+            listOf(
+                GigClassified(moved.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+                GigReplaced(moved.id, listed.id, recordedAt),
+                GigClassified(listed.id, recordedAt, Genre.Other, ClassificationSource.User),
+            )
+        )
+
+        expectThat(log.classificationStatus()[listed.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
     }
 }

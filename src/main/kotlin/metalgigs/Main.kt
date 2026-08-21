@@ -136,14 +136,33 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
 
     val toObserve = log.newOrChangedGigs(gigs)
 
-    val validation = validateGigs(scrapedByVenue, log.currentGigs())
+    val currentGigs = log.currentGigs()
+    val validation = validateGigs(scrapedByVenue, currentGigs)
     validation.reports.forEach { (heading, problems) ->
         println(heading)
         problems.forEach { println("  ${venue(it.venueId)} (${it.detail}) ${it.where()}".trimEnd()) }
     }
 
+    // Only this run can see a gig go missing: by the next one the old url is no longer current and
+    // there is nothing left to compare, so what the listing says is settled here rather than read
+    // back later. Skipped for a venue whose gigs are withheld - a listing that failed a check is not
+    // one to conclude anything from - and asked only of gigs still to come, a night already played
+    // being one no page prints.
+    //
+    // Costs one request per gig the venue has stopped listing, which is also what stops it repeating:
+    // a gig that has been replaced leaves currentGigs, so the next run doesn't ask about it again.
+    val withheldVenues = validation.withheld.map { it.id.venueId }.toSet()
+    val replacements = scrapedByVenue.filterKeys { it !in withheldVenues }
+        .flatMap { (venueId, listing) ->
+            replacementsIn(listing, currentGigs.filter { it.id.venueId == venueId }, GigDate(LocalDate.now())) {
+                missingGigSays(unredirectedClient, it)
+            }
+        }
+        .map { (replaced, by) -> GigReplaced(replaced, by, now) }
+    replacements.forEach { println("  ${venue(it.replaced.venueId)} relisted ${it.replaced.url} as ${it.by.url}") }
+
     val observed = toObserve.filterNot { it in validation.withheld }.map { gig -> GigObserved(gig, now) }
-    log.append(observed)
+    log.append(observed + replacements)
     val withheld = toObserve.size - observed.size
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped" +
         if (withheld > 0) ", withholding $withheld that failed validation" else "")

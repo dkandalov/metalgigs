@@ -36,6 +36,28 @@ data class GigClassified(
     override fun withSeq(seq: Long) = copy(seq = seq)
 }
 
+// A gig its venue relisted at a new url - a support act swapped in, a festival's name settled on -
+// where the url is built from the title and so changes with it. The gig is the same night in the same
+// room, but a gig is identified by where it lives, so the log holds it twice and the page prints it
+// twice; this says which of the two the venue has moved on from.
+//
+// Recorded rather than worked out on read, because what it rests on is that a run's listing no longer
+// held the old url, and no later run can see that. Both ids are the same venue's: this is a venue
+// relisting its own gig, where a show that moves to another venue is a gig of that venue's.
+data class GigReplaced(
+    val replaced: GigId,
+    val by: GigId,
+    override val recordedAt: Instant,
+    override val seq: Long = UNSEQUENCED,
+) : LogEntry {
+    init {
+        require(replaced.venueId == by.venueId) { "A gig is relisted by the venue listing it, but $replaced was replaced by $by" }
+        require(replaced != by) { "A gig can't replace itself: $replaced" }
+    }
+
+    override fun withSeq(seq: Long) = copy(seq = seq)
+}
+
 // logicalDate is the date the page was rendered as of - gigs before it are left off - which is
 // today for a normal render but any date for a backdated one. Distinct from recordedAt, the wall
 // clock: without it two renders of very different pages are told apart only by their gig count.
