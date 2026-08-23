@@ -341,9 +341,9 @@
             padding: 0.85rem 1rem 1rem;
         }
         /* Band names run together without spaces - Man/Woman/Chainsaw - and no browser breaks at a
-           slash, so such a title is one unbreakable word wider than the card. anywhere rather than
-           break-word because only anywhere also shrinks the title's min-content width, which is what
-           the grid measures its columns against. */
+           slash, so the title below carries a <wbr> after each such one. anywhere is for a long name
+           with nothing to break at: it goes mid-word only where there is no <wbr> to use instead, and
+           it shrinks the title's min-content width, which is what the grid measures its columns against. */
         .gig-title {
             display: block;
             margin-bottom: 0.4rem;
@@ -454,7 +454,7 @@
             <a href="{{url}}">
                 <img class="gig-image" src="{{imageUrl}}" alt="" loading="lazy">
                 <span class="gig-info">
-                    <span class="gig-title">{{title}}</span>
+                    <span class="gig-title">{{#each titleParts}}{{#unless @first}}<wbr>{{/unless}}{{this}}{{/each}}</span>
                     <span class="gig-venue">{{venue}}</span>
                 </span>
             </a>

@@ -17,7 +17,14 @@ data class DateGroup(val date: GigDate, val gigs: List<GigCardView>) {
     val displayDate: String = date.value.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.ENGLISH))
 }
 
-data class GigCardView(val title: String, val venue: String, val url: String, val imageUrl: String)
+data class GigCardView(val title: String, val venue: String, val url: String, val imageUrl: String) {
+    // The <wbr> the template puts between these is the only place such a title can break.
+    val titleParts: List<String> = title.split(afterARunTogetherSlash)
+}
+
+// A slash with a space beside it needs no help - the space is already a break opportunity, and one
+// added next to it falls in the same place.
+private val afterARunTogetherSlash = Regex("""(?<=\S/)(?=\S)""")
 
 // the page is a what's-on list rather than a calendar, and a gig a year and a half out is noise on
 // it. Those gigs stay in the log and keep their published image, so one appears here of its own

@@ -10,6 +10,7 @@ import org.http4k.testing.ApprovalTest
 import org.http4k.testing.Approver
 import org.junit.jupiter.api.extension.ExtendWith
 import strikt.api.expectThat
+import strikt.assertions.contains
 import strikt.assertions.containsExactly
 import strikt.assertions.containsExactlyInAnyOrder
 import java.time.LocalDate
@@ -57,6 +58,26 @@ class GigsViewTest {
         val html = renderer(GigsView(groupGigsByDate(gigs)))
 
         approver.assertApproved(Response(OK).body(html))
+    }
+
+    @Test
+    fun `a title of names run together can break after each slash`() {
+        val gig = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/man-woman-chainsaw")), GigTitle("Man/Woman/Chainsaw"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val renderer = HandlebarsTemplates().CachingClasspath()
+
+        val html = renderer(GigsView(groupGigsByDate(listOf(gig))))
+
+        expectThat(html).contains("Man/<wbr>Woman/<wbr>Chainsaw")
+    }
+
+    @Test
+    fun `a title whose slashes have a space beside them is left as it is`() {
+        val gig = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/ditz")), GigTitle("Ditz / Enola Gay /Iguana Death Cult"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val renderer = HandlebarsTemplates().CachingClasspath()
+
+        val html = renderer(GigsView(groupGigsByDate(listOf(gig))))
+
+        expectThat(html).contains("Ditz / Enola Gay /Iguana Death Cult")
     }
 
     @Test
