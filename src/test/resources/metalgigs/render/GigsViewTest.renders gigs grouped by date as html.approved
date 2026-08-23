@@ -340,11 +340,16 @@
             display: block;
             padding: 0.85rem 1rem 1rem;
         }
+        /* Band names run together without spaces - Man/Woman/Chainsaw - and no browser breaks at a
+           slash, so such a title is one unbreakable word wider than the card. anywhere rather than
+           break-word because only anywhere also shrinks the title's min-content width, which is what
+           the grid measures its columns against. */
         .gig-title {
             display: block;
             margin-bottom: 0.4rem;
             color: #f2f2f2;
             font-weight: 600;
+            overflow-wrap: anywhere;
         }
         .gig-venue {
             display: block;
