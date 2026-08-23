@@ -341,9 +341,9 @@
             padding: 0.85rem 1rem 1rem;
         }
         /* Band names run together without spaces - Man/Woman/Chainsaw - and no browser breaks at a
-           slash, so such a title is one unbreakable word wider than the card. anywhere rather than
-           break-word because only anywhere also shrinks the title's min-content width, which is what
-           the grid measures its columns against. */
+           slash, so the title below carries a <wbr> after each such one. anywhere is for a long name
+           with nothing to break at: it goes mid-word only where there is no <wbr> to use instead, and
+           it shrinks the title's min-content width, which is what the grid measures its columns against. */
         .gig-title {
             display: block;
             margin-bottom: 0.4rem;
@@ -699,7 +699,7 @@
             <a href="https://www.facebook.com/100070895646968/posts/pfbid02dvmhPTGQgKhZ1YdWfpVdryduVSzcaFYTDxg3eWNyPSbNTCjk1g1GzhRncRycshNil/#gig-the-day-of-locusts-stour-dungeon-2026-08-29">
                 <img class="gig-image" src="images/2026-08-29-the-dev-26967de9.webp" alt="" loading="lazy">
                 <span class="gig-info">
-                    <span class="gig-title">The Day of Locusts/Stour/Dungeon</span>
+                    <span class="gig-title">The Day of Locusts/<wbr>Stour/<wbr>Dungeon</span>
                     <span class="gig-venue">The Dev</span>
                 </span>
             </a>
@@ -2329,7 +2329,7 @@
             <a href="https://www.ticketmaster.co.uk/event/3E006465DB375B05">
                 <img class="gig-image" src="images/2026-10-17-o2-academy-islington-c8160609.webp" alt="" loading="lazy">
                 <span class="gig-info">
-                    <span class="gig-title">DC/UK (Formerly AC/DC UK)</span>
+                    <span class="gig-title">DC/<wbr>UK (Formerly AC/<wbr>DC UK)</span>
                     <span class="gig-venue">O2 Academy Islington</span>
                 </span>
             </a>
@@ -4859,7 +4859,7 @@
             <a href="https://www.ticketmaster.co.uk/event/3E006511D37E25CB">
                 <img class="gig-image" src="images/2027-05-11-o2-forum-kentish-town-b390cf76.webp" alt="" loading="lazy">
                 <span class="gig-info">
-                    <span class="gig-title">Man/Woman/Chainsaw</span>
+                    <span class="gig-title">Man/<wbr>Woman/<wbr>Chainsaw</span>
                     <span class="gig-venue">O2 Forum Kentish Town</span>
                 </span>
             </a>
