@@ -340,11 +340,16 @@
             display: block;
             padding: 0.85rem 1rem 1rem;
         }
+        /* Band names run together without spaces - Man/Woman/Chainsaw - and no browser breaks at a
+           slash, so such a title is one unbreakable word wider than the card. anywhere rather than
+           break-word because only anywhere also shrinks the title's min-content width, which is what
+           the grid measures its columns against. */
         .gig-title {
             display: block;
             margin-bottom: 0.4rem;
             color: #f2f2f2;
             font-weight: 600;
+            overflow-wrap: anywhere;
         }
         .gig-venue {
             display: block;
@@ -440,83 +445,6 @@
         <p>Something wrong or missing? <a href="mailto:hi@metalgigs.london">hi@metalgigs.london</a></p>
         <button class="about-close" popovertarget="about" popovertargetaction="hide" autofocus>Close</button>
     </div>
-    
-    <section class="date-group" data-date="2026-08-22">
-    <h2>Saturday, 22 August 2026</h2>
-    <ul class="gigs-grid">
-        
-        <li class="gig-card">
-            <a href="https://www.thefiddlerselbow.co.uk/whos-playing/c7c44ixf02m19t9mpvn772gcz6bdlz2282026">
-                <img class="gig-image" src="images/2026-08-22-fiddlers-elbow-8ab4e3dd.webp" alt="" loading="lazy">
-                <span class="gig-info">
-                    <span class="gig-title">25 Years of Decay Tour</span>
-                    <span class="gig-venue">The Fiddler&#x27;s Elbow</span>
-                </span>
-            </a>
-        </li>
-        
-        <li class="gig-card">
-            <a href="https://www.cartandhorses.london/news-offers-events/534964-dead-witches-amneziak-pyrogaric/">
-                <img class="gig-image" src="images/2026-08-22-cart-and-horses-95fd40f5.webp" alt="" loading="lazy">
-                <span class="gig-info">
-                    <span class="gig-title">DEAD WITCHES + AMNEZIAK + PYROGARIC</span>
-                    <span class="gig-venue">Cart &amp; Horses</span>
-                </span>
-            </a>
-        </li>
-        
-        <li class="gig-card">
-            <a href="https://www.ourblackheart.com/events/2026/8/22/dog-tired-overthrow-sawticide">
-                <img class="gig-image" src="images/2026-08-22-black-heart-7e1c7576.webp" alt="" loading="lazy">
-                <span class="gig-info">
-                    <span class="gig-title">DOG TIRED + OVERTHROW + SAWTICIDE</span>
-                    <span class="gig-venue">The Black Heart</span>
-                </span>
-            </a>
-        </li>
-        
-        <li class="gig-card">
-            <a href="https://dice.fm/event/53mv5k-fullmne-stone-barrow-marks-of-satan-22nd-aug-helgis-london-tickets">
-                <img class="gig-image" src="images/2026-08-22-helgis-9dc85265.webp" alt="" loading="lazy">
-                <span class="gig-info">
-                    <span class="gig-title">Fullmåne + Stone Barrow + Marks of Satan</span>
-                    <span class="gig-venue">Helgi&#x27;s</span>
-                </span>
-            </a>
-        </li>
-        
-        <li class="gig-card">
-            <a href="https://www.thegarage.london/gigs/the-flatliners-a-wilhelm-scream-the-garage-lonodn-tickets-2026/">
-                <img class="gig-image" src="images/2026-08-22-the-garage-a353330e.webp" alt="" loading="lazy">
-                <span class="gig-info">
-                    <span class="gig-title">THE FLATLINERS + A WILHELM SCREAM</span>
-                    <span class="gig-venue">The Garage</span>
-                </span>
-            </a>
-        </li>
-        
-        <li class="gig-card">
-            <a href="https://www.domelondon.co.uk/whatson/08/26-the-tony-danza-tapdance-extravaganza">
-                <img class="gig-image" src="images/2026-08-22-dome-e7fca8f3.webp" alt="" loading="lazy">
-                <span class="gig-info">
-                    <span class="gig-title">THE TONY DANZA TAPDANCE EXTRAVAGANZA</span>
-                    <span class="gig-venue">The Dome</span>
-                </span>
-            </a>
-        </li>
-        
-        <li class="gig-card">
-            <a href="https://www.facebook.com/100070895646968/posts/pfbid02dvmhPTGQgKhZ1YdWfpVdryduVSzcaFYTDxg3eWNyPSbNTCjk1g1GzhRncRycshNil/#gig-underbelly-promotions-presents-liquified-lobotomica-disembowler-malauriu-2026-08-22">
-                <img class="gig-image" src="images/2026-08-22-the-dev-26967de9.webp" alt="" loading="lazy">
-                <span class="gig-info">
-                    <span class="gig-title">Underbelly Promotions presents: Liquified/Lobotomica/Disembowler/Malauriu</span>
-                    <span class="gig-venue">The Dev</span>
-                </span>
-            </a>
-        </li>
-        
-    </ul>
-    </section>
     
     <section class="date-group" data-date="2026-08-23">
     <h2>Sunday, 23 August 2026</h2>
