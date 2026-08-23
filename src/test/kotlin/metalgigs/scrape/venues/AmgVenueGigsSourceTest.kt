@@ -166,13 +166,44 @@ class AmgVenueGigsSourceTest {
     // shaped as the real api writes them, down to the html the copy is stored as.
     private fun amgListingOf(event: String): HttpHandler = { Response(OK).body("""{"documents":[$event]}""") }
 
-    private fun amgEvent(localizations: String, genres: String = "[]", lineup: String = "[]", image: String = "https://example.com/poster.jpg") = """
+    private fun amgEvent(
+        localizations: String,
+        genres: String = "[]",
+        lineup: String = "[]",
+        image: String = "https://example.com/poster.jpg",
+        tickets: String = """[{"ticketUrl": "https://www.ticketmaster.co.uk/event/ABC?utm_source=amg"}]""",
+    ) = """
         {
           "name": "Wage War", "encodedName": "wage-war", "eventDate": "2027-01-16T00:00:00Z", "image": "$image",
-          "tickets": [{"ticketUrl": "https://www.ticketmaster.co.uk/event/ABC?utm_source=amg"}],
+          "tickets": $tickets,
           "localizations": $localizations, "genres": $genres, "lineup": $lineup
         }
     """.trimIndent()
+
+    // ADÉLA at O2 Academy Brixton listed a Ticketmaster UK ticket and a Ticketmaster Metropolis one,
+    // both url "", ahead of the branded one that carried the link - and, as of 2026-08-23, took the
+    // whole venue's scrape down with it.
+    @Test
+    fun `takes an AMG gig's url from the first of its tickets that has one`() {
+        val event = amgEvent(
+            localizations = """[{"cultureName": "en-GB", "description": "<p>Copy.</p>"}]""",
+            tickets = """[{"ticketUrl": ""}, {"ticketUrl": ""}, {"ticketUrl": "https://www.ticketmaster.co.uk/event/ABC?brand=o2academybrixton"}]""",
+        )
+
+        val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
+
+        expectThat(gig.id.url).isEqualTo(GigUrl("https://www.ticketmaster.co.uk/event/ABC"))
+    }
+
+    @Test
+    fun `skips an AMG gig whose tickets all lack a link, as it does one listed with no tickets`() {
+        val event = amgEvent(
+            localizations = """[{"cultureName": "en-GB", "description": "<p>Copy.</p>"}]""",
+            tickets = """[{"ticketUrl": ""}]""",
+        )
+
+        expectThat(O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs()).isEmpty()
+    }
 
     @Test
     fun `takes an AMG gig's description from the promoter's copy in the listing api`() {

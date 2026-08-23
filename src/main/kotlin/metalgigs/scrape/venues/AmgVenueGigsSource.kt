@@ -23,12 +23,14 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
         check(results.documents.isNotEmpty()) { "No events returned by $url" }
 
         // an event whose ticket sales have closed (typically one happening today) is listed with no
-        // tickets at all, leaving it with neither a stable identity nor a link worth rendering, so
-        // it's dropped rather than failing the venue's whole scrape over a normal end-of-life state
-        val (ticketed, ticketless) = results.documents.partition { it.tickets.isNotEmpty() }
+        // tickets at all - and one whose tickets all lack a url says the same - leaving it with
+        // neither a stable identity nor a link worth rendering, so it's dropped rather than failing
+        // the venue's whole scrape over a normal end-of-life state
+        val ticketless = results.documents.filter { it.ticketUrl == null }
         if (ticketless.isNotEmpty()) println("Skipping ${ticketless.size} $venue gig(s) with no ticket link: ${ticketless.joinToString { it.name }}")
 
-        return ticketed.map { event ->
+        return results.documents.mapNotNull { event ->
+            val ticketUrl = event.ticketUrl ?: return@mapNotNull null
             // no per-gig page on the venue's own site, so the ticketing link identifies the gig - but
             // only up to its query string: one gig lists several tickets (general onsale, presales,
             // partner-branded) whose urls differ purely by marketing params and whose order isn't
@@ -39,7 +41,7 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
             // http:// among hundreds at https:// - and Gigantic stands in where Ticketmaster has no
             // listing for a show.
             val gigUrl = gigUrlFrom(
-                event.tickets.first().ticketUrl.substringBefore('?'),
+                ticketUrl.substringBefore('?'),
                 "https://www.ticketmaster.co.uk/",
                 "http://www.ticketmaster.co.uk/",
                 "https://www.gigantic.com/",
@@ -102,6 +104,13 @@ val o2ShepherdsBushEmpire = Venue(VenueId("o2-shepherds-bush-empire"), "O2 Sheph
 
 class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4051, venue = o2ShepherdsBushEmpire)
+
+// A ticket entry exists before its link does: ADÉLA at O2 Academy Brixton listed a Ticketmaster UK
+// entry and a Ticketmaster Metropolis one, both url "", ahead of the branded entry that carried the
+// link - so a gig's url is the first ticket that has one, not the first ticket. Neither isVisible
+// nor ticketStatus separates them: the blank entries were the visible, on-sale ones.
+private val AmgEvent.ticketUrl: String?
+    get() = tickets.firstNotNullOfOrNull { it.ticketUrl.ifBlank { null } }
 
 // The copy is html, so it's parsed for its text the way an event page's would be.
 private fun AmgEvent.description(): GigDescription =
