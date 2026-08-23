@@ -87,18 +87,29 @@ private fun dailyUpdate(today: LocalDate = LocalDate.now(), force: Boolean = fal
     }
 
     println("== scrape ==")
-    scrapeGigs(force = force)
+    val scraped = scrapeGigs(force = force)
 
     println()
     println("== classify ==")
-    classifyUnclassifiedGigs()
+    val classification = classifyUnclassifiedGigs()
+
+    // Before render rather than after it, because render is the step that refuses to run - a table
+    // of what the two steps before it did is worth having on the run that ends there.
+    println()
+    println("== venues ==")
+    val venueRuns = withClassifications(
+        scraped,
+        classified = classification.classified.groupingBy { it.id.venueId }.eachCount(),
+        failedToClassify = classification.failed.groupingBy { (gig, _) -> gig.id.venueId }.eachCount(),
+    )
+    venueRunTable(venueRuns).forEach { println(it) }
 
     println()
     println("== render ==")
     renderGigsHtml(today = today)
 }
 
-private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false) {
+private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = false): List<VenueRun> {
     // Most sources want a redirect followed - Paper Dress Vintage links its gigs by shortlink - but
     // the Dice ones read a gig's own url off the redirect itself, so they take the client that hands
     // one back rather than the one that follows it.
@@ -126,12 +137,16 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     //
     // A venue that failed is left out of what's validated rather than entered against an empty list,
     // so it isn't reported a second time as having listed nothing.
-    val scrapedByVenue = toScrape.mapNotNull { source ->
-        println("Scraping ${source.venue}...")
-        runCatching { source.latestGigs().also { println("  ${it.size} gig(s) listed") } }
-            .onFailure { println("  Could not scrape ${source.venue}, so none of its gigs are logged this run: ${it.message}") }
-            .getOrNull()?.let { source.venue.id to it }
-    }.toMap()
+    val attempts = toScrape.mapIndexed { index, source ->
+        println("Scraping ${source.venue} (${index + 1}/${toScrape.size})...")
+        val startedAt = Instant.now()
+        val gigs = runCatching { source.latestGigs() }
+        val took = Duration.between(startedAt, Instant.now())
+        gigs.onSuccess { println("  ${it.size} gig(s) listed in ${elapsedText(took)}") }
+            .onFailure { println("  Could not scrape ${source.venue} after ${elapsedText(took)}, so none of its gigs are logged this run: ${it.message}") }
+        ScrapeAttempt(source.venue.id, gigs, took)
+    }
+    val scrapedByVenue = attempts.mapNotNull { attempt -> attempt.gigs.getOrNull()?.let { attempt.venueId to it } }.toMap()
     val gigs = scrapedByVenue.values.flatten()
 
     val toObserve = log.newOrChangedGigs(gigs)
@@ -173,6 +188,21 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     if (withoutText > 0) println("$withoutText gig(s) have an event page that says nothing about them; they'll be classified from their poster instead")
 
     cacheImagesReportingFailures(client, gigs, "gig image(s) - those gigs will have no poster")
+
+    val problemsByVenue = (
+        attempts.mapNotNull { attempt -> attempt.gigs.exceptionOrNull()?.let { attempt.venueId to (it.message ?: it.toString()) } } +
+            validation.reports.flatMap { it.problems }.map { it.venueId to it.detail } +
+            withheldVenues.map { it to "listing withheld" } +
+            replacements.groupingBy { it.replaced.venueId }.eachCount().map { (venueId, count) -> venueId to "$count gig(s) relisted" }
+        ).groupBy({ it.first }, { it.second })
+
+    return venueRunsFrom(
+        skipped.map { it.venue.id },
+        attempts,
+        newOrChanged = toObserve,
+        alreadyLogged = currentGigs.map { it.id }.toSet(),
+        problems = problemsByVenue,
+    )
 }
 
 // Scoped by venue and forced the way scrape is, and for the same reason: a source that has changed
@@ -182,7 +212,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
 //
 // Unlike scrape, the venues here are every venue in the log rather than every venue with a source:
 // a poster-only venue's gigs are classified like any other.
-private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = null, force: Boolean = false) {
+private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = null, force: Boolean = false): ClassificationRun {
     val client = ClientFilters.FollowRedirects().then(OkHttp())
     val log = GigsLog(eventsFile)
     val currentGigs = log.currentGigs()
@@ -210,6 +240,8 @@ private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit:
     val newlyMetalGigs = log.metalGigs().filter { it.id in affectedKeys }
 
     printClassificationSummary(classifications, newlyMetalGigs.size, currentGigs, statusByGig, run.failed)
+
+    return run
 }
 
 private fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = false, fullUnresolved: Boolean = false) {
