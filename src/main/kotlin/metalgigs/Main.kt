@@ -10,7 +10,6 @@ import org.http4k.ai.llm.model.Content
 import org.http4k.ai.llm.model.Resource
 import org.http4k.ai.model.ApiKey
 import org.http4k.ai.model.SystemPrompt
-import org.http4k.client.OkHttp
 import org.http4k.connect.model.Base64Blob
 import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
@@ -113,7 +112,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     // Most sources want a redirect followed - Paper Dress Vintage links its gigs by shortlink - but
     // the Dice ones read a gig's own url off the redirect itself, so they take the client that hands
     // one back rather than the one that follows it.
-    val unredirectedClient = OkHttp()
+    val unredirectedClient = unredirectedHttpClient()
     val client = ClientFilters.FollowRedirects().then(unredirectedClient)
     val sourcesByVenueId = allSources(client, unredirectedClient).associateBy { it.venue.id }
 
@@ -213,7 +212,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
 // Unlike scrape, the venues here are every venue in the log rather than every venue with a source:
 // a poster-only venue's gigs are classified like any other.
 private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = null, force: Boolean = false): ClassificationRun {
-    val client = ClientFilters.FollowRedirects().then(OkHttp())
+    val client = httpClient()
     val log = GigsLog(eventsFile)
     val currentGigs = log.currentGigs()
     val recordedAt = Instant.now()
@@ -226,7 +225,7 @@ private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit:
         System.getenv("ANTHROPIC_API_KEY")
             ?: error("ANTHROPIC_API_KEY environment variable is required for LLM classification")
     )
-    val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
+    val chat = Chat.AnthropicAI(apiKey = apiKey, http = httpClient(llmCallTimeout), systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
     val settled = if (force) log.overriddenByUser() else log.alreadyClassified()
     val run = classifyGigs(toConsider, settled, limit) { gig ->
@@ -316,7 +315,7 @@ private fun overrideGigGenre(url: String, genre: Genre) {
 }
 
 private fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, force: Boolean = false) {
-    val client = ClientFilters.FollowRedirects().then(OkHttp())
+    val client = httpClient()
     val log = GigsLog(eventsFile)
 
     if (!force && log.alreadyIngested(sourceUrl)) {
@@ -328,7 +327,7 @@ private fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, 
         System.getenv("ANTHROPIC_API_KEY")
             ?: error("ANTHROPIC_API_KEY environment variable is required for poster extraction")
     )
-    val chat = Chat.AnthropicAI(apiKey = apiKey, http = client, systemPrompt = SystemPrompt.of(posterExtractionSystemPrompt))
+    val chat = Chat.AnthropicAI(apiKey = apiKey, http = httpClient(llmCallTimeout), systemPrompt = SystemPrompt.of(posterExtractionSystemPrompt))
 
     val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, venue(venueId))
     gigs.forEach { println(it) }
@@ -437,7 +436,7 @@ private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, w
 // - already played, or further than a year out - doesn't take its image with it. Only an image no
 // gig claims any more is removed, so one coming into range needs no refetch.
 private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
-    val client = ClientFilters.FollowRedirects().then(OkHttp())
+    val client = httpClient()
 
     val failures = renderedGigs.mapNotNull { gig ->
         runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
