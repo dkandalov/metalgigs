@@ -1,5 +1,6 @@
 package metalgigs
 
+import dev.forkhandles.result4k.resultFrom
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
@@ -56,12 +57,12 @@ class HttpClientsTest {
     // never finishes is the case only a call timeout ends, and the one Cart & Horses ran into.
     private fun dribbling(): ServerSocket = ServerSocket(0).also { site ->
         thread(isDaemon = true) {
-            runCatching { while (true) dribbleTo(site.accept()) }
+            resultFrom { while (true) dribbleTo(site.accept()) }
         }
     }
 
     private fun dribbleTo(socket: Socket) = thread(isDaemon = true) {
-        runCatching {
+        resultFrom {
             socket.use {
                 val out = it.getOutputStream()
                 out.write("HTTP/1.1 200 OK\r\nContent-Length: 100000\r\n\r\n".toByteArray())

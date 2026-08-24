@@ -1,5 +1,7 @@
 package metalgigs
 
+import dev.forkhandles.result4k.Result4k
+import dev.forkhandles.result4k.valueOrNull
 import java.time.Duration
 
 // Only daily-update can print this: scrape doesn't know what will be classified, and classify
@@ -32,7 +34,7 @@ internal data class VenueRun(
 
 // A venue scrape gets no further than its own source, so a venue that failed still took whatever it
 // spent finding that out - a listing that ends in a timeout is one of the slowest of the run.
-internal data class ScrapeAttempt(val venueId: VenueId, val gigs: Result<List<Gig>>, val took: Duration)
+internal data class ScrapeAttempt(val venueId: VenueId, val gigs: Result4k<List<Gig>, Exception>, val took: Duration)
 
 internal sealed interface VenueListing {
     data class Listed(val listed: Int, val new: Int, val changed: Int) : VenueListing {
@@ -65,7 +67,7 @@ internal fun venueRunsFrom(
             val fresh = newOrChangedByVenue[attempt.venueId].orEmpty()
             VenueRun(
                 attempt.venueId,
-                attempt.gigs.getOrNull()?.let { venueGigs ->
+                attempt.gigs.valueOrNull()?.let { venueGigs ->
                     VenueListing.Listed(
                         listed = venueGigs.size,
                         new = fresh.count { it.id !in alreadyLogged },

@@ -1,5 +1,7 @@
 package metalgigs
 
+import dev.forkhandles.result4k.Failure
+import dev.forkhandles.result4k.Success
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.isEqualTo
@@ -71,7 +73,7 @@ class RunSummaryTest {
 
         val runs = venueRunsFrom(
             emptyList(),
-            listOf(ScrapeAttempt(underworld, Result.success(listed), Duration.ofSeconds(9))),
+            listOf(ScrapeAttempt(underworld, Success(listed), Duration.ofSeconds(9))),
             newOrChanged = listOf(gig("a"), gig("b")),
             alreadyLogged = setOf(gig("b").id, gig("c").id),
             problems = emptyMap(),
@@ -86,7 +88,7 @@ class RunSummaryTest {
     fun `a venue that failed is timed too, its listing having ended in whatever it spent failing`() {
         val runs = venueRunsFrom(
             emptyList(),
-            listOf(ScrapeAttempt(dome, Result.failure(IllegalStateException("504")), Duration.ofSeconds(30))),
+            listOf(ScrapeAttempt(dome, Failure(IllegalStateException("504")), Duration.ofSeconds(30))),
             newOrChanged = emptyList(),
             alreadyLogged = emptySet(),
             problems = mapOf(dome to listOf("504")),

@@ -1,5 +1,7 @@
 package metalgigs
 
+import dev.forkhandles.result4k.recover
+import dev.forkhandles.result4k.resultFrom
 import org.junit.jupiter.api.Assumptions.assumeTrue
 import strikt.api.expectThat
 import strikt.assertions.contains
@@ -17,7 +19,7 @@ import kotlin.test.assertFailsWith
 class ImageMagickTest {
 
     private fun magickAvailable() =
-        runCatching { ProcessBuilder("magick", "-version").start().waitFor() == 0 }.getOrDefault(false)
+        resultFrom { ProcessBuilder("magick", "-version").start().waitFor() == 0 }.recover { false }
 
     private fun tempFile(suffix: String) =
         File.createTempFile("magick-test", suffix).apply { deleteOnExit() }

@@ -112,6 +112,25 @@ type in signatures too, and no caller has to unwrap: `downloadToCache` takes `Po
 for what needs the characters - `contains("imgix.net")`, `shortHash`, the text `MisshapenGigsCheck`
 measures - and a `String` parameter under a tiny type is what forces the rest.
 
+## A second Result type alongside the one http4k already hands back
+
+Every chat call returns a result4k `Result`, so a `kotlin.Result` built beside it makes one idea read
+as two types under the same name. `ScrapeAttempt.gigs` is `Result4k<List<Gig>, Exception>` - the
+typealias forkhandles supplies for exactly this clash, so nothing has to shadow `kotlin.Result` to
+name it - and `resultFrom`/`valueOrNull`/`failureOrNull` stand where
+`runCatching`/`getOrNull`/`exceptionOrNull` did in the scrape loop, `classifyGigs` and the two image
+loops.
+
+Two traps in the swap. result4k's `onFailure` unwraps, and its block must return `Nothing` - it is how
+`classifyGigByLLM` aborts on a failed chat call - so the side-effecting pair is `peek`/`peekFailure`,
+which is what reports a venue's listing. And `resultFrom` catches `Exception` where `runCatching`
+catches `Throwable`, so an `Error` ends the run instead of being recorded against the one venue or
+gig: a behaviour change to say out loud rather than pass off as a rename.
+
+`HttpClientsTest`'s two daemon threads build a `Result` nobody reads, where a plain `try`/`catch`
+would say it more directly. They were `runCatching` doing the same, so that shape is inherited rather
+than introduced.
+
 ## Adding to this list
 
 Only shapes seen in this repo, each anchored to a named instance rather than a line number. When an

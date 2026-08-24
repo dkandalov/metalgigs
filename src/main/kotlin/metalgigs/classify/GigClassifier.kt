@@ -1,6 +1,9 @@
 package metalgigs.classify
 
+import dev.forkhandles.result4k.failureOrNull
 import dev.forkhandles.result4k.onFailure
+import dev.forkhandles.result4k.resultFrom
+import dev.forkhandles.result4k.valueOrNull
 import metalgigs.*
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.llm.chat.ChatRequest
@@ -27,12 +30,12 @@ fun classifyGigs(
 ): ClassificationRun {
     val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date }
     val results = (if (limit != null) toClassify.take(limit) else toClassify)
-        .map { gig -> gig to runCatching { classifyGig(gig) } }
+        .map { gig -> gig to resultFrom { classifyGig(gig) } }
 
     return ClassificationRun(
-        results.mapNotNull { (_, result) -> result.getOrNull() },
+        results.mapNotNull { (_, result) -> result.valueOrNull() },
         results.mapNotNull { (gig, result) ->
-            result.exceptionOrNull()?.let { gig to (it.message ?: it.toString()) }
+            result.failureOrNull()?.let { gig to (it.message ?: it.toString()) }
         },
     )
 }
@@ -51,7 +54,7 @@ fun classifyGigByLLM(
 ): GigClassified {
     val useVision = gig.description.value.length < THIN_TEXT_THRESHOLD
 
-    val contents = listOf(Content.Text("Title: ${gig.title}\n\nEvent page text: ${gig.description}")) +
+    val contents = listOf(Content.Text(classifierPromptText(gig))) +
         if (useVision) listOf(posterImage(client, gig.posterUrl)) else emptyList()
 
     // the vision model rejects a temperature override outright; the text model accepts one and we
@@ -83,6 +86,11 @@ fun classifyGigByLLM(
     )
 }
 
+// What the model is shown about a gig beyond the system prompt: its title, and whatever the venue's
+// own event page said about it. Named rather than inlined so that anything measuring another model
+// against the recorded verdicts asks it the same question this asked.
+internal fun classifierPromptText(gig: Gig) = "Title: ${gig.title}\n\nEvent page text: ${gig.description}"
+
 val llmClassifierSystemPrompt = """
     You classify UK live music gig listings by genre. Given a gig's title and the text of its own
     event page, reply with exactly one word and nothing else:
@@ -109,7 +117,7 @@ private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 // Below this, the text extracted from an event page is usually boilerplate/placeholder rather than
 // anything descriptive - fall back to the poster image (with a stronger, vision-capable model)
 // instead of guessing from it.
-private const val THIN_TEXT_THRESHOLD = 80
+internal const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
 // split by path rather than totalled, because the two differ by much more than their rates: a

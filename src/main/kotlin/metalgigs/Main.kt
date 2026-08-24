@@ -1,5 +1,10 @@
 package metalgigs
 
+import dev.forkhandles.result4k.failureOrNull
+import dev.forkhandles.result4k.peek
+import dev.forkhandles.result4k.peekFailure
+import dev.forkhandles.result4k.resultFrom
+import dev.forkhandles.result4k.valueOrNull
 import metalgigs.classify.*
 import metalgigs.render.*
 import metalgigs.scrape.*
@@ -56,7 +61,7 @@ fun main(rawArgs: Array<String>) {
         }
         "render" -> {
             val renderArgs = args.drop(1)
-            val today = renderArgs.firstNotNullOfOrNull { arg -> runCatching { LocalDate.parse(arg) }.getOrNull() }
+            val today = renderArgs.firstNotNullOfOrNull { arg -> resultFrom { LocalDate.parse(arg) }.valueOrNull() }
             renderGigsHtml(today = today ?: LocalDate.now(), force = renderArgs.contains("force"), fullUnresolved = renderArgs.contains("full-unresolved"))
         }
         "daily-update" -> dailyUpdate(force = args.drop(1).contains("force"))
@@ -139,13 +144,13 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     val attempts = toScrape.mapIndexed { index, source ->
         println("Scraping ${source.venue} (${index + 1}/${toScrape.size})...")
         val startedAt = Instant.now()
-        val gigs = runCatching { source.latestGigs() }
+        val gigs = resultFrom { source.latestGigs() }
         val took = Duration.between(startedAt, Instant.now())
-        gigs.onSuccess { println("  ${it.size} gig(s) listed in ${elapsedText(took)}") }
-            .onFailure { println("  Could not scrape ${source.venue} after ${elapsedText(took)}, so none of its gigs are logged this run: ${it.message}") }
+        gigs.peek { println("  ${it.size} gig(s) listed in ${elapsedText(took)}") }
+            .peekFailure { println("  Could not scrape ${source.venue} after ${elapsedText(took)}, so none of its gigs are logged this run: ${it.message}") }
         ScrapeAttempt(source.venue.id, gigs, took)
     }
-    val scrapedByVenue = attempts.mapNotNull { attempt -> attempt.gigs.getOrNull()?.let { attempt.venueId to it } }.toMap()
+    val scrapedByVenue = attempts.mapNotNull { attempt -> attempt.gigs.valueOrNull()?.let { attempt.venueId to it } }.toMap()
     val gigs = scrapedByVenue.values.flatten()
 
     val toObserve = log.newOrChangedGigs(gigs)
@@ -189,7 +194,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     cacheImagesReportingFailures(client, gigs, "gig image(s) - those gigs will have no poster")
 
     val problemsByVenue = (
-        attempts.mapNotNull { attempt -> attempt.gigs.exceptionOrNull()?.let { attempt.venueId to (it.message ?: it.toString()) } } +
+        attempts.mapNotNull { attempt -> attempt.gigs.failureOrNull()?.let { attempt.venueId to (it.message ?: it.toString()) } } +
             validation.reports.flatMap { it.problems }.map { it.venueId to it.detail } +
             withheldVenues.map { it to "listing withheld" } +
             replacements.groupingBy { it.replaced.venueId }.eachCount().map { (venueId, count) -> venueId to "$count gig(s) relisted" }
@@ -423,7 +428,7 @@ private fun GigsProblem.where() = when {
 
 private fun cacheImagesReportingFailures(client: HttpHandler, gigs: List<Gig>, what: String) {
     val failures = gigs.mapNotNull { gig ->
-        runCatching { downloadToCache(client, gig.posterUrl, imageCacheDir) }.exceptionOrNull()
+        resultFrom { downloadToCache(client, gig.posterUrl, imageCacheDir) }.failureOrNull()
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
@@ -439,7 +444,7 @@ private fun publishGigImages(renderedGigs: List<Gig>, keep: List<Gig>) {
     val client = httpClient()
 
     val failures = renderedGigs.mapNotNull { gig ->
-        runCatching { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.exceptionOrNull()
+        resultFrom { publishGigImage(client, gig, imageCacheDir, publishedImagesDir) }.failureOrNull()
             ?.let { "${gig.date}  ${venue(gig.id.venueId)}  ${gig.title}: ${it.message}" }
     }
     if (failures.isNotEmpty()) {
