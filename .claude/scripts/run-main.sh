@@ -2,6 +2,14 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 export GRADLE_OPTS="--enable-native-access=ALL-UNNAMED"
+
+# classify needs ANTHROPIC_API_KEY, which a non-interactive shell doesn't get from the interactive
+# one - same fallback daily-update.sh makes, to the same file, so neither has to be run from a shell
+# that happens to have it
+if [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -f "$HOME/.metalgigs.env" ]; then
+    # shellcheck disable=SC1091
+    . "$HOME/.metalgigs.env"
+fi
 if [ $# -gt 1 ]; then
     # Multiple separate arguments were passed - preserve any literal space within one of them
     # (e.g. a venue name) by encoding spaces (0x1e) and joining arguments with a separator (0x1f)

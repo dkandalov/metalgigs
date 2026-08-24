@@ -7,7 +7,7 @@ Run `.claude/scripts/daily-update.sh [force]` from the project root using the Ba
 
 **This pushes to the `origin` remote on GitHub**, and it pushes *every* unpushed commit on the branch, not only the one it just made. Say so when reporting, and check with the user first if they haven't clearly asked for the push in this conversation — running the individual commands via the `run-main` skill does the same work without publishing anything.
 
-It needs `ANTHROPIC_API_KEY` in the environment (`classify` makes a real paid API call per unclassified gig). The script fails fast with a clear message if it's missing. Note the key lives in `~/.zshrc`, which a non-interactive shell doesn't load, so a bare Bash-tool invocation won't see it — `source ~/.zshrc >/dev/null 2>&1;` before the script fixes that without ever printing the value.
+It needs `ANTHROPIC_API_KEY` in the environment (`classify` makes a real paid API call per unclassified gig). The script fails fast with a clear message if it's missing. It reads the key from `~/.metalgigs.env` (mode 600) when the environment doesn't already carry it, as does `run-main.sh`, so neither needs the key exported first and neither should be run through `~/.zshrc` — that file isn't read by a non-interactive shell or by launchd, and sourcing it pulls in the whole interactive profile to get one variable.
 
 Expect it to take minutes rather than seconds when there's a backlog: `classify` is one API call per gig. Use a generous Bash timeout.
 
