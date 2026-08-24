@@ -412,7 +412,7 @@ private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): Li
     OvoArenaGigsSource(client),
     IndigoAtTheO2GigsSource(client),
     TheO2ArenaGigsSource(client),
-).map(::WithoutTrailingCity)
+).map(::WithTidiedTitles)
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)
 

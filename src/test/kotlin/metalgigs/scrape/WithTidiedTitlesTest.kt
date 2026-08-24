@@ -6,7 +6,7 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import kotlin.test.Test
 
-class WithoutTrailingCityTest {
+class WithTidiedTitlesTest {
 
     @Test
     fun `drops the city a venue ends its titles with`() {
@@ -26,12 +26,27 @@ class WithoutTrailingCityTest {
         expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
     }
 
+    @Test
+    fun `separates a bill's bands with a slash`() {
+        expectThat(titlesListedAs(listOf("FOSSILIZATION + PHOBOCOSM", "The Fire Doors + The InCureables")))
+            .isEqualTo(listOf(GigTitle("FOSSILIZATION / PHOBOCOSM"), GigTitle("The Fire Doors / The InCureables")))
+        // both rules off one title
+        expectThat(titlesListedAs(listOf("LOLA (AUS) + Lucky Hit | London")))
+            .isEqualTo(listOf(GigTitle("LOLA (AUS) / Lucky Hit")))
+    }
+
+    @Test
+    fun `leaves a plus written against a word`() {
+        val meantAsWritten = listOf("+/-", "Rock+Roll Karaoke")
+        expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
+    }
+
     private fun titlesListedAs(titles: List<String>): List<GigTitle> {
         val listing = object : GigsSource {
             override val venue = Venue(someVenue, "Some Venue")
             override fun latestGigs() =
                 titles.mapIndexed { i, title -> gig(GigTitle(title), "https://example.com/$i", realText) }
         }
-        return WithoutTrailingCity(listing).latestGigs().map { it.title }
+        return WithTidiedTitles(listing).latestGigs().map { it.title }
     }
 }
