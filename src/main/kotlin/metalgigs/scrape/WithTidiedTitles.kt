@@ -18,7 +18,9 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
             .replace(leadingFreeEntry, "")
             .replace(trailingFreeEntry, "")
             .replace(trailingCity, "")
+            .replace(trailingSoldOut, " - SOLD OUT")
             .let(::bandsSeparated)
+            .trim()
         // a listing whose whole title is one of these has said nothing else about the gig, and the
         // blank would reach GigTitle as a source that has stopped parsing
         return tidied.ifBlank { title }
@@ -35,6 +37,17 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
     // One spelling of a bill across the page. Spaced, so a "+" written against a word - part of a
     // name rather than a bill - is left alone.
     private val billSeparator = Regex("""\s+\+\s+""")
+
+    // Three venues write it three ways - "- SOLD OUT", "| SOLD OUT", "– SOLD OUT!" - and a card
+    // says it one way, the way a scrape already writes a cancellation.
+    private val trailingSoldOut = Regex(
+        """
+        \s* [-–—:|/]+ \s*
+        [(\[]? \s* sold \s* out \s* [!.]* \s* [)\]]?
+        \s* $
+        """,
+        setOf(IGNORE_CASE, COMMENTS),
+    )
 
     // A venue's own promotion rather than the gig's name. The punctuation is what identifies it:
     // without any, a title is saying the words rather than appending them, as "Free Entry Fridays"

@@ -48,6 +48,12 @@ class WithTidiedTitlesTest {
     }
 
     @Test
+    fun `writes a sold out marker one way`() {
+        expectThat(titlesListedAs(listOf("ARCH ENEMY | SOLD OUT", "Madra Salach – SOLD OUT!", "CHELSEA WOLFE - SOLD OUT")))
+            .isEqualTo(listOf(GigTitle("ARCH ENEMY - SOLD OUT"), GigTitle("Madra Salach - SOLD OUT"), GigTitle("CHELSEA WOLFE - SOLD OUT")))
+    }
+
+    @Test
     fun `drops a free entry note off either end of a title`() {
         expectThat(
             titlesListedAs(
