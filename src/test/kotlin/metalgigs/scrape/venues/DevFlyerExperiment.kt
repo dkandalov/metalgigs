@@ -60,7 +60,7 @@ class DevFlyerExperiment {
             when {
                 wanted == null -> println("  + $date  not on the flyer: \"$got\"")
                 got == null -> println("  - $date  missed: \"$wanted\"")
-                got == wanted -> println("    $date  $got")
+                sameWording(got, wanted) -> println("    $date  $got")
                 else -> println("  ~ $date  read as \"$got\"\n              rather than \"$wanted\"")
             }
         }
@@ -68,6 +68,12 @@ class DevFlyerExperiment {
         if (elsewhere.isNotEmpty()) println("  ! ${elsewhere.size} gig(s) not under the venue's page: ${elsewhere.map { it.id.url }}")
         println()
     }
+
+    // A flyer prints a typographic apostrophe where a model transcribes a straight one, which is a
+    // difference about type rather than about what the flyer says. Reported as a match so that a `~`
+    // line always means a word was read wrongly - a diff that is noisy every run is one nobody reads.
+    private fun sameWording(read: String, onTheFlyer: String) =
+        read.replace('’', '\'') == onTheFlyer.replace('’', '\'')
 
     // The flyer as the source would meet it: one post carrying the real caption, and the image
     // itself. Faking the two requests rather than the source leaves the whole of it running for
@@ -101,6 +107,24 @@ class DevFlyerExperiment {
     }
 
     private val flyers = listOf(
+        // Three of June's rows wrap onto a second line, the continuation marked with a leading "+",
+        // which is the shape that made one discarded prompt list a row twice, once per line. Its
+        // post id is not recorded because this flyer came from a saved copy rather than the feed,
+        // which only pages back about six weeks before Instagram stops answering.
+        Flyer(
+            "2026-06",
+            "not-recorded",
+            "What’s On JUNE 2026!",
+            listOf(
+                GigDate(2026, 6, 5) to "Contract Killer / Frayed Ends / RxPxC / NxFxG / Kill The Snitch",
+                GigDate(2026, 6, 6) to "Concrete Age / Deity & Devilry +Devilsky / Onion Mash / Chewed Out",
+                GigDate(2026, 6, 7) to "UK Death Dealers presents: Suffer / Gravery / The Slaughtering / Grave Torture",
+                GigDate(2026, 6, 12) to "Mindpilot / Elentari + TBC",
+                GigDate(2026, 6, 13) to "Urzah / Matter / Summerisle",
+                GigDate(2026, 6, 19) to "Rattlesnakes / War Grave / Skrike",
+                GigDate(2026, 6, 20) to "Them Bloody Kids / Confyde / +I Can’t Believe It’s Not Better / District 13",
+            ),
+        ),
         Flyer(
             "2026-07",
             "DaVb6UTKrM6",
