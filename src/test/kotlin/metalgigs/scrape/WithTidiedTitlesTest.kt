@@ -36,6 +36,12 @@ class WithTidiedTitlesTest {
     }
 
     @Test
+    fun `leaves the plus in a title that lists its bands with commas`() {
+        val meantAsWritten = listOf("HEAVY HALLOWEEN ft. INHUMAN NATURE, PUPPY, AGNOSY + MORE")
+        expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
+    }
+
+    @Test
     fun `leaves a plus written against a word`() {
         val meantAsWritten = listOf("+/-", "Rock+Roll Karaoke")
         expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))

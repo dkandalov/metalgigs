@@ -18,11 +18,16 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
             .replace(leadingFreeEntry, "")
             .replace(trailingFreeEntry, "")
             .replace(trailingCity, "")
-            .replace(billSeparator, " / ")
+            .let(::bandsSeparated)
         // a listing whose whole title is one of these has said nothing else about the gig, and the
         // blank would reach GigTitle as a source that has stopped parsing
         return tidied.ifBlank { title }
     }
+
+    // A title listing its bands with commas is joining the last of them with the "+" rather than
+    // separating two acts - "INHUMAN NATURE, PUPPY, AGNOSY + MORE", where a slash reads as a name.
+    private fun bandsSeparated(title: String) =
+        if (title.contains(',')) title else title.replace(billSeparator, " / ")
 
     // Signature Brew ends its titles with where the gig is, and every venue here is in London.
     private val trailingCity = Regex("""\s*\|\s*London(?=(${Regex.escape(cancelledSuffix)})?\s*$)""", IGNORE_CASE)
