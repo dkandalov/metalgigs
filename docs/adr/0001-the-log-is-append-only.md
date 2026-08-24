@@ -31,7 +31,6 @@ is no separate current-state file that could disagree with the log:
 | `currentGigs` | the newest observation of each gig, less those a venue has relisted elsewhere |
 | `newOrChangedGigs` | what this scrape saw that the log does not already hold |
 | `lastScrapedAt` | which venues are outside the scrape cooldown |
-| `alreadyIngested` | whether a poster's gigs are already in |
 | `alreadyRenderedFor` | whether the page has been rendered as of a date |
 | `classificationStatus`, `metalGigs` | what genre a gig is, and so what gets published |
 | `alreadyClassified`, `overriddenByUser` | what a forced reclassification may skip |
@@ -68,9 +67,9 @@ What compaction loses is the history itself: when a gig gained "- SOLD OUT", whe
 which model judged a verdict since superseded.
 
 **A new projection is not automatically safe under compaction.** The five checks in `compactLog` are the
-enforcement, and a projection that compaction could change belongs among them. The two that are absent -
-`alreadyIngested` and `alreadyRenderedFor` - are safe for a reason worth stating: compaction keeps every
-distinct `GigId` and every `GigsRendered` entry, which is exactly what each reads. A projection that
+enforcement, and a projection that compaction could change belongs among them. The one that is absent -
+`alreadyRenderedFor` - is safe for a reason worth stating: compaction keeps every `GigsRendered` entry,
+which is exactly what it reads. A projection that
 depended on more than one observation of a gig, or on a superseded classification, would not be safe, and
 would have to be checked or the compaction rule changed to keep what it needs.
 

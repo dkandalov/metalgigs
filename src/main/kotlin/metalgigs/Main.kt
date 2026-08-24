@@ -66,17 +66,7 @@ fun main(rawArgs: Array<String>) {
         }
         "daily-update" -> dailyUpdate(force = args.drop(1).contains("force"))
         "compact" -> compactLog()
-        "ingest-poster" -> {
-            val posterArgs = args.drop(1)
-            val positional = posterArgs.filterNot { it == "force" }
-            if (positional.size != 3) {
-                println("Usage: ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]")
-            } else {
-                val (imageUrl, sourceUrl, venueId) = positional
-                ingestPoster(imageUrl, sourceUrl, VenueId(venueId), force = posterArgs.contains("force"))
-            }
-        }
-        else -> println("Usage: [daily-update [force]|scrape [venue-id...] [force]|classify [venue-id...] [limit] [force]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|ingest-poster <imageUrl> <sourceUrl> <venue-id> [force]|compact]")
+        else -> println("Usage: [daily-update [force]|scrape [venue-id...] [force]|classify [venue-id...] [limit] [force]|classify status|classify override <url> <genre>|render [yyyy-mm-dd] [force] [full-unresolved]|compact]")
     }
 }
 
@@ -215,7 +205,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
 // have an LLM verdict, at a paid call each, which is why it's never what a routine run does.
 //
 // Unlike scrape, the venues here are every venue in the log rather than every venue with a source:
-// a poster-only venue's gigs are classified like any other.
+// a venue nothing scrapes still has its gigs classified like any other.
 private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit: Int? = null, force: Boolean = false): ClassificationRun {
     val client = httpClient()
     val log = GigsLog(eventsFile)
@@ -234,7 +224,8 @@ private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit:
 
     val settled = if (force) log.overriddenByUser() else log.alreadyClassified()
     val run = classifyGigs(toConsider, settled, limit) { gig ->
-        classifyGigByLLM(client, chat, gig, recordedAt)
+        if (gig.id.venueId in alwaysMetalVenues) GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.User)
+        else classifyGigByLLM(client, chat, gig, recordedAt)
     }
     val classifications = run.classified
     log.append(classifications)
@@ -319,36 +310,6 @@ private fun overrideGigGenre(url: String, genre: Genre) {
     ))
 }
 
-private fun ingestPoster(imageUrl: String, sourceUrl: String, venueId: VenueId, force: Boolean = false) {
-    val client = httpClient()
-    val log = GigsLog(eventsFile)
-
-    if (!force && log.alreadyIngested(sourceUrl)) {
-        println("Skipping - $sourceUrl already ingested; pass force to re-ingest anyway")
-        return
-    }
-
-    val apiKey = ApiKey.of(
-        System.getenv("ANTHROPIC_API_KEY")
-            ?: error("ANTHROPIC_API_KEY environment variable is required for poster extraction")
-    )
-    val chat = Chat.AnthropicAI(apiKey = apiKey, http = httpClient(llmCallTimeout), systemPrompt = SystemPrompt.of(posterExtractionSystemPrompt))
-
-    val gigs = extractPosterGigs(client, chat, imageUrl, sourceUrl, venue(venueId))
-    gigs.forEach { println(it) }
-
-    val newOrChanged = log.newOrChangedGigs(gigs)
-    val recordedAt = Instant.now()
-    val observed = newOrChanged.map { GigObserved(it, recordedAt) }
-    val classified = gigs.map { gig ->
-        GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.User)
-    }
-    log.append(observed + classified)
-    cacheImagesReportingFailures(client, gigs, "poster image(s)")
-
-    println("${gigs.size} gig(s) extracted from poster (${newOrChanged.size} new/changed), all assumed Metal")
-}
-
 // Why these checks: docs/adr/0001-the-log-is-append-only.md
 private fun compactLog() {
     val log = GigsLog(eventsFile)
@@ -416,6 +377,7 @@ private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): Li
     OvoArenaGigsSource(client),
     IndigoAtTheO2GigsSource(client),
     TheO2ArenaGigsSource(client),
+    DevGigSource(client, Chat.Ollama(httpClient(ollamaCallTimeout), SystemPrompt.of(flyerExtractionSystemPrompt))),
 ).map(::WithTidiedTitles)
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)

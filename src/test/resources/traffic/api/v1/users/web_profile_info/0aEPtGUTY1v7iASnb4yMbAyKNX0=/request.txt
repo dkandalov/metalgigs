@@ -1,0 +1,4 @@
+GET https://www.instagram.com/api/v1/users/web_profile_info/?username=thedevcamden HTTP/1.1
+X-IG-App-ID: 936619743392459
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+

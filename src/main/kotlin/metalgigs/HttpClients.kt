@@ -21,6 +21,10 @@ internal fun unredirectedHttpClient(callTimeout: Duration = pageCallTimeout): Ht
                 // to keep it or the Dice sources stop seeing the redirect they read a gig's url off.
                 .followRedirects(false)
                 .callTimeout(callTimeout)
+                // OkHttp defaults this to 10 seconds, which a reply that arrives in one go runs into
+                // long before the call timeout does: ollama sends nothing at all until the whole
+                // extraction is written, and a minute of that silence is not a stalled socket.
+                .readTimeout(callTimeout)
                 .build()
         )
     )
@@ -33,6 +37,10 @@ private val pageCallTimeout: Duration = Duration.ofSeconds(15)
 // Anthropic takes seconds to judge a gig's genre and tens of them to read a poster, both of which
 // the bound a venue's page is held to would cut short.
 internal val llmCallTimeout: Duration = Duration.ofMinutes(2)
+
+// A model running here answers a poster in under a minute once it's resident, but the first call of
+// a run pays to read 17GB of weights off disk before it starts reading anything else.
+internal val ollamaCallTimeout: Duration = Duration.ofMinutes(5)
 
 // http4k maps every failure to get an answer at all onto a server error - a timeout to 504, a
 // refused connection or an unknown host to 503 - so those are what asking again can fix, where a

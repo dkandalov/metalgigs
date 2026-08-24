@@ -5,7 +5,7 @@ import metalgigs.scrape.venues.*
 fun venue(id: VenueId): Venue = venuesById[id] ?: error("Unknown venue id: $id. Known venue ids: ${venuesById.keys}")
 
 // A gig carries only its venue's id, so every venue whose gigs are in the log has to be here for
-// rendering to get a name back - including the poster-only ones, which have no GigsSource.
+// rendering to get a name back, whether or not anything still scrapes it.
 val allVenues: List<Venue> = listOf(
     cartAndHorses,
     newCrossInn,
@@ -46,6 +46,13 @@ val allVenues: List<Venue> = listOf(
 // Top-level properties are initialised in the order the file declares them, so this can only follow
 // allVenues - above it, it would silently be an empty map rather than fail.
 private val venuesById = allVenues.associateBy { it.id }
+
+// Venues whose genre isn't a judgement to make. The Dev books nothing but metal, and a gig read off
+// its monthly flyer carries nothing to judge it by anyway - the flyer's row is the whole listing, so
+// the gig's title is also its description, and a call would be asking a model to read back what it
+// was given. Recorded as a User verdict because that is what it is, a standing decision about the
+// venue rather than a judgement about the gig, which a forced reclassification then leaves alone.
+val alwaysMetalVenues: Set<VenueId> = setOf(theDev.id)
 
 // The id is what a venue is known by wherever it's stored or typed - in the log, on the command
 // line, in published image file names - and is independent of the name, which is only ever

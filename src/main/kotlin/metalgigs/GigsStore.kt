@@ -59,11 +59,6 @@ class GigsLog(private val file: File) {
             .groupBy { it.id.venueId }
             .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
-    // every gig from one poster shares a "{sourceUrl}#..." url (see posterGigUrl), so one prefix check
-    // covers the whole poster
-    fun alreadyIngested(sourceUrl: String): Boolean =
-        entries.filterIsInstance<GigObserved>().any { it.id.url.value.startsWith("$sourceUrl#") }
-
     // has the page already been rendered for this date? Matches on logicalDate rather than the newest
     // render's own timestamp, so a backdated render of some past date doesn't count as having done
     // today, and today's render still counts however long ago in the day it happened

@@ -44,10 +44,6 @@ internal sealed interface VenueListing {
     data object Failed : VenueListing
 
     data object SkippedByCooldown : VenueListing
-
-    // Classify considers every venue in the log, scrape only the ones with a source, so a
-    // poster-only venue reaches the table without any run having scraped it.
-    data object NotScraped : VenueListing
 }
 
 // A gig the log has never held is new and one it holds under an older listing has changed, which
@@ -84,24 +80,13 @@ internal fun withClassifications(
     scraped: List<VenueRun>,
     classified: Map<VenueId, Int>,
     failedToClassify: Map<VenueId, Int>,
-): List<VenueRun> {
-    val joined = scraped.map { run ->
+): List<VenueRun> =
+    scraped.map { run ->
         run.copy(
             classified = classified[run.venueId] ?: 0,
             problems = run.problems + couldNotClassify(failedToClassify[run.venueId]),
         )
     }
-    val unscraped = (classified.keys + failedToClassify.keys) - scraped.map { it.venueId }.toSet()
-
-    return joined + unscraped.map { venueId ->
-        VenueRun(
-            venueId,
-            VenueListing.NotScraped,
-            classified[venueId] ?: 0,
-            problems = couldNotClassify(failedToClassify[venueId]),
-        )
-    }
-}
 
 private val tableColumns = listOf("Venue", "Listed", "New", "Changed", "Old", "Took", "Classified", "Problems")
 
@@ -114,7 +99,6 @@ private fun rank(listing: VenueListing) = when (listing) {
     is VenueListing.Listed -> 0
     VenueListing.Failed -> 1
     VenueListing.SkippedByCooldown -> 2
-    VenueListing.NotScraped -> 3
 }
 
 private fun cellsFor(run: VenueRun): List<String> =
@@ -130,7 +114,6 @@ private fun countCells(listing: VenueListing): List<String> = when (listing) {
     is VenueListing.Listed -> listOf("${listing.listed}", "${listing.new}", "${listing.changed}", "${listing.old}")
     VenueListing.Failed -> listOf("failed", "", "", "")
     VenueListing.SkippedByCooldown -> listOf("skipped", "", "", "")
-    VenueListing.NotScraped -> listOf("-", "", "", "")
 }
 
 // Every problem is printed in full above the table, so a cell long enough to stretch it past a

@@ -53,8 +53,11 @@ class RunSummaryTest {
             .containsExactly("The Underworld", "The Dome", "The Black Heart")
     }
 
+    // Classify considers every venue in the log and scrape only the ones with a source, so its
+    // counts are joined onto the run's own venues rather than adding any: every venue in the log
+    // has a source, and one whose gigs were classified without appearing in the run has none.
     @Test
-    fun `classifications join by venue, including one no scrape reached`() {
+    fun `classifications join by venue`() {
         val joined = withClassifications(
             listOf(VenueRun(underworld, VenueListing.Listed(listed = 70, new = 2, changed = 0))),
             classified = mapOf(underworld to 2, theDev to 3),
@@ -63,7 +66,6 @@ class RunSummaryTest {
 
         expectThat(joined).containsExactly(
             VenueRun(underworld, VenueListing.Listed(listed = 70, new = 2, changed = 0), 2, problems = listOf("1 gig(s) could not be classified")),
-            VenueRun(theDev, VenueListing.NotScraped, 3),
         )
     }
 

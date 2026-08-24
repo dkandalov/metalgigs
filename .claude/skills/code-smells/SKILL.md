@@ -74,9 +74,9 @@ in src is above 447 lines now, so this entry names what was split rather than an
 ## A declaration kept in a file that isn't about it
 
 Is this what the file is about, and does anything else call it? No to both and it belongs where it's
-used, private - which is the point. `slug` sat in ImageCache.kt for one call in `posterGigUrl`, and
-`fetchImageContent` and `fetchBytes` sat public in Main.kt for one call each in `extractPosterGigs`
-and `downloadToCache`; all three are now private in the file that calls them, and
+used, private - which is the point. `slug` sat in ImageCache.kt for one call in DevGigSource's `gigUrl`,
+and `imageContent` and `fetchBytes` sat public in Main.kt for one call each in that source's flyer
+extraction and in `downloadToCache`; all three are now private in the file that calls them, and
 `Element.squarespaceThumbnailUrl` is a member of the one source using it, as `browserUserAgent`
 already was. Either question answered the other way leaves it where it is: `fetchPage` has 24 call
 sites, and `fetchPosterForClassifying` has one but reads Main.kt's private `imageCacheDir`.

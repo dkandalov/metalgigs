@@ -253,16 +253,6 @@ class GigsStoreTest {
     }
 
     @Test
-    fun `detects an already-ingested poster by its gigs' shared source-url prefix`() {
-        val gig = Gig(GigId(VenueId("Some Venue"), GigUrl("https://example.com/post/1#gig-doom-night-2026-08-14")), GigTitle("Doom Night"), GigDate(2026, 8, 14), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
-        val events: List<LogEntry> = listOf(GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")))
-
-        val log = gigsLog(events)
-        expectThat(log.alreadyIngested("https://example.com/post/1")).isEqualTo(true)
-        expectThat(log.alreadyIngested("https://example.com/post/2")).isEqualTo(false)
-    }
-
-    @Test
     fun `knows whether the page has been rendered for a given date`() {
         val entries: List<LogEntry> = listOf(
             GigsRendered("2026-08-10T09-00-00Z.html", 3, LocalDate.of(2026, 8, 10), Instant.parse("2026-08-10T09:00:00Z")),
@@ -294,7 +284,6 @@ class GigsStoreTest {
         expectThat(log.metalGigs()).isEqualTo(listOf(gig))
         expectThat(log.alreadyClassified()).isEqualTo(setOf(gig.id))
         expectThat(log.lastScrapedAt()).isEqualTo(mapOf(VenueId("Test Venue") to recordedAt))
-        expectThat(log.alreadyIngested("https://example.com/post/1")).isEqualTo(false)
     }
 
     @Test
