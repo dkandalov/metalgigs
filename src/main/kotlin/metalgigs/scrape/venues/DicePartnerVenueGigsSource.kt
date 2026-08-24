@@ -67,7 +67,7 @@ private class DicePartnerVenueGigsSource(
     }
 
     private fun titleWithCancellation(event: DicePartnerEvent): GigTitle =
-        titleFrom(if (event.status == "cancelled") "${event.name} - CANCELLED" else event.name)
+        titleFrom(if (event.status == "cancelled") "${event.name}$cancelledSuffix" else event.name)
 
     // None of these venues gives a gig a page of its own, so a gig lives at its dice.fm event page -
     // not at the short ticketing link (link.dice.fm/...) this API also carries, which is opaque and
@@ -113,6 +113,8 @@ private class DicePartnerVenueGigsSource(
     private val firstPageUrl =
         "$baseUrl?page%5Bsize%5D=200&types=linkout,event&filter%5Bvenues%5D%5B%5D=${URLEncoder.encode(venueFilter, UTF_8)}"
 }
+
+internal const val cancelledSuffix = " - CANCELLED"
 
 val twoTwoNine = Venue(VenueId("229"), "229")
 
