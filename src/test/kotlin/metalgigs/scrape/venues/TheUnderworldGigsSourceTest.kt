@@ -91,4 +91,48 @@ class TheUnderworldGigsSourceTest {
 
         expectThat(pageText).isEqualTo("Doom metal night!")
     }
+
+    // the running order off the Kings of Thrash page, whose lineup types the headliner in the case
+    // the bands use where the listing heading shouts it
+    @Test
+    fun `titles a gig with its running order, headliner first`() {
+        val page = runningOrderOf("7:00 PM" to "Doors open", "&ndash;" to "Wicked", "&ndash;" to " XIII Doors", "&ndash;" to "Kings of Thrash", "11:00 PM" to "Curfew")
+
+        expectThat(TheUnderworldGigsSource(noHttp).billedTitle(page, GigTitle("KINGS OF THRASH")))
+            .isEqualTo(GigTitle("Kings of Thrash / XIII Doors / Wicked"))
+    }
+
+    // London Metalfest, where the running order holds the day's bands and not what the day is called
+    @Test
+    fun `keeps the venue's title when the running order tops out on something the gig isn't named for`() {
+        val page = runningOrderOf("1:00 PM" to "Doors open", "&ndash;" to "Aethoria", "&ndash;" to "Burning Witches", "&ndash;" to "Candlemass", "10:00 PM" to "Curfew")
+
+        expectThat(TheUnderworldGigsSource(noHttp).billedTitle(page, GigTitle("LONDON METALFEST"))).isEqualTo(null)
+    }
+
+    // a club night, and a gig whose only act is the headliner - between doors and curfew there is
+    // nothing the listing hasn't already said
+    @Test
+    fun `keeps the venue's title when the running order adds no one to it`() {
+        val clubNight = runningOrderOf("11:00 PM" to "Doors open", "3:00 AM" to "Curfew")
+        val oneAct = runningOrderOf("6:30 PM" to "Doors open", "&ndash;" to "SARCOFAGO", "10:00 PM" to "Curfew")
+
+        expectThat(TheUnderworldGigsSource(noHttp).billedTitle(clubNight, GigTitle("Blackout Club"))).isEqualTo(null)
+        expectThat(TheUnderworldGigsSource(noHttp).billedTitle(oneAct, GigTitle("SARCOFAGO"))).isEqualTo(null)
+    }
+
+    // the SPY page's five acts; the venue's longest running order is Cosmic Void Festival's 39
+    @Test
+    fun `takes the headliner and three supports from a longer bill`() {
+        val page = runningOrderOf("7:00 PM" to "Doors open", "&ndash;" to "bullet.", "&ndash;" to "Shooting Daggers", "&ndash;" to "Dry Socket", "&ndash;" to "SPACED", "&ndash;" to "SPY", "11:00 PM" to "Curfew")
+
+        expectThat(TheUnderworldGigsSource(noHttp).billedTitle(page, GigTitle("SPY")))
+            .isEqualTo(GigTitle("SPY / SPACED / Dry Socket / Shooting Daggers"))
+    }
+
+    private fun runningOrderOf(vararg rows: Pair<String, String>) = pageOf(
+        rows.joinToString("", """<ul class="event-details-lineup">""", "</ul>") { (time, act) ->
+            "<li><time>$time</time><span>&middot;</span><p>$act</p></li>"
+        }
+    )
 }

@@ -15,12 +15,14 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
             .select("#gigs article.list")
             .map { item ->
                 val gigUrl = gigUrlFrom(item.select(".list-header-title a").attr("abs:href"), "https://www.theunderworldcamden.co.uk/event/")
+                val listedAs = GigTitle(item.select(".list-header-title").text())
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
                 Gig(
                     GigId(venue.id, gigUrl),
-                    GigTitle(item.select(".list-header-title").text()),
+                    billedTitle(eventPage, listedAs) ?: listedAs,
                     GigDate.parse(item.select("time").first()!!.attr("datetime")),
                     posterUrlFrom(gigUrl, imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src"))),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                 )
             }
 
@@ -46,6 +48,28 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
             .forEach { it.remove() }
         return article.text().ifBlank { null }
     }
+
+    // A running order is the whole bill as the lineup types it - cased, headliner last - where the
+    // listing heading gives the headliner alone and in capitals. Only taken when that last act is
+    // what the gig is listed as: a festival or a club night is named for something no act is.
+    internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? {
+        val bill = lineupActs(page).asReversed()
+        if (bill.size < 2 || !bill.first().equals(listedAs.value, ignoreCase = true)) return null
+        return titleFrom(bill.take(actsInTitle).joinToString(" / "))
+    }
+
+    // Doors and curfew carry a clock time where every act carries an en dash, so the time is what
+    // tells them apart. Not position: Cosmic Void Festival's page ends on its last act, with no
+    // curfew row under it.
+    private fun lineupActs(page: Document): List<String> =
+        page.select("ul.event-details-lineup li")
+            .filterNot { it.select("time").text().any(Char::isDigit) }
+            .map { it.select("p").text() }
+            .filter { it.isNotBlank() }
+
+    // The headliner and three supports. A bill runs longer - Cosmic Void Festival's is 39 acts - and
+    // the rest of one is a programme rather than a title.
+    private val actsInTitle = 4
 }
 
 
