@@ -2,12 +2,17 @@ package metalgigs.scrape.venues
 
 import metalgigs.*
 import metalgigs.scrape.*
+import org.http4k.core.HttpHandler
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
+import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class WindmillBrixtonGigsSourceTest {
 
@@ -76,5 +81,42 @@ class WindmillBrixtonGigsSourceTest {
         expectThat(pageText.contains("Tweet")).isEqualTo(false)
         expectThat(pageText.contains("Visitor Info")).isEqualTo(false)
         expectThat(pageText.contains("news and offers")).isEqualTo(false)
+    }
+
+    @Test
+    fun `skips a named Windmill Brixton gig whose event page carries no description`() {
+        val source = WindmillBrixtonGigsSource(
+            servingDescriptionlessPagesFor("2026-09-11-drive-your-plow-running-standard-the-windmill"),
+        )
+
+        expectThat(source.latestGigs()).isEmpty()
+    }
+
+    @Test
+    fun `fails the whole Windmill Brixton listing when an unnamed gig's event page carries no description`() {
+        val source = WindmillBrixtonGigsSource(
+            servingDescriptionlessPagesFor("2026-09-12-some-other-band-the-windmill"),
+        )
+
+        assertFailsWith<IllegalStateException> { source.latestGigs() }
+    }
+
+    private fun servingDescriptionlessPagesFor(slug: String): HttpHandler = { request ->
+        val body = if (request.uri.path.startsWith("/events/")) {
+            """
+                <article class="Event EventDetail">
+                    <h1 class="EventDetailTitle-title">Drive Your Plow, Running Standard</h1>
+                    <div class="EventDetailEntry"><span class="EventDetailPrice-price">£8</span></div>
+                </article>
+            """
+        } else {
+            """
+                <a class="EventLink" href="https://www.windmillbrixton.co.uk/events/$slug">
+                    <span class="title name">Drive Your Plow, Running Standard</span>
+                    <div class="Image-wrap"><img src="https://musicglue-images-prod.global.ssl.fastly.net/x?mode=fit&width=600"></div>
+                </a>
+            """
+        }
+        Response(OK).body(body)
     }
 }

@@ -75,6 +75,15 @@ internal fun gigUrlFrom(url: String, vararg under: String): GigUrl {
     return GigUrl(url)
 }
 
+internal fun gigOrSkipped(gigUrl: GigUrl, skippable: Set<GigUrl>, gig: () -> Gig): Gig? =
+    try {
+        gig()
+    } catch (e: Exception) {
+        if (gigUrl !in skippable) throw e
+        println("Skipping $gigUrl, which is named as ok to lose - ${e.message}")
+        null
+    }
+
 // An unmatched selector and an empty API field both arrive as "" rather than as a failure, and
 // PosterUrl's own message has no gig to name when it rejects one.
 internal fun posterUrlFrom(gigUrl: GigUrl, url: String?): PosterUrl {

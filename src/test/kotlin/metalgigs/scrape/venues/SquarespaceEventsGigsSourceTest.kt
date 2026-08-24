@@ -8,9 +8,11 @@ import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.hasSize
+import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class SquarespaceEventsGigsSourceTest {
 
@@ -77,6 +79,33 @@ class SquarespaceEventsGigsSourceTest {
         ).latestGigs()
 
         expectThat(events.single().description).isEqualTo(GigDescription("Doom metal night with support."))
+    }
+
+    @Test
+    fun `skips a named Fiddler's Elbow gig whose card carries no thumbnail`() {
+        val source = FiddlersElbowGigsSource(servingCardWithNoThumbnailAt("/whos-playing/s-for-sierra-ep-launch-party1992026"))
+
+        expectThat(source.latestGigs()).isEmpty()
+    }
+
+    @Test
+    fun `fails the whole Fiddler's Elbow listing when an unnamed gig's card carries no thumbnail`() {
+        val source = FiddlersElbowGigsSource(servingCardWithNoThumbnailAt("/whos-playing/some-other-band1992026"))
+
+        assertFailsWith<IllegalStateException> { source.latestGigs() }
+    }
+
+    private fun servingCardWithNoThumbnailAt(path: String): HttpHandler = { _ ->
+        Response(OK).body(
+            """
+                <article class="eventlist-event eventlist-event--upcoming">
+                  <a href="$path" class="eventlist-column-thumbnail content-fill" data-animation-role="image"></a>
+                  <h1 class="eventlist-title"><a href="$path" class="eventlist-title-link">S for Sierra : EP Launch Party</a></h1>
+                  <time class="event-date" datetime="2026-09-19">Saturday 19 September 2026</time>
+                  <div class="eventlist-excerpt"><p>Join us for the release of our debut EP.</p></div>
+                </article>
+            """,
+        )
     }
 
     @Test

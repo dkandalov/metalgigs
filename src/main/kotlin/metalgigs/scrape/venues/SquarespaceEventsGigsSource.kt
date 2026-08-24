@@ -18,25 +18,28 @@ internal class SquarespaceEventsGigsSource(
     private val url: String,
     override val venue: Venue,
     private val descriptionFrom: SquarespaceDescription = SquarespaceDescription.EventPage,
+    private val skippableGigs: Set<GigUrl> = emptySet(),
 ) : GigsSource {
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("article.eventlist-event--upcoming")
-            .map { item ->
+            .mapNotNull { item ->
                 val titleLink = item.select(".eventlist-title-link")
                 // a Squarespace events list hangs each event off the listing page's own path, so
                 // The Black Heart lists at /events and its gigs sit at /events/2026/9/30/morag-tong
                 val gigUrl = gigUrlFrom(titleLink.attr("abs:href"), "$url/")
-                Gig(
-                    GigId(venue.id, gigUrl),
-                    GigTitle(titleLink.text()),
-                    GigDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
-                    posterUrlFrom(gigUrl, item.squarespaceThumbnailUrl()),
-                    when (descriptionFrom) {
-                        SquarespaceDescription.EventPage -> fetchDescription(client, gigUrl, ::eventPageContent)
-                        SquarespaceDescription.ListingExcerpt -> GigDescription(item.select(".eventlist-excerpt").text())
-                    },
-                )
+                gigOrSkipped(gigUrl, skippableGigs) {
+                    Gig(
+                        GigId(venue.id, gigUrl),
+                        GigTitle(titleLink.text()),
+                        GigDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
+                        posterUrlFrom(gigUrl, item.squarespaceThumbnailUrl()),
+                        when (descriptionFrom) {
+                            SquarespaceDescription.EventPage -> fetchDescription(client, gigUrl, ::eventPageContent)
+                            SquarespaceDescription.ListingExcerpt -> GigDescription(item.select(".eventlist-excerpt").text())
+                        },
+                    )
+                }
             }
 
     // Squarespace's "Events List" block sometimes resolves the thumbnail's `src` eagerly and sometimes
@@ -78,4 +81,7 @@ class FiddlersElbowGigsSource(client: HttpHandler) :
         url = "https://www.thefiddlerselbow.co.uk/whos-playing",
         venue = fiddlersElbow,
         descriptionFrom = SquarespaceDescription.ListingExcerpt,
+        skippableGigs = setOf(
+            GigUrl("https://www.thefiddlerselbow.co.uk/whos-playing/s-for-sierra-ep-launch-party1992026"),
+        ),
     )
