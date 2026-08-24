@@ -22,7 +22,7 @@ class WithTidiedTitlesTest {
 
     @Test
     fun `leaves a city the title says something with`() {
-        val meantAsWritten = listOf("Korn | London | After Tour Party // Free Entry", "Anette Olzon In London")
+        val meantAsWritten = listOf("Anette Olzon In London", "North & East London Fiesta Weekender")
         expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
     }
 
@@ -30,7 +30,7 @@ class WithTidiedTitlesTest {
     fun `separates a bill's bands with a slash`() {
         expectThat(titlesListedAs(listOf("FOSSILIZATION + PHOBOCOSM", "The Fire Doors + The InCureables")))
             .isEqualTo(listOf(GigTitle("FOSSILIZATION / PHOBOCOSM"), GigTitle("The Fire Doors / The InCureables")))
-        // both rules off one title
+        // the city and the bill off one title
         expectThat(titlesListedAs(listOf("LOLA (AUS) + Lucky Hit | London")))
             .isEqualTo(listOf(GigTitle("LOLA (AUS) / Lucky Hit")))
     }
@@ -38,6 +38,40 @@ class WithTidiedTitlesTest {
     @Test
     fun `leaves a plus written against a word`() {
         val meantAsWritten = listOf("+/-", "Rock+Roll Karaoke")
+        expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
+    }
+
+    @Test
+    fun `drops a free entry note off either end of a title`() {
+        expectThat(
+            titlesListedAs(
+                listOf(
+                    "HELGI'S 8th ANNIVERSARY PARTY - FREE ENTRY",
+                    "IAN / MATADOR / CABIRIA [FREE ENTRY]",
+                    // the city it carries mid-title stays, the note tied on after it goes
+                    "Korn | London | After Tour Party // Free Entry",
+                    "FREE ENTRY: APØLLØ “Code Name” Release party + THE SERENITY CLUB + VENETOR",
+                )
+            )
+        ).isEqualTo(
+            listOf(
+                GigTitle("HELGI'S 8th ANNIVERSARY PARTY"),
+                GigTitle("IAN / MATADOR / CABIRIA"),
+                GigTitle("Korn | London | After Tour Party"),
+                GigTitle("APØLLØ “Code Name” Release party / THE SERENITY CLUB / VENETOR"),
+            )
+        )
+    }
+
+    @Test
+    fun `leaves a free entry note the title carries in the middle`() {
+        val meantAsWritten = listOf("Open Mic - Bubblebath - FREE ENTRY - ALL WELCOME")
+        expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
+    }
+
+    @Test
+    fun `leaves a title that is nothing but the note`() {
+        val meantAsWritten = listOf("[FREE ENTRY]", "FREE ENTRY:")
         expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
     }
 
