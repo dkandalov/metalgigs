@@ -45,19 +45,10 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     // e.g. background-image:url('...') - the poster is a css background rather than an img element
     private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
 
-    // this category currently spans two pages (36 + 19 events), found by following the page's own
-    // "next" link rather than guessing at a query parameter - the same sidebar also links a handful
-    // of upcoming shows outside .tb-event-item, which .select scopes past. maxPages exists only to
-    // bound a pathological site bug; the real stop condition is the next link disappearing
+    // Why paging follows the listing's own link: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
     private val maxPages = 10
 
-    // .entry-content leads with the venue's ticketing and access furniture - price and sale status,
-    // door times, an age/ID/access table, "Read our guide to buying and using tickets" - and closes
-    // with calendar links, all of it identical across listings and on a short one longer than the
-    // copy. The gig's own copy is what follows the "About <artist>" heading, on every listing read.
-    // The header box is kept for the promoter and support acts, which the listing's title leaves out.
-    // Its own date line and buy/info links go with the rest of the furniture though: the date is
-    // already a field on the gig, and reaching the classifier as prose only reads as a second date.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val ticketingFurniture =
         "p.event-date, p.age-restrictions, p.event-time, p.guide-to, p.add-calendar, .button, .left-morebox, .right-morebox"
 

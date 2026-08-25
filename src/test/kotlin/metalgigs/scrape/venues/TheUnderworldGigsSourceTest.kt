@@ -7,6 +7,9 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
 
+// Why titles are tidied as read: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+// Why the poster comes at full size: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
 class TheUnderworldGigsSourceTest {
 
     @Test

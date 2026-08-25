@@ -14,20 +14,43 @@ true - verified against the code - and not derivable from the declaration, the a
 well-known pattern. Delete a weak one rather than rewording it, and touch only those you are editing.
 
 Cut on sight: change history, renames, rejected alternatives (which move to an ADR rather than being
-lost - below), restatements of the declaration, which caller populates a field, explanations of
-familiar patterns. Keep what reading the code cannot recover: site behaviour, measurements, library
-traps (Ovo Arena's `"ImageURL": false`, which Kondor would fail the whole month's parse over),
-distinctions between similar things (`logicalDate` versus `recordedAt`). Wording: sentence
-capitalisation ending in a full stop, an identifier keeping its case.
+lost - below), anything an ADR already holds (below), restatements of the declaration, which caller
+populates a field, explanations of familiar patterns. Keep what reading the code cannot recover: site
+behaviour, measurements, library traps (Ovo Arena's `"ImageURL": false`, which Kondor would fail the
+whole month's parse over), distinctions between similar things (`logicalDate` versus `recordedAt`).
+Wording: sentence capitalisation ending in a full stop, an identifier keeping its case.
 
 Over three lines, or the same reasoning at a second site, and it is a decision being explained rather
-than a fact recorded - write `docs/adr/`. ADR-1 was five such comments across three files, a piece of
-one decision each, none able to hold what the list above cuts. What stands at each is a label naming
-the question, seven words before the path, on the declaration the decision is about: `class GigsLog`
-carries `// Why every state is a projection: docs/adr/0001-the-log-is-append-only.md`, where the prose
-had grown on `compact` and `seq`. Length alone isn't the smell - `MAX_TITLE_LENGTH`'s measured bounds
-record something nobody decided, and have no ADR to go in. Nothing checks the path, so grep `docs/adr/`
-before renaming one.
+than a fact recorded - so it moves into `docs/adr/`, whole. Moving is the whole operation: the prose
+comes out of the file and goes into an ADR that holds all of it, and a label goes where it stood. Not
+trimmed to three lines, not summarised in place, not left because it is good writing - a four-line
+comment is either a decision, which the ADR takes, or two facts that were never one comment. ADR-1 was
+five such comments across three files, a piece of one decision each, none able to hold what the list
+above cuts; ADRs 2-11 were every comment over the threshold in `scrape/`. What stands at each is a
+label naming the question, seven words before the path, on the declaration the decision is about:
+`class GigsLog` carries `// Why every state is a projection: docs/adr/0001-the-log-is-append-only.md`,
+where the prose had grown on `compact` and `seq`. Length alone isn't the smell - a measured bound
+records something nobody decided, and stays at its constant until an ADR argues for it, as ADR-4 now
+does for `MAX_TITLE_LENGTH` and the six thresholds beside it. Nothing checks the path, so grep
+`docs/adr/` before renaming one.
+
+Nothing is dropped on the way. A comment over the threshold is moved into an ADR that already argues
+its decision or into a new one written for it - never deleted on the grounds that it was too long,
+which loses exactly the reasoning the threshold was meant to protect. Check the ADR holds the detail
+before cutting the comment: `ContaminationCheck`'s n-gram dedup went into ADR-3 in the same change
+that took the prose out of the file.
+
+**An ADR having it is itself the reason not to write it.** Once a decision is recorded, prose repeating
+any part of it in the code is a second copy that will drift from the first, and the ADR is the one that
+loses - nothing rereads it when the code changes. So the label replaces the reasoning rather than
+summarising it: no restating the decision above the path, no keeping "the short version" beside it, and
+no explaining a threshold the ADR argues for. This holds however good the prose is, and applies to a
+comment already written as much as to a new one - ADRs 2-11 were the comments across `scrape/`, and
+what stands in those files now is the facts those ADRs don't hold, one label per ADR per file. What
+stays is what the ADR left behind: the site's own quirk at the parse, the library trap at the converter,
+the distinction between two look-alike fields. A measurement is the line to watch, since an ADR arguing
+for a threshold takes its numbers with it. If you cannot say which of the two a line belongs to, it is
+the ADR's.
 
 ## A parameter a function takes only for its error message
 

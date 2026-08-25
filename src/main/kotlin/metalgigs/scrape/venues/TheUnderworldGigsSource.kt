@@ -32,10 +32,8 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     private val browserUserAgent =
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
-    // The venue's standard age policy sits in the same container as the blurb, as a paragraph of
-    // its own with nothing in the markup to tell it apart, so it goes by its wording. Seen as both
-    // "This is a 14+ event" and "This event is a 14+ event", and on a thin listing it is most of
-    // the text.
+    // Seen as both "This is a 14+ event" and "This event is a 14+ event".
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val agePolicy = Regex("""^this (is|event is) an? \d+\+ event""", RegexOption.IGNORE_CASE)
 
     // An event page carries the sitewide "other events" widget alongside the gig's own content, so
@@ -73,13 +71,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
 }
 
 
-// imgix renders whatever size the url asks for, and The Underworld's listing asks for w=200 - a
-// thumbnail sized for its own page, and 8x fewer pixels than the crop behind it (measured: w=200
-// gives 200px, dropping it gives the full 1667px, and asking beyond that caps rather than upscales).
-// Taking the full crop lets render size it for the card instead of enlarging a thumbnail.
-//
-// The dice.fm venues draw on this same CDN but link their images with no w at all, which is why
-// theirs have always arrived at full size
+// Why the width parameter is dropped: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
 internal fun imgixUrlWithoutWidth(url: String): String {
     if (!url.contains("imgix.net")) return url
     val base = url.substringBefore('?')

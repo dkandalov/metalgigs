@@ -14,6 +14,10 @@ import strikt.assertions.isEqualTo
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
+// Why this reading surface and paging: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
+// Why the poster comes at full size: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+// Why a gig's url is its identity: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
 class DhpVenueGigsSourceTest {
 
     @Test

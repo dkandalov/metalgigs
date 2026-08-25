@@ -8,6 +8,7 @@ import java.time.Instant
 import java.time.LocalDate
 import kotlin.test.Test
 
+// Why the log is a projection: docs/adr/0001-the-log-is-append-only.md
 class LogCompactionTest {
 
     private val gigA = Gig(GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/a")), GigTitle("Gig A"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))

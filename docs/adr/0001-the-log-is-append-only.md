@@ -117,12 +117,3 @@ timestamp, so every projection asking for the latest entry was resolving those t
 **Compacting in place**, on the grounds that `events.ndjson` is committed and git makes any swap
 recoverable. It is recoverable either way - but a failed check should cost nothing at all, and writing
 alongside makes that so.
-
-## Where this is enforced
-
-`LogCompactionTest` holds the compaction rule, including `projects the same gigs and genres as the log it
-replaces`, `dates a gig's arrival the same way after compaction as before`, and the trap beneath `keeps a
-user override over an LLM classification recorded after it`. `GigsStoreTest` holds the projections and the
-sequencing, including `takes the later of two observations recorded at the same instant`, `dates a gig from
-its earliest observation, however often its listing changed after`, and `reads back a classification written
-before llmModel and useVision existed`.

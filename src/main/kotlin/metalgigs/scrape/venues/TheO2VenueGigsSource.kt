@@ -38,11 +38,8 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
         return gigs
     }
 
-    // A venue's listing page renders only the first 24 events and its "Load More" button arrives
-    // disabled, enabled by the script that fetches the rest - so the page alone reads as a complete
-    // listing when it is a fraction of one, at either room. This is what that script calls, one
-    // batch of 24 at a time; per_page is in the query the site sends but the server ignores it, so
-    // the offset in the path is the only way through.
+    // per_page is in the query the site sends, but the server ignores it.
+    // Why the batches come from here: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
     private fun batchUrl(offset: Int) = "https://www.theo2.co.uk/events/events_ajax/$offset" +
         "?category=0&venue=$theO2VenueId&team=0&exclude=&per_page=$batchSize&came_from_page=event-list-page"
 

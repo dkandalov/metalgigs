@@ -12,6 +12,8 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import kotlin.test.Test
 
+// Why a gig's url is its identity: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
+// Why the thresholds are these numbers: docs/adr/0004-thresholds-are-measured-against-the-log-and-dated.md
 class GigCorrectionTest {
 
     private val today = GigDate(2026, 9, 1)

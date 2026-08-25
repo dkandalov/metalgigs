@@ -38,10 +38,7 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
     private val dayPattern = Regex("""\w{3}\s+(\d{1,2})\s+\w{3}""")
     private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
 
-    // the listing's own poster is a 550x300 thumbnail - below the 768px render target. Every one is
-    // named "<original>-lbox-<W>x<H>-FFF.<ext>"; stripping that suffix recovers the original upload
-    // (measured: 800px-2560px across a sample) with no extra request, the same trick as dropping The
-    // Underworld's imgix w= parameter
+    // Why the thumbnail suffix is stripped: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
     private val thumbnailSuffixPattern = Regex("""-lbox-\d+x\d+-FFF(\.\w+)$""")
 
     internal fun eventPageContent(page: Document) = page.select(".event__content").textOrNull()

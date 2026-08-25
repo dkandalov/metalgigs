@@ -9,26 +9,7 @@ import metalgigs.VenueId
 import java.time.temporal.ChronoUnit.DAYS
 import kotlin.math.ceil
 
-// Every gig a source lists is checked, not only the new or changed ones: a venue whose selectors
-// have broken serves the same broken text every run, and a gig logged before a check existed is
-// wrong until someone is told about it, however long ago it was scraped.
-//
-// Keyed by the venue each source was asked for rather than taking one flat list of gigs, because a
-// venue that listed nothing is absent from such a list entirely - there would be nothing to notice.
-// The keys carry that, and can't fall out of step with the gigs the way a separate set of ids could.
-//
-// A gig is spoken for by the first check to claim it, so the bot walls that are both misshapen and
-// repeated word for word are reported once, as the parsing failure they are.
-//
-// Withholding follows no such rule, and isn't per gig at all: a venue any check names a gig of
-// loses its whole listing for the run. What a check finds is evidence about the source, not about
-// the one gig it happened to catch - the gigs beside it came off the same selectors and are only
-// ones that fell the right side of a threshold. A problem naming no gigs is the exception, and says
-// so by naming none: an empty listing has nothing to withhold, and text a venue's own page prints
-// wrong is not a reason to drop that venue's gigs.
-//
-// Nothing is logged for a failed venue, so the cooldown reads it as unscraped and comes back within
-// the day, exactly as it does for a source that threw.
+// Why a named gig costs its venue the listing: docs/adr/0003-a-check-that-names-a-gig-costs-its-venue-the-listing.md
 fun validateGigs(
     scraped: Map<VenueId, List<Gig>>,
     today: GigDate,
@@ -42,7 +23,6 @@ fun validateGigs(
         val problems = scraped.flatMap { (venue, gigs) ->
             check.problems(venue, gigs, previousByVenue[venue].orEmpty())
         }
-        // A problem pointing at no gigs can't be one an earlier check already spoke for, and
         // containsAll would say the opposite of an empty set.
         val worthSaying = problems.filterNot { it.gigs.isNotEmpty() && spokenFor.containsAll(it.gigs) }
         spokenFor += problems.flatMap { it.gigs }
@@ -52,13 +32,7 @@ fun validateGigs(
     return GigsValidation(reports, scraped.filterKeys { it in failedVenues }.values.flatten().toSet())
 }
 
-// Ordered by how precisely each names what went wrong, because that decides which of them speaks
-// for a gig several of them catch. A check that names no gig - EmptyListingCheck, NothingSoonCheck -
-// neither speaks for one nor is spoken over, so where it sits is only where it reads.
-//
-// Built per run rather than held as one list, because a check about how far ahead a listing reaches
-// needs the day it is being read on, and reading the clock inside a check would leave nothing here
-// testable against a fixed date.
+// Why each threshold below is the number it is: docs/adr/0004-thresholds-are-measured-against-the-log-and-dated.md
 private fun gigsChecks(today: GigDate): List<GigsCheck> =
     listOf(EmptyListingCheck, NothingSoonCheck(today), MisshapenGigsCheck, UnparsedTextCheck, DuplicateGigsCheck, CrowdedDayCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
 
@@ -66,21 +40,13 @@ data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
 data class GigsReport(val heading: String, val problems: List<GigsProblem>)
 
-// Called once per venue that was actually scraped, with what that run listed for it and what the
-// log already holds. A venue whose source threw never reaches a check - it's reported where it's
-// caught - so an empty `scraped` means the page was fetched and read, and matched nothing.
+// An empty `scraped` means the page was fetched and read, and matched nothing: a venue whose source
+// threw never reaches a check.
 interface GigsCheck {
     val heading: String
     fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem>
 }
 
-// Every check answers the same two questions - what is wrong, and which gigs it found wrong - so a
-// whole venue's worth of shared boilerplate and one gig's unparsed title arrive in the same shape,
-// and the caller doesn't have to know which check speaks about which. Naming a gig is what costs the
-// venue its listing, so the gigs decide whether the venue failed rather than which of them are kept.
-//
-// The venue is named rather than read off the gigs, because a venue that listed nothing has a
-// problem worth reporting and no gigs to point at.
 data class GigsProblem(val venueId: VenueId, val detail: String, val gigs: Set<Gig>) {
     init {
         require(gigs.all { it.id.venueId == venueId }) {
@@ -89,14 +55,6 @@ data class GigsProblem(val venueId: VenueId, val detail: String, val gigs: Set<G
     }
 }
 
-// A listing selector that has stopped matching returns an empty selection rather than failing, so
-// the venue leaves the run in silence: nothing is logged for it, nothing is withheld, and the only
-// trace is one "0 gig(s) listed" line among every other venue's. The cooldown then reads it as
-// unscraped and comes back for it tomorrow, to find the same nothing.
-//
-// What the log already holds for the venue is what separates the two ways of listing nothing: a
-// venue whose gigs are all in the log and have simply stopped appearing is a broken source, while
-// one the log has never held any for is more likely a venue that has yet to announce anything.
 internal object EmptyListingCheck : GigsCheck {
     override val heading = "Venues that listed no gigs at all - check that source's listing selector:"
 
@@ -109,29 +67,9 @@ internal object EmptyListingCheck : GigsCheck {
         else "listed nothing, though the log holds ${previous.size} gig(s) for it"
 }
 
-// The other way a date parse goes wrong. CrowdedDayCheck catches one that has collapsed - every gig
-// landing on the one day - but a parse that has drifted whole moves a listing bodily forward instead:
-// a year read off the wrong element, a month rolled on for every row rather than only the ones that
-// cross December. Nothing about any single gig then looks wrong, the dates stay spread and ordered
-// as they should be, and the only mark left is that the listing no longer begins anywhere near now.
-// Reading a venue's "on sale soon" strip rather than its listing leaves the same one.
-//
-// A fortnight sits far closer to what venues really do than the other checks' thresholds do, which
-// is what decides the rest of this. Measured over the log as of 2026-08-25, across all 34 venues it
-// holds gigs for: Roundhouse's soonest gig is 18 days off with nothing whatever wrong with it, and
-// over the days the log can still answer for - 2026-08-01 onward, its earliest surviving gig -
-// Dingwalls went 32 days from one gig to the next, O2 Academy Islington 28, Electric Brixton 27, The
-// O2 Arena 26. So a venue named here is one to go and look at, not a source known to have broken.
-//
-// Which is why it names no gig and the venue keeps its listing, the way an empty one does. A
-// withholding check at this width would drop a real listing every few weeks and drop it silently:
-// the venue's newly announced gigs would go unlogged for as long as it stayed quiet, which is
-// exactly when it has the fewest to spare.
 internal class NothingSoonCheck(private val today: GigDate) : GigsCheck {
     override val heading = "Venues with nothing listed in the next fortnight - check what that source has read of its dates:"
 
-    // A listing that matched nothing is EmptyListingCheck's to speak about, and has no date to say
-    // anything about anyway.
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> {
         if (scraped.isEmpty()) return emptyList()
         val soonest = scraped.map { it.date }.filter { it >= today }.minOrNull()
@@ -139,8 +77,6 @@ internal class NothingSoonCheck(private val today: GigDate) : GigsCheck {
         else listOf(GigsProblem(venue, detailFor(scraped, soonest), emptySet()))
     }
 
-    // The date itself as well as the distance, because which of the two faults it is shows in where
-    // the listing starts: a year ahead reads as a year read wrong, a month as a month rolled on.
     private fun detailFor(scraped: List<Gig>, soonest: GigDate?): String =
         if (soonest == null) "nothing of ${scraped.size} gig(s) is still to come, the latest being ${scraped.maxOf { it.date }}"
         else "soonest of ${scraped.size} gig(s) is $soonest, ${DAYS.between(today.value, soonest.value)} days ahead"
@@ -152,13 +88,6 @@ internal class NothingSoonCheck(private val today: GigDate) : GigsCheck {
     }
 }
 
-// A gig's title and description are whatever text a selector returned, so a selector that started
-// matching a container rather than the thing inside it, or stopped matching a description
-// altogether, shows up in neither field's type - only in its shape. Both would otherwise be logged
-// and published in silence.
-//
-// Gigs are gathered by reason so a broken listing reads as the one thing it is, rather than as
-// ninety-six of them.
 internal object MisshapenGigsCheck : GigsCheck {
     override val heading = "Gigs that look like a parsing failure - check that source's selectors:"
 
@@ -167,16 +96,6 @@ internal object MisshapenGigsCheck : GigsCheck {
             .groupBy { (_, problem) -> problem }
             .map { (problem, found) -> GigsProblem(venue, problem, found.map { it.first }.toSet()) }
 
-    // The bounds come from the log as of 2026-08-16, and neither field has a lower one worth setting
-    // beyond non-blank, because any minimum big enough to catch a bug rejects real gigs. Across 1517
-    // distinct titles: 2 characters at the shortest ("LP", "AZ", "JJ"), 18 at the median, 74 at the
-    // 99th percentile, 103 at the longest, with only that one above 100 and nothing above 120. Across
-    // 1126 distinct descriptions: 9 at the shortest, 730 at the median, 3826 at the 99th percentile,
-    // 7492 at the longest, with six above 5000 and none above 10000.
-    //
-    // Each cap is set well clear of that - a selector that swallowed a whole card or a whole page
-    // lands far beyond either, so the margin costs nothing and leaves room for a wordier promoter
-    // than any seen yet.
     private const val MAX_TITLE_LENGTH = 200
     private const val MAX_DESCRIPTION_LENGTH = 10_000
 
@@ -188,14 +107,6 @@ internal object MisshapenGigsCheck : GigsCheck {
         else -> null
     }
 
-    // What a page shows instead of its content: a cookie wall, a bot check, a "turn on JavaScript"
-    // notice. Length can't find these - the worst of them in the log, Facebook's consent page
-    // standing in for a gig, runs to 5990 characters and so sits between two real band biographies -
-    // so they're caught by what they say instead.
-    //
-    // Deliberately narrow, because the near misses are real gig copy: "privacy policy" and "terms
-    // and conditions" both appear in blurbs that merely link them, so neither can be a marker. These
-    // three phrases and the JSON check match every junk description in the log and nothing else.
     private val boilerplatePhrases = listOf(
         Regex("we use cookies", RegexOption.IGNORE_CASE),
         Regex("allow the use of cookies", RegexOption.IGNORE_CASE),
@@ -207,15 +118,6 @@ internal object MisshapenGigsCheck : GigsCheck {
         description.startsWith("{") || boilerplatePhrases.any { it.containsMatchIn(description) }
 }
 
-// Nothing downstream would notice a source listing one gig more than once. The log takes every copy
-// as its own observation, and each projection groups by id and keeps the newest, so a paging loop
-// that re-serves a page - or a listing whose gig appears in a "featured" strip as well as the run of
-// them - reads only as a venue with more gigs than it has.
-//
-// Told apart by whether the copies agree, because they are different bugs. Copies that match are one
-// listing read twice, and the gig itself is fine. Copies that differ mean the source built two
-// different gigs from one url, and which of them the log ends up holding is decided by nothing
-// better than which was scraped last.
 internal object DuplicateGigsCheck : GigsCheck {
     override val heading = "Gigs their source listed more than once - check that source's listing selector and paging:"
 
@@ -229,26 +131,9 @@ internal object DuplicateGigsCheck : GigsCheck {
         else "listed ${copies.size} times, and not identically"
 }
 
-// Text that was never parsed, only copied. A source reading .html() where .text() was meant, a JSON
-// field the site never decoded, or bytes read in the wrong charset - each leaves its own mark, and
-// none of them is anything a venue would type.
-//
-// The patterns are drawn against the log as of 2026-08-21 rather than from first principles, because
-// the obvious ones are wrong. Any <word> reads as a tag, but "2026-27 TAEMIN WORLD TOUR <LiMiNaL>"
-// and "ITZY 3RD WORLD TOUR <TUNNEL VISION>" are real Ovo Arena listings bracketing a tour's name
-// that way, so only the names HTML itself uses count as one. Any &word; reads as an entity, but 112
-// titles and 411 descriptions hold a bare ampersand, so the semicolon has to be there. And mojibake
-// is matched as the byte pairs a UTF-8 misread leaves rather than by the characters in them, a lone
-// A-tilde being a letter some band may yet put in its name.
 internal object UnparsedTextCheck : GigsCheck {
     override val heading = "Gigs whose text was taken unparsed - check what that source reads it from:"
 
-    // A title is published, so one carrying markup costs its venue the listing like any other
-    // parsing failure. A description is not - it is what the classifier reads - and the log's only
-    // real case is The Black Heart, whose own event pages print a Bandcamp embed's code as visible
-    // text below real gig copy. Withholding those would cost the site actual metal gigs over a venue's broken embed,
-    // so the venue is named and no gig of it is claimed - the one problem here that leaves a listing
-    // standing, and the reason a check may report without naming a gig at all.
     override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> =
         byMarker(scraped) { it.title.value }
             .map { (marker, gigs) -> GigsProblem(venue, "title holds $marker", gigs.toSet()) } +
@@ -266,8 +151,6 @@ internal object UnparsedTextCheck : GigsCheck {
         else -> null
     }
 
-    // Only the tag names HTML itself uses, each closed off by a word boundary, so a tour bracketed
-    // as <LiMiNaL> isn't read as a list item and <TUNNEL VISION> isn't read as a table row.
     private val htmlTag =
         Regex("""</?(?:a|p|br|div|span|img|li|ul|ol|em|strong|b|i|h[1-6]|iframe|script|table|tr|td|figure|blockquote)\b[^<>]*>""", RegexOption.IGNORE_CASE)
 
@@ -278,21 +161,6 @@ internal object UnparsedTextCheck : GigsCheck {
     private val mojibake = Regex("[ÃÂ][-¿]|â€.")
 }
 
-// A date parse that has drifted doesn't fail - it returns a date, and the same wrong one for every
-// gig it reads, so a listing lands entire on a single day. Nothing about any one of those gigs is
-// wrong to look at: only how many of them a venue is showing at once.
-//
-// Measured over the log as of 2026-08-21, across 1850 venue-days: a venue lists one gig on a day at
-// the median, two at the 99th percentile, and four at the most - Roundhouse's Centre 59 Theatre
-// Week, then an Alexandra Palace expo day and two of Union Chapel's Camden Fringe. Unlike a day's
-// gigs across the whole city, that ceiling holds still. It is what one venue can physically run in
-// an evening, so adding sources doesn't raise it and a listing thinning out further ahead doesn't
-// lower it, which is what makes it worth setting a number against.
-//
-// Five leaves a gig's room above the busiest day ever listed, and a collapsed listing lands nowhere
-// near it - the smallest listing in the log is 10 gigs and the largest 122, so every venue here
-// would be caught by it. A venue that grows into a sixth event in one evening is reported rather
-// than a bug, which is the trade for headroom that narrow.
 internal object CrowdedDayCheck : GigsCheck {
     override val heading = "Venues showing more gigs on one day than they could - check what that source has read of its dates:"
 
@@ -305,22 +173,6 @@ internal object CrowdedDayCheck : GigsCheck {
     private const val MAX_GIGS_A_VENUE_SHOWS_IN_A_DAY = 5
 }
 
-// A poster selector that has stopped matching doesn't fail - it matches something else, and the
-// something else is the same for every card on the page: the venue's logo, its Facebook banner, a
-// ticketing network's placeholder. Every gig is then published under one picture, which no other
-// check would notice, all of them reading the gigs' text rather than what is shown with it.
-//
-// Measured over the log as of 2026-08-21, across scraped venues alone - a poster-only venue's gigs
-// all carry the one image its poster was read from, by design, and never reach a check. The largest
-// group of gigs genuinely sharing a poster is 7, Blondies' weekly Free Karaoke Sundays, then two of
-// 5 (a four-night Mission run at the Forum, a recurring comedy night at Signature Brew) and three of
-// 4. A broken selector doesn't land near those: it takes the whole listing, which is 20 to 122 gigs
-// at every venue here.
-//
-// Deliberately above Live Nation's own defualt-event-image-amg.jpg, which stands in for 3 gigs at
-// O2 Academy Islington. That is the same picture doing the same job, and no count tells it from a
-// residency - a venue whose artwork is late is not a source that has broken, which is what this is
-// for.
 internal object SharedPosterCheck : GigsCheck {
     override val heading = "Venues whose gigs are published under one picture - check that source's poster selector:"
 
@@ -329,8 +181,6 @@ internal object SharedPosterCheck : GigsCheck {
             .filterValues { it.size > MAX_GIGS_SHARING_A_POSTER }
             .map { (poster, sharing) -> GigsProblem(venue, "${sharing.size} gig(s) share ${fileName(poster)}", sharing.toSet()) }
 
-    // A weekly night is what sets this, not the bug: it grows with how far ahead a venue lists, so 20
-    // is about five months of one. A venue listing a year of the same Sunday would be reported.
     private const val MAX_GIGS_SHARING_A_POSTER = 20
 
     // The file name is what tells a placeholder from real artwork at a glance, where the url it sits
@@ -338,21 +188,6 @@ internal object SharedPosterCheck : GigsCheck {
     private fun fileName(poster: PosterUrl) = poster.value.substringBefore('?').substringAfterLast('/')
 }
 
-// A description repeated word for word can only tell one of two stories, and the titles say which.
-// The bug is a selector that returns text belonging to the venue rather than to the gig, so the same
-// blurb lands on unrelated events; the innocent case is a venue booking the same thing more than
-// once - a two-night stand, a weekly residency - where one blurb genuinely covers every date.
-//
-// Both are common in the log as of 2026-08-17: of 21 groups of gigs sharing a description at the
-// same venue, 6 were a bot wall or JS notice repeated across a whole listing and 15 were repeat
-// bookings (Blondies' Sunday karaoke, three nights of Leo Kottke at 229, two nights of The Alarm at
-// The Garage). Every one of the 15 titles its repeat: "Leo Kottke - SOLD OUT" against "Leo Kottke",
-// "(NIGHT 1)" against "(NIGHT 2)", the same club night named identically week after week. So a
-// shared word between every title in the group is what separates them, and it has to survive the
-// venue's typography - "Paper Dress 80s Club" and "Paper Dress 80's Club" are the same night.
-//
-// Reported as the shared text itself, since what makes this worth chasing is whether it reads as a
-// bot wall, a venue's own blurb, or one gig's copy on all the others.
 internal object SharedDescriptionCheck : GigsCheck {
     override val heading = "Gigs given another gig's description word for word - check that source's event page selector:"
 
@@ -373,25 +208,6 @@ internal object SharedDescriptionCheck : GigsCheck {
             .let { if (it.length <= QUOTED_DESCRIPTION_CHARS) "\"$it\"" else "\"${it.take(QUOTED_DESCRIPTION_CHARS)}...\"" }
 }
 
-// Cross-checks a venue's gigs against each other: real gig-specific text (lineup, ticket info,
-// dates) wouldn't coincidentally repeat between different gigs, but sitewide boilerplate the page-
-// text extraction failed to strip out (nav, footer, cookie notice, venue address) appears
-// identically on every one of that venue's pages. Flags venues where enough gigs are made up mostly
-// of such shared text, as candidates for scoping that source's eventPageContent - this only surfaces
-// the problem rather than trying to auto-strip the shared text, which risks eating real content
-// along with the boilerplate.
-//
-// Checked against the *fraction* of each gig's own words that are shared, not just whether any of
-// it repeats at all: real venues often print the same short policy line (an age restriction, an ID
-// requirement) on every event page as genuine, correctly-scoped content, and that alone shouldn't
-// read as contamination the way a whole nav menu and footer glued onto (or standing in for) the
-// actual gig text would. Measured against real scraped data, venues with a scraping bug clustered
-// far above this 50% line (0.91-1.00) while a venue with only a recurring disclaimer sat well below
-// it (0.76 for one already-fixed venue whose extraction has nothing left to narrow further)
-//
-// That every check now costs a venue its whole listing was first this one's rule alone: the fix is to
-// that source's scoping, and until it lands the cleaner-looking gigs are only ones that fell the
-// right side of a threshold.
 internal object ContaminationCheck : GigsCheck {
     override val heading = "Venues whose gigs may carry site-wide boilerplate - consider scoping their source's eventPageContent:"
 
@@ -410,11 +226,6 @@ internal object ContaminationCheck : GigsCheck {
 
         val wordsByGig = venueGigs.associateWith { words(it.description.value) }
         val ngramsByGig = wordsByGig.mapValues { (_, ws) -> wordNGrams(ws) }
-        // a phrase has to recur across at least half that venue's gigs (never fewer than two) to
-        // count as shared - one coincidental overlap between two unrelated blurbs isn't boilerplate.
-        // Each gig's own windows are deduped first, so a phrase repeated many times within just one
-        // gig's own text (e.g. the same short filler line printed several times on one page) isn't
-        // mistaken for something shared *across* gigs
         val minSharedBy = ceil(venueGigs.size / 2.0).toInt().coerceAtLeast(2)
         val sharedNGrams = ngramsByGig.values.map { it.toSet() }.flatten()
             .groupingBy { it }.eachCount()
@@ -424,9 +235,6 @@ internal object ContaminationCheck : GigsCheck {
         return wordsByGig.count { (gig, ws) ->
             if (ws.isEmpty()) return@count false
             val sharedWindows = ngramsByGig.getValue(gig).count { it in sharedNGrams }
-            // each window only proves its own 6 words are shared, but overlapping windows over a
-            // long shared run would otherwise be counted many times over, so this caps the estimate
-            // at the gig's actual word count rather than trying to track the exact covered span
             val sharedWordEstimate = (sharedWindows * SHARED_PHRASE_WORDS).coerceAtMost(ws.size)
             sharedWordEstimate.toDouble() / ws.size >= CONTAMINATED_WORD_FRACTION
         }

@@ -28,10 +28,7 @@ import java.util.Locale
 
 val theDev = Venue(VenueId("the-dev"), "The Dev")
 
-// The Dev prints nothing per gig: a month's bookings are one flyer, posted to Instagram, and that
-// flyer is the whole listing. So this source is the flyer - found among the account's recent posts
-// by its caption, and read by a model running on this machine, which costs nothing and can be asked
-// again as often as it takes.
+// Why the flyer is the listing: docs/adr/0011-the-devs-month-flyer-is-a-source-read-by-a-local-model.md
 class DevGigSource(private val client: HttpHandler, private val chat: Chat) : GigsSource {
     override val venue = theDev
 
@@ -79,12 +76,7 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
     // with nothing but the title marking it apart from one.
     private val karaokeNight = Regex("karaoke", RegexOption.IGNORE_CASE)
 
-    // There's no per-gig page to link to, so every gig off every flyer shares this one real, working
-    // url, disambiguated by a fragment. It is the venue's Facebook page rather than the Instagram
-    // post the flyer was read off, because the post is superseded every month where the page is not
-    // - so a gig keeps the url it was first logged under instead of being relisted when the next
-    // flyer goes up. Either way, clicking it lands on the page and not on this one gig, which
-    // neither the post nor the page supports.
+    // Why the Facebook page and a fragment: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrl(title: String, date: GigDate) = GigUrl("$gigsPageUrl#gig-${slug(title)}-$date")
 
     private val gigsPageUrl = "https://www.facebook.com/thedevnw1"
@@ -117,10 +109,7 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
 
     private val username = "thedevcamden"
 
-    // The profile page itself is a script that fetches this, so there is no markup to parse: what a
-    // browser is served is an app shell with neither the posts nor their images anywhere in it. The
-    // app id is the web client's own, sent by every logged-out browser that loads the page, and
-    // without it the endpoint answers a login wall rather than the profile.
+    // Why this endpoint and this app id: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
     private val profileUrl = "https://www.instagram.com/api/v1/users/web_profile_info/?username=$username"
     private val headers = listOf(
         "X-IG-App-ID" to "936619743392459",
@@ -130,11 +119,7 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
     private val postUrlPrefix = "https://www.instagram.com/p/"
 }
 
-// Asking for "every distinct gig you can identify" was enough for Sonnet and not for gemma4:26b,
-// which left out the one row on The Dev's August flyer whose line-up is half unannounced ("Mur
-// (ISL) + Support TBA") - a row it could read the date of and didn't count as a gig. Naming the
-// shapes a row comes in is what recovered it, over ten runs of five prompt variants; asking the
-// model to count the rows first, which it cannot check, changed nothing either way.
+// Why the prompt names the shapes a row comes in: docs/adr/0011-the-devs-month-flyer-is-a-source-read-by-a-local-model.md
 val flyerExtractionSystemPrompt = """
     You extract gig listings from a poster image advertising multiple gigs at one venue, often a
     whole month's calendar. Reply with one gig per line, formatted exactly as:
@@ -148,9 +133,7 @@ val flyerExtractionSystemPrompt = """
 """.trimIndent()
 
 // The month a post's caption says its picture is the what's-on for, e.g. "What's On AUGUST 2026!
-// ALL EVENTS ARE FREE ENTRY!", and null for every other post of The Dev's. It has to be the caption
-// rather than the picture: a band's own tour poster is the same typography over the same list of
-// dates, and reads as a month's what's-on until you notice the dates are at other venues.
+// ALL EVENTS ARE FREE ENTRY!", and null for every other post of The Dev's.
 internal fun monthOfWhatsOnCaption(caption: String): YearMonth? =
     whatsOnCaption.find(caption)?.let { match ->
         monthsByName[match.groupValues[1].lowercase()]?.let { YearMonth.of(match.groupValues[2].toInt(), it) }
@@ -170,11 +153,7 @@ private fun flyerRows(reply: String): List<Pair<GigDate, String>> =
 
 private val flyerRowPattern = Regex("""(\d{4}-\d{2}-\d{2})\s*\|\s*(.+)""")
 
-// A model reading a bill off a picture is inconsistent about the space around its slashes -
-// "Liquified/Lobotomica" on one run, "Liquified/ Lobotomica" on the next - and a title that flips
-// between runs is a gig logged as having changed, every run, for as long as it is listed. One
-// spelling settles it, and " / " is the one a bill is already written with once WithTidiedTitles
-// has separated it. A slash inside a name rather than between two acts is spaced along with them.
+// Why one spelling for the slashes: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 private fun withSpacedSlashes(title: String) = title.replace(slashSeparator, " / ")
 
 private val slashSeparator = Regex("""\s*/\s*""")

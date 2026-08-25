@@ -11,6 +11,8 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
 
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+// Why the date is read this way: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
 class CartAndHorsesGigsSourceTest {
 
     @Test

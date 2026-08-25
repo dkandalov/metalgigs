@@ -14,6 +14,8 @@ import strikt.assertions.isTrue
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+// Why a source fails loudly: docs/adr/0002-a-source-fails-rather-than-publishing-something-plausible.md
 class SquarespaceEventsGigsSourceTest {
 
     // its event pages are all empty, so unlike the other Squarespace venues the description comes off

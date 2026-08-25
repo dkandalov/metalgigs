@@ -40,12 +40,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
     private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
 
-    // The listing's own copy is a few paragraphs in .article-content - the title above it repeats
-    // the gig's name, and the door time, price and Buy Tickets sit outside it. One of those
-    // paragraphs is the venue's age and ID policy, which nothing in the markup tells apart from the
-    // copy, so it goes by its wording: "Please note this show is 14+...", "Strictly 18+ / physical
-    // photo ID required at entry", "Proof of age is required at entry" all appear across the
-    // listings, and on a thin one the policy is most of the text.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val agePolicy = Regex("""please note this show is|strictly \d+\+|proof of age|photo id""", RegexOption.IGNORE_CASE)
 
     internal fun eventPageContent(page: Document): String? {

@@ -49,16 +49,7 @@ internal class SquarespaceEventsGigsSource(
         return img.attr("abs:src").ifBlank { img.attr("abs:data-image") }
     }
 
-    // article.eventitem also holds the template's own event metadata - the date in both 12- and
-    // 24-hour form, the venue's postal address, Google Calendar and ICS links - which is longer
-    // than some gigs' actual blurb. The title isn't in here either, but the classifier is given it
-    // separately.
-    //
-    // Squarespace hands an embed block's fallback markup to the page html-escaped rather than as
-    // elements of its own, so text() decodes it back into a visible "<a href=...>Grieve by Morag
-    // Tong</a>" at the end of the gig's copy. Reading that once more as the html it is keeps what
-    // the link says - an album and the band who made it, which the classifier can use - and drops
-    // the tags around it, which it would otherwise have to read past.
+    // Why the copy is scoped and re-parsed: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     internal fun eventPageContent(page: Document) =
         page.select(".eventitem-column-content").textOrNull()?.let { Jsoup.parse(it).text() }
 }

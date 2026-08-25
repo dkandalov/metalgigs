@@ -22,10 +22,9 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
             val page = Jsoup.parse(fetchPage(client, pageUrl), pageUrl)
             pagesFetched++
             gigs += page.select("li.event__item").map { item ->
-                // a card prints "Fri 21 Aug" and no year anywhere, so the year is counted forward as
-                // the listing crosses back into an earlier month. Gigs are listed in date order and
-                // the pages continue that order, so the count carries across pages rather than
-                // restarting - the boundary this crosses falls mid-page-4
+                // a card prints "Fri 21 Aug" and no year anywhere; the boundary the count crosses
+                // falls mid-page-4.
+                // Why the year is counted forward: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
                 val month = monthsByShortName.getValue(item.select(".event__item__date__month").text())
                 if (previousMonth != null && month < previousMonth) currentYear++
                 previousMonth = month
@@ -55,18 +54,10 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
     // bound a pathological site bug; the real stop condition is that link disappearing
     private val maxPages = 10
 
-    // the listing's poster is a 750x450 crop of the upload, and the uploads measured behind those
-    // crops ran to 2560x1536. Every one is named "<original>-<W>x<H>-c-center.<ext>"; stripping that
-    // suffix recovers the original with no extra request, the same trick as Paper Dress Vintage's
-    // -lbox- thumbnails
+    // Why the thumbnail suffix is stripped: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
     private val thumbnailSuffixPattern = Regex("""-\d+x\d+-c-center(\.\w+)$""")
 
-    // Two paragraphs close every listing's copy: the terms and conditions the ticket buyer agrees to,
-    // and the £1.50 Venue Levy explained at some length. Together they run to about 470 characters,
-    // which on a listing whose promoter wrote nothing is the entire description. Nothing in the
-    // markup tells them from the copy - they're sibling paragraphs in the same wysiwyg block, with
-    // the leading asterisk they're usually typed with sometimes missing - so they go by their
-    // wording, as the age line does at The Underworld and Electric Ballroom.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val ticketingBoilerplate = Regex(
         """by purchasing a ticket to this event|subject to a venue levy|^\*?this is an? \d+\+ event""",
         RegexOption.IGNORE_CASE,

@@ -26,6 +26,7 @@ import kotlin.test.fail
 // says the prompt still does what it was fitted to do, where July is a month it has never seen: same
 // venue, same designer, a different set of rows, and the one that says whether reading these flyers
 // generalises or was learned.
+// Why the flyer is the listing: docs/adr/0011-the-devs-month-flyer-is-a-source-read-by-a-local-model.md
 class DevFlyerExperiment {
 
     @Test

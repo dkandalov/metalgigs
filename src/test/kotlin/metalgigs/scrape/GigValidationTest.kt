@@ -5,6 +5,8 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import kotlin.test.Test
 
+// Why a named gig costs the listing: docs/adr/0003-a-check-that-names-a-gig-costs-its-venue-the-listing.md
+// Why the thresholds are these numbers: docs/adr/0004-thresholds-are-measured-against-the-log-and-dated.md
 class GigValidationTest {
 
     // The Black Heart's own event pages print a Bandcamp embed's code as visible text below the gig

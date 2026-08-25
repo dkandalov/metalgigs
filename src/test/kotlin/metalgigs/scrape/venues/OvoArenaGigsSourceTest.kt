@@ -9,6 +9,8 @@ import strikt.assertions.isTrue
 import java.time.YearMonth
 import kotlin.test.Test
 
+// Why this reading surface and paging: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
 class OvoArenaGigsSourceTest {
 
     @Test

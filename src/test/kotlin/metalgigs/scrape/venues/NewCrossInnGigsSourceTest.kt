@@ -8,6 +8,8 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
 
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+// Why this reading surface and paging: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 class NewCrossInnGigsSourceTest {
 
     // the page opens on the current month, so all but the first two months here come from the

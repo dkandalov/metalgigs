@@ -15,22 +15,8 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.time.Instant
 import java.time.ZoneId
 
-// shared by every venue listed through Dice. 229's listing page renders nothing itself - it just
-// embeds Dice.fm's "event list" widget (widgets.dice.fm/dice-event-list-widget.js), a different Dice
-// surface from the dice.fm venue pages. The widget's own config, inline in the page, names the
-// partner API it calls and the credentials to call it with:
-//   DiceEventListWidget.create({"partnerId":"206d7605","apiKey":"9PmJEatQBB8iKSivm8gCbIvKIeU3S4x4MqPoT6Tg","venues":["229"]})
-// That apiKey is a public widget key shipped to every browser that loads the page, not a secret -
-// found by fetching the widget script and reading where it builds its request (it reads
-// RUNTIME_API_URL, appends /api/v2/events, and sends the key as an x-api-key header).
-//
-// The key is not scoped to 229: the same one answers for any venue named in the filter, which is what
-// lets the venues below share it. That coupling is the risk in doing so - if Dice ever scopes or
-// rotates the key, every venue here stops listing at once, not just 229's.
-//
-// It is also the only Dice surface that says where a gig lives: dice.fm's own venue pages list an
-// event without a perm_name, leaving nothing on them to build a url from. It carries the venue's
-// description inline besides, so no venue here makes a per-gig request for one.
+// shared by every venue listed through Dice.
+// Why the partner API and its public key: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 private class DicePartnerVenueGigsSource(
     // A gig's url is the one dice.fm redirects to rather than the one this API lists, so this has to
     // be a client that hands a redirect back rather than following it - see gigUrlFor.
@@ -69,15 +55,7 @@ private class DicePartnerVenueGigsSource(
     private fun titleWithCancellation(event: DicePartnerEvent): GigTitle =
         titleFrom(if (event.status == "cancelled") "${event.name}$cancelledSuffix" else event.name)
 
-    // None of these venues gives a gig a page of its own, so a gig lives at its dice.fm event page -
-    // not at the short ticketing link (link.dice.fm/...) this API also carries, which is opaque and
-    // reused across unrelated calls to it.
-    //
-    // dice.fm serves that page under a perm_name prefixed with a short code of its own
-    // (2wqb7p-its-never-over-...) and answers the bare perm_name this API returns with a 308 to it.
-    // No Dice API hands the prefix out, so the redirect is the only thing that says where a gig
-    // lives - and a gig is identified by that, so taking the listed perm_name instead would move
-    // every gig at every venue here to a url dice.fm doesn't serve.
+    // Why the redirect target is the gig's url: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrlFor(permName: String): GigUrl {
         val listed = eventUrl + permName
         val response = client(Request(GET, listed).header("User-Agent", browserUserAgent))
@@ -104,12 +82,6 @@ private class DicePartnerVenueGigsSource(
     // The filter matches the venue's name as Dice writes it, not any id: passing the numeric id a
     // dice.fm venue page carries (2427 for Signature Brew Haggerston) returns an empty listing rather
     // than an error, and so does a name only we use for it ("Blondies Bar" for Dice's "Blondies").
-    //
-    // page[size]=200 already brings back the whole listing in one request for every venue here
-    // today - the largest, 229's, is 77 events, with the response's own links.next confirming
-    // there's nothing more - but that's a fact about today's listings, not a guarantee, so this
-    // still follows links.next like a real "load more" would rather than trusting the page size to
-    // stay big enough forever
     private val firstPageUrl =
         "$baseUrl?page%5Bsize%5D=200&types=linkout,event&filter%5Bvenues%5D%5B%5D=${URLEncoder.encode(venueFilter, UTF_8)}"
 }

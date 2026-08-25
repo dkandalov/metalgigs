@@ -7,6 +7,7 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
 
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
 class RoundhouseGigsSourceTest {
 
     @Test

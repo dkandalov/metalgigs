@@ -6,6 +6,7 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import kotlin.test.Test
 
+// Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
 class ElectricBallroomGigsSourceTest {
 
     @Test

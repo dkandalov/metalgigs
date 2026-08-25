@@ -12,47 +12,15 @@ import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.core.Uri
 import org.http4k.core.relative
 
-// What a run's listing says about a gig the log holds and it no longer carries. A venue that edits a
-// gig it has already published often writes it a new url - both Cart and Horses and dice.fm build
-// one out of the title, so swapping a support act moves the gig - and a gig is identified by where
-// it lives, so the log ends up holding one night twice and the page printing it twice.
-//
-// Only the run that first misses the old url can tell: by the next one the old gig is no longer
-// current and there is nothing left to compare. So this is decided as the listing is read, and what
-// it decides is recorded.
+// Why a moved gig is paired here: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
 internal sealed interface MissingGig {
-    // the venue says where the gig went, which is an answer rather than a guess
     data class MovedTo(val url: GigUrl) : MissingGig
 
-    // the old page has been deleted, so the gig is not merely absent from a listing - but a gig
-    // cancelled outright looks exactly like this, so a candidate still has to be found
     data object Gone : MissingGig
 
-    // the page is still served, so whatever it is, it isn't a gig that has moved somewhere else
     data object Live : MissingGig
 }
 
-// A url the venue redirects is followed to its target and needs nothing else: the site is naming the
-// gig's new home. A url it has deleted names nothing, so a gig on the same night that looks like the
-// missing one is what stands in for it - the edits that move a url are small ones, an added support
-// band or a settled festival name.
-//
-// Which is why looking for that gig comes first, before the url is asked about at all. A missing gig
-// with nothing like it listed that night is a gig that could not have been paired whatever its url
-// said, and the request would be spent to learn nothing - daily, because a run that pairs nothing
-// records nothing, so the same gig is missing again tomorrow. Cancelled gigs are the bulk of that,
-// and they now cost no request at all. What it gives up is a redirect's ability to surprise us: a
-// venue that renames a gig past recognition, or moves it to another night, is no longer asked.
-//
-// Similarity alone would not do. Measured over the 1874 upcoming gigs in the log on 2026-08-21, the
-// pairs sharing a venue and a night rank Union Chapel's matinee and evening sittings of one show
-// (0.60) and The O2 Forum's single night beside its 4-day ticket (0.80) above one real move (Cart
-// and Horses' 0.44) and level with another (Signature Brew's 0.60). No threshold tells those apart.
-// What does is that the sittings and the ticket types are all still listed: only a gig the venue has
-// stopped listing is a candidate at all, and only then does its old url get asked about itself.
-//
-// The threshold then only has to separate what remains. The moves scored 0.44, 0.60 and 0.86, and the
-// nearest thing to a false pair - two Camden Fringe shows on one night at Union Chapel - scored 0.33.
 internal fun replacementsIn(
     scraped: List<Gig>,
     previous: List<Gig>,
@@ -74,17 +42,9 @@ internal fun replacementsIn(
         }
 }
 
-// Enough to be worth asking about, which is all this decides - a venue that has deleted the page or
-// redirects it is what says the two are one gig. Either arm on its own would miss a move seen today:
-// Signature Brew's LOLA (AUS) came back with a picture Dice re-uploaded two days after the first,
-// and Cart and Horses' relisting swapped enough of the title to score 0.44 while keeping its poster.
 private fun Gig.looksLike(missing: Gig) =
     titleSimilarity(this, missing) >= LEAST_SIMILAR_TITLE || posterUrl == missing.posterUrl
 
-// A title's words rather than its characters, so the edit that moved the url - a band added, a word
-// dropped - counts once however long it is, and "LOLA (AUS) | London" reads as the same gig as
-// "LOLA (AUS) + Lucky Hit | London". Short words are left out: every second title has an "at", a
-// "the" or a "+" in it, and they say nothing about which gig it is.
 private fun titleSimilarity(one: Gig, other: Gig): Double {
     val words = wordsIn(one.title.value)
     val otherWords = wordsIn(other.title.value)
@@ -97,16 +57,9 @@ private fun wordsIn(title: String) =
 
 private const val LEAST_SIMILAR_TITLE = 0.4
 
-// Asked of the old url itself rather than of the listing that has stopped carrying it, so a venue
-// that keeps the page up - a sold-out gig dropped from a "what's on", a second listing we have
-// wrongly paired - answers for itself. A redirect is followed no further than its own Location: the
-// point is where the venue says the gig went, not what is served there.
 internal fun missingGigSays(client: HttpHandler, url: GigUrl): MissingGig {
     val response = client(Request(GET, url.value).header("User-Agent", browserUserAgent))
     return when {
-        // resolved against the url asked about, because a Location may be relative and half of them
-        // are: dice.fm answers with the whole url and Cart and Horses with "/news-offers-events/...",
-        // which would match no gig at all if it were read as it stands
         response.status.redirection -> response.header("location")
             ?.let { MissingGig.MovedTo(GigUrl(Uri.of(url.value).relative(it).toString())) } ?: MissingGig.Live
         response.status == NOT_FOUND || response.status == GONE -> MissingGig.Gone
@@ -114,7 +67,5 @@ internal fun missingGigSays(client: HttpHandler, url: GigUrl): MissingGig {
     }
 }
 
-// Several venues answer a request without one with a 403, which would read as a page still being
-// served - the same string the sources that need it send.
 private const val browserUserAgent =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"

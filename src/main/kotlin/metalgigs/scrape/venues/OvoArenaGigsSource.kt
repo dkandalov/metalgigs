@@ -14,15 +14,7 @@ import java.time.YearMonth
 
 val ovoArena = Venue(VenueId("ovo-arena"), "OVO Arena Wembley")
 
-// The events page renders its cards server-side but filters them in the browser: the "All
-// Categories" drop-down carries the category on itself (Sports 1, Music 3, Comedy 4, Performance 5)
-// and the cards carry none, so there is nothing in that page's markup to select gigs by. Its query
-// string is ignored, and its "More Events" button pages twelve at a time through an endpoint the
-// page never names.
-//
-// The calendar the same site drives its month widget from answers all of that in one request per
-// month: /events/calendar/{year}/{month} returns every event that month as JSON, each carrying the
-// Category the drop-down filters on. Music is 3, which is what this keeps.
+// Why the calendar rather than the events page: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 class OvoArenaGigsSource(private val client: HttpHandler, private val from: YearMonth = YearMonth.now()) : GigsSource {
     override val venue = ovoArena
 
@@ -53,12 +45,7 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
         return JOvoArenaCalendar.fromJson(fetchPage(client, url)).orThrow().events
     }
 
-    // A run of nights is one event page listed once per night, so the page's own url can't tell them
-    // apart - André Rieu's two September nights share one. The date is what separates them, and it's
-    // appended to every gig rather than only the ones that need it: adding it only on collision would
-    // change the url of a gig already logged the day the venue announces a second night, and it would
-    // read as a new gig rather than the one already there. The fragment is inert - the link still
-    // opens the page it names.
+    // Why the date is in the url: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrl(event: OvoArenaEvent, date: GigDate) =
         gigUrlFrom("${event.url}#$date", "https://www.ovoarena.co.uk/events/detail/")
 
@@ -69,10 +56,6 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
 
     private val musicCategory = "3"
 
-    // One request per month, so how far to go has to be decided rather than followed. Counting empty
-    // months would stop early: the listing read on 2026-08-17 had nothing at all in January 2027 and
-    // three gigs in each of February and March. Eighteen covers the year the page can show, with room
-    // for an arena booking further ahead than the eight months it was listing then.
     private val monthsAhead = 18
 }
 
@@ -87,10 +70,9 @@ private object JOvoArenaEvent : JAny<OvoArenaEvent>() {
     private val StartDateTime by str(OvoArenaEvent::startDateTime)
     private val Category by str(OvoArenaEvent::category)
 
-    // An event with no poster carries `"ImageURL": false` rather than a url, a null, or nothing at
-    // all, which no string converter will take - Kondor reads a missing field and a null one as
-    // absent, but a boolean where a string belongs is an error, and it fails the whole month's
-    // parse rather than the one event. Read as a node instead, anything but a string is no poster.
+    // An event with no poster carries `"ImageURL": false`. Kondor reads a missing field and a null
+    // one as absent, but a boolean where a string belongs fails the whole month's parse rather than
+    // the one event, so it is read as a node: anything but a string is no poster.
     private fun JsonNodeObject.imageUrl() = (_fieldMap["ImageURL"] as? JsonNodeString)?.text.orEmpty()
 
     override fun JsonNodeObject.deserializeOrThrow() = OvoArenaEvent(

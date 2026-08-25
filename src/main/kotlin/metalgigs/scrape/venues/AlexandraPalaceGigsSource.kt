@@ -35,17 +35,12 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
 
     private val singleDatePattern = Regex("""(\d{1,2})\s+(\w+)\s+(\d{4})""")
 
-    // #event_content, the obvious container, also holds a sidebar of quick-link buttons ("Buy
-    // Tickets", "FAQs", "Accessibility") repeated identically on every event page, and the whole
-    // page's text adds the sitewide nav on top. These name the two containers that hold anything
-    // gig-specific: the description block, and the "Key information" accordion, often an artist bio.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     internal fun eventPageContent(page: Document) = page.select(".ap_text_block, #key-information").textOrNull()
 
-    // dates are either a single day ("21 Aug 2026") or a range, and a range is either same-month
-    // ("1 - 9 Aug 2026") or cross-month ("11 Dec - 3 Jan 2027") - only the start date is used. The
-    // year is only ever written once, on the end date, which is wrong for a cross-month range that
-    // crosses a calendar year boundary: "11 Dec - 3 Jan 2027" starts in 2026, not 2027, so the start
-    // year is rolled back a year whenever the start month sorts after the end month
+    // dates are either a single day ("21 Aug 2026") or a range, same-month ("1 - 9 Aug 2026") or
+    // cross-month ("11 Dec - 3 Jan 2027"), the year written once on the end date.
+    // Why the start year is rolled back: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
     private fun startDateOf(text: String): GigDate {
         val trimmed = text.trim()
         val rangeSplit = trimmed.split("-", limit = 2).map { it.trim() }
@@ -65,10 +60,8 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
         return GigDate(startYear, startMonth, startDay)
     }
 
-    // the img tag's own src is a 650px thumbnail; srcset carries the same image up to 2048px, so
-    // the widest entry is used instead - the same reasoning as dropping The Underworld's imgix w=
-    // parameter, just a different mechanism for the same problem. A couple of events have no image
-    // at all - no img tag, not just a missing srcset.
+    // A couple of events have no image at all - no img tag, not just a missing srcset.
+    // Why the widest srcset entry: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
     private fun Element.widestImageUrl(): String {
         val img = select(".event_img img")
         val widest = img.attr("srcset").split(",").mapNotNull { entry ->

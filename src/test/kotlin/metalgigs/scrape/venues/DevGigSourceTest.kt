@@ -21,6 +21,8 @@ import java.time.YearMonth
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
+// Why the flyer is the listing: docs/adr/0011-the-devs-month-flyer-is-a-source-read-by-a-local-model.md
+// Why titles are tidied as read: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 class DevGigSourceTest {
 
     // Verbatim what gemma4:26b replies to the August 2026 flyer, karaoke nights and all. What this

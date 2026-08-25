@@ -48,12 +48,7 @@ internal class DhpVenueGigsSource(
             }
     }
 
-    // The listing renders three months of the guide and no more - its own pagination urls
-    // (/live/page/2/) serve those same three - so everything later is reachable only through the
-    // call its infinite scroll makes: post the last month rendered so far, get the three after it.
-    // Past the end of the guide that call keeps answering with months that have no gigs in them
-    // rather than with nothing, so the walk stops on the range the page declares rather than on an
-    // empty answer. The Garage's listing ended 28 Oct 2026 where its guide ran on to June 2027.
+    // Why the walk stops on the declared range: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
     private fun laterMonths(listing: Document): List<Document> =
         generateSequence(listing) { page ->
             page.select(".guide__month").lastOrNull()
@@ -61,13 +56,8 @@ internal class DhpVenueGigsSource(
                 ?.let { monthsAfter(listing, it) }
         }.drop(1).toList()
 
-    // The guide's own parameters stay on the listing - a fragment carries months and nothing else -
-    // so they're read from there however far the walk has gone.
-    //
     // form() sets the body but not the content type, and the endpoint fills $_POST from that header
-    // alone. Without it the call still answers 200, with three months dated data-year="0" - which
-    // the walk would ask to continue from and be answered with for ever - so the months coming back
-    // are checked to be after the one asked for rather than taken on trust.
+    // alone: without it the call answers 200 with three months dated data-year="0".
     private fun monthsAfter(listing: Document, month: Element): Document =
         Jsoup.parse(
             client(
@@ -102,12 +92,8 @@ internal class DhpVenueGigsSource(
     private val datePattern = Regex("""\w{3}\.(\d{2})\.(\w{3})\.(\d{2})""")
 
     // The outer wrapper div carries ".single-article" too, so selecting that doubles every word of
-    // the text; only the inner section has the list-contains class. Within it, everything but
-    // .single-article__content is ticketing furniture - a title bar, a meta bar of date, time and
-    // price, and the same three repeated as a Date/Doors Open/On Sale list - and the copy itself
-    // closes with a "For more events" link on every listing. What survives is a bio where the
-    // promoter wrote one and a one-line "Tickets are now available for X" template where they
-    // didn't, which is all these pages say about those gigs.
+    // the text; only the inner section has the list-contains class.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val moreEventsCta = Regex("""for more events|check out what.s on here""", RegexOption.IGNORE_CASE)
 
     internal fun eventPageContent(page: Document): String? {
@@ -119,16 +105,7 @@ internal class DhpVenueGigsSource(
             .ifBlank { null }
     }
 
-    // Four places a gig's poster can come from, in the order they're asked. A blank card isn't the
-    // last word: the listing can print "Image not found" where a card's poster should be while the
-    // gig's own page still renders it as the article hero, so that page - fetched for the
-    // description anyway - is asked next rather than the gig being given up on.
-    //
-    // The guide walk reaches gigs announced before anyone has drawn artwork for them, which have
-    // none of the three: The Garage's event page prints the same "Image not found" in its own hero.
-    // A venue with a house image of its own stands that in, so such a gig is published showing the
-    // room it's in rather than being dropped or failing the whole listing. A venue without one
-    // still fails, which is the answer for The Grace, whose site has no such image to use.
+    // Why four places, in this order: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
     private fun poster(card: Element, eventPage: Document, gigUrl: GigUrl): PosterUrl {
         val cardImage = card.select(".card__grid-media img")
         val src = cardImage.attr("abs:data-lazy-src")

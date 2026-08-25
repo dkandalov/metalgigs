@@ -22,10 +22,7 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
                     GigId(venue.id, gigUrl),
                     titleFrom(item.select(".card__title").text()),
                     startDateOf(item.select("p.date").text()),
-                    // Each card holds two <picture> elements, one shown at each breakpoint, and the
-                    // narrow one is a generic house image on some listings rather than the gig's own.
-                    // The first is the gig's, and its url already asks the CDN for 768 square - the
-                    // size render targets - so unlike the other sources there's nothing to rewrite.
+                    // The narrow-breakpoint <picture> is a generic house image on some listings.
                     posterUrlFrom(gigUrl, item.select(".card__image img").first()?.attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )
@@ -59,9 +56,6 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
         return GigDate(year, startMonth, startDay.toInt())
     }
 
-    // The gig's copy is the one thing in the hero that belongs to it: the title, the on-sale date,
-    // the buy buttons and the poster's alt-text caption are all around it, and the rest of the page
-    // is the venue's own furniture. Measured across five listings this ran from 82 to 1343
-    // characters, the short ones being a single sentence naming the act and the month.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     internal fun eventPageContent(page: Document) = page.select(".event-hero .variable-color.mt-sm").textOrNull()
 }

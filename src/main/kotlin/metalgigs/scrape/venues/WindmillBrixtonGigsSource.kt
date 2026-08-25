@@ -59,10 +59,7 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
     // the gig. This is the one block the promoter writes.
     internal fun eventPageContent(page: Document) = page.select(".EventDetailDescription").textOrNull()
 
-    // the listing's thumbnail asks the Music Glue image CDN to fit the image into 600px, which is
-    // below the 768px render target; dropping the resize parameters returns the original upload
-    // (measured: 600x750 with them against 1080x1350 without) with no extra request, the same
-    // reasoning as dropping The Underworld's imgix w= parameter
+    // Why the resize parameters are dropped: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
     private fun originalSizeImageUrl(url: String): String {
         val base = url.substringBefore('?')
         val params = url.substringAfter('?', "").split("&")

@@ -9,37 +9,24 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 
-// shared by every Academy Music Group venue; the venue-specific classes below just supply the
-// venue and AMG's own numeric id(s) for it (as seen in the API's own venue objects). More than one
-// id where a site lists several rooms at the same venue together, as its own listing page does.
-//
-// AMG's venue listing pages are Next.js SPAs that render nothing server-side and paginate
-// client-side, but they feed themselves from this plain JSON API, which happily serves every event
-// in one request - so we call that directly rather than rendering a page and paging through it.
-// It carries the promoter's copy too, so a venue's whole listing is this one request.
+// shared by every Academy Music Group venue; the venue-specific classes below supply the venue and
+// AMG's own numeric id(s) for it, more than one where a site lists several rooms together.
+// Why the search API rather than the page: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenueIds: Int, override val venue: Venue) : GigsSource {
     override fun latestGigs(): List<Gig> {
         val results = JAmgSearchResults.fromJson(fetchPage(client, url)).orThrow()
         check(results.documents.isNotEmpty()) { "No events returned by $url" }
 
-        // an event whose ticket sales have closed (typically one happening today) is listed with no
-        // tickets at all - and one whose tickets all lack a url says the same - leaving it with
-        // neither a stable identity nor a link worth rendering, so it's dropped rather than failing
-        // the venue's whole scrape over a normal end-of-life state
+        // Why these are dropped rather than failing: docs/adr/0002-a-source-fails-rather-than-publishing-something-plausible.md
         val ticketless = results.documents.filter { it.ticketUrl == null }
         if (ticketless.isNotEmpty()) println("Skipping ${ticketless.size} $venue gig(s) with no ticket link: ${ticketless.joinToString { it.name }}")
 
         return results.documents.mapNotNull { event ->
             val ticketUrl = event.ticketUrl ?: return@mapNotNull null
-            // no per-gig page on the venue's own site, so the ticketing link identifies the gig - but
-            // only up to its query string: one gig lists several tickets (general onsale, presales,
-            // partner-branded) whose urls differ purely by marketing params and whose order isn't
-            // stable between gigs, so the same gig would otherwise keep changing identity. Everything
-            // after "?" is dropped, leaving the ticket platform's own event id, which is stable and
-            // still a working link
             // Ticketmaster serves the same event under either scheme - the log holds two gigs at
             // http:// among hundreds at https:// - and Gigantic stands in where Ticketmaster has no
             // listing for a show.
+            // Why the query string is dropped: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
             val gigUrl = gigUrlFrom(
                 ticketUrl.substringBefore('?'),
                 "https://www.ticketmaster.co.uk/",
@@ -57,11 +44,9 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
         }
     }
 
-    // The api serves image "" for an event with no artwork of its own while the event page still
-    // renders one - AMG's shared default poster - so the page is asked for the image it shows. Its
-    // hero is the page's only full-bleed image (sizes=100vw), served as a CDN resize whose query
-    // string is dropped to recover the bare asset. A listing's encodedName can lag the page's
-    // canonical slug, which the site answers with a 308 the client follows.
+    // A listing's encodedName can lag the page's canonical slug, which the site answers with a 308
+    // the client follows.
+    // Why the page is asked for the image: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
     private fun imageFromEventPage(event: AmgEvent): String {
         val act = event.lineup.firstOrNull()
             ?: error("No lineup on \"${event.name}\" to build its event page url from, so its poster can't be found")
@@ -105,10 +90,8 @@ val o2ShepherdsBushEmpire = Venue(VenueId("o2-shepherds-bush-empire"), "O2 Sheph
 class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4051, venue = o2ShepherdsBushEmpire)
 
-// A ticket entry exists before its link does: ADÉLA at O2 Academy Brixton listed a Ticketmaster UK
-// entry and a Ticketmaster Metropolis one, both url "", ahead of the branded entry that carried the
-// link - so a gig's url is the first ticket that has one, not the first ticket. Neither isVisible
-// nor ticketStatus separates them: the blank entries were the visible, on-sale ones.
+// Neither isVisible nor ticketStatus separates a ticket with a link from one without.
+// Why the first ticket that has one: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
 private val AmgEvent.ticketUrl: String?
     get() = tickets.firstNotNullOfOrNull { it.ticketUrl.ifBlank { null } }
 
@@ -125,10 +108,8 @@ private fun AmgEvent.description(): GigDescription =
 // Taken as copy it would also read as one gig's text on another, which is what it is.
 private val cancellationNotice = Regex("""^sorry, this show has been cancelled""", RegexOption.IGNORE_CASE)
 
-// About one event in ten has no copy written for it - 32 of the 334 these four venues listed as of
-// 2026-08-17 - but every one of those still names its acts and its genres, which is what a
-// description is for here: nothing renders it, it only tells the classifier what kind of gig this
-// is. The api lists the acts headliner first, so they're left in its order rather than resorted.
+// The api lists the acts headliner first, so they're left in its order rather than resorted.
+// Why acts and genres stand in for copy: docs/adr/0007-a-description-is-the-gigs-own-copy.md
 private fun AmgEvent.actsAndGenres(): String =
     listOfNotNull(
         lineup.joinToString(", ") { it.name }.ifBlank { null }?.let { "Lineup: $it." },

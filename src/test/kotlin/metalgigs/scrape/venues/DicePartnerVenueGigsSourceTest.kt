@@ -9,6 +9,8 @@ import kotlin.test.Test
 // Every Dice venue reads the same partner API, and each is given a client that hands back the
 // redirect dice.fm answers a listed perm_name with rather than following it: that redirect is where
 // the gig lives, so a following client would identify every gig here by a url dice.fm doesn't serve.
+// Why this reading surface and paging: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
+// Why a gig's url is its identity: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
 class DicePartnerVenueGigsSourceTest {
 
     @Test

@@ -11,6 +11,7 @@ import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
+// Why the log is a projection: docs/adr/0001-the-log-is-append-only.md
 class GigsStoreTest {
 
     private fun gigsLog(entries: List<LogEntry>): GigsLog {

@@ -35,15 +35,10 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
     // e.g. "Wed 12 Aug 26" or a multi-day range "Wed 12 Aug 26–Fri 14 Aug 26"; only the start date is used
     private val datePattern = Regex("""(\d{1,2}) (\w{3}) (\d{2})""")
 
-    // Promoter-run shows put their copy straight into .event-about while the venue's own listings
-    // wrap it in .layout-block elements, so the section itself is what both have in common. The
-    // "Related events" carousel is nested inside it rather than sitting beside it, and its heading
-    // wrapper is absent on the promoter-run pages.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     internal fun eventPageContent(page: Document): String? {
         val content = page.select(".event-hero__heading-wrapper, section.event-about")
-        // Both sit inside .event-about rather than beside it: the carousel would bring other shows'
-        // titles, and the listing card carries 142 words of booking schedule, digital-ticket notice
-        // and restoration-levy small print that every venue-run page repeats verbatim.
+        // Both sit inside .event-about rather than beside it.
         content.select(".layout-block--related-events-list, .layout-block--event-listing-card").remove()
         return content.textOrNull()
     }

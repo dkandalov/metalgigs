@@ -6,6 +6,7 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import kotlin.test.Test
 
+// Why titles are tidied as read: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 class WithTidiedTitlesTest {
 
     @Test

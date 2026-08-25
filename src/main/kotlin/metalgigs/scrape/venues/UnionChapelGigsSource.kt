@@ -35,11 +35,7 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
     // e.g. background-image:url("...") - the poster is a css background rather than an img element
     private val backgroundImageUrlPattern = Regex("""url\("([^"]+)"\)""")
 
-    // The gig's copy and the venue's standard sections are flat siblings in one article, told apart
-    // only by the heading each section starts with. Measured across six listings, everything from
-    // "Book For A Pre-Show Dinner" on is the same ~1,850 characters of cafe, bar and access policy
-    // on every page, which is longer than most gigs' own copy. The remaining ticketing instructions
-    // are dropped line by line, being boilerplate that sits among the copy rather than after it.
+    // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val venueSections = Regex(
         """^(book for a pre-show dinner|more information|for accessibility|the venue is seating only)""",
         RegexOption.IGNORE_CASE,

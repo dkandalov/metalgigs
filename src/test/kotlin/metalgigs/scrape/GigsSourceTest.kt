@@ -14,6 +14,8 @@ import strikt.assertions.isEqualTo
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
+// Why a source fails loudly: docs/adr/0002-a-source-fails-rather-than-publishing-something-plausible.md
+// Why titles are tidied as read: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 class GigsSourceTest {
 
     // Dice hands a promoter's name back verbatim, and Alexandra Palace's own heading carries a narrow

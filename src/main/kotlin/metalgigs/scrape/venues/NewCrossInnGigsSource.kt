@@ -43,24 +43,14 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
 
     private val datePattern = Regex("""(\d{2}) (\w{3}) (\d{4})""")
 
-    // pit.live renders the description client-side via Alpine.js: the markup sits in an x-html
-    // attribute rather than as element text, so the page's own text never contains it. What's in
-    // that attribute is a JavaScript string literal - single-quoted, with < > " & written as
-    // \uXXXX - and every escape it uses is one JSON has too, so the JSON parser decodes it rather
-    // than a hand-rolled unescaper. What comes out is HTML, which is then parsed for its text.
-    //
-    // The page's own meta description is no substitute: it's "Buy tickets for X live at Y", the
-    // same sentence on every listing, which is what a blank description would be measured against.
+    // Why the copy is decoded this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     internal fun eventPageContent(page: Document): String? {
         val literal = page.select("[x-ref=desc]").firstOrNull()?.attr("x-html")?.trim() ?: return null
         val markup = parseJsonNode("\"${literal.removeSurrounding("'")}\"").orThrow()
         return ((markup as? JsonNodeString)?.text)?.let { Jsoup.parse(it).text() }?.ifBlank { null }
     }
 
-    // the page opens on the current month and its "Upcoming Months" dropdown doesn't navigate - it
-    // posts to WordPress's admin-ajax and swaps the listing in place - so every later month's gigs
-    // are only reachable through that same call. The dropdown is the site's own list of which
-    // months have anything in them, so it's followed rather than counting forward from today.
+    // Why the months come from here: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
     private val monthlyEventsUrl = "https://www.newcrossinn.com/wp-admin/admin-ajax.php"
 
     // form() sets the body but not the content type, and admin-ajax fills $_POST from that header
