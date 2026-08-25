@@ -59,6 +59,18 @@ class GigsLog(private val file: File) {
             .groupBy { it.id.venueId }
             .mapValues { (_, observations) -> observations.maxOf { it.recordedAt } }
 
+    // Why a relisted gig arrived when the gig it replaced did: docs/adr/0001-the-log-is-append-only.md
+    fun firstSeenAt(): Map<GigId, Instant> {
+        val replacedBy = replacedBy()
+        val own = entries.filterIsInstance<GigObserved>()
+            .groupBy { it.id }
+            .mapValues { (_, observations) -> observations.minOf { it.recordedAt } }
+
+        return own.mapValues { (gig, _) ->
+            generateSequence(gig) { replacedBy[it] }.mapNotNull { own[it] }.min()
+        }
+    }
+
     // has the page already been rendered for this date? Matches on logicalDate rather than the newest
     // render's own timestamp, so a backdated render of some past date doesn't count as having done
     // today, and today's render still counts however long ago in the day it happened
@@ -99,7 +111,7 @@ class GigsLog(private val file: File) {
     fun compact(): CompactedLog {
         val observations = entries.filterIsInstance<GigObserved>()
             .groupBy { it.id }
-            .map { (_, observations) -> observations.maxBy { it.seq } }
+            .flatMap { (_, observations) -> setOf(observations.minBy { it.seq }, observations.maxBy { it.seq }) }
         val classifications = entries.filterIsInstance<GigClassified>()
             .groupBy { it.id }
             .mapNotNull { (_, classifications) -> effectiveClassification(classifications) }
@@ -126,19 +138,20 @@ class GigsLog(private val file: File) {
         }
     }
 
-    // Which gig each gig that replaced another takes its answer from. Nothing is recorded against a
-    // url a venue has only just written, so what the log holds about the gig at the old one is read
-    // for it: a venue renaming a listing costs neither a paid call nor the verdict a user typed. The
-    // chain is walked rather than followed one step, so a gig moved twice still reaches back to
-    // where it was classified, and gigs that answer for themselves are left out of it entirely.
+    // Which gig each gig that replaced another takes its answer from, gigs that answer for themselves
+    // being left out. Why it is read for them: docs/adr/0001-the-log-is-append-only.md
     private fun inheritedFrom(known: Set<GigId>): Map<GigId, GigId> {
-        val replacedBy = entries.filterIsInstance<GigReplaced>().sortedBy { it.seq }.associate { it.by to it.replaced }
+        val replacedBy = replacedBy()
         return replacedBy.keys.filterNot { it in known }
             .mapNotNull { gig ->
                 generateSequence(replacedBy[gig]) { replacedBy[it] }.firstOrNull { it in known }?.let { gig to it }
             }
             .toMap()
     }
+
+    // Which gig each gig that replaced another replaced - the direction both walks above go.
+    private fun replacedBy(): Map<GigId, GigId> =
+        entries.filterIsInstance<GigReplaced>().sortedBy { it.seq }.associate { it.by to it.replaced }
 
     private fun effectiveClassification
 (classifications: List<GigClassified>): GigClassified? {

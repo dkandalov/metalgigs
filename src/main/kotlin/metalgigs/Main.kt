@@ -325,6 +325,7 @@ private fun compactLog() {
         check(compactedLog.metalGigs().toSet() == log.metalGigs().toSet()) { "Compacted log renders different gigs" }
         check(compactedLog.alreadyClassified() == log.alreadyClassified()) { "Compacted log has classified different gigs" }
         check(compactedLog.lastScrapedAt() == log.lastScrapedAt()) { "Compacted log dates the last scrape differently" }
+        check(compactedLog.firstSeenAt() == log.firstSeenAt()) { "Compacted log dates gigs' first sighting differently" }
 
         val sizeBefore = eventsFile.length()
         compactedFile.copyTo(eventsFile, overwrite = true)

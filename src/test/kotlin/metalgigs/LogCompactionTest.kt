@@ -20,18 +20,22 @@ class LogCompactionTest {
         return GigsLog(file).apply { append(entries) }
     }
 
+    // the earliest is kept for firstSeenAt; between the two ends is history nothing reads
     @Test
-    fun `keeps only the latest observation of each gig`() {
-        val soldOut = gigA.copy(title = GigTitle("Gig A - SOLD OUT"))
+    fun `keeps the earliest and the latest observation of each gig`() {
+        val rescheduled = gigA.copy(date = GigDate(2026, 8, 20))
+        val soldOut = rescheduled.copy(title = GigTitle("Gig A - SOLD OUT"))
         val entries = listOf(
             GigObserved(gigA, at(1)),
             GigObserved(gigB, at(1)),
+            GigObserved(rescheduled, at(2)),
             GigObserved(soldOut, at(3)),
         )
 
         expectThat(gigsLog(entries).compact().entries).containsExactly(
+            GigObserved(gigA, at(1), seq = 0),
             GigObserved(gigB, at(1), seq = 1),
-            GigObserved(soldOut, at(3), seq = 2),
+            GigObserved(soldOut, at(3), seq = 3),
         )
     }
 
@@ -105,7 +109,22 @@ class LogCompactionTest {
         expectThat(after.metalGigs().toSet()).isEqualTo(before.metalGigs().toSet())
         expectThat(after.alreadyClassified()).isEqualTo(before.alreadyClassified())
         expectThat(after.lastScrapedAt()).isEqualTo(before.lastScrapedAt())
+        expectThat(after.firstSeenAt()).isEqualTo(before.firstSeenAt())
         expectThat(after.alreadyRenderedFor(LocalDate.of(2026, 8, 3))).isEqualTo(true)
+    }
+
+    // The trap the earliest observation is kept for: dropping it moves a gig's arrival forward to
+    // whenever its venue last edited the listing, and a gig on the page for a fortnight reads as new.
+    @Test
+    fun `dates a gig's arrival the same way after compaction as before`() {
+        val entries = listOf(
+            GigObserved(gigA, at(1)),
+            GigObserved(gigA.copy(title = GigTitle("Gig A - SOLD OUT")), at(3)),
+        )
+        val before = gigsLog(entries)
+        val after = gigsLog(before.compact().entries)
+
+        expectThat(after.firstSeenAt()).isEqualTo(mapOf(gigA.id to at(1)))
     }
     // a replacement says what a venue did rather than what a gig is, so there is nothing to
     // supersede it - and dropping one would put the gig at the old url back on the page

@@ -1,6 +1,7 @@
 # 1. The log is append-only, every state is a projection of it, and compaction must project identically
 
-Accepted. Recorded 2026-08-21, describing a design that has stood since 7730c89 (2026-08-08).
+Accepted. Recorded 2026-08-21, describing a design that has stood since 7730c89 (2026-08-08). Amended
+2026-08-25: compaction keeps each gig's earliest observation as well as its newest, for `firstSeenAt`.
 
 ## Context
 
@@ -31,6 +32,7 @@ is no separate current-state file that could disagree with the log:
 | `currentGigs` | the newest observation of each gig, less those a venue has relisted elsewhere |
 | `newOrChangedGigs` | what this scrape saw that the log does not already hold |
 | `lastScrapedAt` | which venues are outside the scrape cooldown |
+| `firstSeenAt` | when each gig arrived, and so which are recently added |
 | `alreadyRenderedFor` | whether the page has been rendered as of a date |
 | `classificationStatus`, `metalGigs` | what genre a gig is, and so what gets published |
 | `alreadyClassified`, `overriddenByUser` | what a forced reclassification may skip |
@@ -38,20 +40,34 @@ is no separate current-state file that could disagree with the log:
 Which of two entries is the later one is settled by `seq`, a monotonic counter `sequenced` assigns on
 append, not by `recordedAt`. A scrape or classification run stamps every entry it appends with one
 `Instant`, so equal times are the norm rather than the edge case. `recordedAt` survives for the one
-question that is genuinely about time rather than about order: `lastScrapedAt`, which asks how long ago
-a venue was seen, reads it still.
+questions that are genuinely about time rather than about order: `lastScrapedAt`, which asks how long ago
+a venue was seen, and `firstSeenAt`, which asks when a gig arrived, both read it still.
 
 Compaction is the one operation that destroys anything, and it is defined by what it must preserve
 rather than by what it drops: **a compacted log must project identically to the log it replaces.**
-`GigsLog.compact` keeps the newest observation per gig and the one classification `effectiveClassification`
-would pick, and keeps every render and every replacement whole. It hands back entries rather than writing
-them, so `compactLog` can write the compacted copy alongside, read it back, and check five projections
-agree before anything overwrites `events.ndjson`.
+`GigsLog.compact` keeps the earliest and the newest observation per gig and the one classification
+`effectiveClassification` would pick, and keeps every render and every replacement whole. It hands back
+entries rather than writing them, so `compactLog` can write the compacted copy alongside, read it back,
+and check six projections agree before anything overwrites `events.ndjson`.
+
+The earliest observation is kept for `firstSeenAt` alone, and is the one thing compaction keeps that no
+projection of the log's *current* state reads. It is the case "a new projection is not automatically safe
+under compaction" warned of, arriving: a projection wanted later that one observation per gig cannot
+answer, met by widening what compaction keeps rather than by giving the projection up.
 
 A gig its venue has relisted keeps its own newest observation like any other, which is easy to mistake
 for something compaction could drop. Dropping it would lose the url the gig used to live at, and that
 url is the only thing tying the gig listed now to the one already classified - `inheritedFrom` walks it
-to find the verdict a relisted gig answers with.
+to find the verdict a relisted gig answers with. Nothing is recorded against a url a venue has only just
+written, so a venue renaming a listing costs neither a paid call nor the verdict a user typed. It walks
+the chain rather than one step, so a gig moved twice still reaches back to where it was judged, and it
+leaves out gigs that answer for themselves entirely.
+
+`firstSeenAt` walks the same chain for a different answer. A gig its venue relisted is the same night in
+the same room, so it arrived when the gig it replaced did, not when the new url was written - a filter
+calling it newly added would fill with gigs nobody has to hear about twice. A gig moved twice reaches
+back through both. Both walks read one map, `replacedBy`: from each gig that replaced another to the gig
+it replaced, which is the direction away from what is listed now and back towards where it started.
 
 ## Consequences
 
@@ -63,15 +79,18 @@ model fields on `GigClassified` were both added to a log that already held thous
 back over entries recorded before they existed - the Kondor converters make such fields optional, and
 `JGigClassified` shows the shape.
 
-What compaction loses is the history itself: when a gig gained "- SOLD OUT", when its text was captured,
-which model judged a verdict since superseded.
+What compaction loses is the history between a gig's two ends: when it gained "- SOLD OUT", when its
+text was captured, which model judged a verdict since superseded.
 
-**A new projection is not automatically safe under compaction.** The five checks in `compactLog` are the
+The compactions run before this rule changed took the arrival dates of the gigs on the page at the time
+with them, and those were left as they are rather than reconstructed: the gigs carrying a late date age
+off the page within weeks, and the log dates every gig that arrives after correctly.
+
+**A new projection is not automatically safe under compaction.** The six checks in `compactLog` are the
 enforcement, and a projection that compaction could change belongs among them. The one that is absent -
 `alreadyRenderedFor` - is safe for a reason worth stating: compaction keeps every `GigsRendered` entry,
-which is exactly what it reads. A projection that
-depended on more than one observation of a gig, or on a superseded classification, would not be safe, and
-would have to be checked or the compaction rule changed to keep what it needs.
+which is exactly what it reads. `firstSeenAt` is the case in point: it depends on an observation
+compaction used to drop, so the rule changed to keep what it needs and the check went in beside it.
 
 Changing how an existing field is written on disk is a migration, not an edit: the log holds lines written
 by every earlier version of the code. The `migrate-log-format` skill covers it.
@@ -102,7 +121,8 @@ alongside makes that so.
 ## Where this is enforced
 
 `LogCompactionTest` holds the compaction rule, including `projects the same gigs and genres as the log it
-replaces` and the trap beneath `keeps a user override over an LLM classification recorded after it`.
-`GigsStoreTest` holds the projections and the sequencing, including `takes the later of two observations
-recorded at the same instant` and `reads back a classification written before llmModel and useVision
-existed`.
+replaces`, `dates a gig's arrival the same way after compaction as before`, and the trap beneath `keeps a
+user override over an LLM classification recorded after it`. `GigsStoreTest` holds the projections and the
+sequencing, including `takes the later of two observations recorded at the same instant`, `dates a gig from
+its earliest observation, however often its listing changed after`, and `reads back a classification written
+before llmModel and useVision existed`.

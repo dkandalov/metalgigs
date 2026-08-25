@@ -252,6 +252,34 @@ class GigsStoreTest {
         expectThat(lastScrapedAt[VenueId("Venue Never Scraped")]).isEqualTo(null)
     }
 
+    // the trap: a venue editing a title re-logs the gig, so the latest observation dates it to the edit
+    @Test
+    fun `dates a gig from its earliest observation, however often its listing changed after`() {
+        val gig = Gig(GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/a")), GigTitle("Gig A"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val events: List<LogEntry> = listOf(
+            GigObserved(gig, Instant.parse("2026-07-01T00:00:00Z")),
+            GigObserved(gig.copy(title = GigTitle("Gig A - SOLD OUT")), Instant.parse("2026-07-10T00:00:00Z")),
+        )
+
+        expectThat(gigsLog(events).firstSeenAt()).isEqualTo(mapOf(gig.id to Instant.parse("2026-07-01T00:00:00Z")))
+    }
+
+    @Test
+    fun `dates a relisted gig from the gig it replaced, twice over if it moved twice`() {
+        val first = Gig(GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/a")), GigTitle("Gig A"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
+        val second = first.copy(id = GigId(first.id.venueId, GigUrl("https://example.com/gigs/a-plus-support")))
+        val third = first.copy(id = GigId(first.id.venueId, GigUrl("https://example.com/gigs/a-plus-two-supports")))
+        val events: List<LogEntry> = listOf(
+            GigObserved(first, Instant.parse("2026-07-01T00:00:00Z")),
+            GigObserved(second, Instant.parse("2026-07-05T00:00:00Z")),
+            GigReplaced(first.id, second.id, Instant.parse("2026-07-05T00:00:00Z")),
+            GigObserved(third, Instant.parse("2026-07-09T00:00:00Z")),
+            GigReplaced(second.id, third.id, Instant.parse("2026-07-09T00:00:00Z")),
+        )
+
+        expectThat(gigsLog(events).firstSeenAt()[third.id]).isEqualTo(Instant.parse("2026-07-01T00:00:00Z"))
+    }
+
     @Test
     fun `knows whether the page has been rendered for a given date`() {
         val entries: List<LogEntry> = listOf(
