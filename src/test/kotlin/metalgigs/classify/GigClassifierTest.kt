@@ -24,6 +24,7 @@ import java.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
+// Why a genre costs one paid call: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 class GigClassifierTest {
 
     private val recordedAt = Instant.parse("2026-08-01T00:00:00Z")

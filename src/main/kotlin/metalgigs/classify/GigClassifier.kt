@@ -19,9 +19,7 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import java.util.Locale
 
-// one gig the model can't judge - a poster too big to send, an event page that won't load - must
-// not discard the classifications made before it: classifying is slow and every call is paid for.
-// Failures are collected and reported instead, and those gigs simply stay Pending for a later run
+// Why a genre costs one paid call: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 fun classifyGigs(
     gigs: List<Gig>,
     alreadyClassified: Set<GigId>,
@@ -57,8 +55,7 @@ fun classifyGigByLLM(
     val contents = listOf(Content.Text(classifierPromptText(gig))) +
         if (useVision) listOf(posterImage(client, gig.posterUrl)) else emptyList()
 
-    // the vision model rejects a temperature override outright; the text model accepts one and we
-    // want its verdicts reproducible, so only that path pins it
+    // the vision model rejects a temperature override outright
     val model = if (useVision) visionClassifierModel else llmClassifierModel
     val params = if (useVision) {
         ModelParams(model, responseFormat = ChatResponseFormat.Text)
@@ -79,16 +76,12 @@ fun classifyGigByLLM(
         source = ClassificationSource.LLM,
         llmModel = model.value,
         useVision = useVision,
-        // the API reports what it billed, so nothing here is estimated - but the fields are
-        // nullable all the way down, and a reply that arrives without them is still a verdict
         inputTokens = response.metadata.usage?.input,
         outputTokens = response.metadata.usage?.output,
     )
 }
 
-// What the model is shown about a gig beyond the system prompt: its title, and whatever the venue's
-// own event page said about it. Named rather than inlined so that anything measuring another model
-// against the recorded verdicts asks it the same question this asked.
+// What the model is shown about a gig beyond the system prompt.
 internal fun classifierPromptText(gig: Gig) = "Title: ${gig.title}\n\nEvent page text: ${gig.description}"
 
 val llmClassifierSystemPrompt = """
@@ -103,10 +96,7 @@ val llmClassifierSystemPrompt = """
     just give the one-word answer, on its own, with no explanation or caveats before it.
 """.trimIndent()
 
-// the prompt asks for one bare word, and usually gets it - but the model sometimes prefixes the
-// answer with a caveat (notably "I can't identify people in images" when judging a poster), so a
-// preamble on earlier lines is tolerated. The answer line itself still has to be just the genre,
-// give or take trailing punctuation, rather than the genre being fished out of a sentence
+// Why a preamble is tolerated: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 internal fun genreFromReply(reply: String): Genre? {
     val answer = reply.lines().lastOrNull { it.isNotBlank() }?.trim()?.trimEnd('.', '!') ?: return null
     return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
@@ -114,14 +104,11 @@ internal fun genreFromReply(reply: String): Genre? {
 
 private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 
-// Below this, the text extracted from an event page is usually boilerplate/placeholder rather than
-// anything descriptive - fall back to the poster image (with a stronger, vision-capable model)
-// instead of guessing from it.
+// Why text below this falls back to the poster: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 internal const val THIN_TEXT_THRESHOLD = 80
 private val visionClassifierModel = ModelName.of("claude-sonnet-5")
 
-// split by path rather than totalled, because the two differ by much more than their rates: a
-// vision call also carries the poster's own image tokens, which the text path never pays for
+// Why a run's cost is reported this way: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 fun classificationCostReport(classifications: List<GigClassified>): List<String> {
     if (classifications.isEmpty()) return emptyList()
 
@@ -139,13 +126,9 @@ fun classificationCostReport(classifications: List<GigClassified>): List<String>
         "total  ${money(classifications)}"
 }
 
-// Four places because a single call is fractions of a cent - two rounded a whole row to $0.00.
-// ROOT so the decimal separator doesn't follow the machine's locale into a dollar amount.
 private fun money(classifications: List<GigClassified>) =
     String.format(Locale.ROOT, "$%.4f", classifications.sumOf { classificationCost(it) ?: 0.0 })
 
-// null rather than zero for anything unpriced - a user override has no model or tokens at all, and
-// an entry written before tokens were recorded would otherwise read as having been free
 internal fun classificationCost(classified: GigClassified): Double? {
     val rate = llmRate(classified.llmModel ?: return null, classified.recordedAt.atZone(ZoneOffset.UTC).toLocalDate())
     val input = classified.inputTokens ?: return null
@@ -153,9 +136,7 @@ internal fun classificationCost(classified: GigClassified): Double? {
     return rate?.let { input / 1_000_000.0 * it.inputPerMillion + output / 1_000_000.0 * it.outputPerMillion }
 }
 
-// From platform.claude.com/docs/en/pricing, read on 2026-08-15. Sonnet 5 is on introductory rates
-// until 2026-08-31; the later rates are here too so that a run after that reports what it actually
-// cost rather than two thirds of it.
+// From platform.claude.com/docs/en/pricing, read on 2026-08-15.
 private fun llmRate(model: String, on: LocalDate): LlmRate? = when (model) {
     llmClassifierModel.value -> LlmRate(inputPerMillion = 1.00, outputPerMillion = 5.00)
     visionClassifierModel.value ->

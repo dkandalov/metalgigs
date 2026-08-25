@@ -9,6 +9,7 @@ import strikt.assertions.isNull
 import java.time.Instant
 import kotlin.test.Test
 
+// Why a run's cost is reported this way: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 class ClassificationCostTest {
 
     private fun classified(
