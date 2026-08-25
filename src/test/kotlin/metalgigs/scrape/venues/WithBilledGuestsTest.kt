@@ -36,14 +36,15 @@ class WithBilledGuestsTest {
             .isEqualTo(GigTitle("AGROTÓXICO / THE RESTARTS / FEW THOUGHTS"))
     }
 
-    // Greysight, where the two spell the name alike and only shout it differently - and a bill here
-    // is shouted by convention, so the copy's capitals are the venue's rather than the band's
+    // Greysight, where the two spell the name alike and only the copy shouts it - and every guest
+    // billed here is shouted, so the heading's casing would be the one part of its own title not
+    // written the way the rest of it is
     @Test
-    fun `keeps the heading's spelling where only the case differs`() {
+    fun `takes the copy's spelling where the two differ only in case`() {
         val copy = contentOf("GREYSIGHT", "Plus guests", "FRACTURE")
 
         expectThat(billedGuests.billedTitle(copy, GigTitle("Greysight")))
-            .isEqualTo(GigTitle("Greysight / FRACTURE"))
+            .isEqualTo(GigTitle("GREYSIGHT / FRACTURE"))
     }
 
     // the HELSTAR page, where the bill is followed by the band's biography

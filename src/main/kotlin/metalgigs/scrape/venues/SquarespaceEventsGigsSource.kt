@@ -88,9 +88,10 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
         return titleFrom("${headliner(listedAs, lines.getOrNull(marker - 1))} / ${guests.joinToString(" / ")}")
     }
 
-    private fun headliner(listedAs: GigTitle, billedAs: String?): String =
-        if (billedAs != null && plain(billedAs) == plain(listedAs.value) && diacritics(billedAs) > diacritics(listedAs.value)) billedAs
-        else listedAs.value
+    private fun headliner(listedAs: GigTitle, billedAs: String?): String {
+        if (billedAs == null || plain(billedAs) != plain(listedAs.value)) return listedAs.value
+        return if (diacritics(billedAs) >= diacritics(listedAs.value)) billedAs else listedAs.value
+    }
 
     private fun plain(name: String) = combiningMark.replace(decomposed(name), "").lowercase()
 

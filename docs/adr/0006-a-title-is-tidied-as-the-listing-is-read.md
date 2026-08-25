@@ -58,13 +58,15 @@ programme, exactly what the Underworld rule refuses when a running order tops ou
 named for. And an act is told from what follows it by case: a bill is shouted, where the press quotes, ticket
 lines, band biographies and bandcamp links written under one all carry lower case, so the bill ends at the
 first line that does. A guest the heading has already named is dropped rather than repeated - A-Sun Amissa's
-bills both of its supports twice. The headliner is taken from whichever of heading and copy spells it with
-the marks, neither being reliably the side that kept them: the heading writes "Handgemeng" where the copy
-writes "HÄNDGEMENG", and "AGROTÓXICO" where the copy writes "AGROTOXICO". Where the two differ only in case
-the heading stands, a bill here being shouted by convention - the capitals are the venue's rather than the
-band's, which is what makes this the reverse of the Underworld's, whose lineup is cased as the acts case
-themselves. Of the 18 composed as of 2026-08-25, one takes the copy's spelling. The cap is the Underworld's,
-the headliner and three supports, though the longest bill written under "plus guests" is two: it bounds a
+bills both of its supports twice. The headliner is taken as the copy spells it, falling back to the heading
+only where the heading holds marks the copy dropped, neither side being reliably the one that kept them: the
+heading writes "Handgemeng" where the copy writes "HÄNDGEMENG", and "AGROTÓXICO" where the copy writes
+"AGROTOXICO". Taking the copy otherwise is what puts a whole title in one case - every guest billed here is
+shouted, so a heading's "Greysight" beside "FRACTURE" would be the one part of its own title not written the
+way the rest of it is. That makes it the reverse of the Underworld's, where the lineup is cased as the acts
+case themselves and the heading is the one shouting. Of the 18 composed as of 2026-08-25, two take the
+copy's spelling. The cap is the Underworld's, the
+headliner and three supports, though the longest bill written under "plus guests" is two: it bounds a
 mis-parse rather than the venue. It decorates the venue's own source rather than switching on inside the
 Squarespace scraper the three venues share, the wording being these promoters' habit and not Squarespace's,
 and reads the bill off the copy that scraper has already taken rather than going back to the page - no
