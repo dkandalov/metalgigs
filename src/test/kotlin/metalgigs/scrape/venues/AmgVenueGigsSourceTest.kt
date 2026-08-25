@@ -264,7 +264,10 @@ class AmgVenueGigsSourceTest {
             O2ShepherdsBushEmpireGigsSource(client),
         ).associate { it.venue.id to it.latestGigs() }
 
-        val validation = validateGigs(scraped)
+        // Read as of the day its soonest gig falls on, which is as near as recorded traffic gets to
+        // the day it was captured: on any later one the recording has merely gone stale, and that is
+        // nothing about these sources.
+        val validation = validateGigs(scraped, scraped.values.flatten().minOf { it.date })
 
         expectThat(
             validation.reports.flatMap { report ->

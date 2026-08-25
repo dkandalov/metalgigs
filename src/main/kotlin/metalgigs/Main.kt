@@ -146,7 +146,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     val toObserve = log.newOrChangedGigs(gigs)
 
     val currentGigs = log.currentGigs()
-    val validation = validateGigs(scrapedByVenue, currentGigs)
+    val validation = validateGigs(scrapedByVenue, GigDate(LocalDate.now()), currentGigs)
     validation.reports.forEach { (heading, problems) ->
         println(heading)
         problems.forEach { println("  ${venue(it.venueId)} (${it.detail}) ${it.where()}".trimEnd()) }

@@ -24,7 +24,7 @@ class GigValidationTest {
     fun `keeps a gig whose description holds markup`() {
         val gigs = listOf(gig(title = GigTitle("Erdling"), url = "https://example.com/a", description = "<p>Plus support</p>"))
 
-        expectThat(validateGigs(mapOf(someVenue to gigs)).withheld).isEqualTo(emptySet())
+        expectThat(validateGigs(mapOf(someVenue to gigs), someDay).withheld).isEqualTo(emptySet())
     }
 
     // a title is published, so markup in one is withheld like any other parsing failure
@@ -34,7 +34,7 @@ class GigValidationTest {
 
         expectThat(UnparsedTextCheck.problemsFor(gigs))
             .isEqualTo(listOf("title holds unparsed markup" to listOf("https://example.com/a")))
-        expectThat(validateGigs(mapOf(someVenue to gigs)).withheld).isEqualTo(gigs.toSet())
+        expectThat(validateGigs(mapOf(someVenue to gigs), someDay).withheld).isEqualTo(gigs.toSet())
     }
 
     // both verbatim from Ovo Arena's listing: a tour that brackets its own name is not a tag, and
@@ -121,7 +121,7 @@ class GigValidationTest {
         val crowded = gigsOn(GigDate(2026, 9, 12), 6)
         val theNextDay = gigsOn(GigDate(2026, 9, 13), 1)
 
-        val validation = validateGigs(mapOf(someVenue to crowded + theNextDay))
+        val validation = validateGigs(mapOf(someVenue to crowded + theNextDay), GigDate(2026, 9, 12))
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(CrowdedDayCheck.heading))
         expectThat(validation.withheld).isEqualTo((crowded + theNextDay).toSet())
@@ -161,7 +161,7 @@ class GigValidationTest {
         val shared = gigsSharing(logo, 21)
         val ownPoster = gig(title = GigTitle("Primus"), url = "https://example.com/own", description = "Primus", poster = PosterUrl("https://example.com/primus.jpg"))
 
-        val validation = validateGigs(mapOf(someVenue to shared + ownPoster))
+        val validation = validateGigs(mapOf(someVenue to shared + ownPoster), someDay)
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(SharedPosterCheck.heading))
         expectThat(validation.withheld).isEqualTo((shared + ownPoster).toSet())
@@ -214,7 +214,7 @@ class GigValidationTest {
             gig(title = GigTitle("Primus - SOLD OUT"), url = "https://example.com/a", description = realText),
         )
 
-        val validation = validateGigs(mapOf(someVenue to gigs))
+        val validation = validateGigs(mapOf(someVenue to gigs), someDay)
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(DuplicateGigsCheck.heading))
         expectThat(validation.withheld).isEqualTo(gigs.toSet())
@@ -360,7 +360,7 @@ class GigValidationTest {
             gig(title = GigTitle("The Beertles"), url = "https://example.com/c", description = botWall),
         )
 
-        val validation = validateGigs(mapOf(someVenue to gigs))
+        val validation = validateGigs(mapOf(someVenue to gigs), someDay)
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(MisshapenGigsCheck.heading))
         expectThat(validation.withheld).isEqualTo(gigs.toSet())
@@ -376,7 +376,7 @@ class GigValidationTest {
             gig(title = GigTitle("D"), url = "https://example.com/d", description = "Grindcore all-dayer, twelve bands from noon, tickets on the door"),
         )
 
-        val validation = validateGigs(mapOf(someVenue to gigs))
+        val validation = validateGigs(mapOf(someVenue to gigs), someDay)
 
         expectThat(validation.reports.single().problems.single().detail).isEqualTo("3 of 4 gig(s) mostly shared text")
         expectThat(validation.withheld).isEqualTo(gigs.toSet())
@@ -472,7 +472,7 @@ class GigValidationTest {
     // withheld?" is vacuously true of no gigs at all, which would drop the report
     @Test
     fun `reports an empty listing though it withholds nothing`() {
-        val validation = validateGigs(mapOf(someVenue to emptyList()))
+        val validation = validateGigs(mapOf(someVenue to emptyList()), someDay)
 
         expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(EmptyListingCheck.heading))
         expectThat(validation.withheld).isEqualTo(emptySet())
@@ -487,6 +487,7 @@ class GigValidationTest {
 
         val validation = validateGigs(
             scraped = mapOf(someVenue to emptyList(), otherVenue to emptyList()),
+            today = someDay,
             previous = listOf(known),
         )
 
@@ -498,10 +499,77 @@ class GigValidationTest {
         )
     }
 
+    // what a listing read a year late looks like: every date consistent with every other, and the
+    // whole of it standing where next summer is
+    @Test
+    fun `flags a venue whose listing starts beyond the next fortnight`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText, date = GigDate(2027, 8, 8)),
+            gig(title = GigTitle("Kawehi"), url = "https://example.com/b", description = realText, date = GigDate(2027, 8, 20)),
+        )
+
+        expectThat(NothingSoonCheck(someDay).problemsFor(gigs))
+            .isEqualTo(listOf("soonest of 2 gig(s) is 2027-08-08, 365 days ahead" to emptyList()))
+    }
+
+    // Roundhouse listed nothing for 18 days as of 2026-08-25 and Dingwalls went 32 between gigs, so
+    // a venue named here is one to go and look at rather than a source known to have broken
+    @Test
+    fun `keeps the listing of a venue that is only quiet`() {
+        val gigs = listOf(gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText, date = GigDate(2026, 9, 30)))
+
+        val validation = validateGigs(mapOf(someVenue to gigs), someDay)
+
+        expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(NothingSoonCheck(someDay).heading))
+        expectThat(validation.withheld).isEqualTo(emptySet())
+    }
+
+    // the fortnight is the fourteen days the venue is in, today counting and the fourteenth day
+    // ahead not, so the two either side of that line are what say where it falls
+    @Test
+    fun `leaves a venue whose soonest gig is inside the fortnight alone`() {
+        val onTheLastDay = listOf(gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText, date = GigDate(2026, 8, 21)))
+        val today = listOf(gig(title = GigTitle("Kawehi"), url = "https://example.com/b", description = realText, date = someDay))
+
+        expectThat(NothingSoonCheck(someDay).problemsIn(onTheLastDay)).isEqualTo(emptyList())
+        expectThat(NothingSoonCheck(someDay).problemsIn(today)).isEqualTo(emptyList())
+    }
+
+    @Test
+    fun `flags a venue whose soonest gig is a day beyond the fortnight`() {
+        val gigs = listOf(gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText, date = GigDate(2026, 8, 22)))
+
+        expectThat(NothingSoonCheck(someDay).problemsFor(gigs))
+            .isEqualTo(listOf("soonest of 1 gig(s) is 2026-08-22, 14 days ahead" to emptyList()))
+    }
+
+    // a listing that has fallen wholly into the past is the same fault seen from the other side - a
+    // year read short rather than long - and has no soonest gig to name
+    @Test
+    fun `flags a venue whose listing is all in the past`() {
+        val gigs = listOf(
+            gig(title = GigTitle("Primus"), url = "https://example.com/a", description = realText, date = GigDate(2025, 8, 8)),
+            gig(title = GigTitle("Kawehi"), url = "https://example.com/b", description = realText, date = GigDate(2025, 8, 20)),
+        )
+
+        expectThat(NothingSoonCheck(someDay).problemsFor(gigs))
+            .isEqualTo(listOf("nothing of 2 gig(s) is still to come, the latest being 2025-08-20" to emptyList()))
+    }
+
+    // a venue that listed nothing has no dates to have read wrong, and is already spoken about as
+    // the empty listing it is
+    @Test
+    fun `leaves an empty listing to the check that speaks for it`() {
+        val validation = validateGigs(mapOf(someVenue to emptyList()), someDay)
+
+        expectThat(NothingSoonCheck(someDay).problemsIn(emptyList())).isEqualTo(emptyList())
+        expectThat(validation.reports.map { it.heading }).isEqualTo(listOf(EmptyListingCheck.heading))
+    }
+
     // a venue the run never reached says nothing about whether its source works
     @Test
     fun `says nothing about a venue that was not scraped`() {
-        val validation = validateGigs(scraped = emptyMap())
+        val validation = validateGigs(scraped = emptyMap(), today = someDay)
 
         expectThat(validation.reports).isEqualTo(emptyList())
     }

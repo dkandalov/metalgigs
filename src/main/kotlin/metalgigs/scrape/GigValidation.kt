@@ -1,10 +1,12 @@
 package metalgigs.scrape
 
 import metalgigs.Gig
+import metalgigs.GigDate
 import metalgigs.GigDescription
 import metalgigs.GigTitle
 import metalgigs.PosterUrl
 import metalgigs.VenueId
+import java.time.temporal.ChronoUnit.DAYS
 import kotlin.math.ceil
 
 // Every gig a source lists is checked, not only the new or changed ones: a venue whose selectors
@@ -29,8 +31,9 @@ import kotlin.math.ceil
 // the day, exactly as it does for a source that threw.
 fun validateGigs(
     scraped: Map<VenueId, List<Gig>>,
+    today: GigDate,
     previous: List<Gig> = emptyList(),
-    checks: List<GigsCheck> = gigsChecks,
+    checks: List<GigsCheck> = gigsChecks(today),
 ): GigsValidation {
     val previousByVenue = previous.groupBy { it.id.venueId }
     val spokenFor = mutableSetOf<Gig>()
@@ -50,8 +53,14 @@ fun validateGigs(
 }
 
 // Ordered by how precisely each names what went wrong, because that decides which of them speaks
-// for a gig several of them catch.
-private val gigsChecks: List<GigsCheck> = listOf(EmptyListingCheck, MisshapenGigsCheck, UnparsedTextCheck, DuplicateGigsCheck, CrowdedDayCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
+// for a gig several of them catch. A check that names no gig - EmptyListingCheck, NothingSoonCheck -
+// neither speaks for one nor is spoken over, so where it sits is only where it reads.
+//
+// Built per run rather than held as one list, because a check about how far ahead a listing reaches
+// needs the day it is being read on, and reading the clock inside a check would leave nothing here
+// testable against a fixed date.
+private fun gigsChecks(today: GigDate): List<GigsCheck> =
+    listOf(EmptyListingCheck, NothingSoonCheck(today), MisshapenGigsCheck, UnparsedTextCheck, DuplicateGigsCheck, CrowdedDayCheck, SharedPosterCheck, SharedDescriptionCheck, ContaminationCheck)
 
 data class GigsValidation(val reports: List<GigsReport>, val withheld: Set<Gig>)
 
@@ -98,6 +107,49 @@ internal object EmptyListingCheck : GigsCheck {
     private fun detailFor(previous: List<Gig>) =
         if (previous.isEmpty()) "listed nothing, and the log holds no gigs for it either"
         else "listed nothing, though the log holds ${previous.size} gig(s) for it"
+}
+
+// The other way a date parse goes wrong. CrowdedDayCheck catches one that has collapsed - every gig
+// landing on the one day - but a parse that has drifted whole moves a listing bodily forward instead:
+// a year read off the wrong element, a month rolled on for every row rather than only the ones that
+// cross December. Nothing about any single gig then looks wrong, the dates stay spread and ordered
+// as they should be, and the only mark left is that the listing no longer begins anywhere near now.
+// Reading a venue's "on sale soon" strip rather than its listing leaves the same one.
+//
+// A fortnight sits far closer to what venues really do than the other checks' thresholds do, which
+// is what decides the rest of this. Measured over the log as of 2026-08-25, across all 34 venues it
+// holds gigs for: Roundhouse's soonest gig is 18 days off with nothing whatever wrong with it, and
+// over the days the log can still answer for - 2026-08-01 onward, its earliest surviving gig -
+// Dingwalls went 32 days from one gig to the next, O2 Academy Islington 28, Electric Brixton 27, The
+// O2 Arena 26. So a venue named here is one to go and look at, not a source known to have broken.
+//
+// Which is why it names no gig and the venue keeps its listing, the way an empty one does. A
+// withholding check at this width would drop a real listing every few weeks and drop it silently:
+// the venue's newly announced gigs would go unlogged for as long as it stayed quiet, which is
+// exactly when it has the fewest to spare.
+internal class NothingSoonCheck(private val today: GigDate) : GigsCheck {
+    override val heading = "Venues with nothing listed in the next fortnight - check what that source has read of its dates:"
+
+    // A listing that matched nothing is EmptyListingCheck's to speak about, and has no date to say
+    // anything about anyway.
+    override fun problems(venue: VenueId, scraped: List<Gig>, previous: List<Gig>): List<GigsProblem> {
+        if (scraped.isEmpty()) return emptyList()
+        val soonest = scraped.map { it.date }.filter { it >= today }.minOrNull()
+        return if (soonest != null && soonest.value.isBefore(today.value.plusDays(DAYS_A_LISTING_REACHES_INTO))) emptyList()
+        else listOf(GigsProblem(venue, detailFor(scraped, soonest), emptySet()))
+    }
+
+    // The date itself as well as the distance, because which of the two faults it is shows in where
+    // the listing starts: a year ahead reads as a year read wrong, a month as a month rolled on.
+    private fun detailFor(scraped: List<Gig>, soonest: GigDate?): String =
+        if (soonest == null) "nothing of ${scraped.size} gig(s) is still to come, the latest being ${scraped.maxOf { it.date }}"
+        else "soonest of ${scraped.size} gig(s) is $soonest, ${DAYS.between(today.value, soonest.value)} days ahead"
+
+    private companion object {
+        // Today counts and the fourteenth day ahead does not, so a fortnight is the fourteen days a
+        // venue is currently in rather than fifteen dates.
+        const val DAYS_A_LISTING_REACHES_INTO = 14L
+    }
 }
 
 // A gig's title and description are whatever text a selector returned, so a selector that started
