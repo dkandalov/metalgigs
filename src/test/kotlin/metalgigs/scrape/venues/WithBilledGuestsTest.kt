@@ -125,4 +125,36 @@ class WithBilledGuestsTest {
     )
 
     private fun contentOf(vararg lines: String) = GigDescription(lines.joinToString("\n"))
+
+    // the Morag Tong page names no marker at all - the bill is the gig's own name and the acts
+    // under it, which is what says these lines are one
+    @Test
+    fun `titles a gig whose copy bills the acts under its name with no marker`() {
+        val copy = contentOf("MORAG TONG", "DRUIDESS", "OUTBACK")
+
+        expectThat(billedGuests.billedTitle(copy, GigTitle("MORAG TONG")))
+            .isEqualTo(GigTitle("MORAG TONG / DRUIDESS / OUTBACK"))
+    }
+
+    // the Toseland page opens the same way and then writes four paragraphs about the band
+    @Test
+    fun `keeps the venue's title where the gig's name is followed by its story`() {
+        val copy = contentOf(
+            "The Black Heart in assoc with ITB presents…",
+            "TOSELAND",
+            "Following on from the announcement of their November slot at Winterstorm Festival, Toseland have confirmed their first club shows since 2018.",
+        )
+
+        expectThat(billedGuests.billedTitle(copy, GigTitle("TOSELAND"))).isEqualTo(null)
+    }
+
+    // Gorge / Heretical Mutation / Insufferable, where the heading is already the whole bill and the
+    // copy repeats it - the run opens on a name the gig isn't listed under
+    @Test
+    fun `keeps the venue's title where an unmarked run doesn't open on the gig's name`() {
+        val copy = contentOf("Beyond The Grave presents…", "GORGE", "HERETICAL MUTATION", "INSUFFERABLE")
+
+        expectThat(billedGuests.billedTitle(copy, GigTitle("GORGE / HERETICAL MUTATION / INSUFFERABLE")))
+            .isEqualTo(null)
+    }
 }

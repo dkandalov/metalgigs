@@ -80,18 +80,25 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
     internal fun billedTitle(copy: GigDescription, listedAs: GigTitle): GigTitle? {
         val lines = copy.value.lines()
         val marker = lines.indexOfFirst { it.matches(guestsBilled) }
-        if (marker < 0) return null
-        val guests = lines.drop(marker + 1).takeWhile(::readsLikeAnAct)
+        val named = lines.indexOfFirst { readsLikeAnAct(it) && sameName(it, listedAs.value) }
+        val (billedAs, from) = when {
+            marker >= 0 -> lines.getOrNull(marker - 1) to marker + 1
+            named >= 0 -> lines[named] to named + 1
+            else -> return null
+        }
+        val guests = lines.drop(from).takeWhile(::readsLikeAnAct)
             .filterNot { listedAs.value.contains(it, ignoreCase = true) }
             .take(guestsInTitle)
         if (guests.isEmpty()) return null
-        return titleFrom("${headliner(listedAs, lines.getOrNull(marker - 1))} / ${guests.joinToString(" / ")}")
+        return titleFrom("${headliner(listedAs, billedAs)} / ${guests.joinToString(" / ")}")
     }
 
     private fun headliner(listedAs: GigTitle, billedAs: String?): String {
-        if (billedAs == null || plain(billedAs) != plain(listedAs.value)) return listedAs.value
+        if (billedAs == null || !sameName(billedAs, listedAs.value)) return listedAs.value
         return if (diacritics(billedAs) >= diacritics(listedAs.value)) billedAs else listedAs.value
     }
+
+    private fun sameName(one: String, other: String) = plain(one) == plain(other)
 
     private fun plain(name: String) = combiningMark.replace(decomposed(name), "").lowercase()
 
