@@ -38,7 +38,7 @@ and a JSON name field has nothing else to read.
 returns: those are what a selector matching a card's container brings, so they must reach `GigTitle` and fail
 rather than be tidied into a title that looks fine.
 
-Two sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
+Three sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
 only the headliner in capitals; the event page's lineup is the bill as typed, cased, headliner last. It is
 taken only when that last act is what the gig is listed as - a festival or club night is named for something
 no act is - and only the headliner and three supports, a bill running longer (Cosmic Void Festival's is 39
@@ -46,6 +46,25 @@ acts) being a programme rather than a title. Doors and curfew are told from acts
 where every act carries an en dash, not by position: Cosmic Void's page ends on its last act. **The Dev's
 flyer** settles its slashes to " / ", a model reading a bill off a picture being inconsistent about the space
 around them ("Liquified/Lobotomica" one run, "Liquified/ Lobotomica" the next).
+
+**The Black Heart** appends the guests its promoters write under the headliner in the event copy, where its
+listing heading names the headliner alone: as of 2026-08-25 that is 18 of the 51 gigs listed. Nothing in the
+markup says which lines are the bill, so three things do. A line that is the marker and nothing else - "plus
+guests", "plus special guests", "plus support", "with" - opens it, which is what keeps the seven
+listings whose bill is still TBA saying nobody rather than billing an act called TBA. **"Featuring" is
+deliberately not one of them**: every listing using it - Sticky Summer Swamp II, Heavy Halloween, Fill The
+Void, the Civil War alldayer - is named for the night rather than for anything on it, so its bill is a
+programme, exactly what the Underworld rule refuses when a running order tops out on something the gig is not
+named for. And an act is told from what follows it by case: a bill is shouted, where the press quotes, ticket
+lines, band biographies and bandcamp links written under one all carry lower case, so the bill ends at the
+first line that does. A guest the heading has already named is dropped rather than repeated - A-Sun Amissa's
+bills both of its supports twice. The cap is the Underworld's, the headliner and three supports, though the
+longest bill written under "plus guests" today is two: it bounds a mis-parse rather than the venue. It
+decorates the venue's own source rather than switching on inside the Squarespace scraper the three venues
+share, the wording being these promoters' habit and not Squarespace's, and reads the bill off the copy that
+scraper has already taken rather than going back to the page - no second request, and no second copy of a
+selector. That rests on the Squarespace copy keeping its lines (ADR 7): flattened, "WARPSTORMER BIRDWITCH"
+reads as one act exactly as "ISHTAR TERRA" does.
 
 A cancellation is appended as ` - CANCELLED` where a source knows of one, today the Dice `status` field.
 
@@ -62,3 +81,11 @@ cancellation suffix to find the city.
 comma-separated title** - the "+" there joins a list. **Matching "free entry" by wording alone** - "Free Entry
 Fridays" is a name. **Letting `titleFrom` normalise all whitespace** - line breaks mark a wrong selector and
 must fail. **Taking a whole running order** - thirty-nine acts is a programme.
+ **Reading The Black Heart's bill off its
+poster with a model**, as ADR 11 reads The Dev's - the copy under the poster already carries it, and a model
+in the title path makes a title that re-words between runs a gig logged as changed every run. **Carrying the
+bill as a field of its own** rather than in the title - it would leave the classifier's prompt and the
+pairing reading the headliner alone, which is what they read today. **Matching the marker as a prefix** -
+"Plus guests TBA" would bill an act called TBA. **An option on the shared Squarespace source** - The Dome
+and The Fiddler's Elbow read the same template, and a promoter's wording is not the template's. **Fetching
+the event page in the decorator** - the copy under it already holds the bill, once that copy keeps its lines.

@@ -6,6 +6,8 @@ import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import kotlin.text.RegexOption.COMMENTS
+import kotlin.text.RegexOption.IGNORE_CASE
 
 // most Squarespace venues write a gig's blurb on its own event page, but The Fiddler's Elbow leaves
 // every one of those empty and puts the whole thing in the listing's excerpt instead - which also
@@ -49,15 +51,62 @@ internal class SquarespaceEventsGigsSource(
         return img.attr("abs:src").ifBlank { img.attr("abs:data-image") }
     }
 
-    // Why the copy is scoped and re-parsed: docs/adr/0007-a-description-is-the-gigs-own-copy.md
-    internal fun eventPageContent(page: Document) =
-        page.select(".eventitem-column-content").textOrNull()?.let { Jsoup.parse(it).text() }
+    // Why the copy is scoped, re-parsed and kept in lines: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+    internal fun eventPageContent(page: Document): String? {
+        val column = page.clone().select(".eventitem-column-content")
+        if (column.isEmpty()) return null
+        column.select("br, p, div, h1, h2, h3, h4, li").before(lineMark)
+        return Jsoup.parse(column.text()).text()
+            .split(lineMark)
+            .map { it.trim() }
+            .filter { it.isNotBlank() }
+            .joinToString("\n")
+    }
+
+    // Jsoup flattens a block boundary to a space, and text() would do the same to a newline written
+    // in its place, so the boundaries are marked with a character no promoter types and cut after.
+    private val lineMark = "\u241E"
 }
 
 val theBlackHeart = Venue(VenueId("black-heart"), "The Black Heart")
 
+// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
+internal class WithBilledGuests(private val source: GigsSource) : GigsSource by source {
+    override fun latestGigs(): List<Gig> = source.latestGigs().map { gig ->
+        gig.copy(title = billedTitle(gig.description, gig.title) ?: gig.title)
+    }
+
+    internal fun billedTitle(copy: GigDescription, listedAs: GigTitle): GigTitle? {
+        val lines = copy.value.lines()
+        val marker = lines.indexOfFirst { it.matches(guestsBilled) }
+        if (marker < 0) return null
+        val guests = lines.drop(marker + 1).takeWhile(::readsLikeAnAct)
+            .filterNot { listedAs.value.contains(it, ignoreCase = true) }
+            .take(guestsInTitle)
+        return if (guests.isEmpty()) null else titleFrom("${listedAs.value} / ${guests.joinToString(" / ")}")
+    }
+
+    private fun readsLikeAnAct(line: String) = line.any(Char::isLetter) && line.none(Char::isLowerCase)
+
+    private val guestsBilled = Regex(
+        """
+        ^
+        (?: plus \s+ (?: special \s+ )? guests?
+          | plus \s+ support
+          | with
+        )
+        \s* [.…!:]* $
+        """,
+        setOf(IGNORE_CASE, COMMENTS),
+    )
+
+    private val guestsInTitle = 3
+}
+
 class TheBlackHeartGigsSource(client: HttpHandler) :
-    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = theBlackHeart)
+    GigsSource by WithBilledGuests(
+        SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = theBlackHeart),
+    )
 
 val theDome = Venue(VenueId("dome"), "The Dome")
 

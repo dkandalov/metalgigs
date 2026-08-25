@@ -63,6 +63,14 @@ is "Buy tickets for X live at Y" every time); **Squarespace** is handed an embed
 html-escaped, so `text()` yields a visible `<a href=…>Grieve by Morag Tong</a>`, re-parsed to keep what the
 link says and drop the tags; **AMG** serves the promoter's copy as HTML in the listing API.
 
+**The Squarespace copy keeps its lines.** `text()` flattens every block boundary to a space, which serves the
+classifier and loses what a bill's acts are told apart by: "WARPSTORMER BIRDWITCH" is two acts and "ISHTAR
+TERRA" is one, and flattened they read alike. So the boundaries - block elements and `<br>` - are marked with
+U+241E, a character no promoter types, before `text()` is called and cut into lines afterwards. Nothing else
+about the text changes: the same characters in the same order, and blank lines dropped. It is what lets
+`WithBilledGuests` (ADR 6) read The Black Heart's bill off the copy rather than fetching the event page a
+second time and carrying a second copy of the Squarespace selector to read it with.
+
 Where a source has a better description than the event page it takes it and saves the request: **Dice** takes
 `rawDescription`, the venue's own copy, not the sibling `description` that appends Dice's footer ("Presented
 by …", "This is an 18+ event"); **The Fiddler's Elbow** leaves event pages empty and puts everything in the
@@ -78,7 +86,8 @@ it would read as one gig's text on another. **The Dev** has no event page, so th
 Scoping is per venue and must be redone when a site is redesigned; `ContaminationCheck` notices, and only
 surfaces it. Real content is deliberately dropped with the furniture in a few places, each measured as
 boilerplate first. Cutting by wording is brittle where selectors are not: a venue that rephrases its age
-policy stops having it removed, and nothing fails.
+policy stops having it removed, and nothing fails. The Squarespace venues log one run of changed gigs where
+the copy gains its line breaks.
 
 ## Alternatives rejected
 
@@ -86,3 +95,5 @@ policy stops having it removed, and nothing fails.
 `ContaminationCheck` finds** - it risks eating real copy. **New Cross Inn's meta description** - the same
 sentence every time. **Dice's `description`** - it appends Dice's footer. **Leaving an AMG event blank** - its
 lineup and genres are what the classifier needs. **A hand-rolled unescaper** - JSON has every escape used.
+**Flattening the Squarespace copy and reading a bill back out of it** - "WARPSTORMER BIRDWITCH" and "ISHTAR
+TERRA" are the same two shouted words once the boundary is gone.

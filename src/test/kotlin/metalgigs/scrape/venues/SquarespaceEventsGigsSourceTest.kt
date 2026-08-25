@@ -206,4 +206,26 @@ class SquarespaceEventsGigsSourceTest {
         expectThat(pageText.contains("<a href")).isEqualTo(false)
         expectThat(pageText.contains("bandcamp.com")).isEqualTo(false)
     }
+
+    // the Handgemeng page, whose bill is a paragraph per act and then two acts split by a <br>.
+    // Flattening it loses the boundary a bill's acts are told apart by: "WARPSTORMER BIRDWITCH"
+    // would read as one act, exactly as "ISHTAR TERRA" does.
+    @Test
+    fun `keeps the copy's own lines, so a bill's acts stay apart`() {
+        val html = """
+            <div class="eventitem-column-content">
+                <div class="sqs-block"><div class="sqs-block-content"><a>buy tickets</a></div></div>
+                <p>London Doom Collective presents...</p>
+                <p>HÄNDGEMENG</p>
+                <p>Plus guests...</p>
+                <p>WARPSTORMER<br>BIRDWITCH</p>
+            </div>
+        """.trimIndent()
+
+        val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = theBlackHeart)
+
+        expectThat(source.eventPageContent(pageOf(html))).isEqualTo(
+            "buy tickets\nLondon Doom Collective presents...\nHÄNDGEMENG\nPlus guests...\nWARPSTORMER\nBIRDWITCH",
+        )
+    }
 }
