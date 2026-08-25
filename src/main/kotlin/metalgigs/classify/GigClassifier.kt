@@ -19,16 +19,20 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import java.util.Locale
 
+fun interface GigClassifier {
+    fun classify(gig: Gig): GigClassified
+}
+
 // Why a genre costs one paid call: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
-fun classifyGigs(
+internal fun classifyGigs(
     gigs: List<Gig>,
     alreadyClassified: Set<GigId>,
     limit: Int? = null,
-    classifyGig: (Gig) -> GigClassified,
+    classifier: GigClassifier,
 ): ClassificationRun {
     val toClassify = gigs.filter { it.id !in alreadyClassified }.sortedBy { it.date }
     val results = (if (limit != null) toClassify.take(limit) else toClassify)
-        .map { gig -> gig to resultFrom { classifyGig(gig) } }
+        .map { gig -> gig to resultFrom { classifier.classify(gig) } }
 
     return ClassificationRun(
         results.mapNotNull { (_, result) -> result.valueOrNull() },
@@ -38,47 +42,58 @@ fun classifyGigs(
     )
 }
 
-data class ClassificationRun(
+internal data class ClassificationRun(
     val classified: List<GigClassified>,
     val failed: List<Pair<Gig, String>>,
 )
 
-fun classifyGigByLLM(
-    client: HttpHandler,
-    chat: Chat,
-    gig: Gig,
-    recordedAt: Instant,
-    posterImage: (HttpHandler, PosterUrl) -> Content.Image = ::fetchPosterForClassifying,
-): GigClassified {
-    val useVision = gig.description.value.length < THIN_TEXT_THRESHOLD
+internal class WithAlwaysMetalVenues(
+    private val classifier: GigClassifier,
+    private val recordedAt: Instant,
+) : GigClassifier {
+    override fun classify(gig: Gig): GigClassified =
+        if (gig.id.venueId in alwaysMetalVenues) GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.User)
+        else classifier.classify(gig)
+}
 
-    val contents = listOf(Content.Text(classifierPromptText(gig))) +
-        if (useVision) listOf(posterImage(client, gig.posterUrl)) else emptyList()
+internal class LlmGigClassifier(
+    private val client: HttpHandler,
+    private val chat: Chat,
+    private val recordedAt: Instant,
+    private val posterImage: (HttpHandler, PosterUrl) -> Content.Image = ::fetchPosterForClassifying,
+) : GigClassifier {
 
-    // the vision model rejects a temperature override outright
-    val model = if (useVision) visionClassifierModel else llmClassifierModel
-    val params = if (useVision) {
-        ModelParams(model, responseFormat = ChatResponseFormat.Text)
-    } else {
-        ModelParams(model, Temperature.ZERO, responseFormat = ChatResponseFormat.Text)
+    override fun classify(gig: Gig): GigClassified {
+        val useVision = gig.description.value.length < THIN_TEXT_THRESHOLD
+
+        val contents = listOf(Content.Text(classifierPromptText(gig))) +
+            if (useVision) listOf(posterImage(client, gig.posterUrl)) else emptyList()
+
+        // the vision model rejects a temperature override outright
+        val model = if (useVision) visionClassifierModel else llmClassifierModel
+        val params = if (useVision) {
+            ModelParams(model, responseFormat = ChatResponseFormat.Text)
+        } else {
+            ModelParams(model, Temperature.ZERO, responseFormat = ChatResponseFormat.Text)
+        }
+
+        val response = chat(ChatRequest(Message.User(contents), params))
+            .onFailure { error("LLM classification failed for ${venue(gig.id.venueId)} at ${gig.id.url}: $it") }
+        val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
+        val genre = genreFromReply(reply)
+            ?: error("Unexpected LLM classification reply for ${venue(gig.id.venueId)} at ${gig.id.url}: \"$reply\"")
+
+        return GigClassified(
+            id = gig.id,
+            recordedAt = recordedAt,
+            genre = genre,
+            source = ClassificationSource.LLM,
+            llmModel = model.value,
+            useVision = useVision,
+            inputTokens = response.metadata.usage?.input,
+            outputTokens = response.metadata.usage?.output,
+        )
     }
-
-    val response = chat(ChatRequest(Message.User(contents), params))
-        .onFailure { error("LLM classification failed for ${venue(gig.id.venueId)} at ${gig.id.url}: $it") }
-    val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
-    val genre = genreFromReply(reply)
-        ?: error("Unexpected LLM classification reply for ${venue(gig.id.venueId)} at ${gig.id.url}: \"$reply\"")
-
-    return GigClassified(
-        id = gig.id,
-        recordedAt = recordedAt,
-        genre = genre,
-        source = ClassificationSource.LLM,
-        llmModel = model.value,
-        useVision = useVision,
-        inputTokens = response.metadata.usage?.input,
-        outputTokens = response.metadata.usage?.output,
-    )
 }
 
 // What the model is shown about a gig beyond the system prompt.
