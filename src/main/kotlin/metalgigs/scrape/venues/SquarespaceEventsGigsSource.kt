@@ -6,6 +6,7 @@ import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import java.text.Normalizer
 import kotlin.text.RegexOption.COMMENTS
 import kotlin.text.RegexOption.IGNORE_CASE
 
@@ -83,8 +84,21 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
         val guests = lines.drop(marker + 1).takeWhile(::readsLikeAnAct)
             .filterNot { listedAs.value.contains(it, ignoreCase = true) }
             .take(guestsInTitle)
-        return if (guests.isEmpty()) null else titleFrom("${listedAs.value} / ${guests.joinToString(" / ")}")
+        if (guests.isEmpty()) return null
+        return titleFrom("${headliner(listedAs, lines.getOrNull(marker - 1))} / ${guests.joinToString(" / ")}")
     }
+
+    private fun headliner(listedAs: GigTitle, billedAs: String?): String =
+        if (billedAs != null && plain(billedAs) == plain(listedAs.value) && diacritics(billedAs) > diacritics(listedAs.value)) billedAs
+        else listedAs.value
+
+    private fun plain(name: String) = combiningMark.replace(decomposed(name), "").lowercase()
+
+    private fun diacritics(name: String) = combiningMark.findAll(decomposed(name)).count()
+
+    private fun decomposed(name: String) = Normalizer.normalize(name, Normalizer.Form.NFD)
+
+    private val combiningMark = Regex("""\p{Mn}""")
 
     private fun readsLikeAnAct(line: String) = line.any(Char::isLetter) && line.none(Char::isLowerCase)
 

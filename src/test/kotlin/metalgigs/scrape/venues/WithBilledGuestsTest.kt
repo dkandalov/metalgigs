@@ -18,13 +18,32 @@ class WithBilledGuestsTest {
             .isEqualTo(GigTitle("GRAVEKVLT / MORTAR / ISHTAR TERRA"))
     }
 
-    // the Handgemeng copy, whose listing heading spells the headliner without the umlaut it gives itself
+    // the Handgemeng page, whose heading has dropped the umlaut its own copy gives the headliner
     @Test
-    fun `titles a gig whose heading spells the headliner its own way`() {
+    fun `takes the headliner as the copy spells it where the heading dropped its marks`() {
         val copy = contentOf("London Doom Collective presents...", "HÄNDGEMENG", "Plus guests...", "WARPSTORMER", "BIRDWITCH")
 
         expectThat(billedGuests.billedTitle(copy, GigTitle("Handgemeng")))
-            .isEqualTo(GigTitle("Handgemeng / WARPSTORMER / BIRDWITCH"))
+            .isEqualTo(GigTitle("HÄNDGEMENG / WARPSTORMER / BIRDWITCH"))
+    }
+
+    // Agrotóxico's page drops the marks the heading keeps, so the same rule reads the other way
+    @Test
+    fun `keeps the heading's spelling where the copy dropped the marks`() {
+        val copy = contentOf("AGROTOXICO", "Plus special guests…", "THE RESTARTS", "FEW THOUGHTS")
+
+        expectThat(billedGuests.billedTitle(copy, GigTitle("AGROTÓXICO")))
+            .isEqualTo(GigTitle("AGROTÓXICO / THE RESTARTS / FEW THOUGHTS"))
+    }
+
+    // Greysight, where the two spell the name alike and only shout it differently - and a bill here
+    // is shouted by convention, so the copy's capitals are the venue's rather than the band's
+    @Test
+    fun `keeps the heading's spelling where only the case differs`() {
+        val copy = contentOf("GREYSIGHT", "Plus guests", "FRACTURE")
+
+        expectThat(billedGuests.billedTitle(copy, GigTitle("Greysight")))
+            .isEqualTo(GigTitle("Greysight / FRACTURE"))
     }
 
     // the HELSTAR page, where the bill is followed by the band's biography
