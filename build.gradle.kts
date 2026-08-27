@@ -50,3 +50,13 @@ tasks.test {
     useJUnitPlatform()
     systemProperty("com.sun.security.enableAIAcaIssuers", "true")
 }
+
+// The labelling loop is driven by a person rather than by the suite, and its ingest step writes to
+// the committed evaluation set - so it is a main() in the test sources rather than a test, and this
+// is what runs it. See .claude/skills/label-gigs.
+tasks.register<JavaExec>("labelGigs") {
+    group = "labelling"
+    description = "Label gigs for the classifier evaluation set: --args=\"gigs-awaiting-labels 5\""
+    classpath = sourceSets["test"].runtimeClasspath
+    mainClass.set("metalgigs.classify.labelling.LabellingKt")
+}

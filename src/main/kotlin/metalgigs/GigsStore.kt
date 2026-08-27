@@ -253,7 +253,8 @@ private object JGigsRendered : JAny<GigsRendered>() {
     override fun JsonNodeObject.deserializeOrThrow() = GigsRendered(+file, +gigCount, +logicalDate, +recordedAt, +seq)
 }
 
-private object JGig : JAny<Gig>() {
+// internal so the labelled evaluation set stores a gig the way the log does: docs/adr/0013-a-classifier-is-scored-against-gigs-a-person-labelled.md
+internal object JGig : JAny<Gig>() {
     private val title by str(JGigTitle) { title }
     private val venue by str(JVenueId) { id.venueId }
     private val date by str(JGigDate) { date }
