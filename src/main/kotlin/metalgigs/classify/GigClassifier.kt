@@ -61,6 +61,10 @@ internal class LlmGigClassifier(
     private val chat: Chat,
     private val recordedAt: Instant,
     private val posterImage: (HttpHandler, PosterUrl) -> Content.Image = ::fetchPosterForClassifying,
+    // named rather than fixed so that the same classifier can be pointed at a chat that isn't
+    // Anthropic's - a model hosted here answers to its own tag and 404s under a claude one
+    private val textModel: ModelName = llmClassifierModel,
+    private val visionModel: ModelName = visionClassifierModel,
 ) : GigClassifier {
 
     override fun classify(gig: Gig): GigClassified {
@@ -70,7 +74,7 @@ internal class LlmGigClassifier(
             if (useVision) listOf(posterImage(client, gig.posterUrl)) else emptyList()
 
         // the vision model rejects a temperature override outright
-        val model = if (useVision) visionClassifierModel else llmClassifierModel
+        val model = if (useVision) visionModel else textModel
         val params = if (useVision) {
             ModelParams(model, responseFormat = ChatResponseFormat.Text)
         } else {
