@@ -58,8 +58,8 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
     private val thumbnailSuffixPattern = Regex("""-\d+x\d+-c-center(\.\w+)$""")
 
     // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
-    private val ticketingBoilerplate = Regex(
-        """by purchasing a ticket to this event|subject to a venue levy|^\*?this is an? \d+\+ event""",
+    private val venueBoilerplate = Regex(
+        """by purchasing a ticket to this event|subject to a venue levy|^\*?this is an? \d+\+ event|support the supports""",
         RegexOption.IGNORE_CASE,
     )
 
@@ -68,7 +68,7 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
     internal fun eventPageContent(page: Document) =
         page.selectOrNull(".event__description") { description ->
             description.select("p")
-                .filterNot { ticketingBoilerplate.containsMatchIn(it.text().trim()) }
+                .filterNot { venueBoilerplate.containsMatchIn(it.text().trim()) }
                 .joinToString(" ") { it.text() }
                 .trim()
         }

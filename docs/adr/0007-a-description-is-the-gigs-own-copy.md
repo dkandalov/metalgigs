@@ -14,8 +14,9 @@ every page of that venue, which is what `ContaminationCheck` measures (ADR 3).
 ## Decision
 
 Every source scopes its own `eventPageContent` to the block the promoter writes, the comment recording what
-was in the way. `descriptionFrom` fails rather than standing in a blank (ADR 2), so `""` only ever means a
-page read that said nothing.
+was in the way. Only a selector that matched nothing says `null`, which is the one thing a source can tell
+about itself: `selectOrNull`'s cut returns `String`, so a match cannot be reported as nothing found. `""` is
+a page that said nothing, or one that was all furniture this venue cuts.
 
 | Venue | Taken | What was in the way |
 | --- | --- | --- |
@@ -43,8 +44,11 @@ Where markup cannot tell the difference, the cut is **by wording**:
   age is required at entry".
 - **Islington Assembly Hall** closes every listing with ticket terms and a £1.50 Venue Levy, about 470
   characters - the entire description where the promoter wrote nothing. They are sibling paragraphs in one
-  wysiwyg block, the usual leading asterisk sometimes missing. The "Presented by &lt;promoter&gt;" line is
-  kept: it names who booked the show, the one thing some listings say beyond boilerplate.
+  wysiwyg block, the usual leading asterisk sometimes missing. Its "Support the Supports" campaign is a
+  third, 403 characters word for word on 12 of 18 listings as of 2026-08-28 and half the text on the
+  thinnest; the log dates its arrival, 45 of 74 gigs changing by that paragraph alone. The "Presented by
+  &lt;promoter&gt;" line is kept: it names who booked the show, the one thing some listings say beyond
+  boilerplate.
 - **Union Chapel** has copy and venue sections as flat siblings, told apart only by each heading. Across six
   listings everything from "Book For A Pre-Show Dinner" on is the same ~1,850 characters of cafe, bar and
   access policy, longer than most gigs' copy. Remaining ticketing instructions sit *among* the copy, so they
@@ -55,6 +59,10 @@ Where markup cannot tell the difference, the cut is **by wording**:
 - **DHP** closes every listing with a "For more events" call to action.
 - **Roundhouse** filters its url to `type=event`, dropping youth-programme courses that share 145 words of
   access and bursary copy embedded in each course's own text block - unscopeable.
+- **Electric Ballroom** drops Bongo's Bingo, a club night rather than a gig, by the promoter's own ticket
+  host on the card - the only cards linking there, three of the 106 events listed on 2026-08-28, one with an
+  empty copy block. The title will not do it: the venue types Bongo's with U+2019, and each special is
+  titled differently.
 
 Three sources decode before the text is text: **New Cross Inn** renders client-side through Alpine.js, the
 markup sitting in an `x-html` attribute as a JavaScript string literal whose every escape JSON has too, so
@@ -74,20 +82,23 @@ second time and carrying a second copy of the Squarespace selector to read it wi
 Where a source has a better description than the event page it takes it and saves the request: **Dice** takes
 `rawDescription`, the venue's own copy, not the sibling `description` that appends Dice's footer ("Presented
 by …", "This is an 18+ event"); **The Fiddler's Elbow** leaves event pages empty and puts everything in the
-listing excerpt; **AMG** carries copy in the listing call. **AMG** also synthesises one where there is none -
-32 of the 334 events those venues listed as of 2026-08-17 - from acts and genres, which is exactly what a
-description is for here, acts left in the API's headliner-first order. A cancelled show has its copy replaced
-by AMG's standard notice, word for word across venues, so that notice counts as no description: taken as copy
-it would read as one gig's text on another. **The Dev** has no event page, so the title is the description -
-`""` would say a page was read and said nothing, the one thing that never happened there.
+listing excerpt, the one description read off a listing, so its failure names that; **AMG** carries copy in
+the listing call. **AMG** also synthesises one where there is none - 32 of the 334 events those venues listed
+as of 2026-08-17 - from acts and genres, which is exactly what a description is for here, acts left in the
+API's headliner-first order. A cancelled show has its copy replaced by AMG's standard notice, word for word
+across venues, so that notice counts as no description: taken as copy it would read as one gig's text on
+another. **The Dev** has no event page, so the title is the description - `""` would say a page was read and
+said nothing, the one thing that never happened there.
 
 ## Consequences
 
 Scoping is per venue and must be redone when a site is redesigned; `ContaminationCheck` notices, and only
 surfaces it. Real content is deliberately dropped with the furniture in a few places, each measured as
-boilerplate first. Cutting by wording is brittle where selectors are not: a venue that rephrases its age
-policy stops having it removed, and nothing fails. The Squarespace venues log one run of changed gigs where
-the copy gains its line breaks.
+boilerplate first. Cutting by wording is brittle where selectors are not, and silently: a venue that
+rephrases a cut phrase keeps it, and one that adds a paragraph has it join every gig's copy until
+`ContaminationCheck` says so, as Islington Assembly Hall's campaign did. A cut greedy enough to take
+everything says `""`, which nothing tells from a page that was empty to start with. The Squarespace venues
+log one run of changed gigs where the copy gains its line breaks.
 
 ## Alternatives rejected
 
