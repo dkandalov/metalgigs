@@ -45,12 +45,12 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
         RegexOption.IGNORE_CASE,
     )
 
-    internal fun eventPageContent(page: Document): String? {
-        val article = page.select("article.pt-4").firstOrNull() ?: return null
-        val ownCopy = article.children()
-            .takeWhile { !venueSections.containsMatchIn(it.text().trim()) }
-            .filterNot { ticketingNotes.containsMatchIn(it.text()) }
-            .joinToString(" ") { it.text() }
-        return "$ownCopy ${page.select(".sidebar").text()}".trim().ifBlank { null }
-    }
+    internal fun eventPageContent(page: Document) =
+        page.selectOrNull("article.pt-4") { article ->
+            val ownCopy = article.children()
+                .takeWhile { !venueSections.containsMatchIn(it.text().trim()) }
+                .filterNot { ticketingNotes.containsMatchIn(it.text()) }
+                .joinToString(" ") { it.text() }
+            "$ownCopy ${page.select(".sidebar").text()}".trim()
+        }
 }

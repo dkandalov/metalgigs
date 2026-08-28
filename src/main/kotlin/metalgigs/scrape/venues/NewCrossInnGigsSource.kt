@@ -47,7 +47,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
     internal fun eventPageContent(page: Document): String? {
         val literal = page.select("[x-ref=desc]").firstOrNull()?.attr("x-html")?.trim() ?: return null
         val markup = parseJsonNode("\"${literal.removeSurrounding("'")}\"").orThrow()
-        return ((markup as? JsonNodeString)?.text)?.let { Jsoup.parse(it).text() }?.ifBlank { null }
+        return ((markup as? JsonNodeString)?.text)?.let { Jsoup.parse(it).text() }
     }
 
     // Why the months come from here: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md

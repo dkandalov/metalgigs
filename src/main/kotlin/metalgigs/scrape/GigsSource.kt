@@ -6,6 +6,7 @@ import org.http4k.core.Method.GET
 import org.http4k.core.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import java.time.Month
 import java.time.format.TextStyle
@@ -44,6 +45,12 @@ internal fun titleFrom(text: String): GigTitle =
 // Jsoup returns an empty selection rather than null when nothing matches, and an empty selection's
 // text is "".
 internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()
+
+// The same rule where a venue cuts furniture out of the block it found: whether the selector matched
+// is the only thing that says null, and the cut returns text - "" for a block a promoter left empty,
+// or one this venue's cut has taken everything out of.
+internal fun Document.selectOrNull(selector: String, cut: (Element) -> String): String? =
+    selectFirst(selector)?.let(cut)
 
 internal fun gigUrlFrom(url: String, vararg under: String): GigUrl {
     check(under.any { url.startsWith(it) }) {

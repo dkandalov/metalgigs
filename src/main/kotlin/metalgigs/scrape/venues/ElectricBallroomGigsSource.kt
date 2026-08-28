@@ -49,9 +49,10 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
     // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val agePolicy = Regex("""please note this show is|strictly \d+\+|proof of age|photo id""", RegexOption.IGNORE_CASE)
 
-    internal fun eventPageContent(page: Document): String? {
-        val content = page.select(".article-content").firstOrNull()?.clone() ?: return null
-        content.select("p").filter { agePolicy.containsMatchIn(it.text()) }.forEach { it.remove() }
-        return content.text()
-    }
+    internal fun eventPageContent(page: Document) =
+        page.selectOrNull(".article-content") { block ->
+            block.clone()
+                .apply { select("p").filter { agePolicy.containsMatchIn(it.text()) }.forEach { it.remove() } }
+                .text()
+        }
 }

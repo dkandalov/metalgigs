@@ -39,7 +39,10 @@ internal class SquarespaceEventsGigsSource(
                         posterUrlFrom(gigUrl, item.squarespaceThumbnailUrl()),
                         when (descriptionFrom) {
                             SquarespaceDescription.EventPage -> fetchDescription(client, gigUrl, ::eventPageContent)
-                            SquarespaceDescription.ListingExcerpt -> GigDescription(item.select(".eventlist-excerpt").text())
+                            SquarespaceDescription.ListingExcerpt -> GigDescription(
+                                item.select(".eventlist-excerpt").textOrNull()
+                                    ?: error("No excerpt on the listing for $gigUrl - the venue's listing selector may no longer match it")
+                            )
                         },
                     )
                 }

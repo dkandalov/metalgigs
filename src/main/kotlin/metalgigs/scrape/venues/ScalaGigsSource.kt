@@ -52,15 +52,16 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     private val ticketingFurniture =
         "p.event-date, p.age-restrictions, p.event-time, p.guide-to, p.add-calendar, .button, .left-morebox, .right-morebox"
 
-    internal fun eventPageContent(page: Document): String? {
-        val content = page.select(".event-post .entry-content").firstOrNull()?.clone() ?: return null
-        content.select(ticketingFurniture).remove()
-        val lineup = content.select(".tb-event-headerbox").also { it.remove() }.text()
+    internal fun eventPageContent(page: Document) =
+        page.selectOrNull(".event-post .entry-content") { block ->
+            val content = block.clone()
+            content.select(ticketingFurniture).remove()
+            val lineup = content.select(".tb-event-headerbox").also { it.remove() }.text()
 
-        val children = content.children()
-        val about = children.indexOfFirst { it.tagName() == "h3" && it.text().startsWith("About", ignoreCase = true) }
-        val copy = (if (about >= 0) children.drop(about) else children).joinToString(" ") { it.text() }
+            val children = content.children()
+            val about = children.indexOfFirst { it.tagName() == "h3" && it.text().startsWith("About", ignoreCase = true) }
+            val copy = (if (about >= 0) children.drop(about) else children).joinToString(" ") { it.text() }
 
-        return "$lineup $copy".trim().ifBlank { null }
-    }
+            "$lineup $copy".trim()
+        }
 }

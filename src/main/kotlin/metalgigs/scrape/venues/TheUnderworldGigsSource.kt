@@ -38,14 +38,15 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
 
     // An event page carries the sitewide "other events" widget alongside the gig's own content, so
     // the whole page's text picks up unrelated shows' titles.
-    internal fun eventPageContent(page: Document): String? {
-        val article = page.select("article.event").firstOrNull()?.clone() ?: return null
-        article.select("footer").remove()
-        article.select("p")
-            .filter { agePolicy.containsMatchIn(it.text().trim()) || it.text().contains("carry PHOTO ID") }
-            .forEach { it.remove() }
-        return article.text().ifBlank { null }
-    }
+    internal fun eventPageContent(page: Document) =
+        page.selectOrNull("article.event") { block ->
+            val article = block.clone()
+            article.select("footer").remove()
+            article.select("p")
+                .filter { agePolicy.containsMatchIn(it.text().trim()) || it.text().contains("carry PHOTO ID") }
+                .forEach { it.remove() }
+            article.text()
+        }
 
     // A running order is the whole bill as the lineup types it - cased, headliner last - where the
     // listing heading gives the headliner alone and in capitals. Only taken when that last act is

@@ -96,14 +96,13 @@ internal class DhpVenueGigsSource(
     // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val moreEventsCta = Regex("""for more events|check out what.s on here""", RegexOption.IGNORE_CASE)
 
-    internal fun eventPageContent(page: Document): String? {
-        val content = page.select(".single-article--contains-list .single-article__content").firstOrNull() ?: return null
-        return content.children()
-            .filterNot { moreEventsCta.containsMatchIn(it.text()) }
-            .joinToString(" ") { it.text() }
-            .trim()
-            .ifBlank { null }
-    }
+    internal fun eventPageContent(page: Document) =
+        page.selectOrNull(".single-article--contains-list .single-article__content") { content ->
+            content.children()
+                .filterNot { moreEventsCta.containsMatchIn(it.text()) }
+                .joinToString(" ") { it.text() }
+                .trim()
+        }
 
     // Why four places, in this order: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
     private fun poster(card: Element, eventPage: Document, gigUrl: GigUrl): PosterUrl {

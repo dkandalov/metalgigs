@@ -65,12 +65,11 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
 
     // the "Presented by <promoter>" line is left in: it names who booked the show, which is the one
     // thing some of these listings say beyond the boilerplate
-    internal fun eventPageContent(page: Document): String? {
-        val description = page.select(".event__description").firstOrNull() ?: return null
-        return description.select("p")
-            .filterNot { ticketingBoilerplate.containsMatchIn(it.text().trim()) }
-            .joinToString(" ") { it.text() }
-            .trim()
-            .ifBlank { null }
-    }
+    internal fun eventPageContent(page: Document) =
+        page.selectOrNull(".event__description") { description ->
+            description.select("p")
+                .filterNot { ticketingBoilerplate.containsMatchIn(it.text().trim()) }
+                .joinToString(" ") { it.text() }
+                .trim()
+        }
 }
