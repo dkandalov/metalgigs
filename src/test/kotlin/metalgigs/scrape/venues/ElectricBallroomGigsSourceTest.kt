@@ -4,6 +4,8 @@ import metalgigs.*
 import metalgigs.scrape.*
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import strikt.assertions.isNull
+import strikt.assertions.isTrue
 import kotlin.test.Test
 
 // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
@@ -11,9 +13,9 @@ class ElectricBallroomGigsSourceTest {
 
     @Test
     fun `extracts gig events from Electric Ballroom whats-on page`() {
-        assertScrapesGigs(
+        val gigs = assertScrapesGigs(
             source = ElectricBallroomGigsSource(cachedClient(), year = 2026),
-            size = 89,
+            size = 87,
             first = Gig(
                 GigId(electricBallroom.id, GigUrl("https://electricballroom.co.uk/lion-babe/")),
                 GigTitle("Lion Babe – RESCHEDULED!"),
@@ -29,6 +31,10 @@ class ElectricBallroomGigsSourceTest {
                 GigDescription(""),
             ),
         )
+
+        // the venue lists Bongo's Bingo among its gigs, two of them in this listing, and the title
+        // is checked here rather than the ticket link the source drops them by
+        expectThat(gigs.none { it.title.value.contains("bingo", ignoreCase = true) }).isTrue()
     }
 
     // the policy paragraph and the meta line are verbatim from a real listing, where together with
@@ -71,5 +77,15 @@ class ElectricBallroomGigsSourceTest {
 
             expectThat(pageText).isEqualTo("Doom metal night!")
         }
+    }
+
+    // an .article-content that is there and empty is a page whose promoter wrote nothing, where a
+    // redesign would leave no .article-content at all - only the second is a selector failure
+    @Test
+    fun `tells an empty Electric Ballroom content block from a missing one`() {
+        val source = ElectricBallroomGigsSource(noHttp, year = 2026)
+
+        expectThat(source.eventPageContent(pageOf("""<div class="article-content">   </div>"""))).isEqualTo("")
+        expectThat(source.eventPageContent(pageOf("<article><h1>Doom Night</h1></article>"))).isNull()
     }
 }

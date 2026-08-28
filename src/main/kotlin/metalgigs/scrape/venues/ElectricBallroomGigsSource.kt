@@ -17,11 +17,13 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
 
         return Jsoup.parse(fetchPage(client, url), url)
             .select(".grid-block.card")
-            .map { item ->
+            .mapNotNull { item ->
                 val (day, monthName) = datePattern.find(item.select(".event-date").text())!!.destructured
                 val month = Month.valueOf(monthName.uppercase())
                 if (previousMonth != null && month < previousMonth) currentYear++
                 previousMonth = month
+
+                if (item.select(".buy-share-event a.button").attr("abs:href").startsWith(bongosBingo)) return@mapNotNull null
 
                 val gigUrl = gigUrlFrom(item.select(".event-name a").attr("abs:href"), "https://electricballroom.co.uk/")
                 Gig(
@@ -36,6 +38,10 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
 
     private val url = "https://electricballroom.co.uk/whats-on/"
 
+    // Bongo's Bingo is a touring club night rather than a gig, and its promoter sells the tickets -
+    // the only cards linking here, three of the 106 events listed on 2026-08-28
+    private val bongosBingo = "https://bongosbingo.co.uk/"
+
     // dates have no year, e.g. "Thursday 13th August"; ordinal suffix is discarded
     private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+)""")
     private val backgroundImageUrlPattern = Regex("""url\('([^']+)'\)""")
@@ -46,6 +52,6 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
     internal fun eventPageContent(page: Document): String? {
         val content = page.select(".article-content").firstOrNull()?.clone() ?: return null
         content.select("p").filter { agePolicy.containsMatchIn(it.text()) }.forEach { it.remove() }
-        return content.text().ifBlank { null }
+        return content.text()
     }
 }

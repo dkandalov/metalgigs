@@ -176,11 +176,6 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped" +
         if (withheld > 0) ", withholding $withheld that failed validation" else "")
 
-    // Blank means only that the page said nothing about its gig - one that couldn't be read fails
-    // its venue outright, above, rather than reaching here.
-    val withoutText = observed.count { it.gig.description.value.isBlank() }
-    if (withoutText > 0) println("$withoutText gig(s) have an event page that says nothing about them; they'll be classified from their poster instead")
-
     cacheImagesReportingFailures(client, gigs, "gig image(s) - those gigs will have no poster")
 
     val problemsByVenue = (
