@@ -104,6 +104,33 @@ class WindmillBrixtonGigsSourceTest {
         assertFailsWith<IllegalStateException> { source.latestGigs() }
     }
 
+    @Test
+    fun `skips a named Windmill Brixton gig the venue published without a title`() {
+        val source = WindmillBrixtonGigsSource(servingAnUntitledCardFor("2026-09-30-the-windmill"))
+
+        expectThat(source.latestGigs()).isEmpty()
+    }
+
+    @Test
+    fun `fails the whole Windmill Brixton listing when an unnamed gig has no title`() {
+        val source = WindmillBrixtonGigsSource(servingAnUntitledCardFor("2026-09-12-some-other-band-the-windmill"))
+
+        assertFailsWith<IllegalArgumentException> { source.latestGigs() }
+    }
+
+    // Music Glue prints the title span whether or not the event it lists has been named, so the
+    // selector matches and the text it finds is the space inside it
+    private fun servingAnUntitledCardFor(slug: String): HttpHandler = { _ ->
+        Response(OK).body(
+            """
+                <a class="EventLink" href="https://www.windmillbrixton.co.uk/events/$slug">
+                    <span class="title name"> </span>
+                    <div class="Image-wrap"><img src="https://musicglue-images-prod.global.ssl.fastly.net/x?mode=fit&width=600"></div>
+                </a>
+            """
+        )
+    }
+
     private fun servingDescriptionlessPagesFor(slug: String): HttpHandler = { request ->
         val body = if (request.uri.path.startsWith("/events/")) {
             """

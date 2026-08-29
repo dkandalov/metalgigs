@@ -44,6 +44,9 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
 
     private val skippableGigs = setOf(
         GigUrl("https://www.windmillbrixton.co.uk/events/2026-09-11-drive-your-plow-running-standard-the-windmill"),
+        // an event published without a name: Music Glue prints the title span either way, so the
+        // selector matches and finds the space inside it, and the card's image is the placeholder
+        GigUrl("https://www.windmillbrixton.co.uk/events/2026-09-30-the-windmill"),
     )
 
     // a card prints "Sun, Aug 16" with no year anywhere near it; the only year on the listing is the
