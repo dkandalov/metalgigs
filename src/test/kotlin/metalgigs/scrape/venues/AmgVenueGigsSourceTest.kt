@@ -2,6 +2,7 @@ package metalgigs.scrape.venues
 
 import metalgigs.*
 import metalgigs.scrape.*
+import metalgigs.validate.*
 import org.http4k.core.HttpHandler
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK

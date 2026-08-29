@@ -1,6 +1,6 @@
 # 3. Every listing is checked every run, and a check that names a gig costs its venue the whole listing
 
-Accepted. Recorded 2026-08-25, describing `GigValidation.kt`.
+Accepted. Recorded 2026-08-25, describing the `metalgigs.validate` package.
 
 ## Context
 

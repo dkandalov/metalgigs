@@ -1,6 +1,6 @@
 # 4. Every threshold is measured against the log, dated, and set where a real listing cannot reach
 
-Accepted. Recorded 2026-08-25, describing the constants in `GigValidation.kt` and `GigCorrection.kt`.
+Accepted. Recorded 2026-08-25, describing the constants in `validate/GigValidation.kt` and `scrape/GigCorrection.kt`.
 
 ## Context
 

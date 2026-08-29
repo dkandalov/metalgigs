@@ -1,4 +1,4 @@
-package metalgigs.scrape
+package metalgigs.validate
 
 import metalgigs.*
 import strikt.api.expectThat

@@ -9,6 +9,7 @@ import metalgigs.classify.*
 import metalgigs.render.*
 import metalgigs.scrape.*
 import metalgigs.scrape.venues.*
+import metalgigs.validate.*
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.llm.chat.AnthropicAI
 import org.http4k.ai.llm.model.Content

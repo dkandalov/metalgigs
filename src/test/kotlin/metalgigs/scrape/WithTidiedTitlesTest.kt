@@ -1,7 +1,6 @@
 package metalgigs.scrape
 
-import metalgigs.GigTitle
-import metalgigs.Venue
+import metalgigs.*
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import kotlin.test.Test

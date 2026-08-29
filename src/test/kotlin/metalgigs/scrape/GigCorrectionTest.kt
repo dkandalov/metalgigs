@@ -1,9 +1,6 @@
 package metalgigs.scrape
 
-import metalgigs.GigDate
-import metalgigs.GigTitle
-import metalgigs.GigUrl
-import metalgigs.PosterUrl
+import metalgigs.*
 import org.http4k.core.HttpHandler
 import org.http4k.core.Request
 import org.http4k.core.Response
