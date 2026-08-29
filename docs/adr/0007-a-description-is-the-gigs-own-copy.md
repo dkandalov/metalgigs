@@ -63,6 +63,10 @@ Where markup cannot tell the difference, the cut is **by wording**:
   host on the card - the only cards linking there, three of the 106 events listed on 2026-08-28, one with an
   empty copy block. The title will not do it: the venue types Bongo's with U+2019, and each special is
   titled differently.
+- **Signature Brew Haggerston** drops Comedy Incorporated, a stand-up night rather than a gig, by the name
+  Dice lists it under - seven of the 45 events there on 2026-08-29, five titled with the promoter's name
+  alone and two subtitled "Killer 10s". The title does it here where it will not at Electric Ballroom: the
+  name is in every one of them, in ASCII, and no band shares it.
 
 Three sources decode before the text is text: **New Cross Inn** renders client-side through Alpine.js, the
 markup sitting in an `x-html` attribute as a JavaScript string literal whose every escape JSON has too, so

@@ -4,6 +4,7 @@ import metalgigs.*
 import metalgigs.scrape.*
 import strikt.api.expectThat
 import strikt.assertions.contains
+import strikt.assertions.isTrue
 import kotlin.test.Test
 
 // Every Dice venue reads the same partner API, and each is given a client that hands back the
@@ -37,9 +38,9 @@ class DicePartnerVenueGigsSourceTest {
 
     @Test
     fun `extracts Haggerston gigs from the Dice partner API`() {
-        assertScrapesGigs(
+        val gigs = assertScrapesGigs(
             source = SignatureBrewHaggerstonGigsSource(cachedClient(followRedirects = false)),
-            size = 45,
+            size = 38,
             first = Gig(
                 GigId(signatureBrewHaggerston.id, GigUrl("https://dice.fm/event/xeaqvm-popscene-the-ultimate-blur-tribute-london-22nd-aug-signature-brew-haggerston-london-tickets")),
                 GigTitle("Popscene - The Ultimate Blur Tribute | London"),
@@ -55,6 +56,10 @@ class DicePartnerVenueGigsSourceTest {
                 GigDescription(""),
             ),
         )
+
+        // the venue lists Comedy Incorporated's stand-up night among its gigs, seven of them in this
+        // listing, two of which are subtitled rather than titled with the name alone
+        expectThat(gigs.none { it.title.value.contains("Comedy Incorporated", ignoreCase = true) }).isTrue()
     }
 
     @Test

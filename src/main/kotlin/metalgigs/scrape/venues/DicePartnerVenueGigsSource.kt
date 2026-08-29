@@ -23,6 +23,7 @@ private class DicePartnerVenueGigsSource(
     private val client: HttpHandler,
     private val venueFilter: String,
     override val venue: Venue,
+    private val notAGig: Regex? = null,
 ) : GigsSource {
     override fun latestGigs(): List<Gig> {
         val events = mutableListOf<DicePartnerEvent>()
@@ -38,18 +39,20 @@ private class DicePartnerVenueGigsSource(
         }
         check(events.isNotEmpty()) { "No events returned by $firstPageUrl" }
 
-        return events.map { event ->
-            val gigUrl = gigUrlFor(event.permName)
-            Gig(
-                GigId(venue.id, gigUrl),
-                titleWithCancellation(event),
-                // e.g. "2026-08-18T17:00:00Z" - stamped in UTC however late the gig is, so a door
-                // after midnight in London is a day early until it's read back in the venue's own zone
-                GigDate(Instant.parse(event.date).atZone(ZoneId.of(event.timezone)).toLocalDate()),
-                posterUrlFrom(gigUrl, event.images.firstOrNull()),
-                GigDescription(event.rawDescription),
-            )
-        }
+        return events
+            .filterNot { event -> notAGig?.containsMatchIn(event.name) == true }
+            .map { event ->
+                val gigUrl = gigUrlFor(event.permName)
+                Gig(
+                    GigId(venue.id, gigUrl),
+                    titleWithCancellation(event),
+                    // e.g. "2026-08-18T17:00:00Z" - stamped in UTC however late the gig is, so a door
+                    // after midnight in London is a day early until it's read back in the venue's own zone
+                    GigDate(Instant.parse(event.date).atZone(ZoneId.of(event.timezone)).toLocalDate()),
+                    posterUrlFrom(gigUrl, event.images.firstOrNull()),
+                    GigDescription(event.rawDescription),
+                )
+            }
     }
 
     private fun titleWithCancellation(event: DicePartnerEvent): GigTitle =
@@ -96,7 +99,11 @@ class TwoTwoNineGigsSource(client: HttpHandler) :
 val signatureBrewHaggerston = Venue(VenueId("signature-brew-haggerston"), "Signature Brew Haggerston")
 
 class SignatureBrewHaggerstonGigsSource(client: HttpHandler) :
-    GigsSource by DicePartnerVenueGigsSource(client, venueFilter = "Signature Brew Haggerston", venue = signatureBrewHaggerston)
+    GigsSource by DicePartnerVenueGigsSource(client, venueFilter = "Signature Brew Haggerston", venue = signatureBrewHaggerston, notAGig = comedyIncorporated)
+
+// Comedy Incorporated runs a stand-up night rather than a gig, seven of the 45 events this venue
+// listed on 2026-08-29 - five under its name alone and two subtitled "Killer 10s".
+private val comedyIncorporated = Regex("""Comedy Incorporated""", RegexOption.IGNORE_CASE)
 
 val signatureBrewBlackhorseRoad = Venue(VenueId("signature-brew-blackhorse-road"), "Signature Brew Blackhorse Road")
 
