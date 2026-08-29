@@ -69,11 +69,15 @@ thing that has to know.
 
 ## An invariant checked further down than the type that could refuse it
 
-`GigDescription` takes a blank string that `MisshapenGigsCheck` calls "no description" a pipeline
-later, so every step in between reads as though a gig with no description happens. Refuse it in the
-type, as `GigTitle` and `PosterUrl` do, weighing what that costs: a type refusing fails the venue's
-whole listing for the run, where a check withholds the one gig and names it. A bound that was measured
-rather than required, like `MAX_TITLE_LENGTH`, isn't this shape.
+`GigDescription` took a blank string that `MisshapenGigsCheck` called "no description" a pipeline later,
+so every step between read as though a gig with no description happens. That one is settled rather than
+fixed, and the other way: copy that will not parse throws where it is read, so a blank is a page that
+said nothing, the type takes it deliberately, and no check names it. Nothing in src is this shape today.
+It stays on the list because the shape is worth recognising - a check calling a value impossible, several
+steps after a type could have refused it, is either a type too loose or a check inventing a rule - and
+because which way to settle it is a real weighing: a type refusing fails the venue's whole listing for
+the run, where a check withholds the one gig and names it. A bound that was measured rather than
+required, like `MAX_TITLE_LENGTH`, isn't this shape.
 
 ## Implementation details before the declaration they serve
 

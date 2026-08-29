@@ -101,7 +101,6 @@ internal object MisshapenGigsCheck : GigsCheck {
 
     private fun problemWith(gig: Gig): String? = when {
         gig.title.value.length > MAX_TITLE_LENGTH -> "title of ${gig.title.value.length} chars"
-        gig.description.value.isBlank() -> "no description"
         readsAsBoilerplate(gig.description.value) -> "description is a cookie or bot wall, not gig copy"
         gig.description.value.length > MAX_DESCRIPTION_LENGTH -> "description of ${gig.description.value.length} chars"
         else -> null

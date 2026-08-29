@@ -222,18 +222,16 @@ class GigValidationTest {
         expectThat(validation.withheld).isEqualTo(gigs.toSet())
     }
 
-    // what a selector that has stopped matching leaves behind - Jsoup's text() returns "" rather
-    // than failing, so nothing else in the pipeline would notice
+    // a selector that stopped matching no longer reaches here - it throws where it is read (ADR 2),
+    // so a blank is a page whose promoter wrote nothing, which the classifier judges from the poster
     @Test
-    fun `flags a gig whose description didn't parse at all`() {
+    fun `says nothing about a gig whose page had no copy`() {
         val gigs = listOf(
             gig(title = GigTitle("Real Title"), url = "https://example.com/a", description = realText),
             gig(title = GigTitle("Real Title"), url = "https://example.com/b", description = "   "),
         )
 
-        expectThat(MisshapenGigsCheck.problemsFor(gigs)).isEqualTo(
-            listOf("no description" to listOf("https://example.com/b")),
-        )
+        expectThat(MisshapenGigsCheck.problemsFor(gigs)).isEqualTo(emptyList())
     }
 
     // a selector matching a card's container instead of its heading takes the date, price and blurb

@@ -55,9 +55,10 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
    inside one wysiwyg block have no container of their own, and are the entire description on a listing
    whose promoter wrote nothing. Write a scoping test the same shape as the existing ones in
    `GigsSourceTest`: synthetic HTML with real content next to a piece of the venue's actual boilerplate,
-   asserting `eventPageContent` returns one and not the other. Extraction that matches nothing is worse
-   than taking the whole page: it reaches the gig as a blank description, so a gig with a poster is
-   judged from that alone and a gig without one is refused and left Pending. A platform that puts the
+   asserting `eventPageContent` returns one and not the other. Extraction that matches nothing throws
+   and costs the venue its listing for the run - the one failure a source can see in itself. A block it
+   does match and finds empty is a blank description, allowed all the way through: that gig is judged from
+   its poster, and left Pending if the poster can't be sent either. A platform that puts the
    description in its own listing (Dice's `raw_description`, a Squarespace excerpt via
    `descriptionFrom = ListingExcerpt`) needs no per-gig request at all - and the page's own meta
    description is never the substitute, being "Buy tickets for X live at Y" on every listing.

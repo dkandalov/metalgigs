@@ -27,6 +27,11 @@ every check's. **A problem naming no gigs is the exception** - an empty listing 
 text a venue's own page prints wrong is no reason to drop its gigs. Nothing is logged for a failed venue, so
 the cooldown returns within the day.
 
+**A page whose promoter wrote nothing is not a failure.** Copy that would not parse throws where it is read
+(ADR 2), so a blank reaching a check is a page read that said nothing, which the classifier judges from the
+poster. No check names it - and the two that compare copy skip blanks, or a venue's empty pages would read
+as one description shared between them.
+
 A gig is spoken for by the first check to claim it, so a bot wall both misshapen and repeated is reported
 once, as the parsing failure it is. Order is therefore by how precisely each names what went wrong:
 
@@ -34,7 +39,7 @@ once, as the parsing failure it is. Order is therefore by how precisely each nam
 | --- | --- |
 | `EmptyListingCheck` | a listing selector that stopped matching, returning empty rather than failing |
 | `NothingSoonCheck` | a date parse that drifted whole, moving a listing bodily forward |
-| `MisshapenGigsCheck` | a selector that swallowed a card or page, a missing description, a cookie or bot wall |
+| `MisshapenGigsCheck` | a selector that swallowed a card or page, a cookie or bot wall |
 | `UnparsedTextCheck` | `.html()` where `.text()` was meant, an undecoded field, bytes in the wrong charset |
 | `DuplicateGigsCheck` | a paging loop re-serving a page, or a "featured" strip repeating the run |
 | `CrowdedDayCheck` | a date parse that collapsed, landing a whole listing on one day |
@@ -72,7 +77,9 @@ long shared run would otherwise be counted many times over.
 
 A single misshapen gig removes its venue from the day's page - the cost of treating a finding as evidence
 about the source. Reports read one problem per reason rather than one per gig. A venue can be named without
-losing anything, so the report must be read with that in mind.
+losing anything, so the report must be read with that in mind. Nothing witnesses a selector still matching a
+container the copy has moved out of: every gig comes back blank, every one is judged from its poster, and no
+check has anything to say.
 
 ## Alternatives rejected
 
