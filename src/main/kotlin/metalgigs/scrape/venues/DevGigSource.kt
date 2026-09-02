@@ -21,6 +21,9 @@ import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import java.io.File
 import java.time.Month
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -81,40 +84,77 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
 
     private val gigsPageUrl = "https://www.facebook.com/thedevnw1"
 
+    // The timeline carries posts the account is only tagged in - other bands' tour posters, shot at
+    // this venue and captioned like a listing - so the flyer has to be The Dev's own post, not just
+    // one whose caption reads as a month's what's-on.
     private fun monthlyFlyerOrNull(post: InstagramPost): MonthlyFlyer? =
-        monthOfWhatsOnCaption(post.caption)?.let { month ->
+        monthOfWhatsOnCaption(post.caption)?.takeIf { post.postedBy == username }?.let { month ->
             MonthlyFlyer(month, post.imageUrl, "$postUrlPrefix${post.shortcode}/")
         }
 
     private fun recentPosts(): List<InstagramPost> {
-        val profile = JInstagramProfile.fromJson(fetchPage(client, profileUrl, headers)).orThrow()
-        val posts = profile.data.user.timeline.edges.map { it.node }
+        val page = Jsoup.parse(fetchPage(client, profileUrl, navigationHeaders))
+        val posts = JProfilePosts.fromJson(prefetchedTimelineIn(page)).orThrow().timeline.edges.map { it.node }
         check(posts.isNotEmpty()) { "@$username's profile carries no posts at all - Instagram is answering, but not with a listing" }
         return posts
     }
 
-    // The flyer is sent at the size Instagram serves it, where a gig's poster is published at 768px:
-    // a genre judgement reads artwork, and this has to read a month of dates and names off it.
+    // Why the page rather than the api it fetches: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
+    private fun prefetchedTimelineIn(page: Document): String {
+        val script = page.select("script[type=application/json]").firstOrNull { it.data().contains(timelineField) }
+            ?: error("No prefetched timeline in @$username's profile page - Instagram serves the shell alone unless the request looks like a navigation")
+        return jsonObjectAfter(script.data(), userField)
+    }
+
+    // Enlarged rather than sent as served, and not converted down the way a gig's poster is: a genre
+    // judgement reads artwork where this has to read a month of dates and names, the smallest of it
+    // the second line of a two-line row.
     private fun imageContent(imageUrl: String): Content.Image {
         val response = client(Request(GET, imageUrl))
         check(response.status.successful) { "Failed to fetch image at $imageUrl: ${response.status}" }
-        val mimeType = response.header("Content-Type")?.substringBefore(';')?.trim()?.takeIf { it.isNotBlank() }
-            ?.let { MimeType.of(it) } ?: mimeTypeForImageUrl(imageUrl)
-        val bytes = response.body.stream.readBytes()
+        val bytes = enlarged(response.body.stream.readBytes())
         check(bytes.size <= MAX_IMAGE_BYTES) {
             "Image at $imageUrl is ${bytes.size} bytes, too large to send (limit ~$MAX_IMAGE_BYTES)"
         }
-        return Content.Image(Resource.Binary(Base64Blob.encode(bytes), mimeType))
+        return Content.Image(Resource.Binary(Base64Blob.encode(bytes), MimeType.IMAGE_JPG))
+    }
+
+    // written out and back because magick is a process against files, and jpeg on the way out
+    // whatever went in, so what the model is sent is one format rather than the poster's own
+    private fun enlarged(bytes: ByteArray): ByteArray {
+        val source = File.createTempFile("flyer", null)
+        val enlarged = File.createTempFile("flyer-enlarged", ".jpg")
+        return try {
+            source.writeBytes(bytes)
+            enlargeForReading(source, enlarged)
+            enlarged.readBytes()
+        } finally {
+            source.delete()
+            enlarged.delete()
+        }
     }
 
     private val username = "thedevcamden"
 
-    // Why this endpoint and this app id: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
-    private val profileUrl = "https://www.instagram.com/api/v1/users/web_profile_info/?username=$username"
-    private val headers = listOf(
-        "X-IG-App-ID" to "936619743392459",
+    private val profileUrl = "https://www.instagram.com/$username/"
+
+    // Instagram embeds the timeline only for what looks like a browser opening the page: the same
+    // request without the Sec-Fetch set is answered with the shell, as is a fetch() from the page
+    // itself, which sends them saying cors rather than navigate.
+    private val navigationHeaders = listOf(
         "User-Agent" to "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "Accept" to "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language" to "en-GB,en;q=0.9",
+        "Sec-Fetch-Dest" to "document",
+        "Sec-Fetch-Mode" to "navigate",
+        "Sec-Fetch-Site" to "none",
+        "Sec-Fetch-User" to "?1",
+        "Upgrade-Insecure-Requests" to "1",
     )
+
+    private val timelineField = "polaris_ordered_timeline_connection"
+
+    private val userField = "\"xig_user_by_username\":"
 
     private val postUrlPrefix = "https://www.instagram.com/p/"
 }
@@ -160,84 +200,81 @@ private val slashSeparator = Regex("""\s*/\s*""")
 
 private fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
 
-private fun mimeTypeForImageUrl(url: String) =
-    when (imageUrlExtension(url).lowercase()) {
-        "png" -> MimeType.IMAGE_PNG
-        "gif" -> MimeType.IMAGE_GIF
-        "webp" -> MimeType.IMAGE_WEBP
-        else -> MimeType.IMAGE_JPG
-    }
-
 private const val MAX_IMAGE_BYTES = 7_000_000
 
-// Instagram wraps every list it returns as edges around nodes, twice over here - once for the posts
-// and once for each post's caption, of which a post has either one or none.
-private data class InstagramPost(val shortcode: String, val imageUrl: String, val captions: InstagramCaptions) {
-    val caption: String get() = captions.edges.firstOrNull()?.node?.text.orEmpty()
+// The payload sits inside Meta's own script envelope - an array of instructions the page replays -
+// so the timeline is cut out of it by balancing braces from the field that holds it, rather than by
+// modelling the envelope around it, which is about the page's bootstrap and not about this venue.
+private fun jsonObjectAfter(text: String, field: String): String {
+    val start = text.indexOf(field)
+    check(start >= 0) { "No $field in the prefetched payload" }
+
+    var depth = 0
+    var inString = false
+    var escaped = false
+    for (i in start + field.length until text.length) {
+        val char = text[i]
+        when {
+            escaped -> escaped = false
+            inString && char == '\\' -> escaped = true
+            char == '"' -> inString = !inString
+            inString -> {}
+            char == '{' -> depth++
+            char == '}' -> if (--depth == 0) return text.substring(start + field.length, i + 1)
+        }
+    }
+    error("$field in the prefetched payload is never closed")
+}
+
+private data class ProfilePosts(val timeline: Timeline)
+private data class Timeline(val edges: List<PostEdge>)
+private data class PostEdge(val node: InstagramPost)
+
+// caption is absent on a post published without one, and Kondor fails the whole timeline over a
+// field it was told to expect - the same trap Ovo Arena's ImageURL sets
+private data class InstagramPost(val shortcode: String, val imageUrl: String, val author: PostAuthor, val captionOrNull: PostCaption?) {
+    val caption: String get() = captionOrNull?.text.orEmpty()
+    val postedBy: String get() = author.username
+}
+
+private data class PostAuthor(val username: String)
+private data class PostCaption(val text: String)
+
+private object JProfilePosts : JAny<ProfilePosts>() {
+    private val polaris_ordered_timeline_connection by obj(JTimeline, ProfilePosts::timeline)
+
+    override fun JsonNodeObject.deserializeOrThrow() = ProfilePosts(+polaris_ordered_timeline_connection)
+}
+
+private object JTimeline : JAny<Timeline>() {
+    private val edges by array(JPostEdge, Timeline::edges)
+
+    override fun JsonNodeObject.deserializeOrThrow() = Timeline(+edges)
+}
+
+private object JPostEdge : JAny<PostEdge>() {
+    private val node by obj(JInstagramPost, PostEdge::node)
+
+    override fun JsonNodeObject.deserializeOrThrow() = PostEdge(+node)
 }
 
 private object JInstagramPost : JAny<InstagramPost>() {
-    private val shortcode by str(InstagramPost::shortcode)
-    private val display_url by str(InstagramPost::imageUrl)
-    private val edge_media_to_caption by obj(JInstagramCaptions, InstagramPost::captions)
+    private val code by str(InstagramPost::shortcode)
+    private val display_uri by str(InstagramPost::imageUrl)
+    private val user by obj(JPostAuthor, InstagramPost::author)
+    private val caption by obj(JPostCaption, InstagramPost::captionOrNull)
 
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramPost(+shortcode, +display_url, +edge_media_to_caption)
+    override fun JsonNodeObject.deserializeOrThrow() = InstagramPost(+code, +display_uri, +user, +caption)
 }
 
-private data class InstagramCaptions(val edges: List<InstagramCaptionEdge>)
-private data class InstagramCaptionEdge(val node: InstagramCaption)
-private data class InstagramCaption(val text: String)
+private object JPostAuthor : JAny<PostAuthor>() {
+    private val username by str(PostAuthor::username)
 
-private object JInstagramCaptions : JAny<InstagramCaptions>() {
-    private val edges by array(JInstagramCaptionEdge, InstagramCaptions::edges)
-
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramCaptions(+edges)
+    override fun JsonNodeObject.deserializeOrThrow() = PostAuthor(+username)
 }
 
-private object JInstagramCaptionEdge : JAny<InstagramCaptionEdge>() {
-    private val node by obj(JInstagramCaption, InstagramCaptionEdge::node)
+private object JPostCaption : JAny<PostCaption>() {
+    private val text by str(PostCaption::text)
 
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramCaptionEdge(+node)
-}
-
-private object JInstagramCaption : JAny<InstagramCaption>() {
-    private val text by str(InstagramCaption::text)
-
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramCaption(+text)
-}
-
-private data class InstagramProfile(val data: InstagramData)
-private data class InstagramData(val user: InstagramUser)
-private data class InstagramUser(val timeline: InstagramTimeline)
-private data class InstagramTimeline(val edges: List<InstagramPostEdge>)
-private data class InstagramPostEdge(val node: InstagramPost)
-
-private object JInstagramProfile : JAny<InstagramProfile>() {
-    private val data by obj(JInstagramData, InstagramProfile::data)
-
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramProfile(+data)
-}
-
-private object JInstagramData : JAny<InstagramData>() {
-    private val user by obj(JInstagramUser, InstagramData::user)
-
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramData(+user)
-}
-
-private object JInstagramUser : JAny<InstagramUser>() {
-    private val edge_owner_to_timeline_media by obj(JInstagramTimeline, InstagramUser::timeline)
-
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramUser(+edge_owner_to_timeline_media)
-}
-
-private object JInstagramTimeline : JAny<InstagramTimeline>() {
-    private val edges by array(JInstagramPostEdge, InstagramTimeline::edges)
-
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramTimeline(+edges)
-}
-
-private object JInstagramPostEdge : JAny<InstagramPostEdge>() {
-    private val node by obj(JInstagramPost, InstagramPostEdge::node)
-
-    override fun JsonNodeObject.deserializeOrThrow() = InstagramPostEdge(+node)
+    override fun JsonNodeObject.deserializeOrThrow() = PostCaption(+text)
 }

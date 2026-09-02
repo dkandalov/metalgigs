@@ -24,9 +24,19 @@ yet, says so before the gigs do.
 
 **The model runs on this machine**, currently `gemma4:26b`. Every gig on the flyer is a night at The Dev, so
 the model only ever reads dates and names off it - little enough for a local model, which is what makes
-re-reading the flyer every scrape affordable where a paid call per run would not be. The image is sent at the
-size Instagram serves it rather than the 768px a poster is published at: a genre judgement reads artwork, this
-has to read a month of dates and names.
+re-reading the flyer every scrape affordable where a paid call per run would not be. The image is sent enlarged to 1080 on
+its shorter side rather than at the 768px a poster is published at: a genre judgement reads artwork, this has
+to read a month of dates and names.
+
+Enlarging is not for detail it cannot add. The three flyers this was fitted to came off Instagram's api at
+1080x1440; the page it is now read from serves 480x640 (ADR 8), and at that size `gemma4:26b` read every date
+correctly but stopped reading the second line of a two-line row - the bill under the promoter's name, in the
+smallest type on the poster. Three of September's nine gigs published a promoter and no bands. Resampling that
+same picture to 1080 read all three completely, on an unchanged prompt, while June, July and August - already
+at 1080, so passed through untouched - read exactly as before. So the failure was the type being smaller than
+what the model resolves, not the prompt being unclear about it, which is worth recording because the prompt is
+where it looks like it should be fixed: an attempt to describe the two-line shape there made the model give the
+second line a date of its own and invent a gig, and put start times into every title on all four flyers.
 
 **The prompt names the shapes a row comes in.** Asking for "every distinct gig you can identify" was enough for
 Sonnet and not for `gemma4:26b`, which left out the one row on the August flyer whose line-up is half
@@ -61,3 +71,5 @@ model makes that free. **"Every distinct gig you can identify"** - it silently d
 **Asking the model to count rows first** - it cannot check its own count, and it changed nothing over ten runs.
 **Linking to the Instagram post** - superseded monthly, so every gig would be relisted at a new url. **Sending
 the flyer at published poster size** - a month of dates has to be legible, which is not judging artwork.
+**Describing the two-line row in the prompt** - it invented a gig from the continuation line and leaked start
+times into every title; the shape reads correctly at 1080 with no prompt change at all.

@@ -89,12 +89,19 @@ class DevFlyerExperiment {
         }
     }
 
+    // The profile page as Instagram serves it to a navigation: a shell whose script carries the first
+    // page of the timeline, wrapped in the envelope the source cuts the timeline back out of.
     private fun profilePayload(flyer: Flyer) = """
-        {"data":{"user":{"edge_owner_to_timeline_media":{"edges":[{"node":{
-          "shortcode":"${flyer.shortcode}",
-          "display_url":"${flyer.imageUrl}",
-          "edge_media_to_caption":{"edges":[{"node":{"text":"${flyer.caption}"}}]}
-        }}]}}}}
+        <html><body><script type="application/json" data-sjs>
+        {"require":[["ScheduledServerJS","handle",null,[{"__bbox":{"result":{"data":{"xig_user_by_username":{
+          "polaris_ordered_timeline_connection":{"edges":[{"node":{
+            "code":"${flyer.shortcode}",
+            "display_uri":"${flyer.imageUrl}",
+            "user":{"username":"thedevcamden"},
+            "caption":{"text":"${flyer.caption}"}
+          }}]}
+        }}}}}]]]}
+        </script></body></html>
     """.trimIndent()
 
     private data class Flyer(
@@ -153,6 +160,26 @@ class DevFlyerExperiment {
                 GigDate(2026, 8, 21) to "Wailing Banshee / White Lightning",
                 GigDate(2026, 8, 22) to "Underbelly Promotions presents: Liquified / Lobotomica / Disembowler / Malauriu",
                 GigDate(2026, 8, 29) to "The Day of Locusts / Stour / Dungeon",
+            ),
+        ),
+        // The first flyer read off the profile page rather than the api, so the first at 480x640
+        // rather than 1080 - and the one whose run-on line-ups went missing, which is what it is
+        // here to measure. Its last row runs off the right edge of the picture the page serves, so
+        // "Bear" is all there is of that band to read.
+        Flyer(
+            "2026-09",
+            "DcyYJnnKopL",
+            "What’s On SEPTEMBER 2026!",
+            listOf(
+                GigDate(2026, 9, 2) to "Shitbrains (US) / Disease (US) / Addict",
+                GigDate(2026, 9, 4) to "Sherwood Magazine presents: Regal Cheer / Haemogoblin / Mulch",
+                GigDate(2026, 9, 11) to "UK Death Dealers presents: Eyes of a Nihilist / Burnt Chapter / Knocked For Six / Scaphist",
+                GigDate(2026, 9, 12) to "LONDON METAL FEST 2026: Silas / Fools & Sages / Manband / Noisepicker / Safe House / Bear",
+                GigDate(2026, 9, 18) to "Broken Jaw / Dog of Man",
+                GigDate(2026, 9, 19) to "Downturn / Broken Lungs / Nothing in Return",
+                GigDate(2026, 9, 25) to "Satarial (PL) / Nyctopia / Innersphere (CZ)",
+                GigDate(2026, 9, 26) to "Solars / In A House of Hearbeats / Gudewife",
+                GigDate(2026, 9, 29) to "\"Gravity's Marathon\" Book Launch / Fundraiser",
             ),
         ),
     )

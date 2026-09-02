@@ -22,19 +22,33 @@ own script does, and documented beside the url.
 | The O2 | `/events/events_ajax/{offset}` | the page renders 24 events and its "Load More" arrives disabled, enabled by the script that fetches the rest |
 | DHP | `…/themes/dhp/includes/ajax/ajax_guide.php` | the listing renders three months and its own pagination urls serve those same three |
 | New Cross Inn | WordPress `admin-ajax.php` | the months dropdown does not navigate - it posts and swaps the listing in place |
-| The Dev | Instagram `api/v1/users/web_profile_info` | the profile page is a script that fetches this |
+| The Dev | Instagram's profile page itself | the page prefetches its own first screen of posts into a script beside the shell |
 
 The credentials these need are the public ones the page ships. Dice's widget config is inline in 229's page,
 naming the partner id and API key; the key is shipped to every browser, and the widget script reads
 `RUNTIME_API_URL`, appends `/api/v2/events` and sends it as `x-api-key`. It is not scoped to 229 - the same
-key answers for any venue in the filter, which is what lets seven venues share it. Instagram's `X-IG-App-ID`
-is the web client's own, sent by every logged-out browser; without it the endpoint answers a login wall.
-DHP's guide parameters are read off the listing page, which carries them however far the walk has gone.
+key answers for any venue in the filter, which is what lets seven venues share it. DHP's guide parameters are
+read off the listing page, which carries them however far the walk has gone.
 
-Two mechanical traps, both quiet. `form()` sets the body but not the content type, and both WordPress
-endpoints fill `$_POST` from that header alone: without it New Cross Inn answers 400 and DHP answers 200 with
-months dated `data-year="0"`. And Dice's `links.next` is served under a different host from the partner
-endpoint it authenticates against, so only its query string is reused - as the widget itself does.
+Instagram is the exception, having closed on 2026-09-02: `api/v1/users/web_profile_info`, which the page's
+own script called, now answers 401 `require_login` to every logged-out client - curl, Chrome and Firefox
+alike - whether or not the app id is sent. A logged-in session is recognised, but is throttled to a few reads
+of one profile an hour, expires, belongs to an account, and has to live in a file on disk.
+
+So The Dev is read from the page rather than from the call the page makes, which is the same rule the rest of
+this table follows and simply took a second reading to apply. Instagram renders the profile as a shell and
+prefetches its first screen of posts into a `data-sjs` script beside it - but only for a request shaped like a
+browser opening the page. Without the `Sec-Fetch-Dest: document` / `Sec-Fetch-Mode: navigate` set the same url
+returns the shell alone, 100KB lighter, which is why the page looked empty to every earlier reading of it, and
+why a `fetch()` run from the page itself finds nothing either: it sends those headers saying cors. Nothing
+authenticates this, so the throttle, the expiry and the credential all go with it.
+
+Two costs. The payload sits inside Meta's own bootstrap envelope, so the timeline is cut out by balancing
+braces from `xig_user_by_username` rather than by modelling an envelope that is about the page's own start-up.
+And the picture is served at 480x640 where the endpoint gave 1080: the url is signed, so neither a larger
+`stp` crop nor dropping it answers anything but 403, and the post's own `og:image` is a square crop that loses
+the bottom of the flyer. The model reads the month off 480x640 without trouble, which is the only test that
+matters, but it is less to read from than the flyer had before.
 
 Filters are declared the way the site declares them. Dice's filter matches the venue's name as Dice writes it,
 not any id: the numeric id a dice.fm venue page carries returns an empty listing rather than an error, and so
@@ -69,9 +83,14 @@ API say so: both Dice and AMG check the response held events.
 
 ## Consequences
 
-These are undocumented surfaces that can change or close without notice. The Dice key is the sharpest version:
-shared across seven venues, so scoping or rotating it stops all seven at once. Where a source reads an API it
-reads what the site's own front end reads, so a field disappearing breaks the site's page too. The stop
+These are undocumented surfaces that can change or close without notice, and Instagram is the first to have
+done it: a surface that was public in August was gone in September. What that cost was a reading rather than a
+venue - the page was still serving the listing the whole time, to anyone whose request looked like a browser
+opening it. The Dice key is the sharpest version still outstanding: shared across seven venues, so scoping or
+rotating it stops all seven at once. The Dev's new reading is fragile in its own way: it rests on Instagram
+prefetching the timeline into the page at all, which is an optimisation rather than a promise. Where a source
+reads an API it reads what the site's own front end reads, so a field disappearing breaks the site's page too.
+The stop
 conditions are per site, each learned from that site behaving badly, and none generalises.
 
 ## Alternatives rejected
@@ -80,5 +99,5 @@ conditions are per site, each learned from that site behaving badly, and none ge
 urls** - the site's own next link is what tells the walk when to stop. **Stopping DHP on an empty answer** - it
 answers with empty months for ever. **Counting empty months at OVO** - the real listing has a gap month with
 bookings either side. **Trusting Dice's page size** - a fact about today. **dice.fm's own venue pages** - they
-list events without a `perm_name`. **The O2's genre filter for the arena** - its programme is far wider than
+list events without a `perm_name`. **A logged-in Instagram session** - it works, and was built and then taken out again: recognised but throttled to a few profile reads an hour, expiring on its own schedule, tied to an account whose terms it breaks, and a credential in a file the daily job reads. All of it to fetch a page that answers unauthenticated. **Warming a cookie jar first** - visiting `instagram.com/` before the profile is answered with a 302 setting Instagram's own `sessionid`, which overwrites the seeded one in a name-keyed store, so the walk logs itself out. **The O2's genre filter for the arena** - its programme is far wider than
 indigo's and the filter has no metal in it, only Rock, so everything is taken and left to the classifier.
