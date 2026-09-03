@@ -66,7 +66,7 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
         // all there is, and what the extraction read off it is the title. "" would say a page was read
         // and had nothing to say about the gig, which is the one thing that never happened here.
         return rows
-            .filterNot { (_, title) -> karaokeNight.containsMatchIn(title) }
+            .filterNot { (_, title) -> notABandNight.containsMatchIn(title) }
             .map { (date, title) -> Gig(GigId(venue.id, gigUrl(title, date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title)) }
     }
 
@@ -75,9 +75,10 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
     // re-reading the flyer on every scrape affordable where a paid call per run would not be.
     private val extractionModel = ModelName.of("gemma4:26b")
 
-    // The Dev runs a regular karaoke night, printed on the monthly flyer alongside its band shows
-    // with nothing but the title marking it apart from one.
-    private val karaokeNight = Regex("karaoke", RegexOption.IGNORE_CASE)
+    // The flyer prints The Dev's other nights alongside its band shows, with nothing but the title
+    // telling the two apart: a recurring rock/metal karaoke, and a book launch. Not "fundraiser" -
+    // August's "We Only Come Out At Night (Fundraiser)" is three bands playing.
+    private val notABandNight = Regex("karaoke|book launch", RegexOption.IGNORE_CASE)
 
     // Why the Facebook page and a fragment: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrl(title: String, date: GigDate) = GigUrl("$gigsPageUrl#gig-${slug(title)}-$date")

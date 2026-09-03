@@ -79,13 +79,24 @@ class DevGigSourceTest {
         expectThat(gigsFrom(reply).map { it.title }).containsExactly(GigTitle("Doom Night"))
     }
 
-    // The Dev runs its karaoke night off the same flyer as its band shows, and nothing but the
-    // title tells the two apart.
+    // The Dev prints its other nights on the same flyer as its band shows, and nothing but the title
+    // tells the two apart.
     @Test
-    fun `excludes the recurring karaoke night, keeping the gigs around it`() {
-        val reply = "2026-09-06 | Doom Night\n2026-09-13 | RrroooaaarrR Rock / Metal Karaoke\n2026-09-20 | Thrash Fest"
+    fun `excludes the nights that aren't gigs, keeping the ones around them`() {
+        val reply = "2026-09-06 | Doom Night\n2026-09-13 | RrroooaaarrR Rock / Metal Karaoke\n" +
+            "2026-09-20 | Thrash Fest\n2026-09-29 | \"Gravity's Marathon\" Book Launch / Fundraiser"
 
         expectThat(gigsFrom(reply).map { it.title }).containsExactly(GigTitle("Doom Night"), GigTitle("Thrash Fest"))
+    }
+
+    // "Fundraiser" is not what marks one out: August's was three bands, and the flyer says so only in
+    // the rest of the title.
+    @Test
+    fun `keeps a fundraiser that is a band night`() {
+        val reply = "2026-09-14 | We Only Come Out At Night (Fundraiser): Servers of Hysteria / Hot Wife"
+
+        expectThat(gigsFrom(reply).map { it.title })
+            .containsExactly(GigTitle("We Only Come Out At Night (Fundraiser): Servers of Hysteria / Hot Wife"))
     }
 
     // The model spaces a bill's slashes differently from run to run, and the title is what a gig's
