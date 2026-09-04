@@ -76,6 +76,36 @@ class WithTidiedTitlesTest {
     }
 
     @Test
+    fun `writes a cancellation one way`() {
+        expectThat(
+            titlesListedAs(
+                listOf(
+                    "SHE MUST BURN - [cancelled]",
+                    "THE HOPE CONSPIRACY | CANCELLED",
+                    // what a Dice status already writes, left as it is
+                    "BLONDIES 11TH BIRTHDAY PARTY - CANCELLED",
+                    // the city a listing appends, found past the cancellation once it is written this way
+                    "Tribute To Nothing | London | CANCELLED",
+                )
+            )
+        ).isEqualTo(
+            listOf(
+                GigTitle("SHE MUST BURN - CANCELLED"),
+                GigTitle("THE HOPE CONSPIRACY - CANCELLED"),
+                GigTitle("BLONDIES 11TH BIRTHDAY PARTY - CANCELLED"),
+                GigTitle("Tribute To Nothing - CANCELLED"),
+            )
+        )
+    }
+
+    // A gig put back may still happen, so the word a venue chose is the one that stands.
+    @Test
+    fun `leaves a postponement saying it was postponed`() {
+        val meantAsWritten = listOf("COSMIC VOID FESTIVAL 2026 | POSTPONED", "ANY GIVEN DAY | POSTPONED")
+        expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
+    }
+
+    @Test
     fun `drops the promoter a title is prefixed with`() {
         expectThat(
             titlesListedAs(

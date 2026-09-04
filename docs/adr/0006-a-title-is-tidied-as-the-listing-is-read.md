@@ -14,7 +14,7 @@ changed, every run, for as long as it is listed. Separately, `GigTitle` refuses 
 ## Decision
 
 Titles are normalised **as the listing is read**, before the gig is built, so the prompt and the pairing see
-the same title. `WithTidiedTitles` decorates a `GigsSource` and makes five changes, each identified by
+the same title. `WithTidiedTitles` decorates a `GigsSource` and makes six changes, each identified by
 punctuation rather than wording alone:
 
 - **The trailing city** - "| London", optionally before a cancellation marker - is dropped.
@@ -22,6 +22,10 @@ punctuation rather than wording alone:
   bands with commas is left entirely: "INHUMAN NATURE, PUPPY, AGNOSY + MORE" joins the last of a list rather
   than separating two acts, where a slash would read as a name.
 - **A sold-out marker** becomes " - SOLD OUT", the way a scrape already writes a cancellation.
+- **A cancellation marker** becomes that same " - CANCELLED": The Black Heart writes "- [cancelled]" and The
+  Underworld "| CANCELLED", where a Dice status already writes the spelling they are normalised to. It runs
+  before the trailing city, whose lookahead finds a city only past a cancellation written the one way.
+  "POSTPONED" is left saying it - a gig put back may still happen, and folding it in would say otherwise.
 - **A leading promoter** - "Sherwood Magazine presents:" - is dropped. Who put a gig on is not what it is,
   and is noise to both readers of a title. The colon is what identifies it, so "Jbm presents SMELLS LIKE
   NIRVANA" keeps its promoter: nothing there says where the name stops and the bill starts.

@@ -17,6 +17,8 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
             .replace(leadingPromoter, "")
             .replace(leadingFreeEntry, "")
             .replace(trailingFreeEntry, "")
+            // before the city, whose lookahead finds it past a cancellation written this one way
+            .replace(trailingCancelled, cancelledSuffix)
             .replace(trailingCity, "")
             .replace(trailingSoldOut, " - SOLD OUT")
             .let(::bandsSeparated)
@@ -34,6 +36,18 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
 
     // Spaced, so a "+" written against a word - part of a name rather than a bill - is left alone.
     private val billSeparator = Regex("""\s+\+\s+""")
+
+    // Three venues write it three ways - The Black Heart's "- [cancelled]", The Underworld's
+    // "| CANCELLED", and the " - CANCELLED" a Dice status already writes, which this leaves as it is.
+    // Postponed is a different word and stays one: a gig put back may still happen.
+    private val trailingCancelled = Regex(
+        """
+        \s* [-–—:|/]+ \s*
+        [(\[]? \s* cancelled \s* [!.]* \s* [)\]]?
+        \s* $
+        """,
+        setOf(IGNORE_CASE, COMMENTS),
+    )
 
     // Three venues write it three ways - "- SOLD OUT", "| SOLD OUT", "– SOLD OUT!".
     private val trailingSoldOut = Regex(
