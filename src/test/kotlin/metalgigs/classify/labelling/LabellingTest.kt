@@ -12,9 +12,11 @@ import metalgigs.GigTitle
 import metalgigs.GigUrl
 import metalgigs.GigsLog
 import metalgigs.PosterUrl
+import metalgigs.classify.Classification
 import metalgigs.classify.GigClassifier
 import metalgigs.classify.THIN_TEXT_THRESHOLD
 import metalgigs.scrape.venues.theUnderworld
+import org.http4k.ai.model.ModelName
 import org.junit.jupiter.api.io.TempDir
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
@@ -54,7 +56,7 @@ class LabellingTest {
         val byId = genres.associate { (gig, genre) -> gig.id to genre }
         return GigClassifier { gig ->
             val genre = byId[gig.id] ?: error("nothing to say about ${gig.title}")
-            GigClassified(gig.id, recordedAt, genre, ClassificationSource.LLM, "stub")
+            Classification(genre, ClassificationSource.LLM, ModelName.of("stub"))
         }
     }
 

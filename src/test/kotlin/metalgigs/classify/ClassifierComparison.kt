@@ -7,6 +7,8 @@ import metalgigs.GigClassified
 import metalgigs.GigId
 import metalgigs.GigsLog
 import metalgigs.venue
+import org.http4k.ai.model.ModelName
+import java.time.Instant
 import java.util.Locale
 
 // Asks several classifiers the same gigs and prints where they differ. What a classifier is - a
@@ -49,7 +51,7 @@ internal data class Answers(
 
 internal fun answersOf(name: String, classifier: GigClassifier, population: List<Gig>): Answers {
     val startedAt = System.nanoTime()
-    val run = classifyGigs(population, emptySet(), classifier = classifier)
+    val run = classifyGigs(population, emptySet(), Instant.now(), classifier = classifier)
     return Answers(
         name,
         run.classified.associateBy { it.id },
@@ -140,7 +142,15 @@ internal fun recordedVerdicts(log: GigsLog): GigClassifier {
             latest[ClassificationSource.User] ?: latest.getValue(ClassificationSource.LLM)
         }
     return GigClassifier { gig ->
-        byGig[gig.id] ?: error("the log holds no classification of its own for ${gig.id.url}")
+        val recorded = byGig[gig.id] ?: error("the log holds no classification of its own for ${gig.id.url}")
+        Classification(
+            recorded.genre,
+            recorded.source,
+            recorded.llmModel?.let(ModelName::of),
+            recorded.useVision,
+            inputTokens = recorded.inputTokens,
+            outputTokens = recorded.outputTokens,
+        )
     }
 }
 

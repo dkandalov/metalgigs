@@ -20,13 +20,25 @@ import java.time.ZoneOffset
 import java.util.Locale
 
 fun interface GigClassifier {
-    fun classify(gig: Gig): GigClassified
+    fun classify(gig: Gig): Classification
 }
+
+// The verdict a classifier gives, as distinct from GigClassified, the log's record of one: that adds
+// which gig was judged and when.
+data class Classification(
+    val genre: Genre,
+    val source: ClassificationSource,
+    val model: ModelName? = null,
+    val useVision: Boolean? = null,
+    val inputTokens: Int? = null,
+    val outputTokens: Int? = null,
+)
 
 // Why a genre costs one paid call: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 internal fun classifyGigs(
     gigs: List<Gig>,
     alreadyClassified: Set<GigId>,
+    recordedAt: Instant,
     limit: Int? = null,
     classifier: GigClassifier,
 ): ClassificationRun {
@@ -35,7 +47,7 @@ internal fun classifyGigs(
         .map { gig -> gig to resultFrom { classifier.classify(gig) } }
 
     return ClassificationRun(
-        results.mapNotNull { (_, result) -> result.valueOrNull() },
+        results.mapNotNull { (gig, result) -> result.valueOrNull()?.recordedFor(gig.id, recordedAt) },
         results.mapNotNull { (gig, result) ->
             result.failureOrNull()?.let { gig to (it.message ?: it.toString()) }
         },
@@ -47,19 +59,26 @@ internal data class ClassificationRun(
     val failed: List<Pair<Gig, String>>,
 )
 
-internal class WithAlwaysMetalVenues(
-    private val classifier: GigClassifier,
-    private val recordedAt: Instant,
-) : GigClassifier {
-    override fun classify(gig: Gig): GigClassified =
-        if (gig.id.venueId in alwaysMetalVenues) GigClassified(gig.id, recordedAt, Genre.Metal, ClassificationSource.User)
+private fun Classification.recordedFor(id: GigId, recordedAt: Instant) = GigClassified(
+    id,
+    recordedAt,
+    genre,
+    source,
+    model?.value,
+    useVision,
+    inputTokens = inputTokens,
+    outputTokens = outputTokens,
+)
+
+internal class WithAlwaysMetalVenues(private val classifier: GigClassifier) : GigClassifier {
+    override fun classify(gig: Gig): Classification =
+        if (gig.id.venueId in alwaysMetalVenues) Classification(Genre.Metal, ClassificationSource.User)
         else classifier.classify(gig)
 }
 
 internal class LlmGigClassifier(
     private val client: HttpHandler,
     private val chat: Chat,
-    private val recordedAt: Instant,
     private val posterImage: (HttpHandler, PosterUrl) -> Content.Image = ::fetchPosterForClassifying,
     // named rather than fixed so that the same classifier can be pointed at a chat that isn't
     // Anthropic's - a model hosted here answers to its own tag and 404s under a claude one
@@ -67,7 +86,7 @@ internal class LlmGigClassifier(
     private val visionModel: ModelName = visionClassifierModel,
 ) : GigClassifier {
 
-    override fun classify(gig: Gig): GigClassified {
+    override fun classify(gig: Gig): Classification {
         val useVision = gig.description.value.length < THIN_TEXT_THRESHOLD
 
         val contents = listOf(Content.Text(classifierPromptText(gig))) +
@@ -87,13 +106,11 @@ internal class LlmGigClassifier(
         val genre = genreFromReply(reply)
             ?: error("Unexpected LLM classification reply for ${venue(gig.id.venueId)} at ${gig.id.url}: \"$reply\"")
 
-        return GigClassified(
-            id = gig.id,
-            recordedAt = recordedAt,
-            genre = genre,
-            source = ClassificationSource.LLM,
-            llmModel = model.value,
-            useVision = useVision,
+        return Classification(
+            genre,
+            ClassificationSource.LLM,
+            model,
+            useVision,
             inputTokens = response.metadata.usage?.input,
             outputTokens = response.metadata.usage?.output,
         )

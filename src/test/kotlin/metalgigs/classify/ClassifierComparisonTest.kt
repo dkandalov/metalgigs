@@ -3,7 +3,6 @@ package metalgigs.classify
 import metalgigs.ClassificationSource
 import metalgigs.Genre
 import metalgigs.Gig
-import metalgigs.GigClassified
 import metalgigs.GigDate
 import metalgigs.GigDescription
 import metalgigs.GigId
@@ -11,14 +10,12 @@ import metalgigs.GigTitle
 import metalgigs.GigUrl
 import metalgigs.PosterUrl
 import metalgigs.scrape.venues.theUnderworld
+import org.http4k.ai.model.ModelName
 import strikt.api.expectThat
 import strikt.assertions.contains
-import java.time.Instant
 import kotlin.test.Test
 
 class ClassifierComparisonTest {
-
-    private val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
 
     private fun gig(name: String) = Gig(
         GigId(theUnderworld.id, GigUrl("https://example.com/$name")),
@@ -34,7 +31,7 @@ class ClassifierComparisonTest {
         val byName = genres.toMap()
         return GigClassifier { gig ->
             val genre = byName[gig.title.value] ?: error("nothing to say about ${gig.title}")
-            GigClassified(gig.id, recordedAt, genre, ClassificationSource.LLM, "stub", inputTokens = 10, outputTokens = 1)
+            Classification(genre, ClassificationSource.LLM, ModelName.of("stub"), inputTokens = 10, outputTokens = 1)
         }
     }
 

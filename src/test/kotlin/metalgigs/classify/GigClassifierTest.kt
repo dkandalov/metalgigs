@@ -51,23 +51,40 @@ class GigClassifierTest {
     fun `classifies a gig as Metal or Other from the LLM's reply`() {
         val judgeable = gig(description = "Some event page text, long enough to be judged on its own rather than through the poster.")
 
-        val metal = LlmGigClassifier(noHttp, fakeChat("Metal"), recordedAt).classify(judgeable)
-        val other = LlmGigClassifier(noHttp, fakeChat("Other"), recordedAt).classify(judgeable)
+        val metal = LlmGigClassifier(noHttp, fakeChat("Metal")).classify(judgeable)
+        val other = LlmGigClassifier(noHttp, fakeChat("Other")).classify(judgeable)
 
         // The text clears the thin-text threshold, so this is the text path - records
         // which model judged it and confirms useVision = false rather than just leaving it null.
-        val textModel = "claude-haiku-4-5-20251001"
-        expectThat(metal).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Metal, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
-        expectThat(other).isEqualTo(GigClassified(judgeable.id, recordedAt, Genre.Other, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
+        val textModel = ModelName.of("claude-haiku-4-5-20251001")
+        expectThat(metal).isEqualTo(Classification(Genre.Metal, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
+        expectThat(other).isEqualTo(Classification(Genre.Other, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
     }
 
     @Test
     fun `judges a gig on the page text captured at scrape time`() {
         val (chat, requests) = capturingChat()
 
-        LlmGigClassifier(noHttp, chat, recordedAt).classify(gig(description = "text captured at scrape time, and enough more of it that the text path is the one taken"))
+        LlmGigClassifier(noHttp, chat).classify(gig(description = "text captured at scrape time, and enough more of it that the text path is the one taken"))
 
         expectThat(requests.first().promptText().contains("text captured at scrape time")).isTrue()
+    }
+
+    @Test
+    fun `records a verdict against the gig it judged and the time of the run`() {
+        val judged = gig(url = "https://example.com/judged")
+
+        val run = classifyGigs(
+            gigs = listOf(judged),
+            alreadyClassified = emptySet(),
+            recordedAt = recordedAt,
+        ) {
+            Classification(Genre.Metal, ClassificationSource.LLM, ModelName.of("some-model"), useVision = true, inputTokens = 1200, outputTokens = 3)
+        }
+
+        expectThat(run.classified).containsExactly(
+            GigClassified(judged.id, recordedAt, Genre.Metal, ClassificationSource.LLM, "some-model", useVision = true, inputTokens = 1200, outputTokens = 3)
+        )
     }
 
     @Test
@@ -79,7 +96,8 @@ class GigClassifierTest {
         val classifications = classifyGigs(
             gigs = listOf(alreadyDone, toDo),
             alreadyClassified = setOf(alreadyDone.id),
-        ) { g -> classified++; GigClassified(g.id, recordedAt, Genre.Other, ClassificationSource.LLM) }
+            recordedAt = recordedAt,
+        ) { classified++; Classification(Genre.Other, ClassificationSource.LLM) }
 
         expectThat(classified).isEqualTo(1)
         expectThat(classifications.classified.map { it.id.url }).containsExactly(toDo.id.url)
@@ -94,8 +112,9 @@ class GigClassifierTest {
         val classifications = classifyGigs(
             gigs = listOf(latest, soonest, middle),
             alreadyClassified = emptySet(),
+            recordedAt = recordedAt,
             limit = 2,
-        ) { g -> GigClassified(g.id, recordedAt, Genre.Other, ClassificationSource.LLM) }
+        ) { Classification(Genre.Other, ClassificationSource.LLM) }
 
         expectThat(classifications.classified.map { it.id.url }).containsExactly(soonest.id.url, middle.id.url)
     }
@@ -110,9 +129,10 @@ class GigClassifierTest {
         val run = classifyGigs(
             gigs = listOf(first, unjudgeable, last),
             alreadyClassified = emptySet(),
-        ) { g ->
-            check(g != unjudgeable) { "image too large" }
-            GigClassified(g.id, recordedAt, Genre.Other, ClassificationSource.LLM)
+            recordedAt = recordedAt,
+        ) { gig ->
+            check(gig != unjudgeable) { "image too large" }
+            Classification(Genre.Other, ClassificationSource.LLM)
         }
 
         expectThat(run.classified.map { it.id.url }).containsExactly(first.id.url, last.id.url)
@@ -125,9 +145,9 @@ class GigClassifierTest {
         val asked = mutableListOf<Gig>()
         val atTheDev = gig(venue = theDev)
 
-        val classified = WithAlwaysMetalVenues(recording(asked), recordedAt).classify(atTheDev)
+        val classified = WithAlwaysMetalVenues(recording(asked)).classify(atTheDev)
 
-        expectThat(classified).isEqualTo(GigClassified(atTheDev.id, recordedAt, Genre.Metal, ClassificationSource.User))
+        expectThat(classified).isEqualTo(Classification(Genre.Metal, ClassificationSource.User))
         expectThat(asked).isEmpty()
     }
 
@@ -136,7 +156,7 @@ class GigClassifierTest {
         val elsewhere = gig(venue = theUnderworld)
         val asked = mutableListOf<Gig>()
 
-        val classified = WithAlwaysMetalVenues(recording(asked), recordedAt).classify(elsewhere)
+        val classified = WithAlwaysMetalVenues(recording(asked)).classify(elsewhere)
 
         expectThat(classified.genre).isEqualTo(Genre.Other)
         expectThat(classified.source).isEqualTo(ClassificationSource.LLM)
@@ -145,7 +165,7 @@ class GigClassifierTest {
 
     private fun recording(asked: MutableList<Gig>) = GigClassifier { gig ->
         asked.add(gig)
-        GigClassified(gig.id, recordedAt, Genre.Other, ClassificationSource.LLM)
+        Classification(Genre.Other, ClassificationSource.LLM)
     }
 
     private fun capturingChat(): Pair<Chat, MutableList<ChatRequest>> {
@@ -170,14 +190,14 @@ class GigClassifierTest {
         val posterUrls = mutableListOf<PosterUrl>()
         val thin = gig(posterUrl = "https://example.com/poster.jpg", description = "Thin")
 
-        val classified = LlmGigClassifier(noHttp, chat, recordedAt, stubPoster(posterUrls)).classify(thin)
+        val classified = LlmGigClassifier(noHttp, chat, stubPoster(posterUrls)).classify(thin)
 
         expectThat(posterUrls).containsExactly(PosterUrl("https://example.com/poster.jpg"))
         val message = requests.first().messages.single() as Message.User
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(1)
         expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-sonnet-5"))
         expectThat(classified.useVision).isEqualTo(true)
-        expectThat(classified.llmModel).isEqualTo("claude-sonnet-5")
+        expectThat(classified.model).isEqualTo(ModelName.of("claude-sonnet-5"))
     }
 
     @Test
@@ -186,7 +206,7 @@ class GigClassifierTest {
         val posterUrls = mutableListOf<PosterUrl>()
         val described = gig(posterUrl = "https://example.com/poster.jpg", description = "A".repeat(200))
 
-        val classified = LlmGigClassifier(noHttp, chat, recordedAt, stubPoster(posterUrls)).classify(described)
+        val classified = LlmGigClassifier(noHttp, chat, stubPoster(posterUrls)).classify(described)
 
         // not merely absent from the request - never fetched, so no download and no conversion
         expectThat(posterUrls).hasSize(0)
@@ -194,13 +214,13 @@ class GigClassifierTest {
         expectThat(message.contents.filterIsInstance<Content.Image>()).hasSize(0)
         expectThat(requests.first().params.modelName).isEqualTo(ModelName.of("claude-haiku-4-5-20251001"))
         expectThat(classified.useVision).isEqualTo(false)
-        expectThat(classified.llmModel).isEqualTo("claude-haiku-4-5-20251001")
+        expectThat(classified.model).isEqualTo(ModelName.of("claude-haiku-4-5-20251001"))
     }
 
     @Test
     fun `fails fast when the LLM chat replies with something other than a genre name`() {
         val error = assertFailsWith<IllegalStateException> {
-            LlmGigClassifier(noHttp, fakeChat("I think this is probably a metal gig"), recordedAt)
+            LlmGigClassifier(noHttp, fakeChat("I think this is probably a metal gig"))
                 .classify(gig(description = "Some event page text, long enough to be judged on its own rather than through the poster."))
         }
 

@@ -13,7 +13,6 @@ import org.http4k.ai.model.ModelName
 import org.http4k.ai.model.SystemPrompt
 import org.junit.jupiter.api.Assumptions.assumeTrue
 import java.io.File
-import java.time.Instant
 import kotlin.test.Test
 
 // An experiment rather than a check on this project's behaviour: it puts a model hosted on this
@@ -61,7 +60,6 @@ class ClassifierComparisonExperiment {
         return LlmGigClassifier(
             http,
             Chat.Ollama(http, SystemPrompt.of(llmClassifierSystemPrompt)),
-            Instant.now(),
             textModel = ModelName.of(model),
             visionModel = ModelName.of(model),
         )
@@ -77,7 +75,6 @@ class ClassifierComparisonExperiment {
         return LlmGigClassifier(
             http,
             Chat.AnthropicAI(apiKey = apiKey, http = http, systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt)),
-            Instant.now(),
         )
     }
 }

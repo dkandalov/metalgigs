@@ -219,8 +219,8 @@ private fun classifyUnclassifiedGigs(venueIds: Set<VenueId> = emptySet(), limit:
     val chat = Chat.AnthropicAI(apiKey = apiKey, http = httpClient(llmCallTimeout), systemPrompt = SystemPrompt.of(llmClassifierSystemPrompt))
 
     val settled = if (force) log.overriddenByUser() else log.alreadyClassified()
-    val classifier = WithAlwaysMetalVenues(LlmGigClassifier(client, chat, recordedAt), recordedAt)
-    val run = classifyGigs(toConsider, settled, limit, classifier)
+    val classifier = WithAlwaysMetalVenues(LlmGigClassifier(client, chat))
+    val run = classifyGigs(toConsider, settled, recordedAt, limit, classifier)
     val classifications = run.classified
     log.append(classifications)
 

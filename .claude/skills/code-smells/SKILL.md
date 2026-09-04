@@ -59,6 +59,26 @@ the ADR's.
 the object - rather than threading it into a leaf. Both stand deliberately: naming the gig turns an
 unactionable line in the daily log into a fix. Consistency with them doesn't justify a third.
 
+## A type borrowed from the abstraction next door
+
+A type should hold only what the code building it actually decides. What ends up alongside it later -
+when it happened, which gig it was about, where it sits in the log - belongs to the code doing that
+part, and is added there. So the tell that a type has been taken from elsewhere is a field its builder
+has no answer for: either its caller hands it the value to copy through, or a placeholder stands in it.
+
+`GigClassifier.classify` returned `GigClassified`, so judging - a genre, and how it was reached - spoke
+the log's vocabulary of identity, `recordedAt` and `seq`. `LlmGigClassifier` and `WithAlwaysMetalVenues`
+each took a `recordedAt` they only passed through, the comparison and labelling harnesses handed over one
+nothing read, `seq` stood at `UNSEQUENCED` at every site, and a test double saying "Other" built a
+four-argument row to say it. It answers with `Classification` now, and the gig and the time go on in
+`classifyGigs`, which is what makes the run's rows. Scrape had the shape the right way round already: a
+source returns `Gig`, and Main wraps it in `GigObserved` where the log is written.
+
+Borrowing isn't the smell by itself - `classificationCostReport` and `classificationCost` take
+`GigClassified` because pricing a run is about recorded rows, `recordedAt` and `llmModel` and all. Ask
+whose fields they are: a caller that reads them belongs to that abstraction, one that has to invent them
+doesn't.
+
 ## A value built only to be rejected a call later
 
 `imageUrl` in OvoArenaGigsSource ends `.orEmpty()`, `squarespaceThumbnailUrl` and `widestImageUrl`
