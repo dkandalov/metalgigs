@@ -14,6 +14,7 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
 
     private fun tidied(title: String): String {
         val tidied = title
+            .replace(leadingPromoter, "")
             .replace(leadingFreeEntry, "")
             .replace(trailingFreeEntry, "")
             .replace(trailingCity, "")
@@ -40,6 +41,18 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
         \s* [-–—:|/]+ \s*
         [(\[]? \s* sold \s* out \s* [!.]* \s* [)\]]?
         \s* $
+        """,
+        setOf(IGNORE_CASE, COMMENTS),
+    )
+
+    // Who put a gig on is not what it is, and is noise to both readers of a title - the classifier's
+    // prompt and the word overlap that pairs a moved gig. The colon is what identifies it: "Jbm
+    // presents SMELLS LIKE NIRVANA" has nothing saying where the promoter stops and the bill starts.
+    private val leadingPromoter = Regex(
+        """
+        ^ \s*
+        [^:]{1,60}? \s+ presents
+        \s* : \s*
         """,
         setOf(IGNORE_CASE, COMMENTS),
     )

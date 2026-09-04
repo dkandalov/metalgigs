@@ -76,6 +76,34 @@ class WithTidiedTitlesTest {
     }
 
     @Test
+    fun `drops the promoter a title is prefixed with`() {
+        expectThat(
+            titlesListedAs(
+                listOf(
+                    "Sherwood Magazine presents: Regal Cheer / Haemogoblin / Mulch",
+                    "UK Death Dealers presents: Suffer / Gravery / The Slaughtering / Grave Torture",
+                    // the promoter and the bill's separators off one title
+                    "RETRIBUTION ALIVE presents: Technologist + Maxdmyz + Low Road",
+                )
+            )
+        ).isEqualTo(
+            listOf(
+                GigTitle("Regal Cheer / Haemogoblin / Mulch"),
+                GigTitle("Suffer / Gravery / The Slaughtering / Grave Torture"),
+                GigTitle("Technologist / Maxdmyz / Low Road"),
+            )
+        )
+    }
+
+    // The colon is the whole of what marks a promoter off, so a title that only says the word keeps
+    // it - there is nothing to say where a name ends and the bill begins.
+    @Test
+    fun `leaves a promoter the title doesn't punctuate`() {
+        val meantAsWritten = listOf("Jbm presents SMELLS LIKE NIRVANA", "The Presents", "Bloodstock presents")
+        expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
+    }
+
+    @Test
     fun `leaves a free entry note the title carries in the middle`() {
         val meantAsWritten = listOf("Open Mic - Bubblebath - FREE ENTRY - ALL WELCOME")
         expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
@@ -83,7 +111,7 @@ class WithTidiedTitlesTest {
 
     @Test
     fun `leaves a title that is nothing but the note`() {
-        val meantAsWritten = listOf("[FREE ENTRY]", "FREE ENTRY:")
+        val meantAsWritten = listOf("[FREE ENTRY]", "FREE ENTRY:", "UK Death Dealers presents:")
         expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
     }
 

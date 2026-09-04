@@ -14,7 +14,7 @@ changed, every run, for as long as it is listed. Separately, `GigTitle` refuses 
 ## Decision
 
 Titles are normalised **as the listing is read**, before the gig is built, so the prompt and the pairing see
-the same title. `WithTidiedTitles` decorates a `GigsSource` and makes four changes, each identified by
+the same title. `WithTidiedTitles` decorates a `GigsSource` and makes five changes, each identified by
 punctuation rather than wording alone:
 
 - **The trailing city** - "| London", optionally before a cancellation marker - is dropped.
@@ -22,6 +22,9 @@ punctuation rather than wording alone:
   bands with commas is left entirely: "INHUMAN NATURE, PUPPY, AGNOSY + MORE" joins the last of a list rather
   than separating two acts, where a slash would read as a name.
 - **A sold-out marker** becomes " - SOLD OUT", the way a scrape already writes a cancellation.
+- **A leading promoter** - "Sherwood Magazine presents:" - is dropped. Who put a gig on is not what it is,
+  and is noise to both readers of a title. The colon is what identifies it, so "Jbm presents SMELLS LIKE
+  NIRVANA" keeps its promoter: nothing there says where the name stops and the bill starts.
 - **A free-entry note** is dropped from either end. The punctuation identifies it: without any, a title is
   saying the words rather than appending them, as "Free Entry Fridays" would, and keeps them.
 
@@ -85,6 +88,13 @@ The title published is the one the classifier and the pairing saw, and the same 
 wording is lost where it was promotion rather than name. The one-spelling rule is load-bearing beyond
 display: the sold-out marker matches what a cancellation uses, and the trailing-city pattern must look past a
 cancellation suffix to find the city.
+
+A rule added here re-words what is published without relisting anything, because the decorator changes a gig's
+title and never its id. That matters for The Dev, the one venue whose url is built out of its title (ADR 5):
+its slug is fixed inside its own `latestGigs()`, before this runs, so a title tidied afterwards leaves the url
+it was first logged under alone. The slug keeps a word the title has dropped, which is the price of the gig
+staying one gig - the alternative, tidying before the url is built, republishes every affected night as a
+second card.
 
 ## Alternatives rejected
 
