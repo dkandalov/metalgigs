@@ -16,7 +16,11 @@ every page of that venue, which is what `ContaminationCheck` measures (ADR 3).
 Every source scopes its own `eventPageContent` to the block the promoter writes, the comment recording what
 was in the way. Only a selector that matched nothing says `null`, which is the one thing a source can tell
 about itself: `selectOrNull`'s cut returns `String`, so a match cannot be reported as nothing found. `""` is
-a page that said nothing, or one that was all furniture this venue cuts.
+a page that said nothing, one that was all furniture this venue cuts, or one with no copy block at all -
+which is why a venue whose block is optional is scoped to the container holding it rather than to the block:
+See Tickets renders no narratives section whatever on a listing whose promoter wrote nothing, 3 of the 8 Bush
+Hall pages sampled on 2026-09-05, and scoping to the section itself would fail the venue's whole listing over
+the gigs it books without copy.
 
 | Venue | Taken | What was in the way |
 | --- | --- | --- |
@@ -33,6 +37,7 @@ a page that said nothing, or one that was all furniture this venue cuts.
 | The Underworld | `article.event` less its footer | the sitewide "other events" widget |
 | Union Chapel | the article's children up to the first venue heading, plus the sidebar | see below |
 | Scala | the lineup header box plus everything after "About &lt;artist&gt;" | see below |
+| Bush Hall | the event detail column, cut to its narratives section | See Tickets fills the same column with price rows, a low-income ticket FAQ, an accessibility link and the basket; the section's own header ("More information about X tickets") is See Tickets' words rather than the gig's |
 | Dingwalls | `.elementor-location-single` | |
 | Paper Dress Vintage | `.event__content` | |
 

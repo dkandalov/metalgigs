@@ -3,6 +3,7 @@ package metalgigs.scrape
 import metalgigs.Gig
 import metalgigs.GigTitle
 import metalgigs.scrape.venues.cancelledSuffix
+import metalgigs.scrape.venues.soldOutSuffix
 import kotlin.text.RegexOption.COMMENTS
 import kotlin.text.RegexOption.IGNORE_CASE
 
@@ -20,7 +21,7 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
             // before the city, whose lookahead finds it past a cancellation written this one way
             .replace(trailingCancelled, cancelledSuffix)
             .replace(trailingCity, "")
-            .replace(trailingSoldOut, " - SOLD OUT")
+            .replace(trailingSoldOut, soldOutSuffix)
             .let(::bandsSeparated)
             .trim()
         return tidied.ifBlank { title }

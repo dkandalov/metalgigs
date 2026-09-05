@@ -49,6 +49,13 @@ Where a listing has no poster, the source asks the next thing that might:
   announced before artwork exists, which have none of the three, so The Garage stands in its own crowd shot -
   published showing the room rather than dropped or failing the listing. The Grace has no such image and still
   fails.
+- **Bush Hall** is the one venue whose listing has nothing bigger behind it: every card image measures
+  154x154, whether See Tickets names it by uuid or writes the size into the file name, and no larger variant
+  answers - dropping a `-154x154` suffix or asking for `-300x300`, `-768x768` or `-1000x1000` all 404. Two of
+  the 56 cards listed on 2026-09-05 carry no image at all. The event page's `og:image` is a different asset at
+  300x300, present on every page read, and that page is already being fetched for the copy. 300 is still under
+  the 768 render targets, but `RESIZE_GEOMETRY`'s `>` never enlarges, so it is the difference between a card
+  drawn at 300px and one drawn at 154px behind a 260px slot.
 - **OVO Arena** carries `"ImageURL": false` - not a url, null, or an absent field. Kondor reads a missing and
   a null field as absent, but a boolean where a string belongs fails the whole month's parse rather than the
   one event, so it is read as a node: anything but a string is no poster.
@@ -66,7 +73,8 @@ reading what is shown with a gig rather than what it says.
 
 ## Alternatives rejected
 
-**Fetching the original separately** - every one is recoverable from the url the listing gives. **Asking imgix
+**Fetching the original separately** - every one is recoverable from the url the listing gives, Bush Hall
+excepted, where the bigger one comes off a page already being fetched rather than out of a request of its own. **Asking imgix
 beyond the crop** - it caps rather than upscaling. **The O2's 480x281 crop** - render crops square and the wide
 one letterboxes. **Giving up on a blank DHP card** - its own page often renders the poster, and is already
 being fetched. **A `str` converter for OVO's `ImageURL`** - a boolean there fails the whole month.

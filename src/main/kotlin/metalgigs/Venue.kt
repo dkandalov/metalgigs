@@ -41,6 +41,7 @@ val allVenues: List<Venue> = listOf(
     theO2Arena,
     eventimApollo,
     ovoArena,
+    bushHall,
 )
 
 // Top-level properties are initialised in the order the file declares them, so this can only follow

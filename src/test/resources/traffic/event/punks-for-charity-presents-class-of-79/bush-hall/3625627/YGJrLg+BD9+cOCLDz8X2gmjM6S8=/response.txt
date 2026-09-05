@@ -1,0 +1,2549 @@
+HTTP/1.1 200 
+alt-svc: h3=":443"; ma=93600
+cache-control: max-age=0, no-cache, no-store
+content-type: text/html; charset=utf-8
+date: Sat, 05 Sep 2026 11:06:23 GMT
+expires: Sat, 05 Sep 2026 11:06:23 GMT
+pragma: no-cache
+server-timing: cdn-cache; desc=MISS
+server-timing: edge; dur=3070
+server-timing: origin; dur=187
+server-timing: ak_p; desc="1788606379967_34740745_225022052_325170_30517_6_0_15";dur=1
+set-cookie: lang=en-GB%7Cnone; expires=Sun, 05 Sep 2027 11:06:23 GMT; path=/; secure; samesite=none
+set-cookie: see-order-link=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; secure; samesite=none
+set-cookie: nts_trk=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; secure; samesite=none
+set-cookie: sclid=1788606382::z4QC8t0TnUYPuZ+JR8gwc5cAVgE=; path=/
+set-cookie: _abck=FE3FB740E73CD95D792F92BD5E78238D~-1~YAAQCRoSAhM2EEugAQAAwYQ/cRAxHqRHIF0LHLuJkk701K6sZQ9HGDInopnR1OacFn+uqEWxGQC7ajKNEo9OFBKcGfvyRS+Y3Wb0dW/PceIpZ166cazr7H8Z64Y5DOcYF/lCgn41mXl/49MxJ4B9rd8XA0Uh3fzfDZbsY0BNqgN9Ae3cxHnkv5afTrwa8f/2oVLQayi2uLtVj6tJSquXxyzvSpHNznSe9brZsUhseJbBKxgZ09fLx8W35XP1qPqbuBCDNrGi3swQna0KiPU0E4tlm6SLhbHqIEX+2v6IzJjx+Ck/lpmpAnolvSiKfUfl0ilX5TJsQHgHFeFEwgdNaS/8Z1WU0WJc2V7WfJs1hvPCNw6KTm/vSO4/HA/BgF8vIB5xZy66KHfUej8epPvrf6GBKkEC7uSQ+fnZSiEU5HiUQiYScQvjs8L9LRGs+zhmekJBh8ePk2SxgX4eHG5DXt4MOb4=~-1~-1~-1~-1~-1; Domain=.seetickets.com; Path=/; Expires=Sun, 05 Sep 2027 11:06:23 GMT; Max-Age=31536000; SameSite=None; Secure
+set-cookie: bm_mi=CD88F40A49E97D347739225A06851056~YAAQCRoSAhQ2EEugAQAAwYQ/cQGUSA9OAWU5Kw4OVe9L8i2o/3G9gHbT3gj719R3+LYnJUgXkOy+n6rYhT8A6zkJnR7f9SsahMnRmTHIT0Xo021mMgn8arfkawg/v6ETg32x01Kvg8C5ycEE+bbfJErbXv/XApojnXgZx/DdoC/JLxR3Mx7LjRJ8BnY0W7R6tgWXvpu2XPjw6pmV5gUzLitQlmkWeozShf8iUlowkoX7tpLaScTI51iYhueSt8kVKCwgNsnbMwxQgn5faCoQ1eIkcQ8FJw7AXBFaVuJOedHNMPLEUIflp+DZdBZ5g9d0U7TD/nqisX9L6FLtVjz2yDkxgZbMg/9yC1B+lnXGD5ZDtijOcC22exIduJk1U4A91uCWY/xEA7SIdLKC20F9EQ8Bef5b~1; Domain=.seetickets.com; Path=/; Expires=Sat, 05 Sep 2026 11:06:23 GMT; Max-Age=0; SameSite=None; Secure
+set-cookie: bm_s=YAAQCRoSAhU2EEugAQAAwYQ/cQYfvKR/F9jZ0f4qZfcfju48kITbC7BPs5kbB0+cUfDqTjGSFF2kPAWb/ky4AVhPJYm2jZQZNcUCk/3Uq8qyJYzfA1TyY3Ynn/d5EKchC9LjacXLLekLouADRfq4bL/BDKEEBUfLJHAl0pjrRInnS40s5gSm8jyxz+lS2kiCW798gPpktZAqSdRiqNOY5G2w6RdYq54MyqjIIoshOHd2bVwZU+16eqsHh3tyzbMd8u69fnGJkYImRvDvNTO3qg5+xhBHM99cYUfpAED4qqLqBqTLz6avSUnlUusNzioXTS63eb8Wg3zntPN1znML1187znnlLWHbM8j9MMrCZjC5kvl3Y57sZHYnBwBPha4tcHeeQvUj17vkhRZhizZNlVMDXCEXiHrGdYSjA7JSeCn+wb2Vx2R2waOQsXzsSd1RNQn0O0W0oy2MxKGWBuTiOAsBm6LRXhhXLcpwumntPHNt0WwQcGr4ViTGs7PFIYewXkVSjAcxr3JftoLJsX/+wFEIggoZv6lxTd/NsJyzm3C2kS7k8HpXR72vnK7irviJWKoyhprRJqZl7TE63ypJkLZdzbj+jqqySTHNlrszh+FBHwwI4YZ7yi9/ehhdIA==; Domain=.seetickets.com; Path=/; Expires=Tue, 06 Oct 2026 11:06:23 GMT; Max-Age=2678400; SameSite=None; Secure; HttpOnly; Partitioned
+set-cookie: bm_so=39033EA13944057BC08346ECF35BF4998A8E7E4C99D647A25567D485F27784B2~YAAQCRoSAhY2EEugAQAAwYQ/cQjA6ExtrEiRZzYS1UeABVkE9Q7nhVvPF05hy+nH9Bfs1A8kQP7yaQZZc3FVN8o2LIEmeo9YWa+H/hA/+zd8JzMwkokZ5weTpj0wlK7RRgvPbFCofkTfVWDYIkERVSv+SWBq1+jqOiYJxTLH8qDXiZr9IP5r5DoVEHWBTqsoWMMcHghYj2zFESOAxH2F3sGw9y8I/KROO3WiBGuZArs3UURZAZpjhaOHk6wl3x/3hUDmzer26hT4nz+mwwaJSPdG5OmMpdlgBID4r84wzGCUBHtrTNVgoM4qfLmsDedkD/dWxwtSnh1r36t7t3Cgmk/YeQ06kpt0RM0MfwyBH4RD87PoR/PM8UvZ2e89X77Ags+LM1DOa3cjP3G34Ar3q6+98g1b0RlIekZnbLbHaNVyeBDd7s7es1nLRsYdSQS3Xkb7h7+aQM2S0beBHnnLEObQLpvea82rJqm64yB2eWV5orUUWqGeXp6sYTm5mA==~9; Domain=.seetickets.com; Path=/; Expires=Sun, 06 Sep 2026 11:06:23 GMT; Max-Age=86400; SameSite=None; Secure; Partitioned
+set-cookie: bm_sz=E5265BA828A2214426848B372F8E5094~YAAQCRoSAhc2EEugAQAAwYQ/cQEykf72j4zZGJd4n1phMC8aKqlAjvxbRhuNmn44OAL0PeI0lHK1vFW/QJtOQAw7eIXG4dPK21noN/EVRvEN/+zbsRTA1+kYydjR4ALwp9oSiVo+Z5UVrDQoiIshr2uKTn7xrtAh8wRhGCHALbZBJTTHZspemjWhCUUA9bgXmeoq3Zlx8jdLHFWCLRvbNpwdQXGSK120rJ2ggQsR6u9HfcE6vZN8fyIpU99KU6kKHu2lxwRbkNC8hiJMuB7TUrj7cuy3j69I/5cEp7olvbS0AWLR5dWELPNozJZ0X72FT4p8I9XRbpxExeHhevkMYncr2Fveyiu9T0SRDP5xSv5UBBTGfSNGf+O6CsPq9Cq3ERn+VEgg9qzq4v75NN5MxtiHZrz4SRqEUZ2ybL4=~3682361~4469830; Domain=.seetickets.com; Path=/; Expires=Sat, 05 Sep 2026 15:06:19 GMT; Max-Age=14396; SameSite=None; Secure
+vary: Accept-Encoding
+x-akamai-transformed: 9l 25648 0 pmb=mRUM,2
+x-queueit-connector: akamai
+
+
+<!doctype html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+		<title>PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79 Tickets | Saturday 05 September 2026 at 16:30</title>
+
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+		<meta charset="utf-8">
+		<meta name="copyright" content="SEE Tickets 2026">
+		<meta name="expires" content="never">
+		<meta name="rating" content="general">
+		<meta name="distribution" content="global">
+		
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="//c.ststat.net/content/sites/seetickets/icons/apple-touch-icon-152x152.png">
+		<link rel="icon" type="image/png" href="//c.ststat.net/content/sites/seetickets/icons/favicon-32x32.ico" sizes="32x32">
+
+		<meta name="robots" content="index, follow, noodp">
+
+		<link href="https://c.ststat.net/content/seeticketsv2/static-scripts/current/css/v2/main.min.css" rel="stylesheet" type="text/css" />
+<style>
+        .messi-page {
+            padding: 0 !important;
+        }
+</style>
+
+<style>
+        .messi-page {
+            padding: 0 !important;
+        }
+</style>
+
+
+      
+       <link
+      rel="stylesheet"
+      href="https://c.ststat.net/content/sites/bushhall/css/theme.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://c.ststat.net/content/sites/bushhall/css/theme2.css"
+    />
+
+    <!--<script
+      src="https://c.ststat.net/content/sites/bushhall/js/jquery.js"
+      defer
+    ></script>-->
+
+    <script type="text/javascript" src="https://bushhall.seetickets.com/resources/b0aa40ee1158b45a059d36710ba8e7fea59cd3a9ac872"  ></script><script
+      src="https://c.ststat.net/content/sites/bushhall/js/slick.min.js"
+      defer
+    ></script>
+    <script
+      src="https://c.ststat.net/content/sites/bushhall/js/custom.js"
+      defer
+    ></script>
+
+    <script src="https://c.ststat.net/content/sites/bushhall/js/aos.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://c.ststat.net/content/sites/bushhall/css/inline.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://c.ststat.net/content/sites/bushhall/css/base.css"
+    />
+
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" type="text/css" href="/skins/shared/styles/ie/components.ie.9.css">
+			<link rel="stylesheet" type="text/css" href="/skins/shared/styles/ie/base.grid.ie.9.css">
+			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<![endif]-->
+
+		
+    
+
+
+<meta name="description" content="Buy tickets for PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79 at Bush Hall from the official retailer, Bush Hall.">
+
+    <link rel="canonical" href="https://www.seetickets.com/event/punks-for-charity-presents-class-of-79/bush-hall/3625627" />
+
+<meta property="og:type" content="seetickets-app:ticket">
+<meta property="og:title" content="PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79 from See Tickets">
+<meta property="og:image" content="https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg">
+<meta property="og:url" content="https://bushhall.seetickets.com/event/punks-for-charity-presents-class-of-79/bush-hall/3625627">
+<meta property="og:site_name" content="Bush Hall">
+<meta property="og:description" content="Buy tickets for PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79 at Bush Hall from the official retailer, Bush Hall.">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79 from See Tickets">
+<meta name="twitter:image" content="https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg">
+<meta name="twitter:domain" content="https://bushhall.seetickets.com/event/punks-for-charity-presents-class-of-79/bush-hall/3625627">
+<meta name="twitter:site" content="Bush Hall">
+<meta name="twitter:description" content="Buy tickets for PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79 at Bush Hall from the official retailer, Bush Hall.">
+
+<meta itemprop="brand" content="Bush Hall">
+<meta itemprop="product:retailer_item_id" content="DF-3625627">
+
+
+    <meta property="product:availability" content="in stock">
+
+    <meta property="product:price:amount" content="14.45">
+    <meta property="product:price:currency" content="GBP">
+    <meta property="product:condition" content="new">
+
+
+
+
+
+      
+      
+      
+		<script type="text/javascript">document.documentElement.className = document.documentElement.className.replace('no-js', 'has-js');</script>
+      
+  
+<script>(window.BOOMR_mq=window.BOOMR_mq||[]).push(["addVar",{"rua.upush":"false","rua.cpush":"false","rua.upre":"false","rua.cpre":"false","rua.uprl":"false","rua.cprl":"false","rua.cprf":"false","rua.trans":"","rua.cook":"false","rua.ims":"false","rua.ufprl":"false","rua.cfprl":"false","rua.isuxp":"false","rua.texp":"norulematch","rua.ceh":"false","rua.ueh":"false","rua.ieh.st":"0"}]);</script>
+                                <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="REDACTED",function(){function e(){if(!i){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,o.parentNode.appendChild(e),i=!0}}function t(e){i=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(o.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",o.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"MALTA-H88L5-A47CE-2H68P-NN26B";var o=document.currentScript||document.getElementsByTagName("script")[0],i=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!i)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),o.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="txtybdaccinqs2u366vq-f-998f5e010-clientnsv4-s.akamaihd.net",o="false"=="true"?2:1,i={"ak.v":"41","ak.cp":"1697923","ak.ai":parseInt("1102714",10),"ak.ol":"0","ak.cr":6,"ak.ipv":4,"ak.proto":"h2","ak.rid":"d699064","ak.r":49150,"ak.a2":n,"ak.m":"dsca","ak.n":"essl","ak.cport":56692,"ak.gh":"2.18.26.9","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"","ak.t":"1788606379","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==Dl/1ggmyEBX2BCPPSwnfpPO6DilKG7AnYy2m0bijLkulk9rTwYdQUTdvGC3zeom6LuLoQQJDrs7OayTw/+bujZ7S/hrjX6H7OdjdNPauRXnU2gqc+Cp7gBPP/qjbZMp8uidgJBZfVgmS0xCTtKJl5c8+qUeILW2aD2v9KnlVpjdfLK2Rp07QzAw66PA48u5o9lCFHBWgyELzhRy3XwVh4V+Kv6hhwAkt96Ig1s+MRasZ+bb6Junz2iJmAvTnXoXZz9TkuQ7u/2iJB4f36H1zFZ8caiMZAoYC0AQYTPghVZ8Vy/rAnEBwVVAa93SD4l6OFeN08MSgca2yKUfCV+NSr0MTIeCkqpWwL7Mxh9E/z32ZRtjVv3nV/9+wSdhujAb4aktkURr8RxN/lphCKzE8J0nzh4z+oHhLYPevAxtgTBk=","ak.pv":"88","ak.dpoabenc":"","ak.tf":o};if(""!==t)i["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))i["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(i)},rv:function(){var e=["ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:i,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script><script >bazadebezolkohpepadr="32496359"</script><script type="text/javascript" src="https://bushhall.seetickets.com/akam/13/1efdbe0"  defer></script></head>
+      
+<body class="prestige--v4 whats-on features--heading-small features--heading-uppercase features--show-button-transition features--show-image-zooming features--show-element-staggering template-page orange-body l-layout v-event-eventdetails bushhall bushhall light">
+  
+	    <svg class="u-visually-hidden">
+      <linearGradient id="rating-star-gradient-half">
+        <stop offset="50%" stop-color="var(--product-star-rating)" />
+        <stop offset="50%" stop-color="var(--text-color-light)" />
+      </linearGradient>
+    </svg>
+
+    <a class="PageSkipLink u-visually-hidden" href="#main">Skip to content</a>
+    <span class="LoadingBar"></span>
+    <div class="PageOverlay"></div>
+    <div id="shopify-section-popup" class="shopify-section"></div>
+    <div id="shopify-section-sidebar-menu" class="shopify-section">
+      <section
+        id="sidebar-menu"
+        class="SidebarMenu Drawer Drawer--small Drawer--fromLeft"
+        aria-hidden="true"
+        data-section-id="sidebar-menu"
+        data-section-type="sidebar-menu"
+      >
+        <div class="Drawer__Content">
+          <div class="Drawer__Main" data-drawer-animated-left data-scrollable>
+            <div class="Drawer__Container">
+              <nav
+                class="SidebarMenu__Nav SidebarMenu__Nav--primary"
+                aria-label="Sidebar navigation"
+              >
+                <div class="Collapsible">
+                  <a
+                    href="https://bushhallmusic.co.uk/pages/whats-on"
+                    class="Collapsible__Button Heading Link Link--primary u-h6"
+                    >What&#39;s On</a
+                  >
+                </div>
+                <div class="Collapsible">
+                  <a
+                    href="https://bushhallmusic.co.uk/pages/venue-hire"
+                    class="Collapsible__Button Heading Link Link--primary u-h6"
+                    >Venue Hire</a
+                  >
+                </div>
+                <div class="Collapsible">
+                  <a
+                    href="https://bushhallmusic.co.uk/pages/gallery"
+                    class="Collapsible__Button Heading Link Link--primary u-h6"
+                    >Gallery</a
+                  >
+                </div>
+              </nav>
+              <nav class="SidebarMenu__Nav SidebarMenu__Nav--secondary">
+                <ul class="Linklist Linklist--spacingLoose">
+                  <li class="Linklist__Item">
+                    <a
+                      href="https://bushhallmusic.co.uk/pages/about"
+                      class="Text--subdued Link Link--primary"
+                      >About</a
+                    >
+                  </li>
+                  <li class="Linklist__Item">
+                    <a
+                      href="https://bushhallmusic.co.uk/collections/frontpage"
+                      class="Text--subdued Link Link--primary"
+                      >Merch</a
+                    >
+                  </li>
+                  <li class="Linklist__Item">
+                    <a
+                      href="https://bushhallmusic.co.uk/pages/contact"
+                      class="Text--subdued Link Link--primary"
+                      >Contact</a
+                    >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <aside class="Drawer__Footer" data-drawer-animated-bottom>
+            <ul
+              class="SidebarMenu__Social HorizontalList HorizontalList--spacingFill"
+            >
+              <li class="HorizontalList__Item">
+                <a
+                  href="https://en-gb.facebook.com/bushhallmusic/"
+                  class="Link Link--primary"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Facebook"
+                >
+                  <span class="Icon-Wrapper--clickable"
+                    ><svg class="Icon Icon--facebook" viewBox="0 0 9 17">
+                      <path
+                        d="M5.842 17V9.246h2.653l.398-3.023h-3.05v-1.93c0-.874.246-1.47 1.526-1.47H9V.118C8.718.082 7.75 0 6.623 0 4.27 0 2.66 1.408 2.66 3.994v2.23H0v3.022h2.66V17h3.182z"
+                      ></path></svg
+                  ></span>
+                </a>
+              </li>
+
+              <li class="HorizontalList__Item">
+                <a
+                  href="https://www.instagram.com/bushhallmusic/"
+                  class="Link Link--primary"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Instagram"
+                >
+                  <span class="Icon-Wrapper--clickable"
+                    ><svg
+                      class="Icon Icon--instagram"
+                      role="presentation"
+                      viewBox="0 0 32 32"
+                    >
+                      <path
+                        d="M15.994 2.886c4.273 0 4.775.019 6.464.095 1.562.07 2.406.33 2.971.552.749.292 1.283.635 1.841 1.194s.908 1.092 1.194 1.841c.216.565.483 1.41.552 2.971.076 1.689.095 2.19.095 6.464s-.019 4.775-.095 6.464c-.07 1.562-.33 2.406-.552 2.971-.292.749-.635 1.283-1.194 1.841s-1.092.908-1.841 1.194c-.565.216-1.41.483-2.971.552-1.689.076-2.19.095-6.464.095s-4.775-.019-6.464-.095c-1.562-.07-2.406-.33-2.971-.552-.749-.292-1.283-.635-1.841-1.194s-.908-1.092-1.194-1.841c-.216-.565-.483-1.41-.552-2.971-.076-1.689-.095-2.19-.095-6.464s.019-4.775.095-6.464c.07-1.562.33-2.406.552-2.971.292-.749.635-1.283 1.194-1.841s1.092-.908 1.841-1.194c.565-.216 1.41-.483 2.971-.552 1.689-.083 2.19-.095 6.464-.095zm0-2.883c-4.343 0-4.889.019-6.597.095-1.702.076-2.864.349-3.879.743-1.054.406-1.943.959-2.832 1.848S1.251 4.473.838 5.521C.444 6.537.171 7.699.095 9.407.019 11.109 0 11.655 0 15.997s.019 4.889.095 6.597c.076 1.702.349 2.864.743 3.886.406 1.054.959 1.943 1.848 2.832s1.784 1.435 2.832 1.848c1.016.394 2.178.667 3.886.743s2.248.095 6.597.095 4.889-.019 6.597-.095c1.702-.076 2.864-.349 3.886-.743 1.054-.406 1.943-.959 2.832-1.848s1.435-1.784 1.848-2.832c.394-1.016.667-2.178.743-3.886s.095-2.248.095-6.597-.019-4.889-.095-6.597c-.076-1.702-.349-2.864-.743-3.886-.406-1.054-.959-1.943-1.848-2.832S27.532 1.247 26.484.834C25.468.44 24.306.167 22.598.091c-1.714-.07-2.26-.089-6.603-.089zm0 7.778c-4.533 0-8.216 3.676-8.216 8.216s3.683 8.216 8.216 8.216 8.216-3.683 8.216-8.216-3.683-8.216-8.216-8.216zm0 13.549c-2.946 0-5.333-2.387-5.333-5.333s2.387-5.333 5.333-5.333 5.333 2.387 5.333 5.333-2.387 5.333-5.333 5.333zM26.451 7.457c0 1.059-.858 1.917-1.917 1.917s-1.917-.858-1.917-1.917c0-1.059.858-1.917 1.917-1.917s1.917.858 1.917 1.917z"
+                      ></path></svg
+                  ></span>
+                </a>
+              </li>
+
+              <li class="HorizontalList__Item">
+                <a
+                  href="https://twitter.com/bushhallmusic"
+                  class="Link Link--primary"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Twitter"
+                >
+                  <span class="Icon-Wrapper--clickable"
+                    ><svg
+                      class="Icon Icon--twitter"
+                      role="presentation"
+                      viewBox="0 0 32 26"
+                    >
+                      <path
+                        d="M32 3.077c-1.1748.525-2.4433.8748-3.768 1.031 1.356-.8123 2.3932-2.0995 2.887-3.6305-1.2686.7498-2.6746 1.2997-4.168 1.5934C25.751.796 24.045.0025 22.158.0025c-3.6242 0-6.561 2.937-6.561 6.5612 0 .5124.0562 1.0123.1686 1.4935C10.3104 7.7822 5.474 5.1702 2.237 1.196c-.5624.9687-.8873 2.0997-.8873 3.2994 0 2.2746 1.156 4.2867 2.9182 5.4615-1.075-.0314-2.0872-.3313-2.9745-.8187v.0812c0 3.1806 2.262 5.8363 5.2677 6.4362-.55.15-1.131.2312-1.731.2312-.4248 0-.831-.0438-1.2372-.1188.8374 2.6057 3.262 4.5054 6.13 4.5616-2.2495 1.7622-5.074 2.812-8.1546 2.812-.531 0-1.0498-.0313-1.5684-.0938 2.912 1.8684 6.3613 2.9494 10.0668 2.9494 12.0726 0 18.6776-10.0043 18.6776-18.6776 0-.2874-.0063-.5686-.0188-.8498C30.0066 5.5514 31.119 4.3954 32 3.077z"
+                      ></path></svg
+                  ></span>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </div>
+    <div
+      id="sidebar-cart"
+      class="Drawer Drawer--fromRight"
+      aria-hidden="true"
+      data-section-id="cart"
+      data-section-type="cart"
+      data-section-settings='{
+  "type": "page",
+  "itemCount": 0,
+  "drawer": true,
+  "hasShippingEstimator": false
+}'
+    >
+      <div class="Drawer__Header Drawer__Header--bordered Drawer__Container">
+        <span class="Drawer__Title Heading u-h4">Cart</span>
+
+        <button
+          class="Drawer__Close Icon-Wrapper--clickable"
+          data-action="close-drawer"
+          data-drawer-id="sidebar-cart"
+          aria-label="Close cart"
+        >
+          <svg class="Icon Icon--close" role="presentation" viewBox="0 0 16 14">
+            <path
+              d="M15 0L1 14m14 0L1 0"
+              stroke="currentColor"
+              fill="none"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <form class="Cart Drawer__Content" action="/cart" method="POST" novalidate>
+        <div class="Drawer__Main" data-scrollable>
+          <p class="Cart__Empty Heading u-h5">Your cart is empty</p>
+        </div>
+      </form>
+    </div>
+    <div class="PageContainer">
+      <div
+        id="shopify-section-header"
+        class="shopify-section shopify-section--header"
+      >
+        <div id="Search" class="Search" aria-hidden="true">
+          <div class="Search__Inner">
+            <div class="Search__SearchBar">
+              <form action="/search" name="GET" role="search" class="Search__Form">
+                <div class="Search__InputIconWrapper">
+                  <span class="hidden-tablet-and-up"
+                    ><svg
+                      class="Icon Icon--search"
+                      role="presentation"
+                      viewBox="0 0 18 17"
+                    >
+                      <g
+                        transform="translate(1 1)"
+                        stroke="currentColor"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="square"
+                      >
+                        <path d="M16 16l-5.0752-5.0752"></path>
+                        <circle cx="6.4" cy="6.4" r="6.4"></circle>
+                      </g></svg
+                  ></span>
+                  <span class="hidden-phone"
+                    ><svg
+                      class="Icon Icon--search-desktop"
+                      role="presentation"
+                      viewBox="0 0 21 21"
+                    >
+                      <g
+                        transform="translate(1 1)"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="square"
+                      >
+                        <path d="M18 18l-5.7096-5.7096"></path>
+                        <circle cx="7.2" cy="7.2" r="7.2"></circle>
+                      </g></svg
+                  ></span>
+                </div>
+
+                <input
+                  type="search"
+                  class="Search__Input Heading"
+                  name="q"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  aria-label="Search..."
+                  placeholder="Search..."
+                  autofocus
+                />
+                <input type="hidden" name="type" value="product" />
+              </form>
+
+              <button
+                class="Search__Close Link Link--primary"
+                data-action="close-search"
+                aria-label="Close search"
+              >
+                <svg
+                  class="Icon Icon--close"
+                  role="presentation"
+                  viewBox="0 0 16 14"
+                >
+                  <path
+                    d="M15 0L1 14m14 0L1 0"
+                    stroke="currentColor"
+                    fill="none"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="Search__Results" aria-hidden="true">
+              <div class="PageLayout PageLayout--breakLap">
+                <div class="PageLayout__Section"></div>
+                <div
+                  class="PageLayout__Section PageLayout__Section--secondary"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <header
+          id="section-header"
+          class="Header main-header Header--inline"
+          data-section-id="header"
+          data-section-type="header"
+          data-section-settings='{
+  "navigationStyle": "inline",
+  "hasTransparentHeader":
+  false,
+  "isSticky":
+  true
+  }'
+          role="banner"
+        >
+          <div class="Header__Wrapper">
+            <div class="Header__FlexItem Header__FlexItem--fill menu-btn">
+              <button
+                class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable hidden-desk"
+                aria-expanded="false"
+                data-drawer-id="sidebar-menu"
+                aria-label="Open navigation"
+              >
+                <div class="burger-menu">
+                  <div class="bar">
+                    <span class="bar-1"></span>
+                    <span class="bar-2"></span>
+                    <span class="bar-3"></span>
+                  </div>
+                </div>
+              </button>
+              <nav
+                class="Header__MainNav hidden-pocket hidden-lap"
+                aria-label="Main navigation"
+              >
+                <ul class="HorizontalList HorizontalList--spacingExtraLoose">
+                  <li class="HorizontalList__Item is-active">
+                    <a href="https://bushhallmusic.co.uk/pages/whats-on" class="Heading">What&#39;s On</a>
+                  </li>
+                  <li class="HorizontalList__Item">
+                    <a href="https://bushhallmusic.co.uk/pages/venue-hire" class="Heading">Venue Hire</a>
+                  </li>
+                  <li class="HorizontalList__Item">
+                    <a href="https://bushhallmusic.co.uk/pages/gallery" class="Heading">Gallery</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="Header__FlexItem Header__FlexItem--logo">
+              <div class="Header__Logo">
+                <a href="https://bushhallmusic.co.uk/" class="Header__LogoImage">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="230.898"
+                    height="59.696"
+                    viewBox="0 0 230.898 59.696"
+                  >
+                    <defs>
+                      <clipPath id="clip-path">
+                        <path
+                          id="Path_672"
+                          data-name="Path 672"
+                          d="M0-27.673H230.9v-59.7H0Z"
+                          transform="translate(0 87.369)"
+                        />
+                      </clipPath>
+                    </defs>
+                    <g
+                      id="Group_128"
+                      data-name="Group 128"
+                      transform="translate(0 87.37)"
+                    >
+                      <g
+                        id="Group_112"
+                        data-name="Group 112"
+                        transform="translate(0 -87.369)"
+                        clip-path="url(#clip-path)"
+                      >
+                        <g
+                          id="Group_109"
+                          data-name="Group 109"
+                          transform="translate(0 14.213)"
+                        >
+                          <path
+                            id="Path_669"
+                            data-name="Path 669"
+                            d="M0-16.368,2.948-50.746l12.494-.865c7.4-.513,10.87,1.981,10.4,7.428-.417,4.865-2.856,7.558-7.561,8.778,5.882.066,8.188,2.693,7.752,7.77Q25.219-18.116,13.419-17.3ZM17.38-28.614q.273-3.172-3.2-2.933l-3.7.256-.543,6.347,3.7-.257q3.471-.241,3.743-3.414m-2.654-9.279a3.115,3.115,0,0,0,3.256-3.117c.168-1.958-.768-2.839-2.758-2.7l-3.7.256-.5,5.818Z"
+                            transform="translate(0 51.677)"
+                          />
+                        </g>
+                        <g
+                          id="Group_110"
+                          data-name="Group 110"
+                          transform="translate(28.666 11.41)"
+                        >
+                          <path
+                            id="Path_670"
+                            data-name="Path 670"
+                            d="M-5.568-16.605c-9.209.637-12.784-3.793-11.873-14.424L-15.763-50.6l9.255-.641L-8.186-31.67c-.449,5.236.383,7.333,3.3,7.132s4.119-2.441,4.568-7.677L1.36-51.784l9.254-.641L8.936-32.856c-.911,10.63-5.295,15.613-14.5,16.251"
+                            transform="translate(17.579 52.425)"
+                          />
+                        </g>
+                        <g
+                          id="Group_111"
+                          data-name="Group 111"
+                          transform="translate(57.703 9.788)"
+                        >
+                          <path
+                            id="Path_671"
+                            data-name="Path 671"
+                            d="M-4.12-16.525a21.859,21.859,0,0,1-8.887-.962l.862-10.049A11.377,11.377,0,0,0-7.964-25.88a17.176,17.176,0,0,0,4.615.363c2.915-.2,4.464-1.1,4.6-2.685.385-4.5-13.91-1.4-12.935-12.774C-11.153-47.163-6.448-51.589,1-52.105A18.463,18.463,0,0,1,9.195-51.1L8.333-41.046a10.588,10.588,0,0,0-7.64-2.1c-2.776.193-4.224.976-4.346,2.4-.385,4.5,13.91,1.4,12.935,12.774-.576,6.717-5.211,10.875-13.4,11.443"
+                            transform="translate(13.007 52.173)"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        id="Group_113"
+                        data-name="Group 113"
+                        transform="translate(81.907 -79.885)"
+                      >
+                        <path
+                          id="Path_673"
+                          data-name="Path 673"
+                          d="M-9.556-9.859l-10.181.7L-20.916,4.6l-9.255.641,2.948-34.378,9.255-.642-1.088,12.694,10.181-.705,1.088-12.694,9.255-.641L-1.481,3.251l-9.255.642Z"
+                          transform="translate(30.171 31.127)"
+                        />
+                      </g>
+                      <g
+                        id="Group_114"
+                        data-name="Group 114"
+                        transform="translate(124.48 -82.834)"
+                      >
+                        <path
+                          id="Path_674"
+                          data-name="Path 674"
+                          d="M-9.556-9.859l-10.181.705L-20.916,4.6l-9.255.641,2.948-34.378,9.255-.642-1.088,12.694,10.181-.705,1.088-12.694,9.255-.641L-1.481,3.251l-9.255.642Z"
+                          transform="translate(30.171 31.127)"
+                        />
+                      </g>
+                      <g
+                        id="Group_115"
+                        data-name="Group 115"
+                        transform="translate(154.79 -84.34)"
+                      >
+                        <path
+                          id="Path_675"
+                          data-name="Path 675"
+                          d="M-8.811-12.8l-7.173.5-1.885,6.966-9.949.689,12.435-35.035,10.643-.737L1.8-6.7l-9.95.689ZM-10.76-31.912-14.007-19.8l4.443-.307Z"
+                          transform="translate(27.818 40.425)"
+                        />
+                      </g>
+                      <g
+                        id="Group_116"
+                        data-name="Group 116"
+                        transform="translate(186.025 -85.75)"
+                      >
+                        <path
+                          id="Path_676"
+                          data-name="Path 676"
+                          d="M-1.367-.3,7.889-.938,5.62,25.506l11.569-.8-.681,7.933L-4.315,34.081Z"
+                          transform="translate(4.315 0.938)"
+                        />
+                      </g>
+                      <g
+                        id="Group_117"
+                        data-name="Group 117"
+                        transform="translate(209.394 -87.37)"
+                      >
+                        <path
+                          id="Path_677"
+                          data-name="Path 677"
+                          d="M-1.366-.3-4.314,34.08,16.51,32.637,17.19,24.7l-11.568.8L7.889-.94Z"
+                          transform="translate(4.314 0.94)"
+                        />
+                      </g>
+                      <g
+                        id="Group_118"
+                        data-name="Group 118"
+                        transform="translate(89.239 -35.038)"
+                      >
+                        <path
+                          id="Path_678"
+                          data-name="Path 678"
+                          d="M-.36-.154l-.778,7.033,5.2-.334L4.18,5.429.2,5.686.4,3.807l3.487-.225.123-1.115L.528,2.692.729.884,4.662.631,4.786-.485Z"
+                          transform="translate(1.138 0.485)"
+                        />
+                      </g>
+                      <g
+                        id="Group_120"
+                        data-name="Group 120"
+                        transform="translate(0 -87.369)"
+                        clip-path="url(#clip-path)"
+                      >
+                        <g
+                          id="Group_119"
+                          data-name="Group 119"
+                          transform="translate(96.048 51.951)"
+                        >
+                          <path
+                            id="Path_679"
+                            data-name="Path 679"
+                            d="M-1.287-3.35A4.009,4.009,0,0,1-2.8-3.527a3.322,3.322,0,0,1-1.267-.761l.833-.932a3.318,3.318,0,0,0,.948.612,2.536,2.536,0,0,0,1.146.161,1.725,1.725,0,0,0,.926-.3.927.927,0,0,0,.4-.665l0-.02a.766.766,0,0,0-.027-.333.562.562,0,0,0-.208-.26,1.509,1.509,0,0,0-.452-.21,5.877,5.877,0,0,0-.767-.17,6.731,6.731,0,0,1-.958-.232A2.153,2.153,0,0,1-2.9-6.992a1.213,1.213,0,0,1-.385-.549,1.861,1.861,0,0,1-.063-.814l0-.02a2.181,2.181,0,0,1,.269-.84,2.45,2.45,0,0,1,.559-.674,2.824,2.824,0,0,1,.793-.465,3.181,3.181,0,0,1,.97-.212A3.67,3.67,0,0,1,.6-10.429a3.266,3.266,0,0,1,1.075.584l-.759.977a3.4,3.4,0,0,0-.884-.477A2.321,2.321,0,0,0-.9-9.47a1.5,1.5,0,0,0-.862.294.9.9,0,0,0-.363.612l0,.02a.8.8,0,0,0,.03.353.535.535,0,0,0,.223.265,1.747,1.747,0,0,0,.482.2q.312.09.8.178A6.741,6.741,0,0,1,.345-7.3,1.931,1.931,0,0,1,1-6.924a1.287,1.287,0,0,1,.36.546,1.728,1.728,0,0,1,.061.749l0,.02a2.345,2.345,0,0,1-.28.9,2.415,2.415,0,0,1-.581.7,2.764,2.764,0,0,1-.827.463,3.7,3.7,0,0,1-1.018.2"
+                            transform="translate(4.063 10.577)"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        id="Group_121"
+                        data-name="Group 121"
+                        transform="translate(103.4 -35.94)"
+                      >
+                        <path
+                          id="Path_681"
+                          data-name="Path 681"
+                          d="M-1.022-.633l-2.206.142L-3.1-1.637,2.541-2,2.415-.855.209-.713-.442,5.175l-1.231.079Z"
+                          transform="translate(3.228 2)"
+                        />
+                      </g>
+                      <g
+                        id="Group_122"
+                        data-name="Group 122"
+                        transform="translate(109.961 -30.47)"
+                      >
+                        <path
+                          id="Path_682"
+                          data-name="Path 682"
+                          d="M-.071-.04,1.251-.125,1.1,1.252l-1.321.085Z"
+                          transform="translate(0.223 0.125)"
+                        />
+                      </g>
+                      <g
+                        id="Group_126"
+                        data-name="Group 126"
+                        transform="translate(0 -87.369)"
+                        clip-path="url(#clip-path)"
+                      >
+                        <g
+                          id="Group_123"
+                          data-name="Group 123"
+                          transform="translate(116.418 50.633)"
+                        >
+                          <path
+                            id="Path_683"
+                            data-name="Path 683"
+                            d="M-.05-2.938l2.622-2.21q.39-.324.666-.586a4.42,4.42,0,0,0,.454-.493,2.105,2.105,0,0,0,.271-.445,1.6,1.6,0,0,0,.12-.456.871.871,0,0,0-.234-.786,1,1,0,0,0-.768-.234,1.624,1.624,0,0,0-.868.315,5.035,5.035,0,0,0-.858.843L.566-7.618a7.825,7.825,0,0,1,.577-.663,3.462,3.462,0,0,1,.613-.5,3.1,3.1,0,0,1,.7-.331,3.3,3.3,0,0,1,.84-.155,2.547,2.547,0,0,1,.912.091,1.678,1.678,0,0,1,.678.381,1.519,1.519,0,0,1,.4.633,1.965,1.965,0,0,1,.074.848l0,.02a2.65,2.65,0,0,1-.192.756,2.935,2.935,0,0,1-.4.67,5.454,5.454,0,0,1-.635.664q-.378.339-.877.75l-1.564,1.3,3.308-.213-.12,1.085-5.027.324Z"
+                            transform="translate(0.158 9.277)"
+                          />
+                        </g>
+                        <g
+                          id="Group_124"
+                          data-name="Group 124"
+                          transform="translate(123.439 50.16)"
+                        >
+                          <path
+                            id="Path_684"
+                            data-name="Path 684"
+                            d="M-1.229-3.376a2.446,2.446,0,0,1-1.211-.2,2.232,2.232,0,0,1-.868-.712A2.883,2.883,0,0,1-3.791-5.4a4.283,4.283,0,0,1-.057-1.4l0-.02a4.966,4.966,0,0,1,.375-1.431,4.525,4.525,0,0,1,.744-1.2,3.757,3.757,0,0,1,1.045-.84A3.048,3.048,0,0,1-.4-10.651a2.454,2.454,0,0,1,1.211.2,2.194,2.194,0,0,1,.863.713,2.989,2.989,0,0,1,.484,1.111,4.2,4.2,0,0,1,.062,1.4l0,.02a4.977,4.977,0,0,1-.375,1.431,4.525,4.525,0,0,1-.744,1.2,3.755,3.755,0,0,1-1.045.84,3.051,3.051,0,0,1-1.278.367m.143-1.116a1.58,1.58,0,0,0,.752-.243A2.291,2.291,0,0,0,.276-5.3,3.24,3.24,0,0,0,.717-6.12a4.069,4.069,0,0,0,.232-.987l0-.02A3.409,3.409,0,0,0,.931-8.1a2.328,2.328,0,0,0-.269-.776,1.373,1.373,0,0,0-.5-.507,1.225,1.225,0,0,0-.708-.154,1.58,1.58,0,0,0-.752.243,2.291,2.291,0,0,0-.61.568,3.219,3.219,0,0,0-.441.816,4.077,4.077,0,0,0-.232.987l0,.02a3.551,3.551,0,0,0,.016.972,2.168,2.168,0,0,0,.269.776,1.412,1.412,0,0,0,.5.506,1.215,1.215,0,0,0,.713.154"
+                            transform="translate(3.88 10.658)"
+                          />
+                        </g>
+                        <g
+                          id="Group_125"
+                          data-name="Group 125"
+                          transform="translate(131.128 49.664)"
+                        >
+                          <path
+                            id="Path_685"
+                            data-name="Path 685"
+                            d="M-1.229-3.376a2.446,2.446,0,0,1-1.211-.2,2.232,2.232,0,0,1-.868-.712A2.883,2.883,0,0,1-3.791-5.4a4.283,4.283,0,0,1-.057-1.4l0-.02a4.966,4.966,0,0,1,.375-1.431,4.525,4.525,0,0,1,.744-1.2,3.757,3.757,0,0,1,1.045-.84A3.048,3.048,0,0,1-.4-10.651a2.446,2.446,0,0,1,1.211.2,2.194,2.194,0,0,1,.863.713,2.989,2.989,0,0,1,.484,1.111,4.2,4.2,0,0,1,.062,1.4l0,.02a4.977,4.977,0,0,1-.375,1.431,4.525,4.525,0,0,1-.744,1.2,3.755,3.755,0,0,1-1.045.84,3.051,3.051,0,0,1-1.278.367m.143-1.116a1.58,1.58,0,0,0,.752-.243A2.291,2.291,0,0,0,.276-5.3,3.24,3.24,0,0,0,.717-6.12a4.069,4.069,0,0,0,.232-.987l0-.02A3.409,3.409,0,0,0,.931-8.1a2.328,2.328,0,0,0-.269-.775,1.377,1.377,0,0,0-.5-.507,1.229,1.229,0,0,0-.709-.154,1.58,1.58,0,0,0-.752.243,2.291,2.291,0,0,0-.61.568,3.219,3.219,0,0,0-.441.816,4.077,4.077,0,0,0-.232.987l0,.02a3.551,3.551,0,0,0,.016.972,2.168,2.168,0,0,0,.269.776,1.417,1.417,0,0,0,.5.506,1.216,1.216,0,0,0,.713.154"
+                            transform="translate(3.88 10.658)"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        id="Group_127"
+                        data-name="Group 127"
+                        transform="translate(138.871 -38.083)"
+                      >
+                        <path
+                          id="Path_687"
+                          data-name="Path 687"
+                          d="M-.666-.618l-1.291.433L-2.1-1.174-.17-1.9l.854-.055L-.1,5.131l-1.212.079Z"
+                          transform="translate(2.104 1.952)"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="Header__FlexItem Header__FlexItem--fill">
+              <nav
+                class="Header__MainNav hidden-pocket hidden-lap"
+                aria-label="Main navigation"
+              >
+                <ul class="HorizontalList HorizontalList--spacingExtraLoose">
+                  <li class="HorizontalList__Item">
+                    <a href="https://bushhallmusic.co.uk/pages/about" class="Heading">About</a>
+                  </li>
+                  <li class="HorizontalList__Item">
+                    <a href="https://bushhallmusic.co.uk/collections/frontpage" class="Heading">Merch</a>
+                  </li>
+                  <li class="HorizontalList__Item">
+                    <a href="https://bushhallmusic.co.uk/pages/contact" class="Heading">Contact</a>
+                  </li>
+                </ul>
+              </nav>
+              <div class="header-socials-wrapper">
+                <ul
+                  class="Footer__Social HorizontalList HorizontalList--spacingLoose"
+                >
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://en-gb.facebook.com/bushhallmusic/"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Facebook"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg class="Icon Icon--facebook" viewBox="0 0 9 17">
+                          <path
+                            d="M5.842 17V9.246h2.653l.398-3.023h-3.05v-1.93c0-.874.246-1.47 1.526-1.47H9V.118C8.718.082 7.75 0 6.623 0 4.27 0 2.66 1.408 2.66 3.994v2.23H0v3.022h2.66V17h3.182z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://www.instagram.com/bushhallmusic/"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Instagram"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg
+                          class="Icon Icon--instagram"
+                          role="presentation"
+                          viewBox="0 0 32 32"
+                        >
+                          <path
+                            d="M15.994 2.886c4.273 0 4.775.019 6.464.095 1.562.07 2.406.33 2.971.552.749.292 1.283.635 1.841 1.194s.908 1.092 1.194 1.841c.216.565.483 1.41.552 2.971.076 1.689.095 2.19.095 6.464s-.019 4.775-.095 6.464c-.07 1.562-.33 2.406-.552 2.971-.292.749-.635 1.283-1.194 1.841s-1.092.908-1.841 1.194c-.565.216-1.41.483-2.971.552-1.689.076-2.19.095-6.464.095s-4.775-.019-6.464-.095c-1.562-.07-2.406-.33-2.971-.552-.749-.292-1.283-.635-1.841-1.194s-.908-1.092-1.194-1.841c-.216-.565-.483-1.41-.552-2.971-.076-1.689-.095-2.19-.095-6.464s.019-4.775.095-6.464c.07-1.562.33-2.406.552-2.971.292-.749.635-1.283 1.194-1.841s1.092-.908 1.841-1.194c.565-.216 1.41-.483 2.971-.552 1.689-.083 2.19-.095 6.464-.095zm0-2.883c-4.343 0-4.889.019-6.597.095-1.702.076-2.864.349-3.879.743-1.054.406-1.943.959-2.832 1.848S1.251 4.473.838 5.521C.444 6.537.171 7.699.095 9.407.019 11.109 0 11.655 0 15.997s.019 4.889.095 6.597c.076 1.702.349 2.864.743 3.886.406 1.054.959 1.943 1.848 2.832s1.784 1.435 2.832 1.848c1.016.394 2.178.667 3.886.743s2.248.095 6.597.095 4.889-.019 6.597-.095c1.702-.076 2.864-.349 3.886-.743 1.054-.406 1.943-.959 2.832-1.848s1.435-1.784 1.848-2.832c.394-1.016.667-2.178.743-3.886s.095-2.248.095-6.597-.019-4.889-.095-6.597c-.076-1.702-.349-2.864-.743-3.886-.406-1.054-.959-1.943-1.848-2.832S27.532 1.247 26.484.834C25.468.44 24.306.167 22.598.091c-1.714-.07-2.26-.089-6.603-.089zm0 7.778c-4.533 0-8.216 3.676-8.216 8.216s3.683 8.216 8.216 8.216 8.216-3.683 8.216-8.216-3.683-8.216-8.216-8.216zm0 13.549c-2.946 0-5.333-2.387-5.333-5.333s2.387-5.333 5.333-5.333 5.333 2.387 5.333 5.333-2.387 5.333-5.333 5.333zM26.451 7.457c0 1.059-.858 1.917-1.917 1.917s-1.917-.858-1.917-1.917c0-1.059.858-1.917 1.917-1.917s1.917.858 1.917 1.917z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://twitter.com/bushhallmusic"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Twitter"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg
+                          class="Icon Icon--twitter"
+                          role="presentation"
+                          viewBox="0 0 32 26"
+                        >
+                          <path
+                            d="M32 3.077c-1.1748.525-2.4433.8748-3.768 1.031 1.356-.8123 2.3932-2.0995 2.887-3.6305-1.2686.7498-2.6746 1.2997-4.168 1.5934C25.751.796 24.045.0025 22.158.0025c-3.6242 0-6.561 2.937-6.561 6.5612 0 .5124.0562 1.0123.1686 1.4935C10.3104 7.7822 5.474 5.1702 2.237 1.196c-.5624.9687-.8873 2.0997-.8873 3.2994 0 2.2746 1.156 4.2867 2.9182 5.4615-1.075-.0314-2.0872-.3313-2.9745-.8187v.0812c0 3.1806 2.262 5.8363 5.2677 6.4362-.55.15-1.131.2312-1.731.2312-.4248 0-.831-.0438-1.2372-.1188.8374 2.6057 3.262 4.5054 6.13 4.5616-2.2495 1.7622-5.074 2.812-8.1546 2.812-.531 0-1.0498-.0313-1.5684-.0938 2.912 1.8684 6.3613 2.9494 10.0668 2.9494 12.0726 0 18.6776-10.0043 18.6776-18.6776 0-.2874-.0063-.5686-.0188-.8498C30.0066 5.5514 31.119 4.3954 32 3.077z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+      
+      
+      
+      
+      
+    <main class="l-content">
+    	
+			
+
+<script>
+    // Reload the page if the back/forward buttons are clicked on an iOS device to a page where form elements have been disabled.
+    // These state of these elements are otherwise persisted by the back-forward cache.
+    try {
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                var isIosOrSafari = (/iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) || /apple/i.test(navigator.vendor))
+                    && !window.MSStream;
+
+                if (isIosOrSafari && document.querySelector('.see-auto-dis') != null) {
+                    window.location.reload();
+                }
+            }
+        };
+    }
+    catch (error) {
+    }
+
+    function getCookie(name) {
+        var pattern = RegExp(name + "=.[^;]*");
+        var matched = document.cookie.match(pattern);
+
+        if (matched) {
+            var cookie = matched[0].split('=');
+            return cookie[1];
+        }
+
+        return null;
+    }
+</script>
+
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+            </style>
+    <div id='google_translate_element'></div>
+
+
+
+
+
+<div id="svg-container" style="display: none"></div>
+<script>
+    !function() {
+        var xhr = new XMLHttpRequest();
+        var svgSkinVersion = 2;
+
+        if (svgSkinVersion == 2) {
+            xhr.open("GET", 'https://c.ststat.net/content/seeticketsv2/dev/icondefs_redesign_2025.svg');
+        }
+        else {
+            xhr.open("GET", 'https://c.ststat.net/content/seeticketsv2/svgs/icondefs.svg');
+        }
+
+        xhr.onload = function() {
+            document.getElementById('svg-container').innerHTML = xhr.responseText;
+        }
+
+        xhr.send();
+    }();
+</script>
+
+    <div id="mobileDrawerOverlay" hidden></div>
+
+
+
+
+
+
+
+
+
+    <nav class="g-nav-breadcrumbs g-outer gat-app-hide" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <div class="g-inner">
+            <div class="g-nav-breadcrumbs-content">
+                <div class="g-nav-breadcrumbs-content"><span class="genrelink" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/music-tickets" itemprop="item" itemscope="" itemtype="http://schema.org/Thing"><span itemprop="name">Music</span></a><meta itemprop='position' content='1' /></span> <span class="g-nav-breadcrumbs-icon"><svg aria-hidden="true" class="g-icon chevron-right"><use xlink:href="#icon-chevron-right"></use></svg></span> <span itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/search?c=3" itemprop="item" itemscope="" itemtype="http://schema.org/Thing"><span itemprop="name">Rock</span></a><meta itemprop='position' content='2' /></span> <span class="g-nav-breadcrumbs-icon"><svg aria-hidden="true" class="g-icon chevron-right"><use xlink:href="#icon-chevron-right"></use></svg></span> <span itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/search?c=166&amp;c=3" itemprop="item" itemscope="" itemtype="http://schema.org/Thing"><span itemprop="name">Punk/Ska</span></a><meta itemprop='position' content='3' /></span> <span class="g-nav-breadcrumbs-icon"><svg aria-hidden="true" class="g-icon chevron-right"><use xlink:href="#icon-chevron-right"></use></svg></span> <a href="/tour/punks-for-charity-presents-class-of-79" title="punks-for-charity-presents-class-of-79"><strong>PUNKS FOR CHARITY PRESENTS CLASS OF '79 Tickets</strong></a></div>
+            </div>
+        </div>
+    </nav>
+
+<div class="g-masthead">
+    <div class="g-inner g-masthead-inner">
+
+            <img class="mobile-only mobile-masthead-event-img v2-event-img" src="https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg" alt="PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79" title="PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79">
+
+        
+
+<div class="masthead-title-grid">
+
+    <div>
+        <h1 class="g-masthead-title">
+
+
+            <span>
+PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79
+            </span>
+
+        </h1>
+
+        <span class="g-masthead-subtitle">
+
+Bush Hall, Shepherds Bush, London.                        <time>Saturday 05 September 2026</time>
+
+        </span>
+    </div>
+
+</div>
+
+
+
+    </div>
+</div>
+
+<div class="g-outer g-grey tight">
+
+
+    <div class="g-inner">
+
+        <div class="g-grid">
+
+            <div class="g-grid-col x3 xtf xif ot2 oi2 om2">
+                <div data-behaviour="stickOnScroll">
+                        <div class="blur-image-card desktop-only">
+                            <div class="blur-image-card__bg" style="background-image: url('https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg')"></div>
+                            <img src="https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg" alt="PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79" title="PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79" class="blur-image-card__img v2-event-img">
+                        </div>
+
+                        <section class="g-ui-box desktop-only cca-desk-container uk-fees-container">
+                            
+
+
+<div class="cca-fee-info">
+
+        <div class="cca-fee-item">
+            <span>Tickets total</span>
+            <span class="ticketsRunningTotal">-</span>
+        </div>
+
+
+        <div class="cca-fee-item cca-trans-fee">
+            <span>
+                Transaction fee
+                <a data-handler="contextOverlay" data-target="transctionFeeMessage" style="margin-left: 3px;">
+                    <svg aria-hidden="true" class="g-icon icon-info"><use xlink:href="#icon-info"></use></svg>
+                </a>
+            </span>
+            <span class="cca-trans-fee-value">&#xA3;1.00</span>
+        </div>
+
+</div>
+
+<div id="transctionFeeMessage" style="display: none">
+
+
+    <div style="padding:15px 15px 40px 15px;" class="messi-page">
+<p>The transaction fee covers the costs of processing your order, packing and delivering the tickets to you. In many cases it also covers the cost of producing your tickets. This fee can also apply to tickets arranged for collection.</p>
+
+<p>The transaction fee applies per order not per ticket. If you purchase six tickets, you only pay one transaction fee.</p>
+
+<p>The transaction fee will vary depending on what type of postage we are being asked to use by the event organiser and these costs are reflective of the amount that See are charged by despatch companies. First class post and Registered Post prices will vary accordingly.</p>
+
+<p>See only send tickets securely for events that do not issue duplicate tickets in the event that tickets get lost in the post.</p>
+  
+<p>This fee may also be applied to both print at home and e-tickets to cover the cost of deploying technology and/or staff to the venue site.</p>
+  
+</div>
+</div>
+
+
+                        </section>
+
+                    <aside class="eventinfo">
+                        <section>
+                                    <h3 class="border">
+                                        <a href="/venue/bush-hall/1818 " title="Bush Hall, Shepherds Bush, London">
+
+                                            Bush Hall, Shepherds Bush, London
+
+                                                <span class="eventInfoPostcode">W12 7LJ</span>
+                                        </a>
+                                    </h3>
+
+                            <p>
+                                        <time>Saturday 05 September 2026 at 16:30</time>
+.                            </p>
+
+
+
+
+                                <p class="g-small-print g-facility-fee-note warning">Please note the booking fee for this event includes a Venue Levy of &#xA3;1.25 which is charged by the venue</p>
+
+                        </section>
+
+
+
+
+                            <aside class="g-driver tight small link icon">
+                                <a class="g-driver-link" href="/tour/punks-for-charity-presents-class-of-79" title="All listings">
+                                    <svg aria-hidden="true" class="g-icon arrow-thin flip"><use xlink:href="#icon-arrow-thin"></use></svg>
+                                    <span class="g-driver-text">&nbsp; All listings</span>
+                                </a>
+                            </aside>
+
+                    </aside>
+
+
+<aside class="g-ui-box tight g-powered-by-see gat-app-hide">
+    <p>
+        <a href="https://www.seetickets.com" title="Powered by See" style="text-decoration: none; ">
+
+                <span id="poweredByEventimSee">
+                    <span>Powered by</span>
+                    <img style="width: 120px;" src="https://c.ststat.net/content/seeticketsv2/eventim/svgs/see-by-eventim-blue-yellow.svg" title="See Tickets by Eventim" />
+                </span>
+        </a>
+    </p>
+</aside>
+                </div>
+
+            </div>
+
+            <div class="g-grid-col x9" data-stickOnScroll-target>
+
+                <section class="g-ui-box">
+
+
+
+
+
+
+                        
+
+
+                        <p class="warning g-age-restriction-note">
+                            <span class="circle-icon-container">
+                                <svg aria-hidden="true" class="g-icon g-icon-large"><use xlink:href="#age-res"></use></svg>
+                            </span>
+                            {{16}}s - {{18}}s must be accompanied by an adult. No refunds will be given for incorrectly booked tickets.
+                        </p>
+
+
+
+
+                    
+
+    <div id="tabs" class="pv-shared-event-price-list-form no-seating-plan">
+
+        <div id="pricesTab" class="tab active">
+
+
+
+
+
+
+
+            
+
+            <div id="prices">
+                <form method="post" id="selecttickets" action="/event/punks-for-charity-presents-class-of-79/bush-hall/3625627">
+
+                    <input id="EventId" name="EventId" type="hidden" value="DF-3625627" />
+                    <input id="Event_Name" name="Event.Name" type="hidden" value="PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79" />
+                    <input data-val="true" data-val-required="The Starts field is required." id="Event_Starts" name="Event.Starts" type="hidden" value="05/09/2026 16:30:00" />
+                    <input data-val="true" data-val-required="The QuantityFirstTickets field is required." id="QuantityFirstTickets" name="QuantityFirstTickets" type="hidden" value="0" />
+                    <input id="Selection_OfferCode" name="Selection.OfferCode" type="hidden" value="" />
+
+
+                    <div class="clear text-right" id="quantity-validation">
+                        <span class="field-validation-valid" data-valmsg-for="All" data-valmsg-replace="true"></span>
+                    </div>
+
+
+                        <div >
+
+                                <div data-offer-id="0" class=" v2-price-group price-list price-list-inner one-group-top     ">
+
+
+
+    <div class="v2-price-list-container v2-price-multi-False">
+
+        <div class="v2-price-render-group">
+                <div class=" ticket v2-price-row"
+                    data-pricetype="1"
+                    data-currency-code="GBP"
+                    data-priceGlobalId="DF-3625627_1"
+                     id="PriceType1_Price" >
+
+                    <div class="v2-price-row__price">
+
+                        <h4>
+                            EARLY BIRD
+                        </h4>
+
+                        <span class=" v2-price-row__price-label">
+
+
+                            
+&#xA3;14.45                                    <em class="fees">Face value (&#xA3;12.00)</em>
+                        </span>
+
+
+
+                        
+
+                        <a name="1"></a>
+
+                    </div>
+
+                            <p class="v2-price-status">
+Sold out
+                            </p>
+
+                    <div class="v2-price-after">
+
+                    </div>
+                </div>
+        </div>
+
+
+    </div>
+    <div class="v2-price-list-container v2-price-multi-False">
+
+        <div class="v2-price-render-group">
+                <div class=" ticket v2-price-row"
+                    data-pricetype="2"
+                    data-currency-code="GBP"
+                    data-priceGlobalId="DF-3625627_2"
+                     id="PriceType2_Price" >
+
+                    <div class="v2-price-row__price">
+
+                        <h4>
+                            GENERAL ADMISSION
+                        </h4>
+
+                        <span class=" v2-price-row__price-label">
+
+
+                            
+&#xA3;17.75                                    <em class="fees">Face value (&#xA3;15.00)</em>
+                        </span>
+
+
+
+                        
+
+                        <a name="2"></a>
+
+                    </div>
+
+                            <input type="hidden" name="Selection.TicketSelections.Index" value="DF-3625627_2" />
+                            <input type="hidden" name="Selection.TicketSelections[DF-3625627_2].PriceGlobalId" value="DF-3625627_2" />
+                            <label class="sr-only" for="Selection_TicketSelections_[DF-3625627_2]__Quantity">Quantity selection for ticket type GENERAL ADMISSION</label>
+                            <div class="v2-price-selections">
+
+                                    <div class="v2-price-row__price-select">
+                                        <button type="button" class="v2-price-minus" data-faux-qty-for="DF-3625627_2" data-qty-for="Selection_TicketSelections_[DF-3625627_2]__Quantity">
+                                            <svg aria-hidden="true" class="g-icon icon-minus"><use xlink:href="#icon-minus"></use></svg>
+                                        </button>
+                                        <span class="v2-price-quan">
+                                            <input class="v2-price-num-only" type="text" value="0" id="faux-qty-DF-3625627_2" data-qty-for="Selection_TicketSelections_[DF-3625627_2]__Quantity"/>
+                                        </span>
+                                        <button type="button" class="v2-price-plus" data-faux-qty-for="DF-3625627_2" data-qty-for="Selection_TicketSelections_[DF-3625627_2]__Quantity">
+                                            <svg aria-hidden="true" class="g-icon icon-plus"><use xlink:href="#icon-plus"></use></svg>
+                                        </button>
+                                    </div>
+
+                                <div class="v2-price-select-hidden legacy-quantity-sel">
+                                    <select id="Selection_TicketSelections_[DF-3625627_2]__Quantity" name="Selection.TicketSelections[DF-3625627_2].Quantity" class="qty-sel" data-quantity-select="true" data-max-quantity="10" data-max-sell="10" data-item-type="Admission" data-ticket-price="17.75">
+                                        <option value="0">0</option>
+
+                                            <option value="1" >1</option>
+                                            <option value="2" >2</option>
+                                            <option value="3" >3</option>
+                                            <option value="4" >4</option>
+                                            <option value="5" >5</option>
+                                            <option value="6" >6</option>
+                                            <option value="7" >7</option>
+                                            <option value="8" >8</option>
+                                            <option value="9" >9</option>
+                                            <option value="10" >10</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                    <div class="v2-price-after">
+
+                    </div>
+                </div>
+        </div>
+
+
+    </div>
+
+
+                                </div>
+                        </div>
+
+
+    <div id="buyTicketsContainer">
+
+            <section class="mobile-only cca-fees-mobile">
+                
+
+
+<div class="cca-fee-info">
+
+        <div class="cca-fee-item">
+            <span>Tickets total</span>
+            <span class="ticketsRunningTotal">-</span>
+        </div>
+
+
+        <div class="cca-fee-item cca-trans-fee">
+            <span>
+                Transaction fee
+                <a data-handler="contextOverlay" data-target="transctionFeeMessage" style="margin-left: 3px;">
+                    <svg aria-hidden="true" class="g-icon icon-info"><use xlink:href="#icon-info"></use></svg>
+                </a>
+            </span>
+            <span class="cca-trans-fee-value">&#xA3;1.00</span>
+        </div>
+
+</div>
+
+<div id="transctionFeeMessage" style="display: none">
+
+
+    <div style="padding:15px 15px 40px 15px;" class="messi-page">
+<p>The transaction fee covers the costs of processing your order, packing and delivering the tickets to you. In many cases it also covers the cost of producing your tickets. This fee can also apply to tickets arranged for collection.</p>
+
+<p>The transaction fee applies per order not per ticket. If you purchase six tickets, you only pay one transaction fee.</p>
+
+<p>The transaction fee will vary depending on what type of postage we are being asked to use by the event organiser and these costs are reflective of the amount that See are charged by despatch companies. First class post and Registered Post prices will vary accordingly.</p>
+
+<p>See only send tickets securely for events that do not issue duplicate tickets in the event that tickets get lost in the post.</p>
+  
+<p>This fee may also be applied to both print at home and e-tickets to cover the cost of deploying technology and/or staff to the venue site.</p>
+  
+</div>
+</div>
+
+
+            </section>
+
+        <button class="buy-tickets-button g-button primary large half" id="buyTickets" type="submit">
+                <span class="buy-tickets-button__text">Continue</span>
+                <span class="buy-tickets-button__cost"></span>
+        </button>
+    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+<script id="g-floatingBasket-template" type="text/x-handlebars-template">
+
+    <aside class="g-floatingbasket js-behaviours-floatingbasket g-ui-box-content" style="display: none;">
+        <header class="g-floatingbasket-header">
+            <h4 class="border">Your selection</h4>
+        </header>
+        <div class="g-floatingbasket-content">
+            <div class="selection">
+                <p>Your ticket selections will appear here.</p>
+                <ul class="g-order-summary-items"></ul>
+            </div>
+
+
+            <button type="submit" class="g-button primary half hidden">
+                <span>Checkout Now</span>
+                <span class="buy-tickets-button__cost"></span>
+                <svg class="g-icon arrow" aria-hidden="true"><use xlink:href="#icon-arrow"></use></svg>
+            </button>
+
+        </div>
+    </aside>
+</script>
+
+<script id="g-floatingBasket-item-template" type="text/x-handlebars-template">
+    <li class="g-order-summary-item" data-priceglobalid="{{priceglobalid}}">
+        <span class="g-order-summary-item-name">
+            {{quantity}} x {{ticket}}
+        </span>
+
+        {{#if priceglobalid}}
+        <a data-priceglobalid="{{priceglobalid}}" href="#{{priceglobalid}}" title="Remove {{ticket}}" class="g-order-summary-item-remove"><svg class="g-icon close" aria-hidden="true"><use xlink:href="#icon-close"></use></svg></a>
+        {{/if}}
+    </li>
+</script>
+
+<script id="g-order-summary-seatpicker-template" type="text/x-handlebars-template">
+    <li class="g-order-summary-seatpicker" data-seat-identifier="{{seatIdentifier}}">
+        <span class="floating-box-seat-icon" style="background: {{colour}};"></span>
+
+        <span class="g-order-summary-seatpicker-name">
+            {{seatLabel}}
+        </span>
+
+        <a href="javascript:" class="g-order-summary-seatpicker-remove seat-selections__item__remove" title="Remove {{seatLabel}}" data-seat-identifier="{{seatIdentifier}}" style="color: {{colour}};">
+            <svg class="g-icon close" aria-hidden="true" data-seat-identifier="{{seatIdentifier}}">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </a>
+    </li>
+</script>
+
+<script>
+    var floatingBasketProperties = {
+        handlebarsTemplate: "#g-floatingBasket-template",
+        itemTemplate: "#g-floatingBasket-item-template",
+        seatTemplate: "#g-order-summary-seatpicker-template",
+        basketParent: ".eventinfo",
+        quantitySelection: ".qty-sel",
+        floatingBuyButton: ".js-behaviours-floatingbasket button",
+        buyTicketsButton: "#buyTickets",
+        orderItems: ".js-behaviours-floatingbasket .selection ul",
+        selectionMessage: ".js-behaviours-floatingbasket .selection p",
+        facebookFooter: ".facebook-footer",
+        container: ".g-floatingbasket",
+        noFbFooterCookie: "no-fb-share"
+    };
+</script>
+
+
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+
+    dataLayer.push({
+        event: "view_item",
+        ecommerce: {
+            items: [
+
+                            {
+                                item_id: "DF-3625627",
+                                item_name: "PUNKS FOR CHARITY PRESENTS CLASS OF '79",
+                                affiliation: "bushhall.seetickets.com",
+                                coupon: "",
+                                currency: "GBP",
+                                index: 0,
+                                item_brand: "Bush Hall",
+                                item_category: "Rock",
+                                item_category2: "Punk/Ska",
+                                item_town: "Shepherds Bush, London",
+                                item_venue: "Bush Hall",
+                                item_list_id: "0",
+                                item_list_name: "Standard Pricing",
+                                item_variant: "EARLY BIRD",
+                                price: 14.45,
+                                quantity: 1,
+                                event_date: "2026-09-05 16:30:00"
+                            },
+                        
+                            {
+                                item_id: "DF-3625627",
+                                item_name: "PUNKS FOR CHARITY PRESENTS CLASS OF '79",
+                                affiliation: "bushhall.seetickets.com",
+                                coupon: "",
+                                currency: "GBP",
+                                index: 1,
+                                item_brand: "Bush Hall",
+                                item_category: "Rock",
+                                item_category2: "Punk/Ska",
+                                item_town: "Shepherds Bush, London",
+                                item_venue: "Bush Hall",
+                                item_list_id: "0",
+                                item_list_name: "Standard Pricing",
+                                item_variant: "GENERAL ADMISSION",
+                                price: 17.75,
+                                quantity: 1,
+                                event_date: "2026-09-05 16:30:00"
+                            },
+                                    ]
+        }
+    });
+</script>
+
+
+
+                    <div class="v2-icon-info-link">
+                            <div class="g-driver tight small link icon g-venue-accessibility-link v2-icon-info-link__item">
+                                <a class="g-driver-link" href="/venue/bush-hall/1818#venue-information-accessibility" title="View venue accessibility information for Bush Hall, Shepherds Bush, London">
+
+                                    <span class="circle-icon-container">
+                                        <svg aria-hidden="true" class="g-icon g-icon-large"><use xlink:href="#access-logo"></use></svg>
+                                    </span>
+
+                                    View venue accessibility information for Bush Hall, Shepherds Bush, London
+                                </a>
+                            </div>
+
+                    </div>
+
+
+                        <section class="g-event-narratives">
+                            <header class="g-ui-box-header">
+                                <h2 class="g-ui-box-title border">More information about PUNKS FOR CHARITY PRESENTS CLASS OF &#x27;79 tickets</h2>
+                            </header>
+                            <div class="g-ui-box-content">
+                    <div class="notranslate"><p>Punks For Charity is a new fundraising outfit that has been set up by the founder of PhilanthroPunks, Ali Keane and a local West Londoner and former PhilanthroPunks organiser, Hanna. Punks FC will be solely focused on raising money and awareness on West London charities that aren't in receipt of government funding. Our aim is to build a community in West London that comes together and helps raise funds for some vital lifelines for some of the more vulnerable in the community the same way PhilanthroPunks has been doing since 2017.</p>
+<p>The charity we're raising money for this year is The Upper Room. They are a unique charity in what they offer, below is a short summary of what they do:</p>
+<div dir="auto">UR4Driving is an award-winning project which helps people with convictions avoid re-offending by offering them a unique opportunity to gain a full car driving licence, which dramatically improves their self-confidence and employment chances.</div>
+<div dir="auto">UR4Jobs is a FREE multilingual service designed to help people experiencing homelessness, and those with other barriers to employment, to find work.</div>
+<div dir="auto">UR4Meals provides a warm and welcoming environment from which we serve hot, freshly made meals every weekday afternoon from 4 to 6 pm. Anyone can access this service with no questions asked, all year round.</div>
+<div dir="auto">&nbsp;</div>
+<div>Our aim is to support this charity by raising some vital funds for them and really importantly, raising awareness of the charity by putting a punk rock spotlight on them.</div>
+<div>&nbsp;</div>
+<div>With a Line-up featuring:</div>
+<div>&nbsp;</div>
+<div>The Custard Screams</div>
+<div>Foxpalmer</div>
+<div>The Scuts</div>
+<div>Hats off Gentlemen It's Adequate</div>
+<div>Class of '79</div></div>
+                            </div>
+                        </section>
+
+                </section>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+    </main>
+   
+    <div
+        id="shopify-section-footer"
+        class="shopify-section shopify-section--footer"
+      >
+        <div class="Container bot-content slide-content faq-content">
+          <div class="tabs-content">
+            <div>
+              <button class="close close-btn">
+                <p>X</p>
+              </button>
+              <div class="tab-para-wrapper">
+                <p><span style="text-decoration: underline">Tickets </span></p>
+                <p>
+                  <strong>How do I book tickets?</strong> <br /><em
+                    >You can book tickets to any of our shows by visiting our
+                    ?What's On' page. You can also book through the Dice mobile
+                    app.
+                  </em>
+                </p>
+                <p>
+                  <strong
+                    >I have a ticket for an event but can no longer attend, how
+                    do I get a refund?</strong
+                  >
+                  <br /><em
+                    >To get refunds please contact your ticket provider. The
+                    venue </em
+                  ><em><strong>does not</strong></em
+                  ><em> handle any refunds</em>.
+                </p>
+                <p>
+                  <strong
+                    >Someone else booked my tickets for me, but we're not
+                    arriving together. How do I get in?</strong
+                  >
+                  <br /><em
+                    >Sending tickets to your pals is super simple. First off,
+                    make sure they have a DICE account (don't worry, it's quick
+                    to make). We can only transfer tickets between DICE users.
+                    Head to the Tickets tab in the app, and tap on the ticket
+                    you want to send. At the bottom of the screen, you'll see
+                    the option to Send To A Friend. Tap it, enter your buddy's
+                    number and you're good to go.
+                  </em>
+                </p>
+                <p><span style="text-decoration: underline">Venue</span></p>
+                <p>
+                  <strong>Is the event seated or standing?</strong> <br /><em
+                    >Every event will be different, the relevant information
+                    will be available on our website under the event
+                    listing.</em
+                  >
+                </p>
+                <p>
+                  <strong>Will I need an ID to get in?</strong> <br /><em
+                    >We recommend bringing some form of ID to any event, if you
+                    look under 25 then you will be asked for ID at the bar.</em
+                  >
+                </p>
+                <p>
+                  <strong>Is there a cloakroom?</strong> <br /><em
+                    >Yes, the cloakroom service is available from the main bar
+                    and box office. It is £1 per item however do note it does
+                    shut once it reaches full capacity. Please note under
+                    current Covid-19 restrictions our cloakroom is shut.</em
+                  >
+                </p>
+                <p>
+                  <strong
+                    >If I am finding the event too loud, where can I get
+                    earplugs from?</strong
+                  >
+                  <br /><em
+                    >At any event you will be able to request earplugs from any
+                    member of staff.
+                  </em>
+                </p>
+                <p>
+                  <strong
+                    >If I have lost any items within the venue, can I get them
+                    back?</strong
+                  >
+                  <br /><em
+                    >Of course! Email notes@bushhallmusic.co.uk with any lost
+                    property enquiries.
+                  </em>
+                </p>
+                <p>
+                  <strong>Can I bring in my own food and drink?</strong>
+                  <br /><em
+                    >Unfortunately not, we have 2 bars full of drinks and bar
+                    snacks! However if you need to bring anything in for medical
+                    reasons please email ahead to notes@bushhallmusic.co.uk
+                  </em>
+                </p>
+                <p>
+                  <strong>Do your bars take cards?</strong> <br /><em
+                    >Yes our bars only accept cards, including contactless and
+                    Apple Pay. We do not accept American Express.</em
+                  >
+                </p>
+                <p>
+                  <strong>Can I leave during an event and come back?</strong>
+                  <br /><em>There is no readmission.</em>
+                </p>
+                <p>
+                  <strong>Do you have a smoking area?</strong> <br /><em
+                    >Yes we do, it is upstairs on our lovely terrace.
+                  </em>
+                </p>
+                <p>
+                  <strong
+                    >Will there be band merchandise available at a gig?</strong
+                  >
+                  <br /><em
+                    >If the band has some merch available then it will be for
+                    sale by the main bar or at the back of the hall.
+                  </em>
+                </p>
+                <p>
+                  <strong>What is the best way to travel to your venue?</strong>
+                  <br /><em
+                    >Check out our ?Contact' page for all information on getting
+                    here.
+                  </em>
+                </p>
+                <p>
+                  <strong>Is there parking nearby?</strong> <br /><em
+                    >We don't have a designated car park but there is street
+                    parking in the near vicinity. Blue Badge holders can park in
+                    a bay on Arminger Road, adjacent to Bush Hall. (Parking
+                    availability may alter on QPR home match days due to our
+                    proximity to Loftus Road Stadium).</em
+                  >
+                </p>
+                <p>
+                  <strong>Can I bring my camera to the event?</strong> <br /><em
+                    >Your phone camera is fine, but no professional cameras will
+                    be admitted without a photo pass.
+                  </em>
+                </p>
+                <p>
+                  <strong>What are the timings of the event?</strong> <br /><em
+                    >Stage times differ for each gig. Go to the event info for
+                    specific times.
+                  </em>
+                </p>
+                <p>
+                  <strong>Is there food available in your venue?</strong>
+                  <br /><em>Only bar snacks. </em>
+                </p>
+                <p>
+                  <strong>What is your capacity?</strong> <br /><em
+                    >Our capacity is 450 for standing events and seated is 280.
+                  </em>
+                </p>
+                <p>
+                  <strong
+                    >I want to enquire about hiring the venue for a private
+                    event, how do I do this?</strong
+                  >
+                  <br />You can enquire through the 'Private Hire' page, where
+                  you'll find our events brochures.
+                </p>
+                <p>
+                  <span style="text-decoration: underline">Accessibility</span>
+                </p>
+                <p>
+                  <strong
+                    >If the event is standing, and I need a seat, how can I get
+                    one?</strong
+                  >
+                  <br /><em
+                    >You can easily reserve seats by emailing
+                    notes@bushhallmusic.co.uk
+                  </em>
+                </p>
+                <p>
+                  <strong>Is your venue accessible?</strong> <br /><em
+                    >Yep, we have level access from the street entrance to the
+                    box office and accessible toilet into the performance hall
+                    and main bar.
+                  </em>
+                </p>
+                <p>
+                  <strong
+                    >Can I get a free PA ticket if I need assistance?</strong
+                  >
+                  <br /><em
+                    >Yes, we have limited PA tickets available. Please email
+                    notes@bushhallmusic.co.uk when booking your ticket for it
+                    the ticket to be arranged.
+                  </em>
+                </p>
+                <p>
+                  <strong>Can I get early access?</strong> <br /><em
+                    >If you require early access email
+                    notes@bushhallmusic.co.uk
+                  </em>
+                </p>
+                <p>
+                  <span style="text-decoration: underline">COVID FAQS </span>
+                </p>
+                <p></p>
+                <p>
+                  <strong
+                    >The gig I have tickets to has been postponed, when is the
+                    new date?</strong
+                  >
+                  <br /><em
+                    >If your show has been postponed please check the Dice app
+                    or the show's webpage to get information about the new date.
+                  </em>
+                </p>
+                <p>
+                  <strong>Are my tickets still valid for the new date?</strong>
+                  <br /><em
+                    >Yes, all tickets are automatically transferred over to the
+                    new date.
+                  </em>
+                </p>
+                <p>
+                  <strong
+                    >I can't make the new date, can I get a refund?</strong
+                  >
+                  <br /><em
+                    >Please contact your ticket provider. The venue does not
+                    handle any refunds.</em
+                  >
+                </p>
+                <p>
+                  <strong
+                    >What extra safety measures will you have in place?</strong
+                  >
+                  <br /><em
+                    >Upon entry we will be conducting temperature checks. When
+                    inside the venue, we advise all customers to wear a mask
+                    when standing and to make sure they are washing their hands
+                    and using santisiers which will be placed in and around the
+                    venue.
+                  </em>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="Container bot-content slide-content transport-content">
+          <div class="tabs-content">
+            <div>
+              <button class="close close-btn">
+                <p>X</p>
+              </button>
+              <div class="tab-para-wrapper">
+                <p><span style="text-decoration: underline">Transport</span></p>
+                <p>
+                  <strong>By Tube</strong> <br />Sush Market - Hammersmith &
+                  City Line, (direct service from Paddington & Kings Cross) Turn
+                  right out of the station and 5 minutes walk down Uxbridge
+                  road. Shepherd's Bush - Central Line (direct service from
+                  Liverpool Street). Turn right out of the station and 15
+                  minutes walk along Shepherds Bush Green and down Uxbridge Road
+                </p>
+                <p>
+                  <strong>By Overground </strong><br />Shepherd's Bush -
+                  Overground Line (direct services from Clapham Junction, West
+                  Hampstead & East London) Cross over from the station, walk
+                  past Shepherds Bush Central Line station entrance, and 15
+                  minutes walk along Shepherds Bush Green and down Uxbridge
+                  Road.
+                </p>
+                <p>
+                  <strong>By bus </strong><br />From Central London to
+                  Shepherd's Bush Green: 94, 148, 49, N207 From West London to
+                  Shepherd's Bush Green: 283, 72, 260, 207, 266, 295, 288 Buses
+                  207, 260 & 283 stop within 2 minutes walk of the venue.
+                </p>
+                <p>See Transport for London for further info.</p>
+                <p>
+                  <strong>By car</strong> <br />We are 12 km from the A40 and
+                  the Shepherd's Bush Roundabout. We do not have a designated
+                  car park but there is street parking in the near vicinity.
+                  Blue Badge holders can park in a bay on Arminger Road,
+                  adjacent to Bush Hall. (Parking availability may alter on QPR
+                  home match days due to our proximity to Loftus Road Stadium).
+                </p>
+                <p>
+                  Recommended drop off points for cars and taxis: <br />? On the
+                  corner of Arminger & Uxbridge Road (outside the launderette)
+                  <br />? Directly to the side of the venue on Arminger Road
+                </p>
+                <p>
+                  Taxis: Browns: 020 8749 5555 | Astoria Cars: 020 8742 9955 |
+                  Addison Lee: 020 7387 8888 Please ask any of the bar staff at
+                  the venue if you require a taxi called for you and they will
+                  be happy to help.
+                </p>
+                <p>
+                  Hotels: We have two local hotels K West hotel and Dorsett
+                  Hotel (both less than a mile away) - please ask for details
+                  when confirming your booking.
+                </p>
+                <p>
+                  <span style="text-decoration: underline">Venue Access </span>
+                </p>
+                <p>
+                  If you would like venue information in alternative formats
+                  please request it by emailing
+                  <a href="mailto:notes@bushhallmusic.co.uk" target="_blank"
+                    >notes@bushhallmusic.co.uk</a
+                  >
+                  or telephone
+                  <a href="tel:02082226955" target="_blank">02082226955</a>. And
+                  ask for Lara, Betsy or Flossie.
+                </p>
+                <p>
+                  Bush Hall's performance hall is all step-free. We have level
+                  access from the street entrance to the box office and
+                  accessible toilet, into the performance hall and main bar.
+                </p>
+                <p>
+                  All personal assistants/support companions accompanying those
+                  with specific requirements for any gig or event will be
+                  admitted free of charge, please email
+                  notes@bushhallmusic.co.uk or telephone 020 8222 6955 and
+                  we'll put them on our venue guest-list. <br />We set up a
+                  viewing area to the side of the stage upon request.
+                </p>
+                <p>
+                  To make use of this, or to arrange early-access, or queue jump
+                  please get in touch with us when booking a ticket by calling
+                  the office line
+                  <a href="tel:020 8222 6955" target="_blank">020 8222 6955</a>,
+                  or by emailing
+                  <a href="mailto:notes@bushhallmusic.co.uk" target="_blank"
+                    >notes@bushhallmusic.co.uk</a
+                  >
+                </p>
+                <p>
+                  <strong>Update</strong> <br />We're working closely with the
+                  wonderful people at Attitude Is Everything to make Bush Hall
+                  as accessible to all gig-goers, so if you've any
+                  access-related requirements or questions which you don't feel
+                  we've touched on here please give us a call or email and we'll
+                  aim to get back to you within the working day (Monday-Friday).
+                  <br /><a
+                    href="mailto:notes@bushhallmusic.co.uk"
+                    target="_blank"
+                    >notes@bushhallmusic.co.uk</a
+                  >
+                  <br /><a href="tel:020 82226955" target="_blank"
+                    >020 82226955</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer
+          id="section-footer"
+          data-section-id="footer"
+          data-section-type="footer"
+          class="Footer"
+          role="contentinfo"
+        >
+          <div class="Container">
+            <div class="footer-bot-content-desktop">
+              <div class="first-footer-menu">
+                <ul>
+                  <li>(C) 2024 Bush Hall</li>
+
+                  <li>
+                    <a
+                      class="first-footer-menu class-1"
+                      href="/pages/privacy-policy"
+                      target="_self"
+                      >Privacy</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="first-footer-menu class-2"
+                      href="/pages/corporate-hire"
+                      target="_self"
+                      >Access & Transport</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="first-footer-menu class-3"
+                      href="https://cdn.shopify.com/s/files/1/0583/2225/6081/files/bh_tech_21x21cm.pdf?v=1672847059"
+                      target="_self"
+                      >Promoters</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="socials-wrapper">
+                <ul
+                  class="Footer__Social HorizontalList HorizontalList--spacingLoose"
+                >
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://en-gb.facebook.com/bushhallmusic/"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Facebook"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg class="Icon Icon--facebook" viewBox="0 0 9 17">
+                          <path
+                            d="M5.842 17V9.246h2.653l.398-3.023h-3.05v-1.93c0-.874.246-1.47 1.526-1.47H9V.118C8.718.082 7.75 0 6.623 0 4.27 0 2.66 1.408 2.66 3.994v2.23H0v3.022h2.66V17h3.182z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://www.instagram.com/bushhallmusic/"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Instagram"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg
+                          class="Icon Icon--instagram"
+                          role="presentation"
+                          viewBox="0 0 32 32"
+                        >
+                          <path
+                            d="M15.994 2.886c4.273 0 4.775.019 6.464.095 1.562.07 2.406.33 2.971.552.749.292 1.283.635 1.841 1.194s.908 1.092 1.194 1.841c.216.565.483 1.41.552 2.971.076 1.689.095 2.19.095 6.464s-.019 4.775-.095 6.464c-.07 1.562-.33 2.406-.552 2.971-.292.749-.635 1.283-1.194 1.841s-1.092.908-1.841 1.194c-.565.216-1.41.483-2.971.552-1.689.076-2.19.095-6.464.095s-4.775-.019-6.464-.095c-1.562-.07-2.406-.33-2.971-.552-.749-.292-1.283-.635-1.841-1.194s-.908-1.092-1.194-1.841c-.216-.565-.483-1.41-.552-2.971-.076-1.689-.095-2.19-.095-6.464s.019-4.775.095-6.464c.07-1.562.33-2.406.552-2.971.292-.749.635-1.283 1.194-1.841s1.092-.908 1.841-1.194c.565-.216 1.41-.483 2.971-.552 1.689-.083 2.19-.095 6.464-.095zm0-2.883c-4.343 0-4.889.019-6.597.095-1.702.076-2.864.349-3.879.743-1.054.406-1.943.959-2.832 1.848S1.251 4.473.838 5.521C.444 6.537.171 7.699.095 9.407.019 11.109 0 11.655 0 15.997s.019 4.889.095 6.597c.076 1.702.349 2.864.743 3.886.406 1.054.959 1.943 1.848 2.832s1.784 1.435 2.832 1.848c1.016.394 2.178.667 3.886.743s2.248.095 6.597.095 4.889-.019 6.597-.095c1.702-.076 2.864-.349 3.886-.743 1.054-.406 1.943-.959 2.832-1.848s1.435-1.784 1.848-2.832c.394-1.016.667-2.178.743-3.886s.095-2.248.095-6.597-.019-4.889-.095-6.597c-.076-1.702-.349-2.864-.743-3.886-.406-1.054-.959-1.943-1.848-2.832S27.532 1.247 26.484.834C25.468.44 24.306.167 22.598.091c-1.714-.07-2.26-.089-6.603-.089zm0 7.778c-4.533 0-8.216 3.676-8.216 8.216s3.683 8.216 8.216 8.216 8.216-3.683 8.216-8.216-3.683-8.216-8.216-8.216zm0 13.549c-2.946 0-5.333-2.387-5.333-5.333s2.387-5.333 5.333-5.333 5.333 2.387 5.333 5.333-2.387 5.333-5.333 5.333zM26.451 7.457c0 1.059-.858 1.917-1.917 1.917s-1.917-.858-1.917-1.917c0-1.059.858-1.917 1.917-1.917s1.917.858 1.917 1.917z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://twitter.com/bushhallmusic"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Twitter"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg
+                          class="Icon Icon--twitter"
+                          role="presentation"
+                          viewBox="0 0 32 26"
+                        >
+                          <path
+                            d="M32 3.077c-1.1748.525-2.4433.8748-3.768 1.031 1.356-.8123 2.3932-2.0995 2.887-3.6305-1.2686.7498-2.6746 1.2997-4.168 1.5934C25.751.796 24.045.0025 22.158.0025c-3.6242 0-6.561 2.937-6.561 6.5612 0 .5124.0562 1.0123.1686 1.4935C10.3104 7.7822 5.474 5.1702 2.237 1.196c-.5624.9687-.8873 2.0997-.8873 3.2994 0 2.2746 1.156 4.2867 2.9182 5.4615-1.075-.0314-2.0872-.3313-2.9745-.8187v.0812c0 3.1806 2.262 5.8363 5.2677 6.4362-.55.15-1.131.2312-1.731.2312-.4248 0-.831-.0438-1.2372-.1188.8374 2.6057 3.262 4.5054 6.13 4.5616-2.2495 1.7622-5.074 2.812-8.1546 2.812-.531 0-1.0498-.0313-1.5684-.0938 2.912 1.8684 6.3613 2.9494 10.0668 2.9494 12.0726 0 18.6776-10.0043 18.6776-18.6776 0-.2874-.0063-.5686-.0188-.8498C30.0066 5.5514 31.119 4.3954 32 3.077z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="second-footer-menu">
+                <ul>
+                  <li>
+                    <a class="FAQ"> FAQ </a>
+                  </li>
+
+                  <li>
+                    <a href="https://bushhallmusic.co.uk/pages/contact" target="_self">Contact</a>
+                  </li>
+                  <li>Design by Nicolas Lavrov Studio</li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer-bot-content-mobile">
+              <div class="socials-wrapper">
+                <ul
+                  class="Footer__Social HorizontalList HorizontalList--spacingLoose"
+                >
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://en-gb.facebook.com/bushhallmusic/"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Facebook"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg class="Icon Icon--facebook" viewBox="0 0 9 17">
+                          <path
+                            d="M5.842 17V9.246h2.653l.398-3.023h-3.05v-1.93c0-.874.246-1.47 1.526-1.47H9V.118C8.718.082 7.75 0 6.623 0 4.27 0 2.66 1.408 2.66 3.994v2.23H0v3.022h2.66V17h3.182z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://www.instagram.com/bushhallmusic/"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Instagram"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg
+                          class="Icon Icon--instagram"
+                          role="presentation"
+                          viewBox="0 0 32 32"
+                        >
+                          <path
+                            d="M15.994 2.886c4.273 0 4.775.019 6.464.095 1.562.07 2.406.33 2.971.552.749.292 1.283.635 1.841 1.194s.908 1.092 1.194 1.841c.216.565.483 1.41.552 2.971.076 1.689.095 2.19.095 6.464s-.019 4.775-.095 6.464c-.07 1.562-.33 2.406-.552 2.971-.292.749-.635 1.283-1.194 1.841s-1.092.908-1.841 1.194c-.565.216-1.41.483-2.971.552-1.689.076-2.19.095-6.464.095s-4.775-.019-6.464-.095c-1.562-.07-2.406-.33-2.971-.552-.749-.292-1.283-.635-1.841-1.194s-.908-1.092-1.194-1.841c-.216-.565-.483-1.41-.552-2.971-.076-1.689-.095-2.19-.095-6.464s.019-4.775.095-6.464c.07-1.562.33-2.406.552-2.971.292-.749.635-1.283 1.194-1.841s1.092-.908 1.841-1.194c.565-.216 1.41-.483 2.971-.552 1.689-.083 2.19-.095 6.464-.095zm0-2.883c-4.343 0-4.889.019-6.597.095-1.702.076-2.864.349-3.879.743-1.054.406-1.943.959-2.832 1.848S1.251 4.473.838 5.521C.444 6.537.171 7.699.095 9.407.019 11.109 0 11.655 0 15.997s.019 4.889.095 6.597c.076 1.702.349 2.864.743 3.886.406 1.054.959 1.943 1.848 2.832s1.784 1.435 2.832 1.848c1.016.394 2.178.667 3.886.743s2.248.095 6.597.095 4.889-.019 6.597-.095c1.702-.076 2.864-.349 3.886-.743 1.054-.406 1.943-.959 2.832-1.848s1.435-1.784 1.848-2.832c.394-1.016.667-2.178.743-3.886s.095-2.248.095-6.597-.019-4.889-.095-6.597c-.076-1.702-.349-2.864-.743-3.886-.406-1.054-.959-1.943-1.848-2.832S27.532 1.247 26.484.834C25.468.44 24.306.167 22.598.091c-1.714-.07-2.26-.089-6.603-.089zm0 7.778c-4.533 0-8.216 3.676-8.216 8.216s3.683 8.216 8.216 8.216 8.216-3.683 8.216-8.216-3.683-8.216-8.216-8.216zm0 13.549c-2.946 0-5.333-2.387-5.333-5.333s2.387-5.333 5.333-5.333 5.333 2.387 5.333 5.333-2.387 5.333-5.333 5.333zM26.451 7.457c0 1.059-.858 1.917-1.917 1.917s-1.917-.858-1.917-1.917c0-1.059.858-1.917 1.917-1.917s1.917.858 1.917 1.917z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+
+                  <li class="HorizontalList__Item">
+                    <a
+                      href="https://twitter.com/bushhallmusic"
+                      class="Link Link--primary"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Twitter"
+                    >
+                      <span class="Icon-Wrapper--clickable"
+                        ><svg
+                          class="Icon Icon--twitter"
+                          role="presentation"
+                          viewBox="0 0 32 26"
+                        >
+                          <path
+                            d="M32 3.077c-1.1748.525-2.4433.8748-3.768 1.031 1.356-.8123 2.3932-2.0995 2.887-3.6305-1.2686.7498-2.6746 1.2997-4.168 1.5934C25.751.796 24.045.0025 22.158.0025c-3.6242 0-6.561 2.937-6.561 6.5612 0 .5124.0562 1.0123.1686 1.4935C10.3104 7.7822 5.474 5.1702 2.237 1.196c-.5624.9687-.8873 2.0997-.8873 3.2994 0 2.2746 1.156 4.2867 2.9182 5.4615-1.075-.0314-2.0872-.3313-2.9745-.8187v.0812c0 3.1806 2.262 5.8363 5.2677 6.4362-.55.15-1.131.2312-1.731.2312-.4248 0-.831-.0438-1.2372-.1188.8374 2.6057 3.262 4.5054 6.13 4.5616-2.2495 1.7622-5.074 2.812-8.1546 2.812-.531 0-1.0498-.0313-1.5684-.0938 2.912 1.8684 6.3613 2.9494 10.0668 2.9494 12.0726 0 18.6776-10.0043 18.6776-18.6776 0-.2874-.0063-.5686-.0188-.8498C30.0066 5.5514 31.119 4.3954 32 3.077z"
+                          ></path></svg
+                      ></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="footer-mobile-menu">
+                <ul>
+                  <li>
+                    <a
+                      class="mobile-menu class-1"
+                      href="https://cdn.shopify.com/s/files/1/0583/2225/6081/files/bh_tech_21x21cm.pdf?v=1672847059"
+                      target="_self"
+                      >Promoters</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="mobile-menu class-2"
+                      href="/pages/promoters"
+                      target="_self"
+                      >Privacy</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="mobile-menu class-3"
+                      href="/pages/promoters"
+                      target="_self"
+                      >Access & Transport</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="mobile-menu class-4"
+                      href="/pages/promoters"
+                      target="_self"
+                      >FAQ</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="mobile-menu class-5"
+                      href="/pages/contact"
+                      target="_self"
+                      >Contact</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="footer-mobile-bot">
+                <ul>
+                  <li>(C) 2024 Bush Hall</li>
+                  <li>Design by Nicolas Lavrov Studio</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  
+  
+	<a href="/content/support-centre" target="_blank" class="g-button primary small support-centre">
+		Support Centre
+	</a>
+  
+
+	
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="/skins/shared/scripts/ie/rem.min.js"></script>
+	<![endif]-->
+  
+
+<div id="seeGdprCookieConsent" style="display: none;">
+    <div class="seeGdprCookieInner">
+        <p>We and selected third parties use cookies in order to run this website. We also use analytical cookies to improve the website and marketing cookies to provide you with personalised content. By clicking "Accept", you consent to this and to the sharing of your data with our partners. If you choose to decline, we will only use the necessary, functional cookies. Please read our <a href="/cookies">cookies policy</a> for more information.</p>
+
+        <p class="cookie-accept-reject">
+            <a id="seeGdprAccept" class="g-button primary">Accept</a>
+            <a id="seeGdprReject" class="g-button secondary">Reject</a>
+        </p>
+    </div>
+</div>
+
+
+  
+  
+    <script type="text/javascript">
+
+             // Globally requried JavaScript initialisations.
+             window.SEE = {};
+
+             SEE.options = {
+                 ajaxRequestInterval: 5000,
+                 tooltipFadeOut: 2500,
+                 serverTime: 1788609983197,
+                 debug: false,
+                 locationCookieName:'see-loc'
+             };
+
+             SEE.partnersite = {
+                 skin: 'AffiliateTemplate',
+                 skinVersion: 2,
+                 id: 1782,
+                 type: 1,
+                 useSegmentApiTracking: false,
+                 urlTerritory: '',
+                 hasUrlTerritory: false,
+                 getUrlTerritoryPrefix: function () {
+                     return SEE.partnersite.hasUrlTerritory ? '/' + SEE.partnersite.urlTerritory + '/' : '/';
+                 }
+             };
+
+             SEE.user = {
+                 loggedin: false,
+                 cookiename: 'SeeWeb.UserName',
+                 settings: {},
+                 cookieConsent: getCookie("see-gdpr-consent")
+             };
+
+             SEE.utils = {
+                 geolocation: null
+             };
+         </script>
+
+<script type="text/javascript" src="//c.ststat.net/content/seetickets/mainwebapp/scripts/vendor/v3/shared_core/bundle/shared_core.js"></script>
+<script type="text/javascript" src="https://c.ststat.net/content/seeticketsv2/static-scripts/current/js/base.min.js"></script>
+<script>
+        lang.addString("CountDownTimer.SorryButPageTimedOut", "You have exceeded the time limit and your reservation has been released. We apologise for any inconvenience.");
+        lang.addString("CountDownTimer.TimeLeft", "Time left <span class='hide-mobile'>to complete your order</span>");
+        lang.addString("CountDownTimer.PageTimeout", "Page Timeout");
+        lang.addString("CountDownTimer.BasketTimeout", "Basket Timeout");
+        lang.addString("CountDownTimer.UnfortunatelyTheReservationPeriod", "Unfortunately, the reservation period for your tickets has expired.");
+        lang.addString("Layout.TicketsHeldFor", "Your tickets are held for");
+        lang.addString("Base.Welcome", "Welcome");
+        lang.addString("Base.MyAccount", "My Account");
+        lang.addString("Base.SignOut", "Sign out");
+        lang.addString("Base.CustomerService", "Customer Service");
+        lang.addString("Base.CustomerSupport", "Customer Support");
+    </script>
+<script>
+            $(function() {
+                window.orderTimer = new orderTimerLib({
+                    orderTimerUrl: '/purchase/reservationtimer',
+                    order: null
+                });
+                $(window).trigger('orderTimerInit');
+            });
+        </script>
+
+<script>
+            // Get the language cookie and create the googtrans cookie
+            var languageCookieName = "lang";
+            var languageCookie = $.cookie(languageCookieName);
+
+            if(languageCookie && languageCookie.length > 0)
+            {
+                var firstPartOfLang = languageCookie.split('-')[0];
+
+                if(firstPartOfLang && firstPartOfLang.length > 0)
+                {
+                    var googleLanguage = "/en/" + firstPartOfLang;
+
+                    // Set the googtrans cookie so that the Google Translate script runs. Note: we have to set this for the current
+                    // sub domain as well as the host domain otherwise Google overwrites whichever version isn't changed and the
+                    // language reverts to the previous one stored.
+                    var domain = document.location.hostname.replace(/^[^\.]*/ig, "");
+
+                    $.cookie.raw = true;
+                    $.cookie("googtrans", googleLanguage, { path: "/", domain: "" });
+                    $.cookie("googtrans", googleLanguage, { path: "/", domain: domain });
+
+                    var pageLanguage = "en";
+
+                    if(pageLanguage && pageLanguage.length > 0)
+                    {
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({
+                                pageLanguage: pageLanguage,
+                                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                            }, "google_translate_element");
+                        }
+                    }
+                }
+             }            
+        </script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script id="g-overlay-template" type="text/x-handlebars-template">
+        <aside class="g-overlay">
+            <section class="g-overlay-content">
+                <header class="g-overlay-content-header">
+                    <div class="g-overlay-content-header-offside">
+                        <a href="#" class="g-overlay-close">
+                            <svg aria-hidden="true" class="g-icon close">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <h1>Loading...</h1>
+                </header>
+                <div class="g-overlay-content-body"></div>
+            </section>
+        </aside>
+    </script>
+
+<script>
+         window.overlayBox = overlayBoxLibrary({
+             body: ".g-overlay-content-body",
+             closeLink: ".g-overlay-close",
+             content: ".g-overlay-content",
+             insertAfterTarget: "main",
+             handlebarsTemplate: "#g-overlay-template",
+             header: ".g-overlay-content-header",
+             headingSelector: "h1:first,h2:first,h3:first",
+             htmlOverlayCssClass: "g-has-overlay",
+             overlay: ".g-overlay",
+             selector: "[data-handler='contextOverlay']"
+         });
+    </script>
+
+<script>
+        var lightSpinner = $('#gl-button-click-spinner-light');
+        var darkSpinner = $('#gl-button-click-spinner-dark');
+        var bgColour = $('.g-ui-box').css('background-color');
+
+        if (bgColour == null || bgColour === undefined) {
+            bgColour = $('body').css('background-color');
+        }
+
+        var lightness = getColourLightness(bgColour);
+
+        if (lightness == null || bgColour === 'rgba(0, 0, 0, 0)' || lightness >= 0.5) {
+            lightSpinner.remove();
+            window.SEE.partnersite['theme'] = 'light';
+        }
+        else {
+            darkSpinner.remove();
+            window.SEE.partnersite['theme'] = 'dark';
+        }
+    </script>
+
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","name":"Music","item":"https://bushhall.seetickets.com/music-tickets","position":1},{"@type":"ListItem","name":"Rock","item":"https://bushhall.seetickets.com/search?c=3","position":2},{"@type":"ListItem","name":"Punk/Ska","item":"https://bushhall.seetickets.com/search?c=3&c=166","position":3},{"@type":"ListItem","name":"PUNKS FOR CHARITY PRESENTS CLASS OF '79","item":"https://bushhall.seetickets.com/tour/punks-for-charity-presents-class-of-79","position":4}]}
+</script>
+
+<script>
+                     $(document).ready(function () {
+                         $('.collapsable').each(function () {
+
+                             var me = $(this);
+                             var defaultCollapsed = $(this).hasClass('default-collapsed');
+
+                             if (defaultCollapsed) {
+                                 $(this).find('div').hide();
+                                 $(this).find('.extended-offer-description').hide();
+                             }
+
+                             var rows = $(this).find('div');
+                             var header = $(this).find('h3:first');
+                             var arrowClass = defaultCollapsed ? 'arr-down' : 'arr-up';
+
+                             header.append('<i class="' + arrowClass + ' right offer-group-collapse"></i>');
+
+                             header.click(function () {
+                                 header.children("i").toggleClass("arr-up arr-down");
+                                 rows.toggle();
+                             });
+                         });
+                     });
+                </script>
+
+<script>
+                $(document).ready(function () {
+                    var priceSeatBlockData = [{"GlobalId":"DF-3625627_1","SeatingBlocks":[]},{"GlobalId":"DF-3625627_2","SeatingBlocks":[]}];
+                    blockFilter.init(priceSeatBlockData, '#Selection_TicketSelections_\\[{0}\\]__Quantity', '#Selection_TicketSelections_\\[{0}\\]__SeatingBlockId', true);
+                });
+            </script>
+
+<script>
+        
+        function initPricePlusMinus() {
+            $('.v2-price-plus').off('click').on('click', function () {
+
+                var me = $(this);
+                var selectId = $(this).attr("data-qty-for");
+                var select = $('[id="' + selectId + '"]');
+                var fauxInputId = "faux-qty-" + $(this).attr("data-faux-qty-for");
+                var fauxInput = $("#" + fauxInputId);
+
+                var currentIndex = select.prop('selectedIndex');
+                var totalOptions = select.find('option').length;
+
+                if (currentIndex < totalOptions - 1) {
+                    select.prop('selectedIndex', currentIndex + 1).trigger('change');
+                    fauxInput.val(select.val()).trigger('change');
+                }
+                else {
+                     me.addClass("v2-invalid-pr-ts");
+                     setTimeout(function() { me.removeClass("v2-invalid-pr-ts"); }, 300);
+                }
+
+                styleBuyButton();
+            });
+
+            $('.v2-price-minus').off('click').on('click', function () {
+
+                var me = $(this);
+                var selectId = $(this).attr("data-qty-for");
+                var select = $('[id="' + selectId + '"]');
+                var fauxInputId = "faux-qty-" + $(this).attr("data-faux-qty-for");
+                var fauxInput = $("#" + fauxInputId);
+
+                var currentIndex = select.prop('selectedIndex');
+
+                if (currentIndex > 0) {
+                    select.prop('selectedIndex', currentIndex - 1).trigger('change');
+                    fauxInput.val(select.val()).trigger('change');
+                }
+                else {
+                     me.addClass("v2-invalid-pr-ts");
+                     setTimeout(function() { me.removeClass("v2-invalid-pr-ts"); }, 300);
+                }
+
+                styleBuyButton();
+            });
+
+            $('.v2-price-num-only').off('input').on('input', function () {
+
+                var me = $(this);
+                var selectId = $(this).attr("data-qty-for");
+                var selectOptions = $('[id="' + selectId + '"] option');
+                var select = $('[id="' + selectId + '"]');
+
+                var allowedValues = selectOptions.map(function () {
+                    return this.value;
+                }).get();
+
+                // Remove all non-digits
+                var raw = this.value.replace(/[^0-9]/g, '');
+
+                // If it's not an allowed value, clear it
+                if (!allowedValues.includes(raw)) {
+                    this.value = '';
+
+                     me.addClass("v2-invalid-pr-ts");
+                     setTimeout(function() { me.removeClass("v2-invalid-pr-ts"); }, 300);
+                }
+                else {
+                    select.val(raw).trigger('change');
+                }
+
+                styleBuyButton();
+            });
+
+            $('.v2-price-num-only').off('blur').on('blur', function () {
+
+                var selectId = $(this).attr("data-qty-for");
+                var select = $('[id="' + selectId + '"]');
+
+                if ($(this).val() == "") {
+                    $(this).val('0');
+                    select.val('0');
+                }
+
+                styleBuyButton();
+            });
+
+            $('.v2-price-num-only').off('change').on('change', function () {
+
+                var nextPlus = $(this).parent().nextAll(".v2-price-plus").first();
+                var container = $(this).parents('.v2-price-list-container').first();
+
+                if ($(this).val() == "" || $(this).val() == "0") {
+                        nextPlus.removeClass("v2p-selected");
+                        container.removeClass("v2-price-row-selected");                     
+                }
+                else {
+                        nextPlus.addClass("v2p-selected");
+                        container.addClass("v2-price-row-selected");
+                }
+            });
+
+            $('.v2-price-num-only').each(function() {
+                var selectId = $(this).attr("data-qty-for");
+                var select = $('[id="' + selectId + '"]');
+
+                $(this).val(select.val());
+
+                if ($(this).val() != "" && $(this).val() != "0") {
+                    $(this).trigger("change");
+                }
+            });
+
+            window.styleBuyButton = function styleBuyButton() {
+
+                var buyButton = $("#buyTickets");
+
+                var noDropdownSelection = $(".qty-sel").filter(function () {
+                        return $(this).val() !== "0";
+                    }).length === 0;
+
+                if (noDropdownSelection && $(".seat-selections__item ").length == 0) {
+                    buyButton.addClass("bt-no-selection");
+                }
+                else {
+                    buyButton.removeClass("bt-no-selection");
+                }
+            }
+
+            $(".priceCheckbox").change(function() {
+
+                if ($(this).is(":checked")) {
+                    $(this).parents("li").first().addClass("v2-price-row-selected");
+                }
+                else {
+                    $(this).parents("li").first().removeClass("v2-price-row-selected");
+                }
+            })
+
+            styleBuyButton();
+
+            $(".priceCheckbox").trigger("change");
+        }
+
+        initPricePlusMinus();
+    </script>
+
+<script type="application/ld+json">
+        {"@context":"http://schema.org","@type":"MusicEvent","name":"PUNKS FOR CHARITY PRESENTS CLASS OF '79","startDate":"2026-09-05 15:30:00Z","endDate":"2026-09-05","url":"https://bushhall.seetickets.com/event/punks-for-charity-presents-class-of-79/bush-hall/3625627","eventStatus":"EventScheduled","description":"Buy PUNKS FOR CHARITY PRESENTS CLASS OF '79 tickets and sign-up for latest tour alerts. Find PUNKS FOR CHARITY PRESENTS CLASS OF '79 tour dates, reviews, times and event details.","image":"https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"place","name":"Bush Hall","address":{"@type":"PostalAddress","name":"Bush Hall, Shepherds Bush, London","streetAddress":"310 Uxbridge Road London","addressCountry":"GB","addressLocality":"Shepherds Bush, London","postalCode":"W12 7LJ"},"geo":{"@type":"GeoCoordinates","latitude":"51.506564","longitude":"-0.231567"}},"offers":[{"@type":"Offer","name":"EARLY BIRD","price":14.45,"priceCurrency":"GBP","url":"https://bushhall.seetickets.com/event/punks-for-charity-presents-class-of-79/bush-hall/3625627","availability":"InStock","availabilityStarts":"2026-04-13T10:00:00Z","validFrom":"2026-04-13T10:00:00Z"},{"@type":"Offer","name":"GENERAL ADMISSION","price":17.75,"priceCurrency":"GBP","url":"https://bushhall.seetickets.com/event/punks-for-charity-presents-class-of-79/bush-hall/3625627","availability":"InStock","availabilityStarts":"2026-04-13T10:00:00Z","validFrom":"2026-04-13T10:00:00Z"}]}
+    </script>
+
+<script>
+         lang.addString("EventDetails.PleaseChooseAtLeastOneTypeOfTicket", "Please choose at least one type of ticket to buy");
+         lang.addString("EventDetails.PleaseSelectSeats", "Please select some seats before continuing.");
+         lang.addString("EventDetails.PleaseChooseATicketType", "Please choose a ticket type to buy");
+    </script>
+
+<script src="https://c.ststat.net/content/seeticketsv2/static-scripts/current/js/eventpage.min.js"></script>
+<script>
+            var hasProcessingFee = false;
+
+            window.feeCalculation.init(
+                new Number(hasProcessingFee ? 1.25 : 0),
+                new Number(1.00),
+                false,
+                false
+            );
+        </script>
+
+<script type="application/ld+json">
+        {"@context":"http://schema.org","@type":"Product","name":"PUNKS FOR CHARITY PRESENTS CLASS OF '79","image":"https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg"}
+    </script>
+
+<script>
+        // https://developers.google.com/tag-platform/security/guides/consent
+        function setGtagConsent(allow) {
+
+            if (typeof gtag !== 'undefined') {
+                if (allow) {
+                    gtag('consent', 'update', {
+                        'ad_storage': 'granted',
+                        'ad_user_data': 'granted',
+                        'ad_personalization': 'granted',
+                        'analytics_storage': 'granted',
+                        'functionality_storage': 'granted',
+                        'personalization_storage': 'granted',
+                        'security_storage': 'granted'
+                    });
+                }
+                else {
+                    gtag('consent', 'update', {
+                        'ad_storage': 'denied',
+                        'ad_user_data': 'denied',
+                        'ad_personalization': 'denied',
+                        'analytics_storage': 'denied',
+                        'functionality_storage': 'denied',
+                        'personalization_storage': 'denied',
+                        'security_storage': 'granted'
+                    });
+                }
+
+                // console.log("Datalayer consent updated. Allow: " + allow);
+            }
+        }
+
+        function setBingConsent(allow) {
+            window.uetq = window.uetq || [];
+            window.uetq.push('consent', 'update', {
+                'ad_storage': allow === true ? 'granted' : 'denied'
+                });
+        }
+                        
+        if (!$.cookie("see-gdpr-consent")) {
+            $("#seeGdprCookieConsent").show();
+            
+            if (!window.defaultGtagConsentSet) {
+                setGtagConsent(false);
+            }
+
+            if (!window.defaultBingConsentSet) {
+                setBingConsent(false);
+            }
+        }
+        else {
+            if ($.cookie("see-gdpr-consent") === "all") {
+                setGtagConsent(true);
+                setBingConsent(true);
+            }
+            else {
+                setGtagConsent(false);
+                setBingConsent(false);
+            }
+        }
+
+        if (typeof dataLayer !== 'undefined') {
+            dataLayer.push({ 'event': 'page_data_loaded' });
+        }
+
+        $("#seeGdprAccept").click(function() {
+            $.cookie("see-gdpr-consent", "all", { expires: 180, path: (SEE.partnersite.urlTerritory != "" ? ("/" + SEE.partnersite.urlTerritory) : "/") + ";SameSite=None", secure: true });
+            $("#seeGdprCookieConsent").hide();
+                    
+            setGtagConsent(true);
+            setBingConsent(true);
+
+            // For HoP only - don't refresh the page.
+            if (SEE.partnersite.id != 4969) {
+                window.location.reload();
+            }
+        });
+
+        $("#seeGdprReject").click(function() {
+            $.cookie("see-gdpr-consent", "functional", { expires: 180, path: (SEE.partnersite.urlTerritory != "" ? ("/" + SEE.partnersite.urlTerritory) : "/") + ";SameSite=None", secure: true });
+            $("#seeGdprCookieConsent").hide();
+
+            setGtagConsent(false);
+            setBingConsent(false);
+        });
+    </script>
+
+
+    
+
+    
+      
+
+  <script src="//c.ststat.net/content/sites/bushhall/js/see.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>-->
+    <script src="//c.ststat.net/Content/Sites/BushHall/js/scripts.js"></script> 
+      
+    
+    <script type="text/javascript"  src="/e1QPHhOz0hNhM/q0IWAmZFO/rGHfA/Q5puQtD5YzEYtS/VHwrOQRU/ByV/QRWwabHAB"></script><link rel="stylesheet" type="text/css"  href="/e1QPHhOz0hNhM/q0IWAmZFO/rGHfA/Sk/TkcdOQRU/Zhc/5OisKWBhZ"><script  src="/e1QPHhOz0hNhM/q0IWAmZFO/rGHfA/Sk/TkcdOQRU/WQ5/nMiIzNUUp" async defer></script><div id="sec-overlay" style="display:none;"><div id="sec-container"></div></div><noscript><img src="https://bushhall.seetickets.com/akam/13/pixel_1efdbe0?a=dD00NWNlNTlhZTNkYmNhMGYzNDMyOTdmMjJiYzUyMTNmY2NlMzljMzNiJmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript><script type="text/javascript"  src="/e1QPHhOz0hNhM/q0IWAmZFO/rGHfA/SkpuQtD5/MhYwOQRU/Qx9/DIk1nMloZ?v=64188c61-d238-4cc9-7a28-2e89995f0212" defer></script></body>
+</html>

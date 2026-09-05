@@ -89,7 +89,10 @@ private class DicePartnerVenueGigsSource(
         "$baseUrl?page%5Bsize%5D=200&types=linkout,event&filter%5Bvenues%5D%5B%5D=${URLEncoder.encode(venueFilter, UTF_8)}"
 }
 
+// The one spelling of each, whether a source writes it from a listing's own status field or
+// WithTidiedTitles normalises one a venue typed its own way (ADR 6).
 internal const val cancelledSuffix = " - CANCELLED"
+internal const val soldOutSuffix = " - SOLD OUT"
 
 val twoTwoNine = Venue(VenueId("229"), "229")
 

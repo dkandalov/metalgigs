@@ -23,6 +23,7 @@ own script does, and documented beside the url.
 | DHP | `…/themes/dhp/includes/ajax/ajax_guide.php` | the listing renders three months and its own pagination urls serve those same three |
 | New Cross Inn | WordPress `admin-ajax.php` | the months dropdown does not navigate - it posts and swaps the listing in place |
 | The Dev | Instagram's profile page itself | the page prefetches its own first screen of posts into a script beside the shell |
+| Bush Hall | `bushhall.seetickets.com/search/all` | the venue's own What's On page is one iframe pointed at that listing and nothing else |
 
 The credentials these need are the public ones the page ships. Dice's widget config is inline in 229's page,
 naming the partner id and API key; the key is shipped to every browser, and the widget script reads
@@ -75,10 +76,20 @@ rather than counting forward, deduping the opening month before the map so no ev
 **Dice** already returns every listing in one request at `page[size]=200` - the largest, 229's, is 77 events -
 but that is a fact about today's listings, so it still follows `links.next`. **AMG** and **Eventim Apollo**
 need no paging: `PageSize=500` is above what any venue lists, and Eventim Apollo's month bar filters what is
-already there.
+already there. **Bush Hall** needs none either and is checked rather than walked: See Tickets serves the whole
+listing in one page and says so in its own pagination ("1 of 1"), while offering nothing to page with - the
+sort control posts, and `page` and `pageSize` in the query string are ignored, answering the same 56 gigs
+whatever they say. A second page cannot be fetched today to fit a walk to, so the source fails on the day that
+text stops saying one page rather than silently reading the listing short.
 
 Several sites answer without a browser-like User-Agent with a 403 - Alexandra Palace, The Underworld, dice.fm,
-and enough generally that `missingGigSays` sends one too (ADR 5). Sources that come back with nothing from an
+and enough generally that `missingGigSays` sends one too (ADR 5). See Tickets wants more than the one header:
+it answers an "Unusual Traffic Detected" page under a 403, and scores that on how complete the header set is
+rather than on any single header - the User-Agent alone is refused, as is the User-Agent with any two of
+Accept-Language, the four `Sec-Fetch-*` and the three `sec-ch-ua*`, while any three of those groups are let
+through. So Bush Hall sends the set Chrome sends on a navigation, kept whole rather than trimmed to whichever
+subset passes today, which is the same reading The Dev's `Sec-Fetch-*` headers came from: a request shaped
+like a browser opening the page, and nothing authenticated. Sources that come back with nothing from an
 API say so: both Dice and AMG check the response held events.
 
 ## Consequences
