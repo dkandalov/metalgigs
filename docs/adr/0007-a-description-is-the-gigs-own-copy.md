@@ -38,6 +38,7 @@ the gigs it books without copy.
 | Union Chapel | the article's children up to the first venue heading, plus the sidebar | see below |
 | Scala | the lineup header box plus everything after "About &lt;artist&gt;" | see below |
 | Bush Hall | the event detail column, cut to its narratives section | See Tickets fills the same column with price rows, a low-income ticket FAQ, an accessibility link and the basket; the section's own header ("More information about X tickets") is See Tickets' words rather than the gig's |
+| The Lexington | the paragraphs of `.text-content` | the date and price sit in `.event-meta`, the ticket link in `.links`, and the venue's 18+ line is a bare text node in the same div, belonging to no element that could be named or cut |
 | Dingwalls | `.elementor-location-single` | |
 | Paper Dress Vintage | `.event__content` | |
 
@@ -68,6 +69,17 @@ Where markup cannot tell the difference, the cut is **by wording**:
   host on the card - the only cards linking there, three of the 106 events listed on 2026-08-28, one with an
   empty copy block. The title will not do it: the venue types Bongo's with U+2019, and each special is
   titled differently.
+- **The Lexington** drops its club nights - White Heat, Age Of Consent, Disorder, Pop Never Dies, a 90s night
+  and the Monday pop quiz, 17 of the 100 cards listed on 2026-09-06 - by the label the venue prints on the card
+  itself, which needs neither a name nor a ticket host to recognise. Its own "Clubs Only" filter is not what
+  does it: that answers 14 of those 17, so three belong to neither filtered listing and only the unfiltered one
+  is complete.
+- **The Lexington** reads copy that says only that the act plays live - "live", "play live", "Mary
+  Middlefield plays live", 12 of the 83 gigs listed on 2026-09-06 - as no copy at all. It says nothing the
+  title does not, and two pairs of unrelated acts carry it word for word, so taken as a description it is one
+  gig's text on another, which withheld the venue's whole listing the first time it was scraped. The literal
+  "plays live" is what identifies it, so an act whose copy merely ends on the word ("They are incredible live")
+  keeps it.
 - **Signature Brew Haggerston** drops Comedy Incorporated, a stand-up night rather than a gig, by the name
   Dice lists it under - seven of the 45 events there on 2026-08-29, five titled with the promoter's name
   alone and two subtitled "Killer 10s". The title does it here where it will not at Electric Ballroom: the

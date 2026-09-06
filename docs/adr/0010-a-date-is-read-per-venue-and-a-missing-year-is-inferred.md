@@ -32,10 +32,18 @@ Roundhouse and The O2 all do.
 
 Two shapes of missing year are inferred, both from the listing's own order rather than from today:
 
-**A year counted forward.** Cart & Horses, Electric Ballroom and Islington Assembly Hall print no year at all.
-Gigs are listed in date order, so the year increments as the listing crosses back into an earlier month. At
+**A year counted forward.** Cart & Horses, Electric Ballroom, Islington Assembly Hall and The Lexington print
+no year at all. Gigs are listed in date order, so the year increments as the listing crosses back into an
+earlier month. At
 Islington Assembly Hall the pages continue that order, so the count carries across pages rather than
 restarting - the boundary falls mid-page-4.
+
+The Lexington is the one listing that can check the count it made, and does: its cards print the weekday
+("Sun September 06, 19:00"), which the inferred year either lands on or does not. That closes the gap this
+inference otherwise leaves - a listing that stops being in date order dates gigs a year out while looking
+entirely ordinary - for the venue that writes enough down to close it. 16 January is a Saturday in 2027 and a
+Friday in 2026, so a year counted wrong stops matching the card that carries it. The check is made only of the
+gigs kept, a club night having been dropped before a date is built for it, though its month is still counted.
 
 **A year rolled back.** Alexandra Palace, Eventim Apollo and The O2 write a range's year once, on its end date,
 which is wrong for a range crossing a calendar year: "11 Dec - 3 Jan 2027" starts in 2026, as does "Dec 28th -
@@ -52,16 +60,17 @@ abbreviation saves nothing: the arena writes "Jun" as "June" and "Jul" as "July"
 three letters, so both forms are tried. Eventim Apollo writes a single date's month in full and a range's
 abbreviated.
 
-Because none of this fails loudly, two checks exist for date parsing alone (ADR 3): `CrowdedDayCheck` catches a
-parse that has *collapsed*, landing a listing on one day; `NothingSoonCheck` catches one that has *drifted
-whole* - a year read off the wrong element, a month rolled on for every row - which moves a listing bodily
+Because little of this fails loudly - The Lexington's weekday being the exception - two checks exist for date
+parsing alone (ADR 3): `CrowdedDayCheck` catches a parse that has *collapsed*, landing a listing on one day;
+`NothingSoonCheck` catches one that has *drifted whole* - a year read off the wrong element, a month rolled on for every row - which moves a listing bodily
 forward while leaving the dates spread and ordered, its only mark being that the listing no longer begins near
 now. Reading a venue's "on sale soon" strip leaves the same mark.
 
 ## Consequences
 
 The year inference depends on the listing staying in date order; a venue reordering its cards would date gigs a
-year out, and `NothingSoonCheck` is what would say so. A multi-night run is one gig, dated from its first
+year out, and `NothingSoonCheck` is what would say so - except at The Lexington, where the card's own weekday
+says so first, and says it against the gig rather than against the listing. A multi-night run is one gig, dated from its first
 night. Every parser here is a venue-specific fact a redesign invalidates, and the quoted format is what a
 reader checks against the live page.
 
