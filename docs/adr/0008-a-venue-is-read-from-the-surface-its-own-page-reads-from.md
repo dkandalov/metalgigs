@@ -63,6 +63,18 @@ Where a listing pages, the source follows the link the page follows rather than 
 `maxPages` bounds only a pathological bug; the real stop is that link disappearing. Electric Brixton, Scala,
 Windmill Brixton and Islington Assembly Hall work this way, `maxPages = 10` against twelve to eighteen a page.
 
+**The Roundhouse is the one that was read short, and for its whole first month.** Its listing renders nine
+cards into a `div.root.infinite-list` and loads the rest on scroll, so page one reads as a complete listing -
+the failure this whole ADR is about, arrived at by not looking for pagination rather than by following the
+wrong thing. It published 9 of the venue's 53 events from 2026-08-11 until 2026-09-06, and its test asserted
+that 9 as the expected answer, so nothing said otherwise: a count recorded off a truncated listing is not a
+check on truncation. It now follows the same `a.next.page-numbers` Electric Brixton does, and its bound
+**fails rather than stopping**, a listing that quietly ends being the exact bug being fixed. Two things about
+that link are the site's own: `?paged=` and `?page=` are ignored, only the `/page/N/` path moving; and the
+page is served from a cache that sometimes has an ad campaign's `fbclid` and `utm_*` baked into every
+pagination href, two different `fbclid`s appearing within one recorded walk, so the link's path is followed
+and its query replaced with the one the source asked with.
+
 Each site's own way of ending is honoured. **Windmill Brixton** keeps the next link on the last page, pointing
 at "#" and marked disabled, so the disabled state stops it - following it would re-fetch the same page.
 **The O2** stops on an empty batch, `maxBatches = 20` bounding a bug; `per_page` is in the query the site sends

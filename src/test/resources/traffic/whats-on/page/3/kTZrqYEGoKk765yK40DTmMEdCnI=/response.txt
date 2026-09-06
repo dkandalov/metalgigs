@@ -1,18 +1,20 @@
 HTTP/1.1 200 
+age: 113
+alt-svc: h3=":443"; ma=86400
 content-type: text/html; charset=utf-8
-date: Tue, 11 Aug 2026 12:31:25 GMT
+date: Sun, 06 Sep 2026 21:31:03 GMT
 nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
 referrer-policy: strict-origin-when-cross-origin
-report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=UyaGj5ntfiMxXLYlNgxifqRkHPSvWaqNkX%2BhcBqa9Bo%3D\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\u0026ts=1786451484"}],"max_age":3600}
-reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=UyaGj5ntfiMxXLYlNgxifqRkHPSvWaqNkX%2BhcBqa9Bo%3D&sid=c4c9725f-1ab0-44d8-820f-430df2718e11&ts=1786451484"
+report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=u9VQh3hHqK3JEHmmrrtmWixZFPZBvvh63CSaSkGuG6c%3D\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\u0026ts=1788730262"}],"max_age":3600}
+reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=u9VQh3hHqK3JEHmmrrtmWixZFPZBvvh63CSaSkGuG6c%3D&sid=c4c9725f-1ab0-44d8-820f-430df2718e11&ts=1788730262"
 server: Heroku
-set-cookie: lumberjack_session=uHflYIVbfqMg1pnLSFhCqcl3d0Ns4BdKFV5UGzsw; expires=Tue, 11 Aug 2026 14:31:24 GMT; Max-Age=7200; path=/; HttpOnly
+set-cookie: lumberjack_session=eurz21TRuuYVpUROYLmTTMUPMWmJGx3kTTe6hhiA; expires=Sun, 06 Sep 2026 23:31:03 GMT; Max-Age=7200; path=/; HttpOnly
 strict-transport-security: max-age=31536000
 vary: Accept-Encoding
-via: 1.1 heroku-router, 1.1 aac25d9e9d87a35ba758411354def446.cloudfront.net (CloudFront)
-x-amz-cf-id: H4JE2Qwn7XqynaCZOTJ5XNv6IPF_AkTDrQVi4MnBpT79cnsy5fMowg==
+via: 1.1 heroku-router, 1.1 3360a6444ee9b4980e609eb037cb1f6c.cloudfront.net (CloudFront)
+x-amz-cf-id: DPlrSfFB-ubwb8GNquUxpBUBit61G3o0-03472ghNosNARIlhlk0-w==
 x-amz-cf-pop: LHR3-P4
-x-cache: Miss from cloudfront
+x-cache: Hit from cloudfront
 x-content-type-options: nosniff
 x-frame-options: SAMEORIGIN
 x-ua-compatible: IE=Edge
@@ -50,7 +52,7 @@ x-xss-protection: 1; mode=block
 	<meta property="article:modified_time" content="2026-07-21T12:02:46+00:00" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="@RoundhouseLDN" />
-	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":["WebPage","CollectionPage"],"@id":"https://www.roundhouse.org.uk/whats-on/","url":"https://www.roundhouse.org.uk/whats-on/","name":"What's On | Roundhouse","isPartOf":{"@id":"https://www.roundhouse.org.uk/#website"},"datePublished":"2024-10-14T18:57:11+00:00","dateModified":"2026-07-21T12:02:46+00:00","description":"What's on and buy tickets for the latest live music gigs, theatre, circus, cabaret and spoken word events at Roundhouse London.","breadcrumb":{"@id":"https://www.roundhouse.org.uk/whats-on/#breadcrumb"},"inLanguage":"en-GB"},{"@type":"BreadcrumbList","@id":"https://www.roundhouse.org.uk/whats-on/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.roundhouse.org.uk/"},{"@type":"ListItem","position":2,"name":"What&#8217;s On"}]},{"@type":"WebSite","@id":"https://www.roundhouse.org.uk/#website","url":"https://www.roundhouse.org.uk/","name":"https://www.roundhouse.org.uk/","description":"","publisher":{"@id":"https://www.roundhouse.org.uk/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.roundhouse.org.uk/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-GB"},{"@type":"Organization","@id":"https://www.roundhouse.org.uk/#organization","name":"Roundhouse","url":"https://www.roundhouse.org.uk/","logo":{"@type":"ImageObject","inLanguage":"en-GB","@id":"https://www.roundhouse.org.uk/#/schema/logo/image/","url":"https://assets.roundhouse.org.uk/app/uploads/2025/06/RH_Logo_R_RGB.png","contentUrl":"https://assets.roundhouse.org.uk/app/uploads/2025/06/RH_Logo_R_RGB.png","width":2880,"height":2873,"caption":"Roundhouse"},"image":{"@id":"https://www.roundhouse.org.uk/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/roundhouseLDN","https://x.com/RoundhouseLDN","https://www.instagram.com/roundhouseldn/?hl=en","https://www.tiktok.com/@roundhouseldn"]}]}</script>
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":["WebPage","CollectionPage"],"@id":"https://www.roundhouse.org.uk/whats-on/","url":"https://www.roundhouse.org.uk/whats-on/","name":"What's On | Roundhouse","isPartOf":{"@id":"https://www.roundhouse.org.uk/#website"},"datePublished":"2024-10-14T18:57:11+00:00","dateModified":"2026-07-21T12:02:46+00:00","description":"What's on and buy tickets for the latest live music gigs, theatre, circus, cabaret and spoken word events at Roundhouse London.","inLanguage":"en-GB"},{"@type":"WebSite","@id":"https://www.roundhouse.org.uk/#website","url":"https://www.roundhouse.org.uk/","name":"https://www.roundhouse.org.uk/","description":"","publisher":{"@id":"https://www.roundhouse.org.uk/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.roundhouse.org.uk/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-GB"},{"@type":"Organization","@id":"https://www.roundhouse.org.uk/#organization","name":"Roundhouse","url":"https://www.roundhouse.org.uk/","logo":{"@type":"ImageObject","inLanguage":"en-GB","@id":"https://www.roundhouse.org.uk/#/schema/logo/image/","url":"https://assets.roundhouse.org.uk/app/uploads/2025/06/RH_Logo_R_RGB.png","contentUrl":"https://assets.roundhouse.org.uk/app/uploads/2025/06/RH_Logo_R_RGB.png","width":2880,"height":2873,"caption":"Roundhouse"},"image":{"@id":"https://www.roundhouse.org.uk/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/roundhouseLDN","https://x.com/RoundhouseLDN","https://www.instagram.com/roundhouseldn/?hl=en","https://www.tiktok.com/@roundhouseldn"]}]}</script>
 	<!-- / Yoast SEO plugin. -->
 
 
@@ -69,14 +71,14 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 .wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
 /*# sourceURL=/wp-includes/css/classic-themes.min.css */
 </style>
-<link rel='stylesheet' id='roundhouse-styles-css' href='https://www.roundhouse.org.uk/app/themes/lumberjack/assets/index-Cu6xpSVV.css?ver=6.9.5' type='text/css' media='all' />
+<link rel='stylesheet' id='roundhouse-styles-css' href='https://www.roundhouse.org.uk/app/themes/lumberjack/assets/index-DuYPYniB.css?ver=6.9.5' type='text/css' media='all' />
 <link rel='stylesheet' id='sib-front-css-css' href='https://www.roundhouse.org.uk/app/plugins/mailin/css/mailin-front.css?ver=6.9.5' type='text/css' media='all' />
 <script type="text/javascript" src="https://www.roundhouse.org.uk/wp/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
 <script type="text/javascript" src="https://www.roundhouse.org.uk/wp/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
 <script type="text/javascript" id="sib-front-js-js-extra">
 /* <![CDATA[ */
 var sibErrMsg = {"invalidMail":"Please fill out valid email address","requiredField":"Please fill out required fields","invalidDateFormat":"Please fill out valid date format","invalidSMSFormat":"Please fill out valid phone number"};
-var ajax_sib_front_object = {"ajax_url":"https://www.roundhouse.org.uk/wp/wp-admin/admin-ajax.php","ajax_nonce":"588610fccf","flag_url":"https://www.roundhouse.org.uk/app/plugins/mailin/img/flags/"};
+var ajax_sib_front_object = {"ajax_url":"https://www.roundhouse.org.uk/wp/wp-admin/admin-ajax.php","ajax_nonce":"cb93bd347c","flag_url":"https://www.roundhouse.org.uk/app/plugins/mailin/img/flags/"};
 //# sourceURL=sib-front-js-js-extra
 /* ]]> */
 </script>
@@ -156,7 +158,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 </head>
 
-<body class="wp-singular page-template page-template-page-templates page-template-whats-on page-template-page-templateswhats-on-php page page-id-5105 wp-theme-lumberjack">
+<body class="paged wp-singular page-template page-template-page-templates page-template-whats-on page-template-page-templateswhats-on-php page page-id-5105 paged-3 page-paged-3 wp-theme-lumberjack">
 
 <!-- Google Tag Manager (noscript) - RH -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZP7293"
@@ -279,16 +281,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                             <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/whats-on/">All Gigs & Events</a>
                                         </li>
                                                                             <li>
-                                            <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/seasons/roundhouse-comedy-festival/">Roundhouse Comedy Festival</a>
-                                        </li>
-                                                                            <li>
                                             <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/seasons/autumn-term/">Autumn Term Youth Programme</a>
                                         </li>
                                                                             <li>
-                                            <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/creating-bold-futures/">20 years of creating bold futures</a>
+                                            <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/seasons/electronic/">Electronic & Club Nights</a>
                                         </li>
                                                                             <li>
-                                            <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/seasons/electronic/">Electronic & Club Nights</a>
+                                            <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/creating-bold-futures/">20 years of creating bold futures</a>
                                         </li>
                                                                     </ul>
                                                     </li>
@@ -409,7 +408,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                             <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/venue-hire/services-suppliers/">Services &#038; Suppliers</a>
                                         </li>
                                                                             <li>
-                                            <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/venue-hire/standing-receptions/">Standing Receptions</a>
+                                            <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/venue-hire/standing-receptions/">Parties and Standing Receptions</a>
                                         </li>
                                                                             <li>
                                             <a class="main-nav__sublist-link" href="https://www.roundhouse.org.uk/venue-hire/weddings-celebrations/">Weddings &#038; Celebrations</a>
@@ -439,10 +438,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                                                                     <a href="https://www.roundhouse.org.uk/whats-on/" class="submenu__heading h5 submenu__heading--whats-on">What’s On</a>
                                 <nav class="mobile-menu__subnav-list mobile-menu__subnav-list--whats-on">
                                                                             <a class="submenu__link" href="https://www.roundhouse.org.uk/whats-on/">All Gigs & Events</a>
-                                                                            <a class="submenu__link" href="https://www.roundhouse.org.uk/seasons/roundhouse-comedy-festival/">Roundhouse Comedy Festival</a>
                                                                             <a class="submenu__link" href="https://www.roundhouse.org.uk/seasons/autumn-term/">Autumn Term Youth Programme</a>
-                                                                            <a class="submenu__link" href="https://www.roundhouse.org.uk/creating-bold-futures/">20 years of creating bold futures</a>
                                                                             <a class="submenu__link" href="https://www.roundhouse.org.uk/seasons/electronic/">Electronic & Club Nights</a>
+                                                                            <a class="submenu__link" href="https://www.roundhouse.org.uk/creating-bold-futures/">20 years of creating bold futures</a>
                                                                     </nav>
                                                                                                                 <a href="https://www.roundhouse.org.uk/young-creatives-11-30/" class="submenu__heading h5 submenu__heading--young-creatives-11-30">Young Creatives (11–30)</a>
                                 <nav class="mobile-menu__subnav-list mobile-menu__subnav-list--young-creatives-11-30">
@@ -489,7 +487,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                                                             <a class="submenu__link" href="https://www.roundhouse.org.uk/venue-hire/fashion-events/">Fashion Events</a>
                                                                             <a class="submenu__link" href="https://www.roundhouse.org.uk/venue-hire/filming/">Filming</a>
                                                                             <a class="submenu__link" href="https://www.roundhouse.org.uk/venue-hire/services-suppliers/">Services &#038; Suppliers</a>
-                                                                            <a class="submenu__link" href="https://www.roundhouse.org.uk/venue-hire/standing-receptions/">Standing Receptions</a>
+                                                                            <a class="submenu__link" href="https://www.roundhouse.org.uk/venue-hire/standing-receptions/">Parties and Standing Receptions</a>
                                                                             <a class="submenu__link" href="https://www.roundhouse.org.uk/venue-hire/weddings-celebrations/">Weddings &#038; Celebrations</a>
                                                                     </nav>
                                                                         </div>
@@ -520,35 +518,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="featured-event__up-next">
             <h1 class="featured-event__title">Up next</h1>
             <div class="featured-event__list list">
-                                    <a href="https://www.roundhouse.org.uk/whats-on/live-at-roundhouse-with-ed-gamble/" class="list__item" >Live at the Roundhouse with Ed Gamble</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/marsh/" class="list__item" >Marsh Extended Set</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/jack-rooke-good-grief-cf/" class="list__item" >Jack Rooke: Good Grief</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/fatoumata-diawara/" class="list__item" >Fatoumata Diawara</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/sara-pascoe-friends-cf/" class="list__item" >Sara Pascoe & Friends</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/embrace/" class="list__item" >Embrace</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/vittorio-angelone-and-friends-cf/" class="list__item" >Vittorio Angelone & Friends</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/calibre/" class="list__item" >Calibre</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/cf-kristen-schaal-the-legend/" class="list__item" >Kristen Schaal: The Legend of Crystal Shell</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/del-amitri/" class="list__item" >Del Amitri</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/joe-lycett-friends-cf/" class="list__item" >Joe Lycett & Friends</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/gotts-street-park-friends/" class="list__item" >Gotts Street Park & Friends</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/bellaire/" class="list__item" >One Special Night at Roundhouse: Bellaire</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/notion/" class="list__item" >Notion</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/st-etienne/" class="list__item" >Saint Etienne</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/boy-harsher/" class="list__item" >Boy Harsher</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/nu-genea/" class="list__item" >Nu Genea Live Band</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/gang-of-youths/" class="list__item" >Gang of Youths</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/driving-change-26/" class="list__item" >Driving Change</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/tinie-tempah/" class="list__item" >Tinie Tempah</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/the-maine/" class="list__item" >The Maine</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/sasha-john-digweed-2/" class="list__item" >Sasha & John Digweed: Open to Close</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/good-kid/" class="list__item" >Good Kid</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/getdown-services/" class="list__item" >Getdown Services</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/roger-taylor/" class="list__item" >Roger Taylor</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/kodaline/" class="list__item" >Kodaline</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/anuv-jain/" class="list__item" >Anuv Jain</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/new-model-army/" class="list__item" >New Model Army</a>
                     <span class="list__separator">&bull;</span>
-                                    <a href="https://www.roundhouse.org.uk/whats-on/cake/" class="list__item" >An Evening With CAKE</a>
+                                    <a href="https://www.roundhouse.org.uk/whats-on/blondshell/" class="list__item" >Blondshell</a>
                     <span class="list__separator">&bull;</span>
                             </div>
         </div>
@@ -594,7 +592,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <span class="featured-card__date text text--small text--semi-bold">Sat 12 Sep 26</span>
                     <div class="featured-card__title-wrapper">
                         <h2 class="h3 featured-card__title">One Special Night at Roundhouse: Bellaire</h2>
-                        <h3 class="featured-card__subtitle">(Extended Set) + Friends</h3>
+                        <h3 class="featured-card__subtitle">+ Dublon + Jeremy Underground</h3>
                     </div>
                 </div>
             </a>
@@ -610,7 +608,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="toggle-view__filters">
                 <div class="checkbox-filters">
                     <span class="checkbox-filters__text text text--semi-bold text--small">Filter</span>
-                    <label class="ui-radio ui-radio--button " data-value="event">
+                    <label class="ui-radio ui-radio--button ui-radio--checked" data-value="event">
                         <input type="checkbox" value="event">
                         Gigs &amp; Events
                         <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" class="ui-radio__icon"><path d="M2.567 13.175L.825 11.433 5.26 7 .825 2.567 2.567.825 7 5.258 11.434.825l1.741 1.742L8.742 7l4.433 4.433-1.742 1.742L7 8.742l-4.433 4.433z"></path></svg>
@@ -638,20 +636,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="filters-bar event-filters events__filters events__filters--bar">
     <div class="filters-bar__wrapper">
         <div class="filters-bar__date-ranges">
-            <button class="ui-radio ui-radio--button " data-value="2026-08-15|2026-08-16">
+            <button class="ui-radio ui-radio--button " data-value="2026-09-06|2026-09-06">
                 <svg width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-radio__icon"><path  d="M4.765 9.817L.16 5.213l1.593-1.594 3.01 3.01L11.247.148l1.594 1.594-8.075 8.075z" fill="#000"></path></svg>
                 This weekend
             </button>
-            <button class="ui-radio ui-radio--button " data-value="2026-08-11|2026-08-25">
+            <button class="ui-radio ui-radio--button " data-value="2026-09-06|2026-09-20">
                 <svg width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-radio__icon"><path d="M4.765 9.817L.16 5.213l1.593-1.594 3.01 3.01L11.247.148l1.594 1.594-8.075 8.075z" fill="#000"></path></svg>
                 Next 2 weeks
             </button>
-            <button class="ui-radio ui-radio--button " data-value="2026-08-11|2026-09-10">
+            <button class="ui-radio ui-radio--button " data-value="2026-09-06|2026-10-06">
                 <svg width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-radio__icon"><path d="M4.765 9.817L.16 5.213l1.593-1.594 3.01 3.01L11.247.148l1.594 1.594-8.075 8.075z" fill="#000"></path></svg>
                 Next 30 days
             </button>
         </div>
 
+                    <div class="drop-down drop-down__genres filters-dropdown">
+                <div class="drop-down__trigger">
+                    <button class="filters-dropdown__button button" id="genres-toggle-button" aria-expanded="false" aria-controls="genres-dropdown-panel">
+                        Types
+                        <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-down__trigger-icon"><path d="M.542.417L4.5 4.375 8.46.417H.542z" fill="#000"></path></svg>
+                    </button>
+                </div>
+                <div class="drop-down__content" id="genres-dropdown-panel" hidden>
+                    <h2 class="text text--small text--semi-bold sr-only">Types</h2>
+                    <div class="filters-dropdown__filters">
+                        <div class="filters-checkbox-group checkbox-group--column">
+                                                            <label for="music" class="ui-radio ui-radio--button ">
+                                    <svg width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-radio__icon"><path d="M4.765 9.817L.16 5.213l1.593-1.594 3.01 3.01L11.247.148l1.594 1.594-8.075 8.075z" fill="#000"></path></svg>
+                                    Music
+                                    <input type="checkbox" id="music" name="genres" class="ui-radio__input" value="music" >
+                                </label>
+                                                            <label for="other" class="ui-radio ui-radio--button ">
+                                    <svg width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-radio__icon"><path d="M4.765 9.817L.16 5.213l1.593-1.594 3.01 3.01L11.247.148l1.594 1.594-8.075 8.075z" fill="#000"></path></svg>
+                                    Other
+                                    <input type="checkbox" id="other" name="genres" class="ui-radio__input" value="other" >
+                                </label>
+                                                            <label for="roundhouse-three-sixty" class="ui-radio ui-radio--button ">
+                                    <svg width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-radio__icon"><path d="M4.765 9.817L.16 5.213l1.593-1.594 3.01 3.01L11.247.148l1.594 1.594-8.075 8.075z" fill="#000"></path></svg>
+                                    Roundhouse Three Sixty
+                                    <input type="checkbox" id="roundhouse-three-sixty" name="genres" class="ui-radio__input" value="roundhouse-three-sixty" >
+                                </label>
+                                                        <button type="submit" class="button button--primary-alt">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         
         
 
@@ -673,11 +702,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="root infinite-list">
                                     <div class="card-view">
                                                                 <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/c59-theatre-week-15-17-sh26/" class="event-card__link">
+                            <a href="https://www.roundhouse.org.uk/whats-on/panchiko/" class="event-card__link">
 
                                 <div class="event-card__image">
                                                                             <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/05/C59-15-17-1260x1280.jpg"
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2025/11/panchiko-1.png"
                                             srcset=""
                                             sizes="(max-width: 1260px) 100vw, 1260px"
                                             alt="placeholder image"
@@ -686,29 +715,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                 <div class="event-card__gradient"></div>
 
-                                                                    <span class="event-card__season-label">Summer Holiday</span>
                                 
                                     <div class="event-card__content-wrapper event-card__content-wrapper--free">
                                         <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Centre 59 Theatre Week (15-17s)</h3>
+                                            <h3 class="h4 event-card__title">Panchiko</h3>
+
+                                                                                    </div>
+                                        <h4 class="event-card__subtitle text text--large text--semi-bold">+ Alison's Halo</h4>
+
+                                                                                    <div class="event-card__additional text text--small text--semi-bold">
+                                                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M5 .5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM5.5 8h-1V5h1v3zm0-4h-1V3h1v1z" fill="#000"></path></svg>
+                                                <span>Maximum 6 tickets per person</span>
+                                            </div>
+                                        
+                                        <div class="event-card__details">
+                                            <span class="event-card__date text text--small text--semi-bold">Sat 24 Oct 26</span>
+                                                                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                                                                    <div class="event-card">
+                            <a href="https://www.roundhouse.org.uk/whats-on/jorge-drexler/" class="event-card__link">
+
+                                <div class="event-card__image">
+                                                                            <img
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/04/Golden-Time.png"
+                                            srcset=""
+                                            sizes="(max-width: 1260px) 100vw, 1260px"
+                                            alt="placeholder image"
+                                        />
+                                                                    </div>
+
+                                <div class="event-card__gradient"></div>
+
+                                
+                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
+                                        <div class="event-card__header-wrapper">
+                                            <h3 class="h4 event-card__title">Jorge Drexler</h3>
 
                                                                                     </div>
                                         <h4 class="event-card__subtitle text text--large text--semi-bold"></h4>
 
                                         
                                         <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Wed 12 Aug 26&ndash;Fri 14 Aug 26</span>
-                                                                                            <span class="event-card__age-suitability text text--small text--bold">Ages 15-17</span>
+                                            <span class="event-card__date text text--small text--semi-bold">Tue 27 Oct 26</span>
                                                                                     </div>
                                     </div>
                                 </a>
                             </div>
                                                                     <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/selector-lab-sh26/" class="event-card__link">
+                            <a href="https://www.roundhouse.org.uk/whats-on/tomora/" class="event-card__link">
 
                                 <div class="event-card__image">
                                                                             <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/05/Selector-Lab-18-25-1260x1280.png"
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/03/Golden-Time-2.png"
                                             srcset=""
                                             sizes="(max-width: 1260px) 100vw, 1260px"
                                             alt="placeholder image"
@@ -717,33 +777,64 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                 <div class="event-card__gradient"></div>
 
-                                                                    <span class="event-card__season-label">Summer Holiday</span>
                                 
                                     <div class="event-card__content-wrapper event-card__content-wrapper--free">
                                         <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Selector Lab: DJ Curation & Radio Programming</h3>
+                                            <h3 class="h4 event-card__title">TOMORA</h3>
+
+                                                                                    </div>
+                                        <h4 class="event-card__subtitle text text--large text--semi-bold">+ Oxis</h4>
+
+                                                                                    <div class="event-card__additional text text--small text--semi-bold">
+                                                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M5 .5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM5.5 8h-1V5h1v3zm0-4h-1V3h1v1z" fill="#000"></path></svg>
+                                                <span>Maximum 6 tickets per person</span>
+                                            </div>
+                                        
+                                        <div class="event-card__details">
+                                            <span class="event-card__date text text--small text--semi-bold">Wed 28 Oct 26</span>
+                                                                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                                                                    <div class="event-card">
+                            <a href="https://www.roundhouse.org.uk/whats-on/mestiza-present-sacro/" class="event-card__link">
+
+                                <div class="event-card__image">
+                                                                            <img
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/05/Featured-Image-2.png"
+                                            srcset=""
+                                            sizes="(max-width: 1260px) 100vw, 1260px"
+                                            alt="placeholder image"
+                                        />
+                                                                    </div>
+
+                                <div class="event-card__gradient"></div>
+
+                                
+                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
+                                        <div class="event-card__header-wrapper">
+                                            <h3 class="h4 event-card__title">MESTIZA present SACRO</h3>
 
                                                                                     </div>
                                         <h4 class="event-card__subtitle text text--large text--semi-bold"></h4>
 
                                                                                     <div class="event-card__additional text text--small text--semi-bold">
                                                 <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M5 .5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM5.5 8h-1V5h1v3zm0-4h-1V3h1v1z" fill="#000"></path></svg>
-                                                <span>Apply by Fri 3 July at 10am</span>
+                                                <span>18+</span>
                                             </div>
                                         
                                         <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Wed 12 Aug 26&ndash;Fri 14 Aug 26</span>
-                                                                                            <span class="event-card__age-suitability text text--small text--bold">Ages 18-25</span>
+                                            <span class="event-card__date text text--small text--semi-bold">Fri 30 Oct 26</span>
                                                                                     </div>
                                     </div>
                                 </a>
                             </div>
                                                                     <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/freelancer-strategy-day-sh26/" class="event-card__link">
+                            <a href="https://www.roundhouse.org.uk/whats-on/caiiro-x-da-capo-x-enoo-napa/" class="event-card__link">
 
                                 <div class="event-card__image">
                                                                             <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/05/Freelancer-Strategy-Day-18-to-30-1260x1280.png"
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/08/3.png"
                                             srcset=""
                                             sizes="(max-width: 1260px) 100vw, 1260px"
                                             alt="placeholder image"
@@ -752,29 +843,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                 <div class="event-card__gradient"></div>
 
-                                                                    <span class="event-card__season-label">Summer Holiday</span>
                                 
                                     <div class="event-card__content-wrapper event-card__content-wrapper--free">
                                         <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Freelancer Strategy Day</h3>
+                                            <h3 class="h4 event-card__title">Caiiro x Da Capo x Enoo Napa</h3>
+
+                                                                                    </div>
+                                        <h4 class="event-card__subtitle text text--large text--semi-bold">Halloween B3B </h4>
+
+                                                                                    <div class="event-card__additional text text--small text--semi-bold">
+                                                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M5 .5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM5.5 8h-1V5h1v3zm0-4h-1V3h1v1z" fill="#000"></path></svg>
+                                                <span>18+</span>
+                                            </div>
+                                        
+                                        <div class="event-card__details">
+                                            <span class="event-card__date text text--small text--semi-bold">Sat 31 Oct 26</span>
+                                                                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                                                                    <div class="event-card">
+                            <a href="https://www.roundhouse.org.uk/whats-on/cat-power/" class="event-card__link">
+
+                                <div class="event-card__image">
+                                                                            <img
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2025/10/cat-power-featured-image.png"
+                                            srcset=""
+                                            sizes="(max-width: 1260px) 100vw, 1260px"
+                                            alt="placeholder image"
+                                        />
+                                                                    </div>
+
+                                <div class="event-card__gradient"></div>
+
+                                
+                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
+                                        <div class="event-card__header-wrapper">
+                                            <h3 class="h4 event-card__title">Cat Power</h3>
 
                                                                                     </div>
                                         <h4 class="event-card__subtitle text text--large text--semi-bold"></h4>
 
                                         
                                         <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Thu 13 Aug 26</span>
-                                                                                            <span class="event-card__age-suitability text text--small text--bold">Ages 18-30</span>
+                                            <span class="event-card__date text text--small text--semi-bold">Tue 03 Nov 26</span>
                                                                                     </div>
                                     </div>
                                 </a>
                             </div>
                                                                     <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/live-at-roundhouse-with-ed-gamble/" class="event-card__link">
+                            <a href="https://www.roundhouse.org.uk/whats-on/slayyyter/" class="event-card__link">
 
                                 <div class="event-card__image">
                                                                             <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/04/Ed-Gamble-4.png"
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/03/Golden-Time.png"
                                             srcset=""
                                             sizes="(max-width: 1260px) 100vw, 1260px"
                                             alt="placeholder image"
@@ -783,62 +905,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                 <div class="event-card__gradient"></div>
 
-                                                                    <span class="event-card__season-label">Roundhouse Comedy Festival</span>
                                 
                                     <div class="event-card__content-wrapper event-card__content-wrapper--free">
                                         <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Live at the Roundhouse with Ed Gamble</h3>
+                                            <h3 class="h4 event-card__title">Slayyyter: THE WOR$T GIRL IN THE WORLD TOUR</h3>
 
                                                                                     </div>
-                                        <h4 class="event-card__subtitle text text--large text--semi-bold">Hosted by Kiri Pritchard-McLean, plus Nick Mohammed, Jamali Maddix & Sam Nicoresti</h4>
-
-                                                                                    <div class="event-card__additional text text--small text--semi-bold">
-                                                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M5 .5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM5.5 8h-1V5h1v3zm0-4h-1V3h1v1z" fill="#000"></path></svg>
-                                                <span>This event includes live captioning.</span>
-                                            </div>
-                                        
-                                        <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Thu 13 Aug 26</span>
-                                                                                    </div>
-                                    </div>
-                                </a>
-                            </div>
-                                                                    <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/jack-rooke-good-grief-cf/" class="event-card__link">
-
-                                <div class="event-card__image">
-                                                                            <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/04/Jack-Rooke_Featured.png"
-                                            srcset=""
-                                            sizes="(max-width: 1260px) 100vw, 1260px"
-                                            alt="placeholder image"
-                                        />
-                                                                    </div>
-
-                                <div class="event-card__gradient"></div>
-
-                                                                    <span class="event-card__season-label">Roundhouse Comedy Festival</span>
-                                
-                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
-                                        <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Jack Rooke: Good Grief</h3>
-
-                                                                                    </div>
-                                        <h4 class="event-card__subtitle text text--large text--semi-bold">a decade retrospective of capitalising on my dead dad to varied levels of failure and success</h4>
+                                        <h4 class="event-card__subtitle text text--large text--semi-bold">+ Pearly Drops</h4>
 
                                         
                                         <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Fri 14 Aug 26</span>
+                                            <span class="event-card__date text text--small text--semi-bold">Thu 05 Nov 26</span>
+                                                                                            <span class="event-card__age-suitability text text--small text--bold">U16s w/adult. U14s seated w/adult</span>
                                                                                     </div>
                                     </div>
                                 </a>
                             </div>
                                                                     <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/sara-pascoe-friends-cf/" class="event-card__link">
+                            <a href="https://www.roundhouse.org.uk/whats-on/the-avalanches/" class="event-card__link">
 
                                 <div class="event-card__image">
                                                                             <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/04/Sara-Pascoe-1-1.png"
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/04/Gotts-Street-Park.png"
                                             srcset=""
                                             sizes="(max-width: 1260px) 100vw, 1260px"
                                             alt="placeholder image"
@@ -847,118 +935,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                 <div class="event-card__gradient"></div>
 
-                                                                    <span class="event-card__season-label">Roundhouse Comedy Festival</span>
                                 
                                     <div class="event-card__content-wrapper event-card__content-wrapper--free">
                                         <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Sara Pascoe & Friends</h3>
-
-                                                                                    </div>
-                                        <h4 class="event-card__subtitle text text--large text--semi-bold">with Nina Conti, John Kearns, Harriet Kemsley & Michael Odewale</h4>
-
-                                                                                    <div class="event-card__additional text text--small text--semi-bold">
-                                                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M5 .5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM5.5 8h-1V5h1v3zm0-4h-1V3h1v1z" fill="#000"></path></svg>
-                                                <span>This event includes live captioning</span>
-                                            </div>
-                                        
-                                        <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Sat 15 Aug 26</span>
-                                                                                    </div>
-                                    </div>
-                                </a>
-                            </div>
-                                                                    <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/vittorio-angelone-and-friends-cf/" class="event-card__link">
-
-                                <div class="event-card__image">
-                                                                            <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/04/Vittorio-Angelone-1-1.png"
-                                            srcset=""
-                                            sizes="(max-width: 1260px) 100vw, 1260px"
-                                            alt="placeholder image"
-                                        />
-                                                                    </div>
-
-                                <div class="event-card__gradient"></div>
-
-                                                                    <span class="event-card__season-label">Roundhouse Comedy Festival</span>
-                                
-                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
-                                        <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Vittorio Angelone & Friends</h3>
-
-                                                                                    </div>
-                                        <h4 class="event-card__subtitle text text--large text--semi-bold">with Kyla Cobbler, Troy Hawke, Janine Harouni, Kyla Cobbler, and Micky Overman</h4>
-
-                                        
-                                        <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Sun 16 Aug 26</span>
-                                                                                    </div>
-                                    </div>
-                                </a>
-                            </div>
-                                                                    <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/c59-theatre-week-18-25-sh26/" class="event-card__link">
-
-                                <div class="event-card__image">
-                                                                            <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/05/C59-18-25-1260x1280.jpg"
-                                            srcset=""
-                                            sizes="(max-width: 1260px) 100vw, 1260px"
-                                            alt="placeholder image"
-                                        />
-                                                                    </div>
-
-                                <div class="event-card__gradient"></div>
-
-                                                                    <span class="event-card__season-label">Summer Holiday</span>
-                                
-                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
-                                        <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Centre 59 Theatre Week (18-25s)</h3>
-
-                                                                                    </div>
-                                        <h4 class="event-card__subtitle text text--large text--semi-bold"></h4>
-
-                                                                                    <div class="event-card__additional text text--small text--semi-bold">
-                                                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M5 .5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM5.5 8h-1V5h1v3zm0-4h-1V3h1v1z" fill="#000"></path></svg>
-                                                <span>Enter the lottery by Wed 1 July, 10am</span>
-                                            </div>
-                                        
-                                        <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Mon 17 Aug 26&ndash;Fri 21 Aug 26</span>
-                                                                                            <span class="event-card__age-suitability text text--small text--bold">Ages 18-25</span>
-                                                                                    </div>
-                                    </div>
-                                </a>
-                            </div>
-                                                                    <div class="event-card">
-                            <a href="https://www.roundhouse.org.uk/whats-on/open-daw-ableton-18-25-sh26/" class="event-card__link">
-
-                                <div class="event-card__image">
-                                                                            <img
-                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/05/Open-DAWs-18-to-25-1260x1280.png"
-                                            srcset=""
-                                            sizes="(max-width: 1260px) 100vw, 1260px"
-                                            alt="placeholder image"
-                                        />
-                                                                    </div>
-
-                                <div class="event-card__gradient"></div>
-
-                                                                    <span class="event-card__season-label">Summer Holiday</span>
-                                
-                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
-                                        <div class="event-card__header-wrapper">
-                                            <h3 class="h4 event-card__title">Open DAW Series: Ableton for Intermediates</h3>
+                                            <h3 class="h4 event-card__title">The Avalanches & Friends</h3>
 
                                                                                     </div>
                                         <h4 class="event-card__subtitle text text--large text--semi-bold"></h4>
 
                                         
                                         <div class="event-card__details">
-                                            <span class="event-card__date text text--small text--semi-bold">Mon 17 Aug 26&ndash;Mon 24 Aug 26</span>
-                                                                                            <span class="event-card__age-suitability text text--small text--bold">Ages 18-25</span>
+                                            <span class="event-card__date text text--small text--semi-bold">Fri 06 Nov 26&ndash;Fri 27 Nov 26</span>
+                                                                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                                                                    <div class="event-card">
+                            <a href="https://www.roundhouse.org.uk/whats-on/noname/" class="event-card__link">
+
+                                <div class="event-card__image">
+                                                                            <img
+                                            src="https://assets.roundhouse.org.uk/app/uploads/2026/04/Featured-Image.png"
+                                            srcset=""
+                                            sizes="(max-width: 1260px) 100vw, 1260px"
+                                            alt="placeholder image"
+                                        />
+                                                                    </div>
+
+                                <div class="event-card__gradient"></div>
+
+                                
+                                    <div class="event-card__content-wrapper event-card__content-wrapper--free">
+                                        <div class="event-card__header-wrapper">
+                                            <h3 class="h4 event-card__title">Noname</h3>
+
+                                                                                    </div>
+                                        <h4 class="event-card__subtitle text text--large text--semi-bold">Pitchfork Music Festival</h4>
+
+                                        
+                                        <div class="event-card__details">
+                                            <span class="event-card__date text text--small text--semi-bold">Sat 07 Nov 26</span>
                                                                                     </div>
                                     </div>
                                 </a>
@@ -966,18 +982,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                             </div>
                 
                 <div class="infinite-list__pagination">
-                    <span aria-current="page" class="page-numbers current">1</span>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/2/">2</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/3/">3</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/4/">4</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/5/">5</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/6/">6</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/7/">7</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/8/">8</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/9/">9</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/10/">10</a>
-<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/11/">11</a>
-<a class="next page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/2/">Next &raquo;</a>
+                    <a class="prev page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/2/?type=event&#038;fbclid=IwcGRvZgVmZGlkFlDebwg_Je2zYgCN2g_w7h_LCkutwsxleHRuA2FlbQEwAGFkaWQBqzbu8hlziXNydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR5zMQYai2m0ej5YJL21W2nFxpvNVN9f91tu4Kf6TH_GkSAaci0joPThSBDkGw_aem_x4NWRogmCzMhejvs_gFnVQ&#038;utm_medium=paid&#038;utm_source=fb&#038;utm_id=120250193905250713&#038;utm_content=120250214899600713&#038;utm_term=120250214886230713&#038;utm_campaign=120250193905250713">&laquo; Previous</a>
+<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/?type=event&#038;fbclid=IwcGRvZgVmZGlkFlDebwg_Je2zYgCN2g_w7h_LCkutwsxleHRuA2FlbQEwAGFkaWQBqzbu8hlziXNydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR5zMQYai2m0ej5YJL21W2nFxpvNVN9f91tu4Kf6TH_GkSAaci0joPThSBDkGw_aem_x4NWRogmCzMhejvs_gFnVQ&#038;utm_medium=paid&#038;utm_source=fb&#038;utm_id=120250193905250713&#038;utm_content=120250214899600713&#038;utm_term=120250214886230713&#038;utm_campaign=120250193905250713">1</a>
+<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/2/?type=event&#038;fbclid=IwcGRvZgVmZGlkFlDebwg_Je2zYgCN2g_w7h_LCkutwsxleHRuA2FlbQEwAGFkaWQBqzbu8hlziXNydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR5zMQYai2m0ej5YJL21W2nFxpvNVN9f91tu4Kf6TH_GkSAaci0joPThSBDkGw_aem_x4NWRogmCzMhejvs_gFnVQ&#038;utm_medium=paid&#038;utm_source=fb&#038;utm_id=120250193905250713&#038;utm_content=120250214899600713&#038;utm_term=120250214886230713&#038;utm_campaign=120250193905250713">2</a>
+<span aria-current="page" class="page-numbers current">3</span>
+<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/4/?type=event&#038;fbclid=IwcGRvZgVmZGlkFlDebwg_Je2zYgCN2g_w7h_LCkutwsxleHRuA2FlbQEwAGFkaWQBqzbu8hlziXNydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR5zMQYai2m0ej5YJL21W2nFxpvNVN9f91tu4Kf6TH_GkSAaci0joPThSBDkGw_aem_x4NWRogmCzMhejvs_gFnVQ&#038;utm_medium=paid&#038;utm_source=fb&#038;utm_id=120250193905250713&#038;utm_content=120250214899600713&#038;utm_term=120250214886230713&#038;utm_campaign=120250193905250713">4</a>
+<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/5/?type=event&#038;fbclid=IwcGRvZgVmZGlkFlDebwg_Je2zYgCN2g_w7h_LCkutwsxleHRuA2FlbQEwAGFkaWQBqzbu8hlziXNydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR5zMQYai2m0ej5YJL21W2nFxpvNVN9f91tu4Kf6TH_GkSAaci0joPThSBDkGw_aem_x4NWRogmCzMhejvs_gFnVQ&#038;utm_medium=paid&#038;utm_source=fb&#038;utm_id=120250193905250713&#038;utm_content=120250214899600713&#038;utm_term=120250214886230713&#038;utm_campaign=120250193905250713">5</a>
+<a class="page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/6/?type=event&#038;fbclid=IwcGRvZgVmZGlkFlDebwg_Je2zYgCN2g_w7h_LCkutwsxleHRuA2FlbQEwAGFkaWQBqzbu8hlziXNydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR5zMQYai2m0ej5YJL21W2nFxpvNVN9f91tu4Kf6TH_GkSAaci0joPThSBDkGw_aem_x4NWRogmCzMhejvs_gFnVQ&#038;utm_medium=paid&#038;utm_source=fb&#038;utm_id=120250193905250713&#038;utm_content=120250214899600713&#038;utm_term=120250214886230713&#038;utm_campaign=120250193905250713">6</a>
+<a class="next page-numbers" href="https://www.roundhouse.org.uk/whats-on/page/4/?type=event&#038;fbclid=IwcGRvZgVmZGlkFlDebwg_Je2zYgCN2g_w7h_LCkutwsxleHRuA2FlbQEwAGFkaWQBqzbu8hlziXNydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR5zMQYai2m0ej5YJL21W2nFxpvNVN9f91tu4Kf6TH_GkSAaci0joPThSBDkGw_aem_x4NWRogmCzMhejvs_gFnVQ&#038;utm_medium=paid&#038;utm_source=fb&#038;utm_id=120250193905250713&#038;utm_content=120250214899600713&#038;utm_term=120250214886230713&#038;utm_campaign=120250193905250713">Next &raquo;</a>
                 </div>
             </div>
         </div>
@@ -1204,7 +1216,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 :root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
 /*# sourceURL=global-styles-inline-css */
 </style>
-<script type="text/javascript" src="https://www.roundhouse.org.uk/app/themes/lumberjack/assets/index-BfCFsUnZ.js?ver=6.9.5" id="roundhouse-scripts-js" defer="defer" data-wp-strategy="defer"></script>
+<script type="text/javascript" src="https://www.roundhouse.org.uk/app/themes/lumberjack/assets/index-DOZ12TQZ.js?ver=6.9.5" id="roundhouse-scripts-js" defer="defer" data-wp-strategy="defer"></script>
 
 
     </body>

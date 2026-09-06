@@ -2,6 +2,9 @@ package metalgigs.scrape.venues
 
 import metalgigs.*
 import metalgigs.scrape.*
+import org.http4k.core.HttpHandler
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
@@ -14,21 +17,61 @@ class RoundhouseGigsSourceTest {
     fun `extracts gig events from the Roundhouse whats-on page`() {
         assertScrapesGigs(
             source = RoundhouseGigsSource(cachedClient()),
-            size = 9,
+            size = 53,
             first = Gig(
-                GigId(roundhouse.id, GigUrl("https://www.roundhouse.org.uk/whats-on/cf-kristen-schaal-the-legend/")),
-                GigTitle("Kristen Schaal: The Legend of Crystal Shell"),
-                GigDate(2026, 8, 17),
-                PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/04/Kristen-Schaal-4.png"),
+                GigId(roundhouse.id, GigUrl("https://www.roundhouse.org.uk/whats-on/bellaire/")),
+                GigTitle("One Special Night at Roundhouse: Bellaire"),
+                GigDate(2026, 9, 12),
+                PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/02/Bellaire.png"),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(roundhouse.id, GigUrl("https://www.roundhouse.org.uk/whats-on/roger-taylor/")),
-                GigTitle("Roger Taylor"),
-                GigDate(2026, 9, 28),
-                PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/06/Roger_Taylor_London_1260x1280.jpg"),
+                GigId(roundhouse.id, GigUrl("https://www.roundhouse.org.uk/whats-on/angele/")),
+                GigTitle("Angèle"),
+                GigDate(2027, 5, 1),
+                PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/08/Featured-Image-1-2.png"),
                 GigDescription(""),
             ),
+        )
+    }
+
+    // The listing renders nine cards and loads the rest on scroll, so page one reads as the whole
+    // listing - which is what this source took it for until 2026-09-06, publishing 9 of the venue's
+    // 53 events for its first month.
+    // Why a listing is paged by the link the page follows: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
+    @Test
+    fun `follows the listing's own next link past the nine cards page one renders`() {
+        val gigs = RoundhouseGigsSource(pagedSite(lastPage = 3)).latestGigs()
+
+        expectThat(gigs.map { it.title.value }).isEqualTo(listOf("Gig 1", "Gig 2", "Gig 3"))
+    }
+
+    // The bound fails rather than stopping, a listing that quietly ends being the bug being fixed
+    // here rather than an acceptable answer to it.
+    @Test
+    fun `fails rather than stopping quietly on a listing that never runs out of next links`() {
+        val failure = runCatching { RoundhouseGigsSource(pagedSite(lastPage = 99)).latestGigs() }.exceptionOrNull()
+
+        expectThat(failure?.message.orEmpty().contains("still offers a next page")).isTrue()
+    }
+
+    // one card per page, so the page number is also the gig it carries
+    private fun pagedSite(lastPage: Int): HttpHandler = { request ->
+        val page = request.uri.path.substringAfter("/page/", "1").substringBefore('/').toInt()
+        val next =
+            if (page < lastPage) """<a class="next page-numbers" href="/whats-on/page/${page + 1}/?type=event">Next</a>"""
+            else ""
+        Response(OK).body(
+            """
+            <div class="event-card">
+                <a href="https://www.roundhouse.org.uk/whats-on/gig-$page/" class="event-card__link"></a>
+                <div class="event-card__image"><img src="https://assets.roundhouse.org.uk/gig-$page.jpg"></div>
+                <h3 class="event-card__title">Gig $page</h3>
+                <p class="event-card__date">Wed 12 Aug 26</p>
+            </div>
+            <div class="infinite-list__pagination">$next</div>
+            <section class="event-about"><p>An evening of something.</p></section>
+            """.trimIndent()
         )
     }
 
