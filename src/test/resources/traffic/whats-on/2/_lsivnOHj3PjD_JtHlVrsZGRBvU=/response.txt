@@ -1,7 +1,7 @@
 HTTP/1.1 200 
 content-security-policy: frame-ancestors 'self';
 content-type: text/html; charset=UTF-8
-date: Sun, 06 Sep 2026 21:41:38 GMT
+date: Sun, 06 Sep 2026 21:41:51 GMT
 link: <https://dingwalls.com/wp-json/>; rel="https://api.w.org/", <https://dingwalls.com/wp-json/wp/v2/pages/3023>; rel="alternate"; title="JSON"; type="application/json", <https://dingwalls.com/?p=3023>; rel=shortlink
 server: nginx-rc
 strict-transport-security: max-age=31536000
@@ -21,7 +21,7 @@ x-xss-protection: 1; mode=block
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<title>Dingwalls – Camden’s Legendary Live Music Venue Since 1973</title>
 <meta name='robots' content='max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-<link rel="canonical" href="https://dingwalls.com/whats-on/">
+<link rel="canonical" href="https://dingwalls.com/whats-on/2/">
 <meta name="description" content="Dingwalls is an legendary live music venue in Camden Town, hosting unforgettable gigs, club nights, and tribute acts since 1973.">
 <meta property="og:title" content="Dingwalls – Camden’s Legendary Live Music Venue Since 1973">
 <meta property="og:type" content="article">
@@ -30,7 +30,7 @@ x-xss-protection: 1; mode=block
 <meta property="og:image:height" content="1254">
 <meta property="og:image:alt" content="Hard-Fi live at Dingwalls London, November 2024">
 <meta property="og:description" content="Dingwalls is an legendary live music venue in Camden Town, hosting unforgettable gigs, club nights, and tribute acts since 1973.">
-<meta property="og:url" content="https://dingwalls.com/whats-on/">
+<meta property="og:url" content="https://dingwalls.com/whats-on/2/">
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="Dingwalls">
 <meta property="article:published_time" content="2025-06-18T15:51:28+01:00">
@@ -49,7 +49,7 @@ x-xss-protection: 1; mode=block
 				var mi_version = '11.2.0';
 				var mi_track_user = true;
 				var mi_no_track_reason = '';
-								var MonsterInsightsDefaultLocations = {"page_location":"https:\/\/dingwalls.com\/whats-on\/","page_referrer":"https:\/\/dingwalls.com\/"};
+								var MonsterInsightsDefaultLocations = {"page_location":"https:\/\/dingwalls.com\/whats-on\/2\/","page_referrer":"https:\/\/dingwalls.com\/whats-on\/"};
 								if ( typeof MonsterInsightsPrivacyGuardFilter === 'function' ) {
 					var MonsterInsightsLocations = (typeof MonsterInsightsExcludeQuery === 'object') ? MonsterInsightsPrivacyGuardFilter( MonsterInsightsExcludeQuery ) : MonsterInsightsPrivacyGuardFilter( MonsterInsightsDefaultLocations );
 				} else {
@@ -344,7 +344,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <script id="js-cookie-pys-js" src="https://dingwalls.com/wp-content/plugins/pixelyoursite/dist/scripts/js.cookie-2.1.3.min.js?ver=2.1.3"></script>
 <script id="js-tld-js" src="https://dingwalls.com/wp-content/plugins/pixelyoursite/dist/scripts/tld.min.js?ver=2.3.1"></script>
 <script id="pys-js-extra">
-var pysOptions = {"staticEvents":{"facebook":{"init_event":[{"delay":0,"type":"static","ajaxFire":false,"name":"PageView","pixelIds":["\u003C!-- Meta Pixel Code --\u003E  !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1506806523555457'); fbq('track', 'PageView');  \u003Cimg height=\"1\" width=\"1\" src=\"https://www.facebook.com/tr?id=1506806523555457&amp;ev=PageView&amp;noscript=1\" /\u003E \u003C!-- End Meta Pixel Code --\u003E"],"eventID":"a3b74cb3-afc0-4d9a-9c44-bb86cfe3cb89","params":{"page_title":"What's On","post_type":"page","post_id":3023,"plugin":"PixelYourSite","user_role":"guest","event_url":"dingwalls.com/whats-on/"},"e_id":"init_event","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}]}},"dynamicEvents":[],"triggerEvents":[],"triggerEventTypes":[],"facebook":{"pixelIds":["\u003C!-- Meta Pixel Code --\u003E  !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1506806523555457'); fbq('track', 'PageView');  \u003Cimg height=\"1\" width=\"1\" src=\"https://www.facebook.com/tr?id=1506806523555457&amp;ev=PageView&amp;noscript=1\" /\u003E \u003C!-- End Meta Pixel Code --\u003E"],"advancedMatching":[],"advancedMatchingEnabled":false,"removeMetadata":false,"contentParams":{"post_type":"page","post_id":3023,"content_name":"What's On"},"commentEventEnabled":true,"wooVariableAsSimple":false,"downloadEnabled":true,"formEventEnabled":true,"serverApiEnabled":false,"wooCRSendFromServer":false,"send_external_id":null,"enabled_medical":false,"do_not_track_medical_param":["event_url","post_title","page_title","landing_page","content_name","categories","category_name","tags"],"meta_ldu":false},"debug":"","siteUrl":"https://dingwalls.com","ajaxUrl":"https://dingwalls.com/wp-admin/admin-ajax.php","ajax_event":"a6ef58ec2d","enable_remove_download_url_param":"1","cookie_duration":"7","last_visit_duration":"60","enable_success_send_form":"","ajaxForServerEvent":"1","ajaxForServerStaticEvent":"1","send_external_id":"1","external_id_expire":"180","track_cookie_for_subdomains":"1","google_consent_mode":"1","gdpr":{"ajax_enabled":false,"all_disabled_by_api":false,"facebook_disabled_by_api":false,"analytics_disabled_by_api":false,"google_ads_disabled_by_api":false,"pinterest_disabled_by_api":false,"bing_disabled_by_api":false,"externalID_disabled_by_api":false,"facebook_prior_consent_enabled":true,"analytics_prior_consent_enabled":true,"google_ads_prior_consent_enabled":null,"pinterest_prior_consent_enabled":true,"bing_prior_consent_enabled":true,"cookiebot_integration_enabled":false,"cookiebot_facebook_consent_category":"marketing","cookiebot_analytics_consent_category":"statistics","cookiebot_tiktok_consent_category":"marketing","cookiebot_google_ads_consent_category":null,"cookiebot_pinterest_consent_category":"marketing","cookiebot_bing_consent_category":"marketing","consent_magic_integration_enabled":false,"real_cookie_banner_integration_enabled":false,"cookie_notice_integration_enabled":false,"cookie_law_info_integration_enabled":false,"analytics_storage":{"enabled":true,"value":"granted","filter":false},"ad_storage":{"enabled":true,"value":"granted","filter":false},"ad_user_data":{"enabled":true,"value":"granted","filter":false},"ad_personalization":{"enabled":true,"value":"granted","filter":false}},"cookie":{"disabled_all_cookie":false,"disabled_start_session_cookie":false,"disabled_advanced_form_data_cookie":false,"disabled_landing_page_cookie":false,"disabled_first_visit_cookie":false,"disabled_trafficsource_cookie":false,"disabled_utmTerms_cookie":false,"disabled_utmId_cookie":false},"tracking_analytics":{"TrafficSource":"direct","TrafficLanding":"https://dingwalls.com/","TrafficUtms":[],"TrafficUtmsId":[]},"GATags":{"ga_datalayer_type":"default","ga_datalayer_name":"dataLayerPYS"},"woo":{"enabled":false},"edd":{"enabled":false},"cache_bypass":"1788730366"};
+var pysOptions = {"staticEvents":{"facebook":{"init_event":[{"delay":0,"type":"static","ajaxFire":false,"name":"PageView","pixelIds":["\u003C!-- Meta Pixel Code --\u003E  !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1506806523555457'); fbq('track', 'PageView');  \u003Cimg height=\"1\" width=\"1\" src=\"https://www.facebook.com/tr?id=1506806523555457&amp;ev=PageView&amp;noscript=1\" /\u003E \u003C!-- End Meta Pixel Code --\u003E"],"eventID":"0d811a45-e470-4ed1-8574-56b58c9354c6","params":{"page_title":"What's On","post_type":"page","post_id":3023,"plugin":"PixelYourSite","user_role":"guest","event_url":"dingwalls.com/whats-on/2/"},"e_id":"init_event","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}]}},"dynamicEvents":[],"triggerEvents":[],"triggerEventTypes":[],"facebook":{"pixelIds":["\u003C!-- Meta Pixel Code --\u003E  !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1506806523555457'); fbq('track', 'PageView');  \u003Cimg height=\"1\" width=\"1\" src=\"https://www.facebook.com/tr?id=1506806523555457&amp;ev=PageView&amp;noscript=1\" /\u003E \u003C!-- End Meta Pixel Code --\u003E"],"advancedMatching":[],"advancedMatchingEnabled":false,"removeMetadata":false,"contentParams":{"post_type":"page","post_id":3023,"content_name":"What's On"},"commentEventEnabled":true,"wooVariableAsSimple":false,"downloadEnabled":true,"formEventEnabled":true,"serverApiEnabled":false,"wooCRSendFromServer":false,"send_external_id":null,"enabled_medical":false,"do_not_track_medical_param":["event_url","post_title","page_title","landing_page","content_name","categories","category_name","tags"],"meta_ldu":false},"debug":"","siteUrl":"https://dingwalls.com","ajaxUrl":"https://dingwalls.com/wp-admin/admin-ajax.php","ajax_event":"a6ef58ec2d","enable_remove_download_url_param":"1","cookie_duration":"7","last_visit_duration":"60","enable_success_send_form":"","ajaxForServerEvent":"1","ajaxForServerStaticEvent":"1","send_external_id":"1","external_id_expire":"180","track_cookie_for_subdomains":"1","google_consent_mode":"1","gdpr":{"ajax_enabled":false,"all_disabled_by_api":false,"facebook_disabled_by_api":false,"analytics_disabled_by_api":false,"google_ads_disabled_by_api":false,"pinterest_disabled_by_api":false,"bing_disabled_by_api":false,"externalID_disabled_by_api":false,"facebook_prior_consent_enabled":true,"analytics_prior_consent_enabled":true,"google_ads_prior_consent_enabled":null,"pinterest_prior_consent_enabled":true,"bing_prior_consent_enabled":true,"cookiebot_integration_enabled":false,"cookiebot_facebook_consent_category":"marketing","cookiebot_analytics_consent_category":"statistics","cookiebot_tiktok_consent_category":"marketing","cookiebot_google_ads_consent_category":null,"cookiebot_pinterest_consent_category":"marketing","cookiebot_bing_consent_category":"marketing","consent_magic_integration_enabled":false,"real_cookie_banner_integration_enabled":false,"cookie_notice_integration_enabled":false,"cookie_law_info_integration_enabled":false,"analytics_storage":{"enabled":true,"value":"granted","filter":false},"ad_storage":{"enabled":true,"value":"granted","filter":false},"ad_user_data":{"enabled":true,"value":"granted","filter":false},"ad_personalization":{"enabled":true,"value":"granted","filter":false}},"cookie":{"disabled_all_cookie":false,"disabled_start_session_cookie":false,"disabled_advanced_form_data_cookie":false,"disabled_landing_page_cookie":false,"disabled_first_visit_cookie":false,"disabled_trafficsource_cookie":false,"disabled_utmTerms_cookie":false,"disabled_utmId_cookie":false},"tracking_analytics":{"TrafficSource":"duckduckgo.com","TrafficLanding":"https://dingwalls.com/","TrafficUtms":[],"TrafficUtmsId":[]},"GATags":{"ga_datalayer_type":"default","ga_datalayer_name":"dataLayerPYS"},"woo":{"enabled":false},"edd":{"enabled":false},"cache_bypass":"1788712075"};
 //# sourceURL=pys-js-extra
 </script>
 <script id="pys-js" src="https://dingwalls.com/wp-content/plugins/pixelyoursite/dist/scripts/public.js?ver=10.1.2.1"></script>
@@ -461,7 +461,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1506806523555457&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code --></head>
-<body class="wp-singular page-template-default page page-id-3023 wp-custom-logo wp-theme-hello-elementor elementor-default elementor-kit-5 elementor-page elementor-page-3023">
+<body class="wp-singular page-template-default page page-id-3023 wp-custom-logo paged-2 page-paged-2 wp-theme-hello-elementor elementor-default elementor-kit-5 elementor-page elementor-page-3023">
 
 
 <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
@@ -533,529 +533,309 @@ src="https://www.facebook.com/tr?id=1506806523555457&ev=PageView&noscript=1"
 							<div class="elementor-loop-container elementor-grid" role="list">
 		<style id="loop-692">.elementor-692 .elementor-element.elementor-element-01c9cb3{--display:flex;--padding-top:0px;--padding-bottom:0px;--padding-left:0px;--padding-right:0px;}.elementor-692 .elementor-element.elementor-element-01c9cb3.e-con{--flex-grow:0;--flex-shrink:0;}.elementor-widget-theme-post-featured-image .widget-image-caption{color:var( --e-global-color-text );font-family:var( --e-global-typography-text-font-family ), Sans-serif;font-weight:var( --e-global-typography-text-font-weight );}.elementor-692 .elementor-element.elementor-element-f5f381c > .elementor-widget-container{border-style:solid;border-width:2px 2px 2px 2px;border-color:#FFFFFF;border-radius:0px 0px 0px 0px;box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);}.elementor-692 .elementor-element.elementor-element-f5f381c img{width:100%;height:100%;object-fit:cover;object-position:center center;border-radius:0px 0px 0px 0px;}.elementor-692 .elementor-element.elementor-element-3d3f309{--display:flex;--justify-content:space-between;--overlay-opacity:0.5;}.elementor-692 .elementor-element.elementor-element-3d3f309::before, .elementor-692 .elementor-element.elementor-element-3d3f309 > .elementor-background-video-container::before, .elementor-692 .elementor-element.elementor-element-3d3f309 > .e-con-inner > .elementor-background-video-container::before, .elementor-692 .elementor-element.elementor-element-3d3f309 > .elementor-background-slideshow::before, .elementor-692 .elementor-element.elementor-element-3d3f309 > .e-con-inner > .elementor-background-slideshow::before, .elementor-692 .elementor-element.elementor-element-3d3f309 > .elementor-motion-effects-container > .elementor-motion-effects-layer::before{background-color:#00000000;--background-overlay:'';}.elementor-widget-theme-post-title .elementor-heading-title{font-family:var( --e-global-typography-primary-font-family ), Sans-serif;font-weight:var( --e-global-typography-primary-font-weight );color:var( --e-global-color-primary );}.elementor-692 .elementor-element.elementor-element-b39e13d > .elementor-widget-container{background-color:#00000000;}.elementor-692 .elementor-element.elementor-element-b39e13d .elementor-heading-title{font-family:"Lato", Sans-serif;font-size:27px;font-weight:600;line-height:110%;color:var( --e-global-color-3b0bc3a );}.elementor-widget-heading .elementor-heading-title{font-family:var( --e-global-typography-primary-font-family ), Sans-serif;font-weight:var( --e-global-typography-primary-font-weight );color:var( --e-global-color-primary );}.elementor-692 .elementor-element.elementor-element-38ca014 .elementor-heading-title{font-family:"Lato", Sans-serif;font-size:16px;font-weight:400;color:var( --e-global-color-3b0bc3a );}@media(max-width:1024px){.elementor-692 .elementor-element.elementor-element-3d3f309{--gap:9px 9px;--row-gap:9px;--column-gap:9px;}.elementor-692 .elementor-element.elementor-element-b39e13d .elementor-heading-title{font-size:17px;line-height:1.3em;}.elementor-692 .elementor-element.elementor-element-38ca014 .elementor-heading-title{font-size:15px;}}@media(min-width:768px){.elementor-692 .elementor-element.elementor-element-01c9cb3{--width:94.561%;}}@media(max-width:767px){.elementor-692 .elementor-element.elementor-element-01c9cb3{--width:100%;}.elementor-692 .elementor-element.elementor-element-f5f381c img{border-radius:8px 8px 8px 8px;}.elementor-692 .elementor-element.elementor-element-3d3f309{--gap:8px 8px;--row-gap:8px;--column-gap:8px;--padding-top:0px;--padding-bottom:0px;--padding-left:0px;--padding-right:0px;}.elementor-692 .elementor-element.elementor-element-b39e13d > .elementor-widget-container{padding:0px 10px 0px 0px;}.elementor-692 .elementor-element.elementor-element-b39e13d .elementor-heading-title{font-size:12px;line-height:1.2em;}.elementor-692 .elementor-element.elementor-element-38ca014 .elementor-heading-title{font-size:10px;letter-spacing:0.5px;}}/* Start custom CSS for theme-post-featured-image, class: .elementor-element-f5f381c */.elementor-692 .elementor-element.elementor-element-f5f381c img {
     aspect-ratio: 1;
-}/* End custom CSS */</style>		<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4020 post-4020 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+}/* End custom CSS */</style>		<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4232 post-4232 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/isabel-van-gelde/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-3-rjwsim2adcy5bibwgefvk12na485ugaltii7914mr0.jpg" title="PP (3)" alt="Pp (3)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/the-deniros-chronicle/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-rsh7q5hbqzdz877hg5477pens37l6ka19qwer8wwmk.png" title="PP" alt="Pp" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/isabel-van-gelde/">Isabel Van Gelder</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/the-deniros-chronicle/">The Deniros Chronicle</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Tuesday, 8th September 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Friday, 13 November, 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4184 post-4184 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4002 post-4002 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/sick-tamburo/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-28-rq1zngf48agj9a14ebbz94wqs69rv7lzockraog2lo.png" title="PP (28)" alt="Pp (28)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/arena-2/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-3-rj8gtwj4nfzxnrq9m6739ohs2zi7nedtwouoxd4njg.jpg" title="PP-3" alt="Pp 3" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/sick-tamburo/">Sick Tamburo</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/arena-2/">ARENA</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Thursday, 24 September 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Sunday, 15th November 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4102 post-4102 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4180 post-4180 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/wheels-in-motion-tour-the-jacques-the-sukis-and-the-pistol-daisys/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-14-rma82ej0ddztm1nnn516lry386gyxp6spli56hshm4.png" title="PP (14)" alt="Pp (14)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/the-commoners/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-18-rptawll6o5xlzk5c7m1d69pdhnqpbmqbq6meye2cdo.jpg" title="PP (18)" alt="Pp (18)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/wheels-in-motion-tour-the-jacques-the-sukis-and-the-pistol-daisys/">Wheels in Motion Tour: The Jacques, The Sukis and The Pistol Daisys</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/the-commoners/">The Commoners</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Saturday, 19th September 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Friday, 20th November 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4036 post-4036 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4168 post-4168 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/turbopaolo/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-rk26wpb6hyt15z7piv3wpl3mq5j42986yuekqmznsc.png" title="PP" alt="Pp" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/dan-patlansky-3/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-8-rope6gzsd88n7rfa3xrkpo25ctiwvsgwxf5dhkz964.png" title="PP-8" alt="Pp 8" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/turbopaolo/">TURBOPAOLO</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/dan-patlansky-3/">Dan Patlansky</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Sunday, 20th September 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Saturday, 21st November 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4073 post-4073 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4142 post-4142 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/little-barrie/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-28-rr65xi6n4yye0r6u8nfm0y7jkdcco77sfd5i47lh64.jpg" title="PP (28)" alt="Pp (28)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/jack-jack/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-23-robfephdj50zk4cb0pr0fkwopuyjaans3wlopfohf0.png" title="PP (23)" alt="Pp (23)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/little-barrie/">Little Barrie</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/jack-jack/">Jack &amp; Jack</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Friday, 25 September 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Sunday, 22nd November 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4177 post-4177 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4170 post-4170 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/citizen-live-presents-steve-mozz/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-29-rrpfyo2iqprdluugfmiej14jscnhnul08fxx3pufxo.jpg" title="PP (29)" alt="Pp (29)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/jesus-jones/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-7-ropecw832h16ju3elppsr1pjhlv7hbyvt7mtjngeng.png" title="PP-7" alt="Pp 7" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/citizen-live-presents-steve-mozz/">Citizen Live Presents: Steve Mozz</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/jesus-jones/">Jesus Jones</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Saturday 26th September, 2026 (Afternoon Show)</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Thursday, 26th November 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4147 post-4147 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4145 post-4145 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/yasuharu-takanashis-far-east-groove-europe-tour-2026-the-battle-for-glory/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-25-rodd5w5204nesmpegosoae41d7ncbsw2d47puubk8c.png" title="PP (25)" alt="Pp (25)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/valencia-grace/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-24-rod6r02986ksww35pdusb5mwavoikd9oyb8z0ynyng.png" title="PP (24)" alt="Pp (24)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/yasuharu-takanashis-far-east-groove-europe-tour-2026-the-battle-for-glory/">Yasuharu Takanashi&#8217;s Far East Groove Europe Tour 2026: “The Battle For Glory”</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/valencia-grace/">Valencia Grace</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Friday, 2nd October 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Friday, 27th November 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4186 post-4186 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4112 post-4112 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/camba-e-scintilla-fubelli-2026/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-20-rq1ztxj3b7bn8kmil43gfi323qcsw5bf8ed6baufqk.jpg" title="PP (20)" alt="Pp (20)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/senbla-presents-andrew-strong-performs-the-commitments/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-15-rme2cgq95il2ssqu9fmma2vkg08p6cqvgpn82qrqjw.png" title="PP (15)" alt="Pp (15)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/camba-e-scintilla-fubelli-2026/">Camba e Scintilla Fubelli 2026</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/senbla-presents-andrew-strong-performs-the-commitments/">Senbla Presents: Andrew Strong Performs The Commitments</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Saturday, 3rd October 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Saturday, 28th November 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4080 post-4080 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4175 post-4175 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/sjm-concerts-live-nation-present-arkayla/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-5-rldfc8b9z88yxu8su4282k6xs3zhrfmobkqt2847xo.png" title="PP (5)" alt="Pp (5)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/siloe/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-26-rp4zr5qx1zd0c1k2upn9022oow1mx7bggqf8sxhtm4.png" title="PP (26)" alt="Pp (26)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/sjm-concerts-live-nation-present-arkayla/">SJM Concerts &amp; Live Nation Present: Arkayla</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/siloe/">Siloé</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Thursday, 8th October 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Thursday, 3rd December 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-3982 post-3982 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4051 post-4051 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/a-certain-ratio-sextet-and-force-anniversary-show/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-6-rope2kxu2wwx5v2ptr85w5eguep80w0wq5y0zcqwx8.png" title="PP-6" alt="Pp 6" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/imperial-triumphant-very-special-guests-knoll/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/IT_LDN-scaled-rknmrf5vt8q8j1geltqdtpd5vkc0xcklybvuxrch7w.png" title="IT_LDN" alt="It ldn" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/a-certain-ratio-sextet-and-force-anniversary-show/">A Certain Ratio &#8211; Sextet and Force Anniversary Show</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/imperial-triumphant-very-special-guests-knoll/">IMPERIAL TRIUMPHANT + very special guests KNOLL</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Friday 9th October 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Friday, 4th December 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-3826 post-3826 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4172 post-4172 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/filippo-giardina/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/Dingwalls-7-rd74se2mdx58fmlodpd7dzovpoysjztmhu8ir5e4vg.jpg" title="Dingwalls (7)" alt="Dingwalls (7)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/alborosie/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-9-ropek0u0w8sgldqnzamy5qydnsqeup9lshqdk6vxgs.png" title="PP-9" alt="Pp 9" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/filippo-giardina/">Filippo Giardina</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/alborosie/">Alborosie</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Sunday, 11th October 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Saturday, 5th December 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4211 post-4211 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4189 post-4189 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/pop-punk-on-brass-performed-by-old-dirty-brasstards/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-26-rr2me1zncplu44iz2yz1el4a8w0jdth8hsr083duzw.jpg" title="PP (26)" alt="Pp (26)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/my-life-story-2/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-23-rq20d2isgritmqtptvwzp67xj60umaao74k334gv1o.jpg" title="PP (23)" alt="Pp (23)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/pop-punk-on-brass-performed-by-old-dirty-brasstards/">Pop-punk! On Brass &#8211; Performed by Old Dirty Brasstards</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/my-life-story-2/">My Life Story</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Thursday, 15th October 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Friday, 11th December 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4131 post-4131 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4139 post-4139 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/ditz-enola-gay-iguana-death-cult/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-11-rnedwg3gwmkwok2by22if4nbv6fjo894xe68teo84s.jpg" title="PP (11)" alt="Pp (11)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/kilimanjaro-live-regular-music-present-peter-capaldi/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-12-rob2w6g7suacskrcsgzftrq2m9k2wz3chzugvxolrg.jpg" title="(12)" alt="(12)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/ditz-enola-gay-iguana-death-cult/">Ditz / Enola Gay / Iguana Death Cult</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/kilimanjaro-live-regular-music-present-peter-capaldi/">Kilimanjaro Live &amp; Regular Music present: PETER CAPALDI</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Friday, 16th October 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Monday, 14th December 2026</p>				</div>
 				</div>
 					</div>
 				</div>
 				</div>
 				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4090 post-4090 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4201 post-4201 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
 			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
 				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/the-london-roots-festival-presents-pete-murray-guests/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-7-rlf7sojxngrsavnr1527h042zqrzvznrcqqvhbk7cc.jpg" title="PP (7)" alt="Pp (7)" loading="lazy" />								</a>
+																<a href="https://dingwalls.com/gig/future-of-the-left-curses-20th-anniversary/">
+							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-25-rqj6o5v970jjsk91d02jbo206nscvgcoveod9yotgs.jpg" title="PP (25)" alt="Pp (25)" loading="lazy" />								</a>
 															</div>
 				</div>
 		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/the-london-roots-festival-presents-pete-murray-guests/">The London Roots Festival Presents: Pete Murray + Guests</a></h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/future-of-the-left-curses-20th-anniversary/">Future of the Left (Curses 20th Anniversary)</a></h1>				</div>
 				</div>
 				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Saturday, 17th October 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4188 post-4188 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/marlene-kuntz-2/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-22-rq248mm568kfei3xwplwegeono5qghbz1vid73jl7w.jpg" title="PP (22)" alt="Pp (22)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/marlene-kuntz-2/">Marlene Kuntz</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Monday, 19th October 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4182 post-4182 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/citizen-live-presents-xhuliano-dule/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-19-rptb7fo7gerltqepxsnjf19o0kc120qxjtcx47zyng.jpg" title="PP (19)" alt="Pp (19)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/citizen-live-presents-xhuliano-dule/">Citizen Live Presents: Xhuliano Dule</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Wednesday, 21st October 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4203 post-4203 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/eliza-carthy-the-restitution-album-launch-party/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/Eliza-Carthy-London_1080x1080-SOCIALSQUARE-scaled-rqohm3lkmeg057h2earjn1y6zj0zehely8ixsumucs.jpg" title="Eliza-Carthy-London_1080x1080-SOCIALSQUARE" alt="Eliza carthy london 1080x1080 socialsquare" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/eliza-carthy-the-restitution-album-launch-party/">Eliza Carthy &amp; The Restitution &#8211; Album Launch Party</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Thursday, 22 October 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4115 post-4115 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/tede/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-10-rmfcfnicvlw0hiojrml4ke0t36ba8hlxkxk6c2obak.jpg" title="PP (10)" alt="Pp (10)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/tede/">TEDE</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Friday, 23rd October 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4217 post-4217 gig type-gig status-publish has-post-thumbnail hentry gig-category-dingwalls-2" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/the-trusted/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/D2-rrge2kfuafeczudknuysl33jl0omq9yfjxnxf75cfg.jpg" title="D2" alt="D2" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/the-trusted/">The Trusted</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Friday, 23rd October 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4122 post-4122 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/pink-mist-futuresound-present-ben-quad-riley/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-17-rmq1s6ci1gbst82fz3o2upfqmeeu1kkc7jpcgtqvxo.png" title="PP (17)" alt="Pp (17)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/pink-mist-futuresound-present-ben-quad-riley/">PINK MIST &amp; FUTURESOUND PRESENT: Ben Quad + Riley!</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Saturday, 24th October 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4075 post-4075 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/ooioo/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-3-rl4ibvk9csgz34hrttcftrlk1bs90jpdgxm2n6u71o.png" title="PP (3)" alt="Pp (3)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/ooioo/">OOIOO</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Thursday, 5th November 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4098 post-4098 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/club-the-mammoth-presents-cud-special-guests/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-13-rm381qnmbe7beg7fmfiws8bom0h131cfc315khx3jg.png" title="PP (13)" alt="Pp (13)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/club-the-mammoth-presents-cud-special-guests/">CLUB.THE.MAMMOTH. presents: CUD + special guests</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Friday, 6th November 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-3069 post-3069 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/rock-for-hope-2/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-27-rr5voszodg8dz4qw6s0thhnj6cm8eai4qgy0bw9ru4.jpg" title="PP (27)" alt="Pp (27)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/rock-for-hope-2/">Rock For Hope</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Saturday, 7th November 2026</p>				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-				</div>
-				<div data-elementor-type="loop-item" data-elementor-id="692" class="elementor elementor-692 e-loop-item e-loop-item-4133 post-4133 gig type-gig status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-01c9cb3 e-con-full e-flex e-con e-parent" data-id="01c9cb3" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-f5f381c elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="f5f381c" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-featured-image.default">
-				<div class="elementor-widget-container">
-																<a href="https://dingwalls.com/gig/naxatras/">
-							<img decoding="async" src="https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-21-rnefnfa6t0sik0l47a2nh8j4ok0ve69pl3pectan8s.png" title="PP (21)" alt="Pp (21)" loading="lazy" />								</a>
-															</div>
-				</div>
-		<div class="elementor-element elementor-element-3d3f309 e-flex e-con-boxed e-con e-child" data-id="3d3f309" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-b39e13d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="b39e13d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default"><a href="https://dingwalls.com/gig/naxatras/">Naxatras</a></h1>				</div>
-				</div>
-				<div class="elementor-element elementor-element-38ca014 elementor-widget elementor-widget-heading" data-id="38ca014" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Thursday, 12th November 2026</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Friday, 12th February 2027</p>				</div>
 				</div>
 					</div>
 				</div>
@@ -1065,7 +845,7 @@ src="https://www.facebook.com/tr?id=1506806523555457&ev=PageView&noscript=1"
 					<span class="e-load-more-spinner">
 				<i aria-hidden="true" class="fas fa-spinner"></i>			</span>
 		
-				<div class="e-load-more-anchor" data-page="1" data-max-page="2" data-next-page="https://dingwalls.com/whats-on/2/"></div>
+				<div class="e-load-more-anchor" data-page="2" data-max-page="2" data-next-page="https://dingwalls.com/whats-on/3/"></div>
 				<div class="e-load-more-message"></div>
 						</div>
 				</div>
@@ -1278,7 +1058,7 @@ src="https://www.facebook.com/tr?id=1506806523555457&ev=PageView&noscript=1"
 					</div>
 				</div>
 				</div>
-		<script type="application/ld+json" id="slim-seo-schema">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://dingwalls.com/#website","url":"https://dingwalls.com/","name":"Dingwalls","description":"Camden’s Legendary Live Music Venue Since 1973","inLanguage":"en-GB","potentialAction":{"@id":"https://dingwalls.com/#searchaction"},"publisher":{"@id":"https://dingwalls.com/#organization"}},{"@type":"SearchAction","@id":"https://dingwalls.com/#searchaction","target":"https://dingwalls.com/?s={search_term_string}","query-input":"required name=search_term_string"},{"@type":"BreadcrumbList","name":"Breadcrumbs","@id":"https://dingwalls.com/whats-on/#breadcrumblist","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dingwalls.com/"},{"@type":"ListItem","position":2,"name":"What&#8217;s On"}]},{"@type":"WebPage","@id":"https://dingwalls.com/whats-on/#webpage","url":"https://dingwalls.com/whats-on/","inLanguage":"en-GB","name":"Dingwalls – Camden’s Legendary Live Music Venue Since 1973","description":"Dingwalls is an legendary live music venue in Camden Town, hosting unforgettable gigs, club nights, and tribute acts since 1973.","datePublished":"2025-06-18T15:51:28+01:00","dateModified":"2025-07-21T13:17:09+01:00","isPartOf":{"@id":"https://dingwalls.com/#website"},"breadcrumb":{"@id":"https://dingwalls.com/whats-on/#breadcrumblist"},"potentialAction":{"@id":"https://dingwalls.com/whats-on/#readaction"},"primaryImageOfPage":{"@id":"https://dingwalls.com/whats-on/#thumbnail"},"image":{"@id":"https://dingwalls.com/whats-on/#thumbnail"}},{"@type":"ReadAction","@id":"https://dingwalls.com/whats-on/#readaction","target":"https://dingwalls.com/whats-on/"},{"@type":"Organization","@id":"https://dingwalls.com/#organization","url":"https://dingwalls.com/","name":"Dingwalls"},{"@type":"ImageObject","@id":"https://dingwalls.com/whats-on/#thumbnail","caption":"Iconic gigs in one of London's best music venues. Many big names have performed at Dingwalls including Hard-Fi, Kaiser Chiefs and more.","url":"https://dingwalls.com/wp-content/uploads/2025/06/IMG_3848-scaled-e1750074588822.jpg","contentUrl":"https://dingwalls.com/wp-content/uploads/2025/06/IMG_3848-scaled-e1750074588822.jpg","width":2560,"height":1254}]}</script>			<script>
+		<script type="application/ld+json" id="slim-seo-schema">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://dingwalls.com/#website","url":"https://dingwalls.com/","name":"Dingwalls","description":"Camden’s Legendary Live Music Venue Since 1973","inLanguage":"en-GB","potentialAction":{"@id":"https://dingwalls.com/#searchaction"},"publisher":{"@id":"https://dingwalls.com/#organization"}},{"@type":"SearchAction","@id":"https://dingwalls.com/#searchaction","target":"https://dingwalls.com/?s={search_term_string}","query-input":"required name=search_term_string"},{"@type":"BreadcrumbList","name":"Breadcrumbs","@id":"https://dingwalls.com/whats-on/2/#breadcrumblist","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dingwalls.com/"},{"@type":"ListItem","position":2,"name":"What&#8217;s On"}]},{"@type":"WebPage","@id":"https://dingwalls.com/whats-on/2/#webpage","url":"https://dingwalls.com/whats-on/2/","inLanguage":"en-GB","name":"Dingwalls – Camden’s Legendary Live Music Venue Since 1973","description":"Dingwalls is an legendary live music venue in Camden Town, hosting unforgettable gigs, club nights, and tribute acts since 1973.","datePublished":"2025-06-18T15:51:28+01:00","dateModified":"2025-07-21T13:17:09+01:00","isPartOf":{"@id":"https://dingwalls.com/#website"},"breadcrumb":{"@id":"https://dingwalls.com/whats-on/2/#breadcrumblist"},"potentialAction":{"@id":"https://dingwalls.com/whats-on/2/#readaction"},"primaryImageOfPage":{"@id":"https://dingwalls.com/whats-on/#thumbnail"},"image":{"@id":"https://dingwalls.com/whats-on/#thumbnail"}},{"@type":"ReadAction","@id":"https://dingwalls.com/whats-on/2/#readaction","target":"https://dingwalls.com/whats-on/2/"},{"@type":"Organization","@id":"https://dingwalls.com/#organization","url":"https://dingwalls.com/","name":"Dingwalls"},{"@type":"ImageObject","@id":"https://dingwalls.com/whats-on/#thumbnail","caption":"Iconic gigs in one of London's best music venues. Many big names have performed at Dingwalls including Hard-Fi, Kaiser Chiefs and more.","url":"https://dingwalls.com/wp-content/uploads/2025/06/IMG_3848-scaled-e1750074588822.jpg","contentUrl":"https://dingwalls.com/wp-content/uploads/2025/06/IMG_3848-scaled-e1750074588822.jpg","width":2560,"height":1254}]}</script>			<script>
 				( () => {
 					const lazyloadRunObserver = () => {
 						const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
@@ -1306,7 +1086,7 @@ src="https://www.facebook.com/tr?id=1506806523555457&ev=PageView&noscript=1"
 					} );
 				} )();
 			</script>
-			<noscript><img height="1" width="1" style="display: none;" src="https://www.facebook.com/tr?id=<!-- Meta Pixel Code -->  !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=%5B%5D;t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)%5B0%5D; s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1506806523555457'); fbq('track', 'PageView');  <img height="1" width="1" src="https://www.facebook.com/tr?id=1506806523555457&amp;ev=PageView&amp;noscript=1" /> <!-- End Meta Pixel Code -->&ev=PageView&noscript=1&cd%5Bpage_title%5D=What%27s+On&cd%5Bpost_type%5D=page&cd%5Bpost_id%5D=3023&cd%5Bplugin%5D=PixelYourSite&cd%5Buser_role%5D=guest&cd%5Bevent_url%5D=dingwalls.com%2Fwhats-on%2F" alt=""></noscript>
+			<noscript><img height="1" width="1" style="display: none;" src="https://www.facebook.com/tr?id=<!-- Meta Pixel Code -->  !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=%5B%5D;t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)%5B0%5D; s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1506806523555457'); fbq('track', 'PageView');  <img height="1" width="1" src="https://www.facebook.com/tr?id=1506806523555457&amp;ev=PageView&amp;noscript=1" /> <!-- End Meta Pixel Code -->&ev=PageView&noscript=1&cd%5Bpage_title%5D=What%27s+On&cd%5Bpost_type%5D=page&cd%5Bpost_id%5D=3023&cd%5Bplugin%5D=PixelYourSite&cd%5Buser_role%5D=guest&cd%5Bevent_url%5D=dingwalls.com%2Fwhats-on%2F2%2F" alt=""></noscript>
 <script id="dynamic-conditions-js" src="https://dingwalls.com/wp-content/plugins/dynamicconditions/Public/js/dynamic-conditions-public.js?ver=1.7.5"></script>
 <script id="embedpress-front-js-extra">
 var eplocalize = {"ajaxurl":"https://dingwalls.com/wp-admin/admin-ajax.php","is_pro_plugin_active":"","nonce":"db9090c60a"};

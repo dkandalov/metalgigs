@@ -77,6 +77,10 @@ and its query replaced with the one the source asked with.
 
 Each site's own way of ending is honoured. **Windmill Brixton** keeps the next link on the last page, pointing
 at "#" and marked disabled, so the disabled state stops it - following it would re-fetch the same page.
+**Dingwalls** does the same thing less visibly: its Elementor load-more anchor on page 2 of 2 still names a
+page 3, which renders no cards at all, so the walk stops on `data-page` reaching `data-max-page` rather than
+on that link being absent. It was read short the same way the Roundhouse was, 24 of 38, and found by the same
+audit - a grid that loads on scroll and renders a listing's worth of cards without being one.
 **The O2** stops on an empty batch, `maxBatches = 20` bounding a bug; `per_page` is in the query the site sends
 but the server ignores it, so the path offset is the only way through. **DHP** cannot stop on an empty answer -
 past the end of the guide it keeps answering with empty months - so it stops on the range the page declares:
