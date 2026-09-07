@@ -78,6 +78,20 @@ The rows record a rule set nobody wrote down before: metal named on the page cou
 of the act it is, punk named on the page does not, a covers act is judged by the material it plays but a
 DJ night playing a mixed list is not an act performing material, and a page naming nothing is Non-metal.
 
+**Nothing enforces the split but the person writing the prompt.** Which half a gig is in is read off its
+url and is never shown while labelling, so a batch cannot leak; what leaks is reading a row's reason back
+afterwards and writing a prompt rule from it. A rule putting punk outside metal was written that way, out
+of one test row's "punk-rock, and punk isn't metal". The rule agrees with what this set records, and that
+is the trap - it looked confirmed by the very half meant to check it, and no score could say otherwise. It
+was taken out rather than kept on evidence its own source had spoiled. The half a rule was written from is
+therefore worth knowing, and only the person writing it can say.
+
+**Scoring once is enough, and that was measured rather than assumed.** A prompt appeared to gain two gigs,
+which might have been the model answering differently between runs. Over three runs of 110 gigs the billed
+classifier gave identical answers every time, and one gig on a local model was the only answer anywhere
+that moved: the two gigs were the prompt. A score that will not sit still is the signal that this has
+stopped holding, and a local candidate ahead by a single gig is inside what one such wobble produces.
+
 ## Alternatives rejected
 
 **Scoring against the log's verdicts** - that measures agreement with the classifier in use, which is the
@@ -88,4 +102,6 @@ agreement is dominated by the easy Non-metal majority; recall and precision on M
 **Excluding every silent page** - most of them support a Non-metal label, and dropping them would remove
 the cases where a classifier guesses. **Mining a queue of candidates up front** - it caches classifier
 output that goes stale against the pages it was read from, and needs a second file to hold what the log
-and the set already say between them.
+and the set already say between them. **Scoring every candidate several times** - it was tried, and the
+billed classifier proved stable enough that repeats bought a longer run and a bigger bill and nothing
+else.

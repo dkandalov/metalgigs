@@ -31,7 +31,7 @@ class ClassifierComparisonTest {
         val byName = genres.toMap()
         return GigClassifier { gig ->
             val genre = byName[gig.title.value] ?: error("nothing to say about ${gig.title}")
-            Classification(genre, ClassificationSource.LLM, ModelName.of("stub"), inputTokens = 10, outputTokens = 1)
+            Classification(genre, ClassificationSource.LLM, model = ModelName.of("stub"), inputTokens = 10, outputTokens = 1)
         }
     }
 

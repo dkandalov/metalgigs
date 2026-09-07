@@ -146,8 +146,9 @@ internal fun recordedVerdicts(log: GigsLog): GigClassifier {
         Classification(
             recorded.genre,
             recorded.source,
-            recorded.llmModel?.let(ModelName::of),
-            recorded.useVision,
+            confidence = recorded.confidence,
+            model = recorded.llmModel?.let(ModelName::of),
+            useVision = recorded.useVision,
             inputTokens = recorded.inputTokens,
             outputTokens = recorded.outputTokens,
         )

@@ -72,3 +72,12 @@ both paths** - the vision model rejects it. **Fishing the genre out of a sentenc
 did not follow the format, and reading a genre out of it hides that. **Estimating cost ourselves** - the
 API says what it billed. **Zero for unpriced entries** - a user override would read as a free LLM call.
 **One combined total** - it hides that the paths differ by image tokens, not just by rate.
+
+**Sending the poster whenever the text left the model unsure** - a page read and still not settled looked
+as good a reason to look at a poster as a page that said nothing, and it is not. Measured against the
+labelled set (ADR 13), a second look on every unsure answer cost 4.3 times the run - $5.40 against $1.26
+over the log - and got one fewer gig right on the billed classifier and no more on a local one. What it
+broke says why: two of the gigs it turned from right to wrong were ones whose page names metal outright,
+"the page says progressive metal" and "the copy names metal as part of the sound", so the image pulled the
+model off text that already carried the answer. The threshold above sends a page that said nothing; a page
+that said something and left doubt is a different case, and the poster is not the evidence it wants.

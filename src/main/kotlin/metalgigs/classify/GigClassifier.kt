@@ -28,6 +28,7 @@ fun interface GigClassifier {
 data class Classification(
     val genre: Genre,
     val source: ClassificationSource,
+    val confidence: Confidence? = null,
     val model: ModelName? = null,
     val useVision: Boolean? = null,
     val inputTokens: Int? = null,
@@ -64,8 +65,9 @@ private fun Classification.recordedFor(id: GigId, recordedAt: Instant) = GigClas
     recordedAt,
     genre,
     source,
-    model?.value,
-    useVision,
+    confidence = confidence,
+    llmModel = model?.value,
+    useVision = useVision,
     inputTokens = inputTokens,
     outputTokens = outputTokens,
 )
@@ -84,6 +86,8 @@ internal class LlmGigClassifier(
     // Anthropic's - a model hosted here answers to its own tag and 404s under a claude one
     private val textModel: ModelName = llmClassifierModel,
     private val visionModel: ModelName = visionClassifierModel,
+    // has to match the prompt the Chat was built with, which nothing here can check
+    private val readVerdict: (String) -> Verdict? = ::ungradedVerdict,
 ) : GigClassifier {
 
     override fun classify(gig: Gig): Classification {
@@ -103,12 +107,13 @@ internal class LlmGigClassifier(
         val response = chat(ChatRequest(Message.User(contents), params))
             .onFailure { error("LLM classification failed for ${venue(gig.id.venueId)} at ${gig.id.url}: $it") }
         val reply = response.message.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }.trim()
-        val genre = genreFromReply(reply)
+        val verdict = readVerdict(reply)
             ?: error("Unexpected LLM classification reply for ${venue(gig.id.venueId)} at ${gig.id.url}: \"$reply\"")
 
         return Classification(
-            genre,
+            verdict.genre,
             ClassificationSource.LLM,
+            verdict.confidence,
             model,
             useVision,
             inputTokens = response.metadata.usage?.input,
@@ -132,11 +137,74 @@ val llmClassifierSystemPrompt = """
     just give the one-word answer, on its own, with no explanation or caveats before it.
 """.trimIndent()
 
+// The graded prompt and two scope rules - what counts as a gig, and what a tribute act is judged by -
+// kept apart from gradedClassifierSystemPrompt so a run measures the rules rather than the grading.
+// Why punk is not among them: docs/adr/0013-a-classifier-is-scored-against-gigs-a-person-labelled.md
+val scopedClassifierSystemPrompt = """
+    You classify UK live music gig listings by genre. Given a gig's title and the text of its own
+    event page, reply with exactly one of these four answers and nothing else:
+    Definitely Metal - the gig is metal, doom, sludge, grindcore, black/death metal, metalcore,
+    deathcore, thrash, stoner, hardcore, crust, or a closely related heavy genre, and the page says
+    enough for you to be sure of it.
+    Probably Metal - you think it is one of those, but the page leaves room for doubt.
+    Probably Other - you think it is something else, but the page leaves room for doubt.
+    Definitely Other - the gig is clearly something else.
+    Say Probably rather than Definitely whenever the page could reasonably be read the other way. A
+    doubt you report is one that can be looked at again; a doubt you round off into Definitely is one
+    nobody will ever see.
+    A listing is only a gig if acts are performing at it. A DJ set, a club night, karaoke, a quiz, an
+    exhibition, comedy or spoken word is Definitely Other whatever music it plays - a metal DJ night
+    and a rock karaoke are not metal gigs. Something billed as a party or a BBQ still counts if the
+    page names bands playing it.
+    Judge a tribute, covers or orchestral act by the material it plays rather than by the fact that
+    it is one: an act playing metal songs is Metal.
+    When the event page text is too sparse to judge and a poster image is included instead, use the
+    image the same way - band logos, artwork style, and typography can indicate metal even without text.
+    You are never being asked to identify anyone pictured, only to judge the genre, so don't say so -
+    just give the answer, on its own, with no explanation or caveats before it.
+""".trimIndent()
+
 // Why a preamble is tolerated: docs/adr/0012-a-genre-is-one-paid-call-judged-on-text-or-poster.md
 internal fun genreFromReply(reply: String): Genre? {
     val answer = reply.lines().lastOrNull { it.isNotBlank() }?.trim()?.trimEnd('.', '!') ?: return null
     return Genre.entries.find { it.name.equals(answer, ignoreCase = true) }
 }
+
+internal data class Verdict(val genre: Genre, val confidence: Confidence? = null)
+
+internal fun ungradedVerdict(reply: String): Verdict? = genreFromReply(reply)?.let { Verdict(it) }
+
+private val gradedAnswers = mapOf(
+    "definitely metal" to Verdict(Genre.Metal, Confidence.High),
+    "probably metal" to Verdict(Genre.Metal, Confidence.Low),
+    "probably other" to Verdict(Genre.Other, Confidence.Low),
+    "definitely other" to Verdict(Genre.Other, Confidence.High),
+)
+
+internal fun gradedVerdict(reply: String): Verdict? {
+    val answer = reply.lines().lastOrNull { it.isNotBlank() }?.trim()?.trimEnd('.', '!')?.lowercase() ?: return null
+    return gradedAnswers[answer]
+}
+
+// The genre definition below is llmClassifierSystemPrompt's word for word, so a run comparing the two
+// measures the grading rather than a second opinion about what counts as metal.
+val gradedClassifierSystemPrompt = """
+    You classify UK live music gig listings by genre. Given a gig's title and the text of its own
+    event page, reply with exactly one of these four answers and nothing else:
+    Definitely Metal - the gig is metal, doom, sludge, grindcore, black/death metal, metalcore,
+    deathcore, thrash, stoner, hardcore, crust, or a closely related heavy genre, and the page says
+    enough for you to be sure of it.
+    Probably Metal - you think it is one of those, but the page leaves room for doubt.
+    Probably Other - you think it is something else, but the page leaves room for doubt.
+    Definitely Other - the gig is clearly something else.
+    Say Probably rather than Definitely whenever the page could reasonably be read the other way. A
+    doubt you report is one that can be looked at again; a doubt you round off into Definitely is one
+    nobody will ever see.
+    When the event page text is too sparse to judge and a poster image is included instead, use the
+    image the same way - band logos, artwork style, and typography can indicate metal even without text.
+    You are never being asked to identify anyone pictured, only to judge the genre, so don't say so -
+    just give the answer, on its own, with no explanation or caveats before it.
+""".trimIndent()
 
 private val llmClassifierModel = ModelName.of("claude-haiku-4-5-20251001")
 

@@ -48,7 +48,7 @@ class LabellingTest {
     private fun logOf(dir: File, gigs: List<Gig>, judged: List<Gig> = gigs): GigsLog =
         GigsLog(File(dir, "events.ndjson")).apply {
             append(gigs.map { GigObserved(it, recordedAt) })
-            append(judged.map { GigClassified(it.id, recordedAt, Genre.Other, ClassificationSource.LLM, "stub") })
+            append(judged.map { GigClassified(it.id, recordedAt, Genre.Other, ClassificationSource.LLM, llmModel = "stub") })
         }
 
     // each stub answers from a table, which is all the selection asks of a classifier
@@ -56,7 +56,7 @@ class LabellingTest {
         val byId = genres.associate { (gig, genre) -> gig.id to genre }
         return GigClassifier { gig ->
             val genre = byId[gig.id] ?: error("nothing to say about ${gig.title}")
-            Classification(genre, ClassificationSource.LLM, ModelName.of("stub"))
+            Classification(genre, ClassificationSource.LLM, model = ModelName.of("stub"))
         }
     }
 

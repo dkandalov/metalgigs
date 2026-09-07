@@ -25,6 +25,7 @@ data class GigClassified(
     override val recordedAt: Instant,
     val genre: Genre,
     val source: ClassificationSource,
+    val confidence: Confidence? = null,
     val llmModel: String? = null,
     val useVision: Boolean? = null,
     val inputTokens: Int? = null,
@@ -67,6 +68,10 @@ data class GigsRendered(
 }
 
 enum class Genre { Metal, Other }
+
+// null is "never asked" rather than "sure": a person's override reports no confidence, and neither
+// does a verdict recorded before a classifier was asked for one.
+enum class Confidence { High, Low }
 
 enum class ClassificationSource { LLM, User }
 

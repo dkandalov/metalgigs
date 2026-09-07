@@ -209,6 +209,7 @@ private object JGigClassified : JAny<GigClassified>() {
     private val genre by str(GigClassified::genre)
     private val source by str(GigClassified::source)
     // optional, so entries written before these existed still read back (see GigClassified)
+    private val confidence by str(GigClassified::confidence)
     private val llmModel by str(GigClassified::llmModel)
     private val useVision by bool(GigClassified::useVision)
     private val inputTokens by num(GigClassified::inputTokens)
@@ -219,6 +220,7 @@ private object JGigClassified : JAny<GigClassified>() {
         recordedAt = +recordedAt,
         genre = +genre,
         source = +source,
+        confidence = +confidence,
         llmModel = +llmModel,
         useVision = +useVision,
         inputTokens = +inputTokens,

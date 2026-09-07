@@ -57,8 +57,8 @@ class GigClassifierTest {
         // The text clears the thin-text threshold, so this is the text path - records
         // which model judged it and confirms useVision = false rather than just leaving it null.
         val textModel = ModelName.of("claude-haiku-4-5-20251001")
-        expectThat(metal).isEqualTo(Classification(Genre.Metal, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
-        expectThat(other).isEqualTo(Classification(Genre.Other, ClassificationSource.LLM, textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
+        expectThat(metal).isEqualTo(Classification(Genre.Metal, ClassificationSource.LLM, model = textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
+        expectThat(other).isEqualTo(Classification(Genre.Other, ClassificationSource.LLM, model = textModel, useVision = false, inputTokens = 1200, outputTokens = 3))
     }
 
     @Test
@@ -79,11 +79,11 @@ class GigClassifierTest {
             alreadyClassified = emptySet(),
             recordedAt = recordedAt,
         ) {
-            Classification(Genre.Metal, ClassificationSource.LLM, ModelName.of("some-model"), useVision = true, inputTokens = 1200, outputTokens = 3)
+            Classification(Genre.Metal, ClassificationSource.LLM, model = ModelName.of("some-model"), useVision = true, inputTokens = 1200, outputTokens = 3)
         }
 
         expectThat(run.classified).containsExactly(
-            GigClassified(judged.id, recordedAt, Genre.Metal, ClassificationSource.LLM, "some-model", useVision = true, inputTokens = 1200, outputTokens = 3)
+            GigClassified(judged.id, recordedAt, Genre.Metal, ClassificationSource.LLM, llmModel = "some-model", useVision = true, inputTokens = 1200, outputTokens = 3)
         )
     }
 
@@ -246,5 +246,30 @@ class GigClassifierTest {
         expectThat(genreFromReply("I think this is probably a metal gig")).isEqualTo(null)
         expectThat(genreFromReply("Not metal")).isEqualTo(null)
         expectThat(genreFromReply("")).isEqualTo(null)
+    }
+
+    @Test
+    fun `reads a graded reply as a genre and the confidence it was given with`() {
+        expectThat(gradedVerdict("Definitely Metal")).isEqualTo(Verdict(Genre.Metal, Confidence.High))
+        expectThat(gradedVerdict("Probably Metal")).isEqualTo(Verdict(Genre.Metal, Confidence.Low))
+        expectThat(gradedVerdict("Probably Other")).isEqualTo(Verdict(Genre.Other, Confidence.Low))
+        expectThat(gradedVerdict("Definitely Other.")).isEqualTo(Verdict(Genre.Other, Confidence.High))
+        // the same tolerance the ungraded reply gets, for the same reason
+        expectThat(gradedVerdict("I can't identify people in images.\n\ndefinitely metal"))
+            .isEqualTo(Verdict(Genre.Metal, Confidence.High))
+    }
+
+    @Test
+    fun `refuses a graded reply that only says the genre, rather than reading it as confident`() {
+        // the ungraded vocabulary through the graded prompt is a reply that didn't follow it, and a
+        // classifier that took it would record a confidence the model never expressed
+        expectThat(gradedVerdict("Metal")).isEqualTo(null)
+        expectThat(gradedVerdict("Other")).isEqualTo(null)
+        expectThat(gradedVerdict("Maybe Metal")).isEqualTo(null)
+    }
+
+    @Test
+    fun `an ungraded reply reports no confidence rather than a confident one`() {
+        expectThat(ungradedVerdict("Metal")).isEqualTo(Verdict(Genre.Metal, confidence = null))
     }
 }
