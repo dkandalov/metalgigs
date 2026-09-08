@@ -1,10 +1,13 @@
 package metalgigs.classify.labelling
 
+import metalgigs.ClassificationStatus
+import metalgigs.Genre
 import metalgigs.Gig
 import metalgigs.GigClassified
 import metalgigs.GigId
 import metalgigs.GigsLog
 import metalgigs.Ollama
+import metalgigs.VenueId
 import metalgigs.classify.GigClassifier
 import metalgigs.classify.LlmGigClassifier
 import metalgigs.classify.THIN_TEXT_THRESHOLD
@@ -43,7 +46,7 @@ private fun printGigsAwaitingLabels(log: GigsLog, dataset: LabelledGigs, args: L
 
     val waiting = gigsAwaitingLabels(log, dataset.settled())
     val batch = when (models) {
-        null -> waiting.take(batchSize).map { it to "" }
+        null -> batchOf(waiting, log, batchSize).map { it to "" }
         else -> disagreementsAmong(waiting, classifiers(models, log), batchSize)
     }
 
@@ -87,13 +90,21 @@ private fun recordLabels(log: GigsLog, dataset: LabelledGigs, labelsFile: File) 
     dataset.add(labelled.map { (_, label) -> label })
     dataset.exclude(excluded.map { (_, label) -> ExcludedGig(label.gig, label.why) })
 
+    // What the batch bought, said next to what the set now holds: a batch is a person's attention
+    // spent, and the Metal rows are what a recall figure is measured on, so a run of batches that
+    // adds none says the gigs are being chosen wrong while there is still time to change it.
+    val added = labelled.map { (_, label) -> label }
+    val all = dataset.all()
     // the file is left where it was found - what stops a label being recorded twice is the set already
     // holding that gig
     println(
-        "${labelled.size} label(s) and ${excluded.size} exclusion(s) added. The set now holds " +
-            "${dataset.read(Split.Train).size} train and ${dataset.read(Split.Test).size} test, " +
-            "with ${dataset.excluded().size} left out and " +
-            "${dataset.all().count { !it.canBeDerivedPurelyFromText }} the page cannot answer."
+        "${labelled.size} label(s) and ${excluded.size} exclusion(s) added, " +
+            "${added.count { it.genre == Genre.Metal }} Metal and " +
+            "${added.count { !it.canBeDerivedPurelyFromText }} the page cannot answer. " +
+            "The set now holds ${dataset.read(Split.Train).size} train and ${dataset.read(Split.Test).size} test, " +
+            "with ${dataset.excluded().size} left out, ${all.count { !it.canBeDerivedPurelyFromText }} the page " +
+            "cannot answer, and ${all.count { it.genre == Genre.Metal && it.canBeDerivedPurelyFromText }} Metal " +
+            "row(s) for a recall figure to rest on."
     )
 }
 
@@ -105,6 +116,39 @@ internal fun gigsAwaitingLabels(log: GigsLog, settled: Set<GigId>): List<Gig> {
         .filter { it.id in judged && it.id !in settled && it.description.value.length >= THIN_TEXT_THRESHOLD }
         .sortedBy { it.id.url.value.hashCode() }
 }
+
+// Taking the first few of everything waiting spends a person's attention at the log's own base rate -
+// four gigs in five on the Non-metal majority - where what a score turns on is Metal recall, measured
+// on the smallest cell in the table. So a batch is drawn in three parts: two fifths from gigs the log
+// calls Metal, which confirm or overturn a verdict at a row each; two fifths from gigs it dismissed at
+// the venues booking the most metal, which is the shape a missed gig has and nothing else looks for;
+// and the rest in url order, the only place a mistake every classifier shares can turn up (ADR 13).
+//
+// Which part a gig came from is not printed with it. A person is being asked what a gig is, and being
+// told what the log already thinks is the anchoring the disagreement flag at least pays a model for.
+internal fun batchOf(waiting: List<Gig>, log: GigsLog, wanted: Int): List<Gig> {
+    val status = log.classificationStatus()
+    fun genreOf(gig: Gig) = (status[gig.id] as? ClassificationStatus.Classified)?.genre
+    val metalShare = metalShareByVenue(log, status)
+    val twoInFive = wanted * 2 / 5
+
+    val batch = LinkedHashSet<Gig>()
+    batch += waiting.filter { genreOf(it) == Genre.Metal }.take(twoInFive)
+    batch += waiting.filter { genreOf(it) == Genre.Other }
+        .sortedByDescending { metalShare[it.id.venueId] ?: 0.0 }
+        .take(twoInFive)
+    // a part with too few gigs to fill its share hands it on here rather than shortening the batch
+    batch += waiting
+    return batch.take(wanted)
+}
+
+// Measured against the log rather than listed, so a venue that changes what it books says so itself
+// and nothing has to be kept in step with it by hand (ADR 4).
+private fun metalShareByVenue(log: GigsLog, status: Map<GigId, ClassificationStatus>): Map<VenueId, Double> =
+    log.currentGigs()
+        .mapNotNull { gig -> (status[gig.id] as? ClassificationStatus.Classified)?.let { gig.id.venueId to it.genre } }
+        .groupBy({ (venueId, _) -> venueId }, { (_, genre) -> genre })
+        .mapValues { (_, genres) -> genres.count { it == Genre.Metal }.toDouble() / genres.size }
 
 // Asked one gig at a time and stopped as soon as the batch is full, so the cost is set by how many
 // labels are wanted: docs/adr/0013-a-classifier-is-scored-against-gigs-a-person-labelled.md
@@ -138,8 +182,8 @@ private const val MOST_TO_EXAMINE = 200
 // an excluded gig is carried as the same row shape as a labelled one and needs some genre to be
 // that, so it takes Other - nothing reads it, an exclusion being written to a file of its own
 private fun genreNamed(name: String) =
-    if (name == EXCLUDE) metalgigs.Genre.Other
-    else metalgigs.Genre.entries.find { it.name.equals(name, ignoreCase = true) }
+    if (name == EXCLUDE) Genre.Other
+    else Genre.entries.find { it.name.equals(name, ignoreCase = true) }
         ?: error("a decision says metal, other or exclude, not \"$name\"")
 
 // the classifier the daily run uses, pointed at a chat this machine answers, so what differs between

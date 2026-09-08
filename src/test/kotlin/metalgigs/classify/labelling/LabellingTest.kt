@@ -12,17 +12,22 @@ import metalgigs.GigTitle
 import metalgigs.GigUrl
 import metalgigs.GigsLog
 import metalgigs.PosterUrl
+import metalgigs.Venue
 import metalgigs.classify.Classification
 import metalgigs.classify.GigClassifier
 import metalgigs.classify.THIN_TEXT_THRESHOLD
 import metalgigs.scrape.venues.theUnderworld
+import metalgigs.scrape.venues.unionChapel
 import org.http4k.ai.model.ModelName
 import org.junit.jupiter.api.io.TempDir
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 import strikt.assertions.containsExactlyInAnyOrder
+import strikt.assertions.hasSize
 import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
+import strikt.assertions.isGreaterThanOrEqualTo
+import strikt.assertions.isLessThanOrEqualTo
 import java.io.File
 import java.time.Instant
 import kotlin.test.Test
@@ -31,9 +36,9 @@ class LabellingTest {
 
     private val recordedAt = Instant.parse("2026-08-01T00:00:00Z")
 
-    private fun gig(name: String, description: String = "A gig called $name, described at enough length to be judged on its own page text rather than its poster") =
+    private fun gig(name: String, venue: Venue = theUnderworld, description: String = "A gig called $name, described at enough length to be judged on its own page text rather than its poster") =
         Gig(
-            GigId(theUnderworld.id, GigUrl("https://example.com/$name")),
+            GigId(venue.id, GigUrl("https://example.com/$name")),
             GigTitle(name),
             GigDate(2026, 8, 8),
             PosterUrl("https://example.com/$name.jpg"),
@@ -49,6 +54,13 @@ class LabellingTest {
         GigsLog(File(dir, "events.ndjson")).apply {
             append(gigs.map { GigObserved(it, recordedAt) })
             append(judged.map { GigClassified(it.id, recordedAt, Genre.Other, ClassificationSource.LLM, llmModel = "stub") })
+        }
+
+    // a log holding each gig once, judged as the pair says, so a batch has verdicts to be drawn by
+    private fun logJudging(dir: File, verdicts: List<Pair<Gig, Genre>>): GigsLog =
+        GigsLog(File(dir, "events.ndjson")).apply {
+            append(verdicts.map { (gig, _) -> GigObserved(gig, recordedAt) })
+            append(verdicts.map { (gig, genre) -> GigClassified(gig.id, recordedAt, genre, ClassificationSource.LLM, llmModel = "stub") })
         }
 
     // each stub answers from a table, which is all the selection asks of a classifier
@@ -98,6 +110,37 @@ class LabellingTest {
         val afterOneIsLabelled = gigsAwaitingLabels(log, setOf(first.first().id))
 
         expectThat(afterOneIsLabelled).isEqualTo(first.drop(1))
+    }
+
+    @Test
+    fun `a batch is drawn from the Metal verdicts, the dismissals where metal plays, and the rest`(@TempDir dir: File) {
+        // the Underworld's judged gigs are half Metal and Union Chapel's are none, so a gig the log
+        // dismissed at the Underworld is where a miss would hide and one at Union Chapel is not
+        val calledMetal = (1..4).map { gig("metal-$it") }
+        val dismissedWhereMetalPlays = (1..4).map { gig("dismissed-$it") }
+        val dismissedElsewhere = (1..4).map { gig("elsewhere-$it", unionChapel) }
+        val log = logJudging(
+            dir,
+            calledMetal.map { it to Genre.Metal } +
+                (dismissedWhereMetalPlays + dismissedElsewhere).map { it to Genre.Other },
+        )
+
+        val batch = batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)
+
+        expectThat(batch).hasSize(5)
+        expectThat(batch.count { it in calledMetal }).isGreaterThanOrEqualTo(2)
+        expectThat(batch.count { it in dismissedWhereMetalPlays }).isGreaterThanOrEqualTo(2)
+        // the fifth comes from everything waiting in url order, so at most one of these is reached
+        expectThat(batch.count { it in dismissedElsewhere }).isLessThanOrEqualTo(1)
+    }
+
+    @Test
+    fun `a part with too few gigs to fill its share hands it on rather than shortening the batch`(@TempDir dir: File) {
+        val theOnlyMetalOne = gig("metal-1")
+        val rest = (1..6).map { gig("other-$it") }
+        val log = logJudging(dir, listOf(theOnlyMetalOne to Genre.Metal) + rest.map { it to Genre.Other })
+
+        expectThat(batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)).hasSize(5)
     }
 
     @Test
