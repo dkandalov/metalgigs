@@ -16,6 +16,10 @@ import metalgigs.Venue
 import metalgigs.classify.Classification
 import metalgigs.classify.GigClassifier
 import metalgigs.classify.THIN_TEXT_THRESHOLD
+import metalgigs.scrape.venues.cartAndHorses
+import metalgigs.scrape.venues.newCrossInn
+import metalgigs.scrape.venues.scala
+import metalgigs.scrape.venues.theBlackHeart
 import metalgigs.scrape.venues.theUnderworld
 import metalgigs.scrape.venues.unionChapel
 import org.http4k.ai.model.ModelName
@@ -48,6 +52,11 @@ class LabellingTest {
     private val doom = gig("doom")
     private val folk = gig("folk")
     private val sludge = gig("sludge")
+
+    // four venues booking half metal, and two booking none, so a gig the log dismissed at one of the
+    // first four is where a miss would hide and one at the last two is not
+    private val metalVenues = listOf(theUnderworld, theBlackHeart, cartAndHorses, newCrossInn)
+    private val otherVenues = listOf(unionChapel, scala)
 
     // a log holding each gig once, and one classification of its own for each named as judged
     private fun logOf(dir: File, gigs: List<Gig>, judged: List<Gig> = gigs): GigsLog =
@@ -114,11 +123,9 @@ class LabellingTest {
 
     @Test
     fun `a batch is drawn from the Metal verdicts, the dismissals where metal plays, and the rest`(@TempDir dir: File) {
-        // the Underworld's judged gigs are half Metal and Union Chapel's are none, so a gig the log
-        // dismissed at the Underworld is where a miss would hide and one at Union Chapel is not
-        val calledMetal = (1..4).map { gig("metal-$it") }
-        val dismissedWhereMetalPlays = (1..4).map { gig("dismissed-$it") }
-        val dismissedElsewhere = (1..4).map { gig("elsewhere-$it", unionChapel) }
+        val calledMetal = metalVenues.flatMap { venue -> (1..2).map { gig("metal-$venue-$it", venue) } }
+        val dismissedWhereMetalPlays = metalVenues.flatMap { venue -> (1..2).map { gig("dismissed-$venue-$it", venue) } }
+        val dismissedElsewhere = otherVenues.flatMap { venue -> (1..3).map { gig("elsewhere-$venue-$it", venue) } }
         val log = logJudging(
             dir,
             calledMetal.map { it to Genre.Metal } +
@@ -135,9 +142,31 @@ class LabellingTest {
     }
 
     @Test
+    fun `a batch is one gig a venue, so it is five listings rather than one venue's month`(@TempDir dir: File) {
+        val log = logJudging(
+            dir,
+            (metalVenues + otherVenues).flatMap { venue ->
+                (1..4).map { gig("gig-$venue-$it", venue) to if (it == 1) Genre.Metal else Genre.Other }
+            },
+        )
+
+        val batch = batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)
+
+        expectThat(batch.map { it.id.venueId }.toSet()).hasSize(5)
+    }
+
+    @Test
+    fun `a second gig from a venue already in the batch beats coming back short`(@TempDir dir: File) {
+        // fewer venues waiting than the batch wants, so one gig a venue cannot fill it on its own
+        val log = logJudging(dir, (1..6).map { gig("underworld-$it") to Genre.Other })
+
+        expectThat(batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)).hasSize(5)
+    }
+
+    @Test
     fun `a part with too few gigs to fill its share hands it on rather than shortening the batch`(@TempDir dir: File) {
-        val theOnlyMetalOne = gig("metal-1")
-        val rest = (1..6).map { gig("other-$it") }
+        val theOnlyMetalOne = gig("metal-1", theBlackHeart)
+        val rest = (metalVenues + otherVenues).map { venue -> gig("other-$venue", venue) }
         val log = logJudging(dir, listOf(theOnlyMetalOne to Genre.Metal) + rest.map { it to Genre.Other })
 
         expectThat(batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)).hasSize(5)

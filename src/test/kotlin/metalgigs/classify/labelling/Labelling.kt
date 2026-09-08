@@ -132,14 +132,32 @@ internal fun batchOf(waiting: List<Gig>, log: GigsLog, wanted: Int): List<Gig> {
     val metalShare = metalShareByVenue(log, status)
     val twoInFive = wanted * 2 / 5
 
-    val batch = LinkedHashSet<Gig>()
-    batch += waiting.filter { genreOf(it) == Genre.Metal }.take(twoInFive)
-    batch += waiting.filter { genreOf(it) == Genre.Other }
-        .sortedByDescending { metalShare[it.id.venueId] ?: 0.0 }
-        .take(twoInFive)
+    val batch = mutableListOf<Gig>()
+    batch.addFrom(waiting.filter { genreOf(it) == Genre.Metal }, twoInFive)
+    batch.addFrom(
+        waiting.filter { genreOf(it) == Genre.Other }.sortedByDescending { metalShare[it.id.venueId] ?: 0.0 },
+        twoInFive,
+    )
     // a part with too few gigs to fill its share hands it on here rather than shortening the batch
-    batch += waiting
-    return batch.take(wanted)
+    batch.addFrom(waiting, wanted - batch.size)
+    // and where there are fewer venues waiting than the batch wants, a second gig from one already
+    // in it beats coming back short
+    batch.addFrom(waiting, wanted - batch.size, oncePerVenue = false)
+    return batch
+}
+
+// One gig a venue, so a batch is five venues' listings rather than one venue's month. The venues
+// that book the most metal are also the ones with the most gigs waiting, so without this the part
+// weighted towards them fills the batch by itself: five gigs, three of them one venue's, two of
+// those from one promoter.
+private fun MutableList<Gig>.addFrom(from: List<Gig>, howMany: Int, oncePerVenue: Boolean = true) {
+    var added = 0
+    for (gig in from) {
+        if (added >= howMany) return
+        if (any { it.id == gig.id } || (oncePerVenue && any { it.id.venueId == gig.id.venueId })) continue
+        add(gig)
+        added++
+    }
 }
 
 // Measured against the log rather than listed, so a venue that changes what it books says so itself
