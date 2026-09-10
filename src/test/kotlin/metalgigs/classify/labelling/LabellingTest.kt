@@ -30,8 +30,6 @@ import strikt.assertions.containsExactlyInAnyOrder
 import strikt.assertions.hasSize
 import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
-import strikt.assertions.isGreaterThanOrEqualTo
-import strikt.assertions.isLessThanOrEqualTo
 import java.io.File
 import java.time.Instant
 import kotlin.test.Test
@@ -53,8 +51,7 @@ class LabellingTest {
     private val folk = gig("folk")
     private val sludge = gig("sludge")
 
-    // four venues booking half metal, and two booking none, so a gig the log dismissed at one of the
-    // first four is where a miss would hide and one at the last two is not
+    // four venues booking half metal and two booking none, so a batch leans towards the first four
     private val metalVenues = listOf(theUnderworld, theBlackHeart, cartAndHorses, newCrossInn)
     private val otherVenues = listOf(unionChapel, scala)
 
@@ -122,23 +119,25 @@ class LabellingTest {
     }
 
     @Test
-    fun `a batch is drawn from the Metal verdicts, the dismissals where metal plays, and the rest`(@TempDir dir: File) {
-        val calledMetal = metalVenues.flatMap { venue -> (1..2).map { gig("metal-$venue-$it", venue) } }
-        val dismissedWhereMetalPlays = metalVenues.flatMap { venue -> (1..2).map { gig("dismissed-$venue-$it", venue) } }
-        val dismissedElsewhere = otherVenues.flatMap { venue -> (1..3).map { gig("elsewhere-$venue-$it", venue) } }
+    fun `a batch leans on the venue, whatever the log said about the gig itself`(@TempDir dir: File) {
+        // every gig still waiting at a metal venue is one the log dismissed, so a draw keyed on the
+        // gig's own verdict would pass all four over. A set that scores the log cannot be chosen by
+        // the log's answers (ADR 13), so what the batch reads is the venue.
+        val alreadyLabelled = metalVenues.map { venue -> gig("settled-$venue", venue) }
+        val waitingWhereMetalPlays = metalVenues.map { venue -> gig("waiting-$venue", venue) }
+        val elsewhere = otherVenues.flatMap { venue -> (1..3).map { gig("elsewhere-$venue-$it", venue) } }
         val log = logJudging(
             dir,
-            calledMetal.map { it to Genre.Metal } +
-                (dismissedWhereMetalPlays + dismissedElsewhere).map { it to Genre.Other },
+            alreadyLabelled.map { it to Genre.Metal } +
+                (waitingWhereMetalPlays + elsewhere).map { it to Genre.Other },
         )
 
-        val batch = batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)
+        val batch = batchOf(gigsAwaitingLabels(log, alreadyLabelled.map { it.id }.toSet()), log, wanted = 5)
 
         expectThat(batch).hasSize(5)
-        expectThat(batch.count { it in calledMetal }).isGreaterThanOrEqualTo(2)
-        expectThat(batch.count { it in dismissedWhereMetalPlays }).isGreaterThanOrEqualTo(2)
-        // the fifth comes from everything waiting in url order, so at most one of these is reached
-        expectThat(batch.count { it in dismissedElsewhere }).isLessThanOrEqualTo(1)
+        expectThat(batch.count { it in waitingWhereMetalPlays }).isEqualTo(4)
+        // the fifth comes from everything waiting in url order, and the metal venues are spent
+        expectThat(batch.count { it in elsewhere }).isEqualTo(1)
     }
 
     @Test
@@ -159,15 +158,6 @@ class LabellingTest {
     fun `a second gig from a venue already in the batch beats coming back short`(@TempDir dir: File) {
         // fewer venues waiting than the batch wants, so one gig a venue cannot fill it on its own
         val log = logJudging(dir, (1..6).map { gig("underworld-$it") to Genre.Other })
-
-        expectThat(batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)).hasSize(5)
-    }
-
-    @Test
-    fun `a part with too few gigs to fill its share hands it on rather than shortening the batch`(@TempDir dir: File) {
-        val theOnlyMetalOne = gig("metal-1", theBlackHeart)
-        val rest = (metalVenues + otherVenues).map { venue -> gig("other-$venue", venue) }
-        val log = logJudging(dir, listOf(theOnlyMetalOne to Genre.Metal) + rest.map { it to Genre.Other })
 
         expectThat(batchOf(gigsAwaitingLabels(log, emptySet()), log, wanted = 5)).hasSize(5)
     }

@@ -52,6 +52,24 @@ so the gigs are read from the log both when a batch is shown and when its labels
 therefore rules on the words that get stored, and a gig its venue has moved leaves the batch rather than
 being labelled at a url it no longer lives at.
 
+**A batch leans on the venue and never on what the log said about the gig itself.** Offering the first
+few gigs waiting spends a person's attention at the log's own base rate - four in five on the Non-metal
+majority - where what a score turns on is Metal recall, measured on the smallest cell in the table. So
+four fifths of a batch comes from the venues booking the most metal, one gig a venue, and the last fifth
+in url order.
+
+What decides it has to be something other than the log's answer for that gig. A batch drawn two fifths
+from gigs the log calls Metal is drawn from the ones it is right about, and every such row lifts the
+recall it is later measured by: a confirmation adds one to the gigs found and one to the gigs held, so
+the figure climbs towards 100% with no classifier improving. Drawing instead from gigs it dismissed at
+metal venues has the same fault pointing the other way, and two opposing biases of unknown size cancel
+to noise rather than to nothing. A venue's metal share is an aggregate over many gigs, so a gig the log
+got wrong is as likely to be offered as one it got right - which is the property that matters, and the
+gig's own verdict is what has to go to keep it.
+
+Which is why the batch prints no verdict beside a gig either. A person is being asked what a gig is, and
+telling them what the log already thinks is the anchoring the disagreement flag at least pays a model for.
+
 **Asking models to find disagreements is an option, not the default.** Gigs several classifiers answer
 differently are where a label buys most, but a set built only from those is all corner cases and will not
 transfer. It is also blind by construction to what they get wrong together: `LOVE/HATE`, a glam metal band
@@ -104,4 +122,6 @@ the cases where a classifier guesses. **Mining a queue of candidates up front** 
 output that goes stale against the pages it was read from, and needs a second file to hold what the log
 and the set already say between them. **Scoring every candidate several times** - it was tried, and the
 billed classifier proved stable enough that repeats bought a longer run and a bigger bill and nothing
-else.
+else. **Drawing part of a batch from the gigs the log calls Metal** - it was done for seven batches and
+raised the yield, and it selects a set that scores the log on the log's own answers; the rows it added
+are still in the set and still lift what it measures.

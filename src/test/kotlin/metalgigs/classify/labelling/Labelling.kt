@@ -117,31 +117,17 @@ internal fun gigsAwaitingLabels(log: GigsLog, settled: Set<GigId>): List<Gig> {
         .sortedBy { it.id.url.value.hashCode() }
 }
 
-// Taking the first few of everything waiting spends a person's attention at the log's own base rate -
-// four gigs in five on the Non-metal majority - where what a score turns on is Metal recall, measured
-// on the smallest cell in the table. So a batch is drawn in three parts: two fifths from gigs the log
-// calls Metal, which confirm or overturn a verdict at a row each; two fifths from gigs it dismissed at
-// the venues booking the most metal, which is the shape a missed gig has and nothing else looks for;
-// and the rest in url order, the only place a mistake every classifier shares can turn up (ADR 13).
-//
-// Which part a gig came from is not printed with it. A person is being asked what a gig is, and being
-// told what the log already thinks is the anchoring the disagreement flag at least pays a model for.
+// Why a batch leans on the venue and never on the gig's own verdict:
+// docs/adr/0013-a-classifier-is-scored-against-gigs-a-person-labelled.md
 internal fun batchOf(waiting: List<Gig>, log: GigsLog, wanted: Int): List<Gig> {
-    val status = log.classificationStatus()
-    fun genreOf(gig: Gig) = (status[gig.id] as? ClassificationStatus.Classified)?.genre
-    val metalShare = metalShareByVenue(log, status)
-    val twoInFive = wanted * 2 / 5
+    val metalShare = metalShareByVenue(log, log.classificationStatus())
 
     val batch = mutableListOf<Gig>()
-    batch.addFrom(waiting.filter { genreOf(it) == Genre.Metal }, twoInFive)
-    batch.addFrom(
-        waiting.filter { genreOf(it) == Genre.Other }.sortedByDescending { metalShare[it.id.venueId] ?: 0.0 },
-        twoInFive,
-    )
-    // a part with too few gigs to fill its share hands it on here rather than shortening the batch
+    batch.addFrom(waiting.sortedByDescending { metalShare[it.id.venueId] ?: 0.0 }, wanted * 4 / 5)
+    // the last fifth in url order, which is the only place a mistake every classifier shares can
+    // turn up (ADR 13), and where there are fewer venues waiting than the batch wants, a second gig
+    // from one already in it beats coming back short
     batch.addFrom(waiting, wanted - batch.size)
-    // and where there are fewer venues waiting than the batch wants, a second gig from one already
-    // in it beats coming back short
     batch.addFrom(waiting, wanted - batch.size, oncePerVenue = false)
     return batch
 }
