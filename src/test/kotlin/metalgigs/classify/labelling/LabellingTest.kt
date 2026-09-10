@@ -20,6 +20,7 @@ import metalgigs.scrape.venues.cartAndHorses
 import metalgigs.scrape.venues.newCrossInn
 import metalgigs.scrape.venues.scala
 import metalgigs.scrape.venues.theBlackHeart
+import metalgigs.scrape.venues.theDev
 import metalgigs.scrape.venues.theUnderworld
 import metalgigs.scrape.venues.unionChapel
 import org.http4k.ai.model.ModelName
@@ -104,6 +105,16 @@ class LabellingTest {
         val thin = gig("thin", description = "Doors 7pm")
         expectThat(thin.description.value.length < THIN_TEXT_THRESHOLD).isEqualTo(true)
         val log = logOf(dir, listOf(doom, thin))
+
+        expectThat(gigsAwaitingLabels(log, emptySet()).map { it.title }).containsExactly(doom.title)
+    }
+
+    @Test
+    fun `leaves out a gig at a venue whose gigs are metal by rule`(@TempDir dir: File) {
+        // WithAlwaysMetalVenues answers for The Dev before any classifier is asked, so a label on one
+        // of its gigs scores nothing - and one had already been excluded by hand for that reason
+        val atTheDev = gig("dev-gig", theDev)
+        val log = logOf(dir, listOf(doom, atTheDev))
 
         expectThat(gigsAwaitingLabels(log, emptySet()).map { it.title }).containsExactly(doom.title)
     }

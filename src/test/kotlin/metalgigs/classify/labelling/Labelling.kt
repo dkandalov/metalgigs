@@ -8,6 +8,7 @@ import metalgigs.GigId
 import metalgigs.GigsLog
 import metalgigs.Ollama
 import metalgigs.VenueId
+import metalgigs.alwaysMetalVenues
 import metalgigs.classify.GigClassifier
 import metalgigs.classify.LlmGigClassifier
 import metalgigs.classify.THIN_TEXT_THRESHOLD
@@ -113,7 +114,13 @@ private fun recordLabels(log: GigsLog, dataset: LabelledGigs, labelsFile: File) 
 internal fun gigsAwaitingLabels(log: GigsLog, settled: Set<GigId>): List<Gig> {
     val judged = log.entries.filterIsInstance<GigClassified>().map { it.id }.toSet()
     return log.currentGigs()
-        .filter { it.id in judged && it.id !in settled && it.description.value.length >= THIN_TEXT_THRESHOLD }
+        .filter {
+            it.id in judged && it.id !in settled &&
+                // a gig at an always-metal venue is settled by the venue rule without a classifier
+                // being asked, so there is no answer of one for a label to score
+                it.id.venueId !in alwaysMetalVenues &&
+                it.description.value.length >= THIN_TEXT_THRESHOLD
+        }
         .sortedBy { it.id.url.value.hashCode() }
 }
 
