@@ -1,8 +1,10 @@
 package metalgigs.classify
 
+import metalgigs.ClassificationSource
 import metalgigs.Confidence
 import metalgigs.Genre
 import metalgigs.GigId
+import metalgigs.GigsLog
 import metalgigs.Ollama
 import metalgigs.classify.labelling.LabelledGig
 import metalgigs.classify.labelling.LabelledGigs
@@ -43,11 +45,15 @@ class ConfidenceExperiment {
         val onText = labelled.filter { it.gig.description.value.length >= THIN_TEXT_THRESHOLD }
         val population = onText.map { it.gig }
 
+        // The log answers for what runs today rather than the prompt in use being asked again: those
+        // verdicts are the ones the page was built from, they cost nothing to read, and a gig the
+        // daily run reached through its poster answers here as it did there.
         val candidates = listOf(
-            "ungraded, billed" to paid(scoped = false),
-            "scoped, billed" to paid(),
+            "the log" to recordedVerdicts(GigsLog(File("events.ndjson"))),
         ) + listOfNotNull(
             System.getenv("SCORE_CONFIDENCE_LOCAL")?.let { "scoped, $it here" to local(it) },
+            // asking the billed classifier is a call per gig and real money, so it is opt-in
+            System.getenv("SCORE_CONFIDENCE_PAID")?.let { "scoped, billed" to paid() },
         )
 
         val results = candidates.map { (name, classifier) -> name to answersOf(name, classifier, population) }
@@ -57,19 +63,15 @@ class ConfidenceExperiment {
         println(report)
     }
 
-    private fun paid(scoped: Boolean = true): GigClassifier {
+    private fun paid(): GigClassifier {
         val apiKey = ApiKey.of(
             System.getenv("ANTHROPIC_API_KEY") ?: error("scoring the billed classifier needs ANTHROPIC_API_KEY")
         )
         val http = httpClient(llmCallTimeout)
         return LlmGigClassifier(
             http,
-            Chat.AnthropicAI(
-                apiKey = apiKey,
-                http = http,
-                systemPrompt = SystemPrompt.of(if (scoped) scopedClassifierSystemPrompt else llmClassifierSystemPrompt),
-            ),
-            readVerdict = if (scoped) ::gradedVerdict else ::ungradedVerdict,
+            Chat.AnthropicAI(apiKey = apiKey, http = http, systemPrompt = SystemPrompt.of(scopedClassifierSystemPrompt)),
+            readVerdict = ::gradedVerdict,
         )
     }
 
@@ -128,6 +130,15 @@ private fun report(
         }
         lines += ""
 
+        // the log answers with a person's override wherever it holds one, so a gig somebody both
+        // labelled and overrode agrees with its label for a reason no classifier earned
+        val overridden = scored.count { it.source == ClassificationSource.User }
+        if (overridden > 0) {
+            lines += "${overridden} of these answer(s) are a person's override rather than a verdict a " +
+                "classifier gave, scored against the same person's label."
+            lines += ""
+        }
+
         val unreachable = scored.filterNot { it.labelled.canBeDerivedPurelyFromText }
         if (unreachable.isNotEmpty()) {
             lines += "Of ${unreachable.size} gig(s) whose page cannot carry the label, it got " +
@@ -169,13 +180,18 @@ private fun report(
     return lines.joinToString("\n")
 }
 
-private data class Scored(val labelled: LabelledGig, val given: Genre, val confidence: Confidence?) {
+private data class Scored(
+    val labelled: LabelledGig,
+    val given: Genre,
+    val confidence: Confidence?,
+    val source: ClassificationSource,
+) {
     val correct get() = given == labelled.genre
 }
 
 private fun scored(answers: Answers, labelFor: Map<GigId, LabelledGig>): List<Scored> =
     answers.verdicts.mapNotNull { (id, verdict) ->
-        labelFor[id]?.let { Scored(it, verdict.genre, verdict.confidence) }
+        labelFor[id]?.let { Scored(it, verdict.genre, verdict.confidence, verdict.source) }
     }
 
 private fun percent(part: Int, whole: Int) = if (whole == 0) "n/a" else "${part * 100 / whole}%"
