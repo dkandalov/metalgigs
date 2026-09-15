@@ -59,6 +59,7 @@ internal class SquarespaceEventsGigsSource(
     internal fun eventPageContent(page: Document): String? {
         val column = page.clone().select(".eventitem-column-content")
         if (column.isEmpty()) return null
+        column.select(".sqs-block-button").remove()
         column.select("br, p, div, h1, h2, h3, h4, li").before(lineMark)
         return Jsoup.parse(column.text()).text()
             .split(lineMark)

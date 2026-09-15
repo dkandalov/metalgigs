@@ -214,7 +214,6 @@ class SquarespaceEventsGigsSourceTest {
     fun `keeps the copy's own lines, so a bill's acts stay apart`() {
         val html = """
             <div class="eventitem-column-content">
-                <div class="sqs-block"><div class="sqs-block-content"><a>buy tickets</a></div></div>
                 <p>London Doom Collective presents...</p>
                 <p>HÄNDGEMENG</p>
                 <p>Plus guests...</p>
@@ -225,7 +224,24 @@ class SquarespaceEventsGigsSourceTest {
         val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = theBlackHeart)
 
         expectThat(source.eventPageContent(pageOf(html))).isEqualTo(
-            "buy tickets\nLondon Doom Collective presents...\nHÄNDGEMENG\nPlus guests...\nWARPSTORMER\nBIRDWITCH",
+            "London Doom Collective presents...\nHÄNDGEMENG\nPlus guests...\nWARPSTORMER\nBIRDWITCH",
         )
+    }
+
+    // The Necropolis Vol. III page, whose content column is a ticket button over the poster and nothing else.
+    @Test
+    fun `takes no copy from a squarespace ticket button`() {
+        val html = """
+            <div class="eventitem-column-content">
+                <div class="sqs-block website-component-block sqs-block-button button-block"><div class="sqs-block-content">
+                    <div class="sqs-block-button-container"><a class="sqs-block-button-element">buy tickets</a></div>
+                </div></div>
+                <div class="sqs-block image-block"><figure class="sqs-block-image-figure"><img src="poster.jpg"></figure></div>
+            </div>
+        """.trimIndent()
+
+        val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = theBlackHeart)
+
+        expectThat(source.eventPageContent(pageOf(html))).isEqualTo("")
     }
 }

@@ -32,7 +32,7 @@ the gigs it books without copy.
 | OVO Arena | `.event_description` | door times and ticket links above, then age policy, an AXS transfer notice, travel warnings about the stadium next door |
 | Alexandra Palace | `.ap_text_block, #key-information` | `#event_content` also holds a sidebar of Buy Tickets / FAQs / Accessibility repeated on every page |
 | Eventim Apollo | `.event-hero .variable-color.mt-sm` | the one hero element belonging to the gig; measured 82 to 1343 characters |
-| Squarespace | `.eventitem-column-content` | `article.eventitem` holds the date twice over, the postal address, Calendar and ICS links - longer than some blurbs |
+| Squarespace | `.eventitem-column-content` less its button blocks | `article.eventitem` holds the date twice over, the postal address, Calendar and ICS links - longer than some blurbs; inside the column, a ticket button ("buy tickets" at The Black Heart, "TICKETS" at The Dome) is the whole text of a page whose promoter wrote nothing, so two such gigs carried one description word for word (2026-09-15) |
 | DHP | `.single-article--contains-list .single-article__content` | the outer wrapper carries `.single-article` too, so selecting that doubles every word |
 | The Underworld | `article.event` less its footer | the sitewide "other events" widget |
 | Union Chapel | the article's children up to the first venue heading, plus the sidebar | see below |
