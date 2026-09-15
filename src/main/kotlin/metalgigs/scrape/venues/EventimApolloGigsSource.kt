@@ -37,12 +37,13 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
     private val rangeStart = Regex("""^(\w+)\s+(\d{1,2})\w{2}""")
     private val rangeEnd = Regex("""-\s*(\w+)\s+\d{1,2}\w{2}\s+(\d{4})""")
 
-    private fun monthNamed(name: String): Month = monthsByShortName[name] ?: Month.valueOf(name.uppercase())
+    // Abbreviations aren't all three letters: September is shortened to "Sept".
+    private fun monthNamed(name: String): Month = Month.entries.single { it.name.startsWith(name.uppercase()) }
 
     // Written once, on the end date, so a range crossing new year would otherwise date its start a
     // year late: "Dec 28th - Jan 3rd 2027" starts in 2026. Nothing in the listing crosses one today,
     // which is exactly why it has to be handled here rather than noticed later.
-    private fun startDateOf(text: String): GigDate {
+    internal fun startDateOf(text: String): GigDate {
         val trimmed = text.trim()
         val end = rangeEnd.find(trimmed)
             ?: return singleDate.find(trimmed)!!.destructured.let { (day, month, year) ->

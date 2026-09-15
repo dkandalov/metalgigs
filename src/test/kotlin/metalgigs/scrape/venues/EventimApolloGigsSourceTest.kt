@@ -41,6 +41,12 @@ class EventimApolloGigsSourceTest {
         expectThat(events.filter { it.date.year == 2027 }).hasSize(24)
     }
 
+    @Test
+    fun `reads September abbreviated as Sept in a run of dates`() {
+        expectThat(EventimApolloGigsSource(noHttp).startDateOf("Sept 30th - Dec 18th 2026"))
+            .isEqualTo(GigDate(2026, 9, 30))
+    }
+
     // the on-sale line, the buy buttons and the poster's caption are all inside the same hero as the
     // gig's copy, and on a listing with one sentence of copy they are most of its text
     @Test
