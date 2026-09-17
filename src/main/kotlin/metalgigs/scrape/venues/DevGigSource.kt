@@ -67,7 +67,7 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
         // and had nothing to say about the gig, which is the one thing that never happened here.
         return rows
             .filterNot { (_, title) -> notABandNight.containsMatchIn(title) }
-            .map { (date, title) -> Gig(GigId(venue.id, gigUrl(title, date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title)) }
+            .map { (date, title) -> Gig(GigId(venue.id, gigUrl(date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title)) }
     }
 
     // Every gig on the flyer is a night at The Dev, so a model is only ever asked to read dates and
@@ -80,8 +80,9 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
     // August's "We Only Come Out At Night (Fundraiser)" is three bands playing.
     private val notABandNight = Regex("karaoke|book launch", RegexOption.IGNORE_CASE)
 
-    // Why the Facebook page and a fragment: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
-    private fun gigUrl(title: String, date: GigDate) = GigUrl("$gigsPageUrl#gig-${slug(title)}-$date")
+    // Why the Facebook page and a fragment, and why the night alone names the gig:
+    // docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
+    private fun gigUrl(date: GigDate) = GigUrl("$gigsPageUrl#gig-$date")
 
     private val gigsPageUrl = "https://www.facebook.com/thedevnw1"
 
@@ -199,7 +200,6 @@ private fun withSpacedSlashes(title: String) = title.replace(slashSeparator, " /
 
 private val slashSeparator = Regex("""\s*/\s*""")
 
-private fun slug(value: String): String = value.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
 
 private const val MAX_IMAGE_BYTES = 7_000_000
 

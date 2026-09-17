@@ -22,7 +22,7 @@ would each do.
 | AMG | the ticket url up to its `?` | no per-gig page exists; one gig lists several tickets whose urls differ by marketing params in an unstable order, so identity would keep changing. Stripping leaves the platform's event id, stable and still a working link |
 | AMG | the *first ticket that has* a link | a ticket entry exists before its link does - ADÉLA at O2 Academy Brixton listed two entries with url `""` ahead of the branded one, and neither `isVisible` nor `ticketStatus` separates them: the blank ones were visible and on sale |
 | OVO Arena | the page url plus the date as a fragment | a run of nights is one event page listed once per night (André Rieu's two September nights share one). Appended to every gig, not only collisions: doing it on collision would rewrite the url of a gig already logged the day a second night is announced |
-| The Dev | the venue's Facebook page plus a fragment | there is no per-gig page; the Instagram post is superseded every month where the page is not, so a gig keeps the url it was first logged under |
+| The Dev | the venue's Facebook page plus the night | there is no per-gig page, and the Instagram post is superseded every month where the page is not. The fragment is the date alone because the only other thing a flyer gig carries is a title a model read off a picture, and it reads the same bill differently between runs - a promoter's name prefixed, a colon added, a support act misread - each of which minted a second gig on that night while the title was in the url (ADR 11) |
 | DHP | a sold-out gig's "Gig Sold Out" notification | its heading is not a link at all, and the notification points at the same page |
 
 Each is checked against that venue's prefixes by `gigUrlFrom` (ADR 2).
@@ -66,8 +66,9 @@ request carries a browser User-Agent, several venues answering without one with 
 
 A venue that renames a gig past recognition is paired now, and one that moves it to another night is too if it
 redirects. What is still out of reach is a venue that neither redirects nor deletes: Windmill Brixton stops
-listing a gig and leaves its page up, which reads as `Live`, and The Dev has no per-gig page to ask at all -
-seven of the eleven nights the log held twice on 2026-09-17 were those two venues. The pairing must happen
+listing a gig and leaves its page up, which reads as `Live`. The Dev had no per-gig page to ask at all, and its
+two nights were settled instead by taking the title out of its url (ADR 11); of the eleven nights the log held
+twice on 2026-09-17, Windmill's five are what no answer about a url can reach. The pairing must happen
 while the listing is read, which is why it is recorded as `GigReplaced` (ADR 1). And a gig's identity depends
 on a redirect Dice serves.
 

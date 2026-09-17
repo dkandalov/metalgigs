@@ -48,14 +48,14 @@ class DevGigSourceTest {
             source = DevGigSource(clientWithStubbedFlyerImage(), fakeChat(septemberFlyerReply)),
             size = 8,
             first = Gig(
-                GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-irk-why-patterns-the-defamation-process-2026-09-06")),
+                GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-2026-09-06")),
                 GigTitle("IRK / Why Patterns? / The Defamation Process"),
                 GigDate(2026, 9, 6),
                 PosterUrl(septemberFlyerImageUrl),
                 GigDescription(""),
             ),
             last = Gig(
-                GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-the-day-of-locusts-stour-dungeon-2026-09-29")),
+                GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-2026-09-29")),
                 GigTitle("The Day of Locusts / Stour / Dungeon"),
                 GigDate(2026, 9, 29),
                 PosterUrl(septemberFlyerImageUrl),
@@ -99,9 +99,9 @@ class DevGigSourceTest {
             .containsExactly(GigTitle("We Only Come Out At Night (Fundraiser): Servers of Hysteria / Hot Wife"))
     }
 
-    // The model spaces a bill's slashes differently from run to run, and the title is what a gig's
-    // description and its url's slug are both built from, so the spacing it happens to pick is what
-    // decides whether the same night reads as the same gig tomorrow.
+    // The model spaces a bill's slashes differently from run to run, and the title is the gig's
+    // description as well, so the spacing it settles on is what decides whether the night reads as
+    // changed tomorrow.
     @Test
     fun `settles on one spacing for the slashes a bill is written with`() {
         val reply = "2026-09-22 | Liquified/Lobotomica/ Disembowler /Malauriu"
@@ -110,8 +110,18 @@ class DevGigSourceTest {
 
         expectThat(gig.title).isEqualTo(GigTitle("Liquified / Lobotomica / Disembowler / Malauriu"))
         expectThat(gig.description).isEqualTo(GigDescription("Liquified / Lobotomica / Disembowler / Malauriu"))
-        // the slug reads through the spacing either way, so settling it doesn't relist the gig
-        expectThat(gig.id.url).isEqualTo(GigUrl("https://www.facebook.com/thedevnw1#gig-liquified-lobotomica-disembowler-malauriu-2026-09-22"))
+    }
+
+    // The flyer is read by a model on every scrape and it reads the same bill differently between
+    // runs - a promoter's name prefixed, a colon added, a support act misread - which minted a gig
+    // per reading while the title was in the url. Five nights stood in the log twice by 2026-09-17.
+    @Test
+    fun `gives a night's gig one url however the model reads its bill`() {
+        val oneReading = gigsFrom("2026-09-18 | Broken Jaw / Dog of Man").single()
+        val another = gigsFrom("2026-09-18 | Broken Jaw / My Broken Integrity").single()
+
+        expectThat(oneReading.id).isEqualTo(another.id)
+        expectThat(another.id.url).isEqualTo(GigUrl("https://www.facebook.com/thedevnw1#gig-2026-09-18"))
     }
 
     @Test

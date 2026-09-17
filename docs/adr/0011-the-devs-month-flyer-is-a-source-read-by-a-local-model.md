@@ -1,6 +1,7 @@
 # 11. The Dev's month flyer is a source, read by a model running on this machine
 
-Accepted. Recorded 2026-08-25, describing `DevGigSource.kt`.
+Accepted. Recorded 2026-08-25, describing `DevGigSource.kt`. Amended 2026-09-17: a gig's url is the night
+alone, the model's reading of a bill having minted a gig per reading.
 
 ## Context
 
@@ -46,8 +47,9 @@ it cannot check, changed nothing. The reply is one `yyyy-MM-dd | Title` per line
 that shape is ignored.
 
 Three consequences of a flyer being the only source are handled where they arise: **the url** is the venue's
-Facebook page plus a fragment, never the Instagram post, so a gig keeps the url it was first logged under when
-next month's flyer goes up (ADR 5); **the description** is the title, there being no page behind the gig, where
+Facebook page plus the night, never the Instagram post and never the title, so a gig keeps the url it was first
+logged under both when next month's flyer goes up and when the model reads this month's bill differently (ADR
+5); **the description** is the title, there being no page behind the gig, where
 `""` would say a page was read and said nothing (ADR 7); **the title's slashes** settle to one spelling, a
 title that flips between runs being a gig logged as changed every run (ADR 6).
 
@@ -60,7 +62,9 @@ and once for each post's caption, of which a post has one or none.
 
 This venue's listing is only as good as a local model's reading of a picture, re-read from scratch every scrape
 rather than accumulated; the month check and the row format are all that stand between a misreading and a
-published gig. The listing lags the venue by up to a month, the printed month making that visible. A model
+published gig. Nothing derived from the reading can serve as identity, which is what the date-only url settles:
+at temperature 0 and seed 0 the readings still differed enough to stand five nights in the log twice by
+2026-09-17, one pair differing by a single colon. The listing lags the venue by up to a month, the printed month making that visible. A model
 upgrade changes what is listed, so the extraction model is named in what this source prints and raises.
 
 ## Alternatives rejected
