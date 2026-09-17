@@ -32,11 +32,10 @@ internal fun replacementsIn(
 
     return previous.filter { it.date >= from && it.id !in listed }
         .mapNotNull { missing ->
-            val lookalikes = scraped.filter { it.date == missing.date && it.looksLike(missing) }
-            if (lookalikes.isEmpty()) null
-            else when (val says = missingGigSays(missing.id.url)) {
+            when (val says = missingGigSays(missing.id.url)) {
                 is MissingGig.MovedTo -> byUrl[says.url]
-                MissingGig.Gone -> lookalikes.maxByOrNull { titleSimilarity(it, missing) }
+                MissingGig.Gone -> scraped.filter { it.date == missing.date && it.looksLike(missing) }
+                    .maxByOrNull { titleSimilarity(it, missing) }
                 MissingGig.Live -> null
             }?.let { replacement -> missing.id to replacement.id }
         }

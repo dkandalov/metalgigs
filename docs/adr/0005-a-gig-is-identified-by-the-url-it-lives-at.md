@@ -1,6 +1,7 @@
 # 5. A gig is identified by the url it lives at, and a venue that moves one is paired as the listing is read
 
-Accepted. Recorded 2026-08-25, describing `GigCorrection.kt` and the url each source builds.
+Accepted. Recorded 2026-08-25, describing `GigCorrection.kt` and the url each source builds. Amended
+2026-09-17: the url is asked about before a replacement is looked for, the gate having lost real moves.
 
 ## Context
 
@@ -37,10 +38,16 @@ A redirected url is followed to its target and needs nothing else. A deleted url
 the same night that looks like the missing one stands in - the edits that move a url are small, an added
 support band or a settled festival name.
 
-**Looking for that gig comes first, before the url is asked about at all.** A missing gig with nothing like
-it listed that night could not have been paired whatever its url said, and the request would be spent to
-learn nothing - daily, since a run that pairs nothing records nothing. Cancelled gigs are the bulk of that
-and now cost no request.
+**The url is asked about first, before anything like the gig is looked for.** A redirect names where the gig
+went and `byUrl` resolves it, so similarity has no part in that answer and gating the request on it only lost
+real moves. Retsu at Helgi's gained two supports and scored 0.2; Cart and Horses' STONED STATUE(S) scored 0.08
+with its poster replaced; both old urls were answering with a redirect nobody asked for, and both nights stood
+on the page as two gigs. Similarity survives where a candidate still has to be guessed, inside the `Gone` branch.
+
+What that costs is a request per gig a venue has stopped listing, repeated every run for the ones it cannot
+pair, since a run that pairs nothing records nothing. Read against what a run already spends: on 2026-09-17 the
+log held 1288 future gigs at the 20 of 36 venues whose sources fetch a page per gig for its description, so the
+ask is a rounding error against traffic the run makes anyway.
 
 Looking alike means the titles share enough words *or* the posters match; either arm alone misses a real
 move, Signature Brew's LOLA (AUS) returning with a picture Dice re-uploaded two days later, and Cart and
@@ -57,14 +64,16 @@ request carries a browser User-Agent, several venues answering without one with 
 
 ## Consequences
 
-What this gives up is a redirect's ability to surprise us: a venue that renames a gig past recognition, or
-moves it to another night, is no longer asked. The pairing must happen while the listing is read, which is
-why it is recorded as `GigReplaced` (ADR 1). And a gig's identity depends on a redirect Dice serves.
+A venue that renames a gig past recognition is paired now, and one that moves it to another night is too if it
+redirects. What is still out of reach is a venue that neither redirects nor deletes: Windmill Brixton stops
+listing a gig and leaves its page up, which reads as `Live`, and The Dev has no per-gig page to ask at all -
+seven of the eleven nights the log held twice on 2026-09-17 were those two venues. The pairing must happen
+while the listing is read, which is why it is recorded as `GigReplaced` (ADR 1). And a gig's identity depends
+on a redirect Dice serves.
 
 ## Alternatives rejected
 
-**Similarity alone** - real sittings and ticket types score at or above real moves (ADR 4). **Asking about
-the url first** - a request per cancelled gig, daily, to learn nothing. **Following the redirect chain to
-what is served** - `Location` is the venue's own statement. **The listed Dice perm_name** - not a page.
+**Similarity alone** - real sittings and ticket types score at or above real moves (ADR 4). **Following the
+redirect chain to what is served** - `Location` is the venue's own statement. **The listed Dice perm_name** - not a page.
 **The whole AMG ticket url, or its first ticket** - unstable params; the first ticket often has no link.
 **OVO's date only on collision** - it rewrites an already-logged url.

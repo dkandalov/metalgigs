@@ -159,8 +159,8 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     // one to conclude anything from - and asked only of gigs still to come, a night already played
     // being one no page prints.
     //
-    // Costs one request per gig the venue has stopped listing, which is also what stops it repeating:
-    // a gig that has been replaced leaves currentGigs, so the next run doesn't ask about it again.
+    // Costs one request per gig the venue has stopped listing, spent whether or not anything listed
+    // that night looks like it, and repeated every run for the gigs it cannot pair.
     val withheldVenues = validation.withheld.map { it.id.venueId }.toSet()
     val replacements = scrapedByVenue.filterKeys { it !in withheldVenues }
         .flatMap { (venueId, listing) ->

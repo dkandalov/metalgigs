@@ -74,26 +74,20 @@ class GigCorrectionTest {
         }
 
         expectThat(replacements).isEqualTo(emptyList())
-        expectThat(asked.toList()).isEqualTo(emptyList())
+        expectThat(asked.toList()).isEqualTo(listOf(dropped.id.url))
     }
 
-    // the request is what says whether a gig moved, so it is spent only where there is an answer to
-    // be had: a gig cancelled outright, with nothing like it listed that night, could not have been
-    // paired whatever its url said - and would be asked again every run, since a run that pairs
-    // nothing records nothing
+    // A redirect is the venue's own statement about where a gig went, so it stands whether or not
+    // what it points at reads like the gig that moved. Retsu's bill at Helgi's gained two supports
+    // and scored 0.2 against the url it had left, which dice.fm was answering with a 308 all along.
     @Test
-    fun `asks nothing about a gig with nothing like it listed that night`() {
-        val cancelled = gig(GigTitle("Primus"), "https://example.com/primus", realText, PosterUrl("https://example.com/primus.jpg"), GigDate(2026, 9, 10))
-        val unrelated = gig(GigTitle("Kawehi"), "https://example.com/kawehi", realText, PosterUrl("https://example.com/kawehi.jpg"), GigDate(2026, 9, 10))
-        val asked = mutableListOf<GigUrl>()
+    fun `pairs a moved gig with nothing like it listed that night`() {
+        val moved = gig(GigTitle("Primus"), "https://example.com/primus", realText, PosterUrl("https://example.com/primus.jpg"), GigDate(2026, 9, 10))
+        val relisted = gig(GigTitle("Kawehi"), "https://example.com/kawehi", realText, PosterUrl("https://example.com/kawehi.jpg"), GigDate(2026, 9, 10))
 
-        val replacements = replacementsIn(listOf(unrelated), listOf(cancelled), today) {
-            asked += it
-            MissingGig.MovedTo(unrelated.id.url)
-        }
+        val replacements = replacementsIn(listOf(relisted), listOf(moved), today) { MissingGig.MovedTo(relisted.id.url) }
 
-        expectThat(asked.toList()).isEqualTo(emptyList())
-        expectThat(replacements).isEqualTo(emptyList())
+        expectThat(replacements).isEqualTo(listOf(moved.id to relisted.id))
     }
 
     // Dice re-uploaded LOLA (AUS)'s picture two days after the first, so a poster alone won't do; a
