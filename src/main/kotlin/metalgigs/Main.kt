@@ -257,7 +257,7 @@ private fun renderGigsHtml(today: LocalDate = LocalDate.now(), force: Boolean = 
     publishGigImages(gigs, keep = metalGigs)
 
     val renderer = HandlebarsTemplates().CachingClasspath()
-    val html = renderer(GigsView(groupGigsByDate(gigs)))
+    val html = renderer(GigsView(groupGigsByDate(gigs, publishedImageRatios(gigs, publishedImagesDir))))
 
     val renderedAt = Instant.now()
     // Read before archiveRender overwrites it, since the sitemap dates the page by whether this

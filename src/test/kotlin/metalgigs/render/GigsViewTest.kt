@@ -13,7 +13,9 @@ import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.containsExactly
 import strikt.assertions.containsExactlyInAnyOrder
+import strikt.assertions.isEqualTo
 import java.time.LocalDate
+import java.util.Locale
 import kotlin.test.Test
 
 @ExtendWith(ApprovalTest::class)
@@ -79,6 +81,55 @@ class GigsViewTest {
 
         expectThat(html).contains("Ditz / Enola Gay /Iguana Death Cult")
     }
+
+    // Why the shape is the poster's, and bounded: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md
+    @Test
+    fun `a card takes its own image's ratio`() {
+        val gig = gigAt(GigDate(2026, 8, 8))
+
+        val card = groupGigsByDate(listOf(gig), mapOf(gig.id to 0.8)).single().gigs.single()
+
+        expectThat(card.cardRatio).isEqualTo("0.800")
+    }
+
+    @Test
+    fun `a card narrower than 4 by 5 or wider than 16 by 9 is cropped to those bounds`() {
+        val a3 = gigAt(GigDate(2026, 8, 8))
+        val panorama = gigAt(GigDate(2026, 8, 9))
+
+        val cards = groupGigsByDate(listOf(a3, panorama), mapOf(a3.id to 0.707, panorama.id to 2.5))
+
+        expectThat(cards.flatMap { it.gigs }.map { it.cardRatio }).containsExactly("0.800", "1.778")
+    }
+
+    // a publish that failed leaves an image the render can't measure, and a square is the shape
+    // every card had before this one was read off the image
+    @Test
+    fun `a card whose image could not be measured stays square`() {
+        val gig = gigAt(GigDate(2026, 8, 8))
+
+        val card = groupGigsByDate(listOf(gig), emptyMap()).single().gigs.single()
+
+        expectThat(card.cardRatio).isEqualTo("1.000")
+    }
+
+    // The property is read by CSS, which takes no decimal comma, so it can't be written in whatever
+    // locale the machine rendering the page happens to run in.
+    @Test
+    fun `a card's ratio is written with a decimal point whatever the machine's locale`() {
+        val gig = gigAt(GigDate(2026, 8, 8))
+        val default = Locale.getDefault()
+        try {
+            Locale.setDefault(Locale.GERMANY)
+            val card = groupGigsByDate(listOf(gig), mapOf(gig.id to 1.5)).single().gigs.single()
+            expectThat(card.cardRatio).isEqualTo("1.500")
+        } finally {
+            Locale.setDefault(default)
+        }
+    }
+
+    private fun gigAt(date: GigDate) =
+        Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/$date")), GigTitle("Gig"), date, PosterUrl("https://example.com/poster.jpg"), GigDescription(""))
 
     @Test
     fun `sorts gigs alphabetically within a day, ignoring case`() {

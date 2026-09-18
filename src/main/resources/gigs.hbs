@@ -300,10 +300,13 @@
             border-radius: 10px;
             overflow: hidden;
         }
+        /* Why the ratio is the poster's own: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md
+           The fallback is for a card whose image the render couldn't measure, which is what every
+           card used to be. */
         .gig-image {
             display: block;
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: var(--card-ratio, 1);
             object-fit: cover;
             background: #26262a;
         }
@@ -452,7 +455,7 @@
         {{#each gigs}}
         <li class="gig-card">
             <a href="{{url}}">
-                <img class="gig-image" src="{{imageUrl}}" alt="" loading="lazy">
+                <img class="gig-image" src="{{imageUrl}}" alt="" loading="lazy" style="--card-ratio: {{cardRatio}}">
                 <span class="gig-info">
                     <span class="gig-title">{{#each titleParts}}{{#unless @first}}<wbr>{{/unless}}{{this}}{{/each}}</span>
                     <span class="gig-venue">{{venue}}</span>
