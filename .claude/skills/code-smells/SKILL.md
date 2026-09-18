@@ -81,11 +81,12 @@ doesn't.
 
 ## A value built only to be rejected a call later
 
-`imageUrl` in OvoArenaGigsSource ends `.orEmpty()`, `squarespaceThumbnailUrl` and `widestImageUrl`
-fall through to `""`, and all three hand it to `posterUrlFrom`, which rejects blank; `AmgEvent`'s
-`description` writes `?: ""` only for the `takeUnless { it.isBlank() }` beneath it. Let an absent
-value stay absent - `String?` to the boundary that decides - so the type refusing it is the only
-thing that has to know.
+`imageUrl` in OvoArenaGigsSource ends `.orEmpty()` and `widestImageUrl` falls through to `""`, and
+both hand it to `posterUrlFrom`, which rejects blank; `AmgEvent`'s `description` writes `?: ""` only
+for the `takeUnless { it.isBlank() }` beneath it. Let an absent value stay absent - `String?` to the
+boundary that decides - so the type refusing it is the only thing that has to know.
+`squarespaceImageUrl` is what that reads like: the Squarespace sources took a `""` here until a
+poster came to be read off two pages, and a `String?` is what let the second stand in for the first.
 
 ## An invariant checked further down than the type that could refuse it
 

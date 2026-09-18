@@ -32,28 +32,37 @@ internal class SquarespaceEventsGigsSource(
                 // The Black Heart lists at /events and its gigs sit at /events/2026/9/30/morag-tong
                 val gigUrl = gigUrlFrom(titleLink.attr("abs:href"), "$url/")
                 gigOrSkipped(gigUrl, skippableGigs) {
+                    val eventPage = when (descriptionFrom) {
+                        SquarespaceDescription.EventPage -> Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
+                        SquarespaceDescription.ListingExcerpt -> null
+                    }
                     Gig(
                         GigId(venue.id, gigUrl),
                         GigTitle(titleLink.text()),
                         GigDate.parse(item.select("time.event-date").first()!!.attr("datetime")),
-                        posterUrlFrom(gigUrl, item.squarespaceThumbnailUrl()),
-                        when (descriptionFrom) {
-                            SquarespaceDescription.EventPage -> fetchDescription(client, gigUrl, ::eventPageContent)
-                            SquarespaceDescription.ListingExcerpt -> GigDescription(
+                        posterUrlFrom(gigUrl, eventPage?.let(::eventPagePoster) ?: item.squarespaceThumbnailUrl()),
+                        when (eventPage) {
+                            null -> GigDescription(
                                 item.select(".eventlist-excerpt").textOrNull()
                                     ?: error("No excerpt on the listing for $gigUrl - the venue's listing selector may no longer match it")
                             )
+                            else -> descriptionFrom(eventPage, gigUrl, ::eventPageContent)
                         },
                     )
                 }
             }
 
-    // Squarespace's "Events List" block sometimes resolves the thumbnail's `src` eagerly and sometimes
-    // leaves it lazy-loaded with only `data-image` set, depending on the site
-    private fun Element.squarespaceThumbnailUrl(): String {
-        val img = select(".eventlist-column-thumbnail img")
-        return img.attr("abs:src").ifBlank { img.attr("abs:data-image") }
-    }
+    // Why the copy's image rather than the card's: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
+    internal fun eventPagePoster(page: Document): String? =
+        page.select(".eventitem-column-content .sqs-block-image img").first()?.squarespaceImageUrl()
+
+    private fun Element.squarespaceThumbnailUrl(): String? =
+        select(".eventlist-column-thumbnail img").first()?.squarespaceImageUrl()
+
+    // Squarespace's blocks sometimes resolve an image's `src` eagerly and sometimes leave it
+    // lazy-loaded with only `data-image` set, depending on the site
+    private fun Element.squarespaceImageUrl(): String? =
+        attr("abs:src").ifBlank { attr("abs:data-image") }.ifBlank { null }
 
     // Why the copy is scoped, re-parsed and kept in lines: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     internal fun eventPageContent(page: Document): String? {

@@ -110,6 +110,9 @@ class SquarespaceEventsGigsSourceTest {
         )
     }
 
+    // Both gigs are expected under one poster because every event page here is answered by the single
+    // recorded page this host stands in with (TrafficFixtures) - so what it holds the scrape to is
+    // that the poster came off the event page, the card's thumbnail differing on every card.
     @Test
     fun `extracts gig events from The Black Heart events page`() {
         assertScrapesGigs(
@@ -119,19 +122,20 @@ class SquarespaceEventsGigsSourceTest {
                 GigId(theBlackHeart.id, GigUrl("https://www.ourblackheart.com/events/2026/8/8/you-win-again-gravity")),
                 GigTitle("YOU WIN AGAIN GRAVITY"),
                 GigDate(2026, 8, 8),
-                PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1782745761879-UVSUIG341XJIY3MEB9MI/LBPHOTO%2B-%2B%2BYou%2BWin%2BAgain%2BGravity%2B-%2BPromo%2B-%2B20.10.2024%2B6.jpg"),
+                PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/5b8cf137-c089-48d8-b591-60989f951741/Necropolis_2027_IG_Feed_Poster_3rd_announcement.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(theBlackHeart.id, GigUrl("https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii")),
                 GigTitle("NECROPOLIS VOL. III"),
                 GigDate(2027, 3, 19),
-                PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/1781025655512-MHR6PMWPOOE3TJFOSWAB/Necropolis_2027_IG_Feed_Poster_2nd_announcement%2B%25281%2529.jpg"),
+                PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/5b8cf137-c089-48d8-b591-60989f951741/Necropolis_2027_IG_Feed_Poster_3rd_announcement.jpg"),
                 GigDescription(""),
             ),
         )
     }
 
+    // The poster expected here is the recorded event page's, for the reason given above.
     @Test
     fun `extracts gig events from The Dome whatson page`() {
         assertScrapesGigs(
@@ -141,14 +145,14 @@ class SquarespaceEventsGigsSourceTest {
                 GigId(theDome.id, GigUrl("https://www.domelondon.co.uk/whatson/08/08-battlesnake")),
                 GigTitle("BATTLESNAKE"),
                 GigDate(2026, 8, 8),
-                PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1777381588492-CAQQZA5RRSD026668882/Cathedral%2BColour.jpg"),
+                PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/108ef8cb-7ffb-4247-ac70-8b48dda635ad/Draconian-2027-London-A3-poster.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(theDome.id, GigUrl("https://www.domelondon.co.uk/whatson/03/07-draconian")),
                 GigTitle("DRACONIAN"),
                 GigDate(2027, 3, 7),
-                PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/1771509016965-K3W9K2G4J853EZ97RETL/Draconian+done-56+%28low+res%29.jpg"),
+                PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/108ef8cb-7ffb-4247-ac70-8b48dda635ad/Draconian-2027-London-A3-poster.jpg"),
                 GigDescription(""),
             ),
         )
@@ -243,5 +247,82 @@ class SquarespaceEventsGigsSourceTest {
         val source = SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = theBlackHeart)
 
         expectThat(source.eventPageContent(pageOf(html))).isEqualTo("")
+    }
+
+    // The Dome's Havok night: the band's press shot on the card, the night's poster in the copy.
+    // Why the copy's image rather than the card's: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
+    @Test
+    fun `takes the poster from the event page rather than the listing card`() {
+        val source = SquarespaceEventsGigsSource(
+            servingEventPageContent(
+                """
+                <div class="sqs-block image-block sqs-block-image"><figure class="sqs-block-image-figure">
+                    <img data-image="$poster" src="$poster" width="1080" height="1350">
+                </figure></div>
+                """,
+            ),
+            url = "https://example.com/events",
+            venue = theDome,
+        )
+
+        expectThat(source.latestGigs().single().posterUrl).isEqualTo(PosterUrl(poster))
+    }
+
+    @Test
+    fun `reads a lazy-loaded event page poster from data-image`() {
+        val source = SquarespaceEventsGigsSource(
+            servingEventPageContent(
+                """
+                <div class="sqs-block image-block sqs-block-image"><figure class="sqs-block-image-figure">
+                    <img data-src="$poster" data-image="$poster" data-load="false">
+                </figure></div>
+                """,
+            ),
+            url = "https://example.com/events",
+            venue = theDome,
+        )
+
+        expectThat(source.latestGigs().single().posterUrl).isEqualTo(PosterUrl(poster))
+    }
+
+    // A Black Heart gig written up in text alone, its artwork never posted, is one of the 47 listed.
+    @Test
+    fun `falls back to the listing card when the event page carries no image`() {
+        val source = SquarespaceEventsGigsSource(
+            servingEventPageContent("<p>Doors 7pm. Tickets on the door.</p>"),
+            url = "https://example.com/events",
+            venue = theDome,
+        )
+
+        expectThat(source.latestGigs().single().posterUrl).isEqualTo(PosterUrl(thumbnail))
+    }
+
+    @Test
+    fun `fails the listing when neither the event page nor the card carries an image`() {
+        val source = SquarespaceEventsGigsSource(
+            servingEventPageContent("<p>Doors 7pm. Tickets on the door.</p>", thumbnail = null),
+            url = "https://example.com/events",
+            venue = theDome,
+        )
+
+        assertFailsWith<IllegalStateException> { source.latestGigs() }
+    }
+
+    private val poster = "https://images.squarespace-cdn.com/content/v1/6708f569/0ec3df6a/Havok-2026-London-4x5.jpg"
+    private val thumbnail = "https://images.squarespace-cdn.com/content/v1/6708f569/1775581178961/Havok_2026.jpg"
+
+    private fun servingEventPageContent(content: String, thumbnail: String? = this.thumbnail): HttpHandler = { request ->
+        Response(OK).body(
+            if (request.uri.path == "/events") """
+                <article class="eventlist-event eventlist-event--upcoming">
+                  <a href="/events/2026/9/19/havok" class="eventlist-column-thumbnail content-fill">
+                    ${thumbnail?.let { """<img src="$it">""" } ?: ""}
+                  </a>
+                  <h1 class="eventlist-title"><a href="/events/2026/9/19/havok" class="eventlist-title-link">HAVOK</a></h1>
+                  <time class="event-date" datetime="2026-09-19">Saturday 19 September 2026</time>
+                </article>
+            """
+            else """<article class="eventitem"><div class="eventitem-column-content">$content</div></article>""",
+        )
     }
 }

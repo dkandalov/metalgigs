@@ -1,6 +1,8 @@
 # 9. A poster is taken at the largest size the listing already knows about, without another request
 
-Accepted. Recorded 2026-08-25, describing the poster handling across `scrape/venues`.
+Accepted. Recorded 2026-08-25, describing the poster handling across `scrape/venues`. Amended 2026-09-18: a
+Squarespace venue's poster is the image block in the gig's own copy, its card's thumbnail being the venue's
+featured image rather than the night's artwork.
 
 ## Context
 
@@ -37,6 +39,23 @@ Dress Vintage; a lazy-loaded `data-src` on an anchor's background at Islington A
 until the theme's JavaScript runs; `data-image` at Squarespace venues, whose Events List block resolves `src`
 eagerly on some sites and not others.
 
+Where a listing's picture is not the gig's, the event page's is taken instead. **The Black Heart** and **The
+Dome** hang a Squarespace card off whatever the venue set as that event's featured image, which is as often a
+band's press shot or a landscape crop as the night's artwork, while the poster is the first image block in the
+copy below it - on a page already fetched for the description (ADR 7), so still no request of its own. The
+card's thumbnail is the fallback, and only when the page carries no image at all. Measured on 2026-09-18:
+
+| Venue | Listed | With an image block | A different picture from the card | The same picture at a new url |
+| --- | --- | --- | --- | --- |
+| The Dome | 67 | 67 | 64 | 3 |
+| The Black Heart | 47 | 46 | 25 | 21 |
+
+The same upload reaches the two places by different paths - the card's dated one, the block's uuid one - and
+escapes a space as `%2B` in one and `+` in the other, which is why a picture that doesn't change still changes
+url. The one Black Heart gig with no image block keeps its card's thumbnail; a second, whose card carried no
+thumbnail at all, is published under its page's poster where before it would have failed that whole listing
+(ADR 2).
+
 Where a listing has no poster, the source asks the next thing that might:
 
 - **AMG** serves `image: ""` for an event with no artwork while the page still renders AMG's shared default.
@@ -71,10 +90,18 @@ again, which nothing checks. A DHP gig can be published under the venue's crowd 
 a deliberate trade against dropping it. `SharedPosterCheck` (ADR 3) is the counterweight: the only check
 reading what is shown with a gig rather than what it says.
 
+A published image is named from a hash of its poster url (`ImageCache.kt`), so moving a venue to a different
+picture re-downloads and re-encodes every one of that venue's gigs once, including the ones whose picture
+hasn't changed, and prunes what they were published under. Taking a Squarespace poster from the copy also puts
+it behind the same selector the description reads, so a venue restyling its event page loses both at once
+rather than one of them.
+
 ## Alternatives rejected
 
 **Fetching the original separately** - every one is recoverable from the url the listing gives, Bush Hall
 excepted, where the bigger one comes off a page already being fetched rather than out of a request of its own. **Asking imgix
 beyond the crop** - it caps rather than upscaling. **The O2's 480x281 crop** - render crops square and the wide
 one letterboxes. **Giving up on a blank DHP card** - its own page often renders the poster, and is already
-being fetched. **A `str` converter for OVO's `ImageURL`** - a boolean there fails the whole month.
+being fetched. **A `str` converter for OVO's `ImageURL`** - a boolean there fails the whole month. **A
+Squarespace event page's `og:image`** - Squarespace builds it from the same featured image the card carries,
+so it is the press shot again, at a `?format=1500w` crop of it.
