@@ -45,14 +45,19 @@ fi
 
 # only the files the update produces. Never `git add -A`: this repo also carries untracked local
 # editor and tool config that has no business being committed
-git add -A events.ndjson index.html sitemap.xml images/
+produced=(events.ndjson index.html sitemap.xml images/)
+git add -A "${produced[@]}"
 
-if git diff --cached --quiet; then
+# Both of these name the paths, because a bare `git commit` commits the whole index rather than
+# what this script staged - and an index holding hand-written work, as `git reset --soft` leaves
+# it, is exactly what an unattended run can't tell from its own changes. Naming them also leaves
+# that work staged rather than taking it.
+if git diff --cached --quiet -- "${produced[@]}"; then
     echo
     echo "Nothing to commit."
 else
     summary=$(grep -m1 '^Rendered ' "$output" || echo "no render this run")
-    git commit -q -m "Daily update: ${summary}"
+    git commit -q -m "Daily update: ${summary}" -- "${produced[@]}"
     echo
     echo "Committed: $(git log --oneline -1)"
 fi
