@@ -300,13 +300,10 @@
             border-radius: 10px;
             overflow: hidden;
         }
-        /* Why the ratio is the poster's own: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md
-           The fallback is for a card whose image the render couldn't measure, which is what every
-           card used to be. */
         .gig-image {
             display: block;
             width: 100%;
-            aspect-ratio: var(--card-ratio, 1);
+            aspect-ratio: 1 / 1;
             object-fit: cover;
             background: #26262a;
         }
@@ -455,7 +452,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-one">
-                <img class="gig-image" src="images/2026-08-08-underworld-e8f74dd6.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
+                <img class="gig-image" src="images/2026-08-08-underworld-e8f74dd6.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig One</span>
                     <span class="gig-venue">The Underworld</span>
@@ -465,7 +462,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-two">
-                <img class="gig-image" src="images/2026-08-08-the-grace-40b1a885.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
+                <img class="gig-image" src="images/2026-08-08-the-grace-40b1a885.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig Two</span>
                     <span class="gig-venue">The Grace</span>
@@ -482,7 +479,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/late-gig">
-                <img class="gig-image" src="images/2026-09-01-underworld-1c8f1c82.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
+                <img class="gig-image" src="images/2026-09-01-underworld-1c8f1c82.webp" alt="" loading="lazy">
                 <span class="gig-info">
                     <span class="gig-title">Late Gig</span>
                     <span class="gig-venue">The Underworld</span>

@@ -61,14 +61,6 @@ fun downloadToCache(client: HttpHandler, imageUrl: PosterUrl, cacheDir: File): F
 fun publishedImageFileName(gig: Gig): String =
     "${gig.date}-${gig.id.venueId}-${shortHash(gig.posterUrl.value)}.webp"
 
-// A gig whose image failed to publish has no entry here, which is what leaves its card square.
-// Why a card is drawn to its poster's shape: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md
-fun publishedImageRatios(gigs: List<Gig>, publishedDir: File): Map<GigId, Double> {
-    val fileByGig = gigs.associateWith { File(publishedDir, publishedImageFileName(it)) }
-    val ratioByFile = imageRatios(fileByGig.values.distinct())
-    return fileByGig.mapNotNull { (gig, file) -> ratioByFile[file]?.let { gig.id to it } }.toMap()
-}
-
 private fun cachedImageFile(cacheDir: File, imageUrl: PosterUrl): File =
     File(cacheDir, "${shortHash(imageUrl.value)}.${imageUrlExtension(imageUrl.value)}")
 
