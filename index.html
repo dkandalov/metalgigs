@@ -299,36 +299,19 @@
             border: 1px solid #26262a;
             border-radius: 10px;
             overflow: hidden;
-            /* the link fills the card, so a card a grid row has made taller than its own poster has
-               somewhere to put the difference */
-            display: flex;
         }
-        /* Why a poster is drawn this way: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md */
+        /* Why the ratio is the poster's own: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md
+           The fallback is for a card whose image the render couldn't measure, which is what every
+           card used to be. */
         .gig-image {
             display: block;
             width: 100%;
             aspect-ratio: var(--card-ratio, 1);
             object-fit: cover;
-            flex: 0 1 auto;
-            margin-block: auto;
-            max-height: 100%;
-            position: relative;
-        }
-        .gig-poster-fill {
-            display: block;
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(22px) brightness(0.4);
-            transform: scale(1.2);
+            background: #26262a;
         }
         .gig-card a {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            min-width: 0;
+            display: block;
             position: relative;
             color: inherit;
             text-decoration: none;
@@ -359,10 +342,6 @@
         .gig-info {
             display: block;
             padding: 0.85rem 1rem 1rem;
-            /* the fill above covers the whole card, so the text carries the card's own colour
-               rather than being read off a blurred poster */
-            position: relative;
-            background: #18181b;
         }
         /* Band names run together without spaces - Man/Woman/Chainsaw - and no browser breaks at a
            slash, so the title below carries a <wbr> after each such one. anywhere is for a long name
@@ -419,7 +398,6 @@
             }
             .gig-card a {
                 display: flex;
-                flex-direction: row;
                 gap: 0.7rem;
             }
             .gig-image {
@@ -430,14 +408,7 @@
                    give up the square ratio the block layout above sets. */
                 min-height: 72px;
                 height: auto;
-                max-height: none;
-                margin-block: 0;
                 aspect-ratio: auto;
-            }
-            /* a thumbnail beside the text is drawn at its own shape, so there is no spare height
-               here for a fill to fill */
-            .gig-poster-fill {
-                display: none;
             }
             .gig-info {
                 min-width: 0;
@@ -484,7 +455,6 @@
         
         <li class="gig-card">
             <a href="https://www.eventimapollo.com/events/judas-priest">
-                <img class="gig-poster-fill" src="images/2026-09-21-eventim-apollo-1ed0926f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-21-eventim-apollo-1ed0926f.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Judas Priest</span>
@@ -502,7 +472,6 @@
         
         <li class="gig-card">
             <a href="https://www.alexandrapalace.com/whats-on/i-prevail/">
-                <img class="gig-poster-fill" src="images/2026-09-25-alexandra-palace-0a598526.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-25-alexandra-palace-0a598526.webp" alt="" loading="lazy" style="--card-ratio: 1.500">
                 <span class="gig-info">
                     <span class="gig-title">I Prevail</span>
@@ -513,7 +482,6 @@
         
         <li class="gig-card">
             <a href="https://www.facebook.com/thedevnw1#gig-2026-09-25">
-                <img class="gig-poster-fill" src="images/2026-09-25-the-dev-5eb50e64.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-25-the-dev-5eb50e64.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Satarial (PL) / Nyctopia / Innersphere(CZ) Digital Bath with DJ Primo</span>
@@ -524,7 +492,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/split-chain-25th-sep-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-09-25-underworld-c948d81d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-25-underworld-c948d81d.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Split Chain / False Reality / Roman Candle</span>
@@ -535,7 +502,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/stoomfest-2026-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-09-25-the-garage-080d4055.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-25-the-garage-080d4055.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">STOOMFEST 2026 (FRIDAY)</span>
@@ -553,7 +519,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/9/26/annotations-of-an-autopsy">
-                <img class="gig-poster-fill" src="images/2026-09-26-black-heart-ce763322.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-black-heart-ce763322.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">ANNOTATIONS OF AN AUTOPSY / AMPUTATED / YERSIN / FATES MESSENGER</span>
@@ -564,7 +529,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/dkdweq-bex-kid-bookie-snake-eyes-healing-wound-26th-sep-blondies-brewery-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-09-26-blondies-taproom-c0e2bf38.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-blondies-taproom-c0e2bf38.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">BEX, Kid Bookie, Snake Eyes, Healing Wound</span>
@@ -575,7 +539,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/bb29go-cut-and-run-the-final-show-london-26th-sep-signature-brew-haggerston-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-09-26-signature-brew-haggerston-23c36dd0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-signature-brew-haggerston-23c36dd0.webp" alt="" loading="lazy" style="--card-ratio: 0.997">
                 <span class="gig-info">
                     <span class="gig-title">Cut and Run: The Final Show</span>
@@ -586,7 +549,6 @@
         
         <li class="gig-card">
             <a href="https://www.windmillbrixton.co.uk/events/2026-09-26-smash-it-out-all-dayer-the-windmill">
-                <img class="gig-poster-fill" src="images/2026-09-26-windmill-brixton-eb1a274f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-windmill-brixton-eb1a274f.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Smash It Out all dayer</span>
@@ -597,7 +559,6 @@
         
         <li class="gig-card">
             <a href="https://www.facebook.com/thedevnw1#gig-2026-09-26">
-                <img class="gig-poster-fill" src="images/2026-09-26-the-dev-5eb50e64.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-the-dev-5eb50e64.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Solars / In A House of Hearbeats / Gudewife</span>
@@ -608,7 +569,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/spread-eagle">
-                <img class="gig-poster-fill" src="images/2026-09-26-new-cross-inn-0a3ecaa8.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-new-cross-inn-0a3ecaa8.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Spread Eagle</span>
@@ -619,7 +579,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/stoomfest-2026-sat/">
-                <img class="gig-poster-fill" src="images/2026-09-26-the-garage-080d4055.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-the-garage-080d4055.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">STOOMFEST 2026 (SATURDAY)</span>
@@ -630,7 +589,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/q2qgay-the-lamp-of-thoth-molten-slag-26th-sep-helgis-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-09-26-helgis-04d1a174.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-helgis-04d1a174.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">The Lamp of Thoth / Molten Slag</span>
@@ -641,7 +599,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/571379-ultimate-ozzy-metallica-tribute-anthem/">
-                <img class="gig-poster-fill" src="images/2026-09-26-cart-and-horses-43dd7c7e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-cart-and-horses-43dd7c7e.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">ULTIMATE OZZY / METALLICA TRIBUTE / ANTHEM</span>
@@ -652,7 +609,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/warrior-soul-26th-sep-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-09-26-underworld-2cd4fbce.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-26-underworld-2cd4fbce.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Warrior Soul / Gypsy Pistoleros / Voltstorm</span>
@@ -670,7 +626,6 @@
         
         <li class="gig-card">
             <a href="https://www.thefiddlerselbow.co.uk/whos-playing/call-of-fenrir-album-launch-with-slave-steel-and-symbyote2792026">
-                <img class="gig-poster-fill" src="images/2026-09-27-fiddlers-elbow-dd176029.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-27-fiddlers-elbow-dd176029.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">CALL OF FENRIR ALBUM LAUNCH - with Slave Steel and Symbyote</span>
@@ -681,7 +636,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/542892-soulweaver-perfect-beasts-special-guests/">
-                <img class="gig-poster-fill" src="images/2026-09-27-cart-and-horses-6b9462a1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-27-cart-and-horses-6b9462a1.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">SOULWEAVER / PERFECT BEASTS / Special Guests</span>
@@ -692,7 +646,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/yur-mum-x-wonk-unit-27th-sep-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-09-27-underworld-889a6f5e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-27-underworld-889a6f5e.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">YUR MUM x WONK UNIT</span>
@@ -710,7 +663,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/bandage">
-                <img class="gig-poster-fill" src="images/2026-09-28-new-cross-inn-b777b62c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-28-new-cross-inn-b777b62c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Bandage</span>
@@ -728,7 +680,6 @@
         
         <li class="gig-card">
             <a href="https://dingwalls.com/gig/oof-tatata/">
-                <img class="gig-poster-fill" src="images/2026-09-29-dingwalls-80cb384f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-29-dingwalls-80cb384f.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Öof Tatatá</span>
@@ -746,7 +697,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/9/30/morag-tong">
-                <img class="gig-poster-fill" src="images/2026-09-30-black-heart-ace2a48e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-30-black-heart-ace2a48e.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">MORAG TONG / DRUIDESS / OUTBACK</span>
@@ -757,7 +707,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3906">
-                <img class="gig-poster-fill" src="images/2026-09-30-the-lexington-65ffb205.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-30-the-lexington-65ffb205.webp" alt="" loading="lazy" style="--card-ratio: 1.018">
                 <span class="gig-info">
                     <span class="gig-title">SFTC#3: gegenpress, Christian Music, 1000 Legs</span>
@@ -775,7 +724,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/1/anciients">
-                <img class="gig-poster-fill" src="images/2026-10-01-black-heart-be28a7cf.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-01-black-heart-be28a7cf.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">ANCIIENTS / MATADOR / MONOVOID</span>
@@ -786,7 +734,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/l1nkn-p4rk-nirvana-tribute-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-10-01-the-garage-a4f435ef.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-01-the-garage-a4f435ef.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">L1NKN P4RK / NIRVANA TRIBUTE</span>
@@ -797,7 +744,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/pywwdy-nowar-1st-oct-blondies-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-01-blondies-bar-7ec95974.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-01-blondies-bar-7ec95974.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Nowar</span>
@@ -808,7 +754,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/527016-stoned-statue-house-of-dirt-earthbound-it-s-all-about-mary/">
-                <img class="gig-poster-fill" src="images/2026-10-01-cart-and-horses-d6d4706e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-01-cart-and-horses-d6d4706e.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">STONED STATUE / HOUSE OF DIRT / EARTHBOUND / IT&#x27;S ALL ABOUT MARY</span>
@@ -819,7 +764,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/wrex">
-                <img class="gig-poster-fill" src="images/2026-10-01-new-cross-inn-5dd23558.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-01-new-cross-inn-5dd23558.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Wrex</span>
@@ -837,7 +781,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/nails">
-                <img class="gig-poster-fill" src="images/2026-10-02-new-cross-inn-dd361fad.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-02-new-cross-inn-dd361fad.webp" alt="" loading="lazy" style="--card-ratio: 1.495">
                 <span class="gig-info">
                     <span class="gig-title">Nails</span>
@@ -848,7 +791,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/571382-popestars-the-original-uk-tribute-to-the-band-ghost-opensight-sandness/">
-                <img class="gig-poster-fill" src="images/2026-10-02-cart-and-horses-965c3366.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-02-cart-and-horses-965c3366.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">POPESTARS - The Original UK tribute to the band Ghost / OPENSIGHT / SANDNESS</span>
@@ -859,7 +801,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/unprocessed/">
-                <img class="gig-poster-fill" src="images/2026-10-02-electric-ballroom-41037b3a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-02-electric-ballroom-41037b3a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Unprocessed</span>
@@ -870,7 +811,6 @@
         
         <li class="gig-card">
             <a href="https://dingwalls.com/gig/yasuharu-takanashis-far-east-groove-europe-tour-2026-the-battle-for-glory/">
-                <img class="gig-poster-fill" src="images/2026-10-02-dingwalls-a7d67621.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-02-dingwalls-a7d67621.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Yasuharu Takanashi’s Far East Groove Europe Tour 2026: “The Battle For Glory”</span>
@@ -888,7 +828,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/oego2y-anti-nowhere-league-3rd-oct-229-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-03-229-51c9121e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-03-229-51c9121e.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Anti-Nowhere League</span>
@@ -899,7 +838,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064ADAFBE40BF">
-                <img class="gig-poster-fill" src="images/2026-10-03-o2-academy-brixton-7f595991.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-03-o2-academy-brixton-7f595991.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Beartooth: Pure Ecstasy World Tour</span>
@@ -910,7 +848,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/py5aaw-decolonise-fest-2026-3rd-oct-signature-brew-blackhorse-road-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-03-signature-brew-blackhorse-road-e23078de.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-03-signature-brew-blackhorse-road-e23078de.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Decolonise Fest 2026</span>
@@ -921,7 +858,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/582800-grimgotts-emberwynde-artemis-apollo-dj-wozza/">
-                <img class="gig-poster-fill" src="images/2026-10-03-cart-and-horses-7430c98c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-03-cart-and-horses-7430c98c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">GRIMGOTTS / EMBERWYNDE / ARTEMIS &amp; APOLLO / DJ WOZZA</span>
@@ -932,7 +868,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/shadow-of-intent/">
-                <img class="gig-poster-fill" src="images/2026-10-03-electric-brixton-da44397a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-03-electric-brixton-da44397a.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Shadow Of Intent</span>
@@ -943,7 +878,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/slope-3rd-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-03-underworld-cccf6e49.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-03-underworld-cccf6e49.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Slope / Last Hounds / Don&#x27;t Try / Defiance</span>
@@ -961,7 +895,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/4/agrotxico">
-                <img class="gig-poster-fill" src="images/2026-10-04-black-heart-4a7be01a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-04-black-heart-4a7be01a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">AGROTÓXICO / THE RESTARTS / FEW THOUGHTS</span>
@@ -979,7 +912,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/uli-jon-roth-5th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-05-underworld-9f17c25f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-05-underworld-9f17c25f.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Uli Jon Roth / Gypsy&#x27;s Kiss</span>
@@ -997,7 +929,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3645">
-                <img class="gig-poster-fill" src="images/2026-10-07-the-lexington-863f48b6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-07-the-lexington-863f48b6.webp" alt="" loading="lazy" style="--card-ratio: 1.766">
                 <span class="gig-info">
                     <span class="gig-title">Dazzling Killmen, Heckle Chamber</span>
@@ -1008,7 +939,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/07-fen">
-                <img class="gig-poster-fill" src="images/2026-10-07-dome-50f2ddf3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-07-dome-50f2ddf3.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">FEN</span>
@@ -1019,7 +949,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/07-myrath">
-                <img class="gig-poster-fill" src="images/2026-10-07-dome-2a24cf85.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-07-dome-2a24cf85.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">MYRATH</span>
@@ -1030,7 +959,6 @@
         
         <li class="gig-card">
             <a href="https://scala.co.uk/events/nails/">
-                <img class="gig-poster-fill" src="images/2026-10-07-scala-84275f30.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-07-scala-84275f30.webp" alt="" loading="lazy" style="--card-ratio: 1.497">
                 <span class="gig-info">
                     <span class="gig-title">Nails</span>
@@ -1041,7 +969,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/tenside-x-aurorawave-7th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-07-underworld-0d85436c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-07-underworld-0d85436c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">TENSIDE x AURORAWAVE</span>
@@ -1059,7 +986,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/08-hed-pe-and-cold">
-                <img class="gig-poster-fill" src="images/2026-10-08-dome-dbf25c81.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-08-dome-dbf25c81.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">HED PE &amp; COLD</span>
@@ -1070,7 +996,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006465A0A33626">
-                <img class="gig-poster-fill" src="images/2026-10-08-o2-academy-islington-f6224660.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-08-o2-academy-islington-f6224660.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Humanity’s Last Breath</span>
@@ -1081,7 +1006,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/2wabna-perdition-temple-usa-force-of-darkness-chl-8th-oct-blondies-brewery-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-08-blondies-taproom-acd1ebdf.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-08-blondies-taproom-acd1ebdf.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Perdition Temple (USA) / Force of Darkness (CHL)</span>
@@ -1092,7 +1016,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/the-haunted-8th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-08-underworld-f31906e2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-08-underworld-f31906e2.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">The Haunted / Red Method</span>
@@ -1110,7 +1033,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/09-baest">
-                <img class="gig-poster-fill" src="images/2026-10-09-dome-b4bd02b1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-09-dome-b4bd02b1.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">BAEST</span>
@@ -1121,7 +1043,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064C4DBBF7D5D">
-                <img class="gig-poster-fill" src="images/2026-10-09-o2-forum-kentish-town-8290df6d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-09-o2-forum-kentish-town-8290df6d.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Creeper: The Off With Their Heads Tour</span>
@@ -1132,7 +1053,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/570854-metal-heart-absolute-bangers-live-80s-metal-rock-thrash/">
-                <img class="gig-poster-fill" src="images/2026-10-09-cart-and-horses-4c17d8c3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-09-cart-and-horses-4c17d8c3.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Metal Heart - ABSOLUTE BANGERS - Live 80s Metal/ Rock / Thrash</span>
@@ -1143,7 +1063,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006459F14C6D61">
-                <img class="gig-poster-fill" src="images/2026-10-09-o2-academy-brixton-4afff324.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-09-o2-academy-brixton-4afff324.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">The HU - Warrior Chant Tour</span>
@@ -1154,7 +1073,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E00647202435A1D">
-                <img class="gig-poster-fill" src="images/2026-10-09-o2-academy-islington-8d5a0685.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-09-o2-academy-islington-8d5a0685.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Ultimate Ozzy UK</span>
@@ -1172,7 +1090,6 @@
         
         <li class="gig-card">
             <a href="https://www.eventimapollo.com/events/amon-amarth">
-                <img class="gig-poster-fill" src="images/2026-10-10-eventim-apollo-eb8fd8cb.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-10-eventim-apollo-eb8fd8cb.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Amon Amarth</span>
@@ -1183,7 +1100,6 @@
         
         <li class="gig-card">
             <a href="https://paperdressvintage.co.uk/?p&#x3D;18924">
-                <img class="gig-poster-fill" src="images/2026-10-10-paper-dress-vintage-d188daec.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-10-paper-dress-vintage-d188daec.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">bloody/<wbr>bath / Pigeon Dog</span>
@@ -1194,7 +1110,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006474FC4868CB">
-                <img class="gig-poster-fill" src="images/2026-10-10-o2-forum-kentish-town-aa57a046.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-10-o2-forum-kentish-town-aa57a046.webp" alt="" loading="lazy" style="--card-ratio: 1.503">
                 <span class="gig-info">
                     <span class="gig-title">Fear Factory</span>
@@ -1205,7 +1120,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/">
-                <img class="gig-poster-fill" src="images/2026-10-10-cart-and-horses-20434620.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-10-cart-and-horses-20434620.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Jbm presents SMELLS LIKE NIRVANA</span>
@@ -1216,7 +1130,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/10-the-fierce-and-the-dead">
-                <img class="gig-poster-fill" src="images/2026-10-10-dome-38b43e9c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-10-dome-38b43e9c.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">THE FIERCE &amp; THE DEAD</span>
@@ -1227,7 +1140,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3892">
-                <img class="gig-poster-fill" src="images/2026-10-10-the-lexington-64608f02.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-10-the-lexington-64608f02.webp" alt="" loading="lazy" style="--card-ratio: 0.987">
                 <span class="gig-info">
                     <span class="gig-title">Twat Union and Problem Patterns (co headliner)</span>
@@ -1238,7 +1150,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/10/witchsorrow-20-years-of-sorrow">
-                <img class="gig-poster-fill" src="images/2026-10-10-black-heart-fb9de269.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-10-black-heart-fb9de269.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">WITCHSORROW (20 Years Of Sorrow) / SEA BASTARD</span>
@@ -1256,7 +1167,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064429E4436F8">
-                <img class="gig-poster-fill" src="images/2026-10-11-o2-forum-kentish-town-5dd4245a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-11-o2-forum-kentish-town-5dd4245a.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">The Amity Affliction: House Of Cards EU 2026</span>
@@ -1274,7 +1184,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/mago-de-oz/">
-                <img class="gig-poster-fill" src="images/2026-10-12-electric-ballroom-efd7621e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-12-electric-ballroom-efd7621e.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Mago De Oz</span>
@@ -1292,7 +1201,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/alpha-wolf/">
-                <img class="gig-poster-fill" src="images/2026-10-13-electric-brixton-62f6ac4f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-13-electric-brixton-62f6ac4f.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Alpha Wolf</span>
@@ -1303,7 +1211,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/eleine-13th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-13-underworld-3514d4a2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-13-underworld-3514d4a2.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Eleine / Rexoria / Liv Sin</span>
@@ -1314,7 +1221,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/13-sparta">
-                <img class="gig-poster-fill" src="images/2026-10-13-dome-9e562c3c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-13-dome-9e562c3c.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">SPARTA</span>
@@ -1332,7 +1238,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/14/greysight">
-                <img class="gig-poster-fill" src="images/2026-10-14-black-heart-60708eb5.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-14-black-heart-60708eb5.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">GREYSIGHT / FRACTURE</span>
@@ -1350,7 +1255,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/boris-pink-20th-anniversary-uk-tour/">
-                <img class="gig-poster-fill" src="images/2026-10-15-electric-brixton-206a5ab3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-15-electric-brixton-206a5ab3.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Boris – ‘PINK’ 20th Anniversary UK Tour</span>
@@ -1361,7 +1265,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/khemmis-15th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-15-underworld-089a3ef3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-15-underworld-089a3ef3.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Khemmis / Celestial Sanctuary</span>
@@ -1372,7 +1275,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/pohl-ogives">
-                <img class="gig-poster-fill" src="images/2026-10-15-new-cross-inn-1330194c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-15-new-cross-inn-1330194c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Pohl &amp; Ogives</span>
@@ -1383,7 +1285,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/575501-seraina-telli-ex-burning-witches-support-by-special-guest-venus/">
-                <img class="gig-poster-fill" src="images/2026-10-15-cart-and-horses-6de31112.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-15-cart-and-horses-6de31112.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">SERAINA TELLI (Ex Burning Witches) / Support by special Guest VENUS</span>
@@ -1394,7 +1295,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/15/the-narrator">
-                <img class="gig-poster-fill" src="images/2026-10-15-black-heart-6810dafd.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-15-black-heart-6810dafd.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">THE NARRATOR / ACCVSED / IMPVLSE</span>
@@ -1405,7 +1305,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/15-tropic-gold">
-                <img class="gig-poster-fill" src="images/2026-10-15-dome-0f64f5af.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-15-dome-0f64f5af.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">TROPIC GOLD</span>
@@ -1423,7 +1322,6 @@
         
         <li class="gig-card">
             <a href="https://dingwalls.com/gig/ditz-enola-gay-iguana-death-cult/">
-                <img class="gig-poster-fill" src="images/2026-10-16-dingwalls-4541075b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-16-dingwalls-4541075b.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Ditz / Enola Gay / Iguana Death Cult</span>
@@ -1434,7 +1332,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/electric-eel-shock-1">
-                <img class="gig-poster-fill" src="images/2026-10-16-new-cross-inn-b3797411.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-16-new-cross-inn-b3797411.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Electric Eel Shock</span>
@@ -1445,7 +1342,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/guilt-trip/">
-                <img class="gig-poster-fill" src="images/2026-10-16-electric-ballroom-55c7d06a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-16-electric-ballroom-55c7d06a.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Guilt Trip</span>
@@ -1456,7 +1352,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/6d8poq-ritual-king-16th-oct-helgis-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-16-helgis-76421df2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-16-helgis-76421df2.webp" alt="" loading="lazy" style="--card-ratio: 0.907">
                 <span class="gig-info">
                     <span class="gig-title">Ritual King</span>
@@ -1467,7 +1362,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/steak-16th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-16-underworld-04c1276f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-16-underworld-04c1276f.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Steak / Elephant Tree / Sergeant Thunderhoof</span>
@@ -1478,7 +1372,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/2wqnwp--subhumans-lost-cherrees-tape-it-shut-london-16th-oct-signature-brew-blackhorse-road-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-16-signature-brew-blackhorse-road-fd0368a0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-16-signature-brew-blackhorse-road-fd0368a0.webp" alt="" loading="lazy" style="--card-ratio: 0.997">
                 <span class="gig-info">
                     <span class="gig-title">Subhumans / Lost Cherrees / Tape It Shut</span>
@@ -1496,7 +1389,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/17-acres">
-                <img class="gig-poster-fill" src="images/2026-10-17-dome-de59cdc2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-17-dome-de59cdc2.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">ACRES</span>
@@ -1507,7 +1399,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/avskum">
-                <img class="gig-poster-fill" src="images/2026-10-17-new-cross-inn-f5f8c3c6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-17-new-cross-inn-f5f8c3c6.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">AVSKUM</span>
@@ -1518,7 +1409,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006488F1E773E2">
-                <img class="gig-poster-fill" src="images/2026-10-17-o2-academy-brixton-cb56da71.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-17-o2-academy-brixton-cb56da71.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Behemoth &amp; Dimmu Borgir</span>
@@ -1529,7 +1419,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/17-cockney-rejects">
-                <img class="gig-poster-fill" src="images/2026-10-17-dome-e03062cb.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-17-dome-e03062cb.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">COCKNEY REJECTS</span>
@@ -1540,7 +1429,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006465DB375B05">
-                <img class="gig-poster-fill" src="images/2026-10-17-o2-academy-islington-c8160609.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-17-o2-academy-islington-c8160609.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">DC/<wbr>UK (Formerly AC/<wbr>DC UK)</span>
@@ -1551,7 +1439,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/53lrv8-xpq-21-17th-oct-229-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-17-229-2ee6bd7a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-17-229-2ee6bd7a.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">XPQ-21</span>
@@ -1569,7 +1456,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/belphegor-18th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-18-underworld-5fda0160.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-18-underworld-5fda0160.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Belphegor / Krisiun / Asagraum</span>
@@ -1587,7 +1473,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/19/ceremonial-bloodbath-cryptworm">
-                <img class="gig-poster-fill" src="images/2026-10-19-black-heart-9db3791e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-19-black-heart-9db3791e.webp" alt="" loading="lazy" style="--card-ratio: 0.820">
                 <span class="gig-info">
                     <span class="gig-title">CEREMONIAL BLOODBATH / CRYPTWORM / THE BLEEDING / CEREBRAL AUTOPHAGY</span>
@@ -1598,7 +1483,6 @@
         
         <li class="gig-card">
             <a href="https://dingwalls.com/gig/marlene-kuntz-2/">
-                <img class="gig-poster-fill" src="images/2026-10-19-dingwalls-be7a437f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-19-dingwalls-be7a437f.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Marlene Kuntz</span>
@@ -1616,7 +1500,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/deaf-kids">
-                <img class="gig-poster-fill" src="images/2026-10-20-new-cross-inn-60058e7a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-20-new-cross-inn-60058e7a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Deafkids</span>
@@ -1634,7 +1517,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/i-promised-the-world">
-                <img class="gig-poster-fill" src="images/2026-10-21-new-cross-inn-50ed4d21.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-21-new-cross-inn-50ed4d21.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">I Promised The World</span>
@@ -1652,7 +1534,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064B39F3621B3">
-                <img class="gig-poster-fill" src="images/2026-10-22-o2-academy-islington-585eb771.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-22-o2-academy-islington-585eb771.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Sleep Broken... A Tribute to Sleep Token</span>
@@ -1663,7 +1544,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/22/stormo-believe-in-nothing">
-                <img class="gig-poster-fill" src="images/2026-10-22-black-heart-24c72f57.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-22-black-heart-24c72f57.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">STORMO / BELIEVE IN NOTHING</span>
@@ -1681,7 +1561,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/q2d5ba-negative-frame-album-release-show-23rd-oct-blondies-brewery-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-23-blondies-taproom-efff4df9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-23-blondies-taproom-efff4df9.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">NEGATIVE FRAME / ALBUM RELEASE SHOW</span>
@@ -1692,7 +1571,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/nerorgasmo">
-                <img class="gig-poster-fill" src="images/2026-10-23-new-cross-inn-08b22626.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-23-new-cross-inn-08b22626.webp" alt="" loading="lazy" style="--card-ratio: 1.558">
                 <span class="gig-info">
                     <span class="gig-title">Nerorgasmo</span>
@@ -1703,7 +1581,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/576208-night-i-wish-a-tribute-to-nightwish-kromiius/">
-                <img class="gig-poster-fill" src="images/2026-10-23-cart-and-horses-2c56e167.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-23-cart-and-horses-2c56e167.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">NIGHT-I-WISH: A TRIBUTE TO NIGHTWISH / KROMIIUS</span>
@@ -1714,7 +1591,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/the-devil-wears-prada/">
-                <img class="gig-poster-fill" src="images/2026-10-23-electric-brixton-0ee4d096.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-23-electric-brixton-0ee4d096.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">The Devil Wears Prada</span>
@@ -1725,7 +1601,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/23/throes-armed-for-apocalypse-row-of-ashes">
-                <img class="gig-poster-fill" src="images/2026-10-23-black-heart-c6349770.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-23-black-heart-c6349770.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">THROES / ARMED FOR APOCALYPSE / ROW OF ASHES / DOTHE</span>
@@ -1743,7 +1618,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/pywqx8-camden-rocks-all-dayer-w-torus-more-24th-oct-barfly-camden-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-24-barfly-7a963cf6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-24-barfly-7a963cf6.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Camden Rocks All Dayer w/ Torus &amp; more</span>
@@ -1754,7 +1628,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/581472-solitary-enquire-within-day40/">
-                <img class="gig-poster-fill" src="images/2026-10-24-cart-and-horses-ba4e0538.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-24-cart-and-horses-ba4e0538.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">SOLITARY / ENQUIRE WITHIN / DAY40</span>
@@ -1765,7 +1638,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/10/24-tortured-demon">
-                <img class="gig-poster-fill" src="images/2026-10-24-dome-5236d673.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-24-dome-5236d673.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">TORTURED DEMON</span>
@@ -1783,7 +1655,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/ghostkid-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-10-25-the-garage-dfaf6845.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-25-the-garage-dfaf6845.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">GHØSTKID</span>
@@ -1794,7 +1665,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/25/sabbat">
-                <img class="gig-poster-fill" src="images/2026-10-25-black-heart-98afeba9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-25-black-heart-98afeba9.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">SABBAT / VENOMWOLF</span>
@@ -1805,7 +1675,6 @@
         
         <li class="gig-card">
             <a href="https://www.ovoarena.co.uk/events/detail/rockorchestra#2026-10-25">
-                <img class="gig-poster-fill" src="images/2026-10-25-ovo-arena-0d66ed5f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-25-ovo-arena-0d66ed5f.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">The Rock Orchestra</span>
@@ -1823,7 +1692,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/archspire/">
-                <img class="gig-poster-fill" src="images/2026-10-26-electric-ballroom-0e69b8c0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-26-electric-ballroom-0e69b8c0.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">ARCHSPIRE</span>
@@ -1834,7 +1702,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E00634FC5C65A4D">
-                <img class="gig-poster-fill" src="images/2026-10-26-o2-forum-kentish-town-8e21abd4.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-26-o2-forum-kentish-town-8e21abd4.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Beast In Black: Resurrection Tour 2026</span>
@@ -1845,7 +1712,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/withpaperwings">
-                <img class="gig-poster-fill" src="images/2026-10-26-new-cross-inn-e58205ec.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-26-new-cross-inn-e58205ec.webp" alt="" loading="lazy" style="--card-ratio: 1.015">
                 <span class="gig-info">
                     <span class="gig-title">WithPaperWings</span>
@@ -1863,7 +1729,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3886">
-                <img class="gig-poster-fill" src="images/2026-10-27-the-lexington-bab7364b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-27-the-lexington-bab7364b.webp" alt="" loading="lazy" style="--card-ratio: 1.521">
                 <span class="gig-info">
                     <span class="gig-title">Heavy Wild</span>
@@ -1874,7 +1739,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/tumble-dryer-1">
-                <img class="gig-poster-fill" src="images/2026-10-27-new-cross-inn-bdf9e43b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-27-new-cross-inn-bdf9e43b.webp" alt="" loading="lazy" style="--card-ratio: 1.023">
                 <span class="gig-info">
                     <span class="gig-title">Tumble Dryer</span>
@@ -1892,7 +1756,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/550818-sinners-sermon-raptorgeist-mystery-guest-deadly-changes/">
-                <img class="gig-poster-fill" src="images/2026-10-28-cart-and-horses-b0280dc3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-28-cart-and-horses-b0280dc3.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">SINNERS SERMON / RAPTORGEIST / MYSTERY GUEST / DEADLY CHANGES</span>
@@ -1903,7 +1766,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/the-browning-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-10-28-the-garage-b0b91e80.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-28-the-garage-b0b91e80.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">THE BROWNING</span>
@@ -1921,7 +1783,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/21518-2/">
-                <img class="gig-poster-fill" src="images/2026-10-29-electric-ballroom-4144170b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-29-electric-ballroom-4144170b.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">And So I Watch You From Afar &amp; Caspian</span>
@@ -1939,7 +1800,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/blackgold-30th-oct-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-30-underworld-3500535c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-30-underworld-3500535c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">BLACKGOLD / PENGSHUi / INDIGO BLAZE</span>
@@ -1950,7 +1810,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/eoxnqo-hippie-death-cult-red-eyed-cult-borehead-30th-oct-blondies-brewery-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-30-blondies-taproom-db559b55.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-30-blondies-taproom-db559b55.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Hippie Death Cult / Red Eyed Cult / Borehead</span>
@@ -1961,7 +1820,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006433EA0860CA">
-                <img class="gig-poster-fill" src="images/2026-10-30-o2-academy-islington-7d7ee0a1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-30-o2-academy-islington-7d7ee0a1.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">L.A. Guns: LUCKY MF’R TOUR</span>
@@ -1972,7 +1830,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/static-dress/">
-                <img class="gig-poster-fill" src="images/2026-10-30-electric-ballroom-3f935933.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-30-electric-ballroom-3f935933.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Static Dress</span>
@@ -1983,7 +1840,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/g5x9pb-the-five-hundred-30th-oct-229-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-30-229-a80318d0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-30-229-a80318d0.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">The Five Hundred</span>
@@ -2001,7 +1857,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/black-altar-xxx-anniversary-show-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-10-31-the-garage-e31aba1e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-31-the-garage-e31aba1e.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">BLACK ALTAR - XXX ANNIVERSARY SHOW</span>
@@ -2012,7 +1867,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/cancer-bats/">
-                <img class="gig-poster-fill" src="images/2026-10-31-electric-brixton-4f756c2b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-31-electric-brixton-4f756c2b.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Cancer Bats</span>
@@ -2023,7 +1877,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/heavy-halloween-feat-inhuman-nature-31st-oct-the-underworld-london-the-black-heart-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-10-31-underworld-224fa553.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-31-underworld-224fa553.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">HEAVY HALLOWEEN FEAT INHUMAN NATURE</span>
@@ -2034,7 +1887,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/10/31/heavy-halloween-ft-inhuman-nature-puppy-agnosy-more">
-                <img class="gig-poster-fill" src="images/2026-10-31-black-heart-cf04fb70.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-31-black-heart-cf04fb70.webp" alt="" loading="lazy" style="--card-ratio: 0.804">
                 <span class="gig-info">
                     <span class="gig-title">HEAVY HALLOWEEN ft. INHUMAN NATURE, PUPPY, AGNOSY + MORE</span>
@@ -2045,7 +1897,6 @@
         
         <li class="gig-card">
             <a href="https://www.alexandrapalace.com/whats-on/skindred/">
-                <img class="gig-poster-fill" src="images/2026-10-31-alexandra-palace-14f03a8c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-31-alexandra-palace-14f03a8c.webp" alt="" loading="lazy" style="--card-ratio: 1.500">
                 <span class="gig-info">
                     <span class="gig-title">Skindred</span>
@@ -2056,7 +1907,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/923xqo-veiled-31st-oct-blondies-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-10-31-blondies-bar-74848121.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-10-31-blondies-bar-74848121.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Veiled</span>
@@ -2074,7 +1924,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/1/drawn-and-quartered-noroth">
-                <img class="gig-poster-fill" src="images/2026-11-01-black-heart-46d10556.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-01-black-heart-46d10556.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">DRAWN AND QUARTERED / NOROTH</span>
@@ -2085,7 +1934,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006453F0857730">
-                <img class="gig-poster-fill" src="images/2026-11-01-o2-shepherds-bush-empire-afe827a1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-01-o2-shepherds-bush-empire-afe827a1.webp" alt="" loading="lazy" style="--card-ratio: 1.600">
                 <span class="gig-info">
                     <span class="gig-title">Kamelot: DARK ASYLUM WORLD TOUR</span>
@@ -2096,7 +1944,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/v3x5g6-qwlen-fin-peasants-grave-screams-1st-nov-helgis-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-01-helgis-f261b89f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-01-helgis-f261b89f.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Qwälen (FIN) / Peasants / Grave Screams</span>
@@ -2107,7 +1954,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064D9DA839AF1">
-                <img class="gig-poster-fill" src="images/2026-11-01-o2-academy-brixton-377e7dab.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-01-o2-academy-brixton-377e7dab.webp" alt="" loading="lazy" style="--card-ratio: 1.600">
                 <span class="gig-info">
                     <span class="gig-title">Tesseract: The Descent</span>
@@ -2118,7 +1964,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/569713-tristyn-walk-in-coma-vantorium-all-involved-symphonic-metal-night/">
-                <img class="gig-poster-fill" src="images/2026-11-01-cart-and-horses-7ff1a640.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-01-cart-and-horses-7ff1a640.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Tristyn, Walk in Coma, Vantorium &amp; All Involved: Symphonic Metal Night</span>
@@ -2136,7 +1981,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/sheer-terror-1">
-                <img class="gig-poster-fill" src="images/2026-11-02-new-cross-inn-e1a85bd5.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-02-new-cross-inn-e1a85bd5.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Sheer Terror</span>
@@ -2147,7 +1991,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/6dgqv8-witchrot-molch-2nd-nov-helgis-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-02-helgis-6eab49e0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-02-helgis-6eab49e0.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">WITCHROT / MOLCH</span>
@@ -2165,7 +2008,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/any-given-day-3rd-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-03-underworld-ca3d6a7d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-03-underworld-ca3d6a7d.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">ANY GIVEN DAY | POSTPONED</span>
@@ -2176,7 +2018,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/despised-icon-x-carnifex/">
-                <img class="gig-poster-fill" src="images/2026-11-03-electric-brixton-04827f46.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-03-electric-brixton-04827f46.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">DESPISED ICON X CARNIFEX</span>
@@ -2194,7 +2035,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/future-palace/">
-                <img class="gig-poster-fill" src="images/2026-11-04-the-garage-ddee5e1e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-04-the-garage-ddee5e1e.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">FUTURE PALACE</span>
@@ -2205,7 +2045,6 @@
         
         <li class="gig-card">
             <a href="https://bushhall.seetickets.com/event/jamie-lenman/bush-hall/3702553">
-                <img class="gig-poster-fill" src="images/2026-11-04-bush-hall-1b72e6dc.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-04-bush-hall-1b72e6dc.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Jamie Lenman</span>
@@ -2216,7 +2055,6 @@
         
         <li class="gig-card">
             <a href="https://www.theo2.co.uk/events/detail/korn">
-                <img class="gig-poster-fill" src="images/2026-11-04-the-o2-arena-64a6d5f5.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-04-the-o2-arena-64a6d5f5.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Korn</span>
@@ -2234,7 +2072,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/car-bomb-5th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-05-underworld-a0b76a2f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-05-underworld-a0b76a2f.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Car Bomb / Frontierer</span>
@@ -2245,7 +2082,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064792BC1B5A3">
-                <img class="gig-poster-fill" src="images/2026-11-05-o2-academy-islington-cf0488f0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-05-o2-academy-islington-cf0488f0.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Crashdiet</span>
@@ -2256,7 +2092,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/05-undeath">
-                <img class="gig-poster-fill" src="images/2026-11-05-dome-8516bb31.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-05-dome-8516bb31.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">UNDEATH</span>
@@ -2274,7 +2109,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/mxgv9w-bigbrave-helm-6th-nov-signature-brew-haggerston-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-06-signature-brew-haggerston-b7541bb4.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-06-signature-brew-haggerston-b7541bb4.webp" alt="" loading="lazy" style="--card-ratio: 1.368">
                 <span class="gig-info">
                     <span class="gig-title">BIG|BRAVE / HELM</span>
@@ -2285,7 +2119,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006467A37039FD">
-                <img class="gig-poster-fill" src="images/2026-11-06-o2-academy-islington-a10e630a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-06-o2-academy-islington-a10e630a.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">FOREVER NU - 25th anniversary of Toxicity &amp; Iowa special! Chop Suey, Slip-Not, A7Xperience, Propa Roach</span>
@@ -2296,7 +2129,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/holy-fawn-mol-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-11-06-the-garage-27797f34.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-06-the-garage-27797f34.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">HOLY FAWN &amp; MØL</span>
@@ -2307,7 +2139,6 @@
         
         <li class="gig-card">
             <a href="https://www.cartandhorses.london/news-offers-events/578558-ion-maiden-live-at-cart-horses-1st-night/">
-                <img class="gig-poster-fill" src="images/2026-11-06-cart-and-horses-e87c3794.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-06-cart-and-horses-e87c3794.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">ION MAIDEN Live at Cart &amp; Horses - 1st Night!!!</span>
@@ -2318,7 +2149,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/dkmoxg-korn-london-after-tour-party-free-entry-6th-nov-blondies-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-06-blondies-bar-06a6a5aa.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-06-blondies-bar-06a6a5aa.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Korn | London | After Tour Party</span>
@@ -2329,7 +2159,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/krallice-6th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-06-underworld-43536871.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-06-underworld-43536871.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">KRALLICE</span>
@@ -2347,7 +2176,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/anvil-7th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-07-underworld-90b852fb.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-07-underworld-90b852fb.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">ANVIL</span>
@@ -2358,7 +2186,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/07-crucified-barbara">
-                <img class="gig-poster-fill" src="images/2026-11-07-dome-9b95ee72.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-07-dome-9b95ee72.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">CRUCIFIED BARBARA</span>
@@ -2369,7 +2196,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/v3lkp6-devilhusk-x-only-the-righteous-7th-nov-blondies-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-07-blondies-bar-07d66b39.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-07-blondies-bar-07d66b39.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Devilhusk x Only The Righteous</span>
@@ -2380,7 +2206,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegrace.london/gigs/how-to-disappear-and-never-be-found-the-grace-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-11-07-the-grace-f4884108.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-07-the-grace-f4884108.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">HOW TO DISAPPEAR AND NEVER BE FOUND</span>
@@ -2391,7 +2216,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/krakatoa">
-                <img class="gig-poster-fill" src="images/2026-11-07-new-cross-inn-f77e1d75.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-07-new-cross-inn-f77e1d75.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Krakatoa</span>
@@ -2402,7 +2226,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/messa-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-11-07-the-garage-021e3df6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-07-the-garage-021e3df6.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">MESSA</span>
@@ -2413,7 +2236,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/eo39yo-retsu-reptile-dysfunction-never-arise-7th-nov-helgis-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-07-helgis-3b22683e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-07-helgis-3b22683e.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Retsu / Reptile Dysfunction / Never Arise</span>
@@ -2431,7 +2253,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/allt-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-11-08-the-garage-6b072a13.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-08-the-garage-6b072a13.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">ALLT</span>
@@ -2449,7 +2270,6 @@
         
         <li class="gig-card">
             <a href="https://scala.co.uk/events/eyehategod/">
-                <img class="gig-poster-fill" src="images/2026-11-09-scala-da1c8e7f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-09-scala-da1c8e7f.webp" alt="" loading="lazy" style="--card-ratio: 1.503">
                 <span class="gig-info">
                     <span class="gig-title">EYEHATEGOD</span>
@@ -2460,7 +2280,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006489E1294458">
-                <img class="gig-poster-fill" src="images/2026-11-09-o2-shepherds-bush-empire-50da12e9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-09-o2-shepherds-bush-empire-50da12e9.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">HEALTH</span>
@@ -2471,7 +2290,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/lagrimas">
-                <img class="gig-poster-fill" src="images/2026-11-09-new-cross-inn-1736137a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-09-new-cross-inn-1736137a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Lagrimas</span>
@@ -2482,7 +2300,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E00649DA27A263A">
-                <img class="gig-poster-fill" src="images/2026-11-09-o2-academy-islington-a0c55518.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-09-o2-academy-islington-a0c55518.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Wolves in the Throne Room ‘Knights of Tiamat Fall Tour&#x27;</span>
@@ -2500,7 +2317,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/hail-the-sun-10th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-10-underworld-8113d19a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-10-underworld-8113d19a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Hail the Sun / Blight Town / Exit Dream</span>
@@ -2518,7 +2334,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/master-boot-record-x-fulci-11th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-11-underworld-99e9d538.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-11-underworld-99e9d538.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">MASTER BOOT RECORD x FULCI</span>
@@ -2529,7 +2344,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/11/merit-horsebastard">
-                <img class="gig-poster-fill" src="images/2026-11-11-black-heart-b28ee9d1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-11-black-heart-b28ee9d1.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">MERIT / HORSEBASTARD</span>
@@ -2540,7 +2354,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/poison-ruin">
-                <img class="gig-poster-fill" src="images/2026-11-11-new-cross-inn-af6cbad0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-11-new-cross-inn-af6cbad0.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Poison Ruin</span>
@@ -2551,7 +2364,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/11-shoreline">
-                <img class="gig-poster-fill" src="images/2026-11-11-dome-35f18e39.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-11-dome-35f18e39.webp" alt="" loading="lazy" style="--card-ratio: 0.804">
                 <span class="gig-info">
                     <span class="gig-title">SHORELINE</span>
@@ -2569,7 +2381,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3861">
-                <img class="gig-poster-fill" src="images/2026-11-12-the-lexington-ad0cbf43.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-12-the-lexington-ad0cbf43.webp" alt="" loading="lazy" style="--card-ratio: 0.952">
                 <span class="gig-info">
                     <span class="gig-title">Butch Kassidy</span>
@@ -2580,7 +2391,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/12/machukha-healing-wound-acceptance-moonbleed">
-                <img class="gig-poster-fill" src="images/2026-11-12-black-heart-520d64f7.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-12-black-heart-520d64f7.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">MACHUKHA / HEALING WOUND / ACCEPTANCE / MOONBLEED</span>
@@ -2591,7 +2401,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/ork">
-                <img class="gig-poster-fill" src="images/2026-11-12-new-cross-inn-add5e471.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-12-new-cross-inn-add5e471.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">O.R.k.</span>
@@ -2602,7 +2411,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/12-petrol-girls">
-                <img class="gig-poster-fill" src="images/2026-11-12-dome-23c7e743.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-12-dome-23c7e743.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">PETROL GIRLS</span>
@@ -2620,7 +2428,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/employed-to-serve-x-cabal-13th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-13-underworld-ab91b33b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-13-underworld-ab91b33b.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">EMPLOYED TO SERVE x CABAL</span>
@@ -2631,7 +2438,6 @@
         
         <li class="gig-card">
             <a href="https://scala.co.uk/events/pig-destroyer/">
-                <img class="gig-poster-fill" src="images/2026-11-13-scala-d4903f93.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-13-scala-d4903f93.webp" alt="" loading="lazy" style="--card-ratio: 1.515">
                 <span class="gig-info">
                     <span class="gig-title">PIG DESTROYER</span>
@@ -2649,7 +2455,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/11-breed-77">
-                <img class="gig-poster-fill" src="images/2026-11-14-dome-b0795117.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-14-dome-b0795117.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">BREED 77</span>
@@ -2660,7 +2465,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/14/cold-in-berlin">
-                <img class="gig-poster-fill" src="images/2026-11-14-black-heart-3f649af6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-14-black-heart-3f649af6.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">COLD IN BERLIN</span>
@@ -2671,7 +2475,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/14/her-heads-on-fire-matinee-show">
-                <img class="gig-poster-fill" src="images/2026-11-14-black-heart-e339d1c3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-14-black-heart-e339d1c3.webp" alt="" loading="lazy" style="--card-ratio: 0.801">
                 <span class="gig-info">
                     <span class="gig-title">HER HEAD&#x27;S ON FIRE - [MATINEE SHOW] / BACK TEETH</span>
@@ -2682,7 +2485,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/xedvra-holocaust-hyena-14th-nov-helgis-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-14-helgis-259ee73f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-14-helgis-259ee73f.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">HOLOCAUST / HYENA</span>
@@ -2693,7 +2495,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/riffs-against-fascism-2">
-                <img class="gig-poster-fill" src="images/2026-11-14-new-cross-inn-a3031362.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-14-new-cross-inn-a3031362.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Riffs Against Fascism</span>
@@ -2704,7 +2505,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/soil-2/">
-                <img class="gig-poster-fill" src="images/2026-11-14-electric-ballroom-4ee64ed1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-14-electric-ballroom-4ee64ed1.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Soil</span>
@@ -2722,7 +2522,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/asomvel-15th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-15-underworld-a14225df.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-15-underworld-a14225df.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Asomvel / Pieces of Molly</span>
@@ -2733,7 +2532,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/babe-haven-latter">
-                <img class="gig-poster-fill" src="images/2026-11-15-new-cross-inn-6acd653e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-15-new-cross-inn-6acd653e.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Babe Haven &amp; Latter</span>
@@ -2744,7 +2542,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064B4FEB487AD">
-                <img class="gig-poster-fill" src="images/2026-11-15-o2-forum-kentish-town-b7b8a864.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-15-o2-forum-kentish-town-b7b8a864.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Currents &amp; Erra</span>
@@ -2755,7 +2552,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/15-urne">
-                <img class="gig-poster-fill" src="images/2026-11-15-dome-2e9454d0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-15-dome-2e9454d0.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">URNE</span>
@@ -2773,7 +2569,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3917">
-                <img class="gig-poster-fill" src="images/2026-11-16-the-lexington-69ab81f2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-16-the-lexington-69ab81f2.webp" alt="" loading="lazy" style="--card-ratio: 1.079">
                 <span class="gig-info">
                     <span class="gig-title">Bo Ningen, Projector, Border Widow</span>
@@ -2784,7 +2579,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/the-set">
-                <img class="gig-poster-fill" src="images/2026-11-16-new-cross-inn-631ded86.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-16-new-cross-inn-631ded86.webp" alt="" loading="lazy" style="--card-ratio: 1.499">
                 <span class="gig-info">
                     <span class="gig-title">The S.E.T.</span>
@@ -2802,7 +2596,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/18/agabas">
-                <img class="gig-poster-fill" src="images/2026-11-18-black-heart-b1e3fd9c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-18-black-heart-b1e3fd9c.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">AGABAS / APATHY</span>
@@ -2813,7 +2606,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/18-mason-hill">
-                <img class="gig-poster-fill" src="images/2026-11-18-dome-39062eda.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-18-dome-39062eda.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">MASON HILL</span>
@@ -2831,7 +2623,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/19/dimsca-hundred-year-old-man-cairns">
-                <img class="gig-poster-fill" src="images/2026-11-19-black-heart-4f8ba238.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-19-black-heart-4f8ba238.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">[SHOW MOVED] DIMSCÛA / HUNDRED YEAR OLD MAN / CAIRNS</span>
@@ -2842,7 +2633,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/19-dimscua">
-                <img class="gig-poster-fill" src="images/2026-11-19-dome-09507c80.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-19-dome-09507c80.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">DIMSCUA</span>
@@ -2853,7 +2643,6 @@
         
         <li class="gig-card">
             <a href="https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill">
-                <img class="gig-poster-fill" src="images/2026-11-19-windmill-brixton-3414a5ee.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-19-windmill-brixton-3414a5ee.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Grommet</span>
@@ -2864,7 +2653,6 @@
         
         <li class="gig-card">
             <a href="https://www.ovoarena.co.uk/events/detail/shinedown-2026#2026-11-19">
-                <img class="gig-poster-fill" src="images/2026-11-19-ovo-arena-39ef7776.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-19-ovo-arena-39ef7776.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Shinedown</span>
@@ -2875,7 +2663,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/2wqnwp--subhumans-lost-cherrees-tape-it-shut-london-19th-nov-signature-brew-blackhorse-road-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-19-signature-brew-blackhorse-road-fd0368a0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-19-signature-brew-blackhorse-road-fd0368a0.webp" alt="" loading="lazy" style="--card-ratio: 0.997">
                 <span class="gig-info">
                     <span class="gig-title">Subhumans / Lost Cherrees / Tape It Shut</span>
@@ -2886,7 +2673,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/the-hope-conspiracy-19th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-19-underworld-c4af33e4.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-19-underworld-c4af33e4.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">THE HOPE CONSPIRACY - CANCELLED</span>
@@ -2897,7 +2683,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/19-youth-of-today">
-                <img class="gig-poster-fill" src="images/2026-11-19-dome-eaec2e3d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-19-dome-eaec2e3d.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">YOUTH OF TODAY</span>
@@ -2915,7 +2700,6 @@
         
         <li class="gig-card">
             <a href="https://www.alexandrapalace.com/whats-on/enter-shikari/">
-                <img class="gig-poster-fill" src="images/2026-11-20-alexandra-palace-8450beb3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-20-alexandra-palace-8450beb3.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Enter Shikari</span>
@@ -2926,7 +2710,6 @@
         
         <li class="gig-card">
             <a href="https://islingtonassemblyhall.co.uk/events/gloryhammer-20th-nov-islington-assembly-hall-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-20-islington-assembly-hall-d7b8ff9c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-20-islington-assembly-hall-d7b8ff9c.webp" alt="" loading="lazy" style="--card-ratio: 1.667">
                 <span class="gig-info">
                     <span class="gig-title">Gloryhammer</span>
@@ -2937,7 +2720,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/harakiri-for-the-sky-20th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-20-underworld-e1b9b371.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-20-underworld-e1b9b371.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Harakiri for the Sky / Sunken</span>
@@ -2948,7 +2730,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/20/winter-hotel">
-                <img class="gig-poster-fill" src="images/2026-11-20-black-heart-9ad497b7.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-20-black-heart-9ad497b7.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">WINTER HOTEL / BOTHER</span>
@@ -2966,7 +2747,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/capital-death-fest">
-                <img class="gig-poster-fill" src="images/2026-11-21-new-cross-inn-4c2d4564.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-21-new-cross-inn-4c2d4564.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Capital Death Fest</span>
@@ -2977,7 +2757,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/21/chaidura">
-                <img class="gig-poster-fill" src="images/2026-11-21-black-heart-8b790f5e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-21-black-heart-8b790f5e.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">CHAIDURA / SHIROBON</span>
@@ -2988,7 +2767,6 @@
         
         <li class="gig-card">
             <a href="https://islingtonassemblyhall.co.uk/events/soen-21st-nov-islington-assembly-hall-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-21-islington-assembly-hall-3d2cdde7.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-21-islington-assembly-hall-3d2cdde7.webp" alt="" loading="lazy" style="--card-ratio: 1.778">
                 <span class="gig-info">
                     <span class="gig-title">Soen</span>
@@ -2999,7 +2777,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/wizardthrone-21st-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-21-underworld-283950a5.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-21-underworld-283950a5.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">WIZARDTHRONE</span>
@@ -3017,7 +2794,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/converge-2/">
-                <img class="gig-poster-fill" src="images/2026-11-22-electric-brixton-3e95a011.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-22-electric-brixton-3e95a011.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">CONVERGE</span>
@@ -3028,7 +2804,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3893">
-                <img class="gig-poster-fill" src="images/2026-11-22-the-lexington-fc50d905.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-22-the-lexington-fc50d905.webp" alt="" loading="lazy" style="--card-ratio: 0.941">
                 <span class="gig-info">
                     <span class="gig-title">Cwfen</span>
@@ -3039,7 +2814,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/stonks">
-                <img class="gig-poster-fill" src="images/2026-11-22-new-cross-inn-00f9dbb1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-22-new-cross-inn-00f9dbb1.webp" alt="" loading="lazy" style="--card-ratio: 1.499">
                 <span class="gig-info">
                     <span class="gig-title">Stonks</span>
@@ -3057,7 +2831,6 @@
         
         <li class="gig-card">
             <a href="https://www.eventimapollo.com/events/deep-purple">
-                <img class="gig-poster-fill" src="images/2026-11-24-eventim-apollo-0219ff4f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-24-eventim-apollo-0219ff4f.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Deep Purple</span>
@@ -3068,7 +2841,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/lavina-24th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-24-underworld-afe89ef9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-24-underworld-afe89ef9.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">LAVINA</span>
@@ -3079,7 +2851,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006435B7453A90">
-                <img class="gig-poster-fill" src="images/2026-11-24-o2-shepherds-bush-empire-6f0cda04.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-24-o2-shepherds-bush-empire-6f0cda04.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Mammoth: The End Tour</span>
@@ -3090,7 +2861,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/moral-law">
-                <img class="gig-poster-fill" src="images/2026-11-24-new-cross-inn-3efdb04c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-24-new-cross-inn-3efdb04c.webp" alt="" loading="lazy" style="--card-ratio: 1.400">
                 <span class="gig-info">
                     <span class="gig-title">Moral Law</span>
@@ -3101,7 +2871,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064AFBB1241D7">
-                <img class="gig-poster-fill" src="images/2026-11-24-o2-academy-brixton-9367adb0.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-24-o2-academy-brixton-9367adb0.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">PRESIDENT - Blood of Your Empire: United Kingdom Campaign 2026</span>
@@ -3112,7 +2881,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/sace6/">
-                <img class="gig-poster-fill" src="images/2026-11-24-the-garage-6d114210.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-24-the-garage-6d114210.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">SACE6</span>
@@ -3130,7 +2898,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/atrophy">
-                <img class="gig-poster-fill" src="images/2026-11-25-new-cross-inn-5645e172.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-25-new-cross-inn-5645e172.webp" alt="" loading="lazy" style="--card-ratio: 1.353">
                 <span class="gig-info">
                     <span class="gig-title">Atrophy</span>
@@ -3141,7 +2908,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/25-violent-vira">
-                <img class="gig-poster-fill" src="images/2026-11-25-dome-6ec91acd.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-25-dome-6ec91acd.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">VIOLENT VIRA - SOLD OUT</span>
@@ -3159,7 +2925,6 @@
         
         <li class="gig-card">
             <a href="https://bushhall.seetickets.com/event/nicko-mcbrain-an-evening-in-conversation-with/bush-hall/3664101">
-                <img class="gig-poster-fill" src="images/2026-11-26-bush-hall-7c10e778.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-26-bush-hall-7c10e778.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Nicko McBrain - An Evening In Conversation With</span>
@@ -3170,7 +2935,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/26/slabdragger-bile-caster-cattle-hammer-tomb-slab">
-                <img class="gig-poster-fill" src="images/2026-11-26-black-heart-3b9c9639.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-26-black-heart-3b9c9639.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">SLABDRAGGER / BILE CASTER / CATTLE HAMMER / TOMB SLAB</span>
@@ -3181,7 +2945,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/vianova">
-                <img class="gig-poster-fill" src="images/2026-11-26-new-cross-inn-cdcd3ff1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-26-new-cross-inn-cdcd3ff1.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Vianova</span>
@@ -3192,7 +2955,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/26-violent-vira">
-                <img class="gig-poster-fill" src="images/2026-11-26-dome-1d8c6bce.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-26-dome-1d8c6bce.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">VIOLENT VIRA - SOLD OUT</span>
@@ -3210,7 +2972,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/mx76mk-a-ding-dong-do-for-the-michael-williams-trust-27th-nov-229-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-27-229-988b2141.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-27-229-988b2141.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">&quot;A Ding Dong Do&quot; For The Michael Williams Trust</span>
@@ -3221,7 +2982,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/27/erdling">
-                <img class="gig-poster-fill" src="images/2026-11-27-black-heart-a3d05b6c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-27-black-heart-a3d05b6c.webp" alt="" loading="lazy" style="--card-ratio: 1.500">
                 <span class="gig-info">
                     <span class="gig-title">ERDLING</span>
@@ -3232,7 +2992,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/evergrey-27th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-27-underworld-6171e0cf.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-27-underworld-6171e0cf.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Evergrey / Ignea / Stellar Circuits</span>
@@ -3243,7 +3002,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/8eq9dw-forlorn-birdwitch-27th-nov-blondies-brewery-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-11-27-blondies-taproom-39182ea6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-27-blondies-taproom-39182ea6.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">FORLORN / BIRDWITCH</span>
@@ -3254,7 +3012,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/these-wicked-rivers-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-11-27-the-garage-70e9e469.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-27-the-garage-70e9e469.webp" alt="" loading="lazy" style="--card-ratio: 1.499">
                 <span class="gig-info">
                     <span class="gig-title">THESE WICKED RIVERS</span>
@@ -3265,7 +3022,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3889">
-                <img class="gig-poster-fill" src="images/2026-11-27-the-lexington-d9198299.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-27-the-lexington-d9198299.webp" alt="" loading="lazy" style="--card-ratio: 1.017">
                 <span class="gig-info">
                     <span class="gig-title">Årabrot</span>
@@ -3283,7 +3039,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/hiding-from-mirrors-1">
-                <img class="gig-poster-fill" src="images/2026-11-28-new-cross-inn-d65a1f18.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-28-new-cross-inn-d65a1f18.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Hiding From Mirrors</span>
@@ -3294,7 +3049,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/stygian-invocation-28th-nov-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-11-28-underworld-e42ac230.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-28-underworld-e42ac230.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">STYGIAN INVOCATION - SOLD OUT</span>
@@ -3305,7 +3059,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/11/28/the-darker-my-horizon">
-                <img class="gig-poster-fill" src="images/2026-11-28-black-heart-0563652d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-28-black-heart-0563652d.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">THE DARKER MY HORIZON</span>
@@ -3316,7 +3069,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/11/28-xentrix">
-                <img class="gig-poster-fill" src="images/2026-11-28-dome-25e688de.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-28-dome-25e688de.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">XENTRIX</span>
@@ -3334,7 +3086,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/1000mods-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2026-11-29-the-garage-f5ebcbb5.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-29-the-garage-f5ebcbb5.webp" alt="" loading="lazy" style="--card-ratio: 1.134">
                 <span class="gig-info">
                     <span class="gig-title">1000MODS</span>
@@ -3352,7 +3103,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/restraining-order-1">
-                <img class="gig-poster-fill" src="images/2026-11-30-new-cross-inn-444ba438.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-11-30-new-cross-inn-444ba438.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Restraining Order</span>
@@ -3370,7 +3120,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/girlschool-x-raven-x-alcatrazz-1st-dec-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-12-01-underworld-5aeea8a3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-01-underworld-5aeea8a3.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">GIRLSCHOOL x RAVEN x ALCATRAZZ</span>
@@ -3381,7 +3130,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/snowy">
-                <img class="gig-poster-fill" src="images/2026-12-01-new-cross-inn-1cdaa060.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-01-new-cross-inn-1cdaa060.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Snowy</span>
@@ -3399,7 +3147,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/12/2/grief-ritual">
-                <img class="gig-poster-fill" src="images/2026-12-02-black-heart-1ef3b624.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-02-black-heart-1ef3b624.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">GRIEF RITUAL</span>
@@ -3417,7 +3164,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/12/3/agonal-gasps">
-                <img class="gig-poster-fill" src="images/2026-12-03-black-heart-7c011434.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-03-black-heart-7c011434.webp" alt="" loading="lazy" style="--card-ratio: 1.344">
                 <span class="gig-info">
                     <span class="gig-title">AGONAL GASPS / MYLLA ISSUES</span>
@@ -3428,7 +3174,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/12/03-mental-cruelty">
-                <img class="gig-poster-fill" src="images/2026-12-03-dome-a7f647e6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-03-dome-a7f647e6.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">MENTAL CRUELTY</span>
@@ -3439,7 +3184,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/ramleh-3rd-dec-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-12-03-underworld-bc940a41.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-03-underworld-bc940a41.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">RAMLEH / Organza Ray / Kleistwahr</span>
@@ -3457,7 +3201,6 @@
         
         <li class="gig-card">
             <a href="https://dingwalls.com/gig/imperial-triumphant-very-special-guests-knoll/">
-                <img class="gig-poster-fill" src="images/2026-12-04-dingwalls-94095fab.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-04-dingwalls-94095fab.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">IMPERIAL TRIUMPHANT / very special guests KNOLL</span>
@@ -3468,7 +3211,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006497D3A75086">
-                <img class="gig-poster-fill" src="images/2026-12-04-o2-academy-islington-fa4dda69.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-04-o2-academy-islington-fa4dda69.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Soulbound &amp; Hell Boulevard</span>
@@ -3486,7 +3228,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/bboxdm-1986-support-5th-dec-blondies-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-12-05-blondies-bar-26e1f22d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-05-blondies-bar-26e1f22d.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">1986 / Support</span>
@@ -3504,7 +3245,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006464AE2D48CA">
-                <img class="gig-poster-fill" src="images/2026-12-06-o2-academy-brixton-edd89035.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-06-o2-academy-brixton-edd89035.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Dayseeker: Creature In The Black Night Tour</span>
@@ -3515,7 +3255,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/sunami-6th-dec-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-12-06-underworld-36e89209.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-06-underworld-36e89209.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Sunami / Missing Link / Desolated / Extinguish</span>
@@ -3533,7 +3272,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/eluveitie/">
-                <img class="gig-poster-fill" src="images/2026-12-08-electric-brixton-9499242a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-08-electric-brixton-9499242a.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">ELUVEITIE</span>
@@ -3551,7 +3289,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/12/09-half-me">
-                <img class="gig-poster-fill" src="images/2026-12-09-dome-c00d64e4.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-09-dome-c00d64e4.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">HALF ME</span>
@@ -3562,7 +3299,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/the-hara-9th-dec-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-12-09-underworld-d8bf0847.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-09-underworld-d8bf0847.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">The Hara / High Regard</span>
@@ -3580,7 +3316,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/dominum-the-night-calling-tour/">
-                <img class="gig-poster-fill" src="images/2026-12-10-electric-brixton-9a684e53.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-10-electric-brixton-9a684e53.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Dominum – The Night Calling Tour</span>
@@ -3591,7 +3326,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/12/10/grunk">
-                <img class="gig-poster-fill" src="images/2026-12-10-black-heart-68d26f9d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-10-black-heart-68d26f9d.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">GRUNK</span>
@@ -3602,7 +3336,6 @@
         
         <li class="gig-card">
             <a href="https://thelexington.co.uk/event.php?id&#x3D;3779">
-                <img class="gig-poster-fill" src="images/2026-12-10-the-lexington-4bf167c6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-10-the-lexington-4bf167c6.webp" alt="" loading="lazy" style="--card-ratio: 1.157">
                 <span class="gig-info">
                     <span class="gig-title">OMO, Ian, Why Patterns</span>
@@ -3613,7 +3346,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/12/10-warning">
-                <img class="gig-poster-fill" src="images/2026-12-10-dome-0615197f.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-10-dome-0615197f.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">WARNING</span>
@@ -3631,7 +3363,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/12/11-novulent">
-                <img class="gig-poster-fill" src="images/2026-12-11-dome-6e340ba8.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-11-dome-6e340ba8.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">NOVULENT</span>
@@ -3649,7 +3380,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/oe923m-blackened-vertrardagur-gathering-london-12th-dec-signature-brew-haggerston-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-12-12-signature-brew-haggerston-4cf57704.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-12-signature-brew-haggerston-4cf57704.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Blackened Vertrardagur Gathering</span>
@@ -3660,7 +3390,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/blaze-bayley-12th-dec-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-12-12-underworld-4a28c739.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-12-underworld-4a28c739.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">BLAZE BAYLEY - SOLD OUT</span>
@@ -3671,7 +3400,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/wednesday-13-the-birthday-massacre/">
-                <img class="gig-poster-fill" src="images/2026-12-12-electric-brixton-6d03d39e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-12-electric-brixton-6d03d39e.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">WEDNESDAY 13 &amp; THE BIRTHDAY MASSACRE</span>
@@ -3689,7 +3417,6 @@
         
         <li class="gig-card">
             <a href="https://islingtonassemblyhall.co.uk/events/slift-13th-dec-islington-assembly-hall-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-12-13-islington-assembly-hall-47f816dd.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-13-islington-assembly-hall-47f816dd.webp" alt="" loading="lazy" style="--card-ratio: 1.667">
                 <span class="gig-info">
                     <span class="gig-title">SLIFT</span>
@@ -3700,7 +3427,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/taylor-more-swiftly-2">
-                <img class="gig-poster-fill" src="images/2026-12-13-new-cross-inn-f232ffa1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-13-new-cross-inn-f232ffa1.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Taylor More Swiftly</span>
@@ -3718,7 +3444,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/sevendust/">
-                <img class="gig-poster-fill" src="images/2026-12-15-electric-ballroom-d03e64af.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-15-electric-ballroom-d03e64af.webp" alt="" loading="lazy" style="--card-ratio: 0.850">
                 <span class="gig-info">
                     <span class="gig-title">Sevendust</span>
@@ -3736,7 +3461,6 @@
         
         <li class="gig-card">
             <a href="https://www.roundhouse.org.uk/whats-on/green-lung/">
-                <img class="gig-poster-fill" src="images/2026-12-16-roundhouse-ce9e3535.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-16-roundhouse-ce9e3535.webp" alt="" loading="lazy" style="--card-ratio: 0.985">
                 <span class="gig-info">
                     <span class="gig-title">Green Lung</span>
@@ -3747,7 +3471,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064CAE6F2A1E5">
-                <img class="gig-poster-fill" src="images/2026-12-16-o2-academy-brixton-c23e22dd.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-16-o2-academy-brixton-c23e22dd.webp" alt="" loading="lazy" style="--card-ratio: 1.500">
                 <span class="gig-info">
                     <span class="gig-title">Polyphia: BE NOT AFRAID World Tour</span>
@@ -3765,7 +3488,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006511BD1C1E3D">
-                <img class="gig-poster-fill" src="images/2026-12-17-o2-forum-kentish-town-6a6222de.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-17-o2-forum-kentish-town-6a6222de.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Chelsea Wolfe: THE DARK World Tour</span>
@@ -3783,7 +3505,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/little-miss-nasty-19th-dec-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2026-12-19-underworld-4b51bd1a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-19-underworld-4b51bd1a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Little Miss Nasty / I Ya Toyah</span>
@@ -3794,7 +3515,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/xmasbash26">
-                <img class="gig-poster-fill" src="images/2026-12-19-new-cross-inn-b283e1b9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-19-new-cross-inn-b283e1b9.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">The Be Sharp Xmas Bash 2026</span>
@@ -3812,7 +3532,6 @@
         
         <li class="gig-card">
             <a href="https://www.eventimapollo.com/events/frank-carter-sex-pistols">
-                <img class="gig-poster-fill" src="images/2026-12-20-eventim-apollo-4ccacda9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-20-eventim-apollo-4ccacda9.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Sex Pistols feat. Frank Carter</span>
@@ -3830,7 +3549,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/wwk7dg-royal-monster-a-tribute-to-royal-blood-london-27th-dec-signature-brew-haggerston-london-tickets">
-                <img class="gig-poster-fill" src="images/2026-12-27-signature-brew-haggerston-15445866.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-27-signature-brew-haggerston-15445866.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Royal Monster - A Tribute to Royal Blood</span>
@@ -3848,7 +3566,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/motorwrecked-1">
-                <img class="gig-poster-fill" src="images/2026-12-29-new-cross-inn-3752a455.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-12-29-new-cross-inn-3752a455.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Motorwrecked</span>
@@ -3866,7 +3583,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2026/7/13/saetaier">
-                <img class="gig-poster-fill" src="images/2027-01-09-black-heart-96d21439.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-09-black-heart-96d21439.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Saetaier</span>
@@ -3877,7 +3593,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/stones-of-the-queen-age">
-                <img class="gig-poster-fill" src="images/2027-01-09-new-cross-inn-c72d35ec.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-09-new-cross-inn-c72d35ec.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Stones of the Queen Age</span>
@@ -3895,7 +3610,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/motocultor-festival-across-europe-tour-2027-11th-jan-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-01-11-underworld-cb59ca50.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-11-underworld-cb59ca50.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">MOTOCULTOR FEST 2027 feat. RHAPSODY OF FIRE &amp; more</span>
@@ -3913,7 +3627,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064BBCE5E517D">
-                <img class="gig-poster-fill" src="images/2027-01-13-o2-academy-brixton-7bcdc9e4.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-13-o2-academy-brixton-7bcdc9e4.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Imminence: Axis Mundi Tour 2027</span>
@@ -3931,7 +3644,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064C8FC0A837C">
-                <img class="gig-poster-fill" src="images/2027-01-16-o2-academy-brixton-3db6c875.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-16-o2-academy-brixton-3db6c875.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Black Veil Brides: Vindicatour</span>
@@ -3942,7 +3654,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/floor-jansen/">
-                <img class="gig-poster-fill" src="images/2027-01-16-electric-brixton-6c072a7b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-16-electric-brixton-6c072a7b.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Floor Jansen</span>
@@ -3953,7 +3664,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/some-kind-of-metallica-1">
-                <img class="gig-poster-fill" src="images/2027-01-16-new-cross-inn-2ff42ba8.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-16-new-cross-inn-2ff42ba8.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Some Kind Of Metallica</span>
@@ -3964,7 +3674,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064B5EA5A5A6B">
-                <img class="gig-poster-fill" src="images/2027-01-16-o2-forum-kentish-town-932dad23.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-16-o2-forum-kentish-town-932dad23.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Wage War</span>
@@ -3982,7 +3691,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E00648F9A022C9A">
-                <img class="gig-poster-fill" src="images/2027-01-22-o2-academy-islington-df0dd9d7.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-22-o2-academy-islington-df0dd9d7.webp" alt="" loading="lazy" style="--card-ratio: 1.600">
                 <span class="gig-info">
                     <span class="gig-title">Guns 2 Roses / Metallica Reloaded / Surreal Panther</span>
@@ -3993,7 +3701,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/reality-unfolds-2027">
-                <img class="gig-poster-fill" src="images/2027-01-22-new-cross-inn-cddd9f15.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-22-new-cross-inn-cddd9f15.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Reality Unfolds 2027</span>
@@ -4011,7 +3718,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/dezerter-23rd-jan-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-01-23-underworld-2d17977c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-23-underworld-2d17977c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Dezerter / Fantazmaz</span>
@@ -4022,7 +3728,6 @@
         
         <li class="gig-card">
             <a href="https://www.theo2.co.uk/events/detail/five-finger-death-punch">
-                <img class="gig-poster-fill" src="images/2027-01-23-the-o2-arena-89c63df2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-23-the-o2-arena-89c63df2.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Five Finger Death Punch</span>
@@ -4040,7 +3745,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/01/24/big-ass-truck">
-                <img class="gig-poster-fill" src="images/2027-01-24-dome-8f37cc6b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-24-dome-8f37cc6b.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">BIG ASS TRUCK</span>
@@ -4058,7 +3762,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/spite-emmure/">
-                <img class="gig-poster-fill" src="images/2027-01-26-electric-brixton-c74344f4.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-26-electric-brixton-c74344f4.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Spite &amp; Emmure</span>
@@ -4076,7 +3779,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/not-the-not-freaks-unleashed">
-                <img class="gig-poster-fill" src="images/2027-01-29-new-cross-inn-557f3e71.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-29-new-cross-inn-557f3e71.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Not The Knot (Slipknot Tribute) / Freaks Unleashed (Korn Tribute)</span>
@@ -4087,7 +3789,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/sylosis-whitechapel/">
-                <img class="gig-poster-fill" src="images/2027-01-29-electric-ballroom-eba96e5d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-29-electric-ballroom-eba96e5d.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Sylosis &amp; Whitechapel</span>
@@ -4105,7 +3806,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064F7B87A187F">
-                <img class="gig-poster-fill" src="images/2027-01-30-o2-forum-kentish-town-9b7bd264.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-30-o2-forum-kentish-town-9b7bd264.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Alestorm</span>
@@ -4116,7 +3816,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/nirvana-tribute-3">
-                <img class="gig-poster-fill" src="images/2027-01-30-new-cross-inn-8a3ece89.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-30-new-cross-inn-8a3ece89.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Nirvana Tribute</span>
@@ -4127,7 +3826,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006479A3F242B0">
-                <img class="gig-poster-fill" src="images/2027-01-30-o2-academy-islington-ac58abd1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-30-o2-academy-islington-ac58abd1.webp" alt="" loading="lazy" style="--card-ratio: 1.600">
                 <span class="gig-info">
                     <span class="gig-title">Nirvana UK</span>
@@ -4138,7 +3836,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/sim/">
-                <img class="gig-poster-fill" src="images/2027-01-30-electric-ballroom-40140d5d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-01-30-electric-ballroom-40140d5d.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">SiM</span>
@@ -4156,7 +3853,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064A6ECE6488F">
-                <img class="gig-poster-fill" src="images/2027-02-03-o2-forum-kentish-town-a3992854.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-03-o2-forum-kentish-town-a3992854.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Amorphis Borderland Tour 2027</span>
@@ -4174,7 +3870,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/soulsick-1">
-                <img class="gig-poster-fill" src="images/2027-02-04-new-cross-inn-92a1c6de.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-04-new-cross-inn-92a1c6de.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Soulsick</span>
@@ -4185,7 +3880,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/02/04-the-black-dahlia-murder">
-                <img class="gig-poster-fill" src="images/2027-02-04-dome-e5695a79.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-04-dome-e5695a79.webp" alt="" loading="lazy" style="--card-ratio: 1.429">
                 <span class="gig-info">
                     <span class="gig-title">THE BLACK DAHLIA MURDER - MOVED VENUE</span>
@@ -4196,7 +3890,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/the-black-dahlia-murder-two-decades-of-nocturnal-europe-mmxxvii/">
-                <img class="gig-poster-fill" src="images/2027-02-04-electric-brixton-22e164e9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-04-electric-brixton-22e164e9.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">The Black Dahlia Murder – Two Decades of Nocturnal: Europe MMXXVII</span>
@@ -4214,7 +3907,6 @@
         
         <li class="gig-card">
             <a href="https://islingtonassemblyhall.co.uk/events/charlotte-wessels-5th-feb-islington-assembly-hall-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-02-05-islington-assembly-hall-36228b68.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-05-islington-assembly-hall-36228b68.webp" alt="" loading="lazy" style="--card-ratio: 1.778">
                 <span class="gig-info">
                     <span class="gig-title">Charlotte Wessels</span>
@@ -4225,7 +3917,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/ion-maiden-1">
-                <img class="gig-poster-fill" src="images/2027-02-05-new-cross-inn-b2114d5c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-05-new-cross-inn-b2114d5c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Ion Maiden</span>
@@ -4236,7 +3927,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006494E66D4FB9">
-                <img class="gig-poster-fill" src="images/2027-02-05-o2-forum-kentish-town-4047e669.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-05-o2-forum-kentish-town-4047e669.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">The Scratch</span>
@@ -4254,7 +3944,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2027/2/6/dark-clouds-over-london">
-                <img class="gig-poster-fill" src="images/2027-02-06-black-heart-77e13351.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-06-black-heart-77e13351.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">DARK CLOUDS OVER LONDON / FT. / HECATE ENTHRONED</span>
@@ -4265,7 +3954,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064C8C2864F7B">
-                <img class="gig-poster-fill" src="images/2027-02-06-o2-academy-brixton-d309d4ca.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-06-o2-academy-brixton-d309d4ca.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">RØRY</span>
@@ -4283,7 +3971,6 @@
         
         <li class="gig-card">
             <a href="https://scala.co.uk/events/frozen-soul/">
-                <img class="gig-poster-fill" src="images/2027-02-07-scala-dea06762.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-07-scala-dea06762.webp" alt="" loading="lazy" style="--card-ratio: 1.400">
                 <span class="gig-info">
                     <span class="gig-title">Frozen Soul</span>
@@ -4294,7 +3981,6 @@
         
         <li class="gig-card">
             <a href="https://islingtonassemblyhall.co.uk/events/haken-7th-feb-islington-assembly-hall-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-02-07-islington-assembly-hall-bd0e3a9e.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-07-islington-assembly-hall-bd0e3a9e.webp" alt="" loading="lazy" style="--card-ratio: 1.667">
                 <span class="gig-info">
                     <span class="gig-title">Haken</span>
@@ -4312,7 +3998,6 @@
         
         <li class="gig-card">
             <a href="https://dingwalls.com/gig/future-of-the-left-curses-20th-anniversary/">
-                <img class="gig-poster-fill" src="images/2027-02-12-dingwalls-256f9c10.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-12-dingwalls-256f9c10.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Future of the Left (Curses 20th Anniversary)</span>
@@ -4330,7 +4015,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/k6lw79-forever-never-13th-feb-barfly-camden-london-tickets">
-                <img class="gig-poster-fill" src="images/2027-02-13-barfly-98eb8c92.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-13-barfly-98eb8c92.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Forever Never</span>
@@ -4341,7 +4025,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/ghost-uk-1">
-                <img class="gig-poster-fill" src="images/2027-02-13-new-cross-inn-541fe1dd.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-13-new-cross-inn-541fe1dd.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Ghost UK</span>
@@ -4359,7 +4042,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/02/16-lost-society-hokka">
-                <img class="gig-poster-fill" src="images/2027-02-16-dome-d6fa8015.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-16-dome-d6fa8015.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">LOST SOCIETY X HOKKA</span>
@@ -4377,7 +4059,6 @@
         
         <li class="gig-card">
             <a href="https://www.roundhouse.org.uk/whats-on/basement/">
-                <img class="gig-poster-fill" src="images/2027-02-18-roundhouse-79a02bcb.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-18-roundhouse-79a02bcb.webp" alt="" loading="lazy" style="--card-ratio: 0.985">
                 <span class="gig-info">
                     <span class="gig-title">Basement</span>
@@ -4395,7 +4076,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/esprit-dair-the-garage-london-tickets-2027/">
-                <img class="gig-poster-fill" src="images/2027-02-19-the-garage-4e359c73.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-19-the-garage-4e359c73.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">ESPRIT D&#x27;AIR</span>
@@ -4406,7 +4086,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/py3aal-myspace-or-yours-london-19th-feb-signature-brew-haggerston-london-tickets">
-                <img class="gig-poster-fill" src="images/2027-02-19-signature-brew-haggerston-04948d2d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-19-signature-brew-haggerston-04948d2d.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Myspace Or Yours?</span>
@@ -4424,7 +4103,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064B3BD103049">
-                <img class="gig-poster-fill" src="images/2027-02-20-o2-academy-brixton-a0cae7c8.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-20-o2-academy-brixton-a0cae7c8.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Bury Tomorrow</span>
@@ -4435,7 +4113,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/impericon-shred-fest-20th-feb-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-02-20-underworld-dc46383b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-20-underworld-dc46383b.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">IMPERICON SHRED FEST</span>
@@ -4446,7 +4123,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/py3mml-the-hot-one-two-aethoria-20th-feb-229-london-tickets">
-                <img class="gig-poster-fill" src="images/2027-02-20-229-f205f52b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-20-229-f205f52b.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">The Hot One Two / Aethoria</span>
@@ -4464,7 +4140,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006479D3EA66F4">
-                <img class="gig-poster-fill" src="images/2027-02-25-o2-academy-brixton-1dd83d04.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-25-o2-academy-brixton-1dd83d04.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">South Arcade: Welcome To The Real World</span>
@@ -4482,7 +4157,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006523F4E54AC5">
-                <img class="gig-poster-fill" src="images/2027-02-26-o2-academy-islington-83252928.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-26-o2-academy-islington-83252928.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Signs Of The Swarm</span>
@@ -4500,7 +4174,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/elder/">
-                <img class="gig-poster-fill" src="images/2027-02-27-electric-brixton-51d086ef.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-27-electric-brixton-51d086ef.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Elder</span>
@@ -4511,7 +4184,6 @@
         
         <li class="gig-card">
             <a href="https://www.eventimapollo.com/events/saxon">
-                <img class="gig-poster-fill" src="images/2027-02-27-eventim-apollo-92f4183a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-02-27-eventim-apollo-92f4183a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Saxon</span>
@@ -4529,7 +4201,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/blind-channel-3rd-mar-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-03-03-underworld-85c6979a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-03-underworld-85c6979a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Blind Channel / Block of Flats</span>
@@ -4547,7 +4218,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006494F8145BBB">
-                <img class="gig-poster-fill" src="images/2027-03-05-o2-academy-islington-40419347.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-05-o2-academy-islington-40419347.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Hotter Than Hell x Motley Crude</span>
@@ -4565,7 +4235,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006521AECB3DE0">
-                <img class="gig-poster-fill" src="images/2027-03-06-o2-forum-kentish-town-c8160609.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-06-o2-forum-kentish-town-c8160609.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Cult of Luna</span>
@@ -4576,7 +4245,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/steal-this-band-tonedefs-2">
-                <img class="gig-poster-fill" src="images/2027-03-06-new-cross-inn-2ff63a9c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-06-new-cross-inn-2ff63a9c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Steal This Band / Tonedefs</span>
@@ -4587,7 +4255,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/steve-ignorant-band-the-garage-london-tickets-2027/">
-                <img class="gig-poster-fill" src="images/2027-03-06-the-garage-58a74a9a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-06-the-garage-58a74a9a.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">STEVE IGNORANT BAND</span>
@@ -4598,7 +4265,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E00651A1297646E">
-                <img class="gig-poster-fill" src="images/2027-03-06-o2-shepherds-bush-empire-eeab9cc2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-06-o2-shepherds-bush-empire-eeab9cc2.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Uncle Acid and The Deadbeats</span>
@@ -4616,7 +4282,6 @@
         
         <li class="gig-card">
             <a href="https://www.domelondon.co.uk/whatson/03/07-draconian">
-                <img class="gig-poster-fill" src="images/2027-03-07-dome-7b1b89fd.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-07-dome-7b1b89fd.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">DRACONIAN</span>
@@ -4627,7 +4292,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E0064C2CEA252AC">
-                <img class="gig-poster-fill" src="images/2027-03-07-o2-academy-brixton-832edcc7.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-07-o2-academy-brixton-832edcc7.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Sleeping With Sirens – An Ending In Itself Tour</span>
@@ -4645,7 +4309,6 @@
         
         <li class="gig-card">
             <a href="https://www.electricbrixton.uk.com/events/movements/">
-                <img class="gig-poster-fill" src="images/2027-03-10-electric-brixton-cb08571a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-10-electric-brixton-cb08571a.webp" alt="" loading="lazy" style="--card-ratio: 1.575">
                 <span class="gig-info">
                     <span class="gig-title">Movements</span>
@@ -4663,7 +4326,6 @@
         
         <li class="gig-card">
             <a href="https://www.ovoarena.co.uk/events/detail/megadeth#2027-03-11">
-                <img class="gig-poster-fill" src="images/2027-03-11-ovo-arena-797fff45.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-11-ovo-arena-797fff45.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Megadeth</span>
@@ -4674,7 +4336,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/serenity-11th-mar-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-03-11-underworld-5625b375.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-11-underworld-5625b375.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Serenity / Secret Sphere</span>
@@ -4692,7 +4353,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/trans-night-of-rage">
-                <img class="gig-poster-fill" src="images/2027-03-13-new-cross-inn-84ffc1a2.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-13-new-cross-inn-84ffc1a2.webp" alt="" loading="lazy" style="--card-ratio: 0.835">
                 <span class="gig-info">
                     <span class="gig-title">Trans Night Of Rage</span>
@@ -4710,7 +4370,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/samurai-pizza-cats-17th-mar-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-03-17-underworld-f81bf4c9.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-17-underworld-f81bf4c9.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">SAMURAI PIZZA CATS</span>
@@ -4728,7 +4387,6 @@
         
         <li class="gig-card">
             <a href="https://www.roundhouse.org.uk/whats-on/lambrini-girls/">
-                <img class="gig-poster-fill" src="images/2027-03-19-roundhouse-d0befb2a.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-19-roundhouse-d0befb2a.webp" alt="" loading="lazy" style="--card-ratio: 0.985">
                 <span class="gig-info">
                     <span class="gig-title">Lambrini Girls</span>
@@ -4739,7 +4397,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii">
-                <img class="gig-poster-fill" src="images/2027-03-19-black-heart-27c8e9b1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-19-black-heart-27c8e9b1.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">NECROPOLIS VOL. III</span>
@@ -4757,7 +4414,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/mosh-spice">
-                <img class="gig-poster-fill" src="images/2027-03-20-new-cross-inn-a7d76d95.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-20-new-cross-inn-a7d76d95.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">MOSH SPICE</span>
@@ -4768,7 +4424,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/necropolis-vol-iii-20th-mar-the-underworld-london-the-black-heart-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-03-20-underworld-60ae27ef.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-20-underworld-60ae27ef.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">NECROPOLIS Vol. III</span>
@@ -4786,7 +4441,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/2wakgo-lost-alone-20th-anniversary-show-26th-mar-barfly-camden-london-tickets">
-                <img class="gig-poster-fill" src="images/2027-03-26-barfly-61e27f9d.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-26-barfly-61e27f9d.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">LOST ALONE - 20th Anniversary Show</span>
@@ -4804,7 +4458,6 @@
         
         <li class="gig-card">
             <a href="https://dice.fm/event/q2d25y-beyond-the-grave-volume-vi-27th-mar-229-london-tickets">
-                <img class="gig-poster-fill" src="images/2027-03-27-229-1728adce.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-27-229-1728adce.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Beyond The Grave Volume VI</span>
@@ -4815,7 +4468,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2027/3/27/cruel-amp-unusual-ii">
-                <img class="gig-poster-fill" src="images/2027-03-27-black-heart-05dba873.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-27-black-heart-05dba873.webp" alt="" loading="lazy" style="--card-ratio: 0.870">
                 <span class="gig-info">
                     <span class="gig-title">CRUEL &amp; UNUSUAL II</span>
@@ -4826,7 +4478,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/heathen-x-evil-invaders-27th-mar-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-03-27-underworld-2c2355c6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-27-underworld-2c2355c6.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">HEATHEN x EVIL INVADERS</span>
@@ -4844,7 +4495,6 @@
         
         <li class="gig-card">
             <a href="https://www.theo2.co.uk/events/detail/ice-nine-kills">
-                <img class="gig-poster-fill" src="images/2027-03-28-the-o2-arena-b26492d3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-28-the-o2-arena-b26492d3.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Ice Nine Kills</span>
@@ -4862,7 +4512,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/cult-of-dissolution-v-incantation-tour-2027-30th-mar-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-03-30-underworld-258ecb9c.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-03-30-underworld-258ecb9c.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">CULT OF DISSOLUTION V: INCANTATION TOUR 2027</span>
@@ -4880,7 +4529,6 @@
         
         <li class="gig-card">
             <a href="https://www.alexandrapalace.com/whats-on/trivium/">
-                <img class="gig-poster-fill" src="images/2027-04-03-alexandra-palace-bf6310e3.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-04-03-alexandra-palace-bf6310e3.webp" alt="" loading="lazy" style="--card-ratio: 1.500">
                 <span class="gig-info">
                     <span class="gig-title">Trivium</span>
@@ -4898,7 +4546,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/eater-the-garage-london-tickets-2026/">
-                <img class="gig-poster-fill" src="images/2027-04-30-the-garage-0470157b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-04-30-the-garage-0470157b.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">EATER</span>
@@ -4916,7 +4563,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/booze-and-glory-this-is-london-bank-holiday-weekend-1st-may-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-05-01-underworld-676bf61b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-01-underworld-676bf61b.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">BOOZE AND GLORY THIS IS LONDON BANK HOLIDAY WEEKEND</span>
@@ -4927,7 +4573,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/booze-and-glory-this-is-london-bank-holiday-weekend-saturday-ticket-1st-may-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-05-01-underworld-676bf61b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-01-underworld-676bf61b.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">BOOZE AND GLORY THIS IS LONDON BANK HOLIDAY WEEKEND – SATURDAY TICKET</span>
@@ -4938,7 +4583,6 @@
         
         <li class="gig-card">
             <a href="https://pit.live/events/gbh-5">
-                <img class="gig-poster-fill" src="images/2027-05-01-new-cross-inn-3a38b62b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-01-new-cross-inn-3a38b62b.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">GBH</span>
@@ -4956,7 +4600,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/booze-and-glory-this-is-london-bank-holiday-weekend-sunday-ticket-2nd-may-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-05-02-underworld-676bf61b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-02-underworld-676bf61b.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">BOOZE AND GLORY THIS IS LONDON BANK HOLIDAY WEEKEND – SUNDAY TICKET</span>
@@ -4974,7 +4617,6 @@
         
         <li class="gig-card">
             <a href="https://www.ticketmaster.co.uk/event/3E006511D37E25CB">
-                <img class="gig-poster-fill" src="images/2027-05-11-o2-forum-kentish-town-b390cf76.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-11-o2-forum-kentish-town-b390cf76.webp" alt="" loading="lazy" style="--card-ratio: 1.777">
                 <span class="gig-info">
                     <span class="gig-title">Man/<wbr>Woman/<wbr>Chainsaw</span>
@@ -4992,7 +4634,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/desertfest-2027-1/">
-                <img class="gig-poster-fill" src="images/2027-05-21-underworld-9d32c433.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-21-underworld-9d32c433.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">DESERTFEST 2027</span>
@@ -5003,7 +4644,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/desertfest-2027/">
-                <img class="gig-poster-fill" src="images/2027-05-21-electric-ballroom-f2e12a15.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-21-electric-ballroom-f2e12a15.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Desertfest 2027</span>
@@ -5014,7 +4654,6 @@
         
         <li class="gig-card">
             <a href="https://www.ourblackheart.com/events/2027/5/21/desertfest-2027">
-                <img class="gig-poster-fill" src="images/2027-05-21-black-heart-e5e74cd1.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-21-black-heart-e5e74cd1.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">DESERTFEST 2027</span>
@@ -5032,7 +4671,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/desertfest-2027-2/">
-                <img class="gig-poster-fill" src="images/2027-05-22-underworld-9d32c433.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-22-underworld-9d32c433.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">DESERTFEST 2027</span>
@@ -5050,7 +4688,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/desertfest-2027-3/">
-                <img class="gig-poster-fill" src="images/2027-05-23-underworld-9d32c433.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-23-underworld-9d32c433.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">DESERTFEST 2027</span>
@@ -5061,7 +4698,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/desertfest-2027-2/">
-                <img class="gig-poster-fill" src="images/2027-05-23-electric-ballroom-f2e12a15.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-23-electric-ballroom-f2e12a15.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">Desertfest 2027</span>
@@ -5079,7 +4715,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/london-rock-festival-2027/">
-                <img class="gig-poster-fill" src="images/2027-05-29-electric-ballroom-65ba3f07.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-29-electric-ballroom-65ba3f07.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">London Rock Festival 2027</span>
@@ -5090,7 +4725,6 @@
         
         <li class="gig-card">
             <a href="https://www.thegarage.london/gigs/nfd/">
-                <img class="gig-poster-fill" src="images/2027-05-29-the-garage-6c405914.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-05-29-the-garage-6c405914.webp" alt="" loading="lazy" style="--card-ratio: 1.186">
                 <span class="gig-info">
                     <span class="gig-title">NFD</span>
@@ -5108,7 +4742,6 @@
         
         <li class="gig-card">
             <a href="https://www.theunderworldcamden.co.uk/event/britallica-18th-jun-the-underworld-london-tickets/">
-                <img class="gig-poster-fill" src="images/2027-06-18-underworld-b051ac88.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-06-18-underworld-b051ac88.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Britallica / Spinors</span>
@@ -5126,7 +4759,6 @@
         
         <li class="gig-card">
             <a href="https://electricballroom.co.uk/%f0%9d%90%8b%f0%9d%90%a8%f0%9d%90%a7%f0%9d%90%9d%f0%9d%90%a8%f0%9d%90%a7-%f0%9d%90%8c%f0%9d%90%9e%f0%9d%90%ad%f0%9d%90%9a%f0%9d%90%a5%f0%9d%90%85%f0%9d%90%9e%f0%9d%90%ac%f0%9d%90%ad-%f0%9d%9f%90/">
-                <img class="gig-poster-fill" src="images/2027-09-10-electric-ballroom-f0b3071b.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2027-09-10-electric-ballroom-f0b3071b.webp" alt="" loading="lazy" style="--card-ratio: 0.800">
                 <span class="gig-info">
                     <span class="gig-title">𝐋𝐨𝐧𝐝𝐨𝐧 𝐌𝐞𝐭𝐚𝐥𝐅𝐞𝐬𝐭 𝟐𝟎𝟐𝟕</span>
