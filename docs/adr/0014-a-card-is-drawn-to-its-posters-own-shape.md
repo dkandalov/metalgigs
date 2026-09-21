@@ -31,47 +31,29 @@ The card takes its image's own ratio, bounded to 0.80-1.78 - 4:5 to 16:9, the na
 publishes in any number. The ratio is written per card as a `--card-ratio` custom property and `object-fit:
 cover` still crops the few images outside the bounds to them. Measured over the same 359:
 
-| Rule | Mean of each image lost | Untouched | Losing over 20% | Worst | Page height |
-| --- | --- | --- | --- | --- | --- |
-| square, cover | 17.5% | 147 | 145 | 44% | 67,529px |
-| clamped 0.80-1.78, cards left ragged | 1.5% | 305 | 0 | 17% | 70,429px |
-| clamped 0.80-1.00, cards left ragged | 11.4% | 211 | 89 | 44% | 72,114px |
-| the image's own shape, cards left ragged | 0% | 359 | 0 | 0 | 71,938px |
-
-Those are the figures for the bounds alone, against a grid whose cards are each only as tall as their own
-poster. A row of cards has to be level, so the figures the page actually gets are in the consequences below.
+| Rule | Mean of each image lost | Untouched | Losing over 20% | Worst | Page height | Slack |
+| --- | --- | --- | --- | --- | --- | --- |
+| square, cover | 17.5% | 147 | 145 | 44% | 67,529px | 0 |
+| **clamped 0.80-1.78** | **1.5%** | **305** | **0** | **17%** | **70,429px** | **11.5%** |
+| clamped 0.80-1.00 | 11.4% | 211 | 89 | 44% | 72,114px | 11.5% |
+| the image's own shape | 0% | 359 | 0 | 0 | 71,938px | 12.7% |
 
 A published image's proportions are read with one `magick identify` call over the whole page, after the images
 are published and before the html is rendered. It is `identify` rather than a webp header read because
 ImageMagick is already required to publish at all, and one call rather than one per image because the page
 publishes hundreds.
 
-The cards in a row stay the same height, which is the grid's own default and is left alone. A row is as tall as
-its tallest card, and the two ways of giving that height to a shorter card's poster both cost more than they
-save: left as card background it was 198px of it under a 145px banner sharing a row with two A3 posters, and
-grown into by the poster it took the banner back to the crop this decision exists to avoid, 51% at OVO Arena
-against the 44% a square card cost.
-
-So the poster is drawn at the size its own ratio asks for, `margin-block: auto` splitting the spare height
-evenly above and below it, and that space is filled with the poster again - a second `img` of the same src,
-blurred and darkened behind the first. Same url, so the browser fetches it once and lazy-loads it the same
-way; its own decode is what it costs. `max-height` bounds the other direction, a poster taller than its row
-still being cropped to the row.
+The cards in a row stay the same height, which is the grid's own default and is left alone: what varies is the
+image inside the card, and the difference comes out as card-coloured space under the title rather than as a
+gap in the grid. That is the whole reason a row can hold a 16:9 banner beside an A3 poster without the page
+going ragged, and it is why the bounds matter - the wider the range a row can hold, the more of that space
+there is.
 
 ## Consequences
 
-Over the 339 images published on 2026-09-21, at four columns: 292 are drawn whole, and the 47 that are cropped
-are the A3 posters pulled up to the 0.80 bound, losing 9.9% on average and 17% at worst. Across every image it
-is 1.4% against the 17.5% a square card cost. 162 cards show the fill, 87px of it on average and 215px at the
-deepest.
-
-What that spends is vertical space - the page is 4% taller - and a second decode of 162 posters. It also means
-a card can be mostly fill: a 16:9 banner in a row an A3 poster has set the height of is a strip of poster
-across the middle of a blurred copy of itself, which is the shape to judge by eye rather than by the numbers
-above.
-
-Nothing about this is fixed at render time except the ratio, so the same gig's card changes shape between
-renders as the gigs around it change.
+The page is 4% taller and 11.5% of card area is background under a title - the cost that buys 305 posters
+drawn whole. A card with a wide poster carries most of it, so the run of white space below a 16:9 banner is
+the thing to judge by eye rather than by that number.
 
 An image the render cannot measure has no ratio and its card falls back to square, which is what every card
 was: a publish that failed leaves a card the same shape it would have had anyway. The ratio is written into
@@ -85,10 +67,9 @@ grammar (ADR 9). Nothing checks it.
 ## Alternatives rejected
 
 **Letterboxing into the square** (`object-fit: contain`) - nothing cropped and the grid stays regular, but
-every card is then a square whatever it holds, where this fills only the height a row actually forces.
-**Padding to square at publish time**, over a blurred or flat-filled copy of the poster - the same picture,
-but baked into the file, so the border is fixed at the ratio that render guessed and the bytes carry it for
-every later page; done in the browser it costs no pipeline step and no image that can't be reused.
+17.5% of the average card is then flat background and a 16:9 banner is a strip across the middle of it.
+**Padding to square at publish time**, over a blurred or flat-filled copy of the poster - the page needs no
+change at all, but every image gets a border the venue didn't draw, and the fill is a guess about artwork.
 **The image's own shape unbounded** - 12.7% slack against 11.5%, to spare 54 images a crop of at most 17%;
 the bounds cost those images little and keep a row's cards from having to absorb the difference between an A3
 poster and a panorama. **A ratio per row or per day, cropping every card in it to one shape** - it holds a row
