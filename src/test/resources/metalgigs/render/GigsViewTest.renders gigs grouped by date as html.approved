@@ -299,19 +299,36 @@
             border: 1px solid #26262a;
             border-radius: 10px;
             overflow: hidden;
+            /* the link fills the card, so a card a grid row has made taller than its own poster has
+               somewhere to put the difference */
+            display: flex;
         }
-        /* Why the ratio is the poster's own: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md
-           The fallback is for a card whose image the render couldn't measure, which is what every
-           card used to be. */
+        /* Why a poster is drawn this way: docs/adr/0014-a-card-is-drawn-to-its-posters-own-shape.md */
         .gig-image {
             display: block;
             width: 100%;
             aspect-ratio: var(--card-ratio, 1);
             object-fit: cover;
-            background: #26262a;
+            flex: 0 1 auto;
+            margin-block: auto;
+            max-height: 100%;
+            position: relative;
+        }
+        .gig-poster-fill {
+            display: block;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(22px) brightness(0.4);
+            transform: scale(1.2);
         }
         .gig-card a {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
             position: relative;
             color: inherit;
             text-decoration: none;
@@ -342,6 +359,10 @@
         .gig-info {
             display: block;
             padding: 0.85rem 1rem 1rem;
+            /* the fill above covers the whole card, so the text carries the card's own colour
+               rather than being read off a blurred poster */
+            position: relative;
+            background: #18181b;
         }
         /* Band names run together without spaces - Man/Woman/Chainsaw - and no browser breaks at a
            slash, so the title below carries a <wbr> after each such one. anywhere is for a long name
@@ -398,6 +419,7 @@
             }
             .gig-card a {
                 display: flex;
+                flex-direction: row;
                 gap: 0.7rem;
             }
             .gig-image {
@@ -408,7 +430,14 @@
                    give up the square ratio the block layout above sets. */
                 min-height: 72px;
                 height: auto;
+                max-height: none;
+                margin-block: 0;
                 aspect-ratio: auto;
+            }
+            /* a thumbnail beside the text is drawn at its own shape, so there is no spare height
+               here for a fill to fill */
+            .gig-poster-fill {
+                display: none;
             }
             .gig-info {
                 min-width: 0;
@@ -455,6 +484,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-one">
+                <img class="gig-poster-fill" src="images/2026-08-08-underworld-e8f74dd6.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-08-08-underworld-e8f74dd6.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig One</span>
@@ -465,6 +495,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/early-gig-two">
+                <img class="gig-poster-fill" src="images/2026-08-08-the-grace-40b1a885.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-08-08-the-grace-40b1a885.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Early Gig Two</span>
@@ -482,6 +513,7 @@
         
         <li class="gig-card">
             <a href="https://example.com/gigs/late-gig">
+                <img class="gig-poster-fill" src="images/2026-09-01-underworld-1c8f1c82.webp" alt="" aria-hidden="true" loading="lazy">
                 <img class="gig-image" src="images/2026-09-01-underworld-1c8f1c82.webp" alt="" loading="lazy" style="--card-ratio: 1.000">
                 <span class="gig-info">
                     <span class="gig-title">Late Gig</span>
