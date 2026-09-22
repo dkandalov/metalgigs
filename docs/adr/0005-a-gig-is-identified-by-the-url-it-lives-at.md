@@ -2,7 +2,8 @@
 
 Accepted. Recorded 2026-08-25, describing `GigCorrection.kt` and the url each source builds. Amended
 2026-09-17: the url is asked about before a replacement is looked for, the gate having lost real moves. Amended
-2026-09-22: a still-served url is paired with a gig that night under the very same title.
+2026-09-22: a still-served url is paired with a gig that night under the very same title. Amended 2026-09-22: AMG takes
+Gigantic's ticket over any other.
 
 ## Context
 
@@ -22,6 +23,7 @@ would each do.
 | Dice | the url dice.fm redirects to | it serves event pages under a perm_name prefixed with a short code of its own (`2wqb7p-its-never-over-…`) and answers the bare perm_name with a 308; no API hands the prefix out, so taking the listed perm_name would move every gig to a url dice.fm does not serve. The short `link.dice.fm` ticketing link is opaque and reused |
 | AMG | the ticket url up to its `?` | no per-gig page exists; one gig lists several tickets whose urls differ by marketing params in an unstable order, so identity would keep changing. Stripping leaves the platform's event id, stable and still a working link |
 | AMG | the *first ticket that has* a link | a ticket entry exists before its link does - ADÉLA at O2 Academy Brixton listed two entries with url `""` ahead of the branded one, and neither `isVisible` nor `ticketStatus` separates them: the blank ones were visible and on sale |
+| AMG | Gigantic's ticket over any other | the tickets' order is not stable: Beast In Black at O2 Forum Kentish Town listed Gigantic and Ticketmaster first in turn, moving the gig at every swap. Preferring Ticketmaster, AMG's main platform, would have moved the fewest gigs already logged; Gigantic was chosen anyway, the gigs it moves being paired once as a still-served url under an identical title |
 | OVO Arena | the page url plus the date as a fragment | a run of nights is one event page listed once per night (André Rieu's two September nights share one). Appended to every gig, not only collisions: doing it on collision would rewrite the url of a gig already logged the day a second night is announced |
 | The Dev | the venue's Facebook page plus the night | there is no per-gig page, and the Instagram post is superseded every month where the page is not. The fragment is the date alone because the only other thing a flyer gig carries is a title a model read off a picture, and it reads the same bill differently between runs - a promoter's name prefixed, a colon added, a support act misread - each of which minted a second gig on that night while the title was in the url (ADR 11) |
 | DHP | a sold-out gig's "Gig Sold Out" notification | its heading is not a link at all, and the notification points at the same page |
@@ -59,7 +61,7 @@ characters, so the edit counts once however long it is and "LOLA (AUS) | London"
 "at", a "the" or a "+". The threshold is ADR 4's.
 
 A `Live` answer speaks for the gig only where the url is the venue's own page. AMG's is a ticket platform's
-(the first ticket with a link, above), and when Ticketmaster's ticket was listed ahead of Gigantic's, O2
+(a ticket's link, above), and when Ticketmaster's ticket was listed ahead of Gigantic's, O2
 Forum Kentish Town's Beast In Black moved while Gigantic went on serving the old page, and the night stood on
 the page twice. So a still-served url is paired too, but only with a gig that night under the *identical*
 title - no similarity, which Union Chapel's matinee and evening sittings would pass. What this gives up is a

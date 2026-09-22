@@ -1,5 +1,6 @@
 package metalgigs
 
+import org.junit.jupiter.api.Timeout
 import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.containsExactly
@@ -516,6 +517,30 @@ class GigsStoreTest {
 
         expectThat(log.classificationStatus()[listed.id]).isEqualTo(ClassificationStatus.Classified(Genre.Other))
     }
+
+    // AMG lists Beast In Black at O2 Forum Kentish Town under a Gigantic and a Ticketmaster ticket and
+    // has put each first in turn, so the gig moves back to a url it has left. Read as two moves that
+    // is a loop: both urls replaced, the gig off the page, and every walk along it never ending.
+    @Test
+    @Timeout(5)
+    fun `takes a gig moved back to a url it had left as listed there again`() {
+        val onTicketmaster = gigAt("https://www.ticketmaster.co.uk/event/3E00634FC5C65A4D")
+        val onGigantic = gigAt("https://www.gigantic.com/beast-in-black-tickets/london-o2-forum-kentish-town/2026-10-26-19-00")
+        val log = gigsLog(
+            listOf(
+                GigObserved(onGigantic, Instant.parse("2026-09-01T00:00:00Z")),
+                GigClassified(onGigantic.id, recordedAt, Genre.Metal, ClassificationSource.LLM),
+                GigObserved(onTicketmaster, Instant.parse("2026-09-10T00:00:00Z")),
+                GigReplaced(onTicketmaster.id, onGigantic.id, recordedAt),
+                GigReplaced(onGigantic.id, onTicketmaster.id, recordedAt),
+            )
+        )
+
+        expectThat(log.currentGigs()).isEqualTo(listOf(onTicketmaster))
+        expectThat(log.classificationStatus()[onTicketmaster.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
+        expectThat(log.firstSeenAt()[onTicketmaster.id]).isEqualTo(Instant.parse("2026-09-01T00:00:00Z"))
+    }
+
     // A gig moved between rooms is a gig at another venue, and nothing about a replacement says the
     // two are the same venue's - what makes them one gig is the venue saying so, not where it is.
     @Test

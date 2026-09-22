@@ -1,7 +1,8 @@
 # 1. The log is append-only, every state is a projection of it, and compaction must project identically
 
 Accepted. Recorded 2026-08-21, describing a design that has stood since 7730c89 (2026-08-08). Amended
-2026-08-25: compaction keeps each gig's earliest observation as well as its newest, for `firstSeenAt`.
+2026-08-25: compaction keeps each gig's earliest observation as well as its newest, for `firstSeenAt`. Amended
+2026-09-22: a replacement a later one reverses no longer stands.
 
 ## Context
 
@@ -68,6 +69,13 @@ the same room, so it arrived when the gig it replaced did, not when the new url 
 calling it newly added would fill with gigs nobody has to hear about twice. A gig moved twice reaches
 back through both. Both walks read one map, `replacedBy`: from each gig that replaced another to the gig
 it replaced, which is the direction away from what is listed now and back towards where it started.
+
+A venue can move a gig back to a url it left - AMG listed Beast In Black's Gigantic and Ticketmaster
+tickets first in turn - and taken as two moves that is a loop: both urls replaced, so the gig off the
+page, and both walks never ending. So a replacement stands only while it is the last entry to mention the
+gig it replaced; a later one saying a gig moved *to* it supersedes it. Each step of a walk then goes back
+through the log, which is what keeps any walk from coming round again. The superseded entry stays in the
+log and survives compaction like any other replacement, since what stands is decided on read.
 
 ## Consequences
 

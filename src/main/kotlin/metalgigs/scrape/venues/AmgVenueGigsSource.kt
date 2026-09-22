@@ -90,10 +90,12 @@ val o2ShepherdsBushEmpire = Venue(VenueId("o2-shepherds-bush-empire"), "O2 Sheph
 class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
     GigsSource by AmgVenueGigsSource(client, 4051, venue = o2ShepherdsBushEmpire)
 
-// Neither isVisible nor ticketStatus separates a ticket with a link from one without.
-// Why the first ticket that has one: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
+// Neither isVisible nor ticketStatus separates a ticket with a link from one without, and the order
+// the tickets come in is not stable: Beast In Black listed Gigantic and Ticketmaster first in turn.
+// Why Gigantic's, and otherwise the first that has one: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
 private val AmgEvent.ticketUrl: String?
-    get() = tickets.firstNotNullOfOrNull { it.ticketUrl.ifBlank { null } }
+    get() = tickets.map { it.ticketUrl }.filter { it.isNotBlank() }
+        .let { links -> links.firstOrNull { it.startsWith("https://www.gigantic.com/") } ?: links.firstOrNull() }
 
 // The copy is html, so it's parsed for its text the way an event page's would be.
 private fun AmgEvent.description(): GigDescription =

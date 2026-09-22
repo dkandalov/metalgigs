@@ -200,6 +200,20 @@ class AmgVenueGigsSourceTest {
         expectThat(gig.id.url).isEqualTo(GigUrl("https://www.ticketmaster.co.uk/event/ABC"))
     }
 
+    // Beast In Black at O2 Forum Kentish Town listed Gigantic and Ticketmaster first in turn, moving
+    // the gig to the other url every time the order changed.
+    @Test
+    fun `takes an AMG gig's url from its Gigantic ticket wherever that is listed`() {
+        val gigantic = """{"ticketUrl": "https://www.gigantic.com/beast-in-black-tickets/london-o2-forum-kentish-town/2026-10-26-19-00"}"""
+        val ticketmaster = """{"ticketUrl": "https://www.ticketmaster.co.uk/event/3E00634FC5C65A4D?brand=o2forum"}"""
+        val urls = listOf("[$gigantic, $ticketmaster]", "[$ticketmaster, $gigantic]").map { tickets ->
+            val event = amgEvent(localizations = """[{"cultureName": "en-GB", "description": "<p>Copy.</p>"}]""", tickets = tickets)
+            O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single().id.url
+        }
+
+        expectThat(urls).isEqualTo(List(2) { GigUrl("https://www.gigantic.com/beast-in-black-tickets/london-o2-forum-kentish-town/2026-10-26-19-00") })
+    }
+
     @Test
     fun `skips an AMG gig whose tickets all lack a link, as it does one listed with no tickets`() {
         val event = amgEvent(

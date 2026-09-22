@@ -35,7 +35,7 @@ class GigsLog(private val file: File) {
     // that replaced it. A gig moved twice drops both of the urls it has left, each of them being
     // some replacement's `replaced`.
     fun currentGigs(): List<Gig> {
-        val replaced = entries.filterIsInstance<GigReplaced>().map { it.replaced }.toSet()
+        val replaced = standingReplacements().map { it.replaced }.toSet()
         return entries.filterIsInstance<GigObserved>()
             .groupBy { it.id }
             .values
@@ -151,7 +151,18 @@ class GigsLog(private val file: File) {
 
     // Which gig each gig that replaced another replaced - the direction both walks above go.
     private fun replacedBy(): Map<GigId, GigId> =
-        entries.filterIsInstance<GigReplaced>().sortedBy { it.seq }.associate { it.by to it.replaced }
+        standingReplacements().associate { it.by to it.replaced }
+
+    // A venue can move a gig back to a url it left - AMG puts a Gigantic and a Ticketmaster ticket
+    // first in turn - and read as two moves that is a loop, every url in it replaced and every walk
+    // along it endless. So a replacement stands only while it is the last word on the gig it
+    // replaced: a later one naming that gig as where a gig went supersedes it. Every step of a walk
+    // from a gig to the one it replaced then goes back through the log, so no walk comes round again.
+    private fun standingReplacements(): List<GigReplaced> {
+        val replacements = entries.filterIsInstance<GigReplaced>().sortedBy { it.seq }
+        val lastMentioned = replacements.flatMap { listOf(it.replaced to it.seq, it.by to it.seq) }.toMap()
+        return replacements.filter { lastMentioned[it.replaced] == it.seq }
+    }
 
     private fun effectiveClassification
 (classifications: List<GigClassified>): GigClassified? {
