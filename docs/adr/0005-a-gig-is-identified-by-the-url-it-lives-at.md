@@ -1,7 +1,8 @@
 # 5. A gig is identified by the url it lives at, and a venue that moves one is paired as the listing is read
 
 Accepted. Recorded 2026-08-25, describing `GigCorrection.kt` and the url each source builds. Amended
-2026-09-17: the url is asked about before a replacement is looked for, the gate having lost real moves.
+2026-09-17: the url is asked about before a replacement is looked for, the gate having lost real moves. Amended
+2026-09-22: a still-served url is paired with a gig that night under the very same title.
 
 ## Context
 
@@ -32,7 +33,8 @@ Each is checked against that venue's prefixes by `gigUrlFrom` (ADR 2).
 `replacementsIn` decides, as the listing is read, what this run says about a gig the log holds and it no
 longer carries. `MissingGig` records it: **`MovedTo`** - the venue redirects, an answer rather than a guess;
 **`Gone`** - the page is deleted, though a gig cancelled outright looks identical, so a candidate is still
-needed; **`Live`** - the page is still served, so whatever it is, it has not moved.
+needed; **`Live`** - the page is still served, so whatever it is, it has not moved - unless that night is listed under
+the very same title, which is a move made by a url that was never the venue's own page.
 
 A redirected url is followed to its target and needs nothing else. A deleted url names nothing, so a gig on
 the same night that looks like the missing one stands in - the edits that move a url are small, an added
@@ -55,6 +57,13 @@ Horses' relisting scoring 0.44 while keeping its poster. Similarity is over a ti
 characters, so the edit counts once however long it is and "LOLA (AUS) | London" reads as the same gig as
 "LOLA (AUS) + Lucky Hit | London". Words of two characters or fewer are dropped - every second title has an
 "at", a "the" or a "+". The threshold is ADR 4's.
+
+A `Live` answer speaks for the gig only where the url is the venue's own page. AMG's is a ticket platform's
+(the first ticket with a link, above), and when Ticketmaster's ticket was listed ahead of Gigantic's, O2
+Forum Kentish Town's Beast In Black moved while Gigantic went on serving the old page, and the night stood on
+the page twice. So a still-served url is paired too, but only with a gig that night under the *identical*
+title - no similarity, which Union Chapel's matinee and evening sittings would pass. What this gives up is a
+venue that drops one of two sittings titled the same and keeps the other; none has been seen.
 
 `missingGigSays` asks the *old url itself* rather than the listing, so a venue keeping the page up answers
 for itself. A redirect is followed no further than its own `Location` - the point is where the venue says

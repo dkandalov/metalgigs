@@ -36,7 +36,7 @@ internal fun replacementsIn(
                 is MissingGig.MovedTo -> byUrl[says.url]
                 MissingGig.Gone -> scraped.filter { it.date == missing.date && it.looksLike(missing) }
                     .maxByOrNull { titleSimilarity(it, missing) }
-                MissingGig.Live -> null
+                MissingGig.Live -> scraped.firstOrNull { it.date == missing.date && it.title == missing.title }
             }?.let { replacement -> missing.id to replacement.id }
         }
 }

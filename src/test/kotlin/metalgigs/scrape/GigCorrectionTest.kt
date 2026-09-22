@@ -116,6 +116,19 @@ class GigCorrectionTest {
         expectThat(replacements).isEqualTo(emptyList())
     }
 
+    // AMG's gig url is a ticket platform's page, not the venue's: O2 Forum Kentish Town's Beast In
+    // Black moved from Gigantic to Ticketmaster when the latter's ticket was listed first, and
+    // Gigantic kept serving the old page, so the night stood on the page twice under one title
+    @Test
+    fun `pairs a still-served url with the gig that night under the very same title`() {
+        val onGigantic = gig(GigTitle("Beast In Black: Resurrection Tour 2026"), "https://www.gigantic.com/beast-in-black-tickets/london-o2-forum-kentish-town/2026-10-26-19-00", realText, date = GigDate(2026, 10, 26))
+        val onTicketmaster = gig(GigTitle("Beast In Black: Resurrection Tour 2026"), "https://www.ticketmaster.co.uk/event/3E00634FC5C65A4D", realText, date = GigDate(2026, 10, 26))
+
+        val replacements = replacementsIn(listOf(onTicketmaster), listOf(onGigantic), today) { MissingGig.Live }
+
+        expectThat(replacements).isEqualTo(listOf(onGigantic.id to onTicketmaster.id))
+    }
+
     // a gig that has moved to another night has moved further than a rewritten title, and pairing it
     // by name alone would take one night's gig for another's
     @Test
