@@ -1,7 +1,7 @@
 # 11. The Dev's month flyer is a source, read by a model running on this machine
 
 Accepted. Recorded 2026-08-25, describing `DevGigSource.kt`. Amended 2026-09-17: a gig's url is the night
-alone, the model's reading of a bill having minted a gig per reading.
+alone, the model's reading of a bill having minted a gig per reading. Amended 2026-09-22: a DJ set is not a band night.
 
 ## Context
 
@@ -54,7 +54,8 @@ logged under both when next month's flyer goes up and when the model reads this 
 title that flips between runs being a gig logged as changed every run (ADR 6).
 
 The venue's regular karaoke night is excluded by title, printed on the flyer alongside band shows with nothing
-but its name marking it apart. The profile is read from the endpoint the page's own script calls, with the web
+but its name marking it apart, and so are a book launch and a DJ set on a row of its own ("Digital Bath with DJ
+Primo", after the bands on 2026-09-25) - "with DJ" rather than "DJ", a band night's bill sometimes ending "+ DJ ...". The profile is read from the endpoint the page's own script calls, with the web
 client's app id (ADR 8); Instagram wraps every list as edges around nodes, twice over here - once for the posts
 and once for each post's caption, of which a post has one or none.
 

@@ -99,6 +99,20 @@ class DevGigSourceTest {
             .containsExactly(GigTitle("We Only Come Out At Night (Fundraiser): Servers of Hysteria / Hot Wife"))
     }
 
+    // The reposted September flyer put a DJ set after the 25th's bands, on its own row, and a bill
+    // can end with a DJ too: the 20th's "+ DJ Arno Von Detritus" is the last act of a band night.
+    @Test
+    fun `excludes a DJ set on its own row but keeps a bill with a DJ on it`() {
+        val reply = "2026-09-20 | Triple Six Promotions presents: Give Me Your Teeth / Professional 101 + DJ Arno Von Detritus\n" +
+            "2026-09-25 | Satarial (PL) / Nyctopia / Innersphere (CZ)\n2026-09-25 | Digital Bath with DJ Primo"
+
+        expectThat(gigsFrom(reply).map { it.date }).containsExactly(GigDate(2026, 9, 20), GigDate(2026, 9, 25))
+        expectThat(gigsFrom(reply).map { it.title }).containsExactly(
+            GigTitle("Triple Six Promotions presents: Give Me Your Teeth / Professional 101 + DJ Arno Von Detritus"),
+            GigTitle("Satarial (PL) / Nyctopia / Innersphere (CZ)"),
+        )
+    }
+
     // The model spaces a bill's slashes differently from run to run, and the title is the gig's
     // description as well, so the spacing it settles on is what decides whether the night reads as
     // changed tomorrow.

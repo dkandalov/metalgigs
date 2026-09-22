@@ -76,9 +76,11 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
     private val extractionModel = ModelName.of("gemma4:26b")
 
     // The flyer prints The Dev's other nights alongside its band shows, with nothing but the title
-    // telling the two apart: a recurring rock/metal karaoke, and a book launch. Not "fundraiser" -
-    // August's "We Only Come Out At Night (Fundraiser)" is three bands playing.
-    private val notABandNight = Regex("karaoke|book launch", RegexOption.IGNORE_CASE)
+    // telling the two apart: a recurring rock/metal karaoke, a book launch, and a DJ set after the
+    // bands ("Digital Bath with DJ Primo"). Not "fundraiser" - August's "We Only Come Out At Night
+    // (Fundraiser)" is three bands playing - and not a bare "DJ", which also closes a band night's
+    // bill ("+ DJ Arno Von Detritus").
+    private val notABandNight = Regex("""karaoke|book launch|\bwith DJ\b""", RegexOption.IGNORE_CASE)
 
     // Why the Facebook page and a fragment, and why the night alone names the gig:
     // docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
