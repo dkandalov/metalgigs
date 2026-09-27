@@ -29,6 +29,9 @@ import java.time.LocalDate
 
 fun main(rawArgs: Array<String>) {
     System.setProperty("com.sun.security.enableAIAcaIssuers", "true")
+    // JDK 26 denies every AIA fetch not listed here; The Garage serves its leaf cert alone, leaving
+    // its Sectigo intermediate to be fetched
+    System.setProperty("com.sun.security.allowedAIALocations", "http://crt.sectigo.com/")
 
     val args = decodeArgs(rawArgs)
 

@@ -42,9 +42,14 @@ tasks.shadowJar {
     mergeServiceFiles()
 }
 
+// run on a current JDK for its CA roots - GraalVM 21.0.2 lacked GlobalSign Root R46 and failed
+// Islington Assembly Hall's TLS - but emit 21 bytecode, the newest Kotlin 2.1.20 can target
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(26)
+    compilerOptions { jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21 }
 }
+
+tasks.withType<JavaCompile> { options.release = 21 }
 
 tasks.test {
     useJUnitPlatform()
