@@ -4,6 +4,8 @@ import metalgigs.Gig
 import metalgigs.GigTitle
 import metalgigs.scrape.venues.cancelledSuffix
 import metalgigs.scrape.venues.soldOutSuffix
+import java.text.Normalizer
+import java.text.Normalizer.Form.NFKC
 import kotlin.text.RegexOption.COMMENTS
 import kotlin.text.RegexOption.IGNORE_CASE
 
@@ -14,7 +16,9 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
     }
 
     private fun tidied(title: String): String {
-        val tidied = title
+        // first, so the rules below read "𝐋𝐨𝐧𝐝𝐨𝐧" - Mathematical Bold, the social-media way of
+        // typing bold - as the London it is
+        val tidied = Normalizer.normalize(title, NFKC)
             .replace(leadingPromoter, "")
             .replace(leadingFreeEntry, "")
             .replace(trailingFreeEntry, "")

@@ -20,6 +20,14 @@ class WithTidiedTitlesTest {
             .isEqualTo(listOf(GigTitle("Tribute To Nothing - CANCELLED")))
     }
 
+    // Electric Ballroom listed "𝐋𝐨𝐧𝐝𝐨𝐧 𝐌𝐞𝐭𝐚𝐥𝐅𝐞𝐬𝐭 𝟐𝟎𝟐𝟕" - letters from Unicode's Mathematical Bold block,
+    // not a font - which no search, screen reader or other rule here reads as the words
+    @Test
+    fun `writes letters styled with unicode as plain ones`() {
+        expectThat(titlesListedAs(listOf("𝐋𝐨𝐧𝐝𝐨𝐧 𝐌𝐞𝐭𝐚𝐥𝐅𝐞𝐬𝐭 𝟐𝟎𝟐𝟕", "𝘋𝘖𝘖𝘔 𝙉𝙄𝙂𝙃𝙏 | 𝗟𝗼𝗻𝗱𝗼𝗻")))
+            .isEqualTo(listOf(GigTitle("London MetalFest 2027"), GigTitle("DOOM NIGHT")))
+    }
+
     @Test
     fun `leaves a city the title says something with`() {
         val meantAsWritten = listOf("Anette Olzon In London", "North & East London Fiesta Weekender")
