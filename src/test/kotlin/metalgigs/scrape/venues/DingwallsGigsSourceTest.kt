@@ -79,6 +79,37 @@ class DingwallsGigsSourceTest {
         )
     }
 
+    // e.g. "Wednesday, 28th October" between two cards that do carry a year
+    @Test
+    fun `counts a card's missing year forward from the card before it`() {
+        val gigs = DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Friday, 1st January")).latestGigs()
+
+        expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2026, 12, 31), GigDate(2027, 1, 1)))
+    }
+
+    @Test
+    fun `fails on a counted year that misses the weekday the card prints`() {
+        val failure = runCatching {
+            DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Thursday, 1st January")).latestGigs()
+        }.exceptionOrNull()
+
+        expectThat(failure?.message.orEmpty().contains("is listed on a Thursday and 2027-01-01 is a Friday")).isTrue()
+    }
+
+    private fun listingOf(vararg dates: String): HttpHandler = {
+        Response(OK).body(
+            dates.withIndex().joinToString("\n") { (i, date) ->
+                """
+                <div class="gig">
+                    <div class="elementor-widget-heading">$date</div>
+                    <div class="elementor-widget-theme-post-title"><a href="https://dingwalls.com/gig/gig-$i/">Gig $i</a></div>
+                    <div class="elementor-widget-theme-post-featured-image"><img src="https://dingwalls.com/gig-$i.jpg"></div>
+                </div>
+                """.trimIndent()
+            } + """<div class="elementor-location-single"><p>An evening of something.</p></div>"""
+        )
+    }
+
     @Test
     fun `scopes Dingwalls page text to the Elementor single-page template`() {
         val html = """

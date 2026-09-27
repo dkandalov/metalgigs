@@ -5,7 +5,10 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import java.time.LocalDate
 import java.time.Month
+import java.time.format.TextStyle
+import java.util.Locale
 
 val dingwalls = Venue(VenueId("dingwalls"), "Dingwalls")
 
@@ -16,18 +19,20 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
         var pagesFetched = 0
+        var previousDate: GigDate? = null
 
         while (pageUrl != null) {
             val page = Jsoup.parse(fetchPage(client, pageUrl), pageUrl)
             pagesFetched++
             gigs += page.select(".gig").map { item ->
-                val (day, monthName, year) = datePattern.find(item.select(".elementor-widget-heading:not(.elementor-widget-theme-post-title)").text())!!.destructured
                 val gigUrl = gigUrlFrom(item.select(".elementor-widget-theme-post-title a").attr("abs:href"), "https://dingwalls.com/gig/")
+                val date = dateOf(item.select(".elementor-widget-heading:not(.elementor-widget-theme-post-title)").text(), previousDate, gigUrl)
+                previousDate = date
 
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".elementor-widget-theme-post-title a").text()),
-                    GigDate(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
+                    date,
                     posterUrlFrom(gigUrl, item.select(".elementor-widget-theme-post-featured-image img").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )
@@ -61,8 +66,26 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://dingwalls.com/whats-on/"
 
     // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
-    // September 2026", "Saturday 26th September, 2026 (Afternoon Show)"
-    private val datePattern = Regex("""(\d{1,2})\w*\s+(\w+),?\s+(\d{4})""")
+    // September 2026", "Saturday 26th September, 2026 (Afternoon Show)", and the odd card has no
+    // year at all, e.g. "Wednesday, 28th October"
+    private val datePattern = Regex("""(\w+),?\s+(\d{1,2})\w*\s+(\w+)(?:,?\s+(\d{4}))?""")
+
+    // Why the year is counted forward, and checked against the weekday: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
+    private fun dateOf(text: String, previous: GigDate?, gigUrl: GigUrl): GigDate {
+        val match = checkNotNull(datePattern.find(text)) { "$gigUrl is dated \"$text\", which no longer reads as a date" }
+        val (weekday, day, monthName, year) = match.destructured
+        val month = Month.valueOf(monthName.uppercase())
+        if (year.isNotEmpty()) return GigDate(year.toInt(), month, day.toInt())
+
+        checkNotNull(previous) { "$gigUrl is dated \"$text\" with no year, and no card before it to count one from" }
+        val date = LocalDate.of(if (month < previous.value.month) previous.year + 1 else previous.year, month, day.toInt())
+        val actual = date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+        check(actual == weekday) {
+            "$gigUrl is listed on a $weekday and $date is a $actual - the year counted from the card before " +
+                "no longer lands on the day the card prints, the listing having stopped being in date order"
+        }
+        return GigDate(date)
+    }
 
     internal fun eventPageContent(page: Document) = page.select(".elementor-location-single").textOrNull()
 }

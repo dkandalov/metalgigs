@@ -45,6 +45,10 @@ entirely ordinary - for the venue that writes enough down to close it. 16 Januar
 Friday in 2026, so a year counted wrong stops matching the card that carries it. The check is made only of the
 gigs kept, a club night having been dropped before a date is built for it, though its month is still counted.
 
+Dingwalls prints a year on all but the odd card ("Wednesday, 28th October" between two 2026 dates), so a
+yearless card takes the year of the card before it, counted forward across a new year, and is checked against
+the weekday it prints the same way.
+
 **A year rolled back.** Alexandra Palace, Eventim Apollo and The O2 write a range's year once, on its end date,
 which is wrong for a range crossing a calendar year: "11 Dec - 3 Jan 2027" starts in 2026, as does "Dec 28th -
 Jan 3rd 2027". The start year is rolled back whenever the start month sorts after the end month. Nothing in the
