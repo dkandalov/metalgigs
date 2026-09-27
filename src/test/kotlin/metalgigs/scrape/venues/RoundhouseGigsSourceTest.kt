@@ -55,6 +55,31 @@ class RoundhouseGigsSourceTest {
         expectThat(failure?.message.orEmpty().contains("still offers a next page")).isTrue()
     }
 
+    // e.g. /whats-on/malugi/, whose card renders an empty image slot above the page's banner
+    @Test
+    fun `takes the event page's hero when the card has no image`() {
+        val site: HttpHandler = { request ->
+            Response(OK).body(
+                if (request.uri.path == "/whats-on/") """
+                    <div class="event-card">
+                        <a href="https://www.roundhouse.org.uk/whats-on/malugi/" class="event-card__link"></a>
+                        <div class="event-card__image"></div>
+                        <h3 class="event-card__title">MALUGI</h3>
+                        <p class="event-card__date">Sat 16 Jan 27</p>
+                    </div>
+                """.trimIndent()
+                else """
+                    <div class="event-hero"><img src="https://assets.roundhouse.org.uk/app/uploads/2026/09/Max-Banner-3-1.png"></div>
+                    <section class="event-about"><p>The Happiest Man in Dance Music.</p></section>
+                """.trimIndent()
+            )
+        }
+
+        val gigs = RoundhouseGigsSource(site).latestGigs()
+
+        expectThat(gigs.map { it.posterUrl }).isEqualTo(listOf(PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/09/Max-Banner-3-1.png")))
+    }
+
     // one card per page, so the page number is also the gig it carries
     private fun pagedSite(lastPage: Int): HttpHandler = { request ->
         val page = request.uri.path.substringAfter("/page/", "1").substringBefore('/').toInt()

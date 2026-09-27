@@ -68,6 +68,9 @@ Where a listing has no poster, the source asks the next thing that might:
   announced before artwork exists, which have none of the three, so The Garage stands in its own crowd shot -
   published showing the room rather than dropped or failing the listing. The Grace has no such image and still
   fails.
+- **Roundhouse** asks the event page's hero when a card renders an empty image slot, as Malugi's did on
+  2026-09-27 above a page carrying its banner. The page is fetched for the description anyway; on a card that
+  does carry one, the hero is the same artwork cropped wide, so the card's stays first.
 - **Bush Hall** is the one venue whose listing has nothing bigger behind it: every card image measures
   154x154, whether See Tickets names it by uuid or writes the size into the file name, and no larger variant
   answers - dropping a `-154x154` suffix or asking for `-300x300`, `-768x768` or `-1000x1000` all 404. Two of

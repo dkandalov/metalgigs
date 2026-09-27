@@ -24,12 +24,20 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                 val (day, monthName, year) = datePattern.find(item.select(".event-card__date").text())!!.destructured
 
                 val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://www.roundhouse.org.uk/whats-on/")
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".event-card__title").text()),
                     GigDate(2000 + year.toInt(), monthsByShortName.getValue(monthName), day.toInt()),
-                    posterUrlFrom(gigUrl, item.select(".event-card__image img").attr("abs:src")),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    // a card can render an empty image slot while the page's hero carries the artwork,
+                    // e.g. /whats-on/malugi/
+                    // Why the event page is asked next: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
+                    posterUrlFrom(
+                        gigUrl,
+                        item.select(".event-card__image img").attr("abs:src")
+                            .ifBlank { eventPage.select(".event-hero img").attr("abs:src") }
+                    ),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                 )
             }
             pageUrl = nextPageUrl(page)
