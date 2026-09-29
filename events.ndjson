@@ -6869,3 +6869,4 @@
 {"_type": "classified", "seq": 8018, "venue": "ovo-arena", "url": "https://www.ovoarena.co.uk/events/detail/frank-turner#2027-11-06", "recordedAt": "2026-09-28T16:04:45.964911Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 390, "outputTokens": 4}
 {"_type": "classified", "seq": 8019, "venue": "ovo-arena", "url": "https://www.ovoarena.co.uk/events/detail/frank-turner#2027-11-07", "recordedAt": "2026-09-28T16:04:45.964911Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 390, "outputTokens": 4}
 {"_type": "rendered", "seq": 8020, "file": "2026-09-28T16-05-07Z.html", "gigCount": 349, "logicalDate": "2026-09-28", "recordedAt": "2026-09-28T16:05:07.606523Z"}
+{"_type": "rendered", "seq": 8021, "file": "2026-09-29T09-40-05Z.html", "gigCount": 348, "logicalDate": "2026-09-29", "recordedAt": "2026-09-29T09:40:05.245067Z"}
