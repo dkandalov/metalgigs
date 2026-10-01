@@ -66,9 +66,9 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     private val url = "https://dingwalls.com/whats-on/"
 
     // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
-    // September 2026", "Saturday 26th September, 2026 (Afternoon Show)", and the odd card has no
-    // year at all, e.g. "Wednesday, 28th October"
-    private val datePattern = Regex("""(\w+),?\s+(\d{1,2})\w*\s+(\w+)(?:,?\s+(\d{4}))?""")
+    // September 2026", "Saturday 26th September, 2026 (Afternoon Show)", "Wednesday, 7, October",
+    // and the odd card has no year at all, e.g. "Wednesday, 28th October"
+    private val datePattern = Regex("""(\w+),?\s+(\d{1,2})\w*,?\s+(\w+)(?:,?\s+(\d{4}))?""")
 
     // Why the year is counted forward, and checked against the weekday: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
     private fun dateOf(text: String, previous: GigDate?, gigUrl: GigUrl): GigDate {

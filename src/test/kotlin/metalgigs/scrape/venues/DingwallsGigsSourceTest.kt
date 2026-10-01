@@ -88,6 +88,13 @@ class DingwallsGigsSourceTest {
     }
 
     @Test
+    fun `reads a day followed by a comma`() {
+        val gigs = DingwallsGigsSource(listingOf("Tuesday, 6th October 2026", "Wednesday, 7, October")).latestGigs()
+
+        expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2026, 10, 6), GigDate(2026, 10, 7)))
+    }
+
+    @Test
     fun `fails on a counted year that misses the weekday the card prints`() {
         val failure = runCatching {
             DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Thursday, 1st January")).latestGigs()
