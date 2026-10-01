@@ -83,6 +83,32 @@ class CartAndHorsesGigsSourceTest {
     }
 
     @Test
+    fun `dates a multi-day Cart and Horses event by its first day`() {
+        val html = """
+            <div class="news-carousel__item">
+                <img class="news-carousel__image" src="https://example.com/poster.jpg">
+                <a class="news-carousel__link" href="/news-offers-events/1-weekender/">WEEKENDER</a>
+                <div class="news-carousel__date-wrap">
+                    <div class="news-carousel__date">
+                        <div class="news-carousel__month">Sep</div>
+                        <div class="news-carousel__day">26</div>
+                    </div>
+                    <div class="news-carousel__date">
+                        <div class="news-carousel__month">Sep</div>
+                        <div class="news-carousel__day">27</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page_content_inner">Two days of doom.</div>
+        """.trimIndent()
+        val fakeClient: HttpHandler = { Response(OK).body(html) }
+
+        val events = CartAndHorsesGigsSource(fakeClient, year = 2026).latestGigs()
+
+        expectThat(events.map { it.date }).containsExactly(GigDate(2026, 9, 26))
+    }
+
+    @Test
     fun `scopes Cart & Horses page text to the page header and content, ignoring nav and footer`() {
         val html = """
             <nav><a>Sign up</a><a>Food & Drink</a></nav>

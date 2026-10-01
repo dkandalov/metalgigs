@@ -18,7 +18,8 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
             .select(".news-carousel__item")
             .filter { it.select(".news-carousel__date-wrap").isNotEmpty() }
             .map { item ->
-                val month = item.select(".news-carousel__month").text()
+                // A multi-day event shows its start and end dates side by side; it is listed on the first.
+                val month = item.selectFirst(".news-carousel__month")!!.text()
                 if (month == "Jan" && previousMonth != null && previousMonth != "Jan") currentYear++
                 previousMonth = month
                 val gigUrl = gigUrlFrom(item.select(".news-carousel__link").attr("abs:href"), "https://www.cartandhorses.london/")
@@ -26,7 +27,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(item.select(".news-carousel__link").text()),
-                    GigDate(currentYear, monthsByShortName.getValue(month), item.select(".news-carousel__day").text().toInt()),
+                    GigDate(currentYear, monthsByShortName.getValue(month), item.selectFirst(".news-carousel__day")!!.text().toInt()),
                     posterUrlFrom(gigUrl, item.select(".news-carousel__image").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                 )
