@@ -65,8 +65,12 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
         // The title is the description because a flyer gig has no event page behind it - the flyer is
         // all there is, and what the extraction read off it is the title. "" would say a page was read
         // and had nothing to say about the gig, which is the one thing that never happened here.
+        // A bill can run over two lines of the flyer and be read as two rows, but the night is the
+        // gig's url, so the rows of one night are one gig, joined the way the flyer joins a bill.
         return rows
             .filterNot { (_, title) -> notABandNight.containsMatchIn(title) }
+            .groupBy({ (date, _) -> date }, { (_, title) -> title })
+            .map { (date, titles) -> date to titles.joinToString(" + ") }
             .map { (date, title) -> Gig(GigId(venue.id, gigUrl(date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title)) }
     }
 

@@ -138,6 +138,18 @@ class DevGigSourceTest {
         expectThat(another.id.url).isEqualTo(GigUrl("https://www.facebook.com/thedevnw1#gig-2026-09-18"))
     }
 
+    // October 2026's flyer prints the 30th's bill over two lines, the second opening with "+", and the
+    // model read each as a row of its own - two gigs at the one url, which withheld the whole listing.
+    @Test
+    fun `makes one gig of the rows a night is read as`() {
+        val reply = "2026-09-30 | Night of the Living Dev Part 1: A.W.A.P./Midwich Cuckoos + TBA\n" +
+            "2026-09-30 | DEAD AGAIN: A night in tribute to Type O Negative (DJ)"
+
+        expectThat(gigsFrom(reply).map { it.title }).containsExactly(
+            GigTitle("Night of the Living Dev Part 1: A.W.A.P. / Midwich Cuckoos + TBA + DEAD AGAIN: A night in tribute to Type O Negative (DJ)"),
+        )
+    }
+
     @Test
     fun `fails the venue's listing when no gigs can be read off the flyer`() {
         val error = assertFailsWith<IllegalStateException> { gigsFrom("I couldn't make out any dates on this poster.") }
