@@ -7728,3 +7728,4 @@
 {"_type": "classified", "seq": 8877, "venue": "new-cross-inn", "url": "https://pit.live/events/dirty-shirt", "recordedAt": "2026-10-10T13:19:29.067483Z", "genre": "Metal", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 577, "outputTokens": 4}
 {"_type": "classified", "seq": 8878, "venue": "the-o2-arena", "url": "https://www.theo2.co.uk/events/detail/nickelback-2027", "recordedAt": "2026-10-10T13:19:29.067483Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 764, "outputTokens": 4}
 {"_type": "rendered", "seq": 8879, "file": "2026-10-10T13-20-29Z.html", "gigCount": 364, "logicalDate": "2026-10-10", "recordedAt": "2026-10-10T13:20:29.112113Z"}
+{"_type": "rendered", "seq": 8880, "file": "2026-10-11T08-26-17Z.html", "gigCount": 356, "logicalDate": "2026-10-11", "recordedAt": "2026-10-11T08:26:17.404567Z"}
