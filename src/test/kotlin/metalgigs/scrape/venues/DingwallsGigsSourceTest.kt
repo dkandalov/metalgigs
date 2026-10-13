@@ -95,6 +95,22 @@ class DingwallsGigsSourceTest {
     }
 
     @Test
+    fun `reads a date with no weekday`() {
+        val gigs = DingwallsGigsSource(listingOf("1st, December, 2026")).latestGigs()
+
+        expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2026, 12, 1)))
+    }
+
+    @Test
+    fun `fails on a card with neither a year nor a weekday`() {
+        val failure = runCatching {
+            DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "1st January")).latestGigs()
+        }.exceptionOrNull()
+
+        expectThat(failure?.message.orEmpty().contains("with neither a year nor a weekday")).isTrue()
+    }
+
+    @Test
     fun `fails on a counted year that misses the weekday the card prints`() {
         val failure = runCatching {
             DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Thursday, 1st January")).latestGigs()

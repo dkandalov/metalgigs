@@ -67,8 +67,9 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
 
     // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
     // September 2026", "Saturday 26th September, 2026 (Afternoon Show)", "Wednesday, 7, October",
-    // and the odd card has no year at all, e.g. "Wednesday, 28th October"
-    private val datePattern = Regex("""(\w+),?\s+(\d{1,2})\w*,?\s+(\w+)(?:,?\s+(\d{4}))?""")
+    // the odd card has no year at all, e.g. "Wednesday, 28th October", and the odd one no weekday,
+    // e.g. "1st, December, 2026"
+    private val datePattern = Regex("""(?:([A-Za-z]+),?\s+)?(\d{1,2})\w*,?\s+(\w+)(?:,?\s+(\d{4}))?""")
 
     // Why the year is counted forward, and checked against the weekday: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
     private fun dateOf(text: String, previous: GigDate?, gigUrl: GigUrl): GigDate {
@@ -78,6 +79,7 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
         if (year.isNotEmpty()) return GigDate(year.toInt(), month, day.toInt())
 
         checkNotNull(previous) { "$gigUrl is dated \"$text\" with no year, and no card before it to count one from" }
+        check(weekday.isNotEmpty()) { "$gigUrl is dated \"$text\" with neither a year nor a weekday to check a counted one against" }
         val date = LocalDate.of(if (month < previous.value.month) previous.year + 1 else previous.year, month, day.toInt())
         val actual = date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
         check(actual == weekday) {
