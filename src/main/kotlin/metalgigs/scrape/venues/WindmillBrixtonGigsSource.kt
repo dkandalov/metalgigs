@@ -47,6 +47,9 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
         // an event published without a name: Music Glue prints the title span either way, so the
         // selector matches and finds the space inside it, and the card's image is the placeholder
         GigUrl("https://www.windmillbrixton.co.uk/events/2026-09-30-the-windmill"),
+        // a birthday party published with no description block at all, while every other event
+        // page still carries one
+        GigUrl("https://www.windmillbrixton.co.uk/events/2026-11-06-forbes-30th-birthday-spectacular-the-windmill"),
     )
 
     // a card prints "Sun, Aug 16" with no year anywhere near it; the only year on the listing is the
