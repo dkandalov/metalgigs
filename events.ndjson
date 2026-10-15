@@ -7988,3 +7988,4 @@
 {"_type": "classified", "seq": 9137, "venue": "black-heart", "url": "https://www.ourblackheart.com/events/2027/2/26/meatdripper", "recordedAt": "2026-10-14T15:15:27.574793Z", "genre": "Metal", "source": "LLM", "llmModel": "claude-sonnet-5", "useVision": true, "inputTokens": 1386, "outputTokens": 5}
 {"_type": "classified", "seq": 9138, "venue": "scala", "url": "https://scala.co.uk/events/snayx/", "recordedAt": "2026-10-14T15:15:27.574793Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 573, "outputTokens": 4}
 {"_type": "rendered", "seq": 9139, "file": "2026-10-14T15-15-41Z.html", "gigCount": 358, "logicalDate": "2026-10-14", "recordedAt": "2026-10-14T15:15:41.624866Z"}
+{"_type": "rendered", "seq": 9140, "file": "2026-10-15T11-15-44Z.html", "gigCount": 356, "logicalDate": "2026-10-15", "recordedAt": "2026-10-15T11:15:44.307526Z"}
