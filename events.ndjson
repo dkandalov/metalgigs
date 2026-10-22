@@ -8621,3 +8621,4 @@
 {"_type": "classified", "seq": 9770, "venue": "the-o2-arena", "url": "https://www.theo2.co.uk/events/detail/jean-michel-jarre-2027", "recordedAt": "2026-10-21T09:24:33.833693Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 660, "outputTokens": 4}
 {"_type": "classified", "seq": 9771, "venue": "the-o2-arena", "url": "https://www.theo2.co.uk/events/detail/texas-2027", "recordedAt": "2026-10-21T09:24:33.833693Z", "genre": "Other", "source": "LLM", "llmModel": "claude-sonnet-5", "useVision": true, "inputTokens": 1075, "outputTokens": 4}
 {"_type": "rendered", "seq": 9772, "file": "2026-10-21T09-24-42Z.html", "gigCount": 346, "logicalDate": "2026-10-21", "recordedAt": "2026-10-21T09:24:42.747934Z"}
+{"_type": "rendered", "seq": 9773, "file": "2026-10-22T10-03-38Z.html", "gigCount": 345, "logicalDate": "2026-10-22", "recordedAt": "2026-10-22T10:03:38.540059Z"}
