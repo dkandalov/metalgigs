@@ -8780,3 +8780,4 @@
 {"_type": "classified", "seq": 9929, "venue": "ovo-arena", "url": "https://www.ovoarena.co.uk/events/detail/the-jacksons#2027-03-25", "recordedAt": "2026-10-24T11:19:03.743224Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 508, "outputTokens": 4}
 {"_type": "classified", "seq": 9930, "venue": "ovo-arena", "url": "https://www.ovoarena.co.uk/events/detail/2hollis#2027-04-07", "recordedAt": "2026-10-24T11:19:03.743224Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 609, "outputTokens": 4}
 {"_type": "rendered", "seq": 9931, "file": "2026-10-24T11-19-07Z.html", "gigCount": 339, "logicalDate": "2026-10-24", "recordedAt": "2026-10-24T11:19:07.413013Z"}
+{"_type": "rendered", "seq": 9932, "file": "2026-10-25T11-48-18Z.html", "gigCount": 335, "logicalDate": "2026-10-25", "recordedAt": "2026-10-25T11:48:18.028628Z"}
