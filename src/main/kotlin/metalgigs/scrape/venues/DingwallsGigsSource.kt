@@ -68,14 +68,25 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     // comma placement is inconsistent, e.g. "Wednesday 2nd September 2026", "Tuesday, 8th
     // September 2026", "Saturday 26th September, 2026 (Afternoon Show)", "Wednesday, 7, October",
     // the odd card has no year at all, e.g. "Wednesday, 28th October", and the odd one no weekday,
-    // e.g. "1st, December, 2026"
-    private val datePattern = Regex("""(?:([A-Za-z]+),?\s+)?(\d{1,2})\w*,?\s+(\w+)(?:,?\s+(\d{4}))?""")
+    // e.g. "1st, December, 2026"; a run of nights, e.g. "28 & 29 May 2027", is dated from its first
+    private val datePattern = Regex("""(?:([A-Za-z]+),?\s+)?(\d{1,2})\w*(?:\s*&\s*\d{1,2}\w*)?,?\s+(\w+)(?:,?\s+(\d{4}))?""")
+
+    // the odd run of nights puts the month first, e.g. "May 28 & 29 2027", and is dated from its first night
+    private val monthFirstRunPattern = Regex(
+        """^(${Month.entries.joinToString("|") { it.getDisplayName(TextStyle.FULL, Locale.ENGLISH) }})\s+(\d{1,2})\w*\s*&\s*\d{1,2}\w*,?\s+(\d{4})"""
+    )
 
     // Why the year is counted forward, and checked against the weekday: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
     private fun dateOf(text: String, previous: GigDate?, gigUrl: GigUrl): GigDate {
+        monthFirstRunPattern.find(text)?.let {
+            val (monthName, day, year) = it.destructured
+            return GigDate(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt())
+        }
         val match = checkNotNull(datePattern.find(text)) { "$gigUrl is dated \"$text\", which no longer reads as a date" }
         val (weekday, day, monthName, year) = match.destructured
-        val month = Month.valueOf(monthName.uppercase())
+        val month = checkNotNull(Month.entries.find { it.name == monthName.uppercase() }) {
+            "$gigUrl is dated \"$text\", which reads \"$monthName\" where its month should be"
+        }
         if (year.isNotEmpty()) return GigDate(year.toInt(), month, day.toInt())
 
         checkNotNull(previous) { "$gigUrl is dated \"$text\" with no year, and no card before it to count one from" }

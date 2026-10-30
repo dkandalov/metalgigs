@@ -102,6 +102,28 @@ class DingwallsGigsSourceTest {
     }
 
     @Test
+    fun `dates a month-first run of nights from its first night`() {
+        val gigs = DingwallsGigsSource(listingOf("May 28 & 29 2027")).latestGigs()
+
+        expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2027, 5, 28)))
+    }
+
+    // left unread, the "&" skipped the pattern on to "29 May" and dated the run from its second night
+    @Test
+    fun `dates a day-first run of nights from its first night`() {
+        val gigs = DingwallsGigsSource(listingOf("28 & 29 May 2027", "Friday, 4th & 5th June")).latestGigs()
+
+        expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2027, 5, 28), GigDate(2027, 6, 4)))
+    }
+
+    @Test
+    fun `fails on a card whose month does not read as one`() {
+        val failure = runCatching { DingwallsGigsSource(listingOf("Friday 28 & 29 2027")).latestGigs() }.exceptionOrNull()
+
+        expectThat(failure?.message.orEmpty().contains("reads \"2027\" where its month should be")).isTrue()
+    }
+
+    @Test
     fun `fails on a card with neither a year nor a weekday`() {
         val failure = runCatching {
             DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "1st January")).latestGigs()
