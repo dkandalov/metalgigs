@@ -14,14 +14,14 @@ changed, every run, for as long as it is listed. Separately, `GigTitle` refuses 
 ## Decision
 
 Titles are normalised **as the listing is read**, before the gig is built, so the prompt and the pairing see
-the same title. `WithTidiedTitles` decorates a `GigsSource` and makes seven changes. The first comes before the rest, which it lets read the title:
+the same title. `WithTidiedTitles` decorates a `GigsSource` and makes eight changes. The first comes before the rest, which it lets read the title:
 
 - **Letters styled with Unicode** - "𝐋𝐨𝐧𝐝𝐨𝐧 𝐌𝐞𝐭𝐚𝐥𝐅𝐞𝐬𝐭 𝟐𝟎𝟐𝟕", typed from the Mathematical Bold block the way
   social media fakes bold - become plain ones by NFKC normalisation, as do full-width, italic and circled
   forms, ligatures and superscripts. Nothing else reads them as the words: not the classifier's prompt, not
   the pairing, not the rules below, not a search of the page.
 
-The other six are each identified by punctuation rather than wording alone:
+The other seven are each identified by punctuation rather than wording alone:
 
 - **The trailing city** - "| London", optionally before a cancellation marker - is dropped.
 - **A bill's separators** become " / ", spaced so a "+" written against a word is left alone. A title listing
@@ -37,6 +37,10 @@ The other six are each identified by punctuation rather than wording alone:
   NIRVANA" keeps its promoter: nothing there says where the name stops and the bill starts.
 - **A free-entry note** is dropped from either end. The punctuation identifies it: without any, a title is
   saying the words rather than appending them, as "Free Entry Fridays" would, and keeps them.
+- **An on-sale note** - Cart & Horses' "- ON SALE NOW‼️" - is dropped from the end, by the same punctuation
+  rule. It is selling the gig, not naming it, and stops being true while the title keeps saying it. NFKC has
+  written its "‼" as "!!" by then, so the emoji variation selector after it goes with it rather than being
+  left trailing a plain exclamation mark.
 
 A title whose whole content is one of these is left alone - it has said nothing else about the gig, and the
 blank would reach `GigTitle` as a source that has stopped parsing.

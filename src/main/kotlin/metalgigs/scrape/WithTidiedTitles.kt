@@ -22,6 +22,7 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
             .replace(leadingPromoter, "")
             .replace(leadingFreeEntry, "")
             .replace(trailingFreeEntry, "")
+            .replace(trailingOnSale, "")
             // before the city, whose lookahead finds it past a cancellation written this one way
             .replace(trailingCancelled, cancelledSuffix)
             .replace(trailingCity, "")
@@ -96,6 +97,18 @@ internal class WithTidiedTitles(private val source: GigsSource) : GigsSource by 
             [-–—:|/]+ \s* free \s* entry       # the gig - FREE ENTRY, the gig // Free Entry
           | [(\[] \s* free \s* entry [)\]]     # the gig [FREE ENTRY]
         )
+        \s* $
+        """,
+        setOf(IGNORE_CASE, COMMENTS),
+    )
+
+    // Cart & Horses ends a title "- ON SALE NOW‼️", whose "‼" NFKC has already written as "!!",
+    // leaving the emoji variation selector that followed it with nothing to vary. The punctuation is
+    // what identifies it, as with free entry.
+    private val trailingOnSale = Regex(
+        """
+        \s* [-–—:|/]+ \s*
+        [(\[]? \s* on \s* sale \s* now \s* [!.\x{FE0F}]* \s* [)\]]?
         \s* $
         """,
         setOf(IGNORE_CASE, COMMENTS),

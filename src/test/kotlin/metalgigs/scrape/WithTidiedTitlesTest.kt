@@ -142,6 +142,29 @@ class WithTidiedTitlesTest {
     }
 
     @Test
+    fun `drops an on sale note off the end of a title`() {
+        expectThat(
+            titlesListedAs(
+                listOf(
+                    "BRITISH LION's 6 NIGHTS RESIDENCY at CART & HORSES E15 - ON SALE NOW‼️",
+                    "ONSLAUGHT | On Sale Now!",
+                )
+            )
+        ).isEqualTo(
+            listOf(
+                GigTitle("BRITISH LION's 6 NIGHTS RESIDENCY at CART & HORSES E15"),
+                GigTitle("ONSLAUGHT"),
+            )
+        )
+    }
+
+    @Test
+    fun `leaves an on sale note the title doesn't punctuate`() {
+        val meantAsWritten = listOf("On Sale Now Records Launch Party")
+        expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
+    }
+
+    @Test
     fun `leaves a free entry note the title carries in the middle`() {
         val meantAsWritten = listOf("Open Mic - Bubblebath - FREE ENTRY - ALL WELCOME")
         expectThat(titlesListedAs(meantAsWritten)).isEqualTo(meantAsWritten.map(::GigTitle))
