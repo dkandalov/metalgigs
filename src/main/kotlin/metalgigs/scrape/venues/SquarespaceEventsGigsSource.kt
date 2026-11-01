@@ -100,10 +100,24 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
             else -> return null
         }
         val guests = lines.drop(from).takeWhile { readsLikeAnAct(it) && !it.contains(unbooked) }
-            .filterNot { listedAs.value.contains(it, ignoreCase = true) }
-            .take(guestsInTitle)
-        if (guests.isEmpty()) return null
-        return titleFrom("${headliner(listedAs, billedAs)} / ${guests.joinToString(" / ")}")
+            .filterNot { !it.matches(featuring) && listedAs.value.contains(it, ignoreCase = true) }
+        var joinedBy = " / "
+        var billed = 0
+        val title = buildString {
+            append(headliner(listedAs, billedAs))
+            for (line in guests) {
+                if (line.matches(featuring)) {
+                    joinedBy = " ft. "
+                    continue
+                }
+                if (billed == guestsInTitle) break
+                append(joinedBy).append(line)
+                joinedBy = " / "
+                billed++
+            }
+        }
+        if (billed == 0) return null
+        return titleFrom(title)
     }
 
     private fun headliner(listedAs: GigTitle, billedAs: String?): String {
@@ -135,9 +149,9 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
         setOf(IGNORE_CASE, COMMENTS),
     )
 
-    // A slot still to be booked ends the bill rather than being billed - Redeemon's copy ends
-    // "+ ONE MORE TBA", which is shouted like an act and would otherwise be titled as one.
     private val unbooked = Regex("""\bTBA\W*$""", IGNORE_CASE)
+
+    private val featuring = Regex("""(?:FT|FEAT|FEATURING)\.?""")
 
     private val guestsInTitle = 3
 }

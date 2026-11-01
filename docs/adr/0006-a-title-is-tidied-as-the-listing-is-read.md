@@ -77,7 +77,11 @@ left, and a name followed by the band's story (Toseland's four paragraphs) has n
 **"Featuring" is deliberately not one of them**: every listing using it - Sticky Summer Swamp II, Heavy
 Halloween, Fill The Void, the Civil War alldayer - is named for the night rather than for anything on it, so
 its bill is a programme, exactly what the Underworld rule refuses when a running order tops out on something
-the gig is not named for. And an act is told from what follows it by case: a bill is shouted, where the press
+the gig is not named for. Where a shouted "FT." / "FEAT." / "FEATURING" stands on a line of its own inside a
+run already opened on the gig's name, it is a join rather than an act: Dark Clouds Over London's copy is the
+night, "FT.", then Hecate Enthroned, published as "DARK CLOUDS OVER LONDON ft. HECATE ENTHRONED" rather than
+billing "FT." as a band or slashing the night and its act into what reads as two acts. A slot the copy has not
+filled - "+ ONE MORE TBA" - ends the run rather than being billed. And an act is told from what follows it by case: a bill is shouted, where the press
 quotes, ticket lines, band biographies and bandcamp links written under one all carry lower case, so the bill
 ends at the first line that does. A guest the heading has already named is dropped rather than repeated -
 A-Sun Amissa's bills both of its supports twice. The headliner is taken as the copy spells it, falling back

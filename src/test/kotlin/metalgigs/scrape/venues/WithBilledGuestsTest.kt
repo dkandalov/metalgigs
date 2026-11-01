@@ -103,6 +103,26 @@ class WithBilledGuestsTest {
         expectThat(billedGuests.billedTitle(bare, GigTitle("REDEEMON"))).isEqualTo(GigTitle("REDEEMON / REDSCAR"))
     }
 
+    // the Dark Clouds Over London page, which writes the "ft." on a line of its own between the
+    // night and the act playing it
+    @Test
+    fun `joins an act billed as featured with ft`() {
+        val copy = contentOf("DARK CLOUDS OVER LONDON", "FT.", "HECATE ENTHRONED")
+        val withMore = contentOf("DARK CLOUDS OVER LONDON", "FEATURING", "HECATE ENTHRONED", "MORTAR")
+
+        expectThat(billedGuests.billedTitle(copy, GigTitle("DARK CLOUDS OVER LONDON")))
+            .isEqualTo(GigTitle("DARK CLOUDS OVER LONDON ft. HECATE ENTHRONED"))
+        expectThat(billedGuests.billedTitle(withMore, GigTitle("DARK CLOUDS OVER LONDON")))
+            .isEqualTo(GigTitle("DARK CLOUDS OVER LONDON ft. HECATE ENTHRONED / MORTAR"))
+    }
+
+    @Test
+    fun `keeps the venue's title where a featured act is never named`() {
+        val copy = contentOf("DARK CLOUDS OVER LONDON", "FT.")
+
+        expectThat(billedGuests.billedTitle(copy, GigTitle("DARK CLOUDS OVER LONDON"))).isEqualTo(null)
+    }
+
     @Test
     fun `keeps the venue's title where nothing is billed under it`() {
         val copy = contentOf("PHANTOM SPELL", "&", "FREEWAYS")
