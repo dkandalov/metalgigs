@@ -99,7 +99,7 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
             named >= 0 -> lines[named] to named + 1
             else -> return null
         }
-        val guests = lines.drop(from).takeWhile(::readsLikeAnAct)
+        val guests = lines.drop(from).takeWhile { readsLikeAnAct(it) && !it.contains(unbooked) }
             .filterNot { listedAs.value.contains(it, ignoreCase = true) }
             .take(guestsInTitle)
         if (guests.isEmpty()) return null
@@ -134,6 +134,10 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
         """,
         setOf(IGNORE_CASE, COMMENTS),
     )
+
+    // A slot still to be booked ends the bill rather than being billed - Redeemon's copy ends
+    // "+ ONE MORE TBA", which is shouted like an act and would otherwise be titled as one.
+    private val unbooked = Regex("""\bTBA\W*$""", IGNORE_CASE)
 
     private val guestsInTitle = 3
 }

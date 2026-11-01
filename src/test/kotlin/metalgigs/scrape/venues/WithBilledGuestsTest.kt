@@ -93,6 +93,16 @@ class WithBilledGuestsTest {
     }
 
     // the Phantom Spell page, whose copy is the bill and nothing else
+    // the Redeemon page, whose run of shouted lines ends on the slot it hasn't filled yet
+    @Test
+    fun `ends a bill at a slot still to be booked`() {
+        val oneMore = contentOf("REDEEMON", "REDSCAR", "+ ONE MORE TBA")
+        val bare = contentOf("REDEEMON", "REDSCAR", "TBA")
+
+        expectThat(billedGuests.billedTitle(oneMore, GigTitle("REDEEMON"))).isEqualTo(GigTitle("REDEEMON / REDSCAR"))
+        expectThat(billedGuests.billedTitle(bare, GigTitle("REDEEMON"))).isEqualTo(GigTitle("REDEEMON / REDSCAR"))
+    }
+
     @Test
     fun `keeps the venue's title where nothing is billed under it`() {
         val copy = contentOf("PHANTOM SPELL", "&", "FREEWAYS")
