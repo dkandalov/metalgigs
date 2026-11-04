@@ -129,6 +129,18 @@ class AltTicketsVenueGigsSourceTest {
     }
 
     @Test
+    fun `leaves out a tracking pixel pasted in as the copy`() {
+        val content = source.eventPageContent(pageOf(articleWith("""
+            <h3>Event Information</h3><p>&lt;!-- Meta Pixel Code --&gt;</p>
+            <p>&lt;script&gt; !function(f,b,e,v,n,t,s) {} &lt;/script&gt;</p>
+            <p>&lt;!-- End Meta Pixel Code --&gt;</p><br>
+            <div><h3>Performing Artist(s):</h3><p>Tom High</p></div>
+        """)))
+
+        expectThat(content).isEqualTo("Tom High")
+    }
+
+    @Test
     fun `reads a page saying nothing about the gig as a blank description`() {
         val content = source.eventPageContent(pageOf(articleWith("""
             <p>You can buy a maximum of 10 tickets for this event</p>

@@ -71,8 +71,11 @@ internal class AltTicketsVenueGigsSource(
             .takeWhile { !it.isHeading("Venue Address") && !it.isBill() }
             .map { it.ownText() }
         val bill = article.select("> div:has(h3:contains(Performing Artist)) > p").eachText()
-        return (copy + bill).filter { it.isNotBlank() }.joinToString(" ")
+        return (copy + bill).filter { it.isNotBlank() }.joinToString(" ").replace(pastedTrackingPixel, "").trim()
     }
+
+    // Tom High's copy on 2026-11-04 was a promoter's Meta Pixel snippet pasted in as visible text, and nothing else.
+    private val pastedTrackingPixel = Regex("""<!-- Meta Pixel Code -->.*<!-- End Meta Pixel Code -->""")
 
     private fun Node.isHeading(text: String) = this is Element && tagName() == "h3" && text().startsWith(text)
 
