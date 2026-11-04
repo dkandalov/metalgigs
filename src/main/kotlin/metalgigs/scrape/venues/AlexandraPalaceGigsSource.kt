@@ -35,20 +35,8 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     private val browserUserAgent =
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
-    // Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
-    internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? {
-        val subheader = page.selectFirst("#event_content .subheader")?.text() ?: return null
-        val bill = billMarker.matchEntire(subheader)?.groupValues?.get(1) ?: return null
-        if (unbookedBill.containsMatchIn(bill)) return null
-        val acts = bill.split(actSeparator)
-        return titleFrom((listOf(listedAs.value) + acts).take(actsInTitle).joinToString(" / "))
-    }
-
-    private val billMarker =
-        Regex("""(?:.*\btour\b.*?\s)?(?:with|plus)\s+(?:(?:very\s+)?special\s+guests?:?\s+)?(.+)""", RegexOption.IGNORE_CASE)
-    private val unbookedBill = Regex("""\b(?:tba|tbc|to be announced|guests?|support)\b""", RegexOption.IGNORE_CASE)
-    private val actSeparator = Regex("""\s+(?:\+|&|and)\s+|,\s+""")
-    private val actsInTitle = 4
+    internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? =
+        page.selectFirst("#event_content .subheader")?.let { titleBilledBy(it.text(), listedAs) }
 
     private val singleDatePattern = Regex("""(\d{1,2})\s+(\w+)\s+(\d{4})""")
 

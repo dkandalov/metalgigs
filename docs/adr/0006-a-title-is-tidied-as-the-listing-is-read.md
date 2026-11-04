@@ -55,7 +55,7 @@ and a JSON name field has nothing else to read.
 returns: those are what a selector matching a card's container brings, so they must reach `GigTitle` and fail
 rather than be tidied into a title that looks fine.
 
-Four sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
+Five sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
 only the headliner in capitals; the event page's lineup is the bill as typed, cased, headliner last. It is
 taken only when that last act is what the gig is listed as - a festival or club night is named for something
 no act is - and only the headliner and three supports, a bill running longer (Cosmic Void Festival's is 39
@@ -108,6 +108,15 @@ guest with "and" in its name would read as two acts; none listed on that date ha
 Royston Club and Heidi Curtis" with nothing else to split on. A bill naming nobody yet, "with special guests
 TBA", keeps the heading. The cap is the Underworld's. The bill comes from the event page already fetched for
 the description, so there is no second request.
+
+**The O2** does the same from each event page's tagline, through the same `titleBilledBy`, the two venues writing
+one habit: 36 of the 151 gigs listed across the arena and indigo on 2026-11-04 name acts there, and others say
+"Plus special guests" or "featuring Special Guests" and stop. "Special guest" marks a bill wherever in the tagline
+it falls - "The Very Best of Change with Special Guests: Jazzie B (Soul II Soul) & Jaki Graham" - a "Plus" typed straight after it being dropped, as Five Finger Death Punch's "Plus
+special guests Plus Lamb Of God and Bleed From Within" has it. A bare "with" or "plus" still has to open the
+strapline or follow a tour's name, where "An Evening with..." would otherwise bill an act. A bill is published as
+the page types it, so a run's per-night note stays in the title: "Olivia Rodrigo / Grace Ives (5 - 12 April) / Die
+Spitz (14 April - 10 May)". Brackets can't simply be cut, Change's "Jazzie B (Soul II Soul)" being a name.
 A cancellation is appended as ` - CANCELLED` where a source knows of one, today the Dice `status` field.
 
 ## Consequences

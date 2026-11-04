@@ -42,6 +42,22 @@ internal fun titleFrom(text: String): GigTitle =
             .trim(' '),
     )
 
+// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
+internal fun titleBilledBy(strapline: String, listedAs: GigTitle): GigTitle? {
+    val bill = billMarker.matchEntire(strapline)?.groupValues?.get(1) ?: return null
+    if (unbookedBill.containsMatchIn(bill)) return null
+    val acts = bill.split(actSeparator)
+    return titleFrom((listOf(listedAs.value) + acts).take(actsInBilledTitle).joinToString(" / "))
+}
+
+private val billMarker = Regex(
+    """(?:.*\bspecial\s+guests?:?\s+(?:plus\s+)?|(?:.*\btour\b.*?\s)?(?:with|plus)\s+)(.+)""",
+    RegexOption.IGNORE_CASE,
+)
+private val unbookedBill = Regex("""\b(?:tba|tbc|to be announced|guests?|support)\b""", RegexOption.IGNORE_CASE)
+private val actSeparator = Regex("""\s+(?:\+|&|and)\s+|,\s+""")
+private const val actsInBilledTitle = 4
+
 // Jsoup returns an empty selection rather than null when nothing matches, and an empty selection's
 // text is "".
 internal fun Elements.textOrNull(): String? = if (isEmpty()) null else text()

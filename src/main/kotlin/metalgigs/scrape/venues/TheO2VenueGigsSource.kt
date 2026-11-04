@@ -23,15 +23,17 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
             gigs += items.map { item ->
                 val link = item.select("h3.title a")
                 val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://www.theo2.co.uk/events/detail/")
+                val listedAs = GigTitle(link.text())
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
 
                 Gig(
                     GigId(venue.id, gigUrl),
-                    GigTitle(link.text()),
+                    billedTitle(eventPage, listedAs) ?: listedAs,
                     startDateOf(item.select(".date").first()!!),
                     // each card carries a 480x281 crop and a square one of at least 564px, and it's
                     // the square that survives render's own square crop rather than being letterboxed
                     posterUrlFrom(gigUrl, item.select(".thumb img.square").attr("abs:src")),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                 )
             }
         }
@@ -54,6 +56,9 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
         if (body.isEmpty()) return ""
         return (parseJsonNode(body).orThrow() as? JsonNodeString)?.text.orEmpty()
     }
+
+    internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? =
+        page.selectFirst("h2.tagline")?.let { titleBilledBy(it.text(), listedAs) }
 
     // The whole page's text is the site's nav, its own venue furniture and a mailing-list form
     // around the copy; this is the one block the promoter writes, and every event page read had one.

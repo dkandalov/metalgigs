@@ -10,6 +10,7 @@ import kotlin.test.Test
 // Why this reading surface and paging: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 // Why the date is read this way: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
 // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 class TheO2VenueGigsSourceTest {
 
     @Test
@@ -114,4 +115,49 @@ class TheO2VenueGigsSourceTest {
 
         expectThat(pageText).isEqualTo("German heavy metal pioneers ACCEPT celebrate their 50th anniversary.")
     }
+
+    @Test
+    fun `titles a gig with the acts its tagline bills`() {
+        expectThat(billedTitle("Papa Roach", "Plus special guests Landmvrks and Sleep Theory"))
+            .isEqualTo(GigTitle("Papa Roach / Landmvrks / Sleep Theory"))
+        expectThat(billedTitle("Just Jinger", "with special guest Jesse Clegg"))
+            .isEqualTo(GigTitle("Just Jinger / Jesse Clegg"))
+        expectThat(billedTitle("The Dualers", "Summer Never Ends Tour with special guest: DJ Ska N Mash"))
+            .isEqualTo(GigTitle("The Dualers / DJ Ska N Mash"))
+        expectThat(billedTitle("Change", "The Very Best of Change with Special Guests: Jazzie B (Soul II Soul) & Jaki Graham"))
+            .isEqualTo(GigTitle("Change / Jazzie B (Soul II Soul) / Jaki Graham"))
+    }
+
+    // the page types "Plus" twice, which is how Five Finger Death Punch's tagline really reads
+    @Test
+    fun `reads a bill whose marker is typed twice`() {
+        expectThat(billedTitle("Five Finger Death Punch", "Plus special guests Plus Lamb Of God and Bleed From Within"))
+            .isEqualTo(GigTitle("Five Finger Death Punch / Lamb Of God / Bleed From Within"))
+    }
+
+    @Test
+    fun `keeps the venue's title where the tagline names no act`() {
+        listOf(
+            "Plus special guests",
+            "The After Party featuring Special Guests",
+            "Starring ELLA VADAY",
+            "The Magic of Michael Jackson",
+            "50th Anniversary Greatest Hits Tour",
+            "Live in Concert",
+        ).forEach { expectThat(billedTitle("Headliner", it)).isEqualTo(null) }
+    }
+
+    @Test
+    fun `keeps the venue's title where the page has no tagline`() {
+        val page = pageOf("""<h1 class="title">Headliner</h1>""")
+
+        expectThat(source.billedTitle(page, GigTitle("Headliner"))).isEqualTo(null)
+    }
+
+    private fun billedTitle(listedAs: String, tagline: String): GigTitle? {
+        val page = pageOf("""<h1 class="title has_tagline">$listedAs</h1><h2 class="tagline ">$tagline</h2>""")
+        return source.billedTitle(page, GigTitle(listedAs))
+    }
+
+    private val source = TheO2VenueGigsSource(noHttp, theO2VenueId = 1, venue = theO2Arena)
 }
