@@ -55,7 +55,7 @@ and a JSON name field has nothing else to read.
 returns: those are what a selector matching a card's container brings, so they must reach `GigTitle` and fail
 rather than be tidied into a title that looks fine.
 
-Three sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
+Four sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
 only the headliner in capitals; the event page's lineup is the bill as typed, cased, headliner last. It is
 taken only when that last act is what the gig is listed as - a festival or club night is named for something
 no act is - and only the headliner and three supports, a bill running longer (Cosmic Void Festival's is 39
@@ -98,6 +98,16 @@ wording being these promoters' habit and not Squarespace's, and reads the bill o
 already taken rather than going back to the page - no second request, and no second copy of a selector. That
 rests on the Squarespace copy keeping its lines (ADR 7): flattened, "WARPSTORMER BIRDWITCH" reads as one act
 exactly as "ISHTAR TERRA" does.
+**Alexandra Palace** appends the acts its event page's subheader bills, where its listing heading names the
+headliner alone: 7 of the gigs listed on 2026-11-04, Trivium's being "Plus Special Guests: In Flames + Paleface
+Swiss + VOLA". The same element holds straplines on other pages - "Emotional World Tour", "Directed by Martin
+Murphy & Suzy Catliff", "A Camera Obscura at Alexandra Palace" - so wording is what tells them apart: a bill is
+what follows "with" or "plus", either opening the subheader or after the name of a tour, "God Bless The Band
+Tour - plus special guests The Lathums and The Guestlist". Acts are split on "+", "&", "and" and commas, so a
+guest with "and" in its name would read as two acts; none listed on that date has one, and the page writes "The
+Royston Club and Heidi Curtis" with nothing else to split on. A bill naming nobody yet, "with special guests
+TBA", keeps the heading. The cap is the Underworld's. The bill comes from the event page already fetched for
+the description, so there is no second request.
 A cancellation is appended as ` - CANCELLED` where a source knows of one, today the Dice `status` field.
 
 ## Consequences

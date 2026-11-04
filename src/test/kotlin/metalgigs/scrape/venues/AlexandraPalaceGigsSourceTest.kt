@@ -88,4 +88,55 @@ class AlexandraPalaceGigsSourceTest {
         expectThat(pageText.contains("Summer Season")).isEqualTo(false)
         expectThat(pageText.contains("Buy Tickets")).isEqualTo(false)
     }
+
+    @Test
+    fun `titles a gig with the acts its subheader bills`() {
+        expectThat(billedTitle("Trivium", "Plus Special Guests: In Flames + Paleface Swiss + VOLA"))
+            .isEqualTo(GigTitle("Trivium / In Flames / Paleface Swiss / VOLA"))
+        expectThat(billedTitle("Amble", "with special guest Dylan Gossett"))
+            .isEqualTo(GigTitle("Amble / Dylan Gossett"))
+        expectThat(billedTitle("Blossoms", "plus very special guests The Royston Club and Heidi Curtis"))
+            .isEqualTo(GigTitle("Blossoms / The Royston Club / Heidi Curtis"))
+    }
+
+    @Test
+    fun `reads a bill written after the name of a tour`() {
+        expectThat(billedTitle("Courteeners", "God Bless The Band Tour - plus special guests The Lathums and The Guestlist"))
+            .isEqualTo(GigTitle("Courteeners / The Lathums / The Guestlist"))
+        expectThat(billedTitle("Enter Shikari", "LOSE YOUR SELF Tour with Holding Absence and The Callous Daoboys"))
+            .isEqualTo(GigTitle("Enter Shikari / Holding Absence / The Callous Daoboys"))
+        expectThat(billedTitle("Weezer", "The Gathering 2027 Tour with very special guests Taking Back Sunday & Beach Bunny"))
+            .isEqualTo(GigTitle("Weezer / Taking Back Sunday / Beach Bunny"))
+    }
+
+    @Test
+    fun `keeps the venue's title where the subheader is a strapline`() {
+        listOf(
+            "Emotional World Tour",
+            "Distance In Static Live UK/EU Tour 2027",
+            "Performing Live at Alexandra Palace Theatre",
+            "A Camera Obscura at Alexandra Palace",
+            "Directed by Martin Murphy & Suzy Catliff",
+            "and the Royal Liverpool Philharmonic Orchestra perform If… and other works",
+        ).forEach { expectThat(billedTitle("Headliner", it)).isEqualTo(null) }
+    }
+
+    @Test
+    fun `keeps the venue's title where the bill isn't booked yet`() {
+        expectThat(billedTitle("Headliner", "with special guests TBA")).isEqualTo(null)
+        expectThat(billedTitle("Headliner", "plus support")).isEqualTo(null)
+        expectThat(billedTitle("Headliner", "plus special guests")).isEqualTo(null)
+    }
+
+    @Test
+    fun `keeps the venue's title where the page has no subheader`() {
+        val page = pageOf("""<div id="event_content"><h1>Palace</h1></div>""")
+
+        expectThat(AlexandraPalaceGigsSource(noHttp).billedTitle(page, GigTitle("Palace"))).isEqualTo(null)
+    }
+
+    private fun billedTitle(listedAs: String, subheader: String): GigTitle? {
+        val page = pageOf("""<div id="event_content"><h1>$listedAs</h1><h3 class="subheader">$subheader</h3></div>""")
+        return AlexandraPalaceGigsSource(noHttp).billedTitle(page, GigTitle(listedAs))
+    }
 }

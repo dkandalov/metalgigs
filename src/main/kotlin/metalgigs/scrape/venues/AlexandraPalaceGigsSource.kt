@@ -17,13 +17,15 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
             .map { item ->
                 val link = item.select(".event_target")
                 val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://www.alexandrapalace.com/whats-on/")
+                val listedAs = titleFrom(link.text())
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
 
                 Gig(
                     GigId(venue.id, gigUrl),
-                    titleFrom(link.text()),
+                    billedTitle(eventPage, listedAs) ?: listedAs,
                     startDateOf(item.select(".dates").text()),
                     posterUrlFrom(gigUrl, item.widestImageUrl()),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                 )
             }
 
@@ -32,6 +34,21 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
     // the site blocks requests without a browser-like User-Agent
     private val browserUserAgent =
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+    // Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
+    internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? {
+        val subheader = page.selectFirst("#event_content .subheader")?.text() ?: return null
+        val bill = billMarker.matchEntire(subheader)?.groupValues?.get(1) ?: return null
+        if (unbookedBill.containsMatchIn(bill)) return null
+        val acts = bill.split(actSeparator)
+        return titleFrom((listOf(listedAs.value) + acts).take(actsInTitle).joinToString(" / "))
+    }
+
+    private val billMarker =
+        Regex("""(?:.*\btour\b.*?\s)?(?:with|plus)\s+(?:(?:very\s+)?special\s+guests?:?\s+)?(.+)""", RegexOption.IGNORE_CASE)
+    private val unbookedBill = Regex("""\b(?:tba|tbc|to be announced|guests?|support)\b""", RegexOption.IGNORE_CASE)
+    private val actSeparator = Regex("""\s+(?:\+|&|and)\s+|,\s+""")
+    private val actsInTitle = 4
 
     private val singleDatePattern = Regex("""(\d{1,2})\s+(\w+)\s+(\d{4})""")
 
