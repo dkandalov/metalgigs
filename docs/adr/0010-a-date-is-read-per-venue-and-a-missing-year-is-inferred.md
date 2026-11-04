@@ -1,6 +1,6 @@
 # 10. A date is read per venue, only ever the start date, and a year the listing never writes is inferred
 
-Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`.
+Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired.
 
 ## Context
 

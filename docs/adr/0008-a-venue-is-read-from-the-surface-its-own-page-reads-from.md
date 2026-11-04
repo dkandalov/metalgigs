@@ -1,6 +1,6 @@
 # 8. A venue is read from the surface its own page reads from, and paged by the link the page follows
 
-Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`.
+Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source.
 
 ## Context
 
@@ -20,7 +20,7 @@ own script does, and documented beside the url.
 | AMG | `academymusicgroup.com/api/search/events` | the venue pages are Next.js SPAs rendering nothing server-side, paginating client-side |
 | OVO Arena | `/events/calendar/{year}/{month}` | the cards carry no category, so nothing in that markup selects gigs; the calendar carries the Category the drop-down filters on (Music is 3) |
 | The O2 | `/events/events_ajax/{offset}` | the page renders 24 events and its "Load More" arrives disabled, enabled by the script that fetches the rest |
-| DHP | `…/themes/dhp/includes/ajax/ajax_guide.php` | the listing renders three months and its own pagination urls serve those same three |
+| AltTickets | the JSON-LD on `alttickets.com/venue/london/{room}` | the cards repeat what is under "Recently Announced", write a date range the gig does not run for (Alex Sampson's "05/02/27 - 05/07/27"), and a sold-out one links nowhere. The JSON-LD matched the cards on every gig on 2026-11-04, one page holding the whole listing. It answers OkHttp's User-Agent with a 403, and a run with no pause with a 429 |
 | New Cross Inn | WordPress `admin-ajax.php` | the months dropdown does not navigate - it posts and swaps the listing in place |
 | The Dev | Instagram's profile page itself | the page prefetches its own first screen of posts into a script beside the shell |
 | Bush Hall | `bushhall.seetickets.com/search/all` | the venue's own What's On page is one iframe pointed at that listing and nothing else |

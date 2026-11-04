@@ -56,3 +56,11 @@ internal fun retrying(attempts: Int = 3, backoff: Duration = Duration.ofMillis(5
             return next(request)
         }
     }
+
+internal fun pausing(pause: Duration): Filter =
+    Filter { next ->
+        { request ->
+            Thread.sleep(pause.toMillis())
+            next(request)
+        }
+    }

@@ -1,0 +1,2959 @@
+HTTP/1.1 200 
+cache-control: 
+cf-cache-status: DYNAMIC
+cf-ray: a557160c7f9bea16-LHR
+content-type: text/html; charset=UTF-8
+date: Wed, 04 Nov 2026 22:34:26 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+p3p: CP="HONK"
+pragma: no-cache
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=43fvBX7KU7h5F3%2BD%2FnNUDTHvLlW5xC5m63psw7MS0LEly8cqoIu3x1x780%2FVEf7P%2BgDECm4AAlZO5pTuu%2BBbIZlGmWqM2dq9qDNGedmIQR4C6lsCE9E%2Btdpqdu3Pdg7amuTCrw%3D%3D"}]}
+server: cloudflare
+set-cookie: X-Mapping-fjhppofk=1C232D16DEEB2403BCFBF9CB755CED77; path=/
+set-cookie: _gmdb=e1937d32092801765uushtegdg-DB3
+set-cookie: _gsession=50i72mrcgtg6msikkhavur2v48mj9hniqjn1dt2v46qnthg09otdajr8e45n6n277bg78r7ampvklf901pq6ceg75fnv0628ujramn3; path=/
+status: 200 OK
+x-frame-options: SAMEORIGIN
+x-page-exec-time: 27.822971343994
+
+
+<!DOCTYPE html>
+<!-- VENUE -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+	<link rel="shortcut icon" type="image/png" href="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/fav.png"/>
+    <meta name="facebook-domain-verification" content="pmryn0jjmn57t90otcnh89kn7cc4p4" />
+	<title>The Grace, London - tickets and venue information - alt. tickets</title>
+	<link rel="canonical" href="http://www.alttickets.com/venue/london/the-grace"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="canonical" href="http://www.alttickets.com/venue/london/the-grace"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link rel="stylesheet" type="text/css" href="https://alttickets-9a2.kxcdn.com/static_alt_tickets/css/slick.css"/>
+	<link type="text/css" rel="stylesheet" href="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/css/bootstrap.css"/>
+	<link type="text/css" rel="stylesheet" href="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/css/style.css"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>-->
+		        <script src="https://alttickets-9a2.kxcdn.com/static_alt_tickets/js/jquery-3.7.1.min.js"></script>
+        		
+    <script src="https://alttickets-9a2.kxcdn.com/static_alt_tickets/js/jquery.autocomplete.min.js" type="text/javascript"></script>
+    <script src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/javascript/bootstrap.min.js" type="text/javascript"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <link type="text/css" rel="stylesheet" href="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/css/compatibility.min.css"/>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/rem/1.3.4/rem.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-15729705-2']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+
+	<script>
+		dataLayer = [];
+	</script>
+
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-TJD7DBM');</script>
+	<!-- End Google Tag Manager -->
+
+    <!-- Google GA4 tag (gtag.js) -->
+    <script async src='https://www.googletagmanager.com/gtag/js?id=G-QN7SYY0LMD'></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-QN7SYY0LMD');
+    </script>
+
+
+		<style>
+	.banner.reduced-image {
+		    height: 100%!important;
+		}
+
+	</style>
+
+</head>
+<body class="pale-cream-bg">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJD7DBM"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+    <main class="main-wrapper">
+        <header id="masthead">
+            <div class="header-content panel container">
+                <div class="sprinkles yellow-top"></div>
+                <div class="row">
+                    <a class="site-logo col-xs-2 col-xs-offset-1 col-sm-1" href="https://www.alttickets.com" title="alt. tickets">alt. tickets</a>
+                    <div class="mobile-toggles col-xs-8 col-xs-offset-3">
+                        <button id="main-nav-open" type="button">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <button id="account-nav-open" type="button"></button>
+                    </div>
+                    <div class="header-content-right col-xs-8 col-xs-offset-3 col-sm-4 col-sm-offset-7">
+                        <p>Welcome to alt. tickets</p>
+
+                        <a href="https://www.alttickets.com/contact" class="account-link" style="color:#000;">Contact</a>&nbsp;&nbsp;
+
+                        
+                        
+
+                        
+                        <a class="account-link login" href="https://www.alttickets.com/my-account/login" title="Log In">Log In</a>
+                        <a class="account-link register" href="https://www.alttickets.com/my-account/register" title="Register">Register</a>
+
+                        
+
+                        
+                    </div>
+                    <div class="header-search-box col-xs-12 col-sm-4 col-sm-offset-7">
+                        <form class="auto-complete-search" action="https://www.alttickets.com/search-results" method="get">
+                            <!-- Style for demonstration purposes only please remove once auto-complete is plugged in -->
+                            <style scoped>
+                                /**
+                                * When Plugging in please toggle .active on .auto-complete-container while the auto-complete
+                                * results should be visible (the styles have been written to work as such)
+                                **/
+                                .quick-search-box:focus ~ .autocomplete-suggestions {
+                                    max-height: 600px;
+                                    overflow-y: auto;
+                                    transition: max-height .6s cubic-bezier(0, 0, 0.2, 1);
+                                }
+
+                                .quick-search-box:focus ~ .autocomplete-suggestion {
+                                    opacity: 1;
+                                    transition: opacity .3s cubic-bezier(0, 0, 0.2, 1) .15s;
+                                }
+                            </style>
+                            <!-- End demonstration style -->
+
+
+														<script>
+								$("document").ready(function(){
+
+									$('.quick-search-box').autocomplete({
+										minChars: 3,
+										lookupLimit: 3,
+										serviceUrl: location.origin + '/call_backs/ajax/search_auto_complete_json.php',
+										onSelect: function (suggestion){
+										    window.location.href = suggestion.data;
+										},
+										deferRequestBy: 300,
+
+									});
+
+								});
+							</script>
+
+							<style>
+							.auto-complete-search {
+							  position: relative; }
+							  .auto-complete-search button[type="submit"],
+							  .auto-complete-search .autocomplete-suggestions {
+							    position: absolute; }
+							  .auto-complete-search button[type="submit"] {
+							    background-color: transparent;
+							    border: 0;
+							    outline: 0;
+							    top: 0;
+							    right: 0;
+							    bottom: 0; }
+							    .auto-complete-search button[type="submit"]:focus {
+							      outline: 0; }
+							  .auto-complete-search .autocomplete-suggestions {
+							    width: 100%;
+							    max-height: 0;
+							    overflow: hidden;
+							    -webkit-transition: max-height 0.6s cubic-bezier(0.4, 0, 1, 1);
+							    transition: max-height 0.6s cubic-bezier(0.4, 0, 1, 1); }
+							    .auto-complete-search .autocomplete-suggestions {
+							      max-height: 600px;
+							      overflow-y: auto;
+							      -webkit-transition: max-height 0.6s cubic-bezier(0, 0, 0.2, 1);
+							      transition: max-height 0.6s cubic-bezier(0, 0, 0.2, 1); }
+							      .auto-complete-search .autocomplete-suggestions {
+							        opacity: 1;
+							        -webkit-transition: opacity 0.3s cubic-bezier(0, 0, 0.2, 1) 0.15s;
+							        transition: opacity 0.3s cubic-bezier(0, 0, 0.2, 1) 0.15s; }
+
+							  .autocomplete-suggestions {
+							    width: 100%;
+							    margin: 0;
+							    padding-top: 30px;
+							    padding-bottom: 20px;
+							    padding-left: 12px;
+							    padding-right: 12px;
+							    list-style: none;
+							    text-align: left;
+							    background-color: #a1d0ca; }
+
+							    .auto-complete-search ul li,
+							    .auto-complete-search ul a {
+							      height: 28px; }
+							    .auto-complete-search ul li {
+							      opacity: 0;
+							      -webkit-transition: opacity 0.3s cubic-bezier(0.4, 0, 1, 1);
+							      transition: opacity 0.3s cubic-bezier(0.4, 0, 1, 1); }
+							    .autocomplete-suggestion {
+							      display: block;
+							      text-transform: capitalize;
+							      line-height: 1.75rem;
+							      margin: 0;
+							      color: #fffaeb; }
+							      /*
+							      .autocomplete-suggestion:hover,  {
+							        color: #57475e;
+							  }*/
+							  .autocomplete-selected{color: #57475e;}
+
+
+							  .modal-open{overflow:hidden}.modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;display:none;overflow:hidden;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{-webkit-transition:-webkit-transform .3s ease-out;-o-transition:-o-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:translate(0,-25%);-ms-transform:translate(0,-25%);-o-transform:translate(0,-25%);transform:translate(0,-25%)}.modal.in .modal-dialog{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);-o-transform:translate(0,0);transform:translate(0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;-webkit-background-clip:padding-box;background-clip:padding-box;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;outline:0;-webkit-box-shadow:0 3px 9px rgba(0,0,0,.5);box-shadow:0 3px 9px rgba(0,0,0,.5)}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{filter:alpha(opacity=0);opacity:0}.modal-backdrop.in{filter:alpha(opacity=50);opacity:.5}.modal-header{min-height:16.43px;padding:15px;border-bottom:1px solid #e5e5e5}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.42857143}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer .btn+.btn{margin-bottom:0;margin-left:5px}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}@media (min-width:768px){.modal-dialog{width:600px;margin:30px auto}.modal-content{-webkit-box-shadow:0 5px 15px rgba(0,0,0,.5);box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}
+							  .salmon_text{color:#f0907b!important;}
+							  .form-control{padding:3px;}
+							  /*Modal*/
+							  .modal-content{background-color: #FFFAEB;}
+							  #event_reminder #name{display:none;}
+							  #event_reminder input[type=checkbox]{display:inline;}
+							  #event_reminder input[type=text],  #event_reminder input[type=email]{width:100%;}
+							  .event_reminder_title{color:#f0907b;}
+							  .button-title a{color:#fffaeb;}
+
+  								/* Custom, iPhone Retina */
+							    @media only screen and (max-width : 320px) {
+							        .campaign .button{width:48%!important}
+							        .button-book{width:200px!important;}
+							        .latest-events .event-image {
+								    height: 170px;
+								    background-position-y: 0px;
+		}
+							    }
+
+							    /* Extra Small Devices, Phones */
+							    @media only screen and (max-width : 480px) {
+									.campaign .button{width:48%!important}
+									.button-book{width:200px!important;}
+									.latest-events .event-image {
+								    height: 170px;
+								    background-position-y: 0px;
+									}
+							    }
+
+							    .event_list_cat_title{color:#57475e!important;}
+							    .button_green{background-color: #A1D0CA; height:50px;}
+
+
+							    /*
+							    .events .event-image {
+								    border-bottom: 4px solid #a1d0ca;
+								    background-size: 100% auto;
+								    background-size: cover;
+								    background: no-repeat center;
+								    width: 100%;
+								    -webkit-transition: border-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+								    transition: border-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+								    background-size: 100% 100%;
+									background-repeat:no-repeat;
+									background-position:0 0;
+								}
+								*/
+
+
+
+							</style>
+
+							
+
+                            <input class="quick-search-box" type="search" placeholder="Search a band/city/venue" name="search"/>
+                            <button type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+                                    <path d="M22.22 2.78A9.49 9.49 0 0 0 7 13.73l-7 7 3.31 3.31 6.79-6.79A9.49 9.49 0 0 0 22.22 2.78zm-3.3 10.12a4.82 4.82 0 1 1 0-6.81 4.82 4.82 0 0 1 0 6.81z"
+                                          class="svg--search"></path>
+                                </svg>
+                            </button>
+
+                            <!--<div class="auto-complete-container">
+                                <ul>
+                                    <li>
+                                        <a href="" title="">example</a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="">example</a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="">example</a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="">example</a>
+                                    </li>
+                                </ul>
+                            </div>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <nav id="main-menu" class="dark-purple-bg">
+                <div class="container">
+                    <ul class="main-nav menu-items">
+                    	<li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/top-sellers" title="Top Sellers">Top Sellers</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/dont-miss" title="Don't Miss">Don't Miss</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/festivals" title="Festivals">Festivals</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/listings" title="Gig Guide">Gig Guide</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/club-guide" title="Club Guide">Club Guide</a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/regions" title="Location">Location</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/venues" title="Venues">Venues</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/faqs" title="FAQ">FAQ</a>
+                        </li>
+                        <!--
+                        <li class="menu-item">
+                            <a class="menu-link" href="https://www.alttickets.com/contact" title="Contact">Contact</a>
+                        </li>
+                        -->
+                    </ul>
+                    <ul class="account-nav menu-items">
+
+                        
+                        
+
+                        
+
+                        <li class="menu-item">
+                            <a href="https://www.alttickets.com/my-account/login" class="menu-link" title="Log In">Log In</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="https://www.alttickets.com/my-account/register" class="menu-link" title="Register">Register</a>
+                        </li>
+
+                        
+
+
+
+                        
+
+
+
+
+						<li class="menu-item">
+                            <a href="https://www.alttickets.com/my-account" class="menu-link" title="Account">Account</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="https://www.alttickets.com/order-tracker" class="menu-link" title="Order Tracker">Order Tracker</a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a href="https://www.alttickets.com/contact" class="menu-link" title="Contact">Contact</a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a href="https://www.alttickets.com/faqs" class="menu-link" title="Help">Help</a>
+                        </li>
+                    </ul>
+                    <button id="nav-close" type="button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <!-- css changes -->
+        <style>
+     /*
+     	.events .event-image {
+		    border-bottom: 4px solid #a1d0ca;
+		    background-size: 100% auto;
+		    background-size: cover;
+		    background: no-repeat center;
+		    width: 100%;
+		    -webkit-transition: border-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+		    transition: border-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+
+		    background-size: 100% 100%;
+
+			background-repeat:no-repeat;
+			background-position:0 0;
+		}
+	 */
+		.button{padding-left:15px; padding-right:15px; border:none!important;}
+		.information article { color: #57475e; }
+
+
+
+        </style>         <div class="turquoise-bg">
+            <div class="container">
+                <div class="title-container row">
+                    <h1 class="page-title">The Grace, London</h1>
+                </div>
+            </div>
+        </div>
+        <div class="breadcrumbs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <a class="breadcrumb-icon" href="" title="">
+                            <object type="image/svg+xml" data="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/home_icon.svg">
+                                <img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/home_icon.png" alt=""/>
+                            </object>
+                        </a>
+                        <a href="" title="" class="breadcrumb-link">The Grace, London</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tickets campaign">
+            <div class="panel container">
+                <div class="row">
+	                
+
+
+
+	
+
+
+
+
+
+    
+				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			        	<h2 class="event_list_cat_title">Recently Announced:</h2>
+			        </div>
+			    </div>				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>New Voices Vault: Rachel Newnham + Carlton + Charlie Baker</h2><h3>London - The Grace</h3>
+				                <time title="06/01/27" datetime="2027-01-06T19:00:00+00:00">
+									19:00 | 06/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/new-voices-vault-rachel-newnham-carlton-charlie-baker-tickets/london-the-grace/2027-01-06-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		          
+      
+		
+				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			        	<h2 class="event_list_cat_title">Full Listings:</h2>
+			        </div>
+			    </div>				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Lance Roark</h2><p class="featuring">Support: Garden Birds</p><h3>London - The Grace</h3>
+				                <time title="05/11/26" datetime="2026-11-05T19:30:00+00:00">
+									19:30 | 05/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/lance-roark-tickets/london-the-grace/2026-11-05-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>HOW TO DISAPPEAR AND NEVER BE FOUND </h2><p class="featuring">'This Machine Is Useless' EP Launch</p><h3>London - The Grace</h3>
+				                <time title="07/11/26" datetime="2026-11-07T19:00:00+00:00">
+									19:00 | 07/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/how-to-disappear-and-never-be-found-tickets/london-the-grace/2026-11-07-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Fourth World present... Studio 30</h2><h3>London - The Grace</h3>
+				                <time title="07/11/26" datetime="2026-11-07T23:00:00+00:00">
+									23:00 | 07/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/fourth-world-present-studio-30-tickets/london-the-grace/2026-11-07-23-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Noah Guthrie</h2><p class="featuring">Support: Roofman</p><h3>London - The Grace</h3>
+				                <time title="08/11/26" datetime="2026-11-08T19:30:00+00:00">
+									19:30 | 08/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/noah-guthrie-tickets/london-the-grace/2026-11-08-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>MARIANNE LEIGH</h2><h3>London - The Grace</h3>
+				                <time title="11/11/26" datetime="2026-11-11T19:00:00+00:00">
+									19:00 | 11/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/marianne-leigh-tickets/london-the-grace/2026-11-11-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Cristina Hart</h2><h3>London - The Grace</h3>
+				                <time title="12/11/26" datetime="2026-11-12T19:00:00+00:00">
+									19:00 | 12/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/cristina-hart-tickets/london-the-grace/2026-11-12-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Sharp Class</h2><p class="featuring">Support: South Street / TR5s</p><h3>London - The Grace</h3>
+				                <time title="13/11/26" datetime="2026-11-13T19:00:00+00:00">
+									19:00 | 13/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/sharp-class-tickets/london-the-grace/2026-11-13-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Jewelia</h2><h3>London - The Grace</h3>
+				                <time title="14/11/26" datetime="2026-11-14T19:00:00+00:00">
+									19:00 | 14/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/jewelia-tickets/london-the-grace/2026-11-14-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Wunder Beta</h2><h3>London - The Grace</h3>
+				                <time title="15/11/26" datetime="2026-11-15T18:00:00+00:00">
+									18:00 | 15/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/wunder-beta-tickets/london-the-grace/2026-11-15-18-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Edgehill</h2><h3>London - The Grace</h3>
+				                <time title="16/11/26" datetime="2026-11-16T19:00:00+00:00">
+									19:00 | 16/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+							<a href="#" class="button button-yellow mobile-small" title="" data-toggle="modal" data-target="#waiting_list_modal-78938364989286aa7d3e1d9f63548584831">
+								<span>
+									<span class="button-title">Sold Out</span>
+									<span class="button-action">Artist Reminder</span>
+
+								</span>
+								<a href="#" style="color: #ffcf84; text-decoration: none; position: absolute; right: -20px;" data-toggle="modal" data-target="#wait-privacy"><i class="fas fa-question-circle"></i></a>
+							</a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Underdown - EP Release Show</h2><h3>London - The Grace</h3>
+				                <time title="18/11/26" datetime="2026-11-18T19:30:00+00:00">
+									19:30 | 18/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/underdown-tickets/london-the-grace/2026-11-18-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>8lanco</h2><p class="featuring">Support : Charlie Baker</p><h3>London - The Grace</h3>
+				                <time title="19/11/26" datetime="2026-11-19T19:00:00+00:00">
+									19:00 | 19/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+							<a href="#" class="button button-yellow mobile-small" title="" data-toggle="modal" data-target="#waiting_list_modal-77929676340366a0de9fb6288c058847243">
+								<span>
+									<span class="button-title">Sold Out</span>
+									<span class="button-action">Artist Reminder</span>
+
+								</span>
+								<a href="#" style="color: #ffcf84; text-decoration: none; position: absolute; right: -20px;" data-toggle="modal" data-target="#wait-privacy"><i class="fas fa-question-circle"></i></a>
+							</a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Harry Hudson Taylor</h2><p class="featuring">PLUS SPECIAL GUESTS   COLIN ANDREW WILLIAM JOHN TITUS BISHOP</p><h3>London - The Grace</h3>
+				                <time title="20/11/26" datetime="2026-11-20T19:00:00+00:00">
+									19:00 | 20/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/harry-hudson-taylor-tickets/london-the-grace/2026-11-20-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Déjà Vega</h2><p class="featuring">Support: Ruby Doomsday and The Mink</p><h3>London - The Grace</h3>
+				                <time title="21/11/26" datetime="2026-11-21T19:00:00+00:00">
+									19:00 | 21/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/deja-vega-tickets/london-the-grace/2026-11-21-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>The Rabbitts</h2><h3>London - The Grace</h3>
+				                <time title="22/11/26" datetime="2026-11-22T19:30:00+00:00">
+									19:30 | 22/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/the-rabbitts-tickets/london-the-grace/2026-11-22-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Handsome Jack</h2><h3>London - The Grace</h3>
+				                <time title="23/11/26" datetime="2026-11-23T19:30:00+00:00">
+									19:30 | 23/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/handsome-jack-tickets/london-the-grace/2026-11-23-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>TURBOBIER</h2><p class="featuring">Support: Parallel States </p><h3>London - The Grace</h3>
+				                <time title="24/11/26" datetime="2026-11-24T19:30:00+00:00">
+									19:30 | 24/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/turbobier-tickets/london-the-grace/2026-11-24-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Haunt Me</h2><p class="featuring">PLUS SPECIAL GUESTS   JESUS & THE ZEALOTS  / DEAD WRITERS </p><h3>London - The Grace</h3>
+				                <time title="25/11/26" datetime="2026-11-25T19:30:00+00:00">
+									19:30 | 25/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/haunt-me-tickets/london-the-grace/2026-11-25-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Ellie Gowers </h2><h3>London - The Grace</h3>
+				                <time title="26/11/26" datetime="2026-11-26T19:30:00+00:00">
+									19:30 | 26/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/ellie-gowers-tickets/london-the-grace/2026-11-26-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>The Publics</h2><p class="featuring">PLUS SPECIAL GUESTS   ISLA RICO</p><h3>London - The Grace</h3>
+				                <time title="27/11/26" datetime="2026-11-27T19:00:00+00:00">
+									19:00 | 27/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/the-publics-tickets/london-the-grace/2026-11-27-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Blair Dunlop</h2><p class="featuring">Support: Liz Stringer </p><h3>London - The Grace</h3>
+				                <time title="28/11/26" datetime="2026-11-28T19:00:00+00:00">
+									19:00 | 28/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/blair-dunlop-tickets/london-the-grace/2026-11-28-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Marielle Kraft</h2><h3>London - The Grace</h3>
+				                <time title="29/11/26" datetime="2026-11-29T19:00:00+00:00">
+									19:00 | 29/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/marielle-kraft-tickets/london-the-grace/2026-11-29-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>LARA BUCHANAN</h2><h3>London - The Grace</h3>
+				                <time title="30/11/26" datetime="2026-11-30T19:00:00+00:00">
+									19:00 | 30/11/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/lara-buchanan-tickets/london-the-grace/2026-11-30-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Deja Vu</h2><h3>London - The Grace</h3>
+				                <time title="01/12/26" datetime="2026-12-01T19:00:00+00:00">
+									19:00 | 01/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/deja-vu-tickets/london-the-grace/2026-12-01-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Trixie Whitley</h2><h3>London - The Grace</h3>
+				                <time title="02/12/26" datetime="2026-12-02T19:30:00+00:00">
+									19:30 | 02/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/trixie-whitley-tickets/london-the-grace/2026-12-02-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Magnetic Skies</h2><p class="featuring">Support: Mortasha Kinski </p><h3>London - The Grace</h3>
+				                <time title="03/12/26" datetime="2026-12-03T19:00:00+00:00">
+									19:00 | 03/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/magnetic-skies-tickets/london-the-grace/2026-12-03-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Rareş</h2><h3>London - The Grace</h3>
+				                <time title="04/12/26" datetime="2026-12-04T19:30:00+00:00">
+									19:30 | 04/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+							<a href="#" class="button button-yellow mobile-small" title="" data-toggle="modal" data-target="#waiting_list_modal-79248673766806ad72d51a3175493610348">
+								<span>
+									<span class="button-title">Sold Out</span>
+									<span class="button-action">Artist Reminder</span>
+
+								</span>
+								<a href="#" style="color: #ffcf84; text-decoration: none; position: absolute; right: -20px;" data-toggle="modal" data-target="#wait-privacy"><i class="fas fa-question-circle"></i></a>
+							</a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>TEZ</h2><p class="featuring">PLUS SPECIAL GUEST REEM MITTEN</p><h3>London - The Grace</h3>
+				                <time title="05/12/26" datetime="2026-12-05T19:00:00+00:00">
+									19:00 | 05/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/tez-tickets/london-the-grace/2026-12-05-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Merkules</h2><h3>London - The Grace</h3>
+				                <time title="06/12/26" datetime="2026-12-06T20:00:00+00:00">
+									20:00 | 06/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/merkules-tickets/london-the-grace/2026-12-06-20-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>MAUVEY</h2><h3>London - The Grace</h3>
+				                <time title="07/12/26" datetime="2026-12-07T19:00:00+00:00">
+									19:00 | 07/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/mauvey-tickets/london-the-grace/2026-12-07-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Connolly Hayes</h2><h3>London - The Grace</h3>
+				                <time title="08/12/26" datetime="2026-12-08T19:00:00+00:00">
+									19:00 | 08/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/connolly-hayes-tickets/london-the-grace/2026-12-08-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>L’OBJECTIF</h2><h3>London - The Grace</h3>
+				                <time title="09/12/26" datetime="2026-12-09T19:30:00+00:00">
+									19:30 | 09/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/l-objectif-tickets/london-the-grace/2026-12-09-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Al Cologne</h2><p class="featuring">with Kitty Fitz</p><h3>London - The Grace</h3>
+				                <time title="10/12/26" datetime="2026-12-10T19:00:00+00:00">
+									19:00 | 10/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/al-cologne-tickets/london-the-grace/2026-12-10-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Chris Boldt</h2><p class="featuring">Support: Harry Huxley</p><h3>London - The Grace</h3>
+				                <time title="11/12/26" datetime="2026-12-11T19:00:00+00:00">
+									19:00 | 11/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/chris-boldt-tickets/london-the-grace/2026-12-11-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Sam the Zoologist</h2><h3>London - The Grace</h3>
+				                <time title="12/12/26" datetime="2026-12-12T18:00:00+00:00">
+									18:00 | 12/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/sam-the-zoologist-tickets/london-the-grace/2026-12-12-18-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>An Evening with Mary Spender</h2><h3>London - The Grace</h3>
+				                <time title="14/12/26" datetime="2026-12-14T19:00:00+00:00">
+									19:00 | 14/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/an-evening-with-mary-spender-tickets/london-the-grace/2026-12-14-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Chase Petra</h2><p class="featuring">Special Guests: tinyumbrellas</p><h3>London - The Grace</h3>
+				                <time title="20/12/26" datetime="2026-12-20T19:00:00+00:00">
+									19:00 | 20/12/26
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/chase-petra-tickets/london-the-grace/2026-12-20-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>New Voices Vault: Rachel Newnham + Carlton + Charlie Baker</h2><h3>London - The Grace</h3>
+				                <time title="06/01/27" datetime="2027-01-06T19:00:00+00:00">
+									19:00 | 06/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/new-voices-vault-rachel-newnham-carlton-charlie-baker-tickets/london-the-grace/2027-01-06-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>The Pink Stones</h2><h3>London - The Grace</h3>
+				                <time title="13/01/27" datetime="2027-01-13T19:30:00+00:00">
+									19:30 | 13/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/the-pink-stones-tickets/london-the-grace/2027-01-13-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>THE JONES</h2><h3>London - The Grace</h3>
+				                <time title="15/01/27" datetime="2027-01-15T19:00:00+00:00">
+									19:00 | 15/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/the-jones-tickets/london-the-grace/2027-01-15-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>The Steepwater Band</h2><h3>London - The Grace</h3>
+				                <time title="16/01/27" datetime="2027-01-16T19:00:00+00:00">
+									19:00 | 16/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/the-steepwater-band-tickets/london-the-grace/2027-01-16-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Nickless</h2><h3>London - The Grace</h3>
+				                <time title="19/01/27" datetime="2027-01-19T19:30:00+00:00">
+									19:30 | 19/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/nickless-tickets/london-the-grace/2027-01-19-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Caleb Caudle</h2><h3>London - The Grace</h3>
+				                <time title="20/01/27" datetime="2027-01-20T19:30:00+00:00">
+									19:30 | 20/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/caleb-caudle-tickets/london-the-grace/2027-01-20-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>TOM HIGH</h2><h3>London - The Grace</h3>
+				                <time title="30/01/27" datetime="2027-01-30T19:00:00+00:00">
+									19:00 | 30/01/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/tom-high-tickets/london-the-grace/2027-01-30-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>myohmy</h2><h3>London - The Grace</h3>
+				                <time title="03/02/27" datetime="2027-02-03T19:30:00+00:00">
+									19:30 | 03/02/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/myohmy-tickets/london-the-grace/2027-02-03-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>A Lesser Version</h2><h3>London - The Grace</h3>
+				                <time title="05/02/27" datetime="2027-02-05T19:00:00+00:00">
+									19:00 | 05/02/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/a-lesser-version-tickets/london-the-grace/2027-02-05-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>DALIA</h2><h3>London - The Grace</h3>
+				                <time title="11/02/27" datetime="2027-02-11T19:00:00+00:00">
+									19:00 | 11/02/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/dalia-tickets/london-the-grace/2027-02-11-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Annie Omalley</h2><h3>London - The Grace</h3>
+				                <time title="18/02/27" datetime="2027-02-18T19:30:00+00:00">
+									19:30 | 18/02/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/annie-omalley-tickets/london-the-grace/2027-02-18-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>EVILLE</h2><p class="featuring">BRATPOCALYPSE TOUR</p><h3>London - The Grace</h3>
+				                <time title="20/02/27" datetime="2027-02-20T19:00:00+00:00">
+									19:00 | 20/02/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/eville-tickets/london-the-grace/2027-02-20-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Daisy Peacock</h2><h3>London - The Grace</h3>
+				                <time title="03/03/27" datetime="2027-03-03T19:30:00+00:00">
+									19:30 | 03/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/daisy-peacock-tickets/london-the-grace/2027-03-03-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>happydaze</h2><p class="featuring">Support: KIDPUNK</p><h3>London - The Grace</h3>
+				                <time title="07/03/27" datetime="2027-03-07T19:30:00+00:00">
+									19:30 | 07/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/happydaze-tickets/london-the-grace/2027-03-07-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>MARIANNE BEAULIEU</h2><h3>London - The Grace</h3>
+				                <time title="10/03/27" datetime="2027-03-10T19:00:00+00:00">
+									19:00 | 10/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/marianne-beaulieu-tickets/london-the-grace/2027-03-10-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>NEON FIELDS</h2><h3>London - The Grace</h3>
+				                <time title="11/03/27" datetime="2027-03-11T19:30:00+00:00">
+									19:30 | 11/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/neon-fields-tickets/london-the-grace/2027-03-11-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Hugo Barriol</h2><h3>London - The Grace</h3>
+				                <time title="12/03/27" datetime="2027-03-12T19:00:00+00:00">
+									19:00 | 12/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/hugo-barriol-tickets/london-the-grace/2027-03-12-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Brave Rival</h2><h3>London - The Grace</h3>
+				                <time title="13/03/27" datetime="2027-03-13T19:00:00+00:00">
+									19:00 | 13/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/brave-rival-tickets/london-the-grace/2027-03-13-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Steinza</h2><h3>London - The Grace</h3>
+				                <time title="14/03/27" datetime="2027-03-14T19:30:00+00:00">
+									19:30 | 14/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/steinza-tickets/london-the-grace/2027-03-14-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Lilla Shy</h2><h3>London - The Grace</h3>
+				                <time title="19/03/27" datetime="2027-03-19T19:00:00+00:00">
+									19:00 | 19/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/lilla-shy-tickets/london-the-grace/2027-03-19-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Rob Clamp & The Ashmen</h2><h3>London - The Grace</h3>
+				                <time title="31/03/27" datetime="2027-03-31T19:30:00+01:00">
+									19:30 | 31/03/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+								<a href="#" class="button button-yellow mobile-small" title="" data-toggle="modal" data-target="#event_reminder_modal-79121515922926ac3c63737f7c653607329">
+									<span>
+										<span class="button-title">Tickets on sale <strong>Mon 16th November at 10:00am</strong></span>
+										<span class="button-action">Remind me </span>
+										<a href="#" style="color: #ffcf84; text-decoration: none; position: absolute; right: -20px;" data-toggle="modal" data-target="#remind-privacy"><i class="fas fa-question-circle"></i></a>
+									</span>
+								</a>
+
+								
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Current Swell</h2><h3>London - The Grace</h3>
+				                <time title="14/04/27" datetime="2027-04-14T19:30:00+01:00">
+									19:30 | 14/04/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/current-swell-tickets/london-the-grace/2027-04-14-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Annie Dressner </h2><h3>London - The Grace</h3>
+				                <time title="15/04/27" datetime="2027-04-15T19:30:00+01:00">
+									19:30 | 15/04/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/annie-dressner-tickets/london-the-grace/2027-04-15-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Vic Allen</h2><h3>London - The Grace</h3>
+				                <time title="16/04/27" datetime="2027-04-16T19:00:00+01:00">
+									19:00 | 16/04/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/vic-allen-tickets/london-the-grace/2027-04-16-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Dent May</h2><h3>London - The Grace</h3>
+				                <time title="17/04/27" datetime="2027-04-17T19:00:00+01:00">
+									19:00 | 17/04/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/dent-may-tickets/london-the-grace/2027-04-17-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>REDCHECKS</h2><h3>London - The Grace</h3>
+				                <time title="22/04/27" datetime="2027-04-22T19:30:00+01:00">
+									19:30 | 22/04/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/redchecks-tickets/london-the-grace/2027-04-22-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Lisa LeBlanc</h2><h3>London - The Grace</h3>
+				                <time title="09/05/27" datetime="2027-05-09T19:30:00+01:00">
+									19:30 | 09/05/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/lisa-leblanc-tickets/london-the-grace/2027-05-09-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>Marcus Trummer</h2><h3>London - The Grace</h3>
+				                <time title="20/05/27" datetime="2027-05-20T19:30:00+01:00">
+									19:30 | 20/05/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/marcus-trummer-tickets/london-the-grace/2027-05-20-19-30" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>CASH The American Recordings starring Henry Wagons</h2><h3>London - The Grace</h3>
+				                <time title="29/05/27" datetime="2027-05-29T19:00:00+01:00">
+									19:00 | 29/05/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/henry-wagons-tickets/london-the-grace/2027-05-29-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>NFD - Afterparty</h2><p class="featuring">SPECIAL GUEST DJS: MARTIN OLDGOTH +  DJ BEN + CAROLINE VAIN +  FRANKIE D</p><h3>London - The Grace</h3>
+				                <time title="29/05/27" datetime="2027-05-29T23:00:00+01:00">
+									23:00 | 29/05/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/nfd-tickets/london-the-grace/2027-05-29-23-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		    				<div class="ticket-data parent-col centered col-xs-10 col-sm-8">
+			        <div class="ticket-details-container">
+			            <div class="ticket-details">
+			                <h2>
+			                    <h2>IZARO</h2><h3>London - The Grace</h3>
+				                <time title="13/11/27" datetime="2027-11-13T19:00:00+00:00">
+									19:00 | 13/11/27
+
+									
+
+  								</time>
+			                
+
+			            </div>
+			        </div>
+
+			        					
+					
+			                    <a href="/izaro-tickets/london-the-grace/2027-11-13-19-00" class="button mobile-small" title="Book Tickets">
+			                        <span>Book<br/>tickets</span>
+			                    </a>
+							
+			    </div>
+
+		          
+      
+		
+
+
+
+	<script type="application/ld+json">
+		[{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Lance Roark","url":"https:\/\/www.alttickets.com\/lance-roark-tickets\/london-the-grace\/2026-11-05-19-30","startDate":"2026-11-05T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-05T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"HOW TO DISAPPEAR AND NEVER BE FOUND ","url":"https:\/\/www.alttickets.com\/how-to-disappear-and-never-be-found-tickets\/london-the-grace\/2026-11-07-19-00","startDate":"2026-11-07T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-07T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Fourth World present... Studio 30","url":"https:\/\/www.alttickets.com\/fourth-world-present-studio-30-tickets\/london-the-grace\/2026-11-07-23-00","startDate":"2026-11-07T23:00:00+00:00","doorTime":"23:00","endDate":"2026-11-08T03:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Noah Guthrie","url":"https:\/\/www.alttickets.com\/noah-guthrie-tickets\/london-the-grace\/2026-11-08-19-30","startDate":"2026-11-08T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-08T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"MARIANNE LEIGH","url":"https:\/\/www.alttickets.com\/marianne-leigh-tickets\/london-the-grace\/2026-11-11-19-00","startDate":"2026-11-11T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-11T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Cristina Hart","url":"https:\/\/www.alttickets.com\/cristina-hart-tickets\/london-the-grace\/2026-11-12-19-00","startDate":"2026-11-12T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-12T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Sharp Class","url":"https:\/\/www.alttickets.com\/sharp-class-tickets\/london-the-grace\/2026-11-13-19-00","startDate":"2026-11-13T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-13T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Jewelia","url":"https:\/\/www.alttickets.com\/jewelia-tickets\/london-the-grace\/2026-11-14-19-00","startDate":"2026-11-14T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-14T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Wunder Beta","url":"https:\/\/www.alttickets.com\/wunder-beta-tickets\/london-the-grace\/2026-11-15-18-00","startDate":"2026-11-15T18:00:00+00:00","doorTime":"18:00","endDate":"2026-11-15T21:30:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Edgehill","url":"https:\/\/www.alttickets.com\/edgehill-tickets\/london-the-grace\/2026-11-16-19-00","startDate":"2026-11-16T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-16T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Underdown - EP Release Show","url":"https:\/\/www.alttickets.com\/underdown-tickets\/london-the-grace\/2026-11-18-19-30","startDate":"2026-11-18T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-18T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"8lanco","url":"https:\/\/www.alttickets.com\/8lanco-tickets\/london-the-grace\/2026-11-19-19-00","startDate":"2026-11-19T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-19T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Harry Hudson Taylor","url":"https:\/\/www.alttickets.com\/harry-hudson-taylor-tickets\/london-the-grace\/2026-11-20-19-00","startDate":"2026-11-20T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-20T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"D\u00e9j\u00e0 Vega","url":"https:\/\/www.alttickets.com\/deja-vega-tickets\/london-the-grace\/2026-11-21-19-00","startDate":"2026-11-21T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-21T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"The Rabbitts","url":"https:\/\/www.alttickets.com\/the-rabbitts-tickets\/london-the-grace\/2026-11-22-19-30","startDate":"2026-11-22T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-22T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Handsome Jack","url":"https:\/\/www.alttickets.com\/handsome-jack-tickets\/london-the-grace\/2026-11-23-19-30","startDate":"2026-11-23T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-23T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"TURBOBIER","url":"https:\/\/www.alttickets.com\/turbobier-tickets\/london-the-grace\/2026-11-24-19-30","startDate":"2026-11-24T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-24T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Haunt Me","url":"https:\/\/www.alttickets.com\/haunt-me-tickets\/london-the-grace\/2026-11-25-19-30","startDate":"2026-11-25T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-25T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Ellie Gowers ","url":"https:\/\/www.alttickets.com\/ellie-gowers-tickets\/london-the-grace\/2026-11-26-19-30","startDate":"2026-11-26T19:30:00+00:00","doorTime":"19:30","endDate":"2026-11-26T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"The Publics","url":"https:\/\/www.alttickets.com\/the-publics-tickets\/london-the-grace\/2026-11-27-19-00","startDate":"2026-11-27T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-27T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Blair Dunlop","url":"https:\/\/www.alttickets.com\/blair-dunlop-tickets\/london-the-grace\/2026-11-28-19-00","startDate":"2026-11-28T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-28T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Marielle Kraft","url":"https:\/\/www.alttickets.com\/marielle-kraft-tickets\/london-the-grace\/2026-11-29-19-00","startDate":"2026-11-29T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-29T22:30:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"LARA BUCHANAN","url":"https:\/\/www.alttickets.com\/lara-buchanan-tickets\/london-the-grace\/2026-11-30-19-00","startDate":"2026-11-30T19:00:00+00:00","doorTime":"19:00","endDate":"2026-11-30T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Deja Vu","url":"https:\/\/www.alttickets.com\/deja-vu-tickets\/london-the-grace\/2026-12-01-19-00","startDate":"2026-12-01T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-01T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Trixie Whitley","url":"https:\/\/www.alttickets.com\/trixie-whitley-tickets\/london-the-grace\/2026-12-02-19-30","startDate":"2026-12-02T19:30:00+00:00","doorTime":"19:30","endDate":"2026-12-02T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Magnetic Skies","url":"https:\/\/www.alttickets.com\/magnetic-skies-tickets\/london-the-grace\/2026-12-03-19-00","startDate":"2026-12-03T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-03T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Rare\u015f","url":"https:\/\/www.alttickets.com\/rares-tickets\/london-the-grace\/2026-12-04-19-30","startDate":"2026-12-04T19:30:00+00:00","doorTime":"19:30","endDate":"2026-12-04T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"TEZ","url":"https:\/\/www.alttickets.com\/tez-tickets\/london-the-grace\/2026-12-05-19-00","startDate":"2026-12-05T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-05T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Merkules","url":"https:\/\/www.alttickets.com\/merkules-tickets\/london-the-grace\/2026-12-06-20-00","startDate":"2026-12-06T20:00:00+00:00","doorTime":"20:00","endDate":"2026-12-06T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"MAUVEY","url":"https:\/\/www.alttickets.com\/mauvey-tickets\/london-the-grace\/2026-12-07-19-00","startDate":"2026-12-07T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-07T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Connolly Hayes","url":"https:\/\/www.alttickets.com\/connolly-hayes-tickets\/london-the-grace\/2026-12-08-19-00","startDate":"2026-12-08T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-08T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"L\u2019OBJECTIF","url":"https:\/\/www.alttickets.com\/l-objectif-tickets\/london-the-grace\/2026-12-09-19-30","startDate":"2026-12-09T19:30:00+00:00","doorTime":"19:30","endDate":"2026-12-09T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Al Cologne","url":"https:\/\/www.alttickets.com\/al-cologne-tickets\/london-the-grace\/2026-12-10-19-00","startDate":"2026-12-10T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-10T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Chris Boldt","url":"https:\/\/www.alttickets.com\/chris-boldt-tickets\/london-the-grace\/2026-12-11-19-00","startDate":"2026-12-11T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-11T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Sam the Zoologist","url":"https:\/\/www.alttickets.com\/sam-the-zoologist-tickets\/london-the-grace\/2026-12-12-18-00","startDate":"2026-12-12T18:00:00+00:00","doorTime":"18:00","endDate":"2026-12-12T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"An Evening with Mary Spender","url":"https:\/\/www.alttickets.com\/an-evening-with-mary-spender-tickets\/london-the-grace\/2026-12-14-19-00","startDate":"2026-12-14T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-14T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Chase Petra","url":"https:\/\/www.alttickets.com\/chase-petra-tickets\/london-the-grace\/2026-12-20-19-00","startDate":"2026-12-20T19:00:00+00:00","doorTime":"19:00","endDate":"2026-12-20T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"New Voices Vault: Rachel Newnham + Carlton + Charlie Baker","url":"https:\/\/www.alttickets.com\/new-voices-vault-rachel-newnham-carlton-charlie-baker-tickets\/london-the-grace\/2027-01-06-19-00","startDate":"2027-01-06T19:00:00+00:00","doorTime":"19:00","endDate":"2027-01-06T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"The Pink Stones","url":"https:\/\/www.alttickets.com\/the-pink-stones-tickets\/london-the-grace\/2027-01-13-19-30","startDate":"2027-01-13T19:30:00+00:00","doorTime":"19:30","endDate":"2027-01-13T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"THE JONES","url":"https:\/\/www.alttickets.com\/the-jones-tickets\/london-the-grace\/2027-01-15-19-00","startDate":"2027-01-15T19:00:00+00:00","doorTime":"19:00","endDate":"2027-01-15T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"The Steepwater Band","url":"https:\/\/www.alttickets.com\/the-steepwater-band-tickets\/london-the-grace\/2027-01-16-19-00","startDate":"2027-01-16T19:00:00+00:00","doorTime":"19:00","endDate":"2027-01-16T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Nickless","url":"https:\/\/www.alttickets.com\/nickless-tickets\/london-the-grace\/2027-01-19-19-30","startDate":"2027-01-19T19:30:00+00:00","doorTime":"19:30","endDate":"2027-01-19T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Caleb Caudle","url":"https:\/\/www.alttickets.com\/caleb-caudle-tickets\/london-the-grace\/2027-01-20-19-30","startDate":"2027-01-20T19:30:00+00:00","doorTime":"19:30","endDate":"2027-01-20T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"TOM HIGH","url":"https:\/\/www.alttickets.com\/tom-high-tickets\/london-the-grace\/2027-01-30-19-00","startDate":"2027-01-30T19:00:00+00:00","doorTime":"19:00","endDate":"2027-01-30T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"myohmy","url":"https:\/\/www.alttickets.com\/myohmy-tickets\/london-the-grace\/2027-02-03-19-30","startDate":"2027-02-03T19:30:00+00:00","doorTime":"19:30","endDate":"2027-02-03T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"A Lesser Version","url":"https:\/\/www.alttickets.com\/a-lesser-version-tickets\/london-the-grace\/2027-02-05-19-00","startDate":"2027-02-05T19:00:00+00:00","doorTime":"19:00","endDate":"2027-02-05T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"DALIA","url":"https:\/\/www.alttickets.com\/dalia-tickets\/london-the-grace\/2027-02-11-19-00","startDate":"2027-02-11T19:00:00+00:00","doorTime":"19:00","endDate":"2027-02-11T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Annie Omalley","url":"https:\/\/www.alttickets.com\/annie-omalley-tickets\/london-the-grace\/2027-02-18-19-30","startDate":"2027-02-18T19:30:00+00:00","doorTime":"19:30","endDate":"2027-02-18T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"EVILLE","url":"https:\/\/www.alttickets.com\/eville-tickets\/london-the-grace\/2027-02-20-19-00","startDate":"2027-02-20T19:00:00+00:00","doorTime":"19:00","endDate":"2027-02-20T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Daisy Peacock","url":"https:\/\/www.alttickets.com\/daisy-peacock-tickets\/london-the-grace\/2027-03-03-19-30","startDate":"2027-03-03T19:30:00+00:00","doorTime":"19:30","endDate":"2027-03-03T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"happydaze","url":"https:\/\/www.alttickets.com\/happydaze-tickets\/london-the-grace\/2027-03-07-19-30","startDate":"2027-03-07T19:30:00+00:00","doorTime":"19:30","endDate":"2027-03-07T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"MARIANNE BEAULIEU","url":"https:\/\/www.alttickets.com\/marianne-beaulieu-tickets\/london-the-grace\/2027-03-10-19-00","startDate":"2027-03-10T19:00:00+00:00","doorTime":"19:00","endDate":"2027-03-10T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"NEON FIELDS","url":"https:\/\/www.alttickets.com\/neon-fields-tickets\/london-the-grace\/2027-03-11-19-30","startDate":"2027-03-11T19:30:00+00:00","doorTime":"19:30","endDate":"2027-03-11T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Hugo Barriol","url":"https:\/\/www.alttickets.com\/hugo-barriol-tickets\/london-the-grace\/2027-03-12-19-00","startDate":"2027-03-12T19:00:00+00:00","doorTime":"19:00","endDate":"2027-03-12T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Brave Rival","url":"https:\/\/www.alttickets.com\/brave-rival-tickets\/london-the-grace\/2027-03-13-19-00","startDate":"2027-03-13T19:00:00+00:00","doorTime":"19:00","endDate":"2027-03-13T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Steinza","url":"https:\/\/www.alttickets.com\/steinza-tickets\/london-the-grace\/2027-03-14-19-30","startDate":"2027-03-14T19:30:00+00:00","doorTime":"19:30","endDate":"2027-03-14T23:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Lilla Shy","url":"https:\/\/www.alttickets.com\/lilla-shy-tickets\/london-the-grace\/2027-03-19-19-00","startDate":"2027-03-19T19:00:00+00:00","doorTime":"19:00","endDate":"2027-03-19T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Rob Clamp & The Ashmen","url":"https:\/\/www.alttickets.com\/rob-clamp-the-ashmen-tickets\/london-the-grace\/2027-03-31-19-30","startDate":"2027-03-31T19:30:00+01:00","doorTime":"19:30","endDate":"2027-03-31T23:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Current Swell","url":"https:\/\/www.alttickets.com\/current-swell-tickets\/london-the-grace\/2027-04-14-19-30","startDate":"2027-04-14T19:30:00+01:00","doorTime":"19:30","endDate":"2027-04-14T23:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Annie Dressner ","url":"https:\/\/www.alttickets.com\/annie-dressner-tickets\/london-the-grace\/2027-04-15-19-30","startDate":"2027-04-15T19:30:00+01:00","doorTime":"19:30","endDate":"2027-04-15T23:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Vic Allen","url":"https:\/\/www.alttickets.com\/vic-allen-tickets\/london-the-grace\/2027-04-16-19-00","startDate":"2027-04-16T19:00:00+01:00","doorTime":"19:00","endDate":"2027-04-16T22:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Dent May","url":"https:\/\/www.alttickets.com\/dent-may-tickets\/london-the-grace\/2027-04-17-19-00","startDate":"2027-04-17T19:00:00+01:00","doorTime":"19:00","endDate":"2027-04-17T22:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"REDCHECKS","url":"https:\/\/www.alttickets.com\/redchecks-tickets\/london-the-grace\/2027-04-22-19-30","startDate":"2027-04-22T19:30:00+01:00","doorTime":"19:30","endDate":"2027-04-22T23:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Lisa LeBlanc","url":"https:\/\/www.alttickets.com\/lisa-leblanc-tickets\/london-the-grace\/2027-05-09-19-30","startDate":"2027-05-09T19:30:00+01:00","doorTime":"19:30","endDate":"2027-05-09T23:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"Marcus Trummer","url":"https:\/\/www.alttickets.com\/marcus-trummer-tickets\/london-the-grace\/2027-05-20-19-30","startDate":"2027-05-20T19:30:00+01:00","doorTime":"19:30","endDate":"2027-05-20T23:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"CASH The American Recordings starring Henry Wagons","url":"https:\/\/www.alttickets.com\/henry-wagons-tickets\/london-the-grace\/2027-05-29-19-00","startDate":"2027-05-29T19:00:00+01:00","doorTime":"19:00","endDate":"2027-05-29T22:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"NFD - Afterparty","url":"https:\/\/www.alttickets.com\/nfd-tickets\/london-the-grace\/2027-05-29-23-00","startDate":"2027-05-29T23:00:00+01:00","doorTime":"23:00","endDate":"2027-05-29T00:00:00+01:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}},{"@context":"http:\/\/schema.org","@type":"MusicEvent","name":"IZARO","url":"https:\/\/www.alttickets.com\/izaro-tickets\/london-the-grace\/2027-11-13-19-00","startDate":"2027-11-13T19:00:00+00:00","doorTime":"19:00","endDate":"2027-11-13T22:00:00+00:00","location":{"@type":"Place","name":"The Grace","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"}}}]	</script>
+
+	
+
+
+
+
+
+<style>
+    .view_options{text-align: right; margin-bottom: 20px;}
+    .view_option_button{background-color: #a1d0ca; padding:5px 10px; color: #FFFAEB; opacity: 0.75; }
+    .view_option_button_selected{opacity:1;}
+    .view_option_button:hover{color: #FFF; }
+    
+    
+    .cal_table{width: 100%; border-spacing: 5px; border-collapse: separate;}
+    .cal_table .button{width: auto!important;}
+    .cal_table a > span.hidden-xs{font-size: 10pt!important;}
+    .cal_table tr td, .cal_table tr th {width:14.28%!important; min-height: 40px; background-color: #FFEBC2; padding:5px 5px 10px 5px;  }
+    .calendar_event{text-align: center;}
+    
+    .cal_info{display: block; margin:0px; padding-bottom: 2px;}
+    .ev_cal_venue, .ev_cal_location, .ev_cal_time{font-size: 0.7em!important;}
+    .day_number_event {
+        background-color: #57475E!important;
+    }
+    .badge {
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777;
+        border-radius: 10px;
+    }
+    #month_selection{margin:30px 0px;}
+
+    .calendar_event ~ .calendar_event{margin-top: 10px; border-top: solid 3px #FFFAEB; padding-top: 10px}
+
+
+
+    .active_event_row, .inactive_event_row {border-bottom:solid 1px #EEE; padding:20px 0px;}
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+       
+        .cal_days, .nodate, .no_event_cell {display: none;}
+        .month {text-align: center;}
+        .event_cell {float:left!important; text-align: center;}
+
+        .cal_table{ border-collapse: collapse;}
+        .cal_table tr td, cal_table tr th {
+            border-right: solid 1px #EEE;
+            border-left: solid 1px #EEE;
+            width:100%!important;
+        }
+
+    }
+    
+    </style>
+
+                </div>
+            </div>
+        </div>
+        <div class="information venue">
+            <div class="container">
+                <div class="row">
+                    <div class="col-right clearfix col-xs-10 col-xs-offset-1 col-sm-6 col-sm-pull-1">
+                        <article>
+                        	 <h2 class='d2dtitle'>Venue Information:</h2><p>The newly refurbished pub is a cosy meeting spot for locals, gig-goers and musos alike, offering a strong selection of drinks, one of the only late licenses in the area and an exciting calendar of DJ nights, regular music quizzes and comedy.<br />
+<br />
+Upstairs you’ll find our historic music venue with an exciting schedule of the best upcoming bands and fun, free late night parties.<br />
+<br />
+The venue is at 20-22 Highbury Corner, at the beginning of Holloway Road, opposite Highbury & Islington tube station, N5 1RD.<br />
+<br />
+Open Mon-Thurs 6pm-2am / Fri & Sat 6pm-4am</p><br><br><h2 class='d2dtitle'>Accessibility information:</h2><p><html><br />
+For accessibility information please contact the venue on 020 7619 6721 or <a href="http://http://thegaragehighbury.com/venue-info/accessibility/"><u>click here</u>.</a><br />
+<br />
+To arrange an essential companion ticket, please book a standard entry ticket and then email proof of eligibility through to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a5a7a7a1b7b784a5a8b0b0ada7afa1b0b7eaa7aba9">[email&#160;protected]</a>. Any of the below are accepted, in addition we will review an application without these forms of evidence on a case-by-case basis. <br />
+•	Front page of DLA / PIP<br />
+•	Front page of Attendance Allowance letter <br />
+•	Evidence that registered severely sight impaired<br />
+•	Recognised Assistance Dog ID card<br />
+• Access Card<br />
+<br />
+Once your request has been received and approved we will email you back with further information as to how your essential companion ticket will be issued<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></p>							                         </article>
+                    </div>
+                    <div class="excerpts col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-1">
+                        <article>
+                            <h3 class='d2dtitle'>Venue Address:</h3><p>The Grace<br/>The Grace<br/>20-22 Highbury Corner<br/>London<br/>N5 1RD<br/></p>                        </article>
+                    </div>
+                </div>
+                <div class="sprinkles yellow-bottom"></div>
+            </div>
+        </div>
+
+
+				<div class="newsletter turquoise-bg">
+            <div class="container">
+                <object type="image/svg+xml" data="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/email_icon.svg">
+                    <img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/email_icon.png" title="Newsletter">
+                </object>
+                <h3>Get the latest gigs and events straight to your inbox</h3>
+                <a class="cta" href="https://www.alttickets.com/email/subscribe" title="">
+                    <span>Sign up</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 17">
+                        <path d="M11 8.46L2.35 0 0 2.3l6.34 6.2L0 14.7 2.35 17 11 8.54l-.04-.04.04-.04z"
+                              class="svg--arrow"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <footer class="site-footer lilac-bg">
+            <div class="panel container">
+                <div class="row">
+                    <div class="parent-col col-xs-10 col-xs-offset-1">
+                        <div class="parent-col clearfix col-sm-4">
+                            <div class="logo-and-social parent-col col-xs-12">
+                                <div class="footer-logo col-xs-6">
+                                    <!--<a href="https://www.alttickets.com" title="alt. tickets">
+                                        <object type="image/svg+xml" data="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/logos/alt_logo_yellow.svg">
+                                           <img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/logos/alt_logo_yellow.png" alt="alt"/>
+                                        </object>
+                                    </a>-->
+                                     <a href="https://www.alttickets.com" title="alt. tickets">
+                                     	<img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/logos/alt_logo_yellow.png" alt="alt"/>
+                                     </a>
+                                </div>
+                                <div class="social-icons inline">
+                                    <a class="social-icon twitter" href="https://twitter.com/alttickets"
+                                       title="twitter" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 29">
+                                            <path d="M31.42 7.22v.95C31.44 17.84 24.22 29 11 29a20 20 0 0 1-11-3.29 14.86 14.86 0 0 0 1.71.1 14.21 14.21 0 0 0 8.92-3.13 7.21 7.21 0 0 1-6.71-5.08 7.24 7.24 0 0 0 1.35.13 7.11 7.11 0 0 0 1.89-.26 7.3 7.3 0 0 1-5.76-7.18v-.09a7.06 7.06 0 0 0 3.25.91 7.43 7.43 0 0 1-2.21-9.77A20.25 20.25 0 0 0 17.24 9a7.51 7.51 0 0 1-.19-1.67A7.25 7.25 0 0 1 24.23 0a7.11 7.11 0 0 1 5.24 2.31A14.16 14.16 0 0 0 34 .53a7.32 7.32 0 0 1-3.16 4.05A14.12 14.12 0 0 0 35 3.43a14.72 14.72 0 0 1-3.58 3.79z"
+                                                  class="svg--twitter"></path>
+                                        </svg>
+                                    </a>
+                                    <a class="social-icon facebook" href="https://www.facebook.com/alttickets"
+                                       title="facebook" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.27 35">
+                                            <path d="M15.63 17.51h-4.9V35H3.46V17.51H0v-6.18h3.46v-4C3.46 4.47 4.82 0 10.79 0h5.38v6h-3.9a1.48 1.48 0 0 0-1.55 1.7v3.63h5.54z"
+                                                  class="svg--facebook"></path>
+                                        </svg>
+                                    </a>
+                                    <a class="social-icon instagram" href="http://instagram.com/alttickets"
+                                       title="instagram" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35">
+                                            <path d="M0 31.45V3.55c0-.08.05-.15.07-.23A4 4 0 0 1 3.13.11L3.55 0h27.9l.19.06a4 4 0 0 1 3.25 3.06l.11.43v27.9a2 2 0 0 0-.07.23 4 4 0 0 1-3.13 3.24l-.35.08H3.55a1.36 1.36 0 0 0-.19-.06 4 4 0 0 1-3.26-3.1c-.03-.13-.1-.26-.1-.39zm4-16.63v14.72A1.36 1.36 0 0 0 5.51 31h24A1.37 1.37 0 0 0 31 29.45V14.83h-3a10.59 10.59 0 0 1-1.83 9.11 10.39 10.39 0 0 1-8.24 4.3 10.2 10.2 0 0 1-7.51-2.71A10.66 10.66 0 0 1 7 14.82H4zm20.19 2.69a6.73 6.73 0 1 0-6.75 6.72 6.73 6.73 0 0 0 6.79-6.72zM27.62 4h-1.95a1.34 1.34 0 0 0-1.44 1.39v4a1.32 1.32 0 0 0 1.38 1.38h4A1.34 1.34 0 0 0 31 9.33V5.47A1.36 1.36 0 0 0 29.53 4h-1.91z"
+                                                  class="svg--instagram"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <ul>
+                                    <li><a href="https://www.alttickets.com/about-us" title="About Us">About Us</a></li>
+                                    <li><a href="https://www.alttickets.com/faqs" title="FAQs">FAQs</a></li>
+                                    <li><a href="https://www.alttickets.com/terms-and-conditions" title="Terms">Terms</a></li>
+                                    <li><a href="https://www.alttickets.com/contact" title="Contact">Contact</a></li>
+                                   	<li><a href="https://www.alttickets.com/listings" title="Gig guide">Gig guide</a></li>
+                                   	<li><a href="https://www.alttickets.com/privacy-policy" title="privacy">Privacy</a></li>
+
+                                </ul>
+
+                            </div>
+                            <div class="col-xs-6">
+                                <ul>
+
+                                    <li><a href="https://www.alttickets.com/gift-certificate" title="Gift Certificates">Gift Certificates</a></li>
+                                    <li><a href="https://www.alttickets.com/dont-miss" title="Venues">Don't Miss</a></li>
+                                    <li><a href="https://www.alttickets.com/regions" title="Location">Location</a></li>
+                                    <li><a href="https://www.alttickets.com/festivals" title="Festivals">Festivals</a></li>
+                                    <li><a href="https://www.alttickets.com/venues" title="Venues">Venues</a></li>
+                                    <li>&nbsp;</li>
+
+                                </ul>
+
+                            </div>
+
+
+
+	                         <div class="col-xs-6">
+								<a href="http://www.star.org.uk/" title="STAR"><img class="star-logo" src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/logos/star_logo@2x.png" title="Star | Buy with confidence"/></a>
+	                         </div>
+
+	                         <div class="col-xs-6">
+ 								<a href="http://fanfairalliance.org/" title="Fanfair"><img class="star-logo" src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/logos/funfair2.png" title="Fanfair"/></a>
+	                         </div>
+
+
+
+
+
+
+                        </div>
+                        <div class="desktop-quick-links parent-col col-sm-5 col-sm-offset-3">
+                            <div class="col-sm-6">
+                                <h4>Don't miss</h4>
+                                 <ul>
+                                																												<li><a href="/ok-go-tickets" title="OK Go">OK Go</a></li>
+																				<li><a href="/kim-wilde-tickets" title="Kim Wilde">Kim Wilde</a></li>
+																				<li><a href="/seasick-steve-tickets" title="Seasick Steve">Seasick Steve</a></li>
+																				<li><a href="/richard-thompson-tickets" title="Richard Thompson">Richard Thompson</a></li>
+																		                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Top Sellers</h4>
+                                <ul>
+                                    																													<li><a href="/belinda-carlisle-tickets" title="Belinda Carlisle">Belinda Carlisle</a></li>
+																				<li><a href="/james-blunt-tickets" title="James Blunt">James Blunt</a></li>
+																				<li><a href="/the-cinematic-orchestra-tickets" title="The Cinematic Orchestra">The Cinematic Orchestra</a></li>
+																				<li><a href="/fat-dog-tickets" title="Fat Dog">Fat Dog</a></li>
+																				<li><a href="/spanish-love-songs-tickets" title="Spanish Love Songs">Spanish Love Songs</a></li>
+																		                                </ul>
+                            </div>
+                            <div class="col-sm-12">
+                                <small>&#169; 2026 DHP Family Ltd. All rights reserved.<br>Boxoffice services provided
+                                    by
+                                                                     	   Gigantic.
+                                    
+                                </small>
+                                <a class="footer-dhp-logo" href="" title="">
+                                    <object type="image/svg+xml" data="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/logos/dhp_logo.svg">
+                                        <img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/logos/dhp_logo.png" alt="DHP"/>
+                                    </object>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>-->
+    <script type="text/javascript" src="https://alttickets-9a2.kxcdn.com/static_alt_tickets/js/slick.min.js"></script>
+    <script type="text/javascript" src="https://alttickets-9a2.kxcdn.com/static_alt_tickets/js/jquery.selectric.min.js"></script>
+    <script type="text/javascript" src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/javascript/app.js"></script>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/compatibility.min.js"></script>
+    <![endif]-->
+
+
+    
+				<div class="modal fade event_reminder_modal" id="event_reminder_modal-79121515922926ac3c63737f7c653607329" tabindex="-1" role="dialog" aria-labelledby="event_reminder_modal-79121515922926ac3c63737f7c653607329Label" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div id="event_reminder" class="text-center">
+									<form action="https://www.alttickets.com/call_backs/insert_event_reminder.php" method="post" class="form-horizontal event_reminder_form">
+										<input type="hidden" value="n" name="s"/>
+										<input type="hidden" value="79121515922926ac3c63737f7c653607329" name="c_id"/>
+										<input name="name" value="" type="text" id="name" />
+										<input name="rdt" value="aHR0cHM6Ly93d3cuYWx0dGlja2V0cy5jb20vdmVudWUvbG9uZG9uL3RoZS1ncmFjZQ==" type="hidden" />
+										<input name="s_check" value="6494911a79b9d7d0aba858e968d7e499397d630d" type="hidden" id="spam_checker" />
+										<input type="hidden" name="event_id" value="79121515922926ac3c63737f7c653607329"/>
+										
+										<div class="col-sm-12">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													
+														<div class="pull-right">
+															<a href="#" class="close" data-dismiss="modal"><img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/close.png" width="40" /></a>
+														</div>
+													<h4 class="panel-title event_reminder_title">Event Reminder <span id="eventremind-btn"><i class="fas fa-question-circle"></i></span></h4>
+
+
+												</div>
+
+
+												  <div id="eventremind">
+												  	 <p>
+														We&#39;ll use this information to send you a reminder when this show goes on sale, via your chosen method(s). This will be a one-off message.
+														</p>
+														<p>
+														If you choose to opt-in to receive updates from alt. tickets, we&#39;ll use your information to keep you up to date on gigs, presales, competitions and more.
+														</p>
+														<p>
+														For more details, click here to view our <a href="https://www.alttickets.com/privacy-policy" target="_blank">privacy policy.</a>
+														</p>
+														<hr>
+												  </div>
+												  <style>
+												  	#eventremind {display: none;}
+												  </style>
+												  <script>
+													$(document).ready(function(){
+													    $("#eventremind-btn").click(function(){
+													        $("#eventremind").toggle();
+													    });
+													});
+												  </script>
+
+
+												<div class="panel-body">
+													<p>Enter your details here if you would like us to send you a reminder shortly before these Rob Clamp & The Ashmen tickets go on sale, we can send you an email or text message (or both)</p>
+													<hr>
+													<div class="alert alert-warning er_email_error" style="display:none;"><span class="glyphicon glyphicon-alert"></span> Please enter your details below:</div>
+													<div class="form-group  ">
+				<label class="control-label col-sm-4" for="email_field">Email</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+						<input
+							type="email"
+							class="form-control"
+							name="email_address"
+							id="email_field"
+							aria-describedby="email_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<br><label><input type="checkbox" name="newsletter" value="1"  /> Also sign me up to the alt. tickets weekly newsletter</label><br><hr><div class="form-group  ">
+				<label class="control-label col-sm-4" for="phone_field">Phone</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+						<input
+							type="text"
+							class="form-control"
+							name="phone_number"
+							id="phone_field"
+							aria-describedby="phone_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<br><br>
+													<div class="row">
+														<!--<div class="col-xs-12 col-sm-12 col-md-6">
+															<div id="rc79121515922926ac3c63737f7c653607329" class="g-recaptcha" data-sitekey="6LdVWhsTAAAAAH92B02AYnkNuDVABcVZ2B8A2bY2" data-callback="allowReminder"></div>
+														</div>-->
+														<div class="col-xs-12 col-sm-12 col-md-12">
+															<input type="submit" value="Continue" class="btn btn-lg btn-info event_reminder_email_submit button pull-right" />
+														</div>
+													</div>
+
+
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+								</div>
+
+							</div>
+
+							<div class="clearfix"></div>
+
+							
+
+						</div>
+					</div>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="remind-privacy" tabindex="-1" role="dialog" aria-labelledby="remind-privacyLabel">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-body">
+      					<h4 style="color: #000;">Reminders</h4>
+						<p>We'll use this information to send you a reminder when this show goes on sale, via your chosen method(s). This will be a one-off message.</p>
+
+						<p>If you choose to opt-in to receive updates from alt. tickets, we'll use your information to keep you up to date on gigs, presales, competitions and more.</p>
+
+						<p>For more details, click here to view our <a href="https://www.alttickets.com/privacy-policy" target="_blank">privacy policy</a>.</p>
+					  </div>
+					  <div class="modal-footer clearfix">
+						<button type="button" class="button pull-right" data-dismiss="modal" style="height: 60px; padding-left: 30px; padding-right: 30px;">Close</button>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			
+			<div class="modal fade waiting_list_modal" id="waiting_list_modal-78938364989286aa7d3e1d9f63548584831" tabindex="-1" role="dialog" aria-labelledby="waiting_list_modal-78938364989286aa7d3e1d9f63548584831Label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div id="event_reminder" class="text-center">
+								<form action="https://www.alttickets.com/call_backs/waiting_list_sign_up.php" method="post" class="form-horizontal waiting_list_form">
+									<input type="hidden" value="n" name="s"/>
+									<input name="name" value="" type="text" id="name" />
+									<input name="rdt" value="aHR0cHM6Ly93d3cuYWx0dGlja2V0cy5jb20vdmVudWUvbG9uZG9uL3RoZS1ncmFjZQ==" type="hidden" />
+									<input name="s_check" value="6494911a79b9d7d0aba858e968d7e499397d630d" type="hidden" id="spam_checker" />
+									
+											<div class="pull-right">
+												<a href="#" class="close" data-dismiss="modal"><img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/close.png" width="40" /></a>
+											</div>
+										
+									<div class="clearfix"></div>
+									<h4 class="panel-title event_reminder_title">Artist Reminders <span id="waitremind-btn-78938364989286aa7d3e1d9f63548584831"><i class="fas fa-question-circle"></i></span></h4>
+									 <div id="waitremind-78938364989286aa7d3e1d9f63548584831">
+										 <p>If you sign-up to receive messages from our Artist Reminders service, we’ll contact you about tickets that become available for sold out shows, tell you about future concerts with this artist, and keep you in the loop with any of their festival appearances near you. If we have tickets for your favourite artists, you’ll be sure to hear about it from us!</p>
+
+										<p>When you sign-up for Artist Reminders, you are exclusively opting into hearing about tickets for the artist you have signed up with. You won’t hear about other great events we have tickets for unless you choose to opt-in to other services and you’ll be able to opt out of hearing about this artist at any point.</p>
+ 
+										<p>If you do also choose to opt-in to receive updates from alt. tickets, that’s great! We’ll use your information to keep you up to date on gigs in your area, exclusive presales, competitions and more.</p>
+											<hr>
+									  </div>
+									  <style>
+										#waitremind-78938364989286aa7d3e1d9f63548584831 {display: none;}
+									  </style>
+									  <script>
+										$(document).ready(function(){
+											$("#waitremind-btn-78938364989286aa7d3e1d9f63548584831").click(function(){
+												$("#waitremind-78938364989286aa7d3e1d9f63548584831").toggle();
+											});
+										});
+									  </script>
+
+									<br><p>Be the first to know when tickets become available for this artist.</p>
+ 									<p>We’ll let you know right away if more tickets become available for sold out shows, tell you about future concerts with this artist, and keep you in the loop with any of their festival appearances.</p>
+									<p>Please provide us with an email address and/or phone number and we can keep you in the loop about this artist.</p>
+									<div class="alert alert-warning er_email_error" style="display:none;"><span class="glyphicon glyphicon-alert"></span> Please enter a valid email address</div>
+									<input type="hidden" name="event_id" value="78938364989286aa7d3e1d9f63548584831"/>
+
+									<div class="form-group  ">
+				<label class="control-label col-sm-4" for="email_field">Email</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+						<input
+							type="email"
+							class="form-control"
+							name="email_address"
+							id="email_field"
+							aria-describedby="email_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<br><label><input type="checkbox" name="newsletter" value="1"  /> Also sign me up to hear more from alt. tickets about similar events.</label><br><hr><div class="form-group  ">
+				<label class="control-label col-sm-4" for="phone_field">Phone</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+						<input
+							type="text"
+							class="form-control"
+							name="phone_number"
+							id="phone_field"
+							aria-describedby="phone_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<hr>
+									<br>
+									<div class="center-block">
+										<input type="submit" value="Continue" class="btn btn-lg btn-warning button center-block" />
+									</div>
+
+								</form>
+
+							</div>
+
+
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+			<div class="modal fade waiting_list_modal" id="waiting_list_modal-77929676340366a0de9fb6288c058847243" tabindex="-1" role="dialog" aria-labelledby="waiting_list_modal-77929676340366a0de9fb6288c058847243Label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div id="event_reminder" class="text-center">
+								<form action="https://www.alttickets.com/call_backs/waiting_list_sign_up.php" method="post" class="form-horizontal waiting_list_form">
+									<input type="hidden" value="n" name="s"/>
+									<input name="name" value="" type="text" id="name" />
+									<input name="rdt" value="aHR0cHM6Ly93d3cuYWx0dGlja2V0cy5jb20vdmVudWUvbG9uZG9uL3RoZS1ncmFjZQ==" type="hidden" />
+									<input name="s_check" value="6494911a79b9d7d0aba858e968d7e499397d630d" type="hidden" id="spam_checker" />
+									
+											<div class="pull-right">
+												<a href="#" class="close" data-dismiss="modal"><img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/close.png" width="40" /></a>
+											</div>
+										
+									<div class="clearfix"></div>
+									<h4 class="panel-title event_reminder_title">Artist Reminders <span id="waitremind-btn-77929676340366a0de9fb6288c058847243"><i class="fas fa-question-circle"></i></span></h4>
+									 <div id="waitremind-77929676340366a0de9fb6288c058847243">
+										 <p>If you sign-up to receive messages from our Artist Reminders service, we’ll contact you about tickets that become available for sold out shows, tell you about future concerts with this artist, and keep you in the loop with any of their festival appearances near you. If we have tickets for your favourite artists, you’ll be sure to hear about it from us!</p>
+
+										<p>When you sign-up for Artist Reminders, you are exclusively opting into hearing about tickets for the artist you have signed up with. You won’t hear about other great events we have tickets for unless you choose to opt-in to other services and you’ll be able to opt out of hearing about this artist at any point.</p>
+ 
+										<p>If you do also choose to opt-in to receive updates from alt. tickets, that’s great! We’ll use your information to keep you up to date on gigs in your area, exclusive presales, competitions and more.</p>
+											<hr>
+									  </div>
+									  <style>
+										#waitremind-77929676340366a0de9fb6288c058847243 {display: none;}
+									  </style>
+									  <script>
+										$(document).ready(function(){
+											$("#waitremind-btn-77929676340366a0de9fb6288c058847243").click(function(){
+												$("#waitremind-77929676340366a0de9fb6288c058847243").toggle();
+											});
+										});
+									  </script>
+
+									<br><p>Be the first to know when tickets become available for this artist.</p>
+ 									<p>We’ll let you know right away if more tickets become available for sold out shows, tell you about future concerts with this artist, and keep you in the loop with any of their festival appearances.</p>
+									<p>Please provide us with an email address and/or phone number and we can keep you in the loop about this artist.</p>
+									<div class="alert alert-warning er_email_error" style="display:none;"><span class="glyphicon glyphicon-alert"></span> Please enter a valid email address</div>
+									<input type="hidden" name="event_id" value="77929676340366a0de9fb6288c058847243"/>
+
+									<div class="form-group  ">
+				<label class="control-label col-sm-4" for="email_field">Email</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+						<input
+							type="email"
+							class="form-control"
+							name="email_address"
+							id="email_field"
+							aria-describedby="email_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<br><label><input type="checkbox" name="newsletter" value="1"  /> Also sign me up to hear more from alt. tickets about similar events.</label><br><hr><div class="form-group  ">
+				<label class="control-label col-sm-4" for="phone_field">Phone</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+						<input
+							type="text"
+							class="form-control"
+							name="phone_number"
+							id="phone_field"
+							aria-describedby="phone_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<hr>
+									<br>
+									<div class="center-block">
+										<input type="submit" value="Continue" class="btn btn-lg btn-warning button center-block" />
+									</div>
+
+								</form>
+
+							</div>
+
+
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+			<div class="modal fade waiting_list_modal" id="waiting_list_modal-79248673766806ad72d51a3175493610348" tabindex="-1" role="dialog" aria-labelledby="waiting_list_modal-79248673766806ad72d51a3175493610348Label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div id="event_reminder" class="text-center">
+								<form action="https://www.alttickets.com/call_backs/waiting_list_sign_up.php" method="post" class="form-horizontal waiting_list_form">
+									<input type="hidden" value="n" name="s"/>
+									<input name="name" value="" type="text" id="name" />
+									<input name="rdt" value="aHR0cHM6Ly93d3cuYWx0dGlja2V0cy5jb20vdmVudWUvbG9uZG9uL3RoZS1ncmFjZQ==" type="hidden" />
+									<input name="s_check" value="6494911a79b9d7d0aba858e968d7e499397d630d" type="hidden" id="spam_checker" />
+									
+											<div class="pull-right">
+												<a href="#" class="close" data-dismiss="modal"><img src="https://alttickets-9a2.kxcdn.com/templates_alt_tickets/v2/images/icons/close.png" width="40" /></a>
+											</div>
+										
+									<div class="clearfix"></div>
+									<h4 class="panel-title event_reminder_title">Artist Reminders <span id="waitremind-btn-79248673766806ad72d51a3175493610348"><i class="fas fa-question-circle"></i></span></h4>
+									 <div id="waitremind-79248673766806ad72d51a3175493610348">
+										 <p>If you sign-up to receive messages from our Artist Reminders service, we’ll contact you about tickets that become available for sold out shows, tell you about future concerts with this artist, and keep you in the loop with any of their festival appearances near you. If we have tickets for your favourite artists, you’ll be sure to hear about it from us!</p>
+
+										<p>When you sign-up for Artist Reminders, you are exclusively opting into hearing about tickets for the artist you have signed up with. You won’t hear about other great events we have tickets for unless you choose to opt-in to other services and you’ll be able to opt out of hearing about this artist at any point.</p>
+ 
+										<p>If you do also choose to opt-in to receive updates from alt. tickets, that’s great! We’ll use your information to keep you up to date on gigs in your area, exclusive presales, competitions and more.</p>
+											<hr>
+									  </div>
+									  <style>
+										#waitremind-79248673766806ad72d51a3175493610348 {display: none;}
+									  </style>
+									  <script>
+										$(document).ready(function(){
+											$("#waitremind-btn-79248673766806ad72d51a3175493610348").click(function(){
+												$("#waitremind-79248673766806ad72d51a3175493610348").toggle();
+											});
+										});
+									  </script>
+
+									<br><p>Be the first to know when tickets become available for this artist.</p>
+ 									<p>We’ll let you know right away if more tickets become available for sold out shows, tell you about future concerts with this artist, and keep you in the loop with any of their festival appearances.</p>
+									<p>Please provide us with an email address and/or phone number and we can keep you in the loop about this artist.</p>
+									<div class="alert alert-warning er_email_error" style="display:none;"><span class="glyphicon glyphicon-alert"></span> Please enter a valid email address</div>
+									<input type="hidden" name="event_id" value="79248673766806ad72d51a3175493610348"/>
+
+									<div class="form-group  ">
+				<label class="control-label col-sm-4" for="email_field">Email</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+						<input
+							type="email"
+							class="form-control"
+							name="email_address"
+							id="email_field"
+							aria-describedby="email_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<br><label><input type="checkbox" name="newsletter" value="1"  /> Also sign me up to hear more from alt. tickets about similar events.</label><br><hr><div class="form-group  ">
+				<label class="control-label col-sm-4" for="phone_field">Phone</label>
+
+				<div class="col-sm-8">
+
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+						<input
+							type="text"
+							class="form-control"
+							name="phone_number"
+							id="phone_field"
+							aria-describedby="phone_field"
+							minlength="6"
+							maxlength="128"
+							value=""
+							
+							
+							
+
+						/>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<hr>
+									<br>
+									<div class="center-block">
+										<input type="submit" value="Continue" class="btn btn-lg btn-warning button center-block" />
+									</div>
+
+								</form>
+
+							</div>
+
+
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+				<!-- Modal -->
+				<div class="modal fade" id="wait-privacy" tabindex="-1" role="dialog" aria-labelledby="wait-privacyLabel">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-body">
+      					<h4 style="color: #000;">Artist Reminders</h4>
+                        <p>If you sign-up to receive messages from our Artist Reminders service, we’ll contact you about tickets that become available for sold out shows, tell you about future concerts with this artist, and keep you in the loop with any of their festival appearances near you. If we have tickets for your favourite artists, you’ll be sure to hear about it from us!</p>
+                        <p>When you sign-up for Artist Reminders, you are exclusively opting into hearing about tickets for the artist you have signed up with. You won’t hear about other great events we have tickets for unless you choose to opt-in to other services and you’ll be able to opt out of hearing about this artist at any point.</p>
+                        <p>If you do also choose to opt-in to receive updates from alt. tickets, that’s great! We’ll use your information to keep you up to date on gigs in your area, exclusive presales, competitions and more.</p>
+
+						<!--<p>We'll use this information to send you an alert if any more tickets are released for your chosen artist. If you don't receive an alert about this show, we'll let you know next time your chosen artist announces another show. This will be a one-off message.</p>
+						<p>If you choose to opt-in to receive updates from alt. tickets, we'll use your information to keep you up to date on gigs, presales, competitions and more.</p>
+						<p>For more details, click here to view our <a href="https://www.alttickets.com/privacy-policy" target="_blank">privacy policy</a>.</p>-->
+					  </div>
+					  <div class="modal-footer clearfix">
+						<button type="button" class="button pull-right" data-dismiss="modal" style="height: 60px; padding-left: 30px; padding-right: 30px;">Close</button>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			
+
+		<script type="text/javascript" id="cookiebanner"
+		    src="https://alttickets-9a2.kxcdn.com/static_alt_tickets/js/cookiebanner.min.js"
+		    data-height="auto"
+		    data-font-size="14px"
+			data-position="bottom"
+		    data-message="We use cookies to ensure you get the best experience"
+			data-moreinfo="https://www.alttickets.com/privacy-policy"
+			data-close-text="That's fine"
+			data-bg="#fffaeb"
+			data-fg="#a1d0ca"
+			data-font-family="'GT Walsheim Medium', sans-serif"
+			>
+		</script>
+		<style>
+			.cookiebanner-close{background-color: #a1d0ca; color:#FFF; padding:3px 10px!important; font-size: 14px;}
+		</style>
+
+
+                    <script type="text/javascript">
+                var _userway_config = {
+                    // uncomment the following line to override default position
+                    // position: '1',
+                    // uncomment the following line to override default size (values: small, large)
+                    // size: 'large',
+                    // uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)
+                    // language: null,
+                    // uncomment the following line to override color set via widget
+                    // color: 'null',
+                    // uncomment the following line to override type set via widget(1=man, 2=chair, 3=eye)
+                    // type: 'null',
+                    account: 'yMRmVGRlZK'
+                };
+            </script>
+            <script type="text/javascript" src="https://cdn.userway.org/widget.js"></script>
+            
+			
+
+
+
+
+</body>
+</html>
+        
+
+

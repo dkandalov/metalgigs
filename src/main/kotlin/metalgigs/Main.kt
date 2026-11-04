@@ -145,9 +145,6 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
         ScrapeAttempt(source.venue.id, gigs, took)
     }
     val scrapedByVenue = attempts.mapNotNull { attempt -> attempt.gigs.valueOrNull()?.let { attempt.venueId to it } }.toMap()
-    val gigs = scrapedByVenue.values.flatten()
-
-    val toObserve = log.newOrChangedGigs(gigs)
 
     val currentGigs = log.currentGigs()
     val validation = validateGigs(scrapedByVenue, GigDate(LocalDate.now()), currentGigs)
@@ -172,9 +169,11 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
             }
         }
         .map { (replaced, by) -> GigReplaced(replaced, by, now) }
+    val gigs = keepingDhpPosters(scrapedByVenue.values.flatten(), currentGigs, replacements)
+    val toObserve = log.newOrChangedGigs(gigs)
     replacements.forEach { println("  ${venue(it.replaced.venueId)} relisted ${it.replaced.url} as ${it.by.url}") }
 
-    val observed = toObserve.filterNot { it in validation.withheld }.map { gig -> GigObserved(gig, now) }
+    val observed = toObserve.filterNot { it.id.venueId in withheldVenues }.map { gig -> GigObserved(gig, now) }
     log.append(observed + replacements)
     val withheld = toObserve.size - observed.size
     println("Logged ${observed.size} new or changed gig(s) of ${gigs.size} scraped" +
@@ -354,13 +353,13 @@ private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): Li
     ElectricBallroomGigsSource(client, LocalDate.now().year),
     ElectricBrixtonGigsSource(client),
     DingwallsGigsSource(client),
-    TheGarageGigsSource(client),
+    TheGarageGigsSource(pausing(altTicketsPause).then(client)),
     RoundhouseGigsSource(client),
     SignatureBrewBlackhorseRoadGigsSource(unredirectedClient),
     SignatureBrewHaggerstonGigsSource(unredirectedClient),
     O2ForumKentishTownGigsSource(client),
     O2AcademyBrixtonGigsSource(client),
-    TheGraceGigsSource(client),
+    TheGraceGigsSource(pausing(altTicketsPause).then(client)),
     O2AcademyIslingtonGigsSource(client),
     O2ShepherdsBushEmpireGigsSource(client),
     UnionChapelGigsSource(client),
@@ -381,6 +380,10 @@ private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): Li
 ).map(::WithTidiedTitles)
 
 private val scrapeCooldown: Duration = Duration.ofDays(1)
+
+// AltTickets answered a 429 some 95 requests into a run with no pause on 2026-11-04, and none across
+// 150 event pages at two or three a second.
+private val altTicketsPause: Duration = Duration.ofMillis(500)
 
 private fun GigsProblem.where() = when {
     gigs.isEmpty() -> ""

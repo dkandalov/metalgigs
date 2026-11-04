@@ -1,6 +1,6 @@
 # 7. A description is the gig's own copy, scoped per venue, and cut by wording where markup will not do
 
-Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`.
+Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14).
 
 ## Context
 
@@ -33,7 +33,7 @@ the gigs it books without copy.
 | Alexandra Palace | `.ap_text_block, #key-information` | `#event_content` also holds a sidebar of Buy Tickets / FAQs / Accessibility repeated on every page |
 | Eventim Apollo | `.event-hero .variable-color.mt-sm` | the one hero element belonging to the gig; measured 82 to 1343 characters |
 | Squarespace | `.eventitem-column-content` less its button blocks | `article.eventitem` holds the date twice over, the postal address, Calendar and ICS links - longer than some blurbs; inside the column, a ticket button ("buy tickets" at The Black Heart, "TICKETS" at The Dome) is the whole text of a page whose promoter wrote nothing, so two such gigs carried one description word for word (2026-09-15) |
-| DHP | `.single-article--contains-list .single-article__content` | the outer wrapper carries `.single-article` too, so selecting that doubles every word |
+| AltTickets | what follows `Event Information` in `.information.venue article`, plus the `Performing Artist(s)` block | the same article goes on to the ticket limit, the venue's address, its accessibility policy and how to claim a companion ticket, as bare text nodes among the headings, so the copy is walked node by node and stops at the bill or the address. A gig not on sale has no such article, and says "This event is not on sale yet" instead |
 | The Underworld | `article.event` less its footer | the sitewide "other events" widget |
 | Union Chapel | the article's children up to the first venue heading, plus the sidebar | see below |
 | Scala | the lineup header box plus everything after "About &lt;artist&gt;" | see below |
@@ -62,7 +62,6 @@ Where markup cannot tell the difference, the cut is **by wording**:
 - **Scala** leads with ticketing and access furniture and closes with calendar links; the copy follows the
   "About" heading on every listing read. Its date line goes with the furniture - the date is already a field,
   and as prose only reads as a second date.
-- **DHP** closes every listing with a "For more events" call to action.
 - **Roundhouse** filters its url to `type=event`, dropping youth-programme courses that share 145 words of
   access and bursary copy embedded in each course's own text block - unscopeable.
 - **Electric Ballroom** drops Bongo's Bingo, a club night rather than a gig, by the promoter's own ticket

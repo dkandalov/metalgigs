@@ -21,6 +21,17 @@ import kotlin.test.Test
 class HttpClientsTest {
 
     @Test
+    fun `waits out the pause before each request`() {
+        val client = pausing(Duration.ofMillis(50)).then { Response(OK) }
+        val startedAt = System.nanoTime()
+
+        client(Request(GET, "http://example.com"))
+        client(Request(GET, "http://example.com"))
+
+        expectThat(Duration.ofNanos(System.nanoTime() - startedAt) >= Duration.ofMillis(100)).isEqualTo(true)
+    }
+
+    @Test
     fun `asks again after a timeout, which is what http4k calls a client that got no answer`() {
         val venue = answering(Response(CLIENT_TIMEOUT), Response(OK))
 

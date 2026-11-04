@@ -3,7 +3,7 @@
 Accepted. Recorded 2026-08-25, describing `GigCorrection.kt` and the url each source builds. Amended
 2026-09-17: the url is asked about before a replacement is looked for, the gate having lost real moves. Amended
 2026-09-22: a still-served url is paired with a gig that night under the very same title. Amended 2026-09-22: AMG takes
-Gigantic's ticket over any other.
+Gigantic's ticket over any other. Amended 2026-11-04: AltTickets replaced DHP (ADR 14).
 
 ## Context
 
@@ -26,7 +26,7 @@ would each do.
 | AMG | Gigantic's ticket over any other | the tickets' order is not stable: Beast In Black at O2 Forum Kentish Town listed Gigantic and Ticketmaster first in turn, moving the gig at every swap. Preferring Ticketmaster, AMG's main platform, would have moved the fewest gigs already logged; Gigantic was chosen anyway, the gigs it moves being paired once as a still-served url under an identical title |
 | OVO Arena | the page url plus the date as a fragment | a run of nights is one event page listed once per night (André Rieu's two September nights share one). Appended to every gig, not only collisions: doing it on collision would rewrite the url of a gig already logged the day a second night is announced |
 | The Dev | the venue's Facebook page plus the night | there is no per-gig page, and the Instagram post is superseded every month where the page is not. The fragment is the date alone because the only other thing a flyer gig carries is a title a model read off a picture, and it reads the same bill differently between runs - a promoter's name prefixed, a colon added, a support act misread - each of which minted a second gig on that night while the title was in the url (ADR 11) |
-| DHP | a sold-out gig's "Gig Sold Out" notification | its heading is not a link at all, and the notification points at the same page |
+| AltTickets | the `url` in the listing's JSON-LD | a sold-out or not-yet-on-sale card links to `#`, so the JSON-LD is the only thing naming every gig's page. The url ends in the door time, so a changed time moves the gig: Messa went from `...-19-00` to `...-18-00` by 2026-11-04, and the old url answers a 301 naming the new one |
 
 Each is checked against that venue's prefixes by `gigUrlFrom` (ADR 2).
 

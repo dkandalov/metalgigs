@@ -140,8 +140,7 @@ a public signature exposes - `CompactedLog`, `GigCardView` and five others, wher
 compile error. Public for any other reason is the smell.
 
 When deciding, check that the outside "use" is a call and not a comment naming the function -
-`scrapeGigs` and `compactLog` were each left `internal` on the strength of one, and `DhpVenueGigsSource`
-is `internal` today with no use outside its own file at all.
+`scrapeGigs` and `compactLog` were each left `internal` on the strength of one.
 
 ## Argument names the types already give
 

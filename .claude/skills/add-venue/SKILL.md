@@ -18,7 +18,7 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
 2. **Write the `GigsSource`.** One `Venue` constant declared just above its class, reused by the class,
    its tests, and any delegates. If several venues share a platform, write the shared logic once with
    site-specific bits as constructor parameters, then a thin delegate class per venue (see
-   `DhpVenueGigsSource`, `AmgVenueGigsSource`, `DicePartnerVenueGigsSource` for the pattern). Don't set
+   `AltTicketsVenueGigsSource`, `AmgVenueGigsSource`, `DicePartnerVenueGigsSource` for the pattern). Don't set
    `description` here - it isn't available yet; `scrapeGigs` fills it in later, only for gigs it's
    actually going to log. Watch for: date ranges that can cross a month or year boundary (the year is
    often only written once, on the end date), and cards printing no year at all - read it off the event's
@@ -73,7 +73,7 @@ description: Add a new London venue as a scrapeable GigsSource - inspect the rea
 ## Traps
 
 - `Gig.description` defaults to `""`, never `null` - check blankness, not nullness.
-- A shared-platform venue (dice.fm, DHP, AMG) may need a numeric or opaque venue id, or the platform's
+- A shared-platform venue (dice.fm, AltTickets, AMG) may need a numeric or opaque venue id, or the platform's
   own spelling of the venue name, rather than a URL - look for it in that platform's own API response
   before guessing (calling the API unfiltered usually lists every venue), and remember one venue can
   need several ids where its listing covers a second room. Check what a wrong one does: these APIs

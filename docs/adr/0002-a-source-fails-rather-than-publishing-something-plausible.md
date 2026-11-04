@@ -1,6 +1,6 @@
 # 2. A source fails rather than standing something plausible in
 
-Accepted. Recorded 2026-08-25, describing the helpers in `GigsSource.kt`.
+Accepted. Recorded 2026-08-25, describing the helpers in `GigsSource.kt`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired.
 
 ## Context
 

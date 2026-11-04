@@ -2,7 +2,7 @@
 
 Accepted. Recorded 2026-08-25, describing the poster handling across `scrape/venues`. Amended 2026-09-18: a
 Squarespace venue's poster is the image block in the gig's own copy, its card's thumbnail being the venue's
-featured image rather than the night's artwork.
+featured image rather than the night's artwork. Amended 2026-11-04: AltTickets replaced DHP (ADR 14).
 
 ## Context
 
@@ -62,12 +62,11 @@ Where a listing has no poster, the source asks the next thing that might:
   The hero is the page's only full-bleed image (`sizes=100vw`), a CDN resize whose query string is dropped to
   recover the bare asset. The page url is built from the encoded name and first act's id; a listing's
   `encodedName` can lag the canonical slug, answered with a 308 the client follows.
-- **DHP** asks four places in order - the card's `data-lazy-src`, its `src`, the event page's hero, then the
-  venue's house image. A blank card is not the last word: the listing can print "Image not found" while the
-  gig's own page renders it, and that page is fetched for the description anyway. The guide walk reaches gigs
-  announced before artwork exists, which have none of the three, so The Garage stands in its own crowd shot -
-  published showing the room rather than dropped or failing the listing. The Grace has no such image and still
-  fails.
+- **AltTickets** has no image on its listing, so the event page's JSON-LD names it: 400x400, on all 150 pages read on
+  2026-11-04, where `og:image` is missing from Allt's. The same page's 1170x375 banner has more pixels and fewer of the
+  band: the card's square crop leaves 375x375 of it, one of Tophouse's five members whole. Neither size is a resize of
+  the other, each having its own file name, so no url is derived. A gig with no artwork gets a 240x240 `no_image.jpg`
+  of AltTickets' logo, 18 of the 150; it is taken as it stands, `SharedPosterCheck` saying so if it passes 20 at a venue.
 - **Roundhouse** asks the event page's hero when a card renders an empty image slot, as Malugi's did on
   2026-09-27 above a page carrying its banner. The page is fetched for the description anyway; on a card that
   does carry one, the hero is the same artwork cropped wide, so the card's stays first.
