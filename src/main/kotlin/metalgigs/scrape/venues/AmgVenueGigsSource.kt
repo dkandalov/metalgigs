@@ -35,7 +35,7 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
             )
             Gig(
                 GigId(venue.id, gigUrl),
-                titleFrom(event.name),
+                event.billedTitle(),
                 // e.g. "2026-08-11T00:00:00Z" - only the date part is meaningful here
                 GigDate.parse(event.eventDate.substringBefore('T')),
                 PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
@@ -62,9 +62,11 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
     private val sitePath = venue.id.value.replace("-", "")
 
     // PageSize is well above what any one venue actually lists, so everything comes back in one
-    // page - the listing page itself paginates client-side, but the API needn't
+    // page - the listing page itself paginates client-side, but the API needn't. Since 2026-10-20
+    // the api answers 400 "Missing siteId" to a request without one, and the site is the one value.
     private val url = "https://www.academymusicgroup.com/api/search/events" +
-        "?VenueIds=${amgVenueIds.joinToString(",")}&IncludePostponed=true&IncludeCancelled=true&PageSize=500&Page=1"
+        "?VenueIds=${amgVenueIds.joinToString(",")}&IncludePostponed=true&IncludeCancelled=true&PageSize=500&Page=1" +
+        "&siteId=www.academymusicgroup.com"
 }
 
 val o2ForumKentishTown = Venue(VenueId("o2-forum-kentish-town"), "O2 Forum Kentish Town")
@@ -93,9 +95,22 @@ class O2ShepherdsBushEmpireGigsSource(client: HttpHandler) :
 // Neither isVisible nor ticketStatus separates a ticket with a link from one without, and the order
 // the tickets come in is not stable: Beast In Black listed Gigantic and Ticketmaster first in turn.
 // Why Gigantic's, and otherwise the first that has one: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
+// An O2 Priority link is the network's presale, listed ahead of the general sale on 4 of the 307
+// events as of 2026-11-06, each with a Ticketmaster link beside it.
 private val AmgEvent.ticketUrl: String?
-    get() = tickets.map { it.ticketUrl }.filter { it.isNotBlank() }
+    get() = tickets.map { it.ticketUrl }.filter { it.isNotBlank() && !it.startsWith("https://www.o2.co.uk/priority/") }
         .let { links -> links.firstOrNull { it.startsWith("https://www.gigantic.com/") } ?: links.firstOrNull() }
+
+// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
+private fun AmgEvent.billedTitle(): GigTitle {
+    val listedAs = titleFrom(name)
+    val unnamed = lineup.map { it.name }.filterNot { lettersOf(listedAs.value).contains(lettersOf(it)) }
+    return titleFrom((listOf(listedAs.value) + unnamed).take(actsInTitle).joinToString(" / "))
+}
+
+private fun lettersOf(text: String) = text.lowercase().filter(Char::isLetterOrDigit)
+
+private const val actsInTitle = 4
 
 // The copy is html, so it's parsed for its text the way an event page's would be.
 private fun AmgEvent.description(): GigDescription =

@@ -18,6 +18,7 @@ import kotlin.test.assertFailsWith
 // Why a gig's url is its identity: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
 // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
 // Why the poster comes at full size: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
+// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 class AmgVenueGigsSourceTest {
 
     @Test
@@ -28,67 +29,17 @@ class AmgVenueGigsSourceTest {
             // back with no tickets at all, so it has no url to identify or link it by
             size = 87,
             first = Gig(
-                GigId(o2ForumKentishTown.id, GigUrl("https://www.ticketmaster.co.uk/event/3E00648FA8A634C8")),
-                GigTitle("Ronnie Wood & His Band featuring Imelda May"),
-                GigDate(2026, 8, 21),
-                PosterUrl("https://dynamicmedia.livenationinternational.com/g/v/y/79807d88-4cc2-4da8-acda-d434e0df08b2.jpg"),
+                GigId(o2ForumKentishTown.id, GigUrl("https://www.ticketmaster.co.uk/event/3E00636B9187395A")),
+                GigTitle("The Mission: Gods Own Medicine 40th Anniversary Shows (4-DAY TICKET)"),
+                GigDate(2026, 11, 4),
+                PosterUrl("https://dynamicmedia.livenationinternational.com/v/t/j/f523afb1-3f0a-4c51-ab59-ec93e163d35f.jpg"),
                 GigDescription(""),
             ),
             last = Gig(
                 GigId(o2ForumKentishTown.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0065059E6A1198")),
                 GigTitle("MASS OF THE FERMENTING DREGS"),
                 GigDate(2027, 10, 14),
-                PosterUrl("https://dynamicmedia.livenationinternational.com/t/a/f/03bb4ec9-ed69-4d30-b4d4-1e516b000455.jpg"),
-                GigDescription(""),
-            ),
-        )
-
-        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(3)
-    }
-
-    @Test
-    fun `extracts gig events from the O2 Academy Brixton events api`() {
-        val events = assertScrapesGigs(
-            source = O2AcademyBrixtonGigsSource(cachedClient()),
-            size = 67,
-            first = Gig(
-                GigId(o2AcademyBrixton.id, GigUrl("https://www.ticketmaster.co.uk/event/3E006464ACEB4803")),
-                GigTitle("Primus"),
-                GigDate(2026, 8, 19),
                 amgDefaultPoster,
-                GigDescription(""),
-            ),
-            last = Gig(
-                GigId(o2AcademyBrixton.id, GigUrl("https://www.ticketmaster.co.uk/event/3E006452FC929180")),
-                GigTitle("Loreen: THE WILDFIRE TOUR"),
-                GigDate(2026, 9, 26),
-                PosterUrl("https://dynamicmedia.livenationinternational.com/i/l/u/977ca756-1a25-4148-b46a-e2667effd53f.jpg"),
-                GigDescription(""),
-            ),
-        )
-
-        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(1)
-        expectThat(events.count { !it.id.url.value.startsWith("https://www.ticketmaster.co.uk/") }).isEqualTo(3)
-    }
-
-    @Test
-    fun `extracts gig events from both O2 Academy Islington rooms, which share one listing`() {
-        val events = assertScrapesGigs(
-            source = O2AcademyIslingtonGigsSource(cachedClient()),
-            // the main room and the smaller Academy2 upstairs, listed together as the site does
-            size = 83,
-            first = Gig(
-                GigId(o2AcademyIslington.id, GigUrl("https://www.ticketmaster.co.uk/event/3E00646A8FB52ACA")),
-                GigTitle("OCT (On Company Time) UK Tour"),
-                GigDate(2026, 8, 29),
-                PosterUrl("https://dynamicmedia.livenationinternational.com/v/v/w/023063cb-a764-4f67-9d96-075a1bd3d454.jpg"),
-                GigDescription(""),
-            ),
-            last = Gig(
-                GigId(o2AcademyIslington.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064F5350835B8")),
-                GigTitle("The Reggae Orchestra comes to London"),
-                GigDate(2027, 5, 1),
-                PosterUrl("https://dynamicmedia.livenationinternational.com/m/a/b/e51bb674-c586-4164-9477-c725574f74ca.jpg"),
                 GigDescription(""),
             ),
         )
@@ -97,15 +48,65 @@ class AmgVenueGigsSourceTest {
     }
 
     @Test
+    fun `extracts gig events from the O2 Academy Brixton events api`() {
+        val events = assertScrapesGigs(
+            source = O2AcademyBrixtonGigsSource(cachedClient()),
+            size = 72,
+            first = Gig(
+                GigId(o2AcademyBrixton.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064AB959719DE")),
+                GigTitle("Tove Lo: ESTRUS TOUR"),
+                GigDate(2026, 11, 7),
+                PosterUrl("https://dynamicmedia.livenationinternational.com/o/d/i/b20837de-7ba0-4e7c-8ee5-a5db7dd58ce4.png"),
+                GigDescription(""),
+            ),
+            last = Gig(
+                GigId(o2AcademyBrixton.id, GigUrl("https://www.ticketmaster.co.uk/event/3E006553EDAE6C67")),
+                GigTitle("Angine de Poitrine"),
+                GigDate(2027, 6, 30),
+                PosterUrl("https://dynamicmedia.livenationinternational.com/p/k/z/08190ac5-e964-4c0e-84a4-81c2930effa2.jpg"),
+                GigDescription(""),
+            ),
+        )
+
+        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(0)
+        expectThat(events.count { !it.id.url.value.startsWith("https://www.ticketmaster.co.uk/") }).isEqualTo(0)
+    }
+
+    @Test
+    fun `extracts gig events from both O2 Academy Islington rooms, which share one listing`() {
+        val events = assertScrapesGigs(
+            source = O2AcademyIslingtonGigsSource(cachedClient()),
+            // the main room and the smaller Academy2 upstairs, listed together as the site does
+            size = 66,
+            first = Gig(
+                GigId(o2AcademyIslington.id, GigUrl("https://www.ticketmaster.co.uk/event/3E006467A37039FD")),
+                GigTitle("FOREVER NU - 25th anniversary of Toxicity & Iowa special! Chop Suey, Slip-Not, A7Xperience, Propa Roach"),
+                GigDate(2026, 11, 6),
+                PosterUrl("https://dynamicmedia.livenationinternational.com/z/j/n/0fc323e9-ee30-4527-951e-64f5e37eff3e.jpg"),
+                GigDescription(""),
+            ),
+            last = Gig(
+                GigId(o2AcademyIslington.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064A10A70664C")),
+                GigTitle("Kawehi"),
+                GigDate(2027, 1, 8),
+                PosterUrl("https://dynamicmedia.livenationinternational.com/q/r/h/65bd2b44-ffa3-46f8-8db6-e6eaa2c972c0.png"),
+                GigDescription(""),
+            ),
+        )
+
+        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(7)
+    }
+
+    @Test
     fun `extracts gig events from the O2 Shepherd's Bush Empire events api`() {
         val events = assertScrapesGigs(
             source = O2ShepherdsBushEmpireGigsSource(cachedClient()),
-            size = 95,
+            size = 77,
             first = Gig(
-                GigId(o2ShepherdsBushEmpire.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064AFD611527C")),
-                GigTitle("AFI"),
-                GigDate(2026, 8, 20),
-                PosterUrl("https://dynamicmedia.livenationinternational.com/s/x/l/353f9994-6437-4ccd-b401-a48c39f23a4b.jpg"),
+                GigId(o2ShepherdsBushEmpire.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064ADC4E850A1")),
+                GigTitle("Deaf Havana: Fools & Worthless Liars + More / The Dangerous Summer"),
+                GigDate(2026, 11, 6),
+                PosterUrl("https://dynamicmedia.livenationinternational.com/h/w/u/b814ccbd-42db-41a5-9678-453d1b4b6ab9.png"),
                 GigDescription(""),
             ),
             last = Gig(
@@ -117,8 +118,8 @@ class AmgVenueGigsSourceTest {
             ),
         )
 
-        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(2)
-        expectThat(events.count { !it.id.url.value.startsWith("https://www.ticketmaster.co.uk/event/") }).isEqualTo(1)
+        expectThat(events.count { it.posterUrl == amgDefaultPoster }).isEqualTo(3)
+        expectThat(events.count { !it.id.url.value.startsWith("https://www.ticketmaster.co.uk/event/") }).isEqualTo(0)
     }
 
     private val amgDefaultPoster = PosterUrl("https://networksites.livenationinternational.com/networksites/krfjkan0/defualt-event-image-amg.jpg")
@@ -214,6 +215,19 @@ class AmgVenueGigsSourceTest {
         expectThat(urls).isEqualTo(List(2) { GigUrl("https://www.gigantic.com/beast-in-black-tickets/london-o2-forum-kentish-town/2026-10-26-19-00") })
     }
 
+    // IDER at O2 Academy Islington listed its O2 Priority presale ahead of its Ticketmaster link
+    @Test
+    fun `takes an AMG gig's url from its general sale rather than an O2 Priority presale`() {
+        val event = amgEvent(
+            localizations = """[{"cultureName": "en-GB", "description": "<p>Copy.</p>"}]""",
+            tickets = """[{"ticketUrl": "https://www.o2.co.uk/priority/tickets/b27def23-a9ae-4d30-960f-66c49e178850"}, {"ticketUrl": "https://www.ticketmaster.co.uk/event/3E00655EC7BC8437?brand=o2academyislington"}]""",
+        )
+
+        val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
+
+        expectThat(gig.id.url).isEqualTo(GigUrl("https://www.ticketmaster.co.uk/event/3E00655EC7BC8437"))
+    }
+
     @Test
     fun `skips an AMG gig whose tickets all lack a link, as it does one listed with no tickets`() {
         val event = amgEvent(
@@ -305,5 +319,39 @@ class AmgVenueGigsSourceTest {
         val gig = O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single()
 
         expectThat(gig.description).isEqualTo(GigDescription("Genre: Other."))
+    }
+
+    @Test
+    fun `titles an AMG gig with the acts its lineup bills under it`() {
+        expectThat(titleOf("HEALTH", "HEALTH", "VOWWS")).isEqualTo(GigTitle("HEALTH / VOWWS"))
+        expectThat(titleOf("Dayseeker: Creature In The Black Night Tour", "Dayseeker", "Northlane", "Siamese"))
+            .isEqualTo(GigTitle("Dayseeker: Creature In The Black Night Tour / Northlane / Siamese"))
+    }
+
+    // The Wonder Stuff + Inspiral Carpets bills both acts in its name; East 17's name types the
+    // guest with a curly apostrophe its lineup writes straight, and The Clone Roses' drops the full
+    // stop its lineup gives The Smiths Ltd.
+    @Test
+    fun `leaves out an act the AMG gig's name already bills`() {
+        expectThat(titleOf("The Wonder Stuff + Inspiral Carpets", "The Wonder Stuff", "Inspiral Carpets"))
+            .isEqualTo(GigTitle("The Wonder Stuff + Inspiral Carpets"))
+        expectThat(titleOf("Boys Are Back Again: East 17 with special guest Blazin’ Squad", "Boys Are Back Again", "East 17", "Blazin' Squad"))
+            .isEqualTo(GigTitle("Boys Are Back Again: East 17 with special guest Blazin’ Squad"))
+        expectThat(titleOf("The Clone Roses, Oasish, The Smiths Ltd", "The Clone Roses", "Oasish", "The Smiths Ltd."))
+            .isEqualTo(GigTitle("The Clone Roses, Oasish, The Smiths Ltd"))
+    }
+
+    // Bury Tomorrow's lineup is five acts long, one of the six that run past four
+    @Test
+    fun `takes the AMG gig's name and three more acts from a longer lineup`() {
+        expectThat(titleOf("Bury Tomorrow", "Bury Tomorrow", "Stick To Your Guns", "Windwaker", "Elwood Stray", "Fifth Act"))
+            .isEqualTo(GigTitle("Bury Tomorrow / Stick To Your Guns / Windwaker / Elwood Stray"))
+    }
+
+    private fun titleOf(name: String, vararg acts: String): GigTitle {
+        val lineup = acts.mapIndexed { i, act -> """{"id": "$i", "name": "$act"}""" }.joinToString(prefix = "[", postfix = "]")
+        val event = amgEvent(localizations = """[{"cultureName": "en-GB", "description": "<p>Copy.</p>"}]""", lineup = lineup)
+            .replace(""""name": "Wage War", "encodedName"""", """"name": "$name", "encodedName"""")
+        return O2ForumKentishTownGigsSource(amgListingOf(event)).latestGigs().single().title
     }
 }

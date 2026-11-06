@@ -55,7 +55,7 @@ and a JSON name field has nothing else to read.
 returns: those are what a selector matching a card's container brings, so they must reach `GigTitle` and fail
 rather than be tidied into a title that looks fine.
 
-Five sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
+Six sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
 only the headliner in capitals; the event page's lineup is the bill as typed, cased, headliner last. It is
 taken only when that last act is what the gig is listed as - a festival or club night is named for something
 no act is - and only the headliner and three supports, a bill running longer (Cosmic Void Festival's is 39
@@ -117,6 +117,14 @@ special guests Plus Lamb Of God and Bleed From Within" has it. A bare "with" or 
 strapline or follow a tour's name, where "An Evening with..." would otherwise bill an act. A bill is published as
 the page types it, so a run's per-night note stays in the title: "Olivia Rodrigo / Grace Ives (5 - 12 April) / Die
 Spitz (14 April - 10 May)". Brackets can't simply be cut, Change's "Jazzie B (Soul II Soul)" being a name.
+
+**The AMG venues** append the acts their listing api's `lineup` gives, headliner first: 122 of the 307 events
+the four list on 2026-11-06 carry more than one, HEALTH's being HEALTH and VOWWS. No wording is read, the lineup
+being a field, but the event's name sometimes bills the acts itself - "The Wonder Stuff + Inspiral Carpets",
+"Boys Are Back Again: East 17 with special guest Blazin’ Squad" - so an act the name already contains is left
+out. Containment is on letters and digits alone, the name typing that guest's apostrophe curly where the lineup
+types it straight, and "The Clone Roses, Oasish, The Smiths Ltd" dropping the full stop the lineup gives "The
+Smiths Ltd.". The cap is the Underworld's.
 A cancellation is appended as ` - CANCELLED` where a source knows of one, today the Dice `status` field.
 
 ## Consequences
