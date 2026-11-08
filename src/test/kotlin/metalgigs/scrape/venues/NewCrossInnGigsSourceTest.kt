@@ -10,6 +10,7 @@ import kotlin.test.Test
 
 // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
 // Why this reading surface and paging: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
+// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 class NewCrossInnGigsSourceTest {
 
     // the page opens on the current month, so all but the first two months here come from the
@@ -63,5 +64,49 @@ class NewCrossInnGigsSourceTest {
         expectThat(pageText.contains("<br")).isEqualTo(false)
         expectThat(pageText.contains("href")).isEqualTo(false)
         expectThat(pageText.contains("KINGS OF THRASH")).isEqualTo(false)
+    }
+
+    @Test
+    fun `titles a gig with the acts its event page names as performers`() {
+        expectThat(titleOf("Lagrimas", "Lagrimas", "Hemiptera", "Sevy Verna", "Clouded"))
+            .isEqualTo(GigTitle("Lagrimas / Hemiptera / Sevy Verna / Clouded"))
+    }
+
+    // Brakelight's page lists a support ahead of the act the gig is listed as
+    @Test
+    fun `keeps the gig's own name first whatever order the performers come in`() {
+        expectThat(titleOf("Brakelight", "Sore Heads Club", "Brakelight", "Fear of Motion"))
+            .isEqualTo(GigTitle("Brakelight / Sore Heads Club / Fear of Motion"))
+    }
+
+    @Test
+    fun `leaves out a performer the gig's name already bills`() {
+        expectThat(titleOf("Babe Haven & Latter", "Babe Haven", "latter", "Brick", "Inner Dog"))
+            .isEqualTo(GigTitle("Babe Haven & Latter / Brick / Inner Dog"))
+        expectThat(titleOf("Steal This Band + Tonedefs", "Steal This Band", "Tonedefs"))
+            .isEqualTo(GigTitle("Steal This Band + Tonedefs"))
+    }
+
+    // Capital Death Fest and Trans Night Of Rage name no act the gig is listed as, and Reality
+    // Unfolds 2027 names 23 - a programme rather than a bill
+    @Test
+    fun `keeps the venue's title where no performer is what the gig is listed as`() {
+        expectThat(titleOf("Capital Death Fest", "Infected Dissaray", "Rectal Smegma", "Pighead"))
+            .isEqualTo(GigTitle("Capital Death Fest"))
+    }
+
+    // Ghost UK's page gives its one performer as an object rather than an array of one
+    @Test
+    fun `reads a lone performer given as an object rather than an array`() {
+        val page = pageOf("""<script type="application/ld+json">{"@type":"Event","name":"Ghost UK","performer":{"@type":"PerformingGroup","name":"Ghost UK"}}</script>""")
+
+        expectThat(NewCrossInnGigsSource(noHttp).performersOn(page)).isEqualTo(listOf("Ghost UK"))
+    }
+
+    private fun titleOf(listedAs: String, vararg performers: String): GigTitle {
+        val json = performers.joinToString(",", prefix = "[", postfix = "]") { """{"@type":"PerformingGroup","name":"$it"}""" }
+        val page = pageOf("""<script type="application/ld+json">{"@type":"Event","name":"$listedAs","performer":$json}</script>""")
+        val lineup = NewCrossInnGigsSource(noHttp).performersOn(page)
+        return titleWithLineup(GigTitle(listedAs), lineup) ?: GigTitle(listedAs)
     }
 }

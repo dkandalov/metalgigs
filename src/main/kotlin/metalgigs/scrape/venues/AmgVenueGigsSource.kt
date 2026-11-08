@@ -101,16 +101,8 @@ private val AmgEvent.ticketUrl: String?
     get() = tickets.map { it.ticketUrl }.filter { it.isNotBlank() && !it.startsWith("https://www.o2.co.uk/priority/") }
         .let { links -> links.firstOrNull { it.startsWith("https://www.gigantic.com/") } ?: links.firstOrNull() }
 
-// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
-private fun AmgEvent.billedTitle(): GigTitle {
-    val listedAs = titleFrom(name)
-    val unnamed = lineup.map { it.name }.filterNot { lettersOf(listedAs.value).contains(lettersOf(it)) }
-    return titleFrom((listOf(listedAs.value) + unnamed).take(actsInTitle).joinToString(" / "))
-}
-
-private fun lettersOf(text: String) = text.lowercase().filter(Char::isLetterOrDigit)
-
-private const val actsInTitle = 4
+private fun AmgEvent.billedTitle(): GigTitle =
+    titleFrom(name).let { listedAs -> titleWithLineup(listedAs, lineup.map { it.name }) ?: listedAs }
 
 // The copy is html, so it's parsed for its text the way an event page's would be.
 private fun AmgEvent.description(): GigDescription =

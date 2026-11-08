@@ -55,7 +55,7 @@ and a JSON name field has nothing else to read.
 returns: those are what a selector matching a card's container brings, so they must reach `GigTitle` and fail
 rather than be tidied into a title that looks fine.
 
-Six sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
+Seven sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
 only the headliner in capitals; the event page's lineup is the bill as typed, cased, headliner last. It is
 taken only when that last act is what the gig is listed as - a festival or club night is named for something
 no act is - and only the headliner and three supports, a bill running longer (Cosmic Void Festival's is 39
@@ -125,6 +125,15 @@ being a field, but the event's name sometimes bills the acts itself - "The Wonde
 out. Containment is on letters and digits alone, the name typing that guest's apostrophe curly where the lineup
 types it straight, and "The Clone Roses, Oasish, The Smiths Ltd" dropping the full stop the lineup gives "The
 Smiths Ltd.". The cap is the Underworld's.
+
+**New Cross Inn** reads the same from the `performer` list in each pit.live event page's JSON-LD: 46 of the 104
+gigs listed on 2026-11-08 name more than one act there, Lagrimas's being Lagrimas, Hemiptera, Sevy Verna and
+Clouded. The list is in no fixed order - Brakelight's opens on a support - so the gig's own name goes first and
+the acts it doesn't already name follow in the order given. It is taken only where one of its acts is what the
+gig is listed as, as the Underworld's running order is: Capital Death Fest, Trans Night Of Rage and Riffs
+Against Fascism name none of their acts, and Reality Unfolds 2027 lists 23. Both lineups go through one
+`titleWithLineup`, and none of the AMG events listed that day names a lineup its title doesn't contain an act
+of. A misspelt performer keeps the venue's title: Los Fastidios' page lists "Los Fastidos".
 A cancellation is appended as ` - CANCELLED` where a source knows of one, today the Dice `status` field.
 
 ## Consequences
