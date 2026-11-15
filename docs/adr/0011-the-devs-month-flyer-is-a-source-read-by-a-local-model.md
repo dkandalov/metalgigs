@@ -2,6 +2,7 @@
 
 Accepted. Recorded 2026-08-25, describing `DevGigSource.kt`. Amended 2026-09-17: a gig's url is the night
 alone, the model's reading of a bill having minted a gig per reading. Amended 2026-09-22: a DJ set is not a band night.
+Amended 2026-11-15: a gig read off a flyer the log already holds is left as logged.
 
 ## Context
 
@@ -59,11 +60,24 @@ Primo", after the bands on 2026-09-25) - "with DJ" rather than "DJ", a band nigh
 client's app id (ADR 8); Instagram wraps every list as edges around nodes, twice over here - once for the posts
 and once for each post's caption, of which a post has one or none.
 
+**A flyer the log has already been read from says nothing new.** A gig's poster is the flyer, and Instagram
+signs that picture's address afresh between reads and moves it between hosts, so a gig compared whole
+(`newOrChangedGigs`) was logged as changed on every scrape that fetched the profile again: the night of
+2026-11-21 stood in the log six times in ten days, title unchanged, and each new address renamed the image the
+page publishes. The picture's file name is the one part of the address that stays, so `keepingFlyerReadings`
+leaves a gig as the log holds it wherever its poster is the same picture - title included, a second reading of
+one flyer that words a bill differently being a change in the reading and none in the night. It sits in the
+scrape beside the DHP posters (ADR 14) for the same reason, a source having no sight of the log, and keeps the
+logged address because that is the one `.image-cache` holds the bytes under. A flyer posted again is another
+picture, and is read as new.
+
 ## Consequences
 
-This venue's listing is only as good as a local model's reading of a picture, re-read from scratch every scrape
-rather than accumulated; the month check and the row format are all that stand between a misreading and a
-published gig. Nothing derived from the reading can serve as identity, which is what the date-only url settles:
+This venue's listing is only as good as a local model's reading of a picture, and the first reading of a flyer
+is the one that stands: the model still reads it every scrape, the source not knowing what the log holds, but
+only a night the log lacks or a flyer it has not seen takes anything from that. So a misreading stays until the
+next flyer, and a change to the prompt or the model shows on the page a month late; the month check and the row
+format are all that stand between a misreading and a published gig. Nothing derived from the reading can serve as identity, which is what the date-only url settles:
 at temperature 0 and seed 0 the readings still differed enough to stand five nights in the log twice by
 2026-09-17, one pair differing by a single colon. The listing lags the venue by up to a month, the printed month making that visible. A model
 upgrade changes what is listed, so the extraction model is named in what this source prints and raises.

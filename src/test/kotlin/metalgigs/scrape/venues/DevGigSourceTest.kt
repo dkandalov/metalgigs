@@ -216,4 +216,51 @@ class DevGigSourceTest {
             ),
         )
     }
+
+    // the two addresses the log holds for November's flyer on 2026-11-10 and 2026-11-12: one picture,
+    // moved between hosts and signed afresh
+    private val flyer = "https://scontent-lhr6-1.cdninstagram.com/v/t51.82787-15/886800599_18500900023099389_7049084367723231161_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=102&ccb=7-5&oh=00_one&oe=6A000001"
+    private val flyerSignedAfresh = "https://scontent-lhr11-1.cdninstagram.com/v/t51.82787-15/886800599_18500900023099389_7049084367723231161_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=102&_nc_map=x&oh=00_two&oe=6A000002"
+    private val nextFlyer = "https://scontent-lhr6-1.cdninstagram.com/v/t51.82787-15/901122334_18500900023099390_1111111111111111111_n.jpg?oh=00_three&oe=6A000003"
+
+    @Test
+    fun `a gig read off the flyer the log already holds is left as logged`() {
+        val logged = devGig("Juramento / Asylum", flyer)
+
+        expectThat(keepingFlyerReadings(listOf(devGig("Juramento / Asylum", flyerSignedAfresh)), listOf(logged))).containsExactly(logged)
+    }
+
+    // the flyer is the same picture, so what changed is the reading rather than the night
+    @Test
+    fun `a second reading of the same flyer doesn't reword a gig`() {
+        val logged = devGig("Juramento / Asylum", flyer)
+
+        expectThat(keepingFlyerReadings(listOf(devGig("Juramento: Asylum", flyerSignedAfresh)), listOf(logged))).containsExactly(logged)
+    }
+
+    @Test
+    fun `a gig read off a flyer the log doesn't hold is taken as read`() {
+        val logged = devGig("Juramento / Asylum", flyer)
+        val reposted = devGig("Juramento / Asylum / The Anchors", nextFlyer)
+        val unlogged = devGig("Hot Wife", flyerSignedAfresh, night = 22)
+
+        expectThat(keepingFlyerReadings(listOf(reposted, unlogged), listOf(logged))).containsExactly(reposted, unlogged)
+    }
+
+    @Test
+    fun `another venue's gig is taken as listed whatever its poster is called`() {
+        val elsewhere = VenueId("black-heart")
+        val logged = devGig("Juramento / Asylum", flyer).let { it.copy(id = it.id.copy(venueId = elsewhere)) }
+        val listed = devGig("Juramento / Asylum - SOLD OUT", flyerSignedAfresh).let { it.copy(id = it.id.copy(venueId = elsewhere)) }
+
+        expectThat(keepingFlyerReadings(listOf(listed), listOf(logged))).containsExactly(listed)
+    }
+
+    private fun devGig(title: String, poster: String, night: Int = 21) = Gig(
+        GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-2026-11-$night")),
+        GigTitle(title),
+        GigDate(2026, 11, night),
+        PosterUrl(poster),
+        GigDescription(title),
+    )
 }

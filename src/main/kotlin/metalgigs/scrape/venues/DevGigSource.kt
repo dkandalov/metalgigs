@@ -21,6 +21,7 @@ import org.http4k.connect.model.MimeType
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
+import org.http4k.core.Uri
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.File
@@ -166,6 +167,20 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
 
     private val postUrlPrefix = "https://www.instagram.com/p/"
 }
+
+// Why a gig off a flyer the log has read is left as logged: docs/adr/0011-the-devs-month-flyer-is-a-source-read-by-a-local-model.md
+internal fun keepingFlyerReadings(scraped: List<Gig>, logged: List<Gig>): List<Gig> {
+    val loggedById = logged.associateBy { it.id }
+
+    return scraped.map { gig ->
+        val earlier = loggedById[gig.id]
+        if (earlier != null && gig.id.venueId == theDev.id && pictureOf(earlier.posterUrl) == pictureOf(gig.posterUrl)) earlier else gig
+    }
+}
+
+// Instagram signs a picture's address afresh between reads and serves it from more than one host,
+// so the file name is the one part of it that says which picture it is.
+private fun pictureOf(poster: PosterUrl) = Uri.of(poster.value).path.substringAfterLast('/')
 
 // Why the prompt names the shapes a row comes in: docs/adr/0011-the-devs-month-flyer-is-a-source-read-by-a-local-model.md
 val flyerExtractionSystemPrompt = """

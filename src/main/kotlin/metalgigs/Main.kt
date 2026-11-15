@@ -169,7 +169,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
             }
         }
         .map { (replaced, by) -> GigReplaced(replaced, by, now) }
-    val gigs = keepingDhpPosters(scrapedByVenue.values.flatten(), currentGigs, replacements)
+    val gigs = keepingFlyerReadings(keepingDhpPosters(scrapedByVenue.values.flatten(), currentGigs, replacements), currentGigs)
     val toObserve = log.newOrChangedGigs(gigs)
     replacements.forEach { println("  ${venue(it.replaced.venueId)} relisted ${it.replaced.url} as ${it.by.url}") }
 
