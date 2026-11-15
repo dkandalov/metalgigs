@@ -101,4 +101,13 @@ internal fun posterUrlFrom(gigUrl: GigUrl, url: String?): PosterUrl {
     return PosterUrl(url)
 }
 
+internal fun Elements.widestImageUrl(): String {
+    val widest = attr("srcset").split(",").mapNotNull { entry ->
+        val parts = entry.trim().split(Regex("""\s+"""))
+        val w = parts.getOrNull(1)?.removeSuffix("w")?.toIntOrNull()
+        if (parts.isNotEmpty() && w != null) w to parts[0] else null
+    }.maxByOrNull { it.first }?.second
+    return widest ?: attr("abs:src")
+}
+
 internal val monthsByShortName = Month.entries.associateBy { it.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) }

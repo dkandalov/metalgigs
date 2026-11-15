@@ -5,7 +5,6 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
 
 val alexandraPalace = Venue(VenueId("alexandra-palace"), "Alexandra Palace")
 
@@ -24,7 +23,9 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
                     GigId(venue.id, gigUrl),
                     billedTitle(eventPage, listedAs) ?: listedAs,
                     startDateOf(item.select(".dates").text()),
-                    posterUrlFrom(gigUrl, item.widestImageUrl()),
+                    // A couple of events have no image at all - no img tag, not just a missing srcset.
+                    // Why the widest srcset entry: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
+                    posterUrlFrom(gigUrl, item.select(".event_img img").widestImageUrl()),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                 )
             }
@@ -63,17 +64,5 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
         val endMonth = monthsByShortName.getValue(endMonthName)
         val startYear = if (startMonth > endMonth) yearText.toInt() - 1 else yearText.toInt()
         return GigDate(startYear, startMonth, startDay)
-    }
-
-    // A couple of events have no image at all - no img tag, not just a missing srcset.
-    // Why the widest srcset entry: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
-    private fun Element.widestImageUrl(): String {
-        val img = select(".event_img img")
-        val widest = img.attr("srcset").split(",").mapNotNull { entry ->
-            val parts = entry.trim().split(Regex("""\s+"""))
-            val w = parts.getOrNull(1)?.removeSuffix("w")?.toIntOrNull()
-            if (parts.isNotEmpty() && w != null) w to parts[0] else null
-        }.maxByOrNull { it.first }?.second
-        return widest ?: img.attr("abs:src")
     }
 }

@@ -2,7 +2,7 @@
 
 Accepted. Recorded 2026-08-25, describing the poster handling across `scrape/venues`. Amended 2026-09-18: a
 Squarespace venue's poster is the image block in the gig's own copy, its card's thumbnail being the venue's
-featured image rather than the night's artwork. Amended 2026-11-04: AltTickets replaced DHP (ADR 14).
+featured image rather than the night's artwork. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-15: Nambucca added.
 
 ## Context
 
@@ -77,6 +77,11 @@ Where a listing has no poster, the source asks the next thing that might:
   300x300, present on every page read, and that page is already being fetched for the copy. 300 is still under
   the 768 render targets, but `RESIZE_GEOMETRY`'s `>` never enlarges, so it is the difference between a card
   drawn at 300px and one drawn at 154px behind a 260px slot.
+- **Nambucca** marks every card `no_event_image`, so the artwork is the event page's `img[itemprop=image]`, at the
+  widest size its `srcset` names - the upload itself, where `src` is WordPress's 1024px resize. Of the 14 pages read
+  on 2026-11-15 twelve carry one, six of them beside an embedded video, and two (Big Sandy's, Tokyo Taboo's) carry
+  the video alone, with no `og:image` on any page. Those take the video's own still from YouTube, `hqdefault.jpg`
+  at 480x360: every video has one, where `maxresdefault.jpg` answered a 404 for one of the two.
 - **OVO Arena** carries `"ImageURL": false` - not a url, null, or an absent field. Kondor reads a missing and
   a null field as absent, but a boolean where a string belongs fails the whole month's parse rather than the
   one event, so it is read as a node: anything but a string is no poster.

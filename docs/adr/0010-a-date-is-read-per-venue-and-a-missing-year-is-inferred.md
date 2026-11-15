@@ -1,6 +1,6 @@
 # 10. A date is read per venue, only ever the start date, and a year the listing never writes is inferred
 
-Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired.
+Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired. Amended 2026-11-15: Nambucca added.
 
 ## Context
 
@@ -32,8 +32,8 @@ Roundhouse and The O2 all do.
 
 Two shapes of missing year are inferred, both from the listing's own order rather than from today:
 
-**A year counted forward.** Cart & Horses, Electric Ballroom, Islington Assembly Hall and The Lexington print
-no year at all. Gigs are listed in date order, so the year increments as the listing crosses back into an
+**A year counted forward.** Cart & Horses, Electric Ballroom, Islington Assembly Hall, The Lexington and
+Nambucca print no year at all. Gigs are listed in date order, so the year increments as the listing crosses back into an
 earlier month. At
 Islington Assembly Hall the pages continue that order, so the count carries across pages rather than
 restarting - the boundary falls mid-page-4.
@@ -44,6 +44,9 @@ inference otherwise leaves - a listing that stops being in date order dates gigs
 entirely ordinary - for the venue that writes enough down to close it. 16 January is a Saturday in 2027 and a
 Friday in 2026, so a year counted wrong stops matching the card that carries it. The check is made only of the
 gigs kept, a club night having been dropped before a date is built for it, though its month is still counted.
+
+Nambucca's event pages do carry a full `startDate`, and the listing is read all the same: the tests replay one
+recorded event page per host, so a date taken from the page would be that one page's date on every gig.
 
 Dingwalls prints a year on all but the odd card ("Wednesday, 28th October" between two 2026 dates), so a
 yearless card takes the year of the card before it, counted forward across a new year, and is checked against

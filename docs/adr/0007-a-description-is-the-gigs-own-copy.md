@@ -39,6 +39,7 @@ the gigs it books without copy.
 | Scala | the lineup header box plus everything after "About &lt;artist&gt;" | see below |
 | Bush Hall | the event detail column, cut to its narratives section | See Tickets fills the same column with price rows, a low-income ticket FAQ, an accessibility link and the basket; the section's own header ("More information about X tickets") is See Tickets' words rather than the gig's |
 | The Lexington | the paragraphs of `.text-content` | the date and price sit in `.event-meta`, the ticket link in `.links`, and the venue's 18+ line is a bare text node in the same div, belonging to no element that could be named or cut |
+| Nambucca | `[itemprop=description]` | the date, address and ticket button sit in their own blocks beside it, and nothing but the promoter's copy is inside |
 | Dingwalls | `.elementor-location-single` | |
 | Paper Dress Vintage | `.event__content` | |
 
