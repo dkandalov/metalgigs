@@ -9,7 +9,7 @@ import java.time.Month
 
 val islingtonAssemblyHall = Venue(VenueId("islington-assembly-hall"), "Islington Assembly Hall")
 
-class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
+class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs, private val year: Int) : GigsSource {
     override val venue = islingtonAssemblyHall
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
@@ -34,13 +34,15 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
                 // the poster is the background of an anchor the theme lazy-loads, so it has no src
                 // at all until its own JavaScript runs - only data-src
                 val thumbnailUrl = item.select("a.event__item__background").attr("abs:data-src")
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
 
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(link.text()),
                     GigDate(currentYear, month, item.select(".event__item__date__numeric").text().toInt()),
                     posterUrlFrom(gigUrl, thumbnailSuffixPattern.replace(thumbnailUrl, "$1")),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    billedLineup(eventPage),
                 )
             }
             pageUrl = page.select("a.entry__pagination__action[data-js-infinite-next]").attr("abs:href").ifBlank { null }
@@ -62,6 +64,9 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
         """by purchasing a ticket to this event|subject to a venue levy|^\*?this is an? \d+\+ event|support the supports""",
         RegexOption.IGNORE_CASE,
     )
+
+    internal fun billedLineup(page: Document): Lineup =
+        lineupBilledInCopy(page.select(".event__description p").eachText(), joinedActs)
 
     // the "Presented by <promoter>" line is left in: it names who booked the show, which is the one
     // thing some of these listings say beyond the boilerplate

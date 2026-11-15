@@ -5,6 +5,7 @@ import com.ubertob.kondor.json.JSealed
 import com.ubertob.kondor.json.JStringRepresentable
 import com.ubertob.kondor.json.bool
 import com.ubertob.kondor.json.ObjectNodeConverter
+import com.ubertob.kondor.json.array
 import com.ubertob.kondor.json.datetime.str
 import com.ubertob.kondor.json.fromNdJsonToList
 import com.ubertob.kondor.json.jsonnode.JsonNodeObject
@@ -274,8 +275,11 @@ internal object JGig : JAny<Gig>() {
     private val url by str(JGigUrl) { id.url }
     private val posterUrl by str(JPosterUrl) { posterUrl }
     private val description by str(JGigDescription) { description }
+    // Written only where a gig has one, so a line from before lineups reads back and rewrites as it was.
+    private val lineup by array(fun Gig.(): List<String>? = lineup.value.ifEmpty { null })
 
-    override fun JsonNodeObject.deserializeOrThrow() = Gig(GigId(+venue, +url), +title, +date, +posterUrl, +description)
+    override fun JsonNodeObject.deserializeOrThrow() =
+        Gig(GigId(+venue, +url), +title, +date, +posterUrl, +description, Lineup(+lineup ?: emptyList()))
 }
 
 private object JVenueId : JStringRepresentable<VenueId>() {

@@ -15,7 +15,7 @@ import java.time.YearMonth
 val ovoArena = Venue(VenueId("ovo-arena"), "OVO Arena Wembley")
 
 // Why the calendar rather than the events page: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
-class OvoArenaGigsSource(private val client: HttpHandler, private val from: YearMonth = YearMonth.now()) : GigsSource {
+class OvoArenaGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs, private val from: YearMonth = YearMonth.now()) : GigsSource {
     override val venue = ovoArena
 
     override fun latestGigs(): List<Gig> =
@@ -31,12 +31,15 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
             // gig as far as the page is concerned - Big Gig 2026 ran 11:45 and 16:45 on 10 October
             .distinctBy { (event, date) -> gigUrl(event, date) }
             .map { (event, date) ->
+                val eventPage = Jsoup.parse(fetchPage(client, event.url), event.url)
+
                 Gig(
                     GigId(venue.id, gigUrl(event, date)),
                     titleFrom(event.title),
                     date,
                     posterUrlFrom(gigUrl(event, date), event.imageUrl),
-                    fetchDescription(client, GigUrl(event.url), ::eventPageContent),
+                    descriptionFrom(eventPage, GigUrl(event.url), ::eventPageContent),
+                    billedLineup(eventPage),
                 )
             }
 
@@ -53,6 +56,10 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val from: Year
     // policy, an AXS ticket-transfer notice, and travel warnings about whatever is on at the stadium
     // next door - none of it about the act, and on a short listing far longer than the copy.
     internal fun eventPageContent(page: Document) = page.select(".event_description").textOrNull()
+
+    // The page is The O2's own template, tagline and all.
+    internal fun billedLineup(page: Document): Lineup =
+        page.selectFirst("h2.tagline")?.let { lineupBilledBy(it.text(), joinedActs) } ?: Lineup.none
 
     private val musicCategory = "3"
 

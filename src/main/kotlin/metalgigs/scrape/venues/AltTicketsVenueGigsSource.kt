@@ -15,17 +15,18 @@ import org.jsoup.nodes.TextNode
 
 val theGarage = Venue(VenueId("the-garage"), "The Garage")
 
-class TheGarageGigsSource(client: HttpHandler) :
-    GigsSource by AltTicketsVenueGigsSource(client, url = "https://www.alttickets.com/venue/london/the-garage", venue = theGarage)
+class TheGarageGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
+    GigsSource by AltTicketsVenueGigsSource(client, joinedActs, url = "https://www.alttickets.com/venue/london/the-garage", venue = theGarage)
 
 val theGrace = Venue(VenueId("the-grace"), "The Grace")
 
-class TheGraceGigsSource(client: HttpHandler) :
-    GigsSource by AltTicketsVenueGigsSource(client, url = "https://www.alttickets.com/venue/london/the-grace", venue = theGrace)
+class TheGraceGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
+    GigsSource by AltTicketsVenueGigsSource(client, joinedActs, url = "https://www.alttickets.com/venue/london/the-grace", venue = theGrace)
 
 // Why this reading surface: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 internal class AltTicketsVenueGigsSource(
     private val client: HttpHandler,
+    private val joinedActs: JoinedActs,
     private val url: String,
     override val venue: Venue,
 ) : GigsSource {
@@ -33,19 +34,30 @@ internal class AltTicketsVenueGigsSource(
         eventsIn(Jsoup.parse(fetchPage(client, url, browserHeaders), url)).map { event ->
             val gigUrl = gigUrlFrom(event.url, "https://www.alttickets.com/")
             val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value, browserHeaders), gigUrl.value)
+            val listedAs = titleFrom(event.name)
 
             Gig(
                 GigId(venue.id, gigUrl),
-                titleFrom(event.name),
+                billedTitle(eventPage, listedAs) ?: listedAs,
                 // e.g. "2026-11-07T18:00:00+00:00"
                 GigDate.parse(event.startDate.take(10)),
                 // Why this size: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
                 posterUrlFrom(gigUrl, posterIn(eventPage)),
                 descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                billedLineup(eventPage),
             )
         }
 
     private val jsonLd = "script[type=application/ld+json]"
+
+    // The bill is a line under the event page's heading, where a strapline goes on other pages.
+    internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? =
+        page.selectFirst(lineUnderHeading)?.let { titleBilledBy(it.text(), listedAs) }
+
+    internal fun billedLineup(page: Document): Lineup =
+        page.selectFirst(lineUnderHeading)?.let { lineupBilledBy(it.text(), joinedActs) } ?: Lineup.none
+
+    private val lineUnderHeading = "h1.page-title small"
 
     // AltTickets answers OkHttp's own User-Agent with a 403, and did not on 2026-10-20.
     private val browserHeaders = listOf(

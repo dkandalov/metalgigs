@@ -33,7 +33,7 @@ import java.util.Locale
 val theDev = Venue(VenueId("the-dev"), "The Dev")
 
 // Why the flyer is the listing: docs/adr/0011-the-devs-month-flyer-is-a-source-read-by-a-local-model.md
-class DevGigSource(private val client: HttpHandler, private val chat: Chat) : GigsSource {
+class DevGigSource(private val client: HttpHandler, private val chat: Chat, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = theDev
 
     override fun latestGigs(): List<Gig> {
@@ -72,7 +72,7 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat) : Gi
             .filterNot { (_, title) -> notABandNight.containsMatchIn(title) }
             .groupBy({ (date, _) -> date }, { (_, title) -> title })
             .map { (date, titles) -> date to titles.joinToString(" + ") }
-            .map { (date, title) -> Gig(GigId(venue.id, gigUrl(date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title)) }
+            .map { (date, title) -> Gig(GigId(venue.id, gigUrl(date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title), lineupHeadedBy(GigTitle(title), joinedActs)) }
     }
 
     // Every gig on the flyer is a night at The Dev, so a model is only ever asked to read dates and

@@ -33,12 +33,14 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                 val gigUrl = gigUrlFrom(item.select("a:has(h3.nci-event-name)").attr("abs:href"), "https://pit.live/events/")
                 val listedAs = GigTitle(item.select("h3.nci-event-name").text())
                 val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
+                val performers = performersOn(eventPage)
                 Gig(
                     GigId(venue.id, gigUrl),
-                    titleWithLineup(listedAs, performersOn(eventPage)) ?: listedAs,
+                    titleWithLineup(listedAs, performers) ?: listedAs,
                     GigDate(year.toInt(), monthsByShortName.getValue(month), day.toInt()),
                     posterUrlFrom(gigUrl, item.select("img").attr("abs:src")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    lineupFrom(performers),
                 )
             }
     }

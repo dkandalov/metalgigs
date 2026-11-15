@@ -23,6 +23,7 @@ class TheUnderworldGigsSourceTest {
                 GigDate(2026, 8, 8),
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-04-15/644411f7-5f86-484c-b29b-b71dc309b89e.jpg?rect=734%2C0%2C2682%2C2682"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(theUnderworld.id, GigUrl("https://www.theunderworldcamden.co.uk/event/alive-a-tribute-to-pearl-jam-20th-nov-the-underworld-london-tickets/")),
@@ -30,6 +31,7 @@ class TheUnderworldGigsSourceTest {
                 GigDate(2027, 12, 4),
                 PosterUrl("https://dice-media.imgix.net/attachments/2026-02-10/cf613856-3e58-41a8-b0f0-af044c77c97b.jpg?rect=228%2C0%2C2045%2C2045"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -103,6 +105,13 @@ class TheUnderworldGigsSourceTest {
 
         expectThat(TheUnderworldGigsSource(noHttp).billedTitle(page, GigTitle("KINGS OF THRASH")))
             .isEqualTo(GigTitle("Kings of Thrash / XIII Doors / Wicked"))
+    }
+
+    @Test
+    fun `takes a gig's lineup from its running order, headliner first, whatever the gig is named for`() {
+        val page = runningOrderOf("1:00 PM" to "Doors open", "&ndash;" to "Aethoria", "&ndash;" to "Burning Witches", "&ndash;" to "Candlemass", "10:00 PM" to "Curfew")
+
+        expectThat(TheUnderworldGigsSource(noHttp).lineupOn(page)).isEqualTo(Lineup(listOf("Candlemass", "Burning Witches", "Aethoria")))
     }
 
     // London Metalfest, where the running order holds the day's bands and not what the day is called

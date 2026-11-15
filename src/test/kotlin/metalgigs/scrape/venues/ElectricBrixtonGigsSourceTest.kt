@@ -22,6 +22,7 @@ class ElectricBrixtonGigsSourceTest {
                 GigDate(2026, 8, 28),
                 PosterUrl("https://e2h4j4t3.rocketcdn.me/wp-content/uploads/2025/01/Busspepper-1200.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(electricBrixton.id, GigUrl("https://www.electricbrixton.uk.com/events/elder/")),
@@ -29,6 +30,7 @@ class ElectricBrixtonGigsSourceTest {
                 GigDate(2027, 2, 27),
                 PosterUrl("https://e2h4j4t3.rocketcdn.me/wp-content/uploads/2026/06/Elder-1200.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }

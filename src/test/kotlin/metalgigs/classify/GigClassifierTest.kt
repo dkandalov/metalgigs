@@ -41,7 +41,7 @@ class GigClassifierTest {
     private fun fakeChat(reply: String): Chat = Chat { _ -> chatResponse(reply) }
 
     private fun gig(title: GigTitle = GigTitle("Some Gig"), venue: Venue = theUnderworld, day: Int = 8, url: String = "https://example.com/gig", posterUrl: String = "https://example.com/poster.jpg", description: String = "") =
-        Gig(GigId(venue.id, GigUrl(url)), title = title, GigDate(2026, 8, day), PosterUrl(posterUrl), GigDescription(description))
+        Gig(GigId(venue.id, GigUrl(url)), title = title, GigDate(2026, 8, day), PosterUrl(posterUrl), GigDescription(description), Lineup.none)
 
     // Classifying makes no http request of its own - the only fetch it can do is the vision path's
     // poster, which the tests exercising that path stub out.

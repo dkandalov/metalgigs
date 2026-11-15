@@ -9,7 +9,7 @@ import java.time.Month
 
 val nambucca = Venue(VenueId("nambucca"), "Nambucca")
 
-class NambuccaGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
+class NambuccaGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs, private val year: Int) : GigsSource {
     override val venue = nambucca
 
     // Why the year is counted: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
@@ -26,12 +26,15 @@ class NambuccaGigsSource(private val client: HttpHandler, private val year: Int)
                 val gigUrl = gigUrlFrom(card.select("> a").attr("abs:href"), eventsPath)
                 val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
 
+                val listedAs = titleFrom(card.select(".event_list_title").text())
+
                 Gig(
                     GigId(venue.id, gigUrl),
-                    titleFrom(card.select(".event_list_title").text()),
+                    listedAs,
                     GigDate(currentYear, month, card.select(".eventlist_day").text().trim().toInt()),
                     posterUrlFrom(gigUrl, posterOn(eventPage)),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    lineupHeadedBy(listedAs, joinedActs),
                 )
             }
     }

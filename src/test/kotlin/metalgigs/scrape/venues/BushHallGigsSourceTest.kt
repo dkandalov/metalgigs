@@ -26,6 +26,7 @@ class BushHallGigsSourceTest {
                 GigDate(2026, 9, 5),
                 PosterUrl("https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(bushHall.id, GigUrl("https://bushhall.seetickets.com/event/bec-o-malley/bush-hall/3707284")),
@@ -33,6 +34,7 @@ class BushHallGigsSourceTest {
                 GigDate(2027, 5, 7),
                 PosterUrl("https://c.ststat.net/content/entimg/tour/bec-o-malley-1724965125-300x300.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }

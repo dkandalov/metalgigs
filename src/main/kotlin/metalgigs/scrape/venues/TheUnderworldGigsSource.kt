@@ -23,6 +23,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
                     GigDate.parse(item.select("time").first()!!.attr("datetime")),
                     posterUrlFrom(gigUrl, imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src"))),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    lineupOn(eventPage),
                 )
             }
 
@@ -56,6 +57,9 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
         if (bill.size < 2 || !bill.first().equals(listedAs.value, ignoreCase = true)) return null
         return titleFrom(bill.take(actsInTitle).joinToString(" / "))
     }
+
+    // The whole running order, however long: a title takes four acts of it and a lineup is the bill.
+    internal fun lineupOn(page: Document): Lineup = lineupFrom(lineupActs(page).asReversed())
 
     // Doors and curfew carry a clock time where every act carries an en dash, so the time is what
     // tells them apart. Not position: Cosmic Void Festival's page ends on its last act, with no

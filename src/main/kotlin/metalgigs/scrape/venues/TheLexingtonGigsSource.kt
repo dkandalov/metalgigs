@@ -12,7 +12,7 @@ import java.util.Locale
 
 val theLexington = Venue(VenueId("the-lexington"), "The Lexington")
 
-class TheLexingtonGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
+class TheLexingtonGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs, private val year: Int) : GigsSource {
     override val venue = theLexington
 
     override fun latestGigs(): List<Gig> {
@@ -35,12 +35,14 @@ class TheLexingtonGigsSource(private val client: HttpHandler, private val year: 
                 if (card.selectFirst(".club-label") != null) return@mapNotNull null
 
                 val gigUrl = gigUrlFrom(card.select("a.link-box").attr("abs:href"), eventsPath)
+                val listedAs = GigTitle(card.select(".event-title").text())
                 Gig(
                     GigId(venue.id, gigUrl),
-                    GigTitle(card.select(".event-title").text()),
+                    listedAs,
                     dateOn(currentYear, month, day.toInt(), weekday, gigUrl),
                     posterUrlFrom(gigUrl, card.select(".image-wrapper img").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
+                    lineupHeadedBy(listedAs, joinedActs, commaLists = true),
                 )
             }
     }

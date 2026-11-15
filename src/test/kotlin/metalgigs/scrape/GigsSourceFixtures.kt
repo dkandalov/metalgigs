@@ -2,6 +2,7 @@ package metalgigs.scrape
 
 import metalgigs.Gig
 import metalgigs.GigDescription
+import metalgigs.Lineup
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import strikt.api.expectThat
@@ -15,9 +16,11 @@ internal fun assertScrapesGigs(source: GigsSource, size: Int, first: Gig, last: 
 
     expectThat(events).hasSize(size)
     // a description is its whole event page's text, so the per-venue expectations mask it rather
-    // than carrying thousands of characters each - what's extracted from a page has its own tests
-    expectThat(events.first().copy(description = GigDescription(""))).isEqualTo(first)
-    expectThat(events.last().copy(description = GigDescription(""))).isEqualTo(last)
+    // than carrying thousands of characters each - what's extracted from a page has its own tests.
+    // A lineup is masked with it: most are read off that same page, which these tests answer with
+    // one recording for every gig.
+    expectThat(events.first().copy(description = GigDescription(""), lineup = Lineup.none)).isEqualTo(first)
+    expectThat(events.last().copy(description = GigDescription(""), lineup = Lineup.none)).isEqualTo(last)
     expectThat(events.all { it.id.venueId == first.id.venueId }).isTrue()
 
     return events

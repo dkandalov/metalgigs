@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document
 
 val cartAndHorses = Venue(VenueId("cart-and-horses"), "Cart & Horses")
 
-class CartAndHorsesGigsSource(private val client: HttpHandler, private val year: Int) : GigsSource {
+class CartAndHorsesGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs, private val year: Int) : GigsSource {
     override val venue = cartAndHorses
     override fun latestGigs(): List<Gig> {
         var currentYear = year
@@ -24,12 +24,15 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val year:
                 previousMonth = month
                 val gigUrl = gigUrlFrom(item.select(".news-carousel__link").attr("abs:href"), "https://www.cartandhorses.london/")
 
+                val listedAs = GigTitle(item.select(".news-carousel__link").text())
+
                 Gig(
                     GigId(venue.id, gigUrl),
-                    GigTitle(item.select(".news-carousel__link").text()),
+                    listedAs,
                     GigDate(currentYear, monthsByShortName.getValue(month), item.selectFirst(".news-carousel__day")!!.text().toInt()),
                     posterUrlFrom(gigUrl, item.select(".news-carousel__image").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
+                    lineupHeadedBy(listedAs, joinedActs),
                 )
             }
     }

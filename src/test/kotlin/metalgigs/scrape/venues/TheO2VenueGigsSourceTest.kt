@@ -16,7 +16,7 @@ class TheO2VenueGigsSourceTest {
     @Test
     fun `extracts gig events from indigo at The O2, paging past the listing's first batch`() {
         val events = assertScrapesGigs(
-            source = IndigoAtTheO2GigsSource(cachedClient()),
+            source = IndigoAtTheO2GigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 53,
             first = Gig(
                 GigId(indigoAtTheO2.id, GigUrl("https://www.theo2.co.uk/events/detail/timaya")),
@@ -24,6 +24,7 @@ class TheO2VenueGigsSourceTest {
                 GigDate(2026, 8, 22),
                 PosterUrl("https://www.theo2.co.uk/assets/img/1080X1080-a8eecfe5d3.png"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(indigoAtTheO2.id, GigUrl("https://www.theo2.co.uk/events/detail/bat-50th-anniversary-concert")),
@@ -31,6 +32,7 @@ class TheO2VenueGigsSourceTest {
                 GigDate(2027, 10, 30),
                 PosterUrl("https://www.theo2.co.uk/assets/img/Steve-Steinmans-Fuel-Injected-Magic-50th-square-Post3er-jpg-48832cc6ba.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -43,7 +45,7 @@ class TheO2VenueGigsSourceTest {
     @Test
     fun `extracts gig events from The O2 Arena, paging past the listing's first batch`() {
         val events = assertScrapesGigs(
-            source = TheO2ArenaGigsSource(cachedClient()),
+            source = TheO2ArenaGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 86,
             first = Gig(
                 GigId(theO2Arena.id, GigUrl("https://www.theo2.co.uk/events/detail/ariana-grande-2026")),
@@ -51,6 +53,7 @@ class TheO2VenueGigsSourceTest {
                 GigDate(2026, 8, 19),
                 PosterUrl("https://www.theo2.co.uk/assets/img/Static_TM-ArtistImage_2426x1365_ArianaGrande_2026_Photo-copy-square-b4f4051fe8.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(theO2Arena.id, GigUrl("https://www.theo2.co.uk/events/detail/dungeons-dragons-fan-expo-london-2027")),
@@ -58,6 +61,7 @@ class TheO2VenueGigsSourceTest {
                 GigDate(2027, 9, 5),
                 PosterUrl("https://www.theo2.co.uk/assets/img/DD_1080-x-1080-Press-shot-32a180fd24.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -79,7 +83,7 @@ class TheO2VenueGigsSourceTest {
             </div>
         """.trimIndent()
 
-        val date = TheO2VenueGigsSource(noHttp, theO2VenueId = 2, venue = indigoAtTheO2).startDateOf(pageOf(html).select(".date").first()!!)
+        val date = TheO2VenueGigsSource(noHttp, JoinedActs.keptWhole, theO2VenueId = 2, venue = indigoAtTheO2).startDateOf(pageOf(html).select(".date").first()!!)
 
         expectThat(date).isEqualTo(GigDate(2026, 12, 28))
     }
@@ -92,7 +96,7 @@ class TheO2VenueGigsSourceTest {
             </div>
         """.trimIndent()
 
-        val date = TheO2VenueGigsSource(noHttp, theO2VenueId = 2, venue = indigoAtTheO2).startDateOf(pageOf(html).select(".date").first()!!)
+        val date = TheO2VenueGigsSource(noHttp, JoinedActs.keptWhole, theO2VenueId = 2, venue = indigoAtTheO2).startDateOf(pageOf(html).select(".date").first()!!)
 
         expectThat(date).isEqualTo(GigDate(2026, 8, 22))
     }
@@ -111,7 +115,7 @@ class TheO2VenueGigsSourceTest {
             <div class="terms_conditions holder"><h3>Terms of entry</h3><p>Unless otherwise stated, all indigo shows are 3+.</p></div>
         """.trimIndent()
 
-        val pageText = TheO2VenueGigsSource(noHttp, theO2VenueId = 2, venue = indigoAtTheO2).eventPageContent(pageOf(html))!!
+        val pageText = TheO2VenueGigsSource(noHttp, JoinedActs.keptWhole, theO2VenueId = 2, venue = indigoAtTheO2).eventPageContent(pageOf(html))!!
 
         expectThat(pageText).isEqualTo("German heavy metal pioneers ACCEPT celebrate their 50th anniversary.")
     }
@@ -119,20 +123,20 @@ class TheO2VenueGigsSourceTest {
     @Test
     fun `titles a gig with the acts its tagline bills`() {
         expectThat(billedTitle("Papa Roach", "Plus special guests Landmvrks and Sleep Theory"))
-            .isEqualTo(GigTitle("Papa Roach / Landmvrks / Sleep Theory"))
+            .isEqualTo(GigTitle("Papa Roach / Landmvrks and Sleep Theory"))
         expectThat(billedTitle("Just Jinger", "with special guest Jesse Clegg"))
             .isEqualTo(GigTitle("Just Jinger / Jesse Clegg"))
         expectThat(billedTitle("The Dualers", "Summer Never Ends Tour with special guest: DJ Ska N Mash"))
             .isEqualTo(GigTitle("The Dualers / DJ Ska N Mash"))
         expectThat(billedTitle("Change", "The Very Best of Change with Special Guests: Jazzie B (Soul II Soul) & Jaki Graham"))
-            .isEqualTo(GigTitle("Change / Jazzie B (Soul II Soul) / Jaki Graham"))
+            .isEqualTo(GigTitle("Change / Jazzie B (Soul II Soul) & Jaki Graham"))
     }
 
     // the page types "Plus" twice, which is how Five Finger Death Punch's tagline really reads
     @Test
     fun `reads a bill whose marker is typed twice`() {
         expectThat(billedTitle("Five Finger Death Punch", "Plus special guests Plus Lamb Of God and Bleed From Within"))
-            .isEqualTo(GigTitle("Five Finger Death Punch / Lamb Of God / Bleed From Within"))
+            .isEqualTo(GigTitle("Five Finger Death Punch / Lamb Of God and Bleed From Within"))
     }
 
     @Test
@@ -154,10 +158,22 @@ class TheO2VenueGigsSourceTest {
         expectThat(source.billedTitle(page, GigTitle("Headliner"))).isEqualTo(null)
     }
 
+    @Test
+    fun `takes the acts its tagline bills as a gig's lineup`() {
+        val whetherTwoActs = JoinedActs { joined -> if (joined == "Lamb Of God and Bleed From Within") joined.split(" and ") else listOf(joined) }
+        fun lineupOf(tagline: String) = TheO2VenueGigsSource(noHttp, whetherTwoActs, theO2VenueId = 1, venue = theO2Arena)
+            .billedLineup(pageOf("""<h1 class="title has_tagline">Headliner</h1><h2 class="tagline ">$tagline</h2>"""))
+
+        expectThat(lineupOf("Plus special guests Plus Lamb Of God and Bleed From Within")).isEqualTo(Lineup(listOf("Lamb Of God", "Bleed From Within")))
+        expectThat(lineupOf("Plus Ben Harper and Donavon Frankenreiter / G.Love")).isEqualTo(Lineup(listOf("Ben Harper and Donavon Frankenreiter", "G.Love")))
+        expectThat(lineupOf("Live in Concert")).isEqualTo(Lineup.none)
+        expectThat(source.billedLineup(pageOf("""<h1 class="title">Headliner</h1>"""))).isEqualTo(Lineup.none)
+    }
+
     private fun billedTitle(listedAs: String, tagline: String): GigTitle? {
         val page = pageOf("""<h1 class="title has_tagline">$listedAs</h1><h2 class="tagline ">$tagline</h2>""")
         return source.billedTitle(page, GigTitle(listedAs))
     }
 
-    private val source = TheO2VenueGigsSource(noHttp, theO2VenueId = 1, venue = theO2Arena)
+    private val source = TheO2VenueGigsSource(noHttp, JoinedActs.keptWhole, theO2VenueId = 1, venue = theO2Arena)
 }

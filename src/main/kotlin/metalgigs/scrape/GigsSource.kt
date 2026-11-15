@@ -34,41 +34,13 @@ internal fun descriptionFrom(page: Document, url: GigUrl, content: (Document) ->
     )
 
 // Why titles are tidied as read: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
-internal fun titleFrom(text: String): GigTitle =
-    GigTitle(
-        text.map { if (it.category == CharCategory.SPACE_SEPARATOR) ' ' else it }
-            .joinToString("")
-            .replace(Regex(" +"), " ")
-            .trim(' '),
-    )
+internal fun titleFrom(text: String): GigTitle = GigTitle(singlySpaced(text))
 
-// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
-internal fun titleBilledBy(strapline: String, listedAs: GigTitle): GigTitle? {
-    val bill = billMarker.matchEntire(strapline)?.groupValues?.get(1) ?: return null
-    if (unbookedBill.containsMatchIn(bill)) return null
-    val acts = bill.split(actSeparator)
-    return titleFrom((listOf(listedAs.value) + acts).take(actsInBilledTitle).joinToString(" / "))
-}
-
-private val billMarker = Regex(
-    """(?:.*\bspecial\s+guests?:?\s+(?:plus\s+)?|(?:.*\btour\b.*?\s)?(?:with|plus)\s+)(.+)""",
-    RegexOption.IGNORE_CASE,
-)
-private val unbookedBill = Regex("""\b(?:tba|tbc|to be announced|guests?|support)\b""", RegexOption.IGNORE_CASE)
-private val actSeparator = Regex("""\s+(?:\+|&|and)\s+|,\s+""")
-private const val actsInBilledTitle = 4
-
-// A lineup given as a field rather than written into copy. It is taken only when one of its acts is
-// what the gig is listed as, the rest being appended in the order given.
-// Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
-internal fun titleWithLineup(listedAs: GigTitle, lineup: List<String>): GigTitle? {
-    val named = lettersOf(listedAs.value)
-    val (inTitle, unnamed) = lineup.filter { lettersOf(it).isNotEmpty() }.partition { named.contains(lettersOf(it)) }
-    if (inTitle.isEmpty() || unnamed.isEmpty()) return null
-    return titleFrom((listOf(listedAs.value) + unnamed).take(actsInBilledTitle).joinToString(" / "))
-}
-
-private fun lettersOf(text: String) = text.lowercase().filter(Char::isLetterOrDigit)
+internal fun singlySpaced(text: String): String =
+    text.map { if (it.category == CharCategory.SPACE_SEPARATOR) ' ' else it }
+        .joinToString("")
+        .replace(Regex(" +"), " ")
+        .trim(' ')
 
 // Jsoup returns an empty selection rather than null when nothing matches, and an empty selection's
 // text is "".

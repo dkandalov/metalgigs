@@ -12,7 +12,7 @@ import java.util.Locale
 
 val dingwalls = Venue(VenueId("dingwalls"), "Dingwalls")
 
-class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
+class DingwallsGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = dingwalls
 
     override fun latestGigs(): List<Gig> {
@@ -28,13 +28,16 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
                 val gigUrl = gigUrlFrom(item.select(".elementor-widget-theme-post-title a").attr("abs:href"), "https://dingwalls.com/gig/")
                 val date = dateOf(item.select(".elementor-widget-heading:not(.elementor-widget-theme-post-title)").text(), previousDate, gigUrl)
                 previousDate = date
+                val listedAs = GigTitle(item.select(".elementor-widget-theme-post-title a").text())
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
 
                 Gig(
                     GigId(venue.id, gigUrl),
-                    GigTitle(item.select(".elementor-widget-theme-post-title a").text()),
+                    listedAs,
                     date,
                     posterUrlFrom(gigUrl, item.select(".elementor-widget-theme-post-featured-image img").attr("abs:src")),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    billedLineup(eventPage, listedAs),
                 )
             }
             pageUrl = nextPageUrl(page)
@@ -101,4 +104,10 @@ class DingwallsGigsSource(private val client: HttpHandler) : GigsSource {
     }
 
     internal fun eventPageContent(page: Document) = page.select(".elementor-location-single").textOrNull()
+
+    // The heading bills the guests on some gigs - "IMPERIAL TRIUMPHANT + very special guests KNOLL" -
+    // and a paragraph of the copy does on others: "W/Support from: Spencer Mackenzie".
+    internal fun billedLineup(page: Document, listedAs: GigTitle): Lineup =
+        lineupHeadedBy(listedAs, joinedActs).takeUnless { it == Lineup.none }
+            ?: lineupBilledInCopy(page.select(".elementor-location-single p").eachText(), joinedActs)
 }

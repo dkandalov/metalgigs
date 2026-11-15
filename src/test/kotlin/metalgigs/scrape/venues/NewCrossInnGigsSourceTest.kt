@@ -26,6 +26,7 @@ class NewCrossInnGigsSourceTest {
                 GigDate(2026, 8, 8),
                 PosterUrl("https://pit.live/uploads/user/2026/07/07/640x480/5d05ygXA94bMG95I.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(newCrossInn.id, GigUrl("https://pit.live/events/level-up-festival-7")),
@@ -33,6 +34,7 @@ class NewCrossInnGigsSourceTest {
                 GigDate(2027, 7, 23),
                 PosterUrl("https://pit.live/uploads/user/2026/07/24/640x480/t8YfuAmMlTMW6ilv.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 

@@ -149,6 +149,34 @@ class WithBilledGuestsTest {
             .isEqualTo(GigTitle("HEADLINER / ONE / TWO / THREE"))
     }
 
+    // the same pages as the titles above, read for every act on them rather than for a title's four
+    @Test
+    fun `takes every act the copy bills as a gig's lineup`() {
+        expectThat(billedGuests.billedLineup(contentOf("Presented by Human_Disease_Promo & The Black Heart", "GRAVEKVLT", "Plus guests…", "MORTAR", "ISHTAR TERRA"), GigTitle("GRAVEKVLT")))
+            .isEqualTo(Lineup(listOf("GRAVEKVLT", "MORTAR", "ISHTAR TERRA")))
+        expectThat(billedGuests.billedLineup(contentOf("Plus guests…", "ONE", "TWO", "THREE", "FOUR"), GigTitle("HEADLINER")))
+            .isEqualTo(Lineup(listOf("HEADLINER", "ONE", "TWO", "THREE", "FOUR")))
+        expectThat(billedGuests.billedLineup(contentOf("MORAG TONG", "DRUIDESS", "OUTBACK"), GigTitle("MORAG TONG")))
+            .isEqualTo(Lineup(listOf("MORAG TONG", "DRUIDESS", "OUTBACK")))
+    }
+
+    // Dark Clouds Over London is a night and A-Sun Amissa's heading is already a bill, so neither
+    // opens its lineup the way a headliner does
+    @Test
+    fun `leaves what a bill opens on out of the lineup where that is not an act`() {
+        expectThat(billedGuests.billedLineup(contentOf("DARK CLOUDS OVER LONDON", "FEATURING", "HECATE ENTHRONED", "MORTAR"), GigTitle("DARK CLOUDS OVER LONDON")))
+            .isEqualTo(Lineup(listOf("HECATE ENTHRONED", "MORTAR")))
+        expectThat(billedGuests.billedLineup(contentOf("Plus guests...", "SHE THE THRONE", "LOVER'S LEAP"), GigTitle("A-SUN AMISSA & LAUREN MASON: WATER SCORES w/ SHE THE THRONE + LOVER'S LEAP")))
+            .isEqualTo(Lineup(listOf("SHE THE THRONE", "LOVER'S LEAP")))
+    }
+
+    @Test
+    fun `names no lineup where the copy bills nobody`() {
+        expectThat(billedGuests.billedLineup(contentOf("STORMO + BELIEVE IN NOTHING", "Plus guests TBA"), GigTitle("STORMO + BELIEVE IN NOTHING"))).isEqualTo(Lineup.none)
+        expectThat(billedGuests.billedLineup(contentOf("PHANTOM SPELL", "&", "FREEWAYS"), GigTitle("PHANTOM SPELL & FREEWAYS"))).isEqualTo(Lineup.none)
+        expectThat(billedGuests.billedLineup(contentOf("COLD IN BERLIN", "Plus guests...", "'A dark whirlpool of noise' Mojo"), GigTitle("COLD IN BERLIN"))).isEqualTo(Lineup.none)
+    }
+
     // every case here goes at the copy directly, so no listing is read and no http is made
     private val billedGuests = WithBilledGuests(
         SquarespaceEventsGigsSource(noHttp, url = "https://example.com/events", venue = theBlackHeart),

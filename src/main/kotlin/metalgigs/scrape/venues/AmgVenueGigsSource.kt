@@ -40,6 +40,7 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
                 GigDate.parse(event.eventDate.substringBefore('T')),
                 PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
                 event.description(),
+                lineupFrom(event.lineup.map { it.name }),
             )
         }
     }

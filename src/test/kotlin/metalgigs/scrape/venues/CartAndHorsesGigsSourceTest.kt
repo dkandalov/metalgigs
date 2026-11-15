@@ -18,7 +18,7 @@ class CartAndHorsesGigsSourceTest {
     @Test
     fun `extracts gig events from news page`() {
         val events = assertScrapesGigs(
-            source = CartAndHorsesGigsSource(cachedClient(), year = 2026),
+            source = CartAndHorsesGigsSource(cachedClient(), JoinedActs.keptWhole, year = 2026),
             size = 21,
             first = Gig(
                 GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/523846-three-birds-whisper-the-positive-rebellion-tour-uk-2026-psychedelic-skies-borderline/")),
@@ -26,6 +26,7 @@ class CartAndHorsesGigsSourceTest {
                 GigDate(2026, 8, 8),
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/240726-012017_threebirds-upd.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/")),
@@ -33,6 +34,7 @@ class CartAndHorsesGigsSourceTest {
                 GigDate(2026, 10, 10),
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -77,7 +79,7 @@ class CartAndHorsesGigsSourceTest {
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
 
-        val events = CartAndHorsesGigsSource(fakeClient, year = 2026).latestGigs()
+        val events = CartAndHorsesGigsSource(fakeClient, JoinedActs.keptWhole, year = 2026).latestGigs()
 
         expectThat(events.map { it.date.year }).containsExactly(2026, 2027, 2027)
     }
@@ -103,7 +105,7 @@ class CartAndHorsesGigsSourceTest {
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
 
-        val events = CartAndHorsesGigsSource(fakeClient, year = 2026).latestGigs()
+        val events = CartAndHorsesGigsSource(fakeClient, JoinedActs.keptWhole, year = 2026).latestGigs()
 
         expectThat(events.map { it.date }).containsExactly(GigDate(2026, 9, 26))
     }
@@ -117,11 +119,18 @@ class CartAndHorsesGigsSourceTest {
             <footer>Opening times Mon: 12:00 - 00:00 Cart & Horses 1 Maryland Point</footer>
         """.trimIndent()
 
-        val pageText = CartAndHorsesGigsSource(noHttp, year = 2026).eventPageContent(pageOf(html))!!
+        val pageText = CartAndHorsesGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom Night")).isTrue()
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("Food & Drink")).isEqualTo(false)
         expectThat(pageText.contains("Opening times")).isEqualTo(false)
+    }
+
+    @Test
+    fun `takes a gig's lineup from a heading that bills its acts`() {
+        val gigs = CartAndHorsesGigsSource(cachedClient(), JoinedActs.keptWhole, year = 2026).latestGigs()
+
+        expectThat(gigs.first { it.title == GigTitle("DEAD WITCHES + AMNEZIAK + PYROGARIC") }.lineup).isEqualTo(Lineup(listOf("DEAD WITCHES", "AMNEZIAK", "PYROGARIC")))
     }
 }

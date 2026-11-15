@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document
 
 val alexandraPalace = Venue(VenueId("alexandra-palace"), "Alexandra Palace")
 
-class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
+class AlexandraPalaceGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = alexandraPalace
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
@@ -27,6 +27,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
                     // Why the widest srcset entry: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
                     posterUrlFrom(gigUrl, item.select(".event_img img").widestImageUrl()),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    billedLineup(eventPage),
                 )
             }
 
@@ -37,7 +38,12 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler) : GigsSource {
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
     internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? =
-        page.selectFirst("#event_content .subheader")?.let { titleBilledBy(it.text(), listedAs) }
+        page.selectFirst(subheader)?.let { titleBilledBy(it.text(), listedAs) }
+
+    internal fun billedLineup(page: Document): Lineup =
+        page.selectFirst(subheader)?.let { lineupBilledBy(it.text(), joinedActs) } ?: Lineup.none
+
+    private val subheader = "#event_content .subheader"
 
     private val singleDatePattern = Regex("""(\d{1,2})\s+(\w+)\s+(\d{4})""")
 

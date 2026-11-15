@@ -13,7 +13,7 @@ class PaperDressVintageGigsSourceTest {
     @Test
     fun `extracts gig events from Paper Dress Vintage's by-night page`() {
         assertScrapesGigs(
-            source = PaperDressVintageGigsSource(cachedClient()),
+            source = PaperDressVintageGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 46,
             first = Gig(
                 GigId(paperDressVintage.id, GigUrl("https://paperdressvintage.co.uk/?p=18710")),
@@ -21,6 +21,7 @@ class PaperDressVintageGigsSourceTest {
                 GigDate(2026, 8, 14),
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/poster-aug-14th-pd1-scaled.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(paperDressVintage.id, GigUrl("https://paperdressvintage.co.uk/?p=18815")),
@@ -28,6 +29,7 @@ class PaperDressVintageGigsSourceTest {
                 GigDate(2026, 12, 10),
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }
@@ -40,9 +42,16 @@ class PaperDressVintageGigsSourceTest {
             <footer><a>Contact</a><a>Opening hours</a></footer>
         """.trimIndent()
 
-        val pageText = PaperDressVintageGigsSource(noHttp).eventPageContent(pageOf(html))!!
+        val pageText = PaperDressVintageGigsSource(noHttp, JoinedActs.keptWhole).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("Opening hours")).isEqualTo(false)
+    }
+
+    @Test
+    fun `takes a gig's lineup from a heading that bills its acts`() {
+        val gigs = PaperDressVintageGigsSource(cachedClient(), JoinedActs.keptWhole).latestGigs()
+
+        expectThat(gigs.first { it.title == GigTitle("The Wattles + Lusa Morena + BeeJar") }.lineup).isEqualTo(Lineup(listOf("The Wattles", "Lusa Morena", "BeeJar")))
     }
 }

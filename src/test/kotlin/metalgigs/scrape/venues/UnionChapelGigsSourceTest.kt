@@ -14,7 +14,7 @@ class UnionChapelGigsSourceTest {
     @Test
     fun `extracts gig events from Union Chapel's what's on page`() {
         val events = assertScrapesGigs(
-            source = UnionChapelGigsSource(cachedClient()),
+            source = UnionChapelGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 119,
             first = Gig(
                 GigId(unionChapel.id, GigUrl("https://unionchapel.org.uk/whats-on/mavis-staples-12-aug-2026")),
@@ -22,6 +22,7 @@ class UnionChapelGigsSourceTest {
                 GigDate(2026, 8, 12),
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/MAVIS%20S.png"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(unionChapel.id, GigUrl("https://unionchapel.org.uk/whats-on/fairport-convention-60th-anniversary")),
@@ -29,6 +30,7 @@ class UnionChapelGigsSourceTest {
                 GigDate(2027, 5, 27),
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/Fairport%20Convention%2060th%20logo.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -60,7 +62,7 @@ class UnionChapelGigsSourceTest {
             <footer class="pt-4"><a>Instagram</a></footer>
         """.trimIndent()
 
-        val pageText = UnionChapelGigsSource(noHttp).eventPageContent(pageOf(html))!!
+        val pageText = UnionChapelGigsSource(noHttp, JoinedActs.keptWhole).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("7pm")).isTrue()
@@ -69,5 +71,22 @@ class UnionChapelGigsSourceTest {
         expectThat(pageText.contains("BOOK NOW")).isEqualTo(false)
         expectThat(pageText.contains("Whats On")).isEqualTo(false)
         expectThat(pageText.contains("Instagram")).isEqualTo(false)
+    }
+
+    // ROME's page, where the promoter typed the bill as two subheadings under the gig's name
+    @Test
+    fun `takes the acts billed in the subheadings under a gig's name as its lineup`() {
+        val page = pageOf("""<article class="pt-4"><h1>ROME</h1><h3>plus very special guests</h3><h3>OF THE WAND &amp; THE MOON</h3><p>&nbsp;</p><h4>To book tickets</h4><p>ROME will be rewilding the sacred.</p></article>""")
+
+        expectThat(UnionChapelGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(page)).isEqualTo(Lineup(listOf("OF THE WAND & THE MOON")))
+    }
+
+    @Test
+    fun `names no lineup where nothing is billed under a gig's name`() {
+        val unnamed = pageOf("""<article class="pt-4"><h1>Jake Bugg</h1><h3>+ special guests</h3><p>Copy.</p></article>""")
+        val straightToCopy = pageOf("""<article class="pt-4"><h1>Darren Kiely</h1><p>Copy.</p><h3>plus support from Someone</h3></article>""")
+
+        expectThat(UnionChapelGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(unnamed)).isEqualTo(Lineup.none)
+        expectThat(UnionChapelGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(straightToCopy)).isEqualTo(Lineup.none)
     }
 }

@@ -45,7 +45,7 @@ class DevGigSourceTest {
     @Test
     fun `reads a month of gigs off the flyer the account captions as its what's-on`() {
         val gigs = assertScrapesGigs(
-            source = DevGigSource(clientWithStubbedFlyerImage(), fakeChat(septemberFlyerReply)),
+            source = DevGigSource(clientWithStubbedFlyerImage(), fakeChat(septemberFlyerReply), JoinedActs.keptWhole),
             size = 8,
             first = Gig(
                 GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-2026-09-06")),
@@ -53,6 +53,7 @@ class DevGigSourceTest {
                 GigDate(2026, 9, 6),
                 PosterUrl(septemberFlyerImageUrl),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-2026-09-29")),
@@ -60,6 +61,7 @@ class DevGigSourceTest {
                 GigDate(2026, 9, 29),
                 PosterUrl(septemberFlyerImageUrl),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -167,7 +169,7 @@ class DevGigSourceTest {
 
     // the flyer found in the recorded profile is September 2026's, so these replies are what a model
     // reading it might say, and a date outside that month is one it misread
-    private fun gigsFrom(reply: String) = DevGigSource(clientWithStubbedFlyerImage(), fakeChat(reply)).latestGigs()
+    private fun gigsFrom(reply: String) = DevGigSource(clientWithStubbedFlyerImage(), fakeChat(reply), JoinedActs.keptWhole).latestGigs()
 
     @Test
     fun `reads the month off a what's-on caption, however the account punctuates it`() {
@@ -262,5 +264,13 @@ class DevGigSourceTest {
         GigDate(2026, 11, night),
         PosterUrl(poster),
         GigDescription(title),
+        Lineup.none,
     )
+
+    @Test
+    fun `takes a gig's lineup from a heading that bills its acts`() {
+        val gigs = DevGigSource(clientWithStubbedFlyerImage(), fakeChat(septemberFlyerReply), JoinedActs.keptWhole).latestGigs()
+
+        expectThat(gigs.first { it.title == GigTitle("IRK / Why Patterns? / The Defamation Process") }.lineup).isEqualTo(Lineup(listOf("IRK", "Why Patterns?", "The Defamation Process")))
+    }
 }

@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document
 
 val unionChapel = Venue(VenueId("union-chapel"), "Union Chapel")
 
-class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
+class UnionChapelGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = unionChapel
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
@@ -19,6 +19,7 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
                 // matched on the path, since the other link on a card goes to whichever external
                 // ticketing site that gig happens to sell through
                 val gigUrl = gigUrlFrom(item.select("a[href*=/whats-on/]").attr("abs:href"), "https://unionchapel.org.uk/whats-on/")
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
                 Gig(
                     GigId(venue.id, gigUrl),
                     // each card prints its title twice, once for the card and once for the hover
@@ -26,7 +27,8 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
                     GigTitle(item.select(".card-title").first()!!.text()),
                     GigDate.parse(item.attr("data-chron").substringBefore(' ')),
                     posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".card-image").attr("style"))?.groupValues?.get(1)),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    billedLineup(eventPage),
                 )
             }
 
@@ -44,6 +46,15 @@ class UnionChapelGigsSource(private val client: HttpHandler) : GigsSource {
         """book now button above|set ticket reminder|scroll down for info on reserving""",
         RegexOption.IGNORE_CASE,
     )
+
+    // A promoter types the bill as subheadings under the gig's name, one for "plus very special
+    // guests" and the next for who they are, so the run of them is read as one line.
+    internal fun billedLineup(page: Document): Lineup {
+        val underTheName = page.select("article.pt-4").firstOrNull()?.children().orEmpty()
+            .dropWhile { it.tagName() != "h1" }.drop(1)
+            .takeWhile { it.tagName() == "h3" }
+        return lineupBilledBy(underTheName.joinToString(" ") { it.text() }, joinedActs)
+    }
 
     internal fun eventPageContent(page: Document) =
         page.selectOrNull("article.pt-4") { article ->

@@ -121,5 +121,6 @@ class RunSummaryTest {
         GigDate(2026, 8, 8),
         PosterUrl("https://example.com/images/$name.jpg"),
         GigDescription("A gig"),
+        Lineup.none,
     )
 }

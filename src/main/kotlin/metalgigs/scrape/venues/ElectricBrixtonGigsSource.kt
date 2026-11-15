@@ -32,6 +32,7 @@ class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
                     // thumbnail is taken from its own container rather than the first img in there
                     posterUrlFrom(gigUrl, item.select(".uabb-post-thumbnail img").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
+                    Lineup.none,
                 )
             }
             pageUrl = page.select("a.next.page-numbers").attr("abs:href").ifBlank { null }

@@ -52,5 +52,6 @@ class DhpPostersTest {
         GigDate(2027, 11, 13),
         poster,
         GigDescription(description),
+        Lineup.none,
     )
 }

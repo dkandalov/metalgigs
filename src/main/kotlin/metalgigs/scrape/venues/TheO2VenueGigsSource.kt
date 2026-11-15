@@ -12,7 +12,12 @@ import java.time.Month
 
 // shared by the two rooms The O2 lists on its own site - the arena and indigo - which differ only
 // in the site's own numeric id for each, as the listing page's own "Load More" button carries
-internal class TheO2VenueGigsSource(private val client: HttpHandler, private val theO2VenueId: Int, override val venue: Venue) : GigsSource {
+internal class TheO2VenueGigsSource(
+    private val client: HttpHandler,
+    private val joinedActs: JoinedActs,
+    private val theO2VenueId: Int,
+    override val venue: Venue,
+) : GigsSource {
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
 
@@ -34,6 +39,7 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
                     // the square that survives render's own square crop rather than being letterboxed
                     posterUrlFrom(gigUrl, item.select(".thumb img.square").attr("abs:src")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    billedLineup(eventPage),
                 )
             }
         }
@@ -58,7 +64,12 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
     }
 
     internal fun billedTitle(page: Document, listedAs: GigTitle): GigTitle? =
-        page.selectFirst("h2.tagline")?.let { titleBilledBy(it.text(), listedAs) }
+        page.selectFirst(tagline)?.let { titleBilledBy(it.text(), listedAs) }
+
+    internal fun billedLineup(page: Document): Lineup =
+        page.selectFirst(tagline)?.let { lineupBilledBy(it.text(), joinedActs) } ?: Lineup.none
+
+    private val tagline = "h2.tagline"
 
     // The whole page's text is the site's nav, its own venue furniture and a mailing-list form
     // around the copy; this is the one block the promoter writes, and every event page read had one.
@@ -91,13 +102,13 @@ internal class TheO2VenueGigsSource(private val client: HttpHandler, private val
 
 val indigoAtTheO2 = Venue(VenueId("indigo-at-the-o2"), "indigo at The O2")
 
-class IndigoAtTheO2GigsSource(client: HttpHandler) :
-    GigsSource by TheO2VenueGigsSource(client, theO2VenueId = 2, venue = indigoAtTheO2)
+class IndigoAtTheO2GigsSource(client: HttpHandler, joinedActs: JoinedActs) :
+    GigsSource by TheO2VenueGigsSource(client, joinedActs, theO2VenueId = 2, venue = indigoAtTheO2)
 
 val theO2Arena = Venue(VenueId("the-o2-arena"), "The O2 Arena")
 
 // The arena's programme is far wider than its indigo room's - boxing, awards ceremonies, family
 // shows - and the site's own genre filter has no metal in it, only Rock. So everything it lists is
 // taken and left to the classifier, as at Alexandra Palace and Eventim Apollo.
-class TheO2ArenaGigsSource(client: HttpHandler) :
-    GigsSource by TheO2VenueGigsSource(client, theO2VenueId = 1, venue = theO2Arena)
+class TheO2ArenaGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
+    GigsSource by TheO2VenueGigsSource(client, joinedActs, theO2VenueId = 1, venue = theO2Arena)

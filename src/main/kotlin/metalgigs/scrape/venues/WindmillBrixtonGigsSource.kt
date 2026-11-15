@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document
 
 val windmillBrixton = Venue(VenueId("windmill-brixton"), "Windmill Brixton")
 
-class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
+class WindmillBrixtonGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = windmillBrixton
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
@@ -22,14 +22,17 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
                 val gigUrl = gigUrlFrom(item.attr("abs:href"), "https://www.windmillbrixton.co.uk/events/")
 
                 gigOrSkipped(gigUrl, skippableGigs) {
+                    val listedAs = GigTitle(item.select(".title.name").text())
+
                     Gig(
                         GigId(venue.id, gigUrl),
-                        GigTitle(item.select(".title.name").text()),
+                        listedAs,
                         GigDate.parse(slugDatePattern.find(gigUrl.value)!!.groupValues[1]),
                         // the second img in the card is a small backup the theme swaps in if the first
                         // fails to load, so this takes the first rather than both
                         posterUrlFrom(gigUrl, item.select(".Image-wrap img").first()?.attr("abs:src")?.let { originalSizeImageUrl(it) }),
                         fetchDescription(client, gigUrl, ::eventPageContent),
+                        lineupHeadedBy(listedAs, joinedActs, commaLists = true),
                     )
                 }
             }

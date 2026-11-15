@@ -15,7 +15,7 @@ class ScalaGigsSourceTest {
     @Test
     fun `extracts gig events from Scala's live music category page, following pagination`() {
         val events = assertScrapesGigs(
-            source = ScalaGigsSource(cachedClient()),
+            source = ScalaGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 55,
             first = Gig(
                 GigId(scala.id, GigUrl("https://scala.co.uk/events/digable-planets/")),
@@ -23,6 +23,7 @@ class ScalaGigsSourceTest {
                 GigDate(2026, 8, 19),
                 PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/03/Digable-Planets-2026_colour-c-Emilio-Herce-scaled-e1774636627462.jpeg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(scala.id, GigUrl("https://scala.co.uk/events/split-the-dealer-deva-st-john/")),
@@ -30,6 +31,7 @@ class ScalaGigsSourceTest {
                 GigDate(2027, 5, 20),
                 PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/05/Scala-poster-Prf2_page-0001-1-e1779370004481.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -68,7 +70,7 @@ class ScalaGigsSourceTest {
             <div id="sidebar"><ul><li>Other Gig</li></ul></div>
         """.trimIndent()
 
-        val pageText = ScalaGigsSource(noHttp).eventPageContent(pageOf(html))!!
+        val pageText = ScalaGigsSource(noHttp, JoinedActs.keptWhole).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("Kings Of Thrash")).isTrue()
@@ -81,5 +83,15 @@ class ScalaGigsSourceTest {
         expectThat(pageText.contains("Read our guide")).isEqualTo(false)
         expectThat(pageText.contains("Add to iCal")).isEqualTo(false)
         expectThat(pageText.contains("Other Gig")).isEqualTo(false)
+    }
+
+    // the header box off De Staat's page, and off Split The Dealer's, which bills no support
+    @Test
+    fun `takes the support the header box names under the headliner as a gig's lineup`() {
+        fun headerBox(subtitle: String) = pageOf("""<div class="tb-event-headerbox"><p class="promoter">DHP Presents</p><h1 class="event-title">DE STAAT</h1><h2 class="event-subtitle">$subtitle</h2></div>""")
+
+        expectThat(ScalaGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(headerBox("Plus Hiqpy"))).isEqualTo(Lineup(listOf("Hiqpy")))
+        expectThat(ScalaGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(headerBox("Plus Talia Rae + Toast Club"))).isEqualTo(Lineup(listOf("Talia Rae", "Toast Club")))
+        expectThat(ScalaGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(headerBox(""))).isEqualTo(Lineup.none)
     }
 }

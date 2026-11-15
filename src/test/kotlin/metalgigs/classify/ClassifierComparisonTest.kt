@@ -3,6 +3,7 @@ package metalgigs.classify
 import metalgigs.ClassificationSource
 import metalgigs.Genre
 import metalgigs.Gig
+import metalgigs.Lineup
 import metalgigs.GigDate
 import metalgigs.GigDescription
 import metalgigs.GigId
@@ -23,6 +24,7 @@ class ClassifierComparisonTest {
         GigDate(2026, 8, 8),
         PosterUrl("https://example.com/$name.jpg"),
         GigDescription("A gig called $name"),
+        Lineup.none,
     )
 
     // Each stub answers from a table of what it thinks of each gig, which is all the harness asks of

@@ -9,7 +9,7 @@ import java.time.Month
 
 val scala = Venue(VenueId("scala"), "Scala")
 
-class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
+class ScalaGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = scala
     override fun latestGigs(): List<Gig> {
         val gigs = mutableListOf<Gig>()
@@ -23,13 +23,15 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
                 val (day, monthName, year) = datePattern.find(item.select(".date").text())!!.destructured
                 val link = item.select("h2 a")
                 val gigUrl = gigUrlFrom(link.attr("abs:href"), "https://scala.co.uk/events/")
+                val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
 
                 Gig(
                     GigId(venue.id, gigUrl),
                     GigTitle(link.text()),
                     GigDate(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                     posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1)),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
+                    descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    billedLineup(eventPage),
                 )
             }
             pageUrl = page.select(".em-pagination a.next").attr("abs:href").ifBlank { null }
@@ -51,6 +53,10 @@ class ScalaGigsSource(private val client: HttpHandler) : GigsSource {
     // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
     private val ticketingFurniture =
         "p.event-date, p.age-restrictions, p.event-time, p.guide-to, p.add-calendar, .button, .left-morebox, .right-morebox"
+
+    // The header box prints the support on a line of its own under the headliner: "Plus Hiqpy".
+    internal fun billedLineup(page: Document): Lineup =
+        page.selectFirst(".tb-event-headerbox .event-subtitle")?.let { lineupBilledBy(it.text(), joinedActs) } ?: Lineup.none
 
     internal fun eventPageContent(page: Document) =
         page.selectOrNull(".event-post .entry-content") { block ->

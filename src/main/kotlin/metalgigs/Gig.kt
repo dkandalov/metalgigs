@@ -9,6 +9,7 @@ data class Gig(
     val date: GigDate,
     val posterUrl: PosterUrl,
     val description: GigDescription,
+    val lineup: Lineup,
 )
 
 data class GigId(val venueId: VenueId, val url: GigUrl)
@@ -73,4 +74,20 @@ data class PosterUrl(val value: String) {
 
 data class GigDescription(val value: String) {
     override fun toString() = value
+}
+
+// Why the acts are held apart from the title: docs/adr/0015-a-lineup-is-the-acts-a-source-names-held-apart-from-the-title.md
+data class Lineup(val value: List<String>) {
+    init {
+        require(value.all { it.isNotBlank() && it == it.trim(' ') }) {
+            "A lineup names acts, and $value holds a blank or an untrimmed one - a source has to tidy a name before billing it"
+        }
+        require(value.size == value.toSet().size) { "A lineup names an act once, and $value repeats one" }
+    }
+
+    override fun toString() = value.joinToString(" / ")
+
+    companion object {
+        val none = Lineup(emptyList())
+    }
 }

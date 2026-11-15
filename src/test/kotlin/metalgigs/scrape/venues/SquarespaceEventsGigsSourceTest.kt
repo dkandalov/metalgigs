@@ -34,6 +34,7 @@ class SquarespaceEventsGigsSourceTest {
                 GigDate(2026, 8, 16),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1786573507310-PG9FBW6TLI2B45R0QU3D/Unknown-2.png"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
         expectThat(events.last().copy(description = GigDescription(""))).isEqualTo(
@@ -43,6 +44,7 @@ class SquarespaceEventsGigsSourceTest {
                 GigDate(2026, 9, 26),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1785973667820-T4D2VFAJ8AY9UAJQ4GHP/69613b4679576_event.jpeg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
         expectThat(events.all { it.id.url.value.startsWith("https://www.thefiddlerselbow.co.uk/whos-playing/") }).isTrue()
@@ -124,6 +126,7 @@ class SquarespaceEventsGigsSourceTest {
                 GigDate(2026, 8, 8),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/5b8cf137-c089-48d8-b591-60989f951741/Necropolis_2027_IG_Feed_Poster_3rd_announcement.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(theBlackHeart.id, GigUrl("https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii")),
@@ -131,6 +134,7 @@ class SquarespaceEventsGigsSourceTest {
                 GigDate(2027, 3, 19),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/5b8cf137-c089-48d8-b591-60989f951741/Necropolis_2027_IG_Feed_Poster_3rd_announcement.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }
@@ -139,7 +143,7 @@ class SquarespaceEventsGigsSourceTest {
     @Test
     fun `extracts gig events from The Dome whatson page`() {
         assertScrapesGigs(
-            source = DomeLondonGigsSource(cachedClient()),
+            source = DomeLondonGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 70,
             first = Gig(
                 GigId(theDome.id, GigUrl("https://www.domelondon.co.uk/whatson/08/08-battlesnake")),
@@ -147,6 +151,7 @@ class SquarespaceEventsGigsSourceTest {
                 GigDate(2026, 8, 8),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/108ef8cb-7ffb-4247-ac70-8b48dda635ad/Draconian-2027-London-A3-poster.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(theDome.id, GigUrl("https://www.domelondon.co.uk/whatson/03/07-draconian")),
@@ -154,6 +159,7 @@ class SquarespaceEventsGigsSourceTest {
                 GigDate(2027, 3, 7),
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/108ef8cb-7ffb-4247-ac70-8b48dda635ad/Draconian-2027-London-A3-poster.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }
@@ -325,4 +331,40 @@ class SquarespaceEventsGigsSourceTest {
             else """<article class="eventitem"><div class="eventitem-column-content">$content</div></article>""",
         )
     }
+
+    // opening lines off The Dome's listing on 2026-11-15
+    @Test
+    fun `takes the supports The Dome's copy opens on as a gig's lineup`() {
+        expectThat(domeLineup("Action! presents URNE with special guests The Grey and Moon Reaper live at The Dome", "URNE have spent the last few years whipping up a firestorm."))
+            .isEqualTo(Lineup(listOf("The Grey and Moon Reaper")))
+        expectThat(domeLineup("Academy Events presents MENTAL CRUELTY plus supports OV SULFUR, EXTERMINATION DISMEMBERMENT, SUNEATER live Downstairs at The Dome"))
+            .isEqualTo(Lineup(listOf("OV SULFUR", "EXTERMINATION DISMEMBERMENT", "SUNEATER")))
+        expectThat(domeLineup("Live Nation presents BIG ASS TRUCK plus special guests: PINTGLASS + TEMPERS FRAY + XILE live Downstairs at The Dome"))
+            .isEqualTo(Lineup(listOf("PINTGLASS", "TEMPERS FRAY", "XILE")))
+        expectThat(domeLineup("Born Again Concerts proudly presents UNDERWORLD EUROPE TOUR 2026 NILE with special guests REDSPHERE | INTREPID | ORECUS live at The Dome"))
+            .isEqualTo(Lineup(listOf("REDSPHERE", "INTREPID", "ORECUS")))
+        expectThat(domeLineup("Real Life & Be Sharp presents SHELTER plus supports, Bad Beat and Cosmic Joke")).isEqualTo(Lineup(listOf("Bad Beat and Cosmic Joke")))
+    }
+
+    @Test
+    fun `names no lineup where The Dome's copy opens on no supports, or on none it names`() {
+        expectThat(domeLineup("Dictionary Pudding presents GONG plus supports live at The Dome")).isEqualTo(Lineup.none)
+        expectThat(domeLineup("423 presents TALIB KWELI plus supports TBC live at the Dome")).isEqualTo(Lineup.none)
+        expectThat(domeLineup("Live Nation presents", "LAUREN SANDERSON live at The Dome")).isEqualTo(Lineup.none)
+        expectThat(domeLineup("Born Again Concerts proudly presents MISERIA IS A STATE OF MIND 2027 LOST SOCIETY x HOKKA with support.")).isEqualTo(Lineup.none)
+    }
+
+    // the formula is the venue's, and a sentence of the copy that happens to name guests is not it
+    @Test
+    fun `reads The Dome's bill off its opening formula and nothing after it`() {
+        expectThat(domeLineup("Crosstown Concerts presents THE HOLD STEADY live at The Dome", "Their last tour, with special guests The Mountain Goats, sold out."))
+            .isEqualTo(Lineup.none)
+        expectThat(domeLineup("The Hold Steady return with special guests The Mountain Goats for one night only.")).isEqualTo(Lineup.none)
+        expectThat(domeLineup("Live Nation presents", "VIOLENT VIRA plus special guest CLAUDIO TRAINA live at The Dome")).isEqualTo(Lineup(listOf("CLAUDIO TRAINA")))
+        expectThat(domeLineup("JOHN MITCHELL / LONELY ROBOT plus supports THE ACT live at The Dome")).isEqualTo(Lineup(listOf("THE ACT")))
+    }
+
+    private fun domeLineup(vararg copy: String) =
+        WithSupportsBilledInTheOpeningLine(SquarespaceEventsGigsSource(noHttp, url = "https://example.com/whatson", venue = theDome), JoinedActs.keptWhole)
+            .billedLineup(GigDescription(copy.joinToString("\n")))
 }

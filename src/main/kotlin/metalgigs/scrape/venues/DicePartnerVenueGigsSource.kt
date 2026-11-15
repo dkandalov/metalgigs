@@ -51,6 +51,7 @@ private class DicePartnerVenueGigsSource(
                     GigDate(Instant.parse(event.date).atZone(ZoneId.of(event.timezone)).toLocalDate()),
                     posterUrlFrom(gigUrl, event.images.firstOrNull()),
                     GigDescription(event.rawDescription),
+                    lineupFrom(event.artists),
                 )
             }
     }
@@ -147,6 +148,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
     private val images by array(DicePartnerEvent::images)
     private val raw_description by str(DicePartnerEvent::rawDescription)
     private val status by str(DicePartnerEvent::status)
+    private val artists by array(DicePartnerEvent::artists)
 
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
         name = +name,
@@ -156,6 +158,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
         images = +images,
         rawDescription = +raw_description,
         status = +status,
+        artists = +artists,
     )
 }
 
@@ -177,6 +180,7 @@ private data class DicePartnerEvent(
     val images: List<String>,
     val rawDescription: String,
     val status: String,
+    val artists: List<String>,
 )
 
 private data class DicePartnerLinks(val next: String?)

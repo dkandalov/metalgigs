@@ -22,7 +22,7 @@ class WindmillBrixtonGigsSourceTest {
     @Test
     fun `extracts gig events from Windmill Brixton's listings page, following pagination`() {
         val events = assertScrapesGigs(
-            source = WindmillBrixtonGigsSource(cachedClient()),
+            source = WindmillBrixtonGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 27,
             first = Gig(
                 GigId(windmillBrixton.id, GigUrl("https://www.windmillbrixton.co.uk/events/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill")),
@@ -30,6 +30,7 @@ class WindmillBrixtonGigsSourceTest {
                 GigDate(2026, 8, 14),
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMzE1MDZlNzEtNTRiZC00YmQzLTk3Y2YtZmE3ZWIxNTUwYzFm&v=2"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(windmillBrixton.id, GigUrl("https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill")),
@@ -37,6 +38,7 @@ class WindmillBrixtonGigsSourceTest {
                 GigDate(2026, 11, 19),
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&v=2"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -75,7 +77,7 @@ class WindmillBrixtonGigsSourceTest {
             <div class="MailingList"><p>By signing up you agree to receive news and offers from Windmill Brixton.</p></div>
         """.trimIndent()
 
-        val pageText = WindmillBrixtonGigsSource(noHttp).eventPageContent(pageOf(html))!!
+        val pageText = WindmillBrixtonGigsSource(noHttp, JoinedActs.keptWhole).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night, with Kings Of Thrash in support.")).isTrue()
         expectThat(pageText.contains("Entry Requirements")).isEqualTo(false)
@@ -90,6 +92,7 @@ class WindmillBrixtonGigsSourceTest {
     fun `skips a named Windmill Brixton gig whose event page carries no description`() {
         val source = WindmillBrixtonGigsSource(
             servingDescriptionlessPagesFor("2026-09-11-drive-your-plow-running-standard-the-windmill"),
+            JoinedActs.keptWhole,
         )
 
         expectThat(source.latestGigs()).isEmpty()
@@ -99,6 +102,7 @@ class WindmillBrixtonGigsSourceTest {
     fun `fails the whole Windmill Brixton listing when an unnamed gig's event page carries no description`() {
         val source = WindmillBrixtonGigsSource(
             servingDescriptionlessPagesFor("2026-09-12-some-other-band-the-windmill"),
+            JoinedActs.keptWhole,
         )
 
         assertFailsWith<IllegalStateException> { source.latestGigs() }
@@ -106,14 +110,14 @@ class WindmillBrixtonGigsSourceTest {
 
     @Test
     fun `skips a named Windmill Brixton gig the venue published without a title`() {
-        val source = WindmillBrixtonGigsSource(servingAnUntitledCardFor("2026-09-30-the-windmill"))
+        val source = WindmillBrixtonGigsSource(servingAnUntitledCardFor("2026-09-30-the-windmill"), JoinedActs.keptWhole)
 
         expectThat(source.latestGigs()).isEmpty()
     }
 
     @Test
     fun `fails the whole Windmill Brixton listing when an unnamed gig has no title`() {
-        val source = WindmillBrixtonGigsSource(servingAnUntitledCardFor("2026-09-12-some-other-band-the-windmill"))
+        val source = WindmillBrixtonGigsSource(servingAnUntitledCardFor("2026-09-12-some-other-band-the-windmill"), JoinedActs.keptWhole)
 
         assertFailsWith<IllegalArgumentException> { source.latestGigs() }
     }
@@ -148,5 +152,12 @@ class WindmillBrixtonGigsSourceTest {
             """
         }
         Response(OK).body(body)
+    }
+
+    @Test
+    fun `takes a gig's lineup from a heading that bills its acts`() {
+        val gigs = WindmillBrixtonGigsSource(cachedClient(), JoinedActs.keptWhole).latestGigs()
+
+        expectThat(gigs.first { it.title == GigTitle("My New Band Believe, Sorrel, Exit Stencil") }.lineup).isEqualTo(Lineup(listOf("My New Band Believe", "Sorrel", "Exit Stencil")))
     }
 }

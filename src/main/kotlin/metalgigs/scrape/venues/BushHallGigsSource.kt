@@ -34,6 +34,7 @@ class BushHallGigsSource(private val client: HttpHandler) : GigsSource {
                     // Why the page's image rather than the card's: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
                     posterUrlFrom(gigUrl, eventPage.select("meta[property=og:image]").attr("abs:content")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    Lineup.none,
                 )
             }
     }

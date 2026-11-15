@@ -1,9 +1,16 @@
 package metalgigs
 
 import com.ubertob.kondor.json.JAny
+import com.ubertob.kondor.json.JJsonNode
 import com.ubertob.kondor.json.array
 import com.ubertob.kondor.json.bool
+import com.ubertob.kondor.json.jsonnode.JsonNode
+import com.ubertob.kondor.json.jsonnode.JsonNodeArray
+import com.ubertob.kondor.json.jsonnode.JsonNodeBoolean
+import com.ubertob.kondor.json.jsonnode.JsonNodeNull
+import com.ubertob.kondor.json.jsonnode.JsonNodeNumber
 import com.ubertob.kondor.json.jsonnode.JsonNodeObject
+import com.ubertob.kondor.json.jsonnode.JsonNodeString
 import com.ubertob.kondor.json.num
 import com.ubertob.kondor.json.obj
 import com.ubertob.kondor.json.str
@@ -12,6 +19,7 @@ import dev.forkhandles.result4k.Success
 import org.http4k.ai.llm.LLMError
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.llm.chat.ChatResponse
+import org.http4k.ai.llm.chat.ChatResponseFormat
 import org.http4k.ai.llm.model.Content
 import org.http4k.ai.llm.model.Message
 import org.http4k.ai.llm.model.Resource
@@ -22,10 +30,20 @@ import org.http4k.ai.model.TokenUsage
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.POST
 import org.http4k.core.Request
+import org.http4k.format.MoshiArray
+import org.http4k.format.MoshiBoolean
+import org.http4k.format.MoshiDecimal
+import org.http4k.format.MoshiInteger
+import org.http4k.format.MoshiLong
+import org.http4k.format.MoshiNode
+import org.http4k.format.MoshiNull
+import org.http4k.format.MoshiObject
+import org.http4k.format.MoshiString
 
 // A Chat answered by a model running under ollama on this machine, so a call costs nothing and the
-// image never leaves the laptop. Only what a poster extraction asks of a Chat is implemented: a
-// system prompt, one user message of text and images, and the reply read back as text.
+// image never leaves the laptop. Only what this project asks of a Chat is implemented: a system
+// prompt, one user message of text and images, a reply read back as text, and a schema that reply
+// is held to where a request gives one.
 internal fun Chat.Companion.Ollama(
     http: HttpHandler,
     systemPrompt: SystemPrompt,
@@ -38,6 +56,7 @@ internal fun Chat.Companion.Ollama(
         // 12b and up emit an empty thinking block rather than dropping it, and what turning it off
         // buys is the seconds they would otherwise spend reasoning.
         options = OllamaOptions(temperature = 0.0, seed = 0, numCtx = 16384),
+        format = (request.params.responseFormat as? ChatResponseFormat.Json)?.schema?.asKondorNode() as? JsonNodeObject,
     )
     val response = http(Request(POST, endpoint).body(JOllamaRequest.toJson(ollamaRequest)))
 
@@ -76,6 +95,17 @@ private fun List<Content>.base64Images() = filterIsInstance<Content.Image>().map
         .content.value
 }
 
+private fun MoshiNode.asKondorNode(): JsonNode = when (this) {
+    is MoshiObject -> JsonNodeObject(attributes.mapValues { (_, value) -> value.asKondorNode() })
+    is MoshiArray -> JsonNodeArray(elements.map { it.asKondorNode() })
+    is MoshiString -> JsonNodeString(value)
+    is MoshiInteger -> JsonNodeNumber(value)
+    is MoshiLong -> JsonNodeNumber(value)
+    is MoshiDecimal -> JsonNodeNumber(value)
+    is MoshiBoolean -> JsonNodeBoolean(value)
+    MoshiNull -> JsonNodeNull
+}
+
 private data class OllamaMessage(val role: String, val content: String, val images: List<String> = emptyList())
 
 private object JOllamaRequestMessage : JAny<OllamaMessage>() {
@@ -111,6 +141,7 @@ private data class OllamaRequest(
     val stream: Boolean = false,
     val think: Boolean = false,
     val options: OllamaOptions,
+    val format: JsonNodeObject? = null,
 )
 
 private object JOllamaRequest : JAny<OllamaRequest>() {
@@ -119,9 +150,10 @@ private object JOllamaRequest : JAny<OllamaRequest>() {
     private val stream by bool(OllamaRequest::stream)
     private val think by bool(OllamaRequest::think)
     private val options by obj(JOllamaOptions, OllamaRequest::options)
+    private val format by obj(JJsonNode, OllamaRequest::format)
 
     override fun JsonNodeObject.deserializeOrThrow() =
-        OllamaRequest(+model, +messages, +stream, +think, +options)
+        OllamaRequest(+model, +messages, +stream, +think, +options, +format)
 }
 
 private data class OllamaResponse(

@@ -25,6 +25,7 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
                     // The narrow-breakpoint <picture> is a generic house image on some listings.
                     posterUrlFrom(gigUrl, item.select(".card__image img").first()?.attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
+                    Lineup.none,
                 )
             }
 

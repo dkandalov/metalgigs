@@ -9,7 +9,7 @@ import java.time.Month
 
 val paperDressVintage = Venue(VenueId("paper-dress-vintage"), "Paper Dress Vintage")
 
-class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource {
+class PaperDressVintageGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = paperDressVintage
     override fun latestGigs(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
@@ -21,12 +21,15 @@ class PaperDressVintageGigsSource(private val client: HttpHandler) : GigsSource 
                     val thumbnailUrl = backgroundImageUrlPattern.find(item.select(".event__poster").attr("style"))?.groupValues?.get(1)
                     val gigUrl = gigUrlFrom(item.attr("abs:href"), "https://paperdressvintage.co.uk/")
 
+                    val listedAs = GigTitle(item.select("h4").text())
+
                     Gig(
                         GigId(venue.id, gigUrl),
-                        GigTitle(item.select("h4").text()),
+                        listedAs,
                         GigDate(year.toInt(), Month.valueOf(monthName.uppercase()), day.toInt()),
                         posterUrlFrom(gigUrl, thumbnailUrl?.let { thumbnailSuffixPattern.replace(it, "$1") }),
                         fetchDescription(client, gigUrl, ::eventPageContent),
+                        lineupHeadedBy(listedAs, joinedActs),
                     )
                 }
             }

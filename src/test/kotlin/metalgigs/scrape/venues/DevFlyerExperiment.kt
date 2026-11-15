@@ -5,6 +5,7 @@ import metalgigs.GigDate
 import metalgigs.httpClient
 import metalgigs.ollamaCallTimeout
 import metalgigs.Ollama
+import metalgigs.scrape.JoinedActs
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.model.SystemPrompt
 import org.http4k.core.HttpHandler
@@ -47,7 +48,7 @@ class DevFlyerExperiment {
 
     private fun gigsRead(flyer: Flyer): List<Gig> {
         val chat = Chat.Ollama(httpClient(ollamaCallTimeout), SystemPrompt.of(flyerExtractionSystemPrompt))
-        return DevGigSource(servingOnly(flyer), chat).latestGigs()
+        return DevGigSource(servingOnly(flyer), chat, JoinedActs.keptWhole).latestGigs()
     }
 
     private fun report(flyer: Flyer, gigs: List<Gig>) {

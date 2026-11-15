@@ -17,7 +17,7 @@ class AlexandraPalaceGigsSourceTest {
     @Test
     fun `extracts gig events from Alexandra Palace's what's on page`() {
         val events = assertScrapesGigs(
-            source = AlexandraPalaceGigsSource(cachedClient()),
+            source = AlexandraPalaceGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 41,
             first = Gig(
                 GigId(alexandraPalace.id, GigUrl("https://www.alexandrapalace.com/whats-on/upside-down-london/")),
@@ -28,6 +28,7 @@ class AlexandraPalaceGigsSourceTest {
                 GigDate(2026, 8, 1),
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/05/pl-udl-approved-media-assets-14-of-17-marked-2048x1536.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(alexandraPalace.id, GigUrl("https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/")),
@@ -35,6 +36,7 @@ class AlexandraPalaceGigsSourceTest {
                 GigDate(2027, 7, 10),
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/07/Kaleidescope-11.07.26-www.harbinson.uk-7159-2048x1366.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }
@@ -53,7 +55,7 @@ class AlexandraPalaceGigsSourceTest {
 
         fun startDateOf(dates: String): GigDate {
             val fakeClient: HttpHandler = { Response(OK).body(eventPage(dates)) }
-            return AlexandraPalaceGigsSource(fakeClient).latestGigs().single().date
+            return AlexandraPalaceGigsSource(fakeClient, JoinedActs.keptWhole).latestGigs().single().date
         }
 
         expectThat(startDateOf("21 Aug 2026")).isEqualTo(GigDate(2026, 8, 21))
@@ -81,7 +83,7 @@ class AlexandraPalaceGigsSourceTest {
             </div>
         """.trimIndent()
 
-        val pageText = AlexandraPalaceGigsSource(noHttp).eventPageContent(pageOf(html))!!
+        val pageText = AlexandraPalaceGigsSource(noHttp, JoinedActs.keptWhole).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("Kings of Thrash")).isTrue()
@@ -96,17 +98,17 @@ class AlexandraPalaceGigsSourceTest {
         expectThat(billedTitle("Amble", "with special guest Dylan Gossett"))
             .isEqualTo(GigTitle("Amble / Dylan Gossett"))
         expectThat(billedTitle("Blossoms", "plus very special guests The Royston Club and Heidi Curtis"))
-            .isEqualTo(GigTitle("Blossoms / The Royston Club / Heidi Curtis"))
+            .isEqualTo(GigTitle("Blossoms / The Royston Club and Heidi Curtis"))
     }
 
     @Test
     fun `reads a bill written after the name of a tour`() {
         expectThat(billedTitle("Courteeners", "God Bless The Band Tour - plus special guests The Lathums and The Guestlist"))
-            .isEqualTo(GigTitle("Courteeners / The Lathums / The Guestlist"))
+            .isEqualTo(GigTitle("Courteeners / The Lathums and The Guestlist"))
         expectThat(billedTitle("Enter Shikari", "LOSE YOUR SELF Tour with Holding Absence and The Callous Daoboys"))
-            .isEqualTo(GigTitle("Enter Shikari / Holding Absence / The Callous Daoboys"))
+            .isEqualTo(GigTitle("Enter Shikari / Holding Absence and The Callous Daoboys"))
         expectThat(billedTitle("Weezer", "The Gathering 2027 Tour with very special guests Taking Back Sunday & Beach Bunny"))
-            .isEqualTo(GigTitle("Weezer / Taking Back Sunday / Beach Bunny"))
+            .isEqualTo(GigTitle("Weezer / Taking Back Sunday & Beach Bunny"))
     }
 
     @Test
@@ -132,11 +134,23 @@ class AlexandraPalaceGigsSourceTest {
     fun `keeps the venue's title where the page has no subheader`() {
         val page = pageOf("""<div id="event_content"><h1>Palace</h1></div>""")
 
-        expectThat(AlexandraPalaceGigsSource(noHttp).billedTitle(page, GigTitle("Palace"))).isEqualTo(null)
+        expectThat(AlexandraPalaceGigsSource(noHttp, JoinedActs.keptWhole).billedTitle(page, GigTitle("Palace"))).isEqualTo(null)
+    }
+
+    @Test
+    fun `takes the acts its subheader bills as a gig's lineup`() {
+        val whetherTwoActs = JoinedActs { joined -> if (joined == "The Royston Club and Heidi Curtis") joined.split(" and ") else listOf(joined) }
+        fun lineupOf(subheader: String) = AlexandraPalaceGigsSource(noHttp, whetherTwoActs)
+            .billedLineup(pageOf("""<div id="event_content"><h1>Headliner</h1><h3 class="subheader">$subheader</h3></div>"""))
+
+        expectThat(lineupOf("Plus Special Guests: In Flames + Paleface Swiss + VOLA")).isEqualTo(Lineup(listOf("In Flames", "Paleface Swiss", "VOLA")))
+        expectThat(lineupOf("plus very special guests The Royston Club and Heidi Curtis")).isEqualTo(Lineup(listOf("The Royston Club", "Heidi Curtis")))
+        expectThat(lineupOf("Emotional World Tour")).isEqualTo(Lineup.none)
+        expectThat(AlexandraPalaceGigsSource(noHttp, whetherTwoActs).billedLineup(pageOf("""<div id="event_content"><h1>Palace</h1></div>"""))).isEqualTo(Lineup.none)
     }
 
     private fun billedTitle(listedAs: String, subheader: String): GigTitle? {
         val page = pageOf("""<div id="event_content"><h1>$listedAs</h1><h3 class="subheader">$subheader</h3></div>""")
-        return AlexandraPalaceGigsSource(noHttp).billedTitle(page, GigTitle(listedAs))
+        return AlexandraPalaceGigsSource(noHttp, JoinedActs.keptWhole).billedTitle(page, GigTitle(listedAs))
     }
 }

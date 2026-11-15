@@ -38,6 +38,7 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                             .ifBlank { eventPage.select(".event-hero img").attr("abs:src") }
                     ),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
+                    Lineup.none,
                 )
             }
             pageUrl = nextPageUrl(page)

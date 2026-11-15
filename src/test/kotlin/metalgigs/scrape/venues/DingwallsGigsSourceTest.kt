@@ -16,7 +16,7 @@ class DingwallsGigsSourceTest {
     @Test
     fun `extracts gig events from Dingwalls whats-on page`() {
         assertScrapesGigs(
-            source = DingwallsGigsSource(cachedClient()),
+            source = DingwallsGigsSource(cachedClient(), JoinedActs.keptWhole),
             size = 38,
             first = Gig(
                 GigId(dingwalls.id, GigUrl("https://dingwalls.com/gig/isabel-van-gelde/")),
@@ -24,6 +24,7 @@ class DingwallsGigsSourceTest {
                 GigDate(2026, 9, 8),
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-3-rjwsim2adcy5bibwgefvk12na485ugaltii7914mr0.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(dingwalls.id, GigUrl("https://dingwalls.com/gig/future-of-the-left-curses-20th-anniversary/")),
@@ -31,6 +32,7 @@ class DingwallsGigsSourceTest {
                 GigDate(2027, 2, 12),
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-25-rqj6o5v970jjsk91d02jbo206nscvgcoveod9yotgs.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }
@@ -39,7 +41,7 @@ class DingwallsGigsSourceTest {
     // Why a listing is paged by the link the page follows: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
     @Test
     fun `follows the load-more anchor past the cards the grid renders`() {
-        val gigs = DingwallsGigsSource(pagedSite(maxPage = 3)).latestGigs()
+        val gigs = DingwallsGigsSource(pagedSite(maxPage = 3), JoinedActs.keptWhole).latestGigs()
 
         expectThat(gigs.map { it.title.value }).isEqualTo(listOf("Gig 1", "Gig 2", "Gig 3"))
     }
@@ -49,14 +51,14 @@ class DingwallsGigsSourceTest {
     // on a listing whose last page happened to be full, read as a listing that simply stopped.
     @Test
     fun `stops on the page count the anchor declares, not on the next link it keeps offering`() {
-        val gigs = DingwallsGigsSource(pagedSite(maxPage = 2)).latestGigs()
+        val gigs = DingwallsGigsSource(pagedSite(maxPage = 2), JoinedActs.keptWhole).latestGigs()
 
         expectThat(gigs.map { it.title.value }).isEqualTo(listOf("Gig 1", "Gig 2"))
     }
 
     @Test
     fun `fails rather than stopping quietly on a listing that never reaches its last page`() {
-        val failure = runCatching { DingwallsGigsSource(pagedSite(maxPage = 99)).latestGigs() }.exceptionOrNull()
+        val failure = runCatching { DingwallsGigsSource(pagedSite(maxPage = 99), JoinedActs.keptWhole).latestGigs() }.exceptionOrNull()
 
         expectThat(failure?.message.orEmpty().contains("still offers a next page")).isTrue()
     }
@@ -82,28 +84,28 @@ class DingwallsGigsSourceTest {
     // e.g. "Wednesday, 28th October" between two cards that do carry a year
     @Test
     fun `counts a card's missing year forward from the card before it`() {
-        val gigs = DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Friday, 1st January")).latestGigs()
+        val gigs = DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Friday, 1st January"), JoinedActs.keptWhole).latestGigs()
 
         expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2026, 12, 31), GigDate(2027, 1, 1)))
     }
 
     @Test
     fun `reads a day followed by a comma`() {
-        val gigs = DingwallsGigsSource(listingOf("Tuesday, 6th October 2026", "Wednesday, 7, October")).latestGigs()
+        val gigs = DingwallsGigsSource(listingOf("Tuesday, 6th October 2026", "Wednesday, 7, October"), JoinedActs.keptWhole).latestGigs()
 
         expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2026, 10, 6), GigDate(2026, 10, 7)))
     }
 
     @Test
     fun `reads a date with no weekday`() {
-        val gigs = DingwallsGigsSource(listingOf("1st, December, 2026")).latestGigs()
+        val gigs = DingwallsGigsSource(listingOf("1st, December, 2026"), JoinedActs.keptWhole).latestGigs()
 
         expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2026, 12, 1)))
     }
 
     @Test
     fun `dates a month-first run of nights from its first night`() {
-        val gigs = DingwallsGigsSource(listingOf("May 28 & 29 2027")).latestGigs()
+        val gigs = DingwallsGigsSource(listingOf("May 28 & 29 2027"), JoinedActs.keptWhole).latestGigs()
 
         expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2027, 5, 28)))
     }
@@ -111,14 +113,14 @@ class DingwallsGigsSourceTest {
     // left unread, the "&" skipped the pattern on to "29 May" and dated the run from its second night
     @Test
     fun `dates a day-first run of nights from its first night`() {
-        val gigs = DingwallsGigsSource(listingOf("28 & 29 May 2027", "Friday, 4th & 5th June")).latestGigs()
+        val gigs = DingwallsGigsSource(listingOf("28 & 29 May 2027", "Friday, 4th & 5th June"), JoinedActs.keptWhole).latestGigs()
 
         expectThat(gigs.map { it.date }).isEqualTo(listOf(GigDate(2027, 5, 28), GigDate(2027, 6, 4)))
     }
 
     @Test
     fun `fails on a card whose month does not read as one`() {
-        val failure = runCatching { DingwallsGigsSource(listingOf("Friday 28 & 29 2027")).latestGigs() }.exceptionOrNull()
+        val failure = runCatching { DingwallsGigsSource(listingOf("Friday 28 & 29 2027"), JoinedActs.keptWhole).latestGigs() }.exceptionOrNull()
 
         expectThat(failure?.message.orEmpty().contains("reads \"2027\" where its month should be")).isTrue()
     }
@@ -126,7 +128,7 @@ class DingwallsGigsSourceTest {
     @Test
     fun `fails on a card with neither a year nor a weekday`() {
         val failure = runCatching {
-            DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "1st January")).latestGigs()
+            DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "1st January"), JoinedActs.keptWhole).latestGigs()
         }.exceptionOrNull()
 
         expectThat(failure?.message.orEmpty().contains("with neither a year nor a weekday")).isTrue()
@@ -135,7 +137,7 @@ class DingwallsGigsSourceTest {
     @Test
     fun `fails on a counted year that misses the weekday the card prints`() {
         val failure = runCatching {
-            DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Thursday, 1st January")).latestGigs()
+            DingwallsGigsSource(listingOf("Thursday, 31st December 2026", "Thursday, 1st January"), JoinedActs.keptWhole).latestGigs()
         }.exceptionOrNull()
 
         expectThat(failure?.message.orEmpty().contains("is listed on a Thursday and 2027-01-01 is a Friday")).isTrue()
@@ -166,9 +168,21 @@ class DingwallsGigsSourceTest {
             <footer><a>Instagram</a></footer>
         """.trimIndent()
 
-        val pageText = DingwallsGigsSource(noHttp).eventPageContent(pageOf(html))!!
+        val pageText = DingwallsGigsSource(noHttp, JoinedActs.keptWhole).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night!")).isTrue()
         expectThat(pageText.contains("Home")).isEqualTo(false)
+    }
+
+    // Imperial Triumphant's heading bills its guests, and The Commoners' copy does
+    @Test
+    fun `takes a gig's lineup from its heading where that bills the acts, and from its copy where that does`() {
+        val source = DingwallsGigsSource(noHttp, JoinedActs.keptWhole)
+        val copyBillingSupport = pageOf("""<div class="elementor-location-single"><p class="wp-block-paragraph">W/Support from: <strong>Spencer Mackenzie</strong></p></div>""")
+        val copyBillingNobody = pageOf("""<div class="elementor-location-single"><p>There’s a murmuring amidst the monoliths of New York City.</p></div>""")
+
+        expectThat(source.billedLineup(copyBillingNobody, GigTitle("IMPERIAL TRIUMPHANT + very special guests KNOLL"))).isEqualTo(Lineup(listOf("IMPERIAL TRIUMPHANT", "KNOLL")))
+        expectThat(source.billedLineup(copyBillingSupport, GigTitle("The Commoners"))).isEqualTo(Lineup(listOf("Spencer Mackenzie")))
+        expectThat(source.billedLineup(copyBillingNobody, GigTitle("C2C Presents: First Time Flyers"))).isEqualTo(Lineup.none)
     }
 }

@@ -18,7 +18,7 @@ class TheLexingtonGigsSourceTest {
     @Test
     fun `extracts gig events from The Lexington's what's on page`() {
         assertScrapesGigs(
-            source = TheLexingtonGigsSource(cachedClient(), 2026),
+            source = TheLexingtonGigsSource(cachedClient(), JoinedActs.keptWhole, 2026),
             size = 83,
             first = Gig(
                 GigId(theLexington.id, GigUrl("https://thelexington.co.uk/event.php?id=3720")),
@@ -26,6 +26,7 @@ class TheLexingtonGigsSourceTest {
                 GigDate(2026, 9, 6),
                 PosterUrl("https://thelexington.co.uk/uploads/3720.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(theLexington.id, GigUrl("https://thelexington.co.uk/event.php?id=3883")),
@@ -33,6 +34,7 @@ class TheLexingtonGigsSourceTest {
                 GigDate(2027, 2, 19),
                 PosterUrl("https://thelexington.co.uk/uploads/3883.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
     }
@@ -40,7 +42,7 @@ class TheLexingtonGigsSourceTest {
     // 17 of the 100 cards listed on 2026-09-06 are club nights, and the venue says which on the card
     @Test
     fun `leaves the venue's club nights off, taking only what it lists as a gig`() {
-        val gigs = TheLexingtonGigsSource(fakeSite(clubCard("White Heat Club", "Sat January 16")), 2026).latestGigs()
+        val gigs = TheLexingtonGigsSource(fakeSite(clubCard("White Heat Club", "Sat January 16")), JoinedActs.keptWhole, 2026).latestGigs()
 
         expectThat(gigs.map { it.title.value }).isEqualTo(listOf("Wild Pink, newhvn"))
     }
@@ -48,7 +50,7 @@ class TheLexingtonGigsSourceTest {
     @Test
     fun `counts the year forward as the listing crosses into an earlier month`() {
         val january = gigCard(3801, "Sorry", "Sat January 16")
-        val dates = TheLexingtonGigsSource(fakeSite(january), 2026).latestGigs().map { it.date }
+        val dates = TheLexingtonGigsSource(fakeSite(january), JoinedActs.keptWhole, 2026).latestGigs().map { it.date }
 
         expectThat(dates).isEqualTo(listOf(GigDate(2026, 9, 7), GigDate(2027, 1, 16)))
     }
@@ -57,7 +59,7 @@ class TheLexingtonGigsSourceTest {
     @Test
     fun `fails rather than dating a gig on a day its own card contradicts`() {
         val misdated = fakeSite(gigCard(3801, "Sorry", "Fri January 16"))
-        val failure = runCatching { TheLexingtonGigsSource(misdated, 2026).latestGigs() }.exceptionOrNull()
+        val failure = runCatching { TheLexingtonGigsSource(misdated, JoinedActs.keptWhole, 2026).latestGigs() }.exceptionOrNull()
 
         expectThat(failure?.message.orEmpty().contains("no longer lands on the day the card prints")).isTrue()
     }
@@ -77,7 +79,7 @@ class TheLexingtonGigsSourceTest {
             </div>
         """.trimIndent()
 
-        val copy = TheLexingtonGigsSource(noHttp, 2026).eventPageContent(pageOf(html))!!
+        val copy = TheLexingtonGigsSource(noHttp, JoinedActs.keptWhole, 2026).eventPageContent(pageOf(html))!!
 
         expectThat(copy.contains("9PM WILD PINK")).isTrue()
         expectThat(copy.contains("sixth studio album")).isTrue()
@@ -93,7 +95,7 @@ class TheLexingtonGigsSourceTest {
     @Test
     fun `reads copy that says only that the act plays live as no copy at all`() {
         fun copyOf(paragraph: String) =
-            TheLexingtonGigsSource(noHttp, 2026).eventPageContent(pageOf("""<div class="text-content"><p>$paragraph</p></div>"""))
+            TheLexingtonGigsSource(noHttp, JoinedActs.keptWhole, 2026).eventPageContent(pageOf("""<div class="text-content"><p>$paragraph</p></div>"""))
 
         expectThat(copyOf("live")).isEqualTo("")
         expectThat(copyOf("play live")).isEqualTo("")
@@ -133,4 +135,11 @@ class TheLexingtonGigsSourceTest {
             <a href="./event.php?id=$id" class="link-box">Read More</a>
         </div>
     """.trimIndent()
+
+    @Test
+    fun `takes a gig's lineup from a heading that bills its acts`() {
+        val gigs = TheLexingtonGigsSource(cachedClient(), JoinedActs.keptWhole, 2026).latestGigs()
+
+        expectThat(gigs.first { it.title == GigTitle("Renny Conti, Symbol Soup, Mabel Clarke") }.lineup).isEqualTo(Lineup(listOf("Renny Conti", "Symbol Soup", "Mabel Clarke")))
+    }
 }

@@ -16,7 +16,7 @@ class OvoArenaGigsSourceTest {
     @Test
     fun `extracts music events from OVO Arena's month calendar, leaving its other categories out`() {
         val events = assertScrapesGigs(
-            source = OvoArenaGigsSource(cachedClient(), from = YearMonth.of(2026, 8)),
+            source = OvoArenaGigsSource(cachedClient(), JoinedActs.keptWhole, from = YearMonth.of(2026, 8)),
             size = 40,
             first = Gig(
                 GigId(ovoArena.id, GigUrl("https://www.ovoarena.co.uk/events/detail/stonebwoy#2026-08-15")),
@@ -24,6 +24,7 @@ class OvoArenaGigsSourceTest {
                 GigDate(2026, 8, 15),
                 PosterUrl("https://www.ovoarena.co.uk/assets/img/STONEBWOY-BHIM-FEST-LONDON-1440x810-c5b626371c.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(ovoArena.id, GigUrl("https://www.ovoarena.co.uk/events/detail/tash-sultana#2027-03-13")),
@@ -31,6 +32,7 @@ class OvoArenaGigsSourceTest {
                 GigDate(2027, 3, 13),
                 PosterUrl("https://www.ovoarena.co.uk/assets/img/Tash_2027_-1440x810-1ccd5e6573.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -47,7 +49,7 @@ class OvoArenaGigsSourceTest {
     // no events at all in January 2027 and three in each of February and March.
     @Test
     fun `reads on past a month the OVO Arena calendar has nothing in`() {
-        val events = OvoArenaGigsSource(cachedClient(), from = YearMonth.of(2026, 8)).latestGigs()
+        val events = OvoArenaGigsSource(cachedClient(), JoinedActs.keptWhole, from = YearMonth.of(2026, 8)).latestGigs()
 
         expectThat(events.none { it.date.year == 2027 && it.date.monthValue == 1 }).isTrue()
         expectThat(events.filter { it.date.year == 2027 && it.date.monthValue == 3 }).hasSize(3)
@@ -72,7 +74,7 @@ class OvoArenaGigsSourceTest {
             </div>
         """.trimIndent()
 
-        val pageText = OvoArenaGigsSource(noHttp).eventPageContent(pageOf(html))!!
+        val pageText = OvoArenaGigsSource(noHttp, JoinedActs.keptWhole).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("California-based alternative rock band")).isTrue()
         expectThat(pageText.contains("Age Restriction")).isEqualTo(false)
@@ -80,5 +82,14 @@ class OvoArenaGigsSourceTest {
         expectThat(pageText.contains("road closures")).isEqualTo(false)
         expectThat(pageText.contains("Bon Jovi")).isEqualTo(false)
         expectThat(pageText.contains("Doors 18:00")).isEqualTo(false)
+    }
+
+    @Test
+    fun `takes the acts an event page's tagline bills as a gig's lineup`() {
+        fun page(tagline: String) = pageOf("""<h1 class="title has_tagline">Meshuggah</h1><h2 class="tagline ">$tagline</h2>""")
+
+        expectThat(OvoArenaGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(page("Plus special guests Periphery + Vildjharta"))).isEqualTo(Lineup(listOf("Periphery", "Vildjharta")))
+        expectThat(OvoArenaGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(page("30th Anniversary Tour"))).isEqualTo(Lineup.none)
+        expectThat(OvoArenaGigsSource(noHttp, JoinedActs.keptWhole).billedLineup(pageOf("""<h1 class="title">Meshuggah</h1>"""))).isEqualTo(Lineup.none)
     }
 }

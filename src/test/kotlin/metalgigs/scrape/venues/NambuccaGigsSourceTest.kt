@@ -22,7 +22,7 @@ class NambuccaGigsSourceTest {
     fun `extracts gig events from Nambucca's upcoming events page`() {
         val poster = PosterUrl("https://nambuccalondon.co.uk/wp-content/uploads/2026/11/860224164_1785884910211993_1942222572879509274_n-1.jpg")
         val events = assertScrapesGigs(
-            source = NambuccaGigsSource(cachedClient(), year = 2026),
+            source = NambuccaGigsSource(cachedClient(), JoinedActs.keptWhole, year = 2026),
             size = 14,
             first = Gig(
                 GigId(nambucca.id, GigUrl("https://nambuccalondon.co.uk/js_events/some-weird-sin-simon-and-mauro-dj-set/")),
@@ -30,6 +30,7 @@ class NambuccaGigsSourceTest {
                 GigDate(2026, 11, 20),
                 poster,
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(nambucca.id, GigUrl("https://nambuccalondon.co.uk/js_events/fallen-rituals-tour/")),
@@ -37,6 +38,7 @@ class NambuccaGigsSourceTest {
                 GigDate(2027, 3, 20),
                 poster,
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -58,7 +60,7 @@ class NambuccaGigsSourceTest {
         """.trimIndent()
         val fakeClient: HttpHandler = { Response(OK).body(html) }
 
-        val events = NambuccaGigsSource(fakeClient, year = 2026).latestGigs()
+        val events = NambuccaGigsSource(fakeClient, JoinedActs.keptWhole, year = 2026).latestGigs()
 
         expectThat(events.map { it.date })
             .containsExactly(GigDate(2026, 12, 12), GigDate(2027, 1, 23), GigDate(2027, 3, 20))
@@ -75,7 +77,7 @@ class NambuccaGigsSourceTest {
             </div>
         """.trimIndent())
 
-        expectThat(NambuccaGigsSource(noHttp, year = 2026).posterOn(page))
+        expectThat(NambuccaGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).posterOn(page))
             .isEqualTo("https://nambuccalondon.co.uk/wp-content/uploads/2026/10/s.png")
     }
 
@@ -90,7 +92,7 @@ class NambuccaGigsSourceTest {
             </div>
         """.trimIndent())
 
-        expectThat(NambuccaGigsSource(noHttp, year = 2026).posterOn(page))
+        expectThat(NambuccaGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).posterOn(page))
             .isEqualTo("https://i.ytimg.com/vi/CtM4L4M8Pyk/hqdefault.jpg")
     }
 
@@ -98,7 +100,7 @@ class NambuccaGigsSourceTest {
     fun `finds no poster on a page with neither artwork nor video`() {
         val page = pageOf("""<img src="https://nambuccalondon.co.uk/wp-content/uploads/2026/07/title-1.png" class="custom-logo"><div class="event_right"></div>""")
 
-        expectThat(NambuccaGigsSource(noHttp, year = 2026).posterOn(page)).isNull()
+        expectThat(NambuccaGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).posterOn(page)).isNull()
     }
 
     @Test
@@ -117,7 +119,7 @@ class NambuccaGigsSourceTest {
             <footer>Copyright © 2026 Nambucca</footer>
         """.trimIndent()
 
-        val pageText = NambuccaGigsSource(noHttp, year = 2026).eventPageContent(pageOf(html))!!
+        val pageText = NambuccaGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("as part of The Misery Tour!")).isTrue()
         expectThat(pageText.contains("CRY-99 (emo gaze-pop)")).isTrue()
@@ -135,4 +137,11 @@ class NambuccaGigsSourceTest {
             </a>
         </li>
     """
+
+    @Test
+    fun `takes a gig's lineup from a heading that bills its acts`() {
+        val gigs = NambuccaGigsSource(cachedClient(), JoinedActs.keptWhole, year = 2026).latestGigs()
+
+        expectThat(gigs.first { it.title == GigTitle("My Endless Winter + CRY-99") }.lineup).isEqualTo(Lineup(listOf("My Endless Winter", "CRY-99")))
+    }
 }

@@ -55,7 +55,7 @@ and a JSON name field has nothing else to read.
 returns: those are what a selector matching a card's container brings, so they must reach `GigTitle` and fail
 rather than be tidied into a title that looks fine.
 
-Seven sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
+Eight sources compose a title. **The Underworld** titles a gig with its running order where the heading gives
 only the headliner in capitals; the event page's lineup is the bill as typed, cased, headliner last. It is
 taken only when that last act is what the gig is listed as - a festival or club night is named for something
 no act is - and only the headliner and three supports, a bill running longer (Cosmic Void Festival's is 39
@@ -103,9 +103,12 @@ headliner alone: 7 of the gigs listed on 2026-11-04, Trivium's being "Plus Speci
 Swiss + VOLA". The same element holds straplines on other pages - "Emotional World Tour", "Directed by Martin
 Murphy & Suzy Catliff", "A Camera Obscura at Alexandra Palace" - so wording is what tells them apart: a bill is
 what follows "with" or "plus", either opening the subheader or after the name of a tour, "God Bless The Band
-Tour - plus special guests The Lathums and The Guestlist". Acts are split on "+", "&", "and" and commas, so a
-guest with "and" in its name would read as two acts; none listed on that date has one, and the page writes "The
-Royston Club and Heidi Curtis" with nothing else to split on. A bill naming nobody yet, "with special guests
+Tour - plus special guests The Lathums and The Guestlist". Acts are split on "+", "/" and commas, and never on
+"&" or "and": of the bills joined by one at Alexandra Palace, The O2 and AltTickets on 2026-11-15, 15 joined two
+acts and 3 were one band's own name - Beaux Gris Gris & The Magic Three, Jesus & The Zealots, Ruby Doomsday and
+The Mink. Left whole, "Blossoms / The Royston Club and Heidi Curtis" still reads as the bill it is, where split,
+"Ruby Doomsday / The Mink" bills a band that does not exist. Nothing in the wording tells the two apart - "& The"
+was one band both times it appeared, but "and The" was two acts as often as one. A bill naming nobody yet, "with special guests
 TBA", keeps the heading. The cap is the Underworld's. The bill comes from the event page already fetched for
 the description, so there is no second request.
 
@@ -134,6 +137,14 @@ gig is listed as, as the Underworld's running order is: Capital Death Fest, Tran
 Against Fascism name none of their acts, and Reality Unfolds 2027 lists 23. Both lineups go through one
 `titleWithLineup`, and none of the AMG events listed that day names a lineup its title doesn't contain an act
 of. A misspelt performer keeps the venue's title: Los Fastidios' page lists "Los Fastidos".
+
+**AltTickets** - The Garage and The Grace - writes its bill on a line under each event page's heading, which
+`titleBilledBy` reads as it does Alexandra Palace's and The O2's: 40 of the 146 gigs listed on 2026-11-08 have
+such a line, most of them bills. It writes them in more ways, each added to the one rule: "Support: X" (also
+"Support : X", and Allt's "Supports : Avralize + Bite Down"), "Opener: X", "PLUS SPECIAL GUESTS - X / Y", a line
+opening on "+", and a slash between acts as Desperate Journalist's "Bloodworm / To The Lighthouse" has it. The
+rest are straplines - "50 YEARS OF DEFIANCE", "Playing 'In The City' in full + a greatest hits set" - and match
+none of them.
 A cancellation is appended as ` - CANCELLED` where a source knows of one, today the Dice `status` field.
 
 ## Consequences

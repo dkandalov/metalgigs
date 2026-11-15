@@ -3,6 +3,7 @@ package metalgigs.classify.labelling
 import metalgigs.ClassificationSource
 import metalgigs.Genre
 import metalgigs.Gig
+import metalgigs.Lineup
 import metalgigs.GigClassified
 import metalgigs.GigDate
 import metalgigs.GigDescription
@@ -46,6 +47,7 @@ class LabellingTest {
             GigDate(2026, 8, 8),
             PosterUrl("https://example.com/$name.jpg"),
             GigDescription(description),
+            Lineup.none,
         )
 
     private val doom = gig("doom")

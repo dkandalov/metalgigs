@@ -16,7 +16,7 @@ class IslingtonAssemblyHallGigsSourceTest {
     @Test
     fun `extracts gig events from Islington Assembly Hall's events page, following pagination`() {
         val events = assertScrapesGigs(
-            source = IslingtonAssemblyHallGigsSource(cachedClient(), year = 2026),
+            source = IslingtonAssemblyHallGigsSource(cachedClient(), JoinedActs.keptWhole, year = 2026),
             size = 74,
             first = Gig(
                 GigId(islingtonAssemblyHall.id, GigUrl("https://islingtonassemblyhall.co.uk/events/horsegirl-21st-aug-islington-assembly-hall-london-tickets/")),
@@ -24,6 +24,7 @@ class IslingtonAssemblyHallGigsSourceTest {
                 GigDate(2026, 8, 21),
                 PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2026/03/16a4e407-24c9-482a-9f0b-8f8b7812520a.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
             last = Gig(
                 GigId(islingtonAssemblyHall.id, GigUrl("https://islingtonassemblyhall.co.uk/events/seckou-keita-and-the-homeland-band-featuring-special-guests-30th-anniversary-tour-10th-feb-islington-assembly-hall-london-tickets/")),
@@ -31,6 +32,7 @@ class IslingtonAssemblyHallGigsSourceTest {
                 GigDate(2027, 11, 28),
                 PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2025/11/Untitled-design-1.jpg"),
                 GigDescription(""),
+                Lineup.none,
             ),
         )
 
@@ -61,7 +63,7 @@ class IslingtonAssemblyHallGigsSourceTest {
             <div class="entry__related"><li class="event__item"><a class="event__item__title">Some Other Gig</a></li></div>
         """.trimIndent()
 
-        val pageText = IslingtonAssemblyHallGigsSource(noHttp, year = 2026).eventPageContent(pageOf(html))!!
+        val pageText = IslingtonAssemblyHallGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).eventPageContent(pageOf(html))!!
 
         expectThat(pageText.contains("Doom metal night, with Kings Of Thrash in support.")).isTrue()
         // who booked the show is the one thing some of these listings say beyond the boilerplate
@@ -72,5 +74,15 @@ class IslingtonAssemblyHallGigsSourceTest {
         expectThat(pageText.contains("£27.78")).isEqualTo(false)
         expectThat(pageText.contains("Some Other Gig")).isEqualTo(false)
         expectThat(pageText.contains("Hire the Hall")).isEqualTo(false)
+    }
+
+    // Charlotte Wessels' page, whose copy gives the bill a paragraph of its own
+    @Test
+    fun `takes a bill written as a paragraph of the copy as a gig's lineup`() {
+        val page = pageOf("""<div class="event__description"><p>Action! Presents</p><p>Charlotte Wessels – The Obsession</p><p>Plus Special guest Melissa Bonny</p><p>After 16 years as the front woman for Delain, Charlotte Wessels started releasing music under her own name in 2020.</p></div>""")
+        val unbilled = pageOf("""<div class="event__description"><p>They will be performing the album in its entirety, plus loads of other well-known F Mac classics.</p></div>""")
+
+        expectThat(IslingtonAssemblyHallGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).billedLineup(page)).isEqualTo(Lineup(listOf("Melissa Bonny")))
+        expectThat(IslingtonAssemblyHallGigsSource(noHttp, JoinedActs.keptWhole, year = 2026).billedLineup(unbilled)).isEqualTo(Lineup.none)
     }
 }

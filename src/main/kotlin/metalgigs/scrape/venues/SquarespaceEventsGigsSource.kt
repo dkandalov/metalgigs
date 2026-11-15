@@ -48,6 +48,7 @@ internal class SquarespaceEventsGigsSource(
                             )
                             else -> descriptionFrom(eventPage, gigUrl, ::eventPageContent)
                         },
+                        Lineup.none,
                     )
                 }
             }
@@ -87,10 +88,42 @@ val theBlackHeart = Venue(VenueId("black-heart"), "The Black Heart")
 // Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 internal class WithBilledGuests(private val source: GigsSource) : GigsSource by source {
     override fun latestGigs(): List<Gig> = source.latestGigs().map { gig ->
-        gig.copy(title = billedTitle(gig.description, gig.title) ?: gig.title)
+        gig.copy(title = billedTitle(gig.description, gig.title) ?: gig.title, lineup = billedLineup(gig.description, gig.title))
     }
 
     internal fun billedTitle(copy: GigDescription, listedAs: GigTitle): GigTitle? {
+        val (opensOn, billed) = billIn(copy, listedAs) ?: return null
+        val guests = billed.filterNot { !it.matches(featuring) && listedAs.value.contains(it, ignoreCase = true) }
+        var joinedBy = " / "
+        var billedInTitle = 0
+        val title = buildString {
+            append(opensOn)
+            for (line in guests) {
+                if (line.matches(featuring)) {
+                    joinedBy = " ft. "
+                    continue
+                }
+                if (billedInTitle == guestsInTitle) break
+                append(joinedBy).append(line)
+                joinedBy = " / "
+                billedInTitle++
+            }
+        }
+        if (billedInTitle == 0) return null
+        return titleFrom(title)
+    }
+
+    // Every act the copy bills, where a title takes three of them. What the bill opens on is an act
+    // unless the acts are billed as featured at it, or the heading it is taken from names them itself.
+    internal fun billedLineup(copy: GigDescription, listedAs: GigTitle): Lineup {
+        val (opensOn, billed) = billIn(copy, listedAs) ?: return Lineup.none
+        val guests = billed.filterNot { it.matches(featuring) }
+        if (guests.isEmpty()) return Lineup.none
+        val aNight = billed.any { it.matches(featuring) } || guests.any { opensOn.contains(it, ignoreCase = true) }
+        return lineupFrom(if (aNight) guests else listOf(opensOn) + guests)
+    }
+
+    private fun billIn(copy: GigDescription, listedAs: GigTitle): Pair<String, List<String>>? {
         val lines = copy.value.lines()
         val marker = lines.indexOfFirst { it.matches(guestsBilled) }
         val named = lines.indexOfFirst { readsLikeAnAct(it) && sameName(it, listedAs.value) }
@@ -99,25 +132,7 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
             named >= 0 -> lines[named] to named + 1
             else -> return null
         }
-        val guests = lines.drop(from).takeWhile { readsLikeAnAct(it) && !it.contains(unbooked) }
-            .filterNot { !it.matches(featuring) && listedAs.value.contains(it, ignoreCase = true) }
-        var joinedBy = " / "
-        var billed = 0
-        val title = buildString {
-            append(headliner(listedAs, billedAs))
-            for (line in guests) {
-                if (line.matches(featuring)) {
-                    joinedBy = " ft. "
-                    continue
-                }
-                if (billed == guestsInTitle) break
-                append(joinedBy).append(line)
-                joinedBy = " / "
-                billed++
-            }
-        }
-        if (billed == 0) return null
-        return titleFrom(title)
+        return headliner(listedAs, billedAs) to lines.drop(from).takeWhile { readsLikeAnAct(it) && !it.contains(unbooked) }
     }
 
     private fun headliner(listedAs: GigTitle, billedAs: String?): String {
@@ -163,8 +178,30 @@ class TheBlackHeartGigsSource(client: HttpHandler) :
 
 val theDome = Venue(VenueId("dome"), "The Dome")
 
-class DomeLondonGigsSource(client: HttpHandler) :
-    GigsSource by SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome)
+class DomeLondonGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
+    GigsSource by WithSupportsBilledInTheOpeningLine(
+        SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome),
+        joinedActs,
+    )
+
+// The Dome's copy opens on who presents the gig and who plays it - "Action! presents URNE with special
+// guests The Grey and Moon Reaper live at The Dome" - on 49 of the 55 gigs listed on 2026-11-15, the
+// promoter's name sometimes on a line of its own above it.
+internal class WithSupportsBilledInTheOpeningLine(private val source: GigsSource, private val joinedActs: JoinedActs) : GigsSource by source {
+    override fun latestGigs(): List<Gig> = source.latestGigs().map { gig -> gig.copy(lineup = billedLineup(gig.description)) }
+
+    internal fun billedLineup(copy: GigDescription): Lineup {
+        val lines = copy.value.lines()
+        val opening = if (lines.first().contains(promoterAlone)) lines.take(2).joinToString(" ") else lines.first()
+        if (!opening.contains(theFormula)) return Lineup.none
+        return supportsBilled.find(opening)?.let { lineupBilledBy(it.value.removeSuffix("."), joinedActs) } ?: Lineup.none
+    }
+
+    // What says the line is the venue's formula rather than the copy's first sentence.
+    private val theFormula = Regex("""\bpresents?\b|\bat the dome\.?$""", IGNORE_CASE)
+    private val promoterAlone = Regex("""\bpresents?\s*$""", IGNORE_CASE)
+    private val supportsBilled = Regex("""\b(?:plus|with)\s+(?:very\s+)?(?:special\s+guests?|supports?)\b.*?(?=\s+live\b|$)""", IGNORE_CASE)
+}
 
 val fiddlersElbow = Venue(VenueId("fiddlers-elbow"), "The Fiddler's Elbow")
 
