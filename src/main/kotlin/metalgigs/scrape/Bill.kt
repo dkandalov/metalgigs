@@ -10,7 +10,7 @@ internal fun lineupFrom(acts: List<String>): Lineup = Lineup(acts.map(::singlySp
 
 // The acts a line under a gig's heading bills, where a strapline goes on other pages.
 internal fun lineupBilledBy(strapline: String, joinedActs: JoinedActs): Lineup =
-    lineupFrom(actsBilledBy(strapline).orEmpty().flatMap { if (it.contains(joiner)) joinedActs.apart(it) else listOf(it) })
+    lineupFrom(actsBilledBy(strapline).orEmpty().flatMap { actsIn(it, joinedActs) })
 
 // A bill a promoter wrote as a line of its own in a gig's copy. Prose sits beside it there, so the
 // line has to say what it is - guests or support - where a line under a heading need only open "plus".
@@ -31,7 +31,7 @@ internal fun lineupHeadedBy(heading: GigTitle, joinedActs: JoinedActs, commaList
     val pieces = bill.split(if (commaLists) actSeparator else Regex(" / ")).map { it.trim(::decorates).replace(trailingNote, "").trim() }
     if (pieces.size < 2 || pieces.any { it.contains(moreThanAName) }) return Lineup.none
     val acts = pieces.map { it.replace(guestLabel, "") }.filterNot { it.matches(unnamedAct) }
-    return lineupFrom(acts.flatMap { if (it.contains(joiner)) joinedActs.apart(it) else listOf(it) })
+    return lineupFrom(acts.flatMap { actsIn(it, joinedActs) })
 }
 
 // Cart & Horses frames a heading in fire emoji, which are neither end of a name.
@@ -52,6 +52,22 @@ fun interface JoinedActs {
 }
 
 internal val joiner = Regex("""\s(?:&|and)\s""", RegexOption.IGNORE_CASE)
+
+// "ROME and OF THE WAND AND THE MOON" is two acts, cut on the "and" that isn't shouted.
+// Why the case of an "and" is trusted: docs/adr/0015-a-lineup-is-the-acts-a-source-names-held-apart-from-the-title.md
+private fun actsIn(piece: String, joinedActs: JoinedActs): List<String> {
+    val shouted = piece.split(lowerCaseAnd).takeIf { names -> names.size > 1 && names.all(::isShouted) }
+    return when {
+        shouted != null -> shouted.flatMap { if (it.contains(ampersand)) joinedActs.apart(it) else listOf(it) }
+        piece.contains(joiner) -> joinedActs.apart(piece)
+        else -> listOf(piece)
+    }
+}
+
+private fun isShouted(name: String) = name.any(Char::isLetter) && name.none(Char::isLowerCase)
+
+private val lowerCaseAnd = Regex("""\s+and\s+""")
+private val ampersand = Regex("""\s&\s""")
 
 // Why a title is composed from the bill: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
 internal fun titleBilledBy(strapline: String, listedAs: GigTitle): GigTitle? {

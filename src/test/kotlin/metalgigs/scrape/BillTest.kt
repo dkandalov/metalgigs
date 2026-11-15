@@ -219,4 +219,35 @@ class BillTest {
 
         expectThat(lineupBilledInCopy(copy, noJoinedActs)).isEqualTo(Lineup.none)
     }
+
+    // bills off The Dome and Union Chapel on 2026-11-15, none of them put to the model
+    @Test
+    fun `cuts a bill of shouted names on an and written in lower case`() {
+        expectThat(lineupBilledBy("plus supports from COSMIC JOKE, SUPERNOVA and BAD BEAT", noJoinedActs))
+            .isEqualTo(Lineup(listOf("COSMIC JOKE", "SUPERNOVA", "BAD BEAT")))
+        expectThat(lineupBilledBy("plus supports HUNDRED YEAR OLD MAN and CAIRNS", noJoinedActs))
+            .isEqualTo(Lineup(listOf("HUNDRED YEAR OLD MAN", "CAIRNS")))
+        expectThat(lineupHeadedBy(GigTitle("KATATONIA and MY DYING BRIDE + GGGOLDDD"), noJoinedActs))
+            .isEqualTo(Lineup(listOf("KATATONIA", "MY DYING BRIDE", "GGGOLDDD")))
+    }
+
+    @Test
+    fun `takes a shouted and beside a lower case one as a word in an act's name`() {
+        expectThat(lineupBilledBy("with special guests ROME and OF THE WAND AND THE MOON", noJoinedActs))
+            .isEqualTo(Lineup(listOf("ROME", "OF THE WAND AND THE MOON")))
+    }
+
+    // the case says nothing where the names are not shouted, or where the joiner is an ampersand
+    @Test
+    fun `still asks about a joined name whose case says nothing`() {
+        val asked = mutableListOf<String>()
+        val joinedActs = JoinedActs { joined -> asked += joined; listOf(joined) }
+
+        lineupBilledBy("with special guests The Grey and Moon Reaper", joinedActs)
+        lineupBilledBy("plus supports KATE GORE AND THE SCREAMERS", joinedActs)
+        lineupBilledBy("plus supports Feeder and A", joinedActs)
+        lineupBilledBy("plus supports SUPERNOVA and JESUS & THE ZEALOTS", joinedActs)
+
+        expectThat(asked.toList()).isEqualTo(listOf("The Grey and Moon Reaper", "KATE GORE AND THE SCREAMERS", "Feeder and A", "JESUS & THE ZEALOTS"))
+    }
 }

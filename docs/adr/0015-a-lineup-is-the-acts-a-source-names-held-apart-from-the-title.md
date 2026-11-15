@@ -99,6 +99,15 @@ and four more, the second called Fabio & Grooverider two acts, and no name foole
 joined are acts the model does not know - Odeal and Waseel, Guilt Trip and Bodyweb - and a name left joined is
 still what the venue wrote.
 
+**Where a bill shouts its names, the case of an "and" is read before the model is asked.** A promoter who
+types acts in capitals types the word between two of them in lower case, and leaves an act's own "AND" shouted
+with the rest of its name. In the bills and copy read off some thirty venues on 2026-11-15, a lower-case "and" between
+shouted names joined two acts all nine times - "WINTERFYLLETH and OPIA", "KATATONIA and MY DYING BRIDE" - and a
+shouted one was a word in a single act all eight - "AX AND THE HATCHETMAN", "CHRISTINE AND THE QUEENS", "HUE AND
+CRY". Union Chapel's "ROME and OF THE WAND AND THE MOON" holds both. So such a piece is cut on the lower-case
+"and" without a call, and a shouted "AND" in what that leaves is not asked about. It applies only where every
+name in the piece is shouted: "The Grey and Moon Reaper" says nothing by its case, and an ampersand has none.
+
 **Both replies are held to a JSON schema**, a list of strings and one of three words, which is what
 `Chat.Ollama` passes as ollama's `format`. That is not a convenience: asked the same questions with the reply
 left as text, the second reading said "two" far more readily and three single acts were cut.
@@ -125,8 +134,8 @@ A lineup read off a heading says nothing the title does not; what it adds is the
 read one are fitted to how these venues typed on one day: a heading that is a bill by some marker not listed
 here gets no lineup, quietly.
 
-A pair the model does not know stays one entry. The Dome's "The Grey and Moon Reaper" is in its lineup as a
-single act, which it is not; it is still what the venue wrote.
+A pair the model does not know stays one entry unless its case tells it apart. The Dome's "The Grey and Moon
+Reaper" is in its lineup as a single act, which it is not; it is still what the venue wrote.
 
 Alexandra Palace's bills are read off its own page though Dice lists the acts apart for the gigs it sells
 there; the source reads one site.
