@@ -11,7 +11,9 @@ val electricBrixton = Venue(VenueId("electric-brixton"), "Electric Brixton")
 
 class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = electricBrixton
-    override fun latestGigs(): List<Gig> {
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Electric Brixton", client)
+
+    private fun gigsListed(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
         var pagesFetched = 0

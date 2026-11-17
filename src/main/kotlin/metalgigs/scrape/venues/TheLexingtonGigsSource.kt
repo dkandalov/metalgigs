@@ -15,7 +15,9 @@ val theLexington = Venue(VenueId("the-lexington"), "The Lexington")
 class TheLexingtonGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs, private val year: Int) : GigsSource {
     override val venue = theLexington
 
-    override fun latestGigs(): List<Gig> {
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("The Lexington", client)
+
+    private fun gigsListed(): List<Gig> {
         var currentYear = year
         var previousMonth: Month? = null
 

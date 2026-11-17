@@ -99,4 +99,4 @@ internal fun titleWithLineup(listedAs: GigTitle, lineup: List<String>): GigTitle
     return titleFrom((listOf(listedAs.value) + unnamed).take(actsInBilledTitle).joinToString(" / "))
 }
 
-private fun lettersOf(text: String) = text.lowercase().filter(Char::isLetterOrDigit)
+internal fun lettersOf(text: String) = text.lowercase().filter(Char::isLetterOrDigit)

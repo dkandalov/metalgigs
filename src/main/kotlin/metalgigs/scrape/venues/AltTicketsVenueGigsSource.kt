@@ -21,7 +21,11 @@ class TheGarageGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
 val theGrace = Venue(VenueId("the-grace"), "The Grace")
 
 class TheGraceGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
-    GigsSource by AltTicketsVenueGigsSource(client, joinedActs, url = "https://www.alttickets.com/venue/london/the-grace", venue = theGrace)
+    GigsSource by WithLineupsOnDiceAt(
+        "The Grace",
+        AltTicketsVenueGigsSource(client, joinedActs, url = "https://www.alttickets.com/venue/london/the-grace", venue = theGrace),
+        client,
+    )
 
 // Why this reading surface: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 internal class AltTicketsVenueGigsSource(

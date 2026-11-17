@@ -10,7 +10,9 @@ val unionChapel = Venue(VenueId("union-chapel"), "Union Chapel")
 
 class UnionChapelGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = unionChapel
-    override fun latestGigs(): List<Gig> =
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Union Chapel", client)
+
+    private fun gigsListed(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             // every card carries its own sortable timestamp for the page's client-side sorting,
             // which beats parsing the human date ("Thu 27 May 2027") printed alongside it

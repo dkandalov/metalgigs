@@ -15,7 +15,9 @@ val dingwalls = Venue(VenueId("dingwalls"), "Dingwalls")
 class DingwallsGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = dingwalls
 
-    override fun latestGigs(): List<Gig> {
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Dingwalls", client)
+
+    private fun gigsListed(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
         var pagesFetched = 0

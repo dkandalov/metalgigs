@@ -1,7 +1,8 @@
 # 15. A lineup is the acts a source names, held apart from the title, and a joined name is cut only where two readings of a local model agree
 
-Accepted. Recorded 2026-11-15, describing `Lineup`, `Bill.kt` and `JoinedActsReadByModel.kt`. Amended the same
-day: twelve more venues read a lineup off a heading or a line of their copy.
+Accepted. Recorded 2026-11-15, describing `Lineup`, `Bill.kt`, `JoinedActsReadByModel.kt` and
+`DiceLineups.kt`. Amended the same day, twice: twelve more venues read a lineup off a heading or a line of
+their copy, and sixteen ask what Dice lists.
 
 ## Context
 
@@ -55,7 +56,8 @@ at, or a heading that names the acts itself.
 
 Eventim Apollo, Bush Hall and the Roundhouse name a support only in a sentence of their copy - "Alex Spencer
 will also join as support" - and Electric Brixton, Electric Ballroom and The Fiddler's Elbow not at all, so those
-six say `Lineup.none`. Reading an act out of prose is a use of the model nothing here has measured.
+six say `Lineup.none` for themselves. Reading an act out of prose is a use of the model nothing here has
+measured.
 
 **A heading is a lineup only where it is a bill, and then whole or not at all.** It is cut from the title as
 ADR 6 tidies it - the promoter and the sold-out marker already gone, "+" already a slash - and it has to come
@@ -108,6 +110,32 @@ CRY". Union Chapel's "ROME and OF THE WAND AND THE MOON" holds both. So such a p
 "and" without a call, and a shouted "AND" in what that leaves is not asked about. It applies only where every
 name in the piece is shouted: "The Grey and Moon Reaper" says nothing by its case, and an ampersand has none.
 
+**Sixteen venues are also asked about on Dice, which sells their tickets and lists each gig's artists apart**,
+whatever site the gig itself is read off. It is the answer for most of what a typed bill cannot give: a heading
+of one name is confirmed as an act by being listed as one, and a pair the model does not know - "The Cases and
+Fletchr Fletchr" at Scala - arrives as two entries. On 2026-11-15 those venues' own sources gave 120 of 822 gigs
+a lineup, and 482 had one after Dice: Islington Assembly Hall went from 4 of 61 to 58, Union Chapel from 3 of 117
+to 58, Scala from 9 of 47 to 44, and Electric Brixton, the Roundhouse and Bush Hall from none.
+
+A gig is matched to the event on its night that goes under its name, or that bills an act its heading names. The
+night alone will not do - The Dome and Downstairs at The Dome are one venue to Dice - and a name under four
+letters matches only as the whole of a heading. Of the 452 gigs Dice listed artists for that day, 24 had a heading
+that does not hold the first artist listed; read one by one, they were festival nights, a name spelt two ways
+("Saetaier", "Sætaɪər"), and one night at The Grace where the two sites bill different acts. Dice lists a pair
+beside each of its two - "Ben Watt", "Tracey Thorn", "Ben Watt and Tracey Thorn" - and the pair is dropped.
+
+**Dice's lineup is kept where it names two acts or more, or where the venue's own source named nobody**;
+otherwise the venue's own stands (`preferred`). One act on Dice is the gig's own name, which a typed line of
+supports says more than. Where Dice cannot be read the venue keeps its own lineups and the run says so: failing
+the scrape, as an unanswering model does, would hang sixteen listings on a ticket seller being up.
+
+**A source asks Dice itself, with the client it reads its own listing through**, and ends on
+`withLineupsOnDiceAt("Scala", client)`. What Dice calls a venue is a fact about that venue, and asking is one
+more request the venue's scrape makes, so neither is anything `Main` or a collaborator need know: a source is
+given a client and, where it reads a bill, a `JoinedActs`, as before. `DicePartnerApi` is the paging, the key and
+the json, shared with the seven venues read off Dice outright, and knows nothing of a gig; the matching is a
+function of a gig and a list of events.
+
 **Both replies are held to a JSON schema**, a list of strings and one of three words, which is what
 `Chat.Ollama` passes as ollama's `format`. That is not a convenience: asked the same questions with the reply
 left as text, the second reading said "two" far more readily and three single acts were cut.
@@ -137,10 +165,29 @@ here gets no lineup, quietly.
 A pair the model does not know stays one entry unless its case tells it apart. The Dome's "The Grey and Moon
 Reaper" is in its lineup as a single act, which it is not; it is still what the venue wrote.
 
-Alexandra Palace's bills are read off its own page though Dice lists the acts apart for the gigs it sells
-there; the source reads one site.
+Sixteen venues are read from two sites. A lineup can differ between a run where Dice answered and one where
+it did not, which logs the gig as changed twice; and it leans further on the one public key (ADR 8).
+
+Each of those venues' tests holds a recording of what Dice listed, 3.9MB across the sixteen, and a test that
+stands a few lines of markup in for a venue's site answers Dice with the same markup: the source reads that as
+Dice not answering, says so, and keeps its own lineups.
+
+Keeping Dice's bill whole can lose an act the venue typed: The Black Heart's copy billed The Mechanist, Dacara
+and Night Thieves where Dice listed the first two. It gains one as often - Winter Hotel's third act was on Dice
+alone - and merging the two would bill "The Grey and Moon Reaper" beside The Grey and Moon Reaper.
+
+Cart & Horses, Nambucca, OVO Arena, The Dev and The Fiddler's Elbow are not on Dice, or barely.
 
 ## Alternatives rejected
+
+**Wrapping a source in `Main` to ask Dice** - the venue's name on Dice then sits in the wiring, apart from
+everything else known about the venue. **One collaborator answering both for a joined name and for Dice**
+(`ActsKnownElsewhere`, built and then replaced) - it kept Dice out of sixteen tests, and for that put an
+interface, a cache and a stand-in between a source and a request it could make with the client it already had.
+**The Dice gig source inside each venue's source** - it reads a gig's url off a redirect, a request for every
+event to make an id nothing here keeps, and fails as a whole where one of them does. **Matching a gig to Dice by its night
+alone** - two rooms share one. **Merging the two lineups** - see above. **Failing a venue where Dice cannot be
+read** - see above.
 
 **Cutting on "&" and "and" always** bills bands that do not exist: three of the 35 titles composed for the
 AltTickets venues on 2026-11-08. **Never cutting** leaves 27 real pairs in 36 joined, and is what a title still

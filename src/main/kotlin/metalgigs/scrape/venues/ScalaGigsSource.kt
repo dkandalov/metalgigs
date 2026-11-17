@@ -11,7 +11,9 @@ val scala = Venue(VenueId("scala"), "Scala")
 
 class ScalaGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = scala
-    override fun latestGigs(): List<Gig> {
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Scala", client)
+
+    private fun gigsListed(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
         var pagesFetched = 0

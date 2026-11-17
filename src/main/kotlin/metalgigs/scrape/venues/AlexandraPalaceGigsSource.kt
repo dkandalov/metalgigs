@@ -10,7 +10,9 @@ val alexandraPalace = Venue(VenueId("alexandra-palace"), "Alexandra Palace")
 
 class AlexandraPalaceGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = alexandraPalace
-    override fun latestGigs(): List<Gig> =
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Alexandra Palace", client)
+
+    private fun gigsListed(): List<Gig> =
         Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
             .select(".event_card_wrapper")
             .map { item ->

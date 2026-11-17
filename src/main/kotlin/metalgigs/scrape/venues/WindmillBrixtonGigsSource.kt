@@ -10,7 +10,9 @@ val windmillBrixton = Venue(VenueId("windmill-brixton"), "Windmill Brixton")
 
 class WindmillBrixtonGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = windmillBrixton
-    override fun latestGigs(): List<Gig> {
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Windmill Brixton", client)
+
+    private fun gigsListed(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
         var pagesFetched = 0

@@ -11,7 +11,9 @@ val islingtonAssemblyHall = Venue(VenueId("islington-assembly-hall"), "Islington
 
 class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs, private val year: Int) : GigsSource {
     override val venue = islingtonAssemblyHall
-    override fun latestGigs(): List<Gig> {
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Islington Assembly Hall", client)
+
+    private fun gigsListed(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url
         var pagesFetched = 0

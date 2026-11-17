@@ -172,16 +172,19 @@ internal class WithBilledGuests(private val source: GigsSource) : GigsSource by 
 }
 
 class TheBlackHeartGigsSource(client: HttpHandler) :
-    GigsSource by WithBilledGuests(
-        SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = theBlackHeart),
+    GigsSource by WithLineupsOnDiceAt(
+        "The Black Heart",
+        WithBilledGuests(SquarespaceEventsGigsSource(client, url = "https://www.ourblackheart.com/events", venue = theBlackHeart)),
+        client,
     )
 
 val theDome = Venue(VenueId("dome"), "The Dome")
 
 class DomeLondonGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
-    GigsSource by WithSupportsBilledInTheOpeningLine(
-        SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome),
-        joinedActs,
+    GigsSource by WithLineupsOnDiceAt(
+        "The Dome",
+        WithSupportsBilledInTheOpeningLine(SquarespaceEventsGigsSource(client, url = "https://www.domelondon.co.uk/whatson", venue = theDome), joinedActs),
+        client,
     )
 
 // The Dome's copy opens on who presents the gig and who plays it - "Action! presents URNE with special

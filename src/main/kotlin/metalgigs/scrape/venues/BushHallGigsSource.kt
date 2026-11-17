@@ -16,7 +16,9 @@ val bushHall = Venue(VenueId("bush-hall"), "Bush Hall")
 class BushHallGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = bushHall
 
-    override fun latestGigs(): List<Gig> {
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Bush Hall", client)
+
+    private fun gigsListed(): List<Gig> {
         val listing = Jsoup.parse(fetchPage(client, url, browserHeaders), url)
         checkSinglePage(listing)
 

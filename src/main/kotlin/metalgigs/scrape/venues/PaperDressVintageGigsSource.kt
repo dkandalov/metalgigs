@@ -11,7 +11,9 @@ val paperDressVintage = Venue(VenueId("paper-dress-vintage"), "Paper Dress Vinta
 
 class PaperDressVintageGigsSource(private val client: HttpHandler, private val joinedActs: JoinedActs) : GigsSource {
     override val venue = paperDressVintage
-    override fun latestGigs(): List<Gig> =
+    override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Paper Dress Vintage", client)
+
+    private fun gigsListed(): List<Gig> =
         Jsoup.parse(fetchPage(client, url), url)
             .select("[data-event-month]")
             .flatMap { monthBlock ->
