@@ -30,6 +30,7 @@
     <link rel="icon" href="favicon.ico" sizes="48x48 32x32 16x16">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <style>
+        /* Why a phone gets this layout: docs/adr/0017-the-page-is-laid-out-for-a-phone-held-either-way.md */
         :root {
             color-scheme: dark;
         }
@@ -46,7 +47,6 @@
         }
         .page-header {
             display: flex;
-            /* on a narrow screen the search drops onto its own line rather than squeezing the title */
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
@@ -68,14 +68,9 @@
             padding-bottom: 0.5rem;
             margin: 2.5rem 0 1rem;
         }
-        /* The clear button sits inside the pill's right edge, which the input cannot be positioned
-           against from the outside, so the two are wrapped in a box that carries the field's width
-           and lets the button be placed within it. */
         .gig-search-field {
             position: relative;
             display: flex;
-            /* grows into whatever the title leaves, up to a width that keeps it a control in the
-               header rather than a second banner across it */
             flex: 1 1 12rem;
             max-width: 16rem;
         }
@@ -113,8 +108,6 @@
             color: #a1a1aa;
             cursor: pointer;
         }
-        /* Shown by the field holding a query rather than by script, so there is nothing to keep in
-           step with what was typed. */
         .gig-search-field:has(.gig-search:not(:placeholder-shown)) .gig-search-clear {
             display: grid;
         }
@@ -176,8 +169,6 @@
             outline: 2px solid #f2f2f2;
             outline-offset: 2px;
         }
-        /* the browser centres a popover and puts it above everything itself, so this only has to
-           say what it looks like */
         .about-panel {
             box-sizing: border-box;
             max-width: 32rem;
@@ -211,18 +202,7 @@
             color: #e6e6e6;
             border-color: #4a4a52;
         }
-        /* On a phone the field is collapsed to a button so the header stays one row, and the field
-           itself is what grows on focus - nothing toggles it open, so the expansion needs no script
-           and has no state to keep in sync. It stays open while it holds a query, or blurring would
-           hide what was typed. The heading gives up some size to make room; at 2rem it very nearly
-           fills a phone's width on its own. */
         @media (max-width: 30rem) {
-            /* The buttons keep the row and the title is what gives way, since they are a fixed size
-               and it isn't. Flex breaks to a new line before it shrinks anything, so without this
-               the buttons drop to a row of their own the moment the title's natural width plus
-               theirs exceeds the screen - which on a phone it does. min-width lets the title shrink
-               past its own content, wrapping to a second line on the narrowest screens rather than
-               pushing the buttons off the row. */
             .page-header {
                 flex-wrap: nowrap;
             }
@@ -237,7 +217,6 @@
             .page-header:has(.gig-search:not(:placeholder-shown)) .header-actions {
                 flex: 1 1 auto;
             }
-            /* matched squares, so the collapsed field and the about button read as a pair */
             .gig-search-field,
             .about-icon {
                 width: 2.25rem;
@@ -261,11 +240,6 @@
             .gig-search:focus::placeholder {
                 color: #a1a1aa;
             }
-            /* Searching takes over the row it is already on rather than adding one below it. The
-               title and the about button give way to the field, so tapping search doesn't shove the
-               listing down the page just as the keyboard arrives, and the field gets the whole width
-               instead of what's left beside a button it has nothing to do with. Held open by a query
-               as well as by focus, or blurring would hide what was typed. */
             .page-header:has(.gig-search:focus) h1,
             .page-header:has(.gig-search:focus) .about-icon,
             .page-header:has(.gig-search:not(:placeholder-shown)) h1,
@@ -276,7 +250,6 @@
             .gig-search-field:has(.gig-search:not(:placeholder-shown)) {
                 flex: 1 1 auto;
                 width: 100%;
-                /* the cap keeps it a control beside a title on a desktop; here it is the row */
                 max-width: none;
                 height: auto;
             }
@@ -320,12 +293,6 @@
         .gig-card a:hover .gig-title {
             text-decoration: underline;
         }
-        /* Two-tone, because the link wraps the poster and one colour is only guaranteed to show
-           against some artwork. Drawn as an overlay rather than as the link's own outline and inset
-           shadow: an inset shadow paints below child content, so the dark half of the ring would sit
-           behind the very image it exists to stand out against. Inside the card rather than around
-           it, because .gig-card clips whatever leaves its rounded box. The transparent outline is
-           what leaves a focus ring in forced-colors mode, where shadows aren't painted at all. */
         .gig-card a:focus-visible {
             outline: 2px solid transparent;
             outline-offset: -6px;
@@ -344,10 +311,6 @@
             display: block;
             padding: 0.85rem 1rem 1rem;
         }
-        /* Band names run together without spaces - Man/Woman/Chainsaw - and no browser breaks at a
-           slash, so the title below carries a <wbr> after each such one. anywhere is for a long name
-           with nothing to break at: it goes mid-word only where there is no <wbr> to use instead, and
-           it shrinks the title's min-content width, which is what the grid measures its columns against. */
         .gig-title {
             display: block;
             margin-bottom: 0.4rem;
@@ -360,9 +323,6 @@
             color: #a1a1aa;
             font-size: 0.9rem;
         }
-        /* One column leaves a single gig filling most of a phone screen. The breakpoint is just
-           above the width at which the grid above fits two 220px columns unaided, so nothing is
-           left between them where the count drops back to one. */
         @media (max-width: 32rem) {
             h2 {
                 font-size: 0.95rem;
@@ -384,10 +344,6 @@
                 font-size: 0.75rem;
             }
         }
-        /* A landscape phone is too short for a square poster with the text under it - the card
-           comes out 346px tall on a 375px screen - so the poster goes beside the text instead.
-           Keyed on height because every desktop monitor is landscape too, and placed after the
-           block above because both match a viewport that is short and narrow. */
         @media (max-height: 30rem) {
             h2 {
                 font-size: 0.9rem;
@@ -404,9 +360,6 @@
             .gig-image {
                 flex: none;
                 width: 72px;
-                /* The image stretches to whatever height the title wraps to, so it needs a floor
-                   to stay a poster rather than a sliver beside a one-line title, and it has to
-                   give up the square ratio the block layout above sets. */
                 min-height: 72px;
                 height: auto;
                 aspect-ratio: auto;
@@ -431,9 +384,7 @@
     <header class="page-header">
         <h1>Metal Gigs in London</h1>
         <div class="header-actions">
-            <!-- popovertarget is the whole mechanism: the browser shows and hides the panel, puts it
-                 above everything, and closes it on Escape or a click outside, with no script. The
-                 search field is put in front of this button at runtime. -->
+            <!-- The search field is put in front of this button at runtime. -->
             <button class="about-icon" popovertarget="about" aria-label="About">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="9"/>
@@ -445,8 +396,8 @@
     </header>
     <div id="about" class="about-panel" popover>
         <p>A list of upcoming metal gigs in London. That's it.</p>
-        <p>No cookies. No tracking. No accounts. No newsletter.</p>
-        <p>Something wrong or missing? <a href="mailto:hi@metalgigs.london">hi@metalgigs.london</a></p>
+        <p>No cookies. No tracking. No accounts.</p>
+        <p>Something wrong or missing? Email <a href="mailto:hi@metalgigs.london">hi@metalgigs.london</a></p>
         <button class="about-close" popovertarget="about" popovertargetaction="hide" autofocus>Close</button>
     </div>
     
@@ -496,14 +447,8 @@
     
 </main>
 <script>
-    // The render drops gigs before its own today, so a day only turns up here once the published
-    // page has outlived the render that produced it - a missed daily run, a tab left open overnight,
-    // a cached copy. Removed rather than hidden, because the search below sets .hidden on every
-    // group from whether it still holds a matching card, which would bring a hidden one back.
     (() => {
         // en-CA renders a date as YYYY-MM-DD, which compares against data-date as a plain string.
-        // London rather than the visitor's own zone: these are London gigs, and a visitor further
-        // east would otherwise lose tonight's while it is still to come.
         const today = new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/London'}).format(new Date())
         for (const group of document.querySelectorAll('.date-group')) {
             if (group.dataset.date < today) group.remove()
@@ -514,23 +459,13 @@
 <!-- Separate blocks: without a semicolon between them two IIFEs parse as a call on the first one's
      result, and a throw in either would otherwise take the other with it. -->
 <script>
-    // The search box is built here rather than sitting in the template so that it only ever appears
-    // when there is script to run it - the page is otherwise entirely static, and a box that
-    // silently does nothing is worse than no box.
+    // Why script holds no state here: docs/adr/0016-the-page-is-static-and-script-keeps-no-state-the-browser-holds.md
     (() => {
         const cards = [...document.querySelectorAll('.gig-card')]
-            // both the title and the venue are inside the card, so its own text is the whole
-            // haystack; lowercased once here rather than on every keystroke
             .map(card => ({card, text: card.textContent.toLowerCase()}))
         const dateGroups = [...document.querySelectorAll('.date-group')]
         if (!cards.length) return
 
-        // Deliberately not autocomplete=off. iOS empties a field marked that way when it restores a
-        // page from the back/forward cache, while keeping the rest of the DOM as it was - so coming
-        // back from a gig left the listing filtered by a query no longer on screen, with nothing to
-        // explain it and nothing to clear. Measured on iPhone Chrome: pageshow persisted, scripts
-        // not re-run, script-set attributes intact, and only the fields left without that attribute
-        // still holding what had been typed.
         const search = document.createElement('input')
         search.type = 'search'
         search.className = 'gig-search'
@@ -548,7 +483,6 @@
         field.className = 'gig-search-field'
         field.append(search, clear)
 
-        // role=status so that emptying the page is announced rather than only shown
         const noMatches = document.createElement('p')
         noMatches.className = 'no-matches'
         noMatches.setAttribute('role', 'status')
@@ -561,18 +495,11 @@
         const applyQuery = () => {
             const query = search.value.trim().toLowerCase()
             for (const {card, text} of cards) card.hidden = query !== '' && !text.includes(query)
-            // a date whose gigs are all filtered out goes too, or the page fills with headings
-            // standing over nothing
             for (const group of dateGroups) group.hidden = !group.querySelector('.gig-card:not([hidden])')
             noMatches.hidden = query === '' || dateGroups.some(group => !group.hidden)
         }
 
         search.addEventListener('input', applyQuery)
-        // A desktop rebuilds the page on the way back rather than restoring it whole, so the field
-        // gets its value back but the filtering that went with it does not - the value is assigned
-        // straight onto the field, without the input event this listens for. Filtering again from
-        // whatever the field ends up holding covers that, and costs nothing where the page came
-        // back already filtered.
         window.addEventListener('pageshow', applyQuery)
         clear.addEventListener('click', () => {
             search.value = ''
