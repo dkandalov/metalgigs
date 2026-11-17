@@ -119,7 +119,10 @@ to 58, Scala from 9 of 47 to 44, and Electric Brixton, the Roundhouse and Bush H
 
 A gig is matched to the event on its night that goes under its name, or that bills an act its heading names. The
 night alone will not do - The Dome and Downstairs at The Dome are one venue to Dice - and a name under four
-letters matches only as the whole of a heading. Of the 452 gigs Dice listed artists for that day, 24 had a heading
+letters, which is inside too many titles to say anything, matches only as the whole of a heading. An early and a
+late show can share a night and a name, and the fuller bill of the two is taken.
+
+Of the 452 gigs Dice listed artists for that day, 24 had a heading
 that does not hold the first artist listed; read one by one, they were festival nights, a name spelt two ways
 ("Saetaier", "Sætaɪər"), and one night at The Grace where the two sites bill different acts. Dice lists a pair
 beside each of its two - "Ben Watt", "Tracey Thorn", "Ben Watt and Tracey Thorn" - and the pair is dropped.

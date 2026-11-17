@@ -13,7 +13,6 @@ import kotlin.test.Test
 // Why a venue's source also asks Dice: docs/adr/0015-a-lineup-is-the-acts-a-source-names-held-apart-from-the-title.md
 class DiceLineupsTest {
 
-    // Saxon at Eventim Apollo, whose own page names its support only in a sentence
     @Test
     fun `finds the event that is a gig by its night and its name`() {
         val saxon = event("Saxon", "2026-11-22", "Saxon", "Armored Saint")
@@ -33,7 +32,6 @@ class DiceLineupsTest {
         expectThat(eventFor(gig("KOKO Electronic: Marco Carola (Night 2)", "2027-03-06"), listOf(marcoCarola))).isEqualTo(marcoCarola)
     }
 
-    // The Dome and Downstairs at The Dome are one venue to Dice, with a gig each on some nights
     @Test
     fun `finds no event for a gig on a night it shares with one it isn't`() {
         val events = listOf(event("URNE", "2026-11-19", "URNE", "The Grey", "Moon Reaper"))
@@ -42,7 +40,6 @@ class DiceLineupsTest {
         expectThat(eventFor(gig("URNE", "2026-11-20"), events)).isEqualTo(null)
     }
 
-    // Bis played The Lexington, and A is the band Feeder took to The O2
     @Test
     fun `matches a short name only where it is the whole of the heading`() {
         val bis = event("Bis", "2026-12-05", "Bis", "Liines")
@@ -136,7 +133,6 @@ class DiceLineupsTest {
         expectThat(gigs.withLineupsOnDiceAt("Scala") { Response(SERVICE_UNAVAILABLE) }).isEqualTo(gigs)
     }
 
-    // A source the venue shares with others is decorated where the venue's own class is declared.
     @Test
     fun `gives a shared source's gigs the lineups Dice lists at the venue`() {
         val gong = gig("GONG", "2026-11-28")

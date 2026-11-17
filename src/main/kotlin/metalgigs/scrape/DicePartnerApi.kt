@@ -12,8 +12,6 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.time.Instant
 import java.time.ZoneId
 
-// Every event Dice lists at a venue, as its partner api answers: the paging, the key and the json,
-// and nothing of what a gig is.
 // Why the partner API and its public key: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 internal class DicePartnerApi(private val client: HttpHandler) {
     fun eventsAt(venueName: String): List<DicePartnerEvent> {
