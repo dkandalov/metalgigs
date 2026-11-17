@@ -25,6 +25,7 @@ class IslingtonAssemblyHallGigsSourceTest {
                 PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2026/03/16a4e407-24c9-482a-9f0b-8f8b7812520a.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(islingtonAssemblyHall.id, GigUrl("https://islingtonassemblyhall.co.uk/events/seckou-keita-and-the-homeland-band-featuring-special-guests-30th-anniversary-tour-10th-feb-islington-assembly-hall-london-tickets/")),
@@ -33,6 +34,7 @@ class IslingtonAssemblyHallGigsSourceTest {
                 PosterUrl("https://islingtonassemblyhall.co.uk/app/uploads/2025/11/Untitled-design-1.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

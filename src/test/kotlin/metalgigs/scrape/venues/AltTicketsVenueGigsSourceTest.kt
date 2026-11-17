@@ -30,6 +30,7 @@ class AltTicketsVenueGigsSourceTest {
                 PosterUrl("https://alttickets-9a2.kxcdn.com/static_alt_tickets/images/campaign/400x400/danko_jones-7713508499.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(theGarage.id, GigUrl("https://www.alttickets.com/shonen-knife-tickets/london-the-garage/2027-06-19-19-00")),
@@ -38,6 +39,7 @@ class AltTicketsVenueGigsSourceTest {
                 PosterUrl("https://alttickets-9a2.kxcdn.com/static_alt_tickets/images/campaign/400x400/shonen_knife-7919715854.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }
@@ -54,6 +56,7 @@ class AltTicketsVenueGigsSourceTest {
                 PosterUrl("https://alttickets-9a2.kxcdn.com/static_alt_tickets/images/campaign/400x400/lance_roark-7745326167.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(theGrace.id, GigUrl("https://www.alttickets.com/izaro-tickets/london-the-grace/2027-11-13-19-00")),
@@ -62,6 +65,7 @@ class AltTicketsVenueGigsSourceTest {
                 PosterUrl("https://alttickets-9a2.kxcdn.com/static_alt_tickets/images/campaign/400x400/izaro-7816914833.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }
@@ -97,6 +101,7 @@ class AltTicketsVenueGigsSourceTest {
                 PosterUrl("https://alttickets-9a2.kxcdn.com/static_alt_tickets/images/campaign/400x400/messa-7714307795.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             )
         )
     }

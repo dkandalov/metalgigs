@@ -41,6 +41,7 @@ class NewCrossInnGigsSource(private val client: HttpHandler) : GigsSource {
                     posterUrlFrom(gigUrl, item.select("img").attr("abs:src")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     lineupFrom(performers),
+                    status = null,
                 )
             }
     }

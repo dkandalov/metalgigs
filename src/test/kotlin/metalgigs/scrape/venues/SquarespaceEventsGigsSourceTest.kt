@@ -35,6 +35,7 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1786573507310-PG9FBW6TLI2B45R0QU3D/Unknown-2.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
         expectThat(events.last().copy(description = GigDescription(""))).isEqualTo(
@@ -45,6 +46,7 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/56eabd14b6aa60459af3a4f2/1785973667820-T4D2VFAJ8AY9UAJQ4GHP/69613b4679576_event.jpeg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
         expectThat(events.all { it.id.url.value.startsWith("https://www.thefiddlerselbow.co.uk/whos-playing/") }).isTrue()
@@ -127,6 +129,7 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/5b8cf137-c089-48d8-b591-60989f951741/Necropolis_2027_IG_Feed_Poster_3rd_announcement.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(theBlackHeart.id, GigUrl("https://www.ourblackheart.com/events/2027/3/19/necropolis-vol-iii")),
@@ -135,6 +138,7 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/5486e6cde4b0d80114155bf4/5b8cf137-c089-48d8-b591-60989f951741/Necropolis_2027_IG_Feed_Poster_3rd_announcement.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }
@@ -152,6 +156,7 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/108ef8cb-7ffb-4247-ac70-8b48dda635ad/Draconian-2027-London-A3-poster.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(theDome.id, GigUrl("https://www.domelondon.co.uk/whatson/03/07-draconian")),
@@ -160,6 +165,7 @@ class SquarespaceEventsGigsSourceTest {
                 PosterUrl("https://images.squarespace-cdn.com/content/v1/6708f569091ee6412723acb9/108ef8cb-7ffb-4247-ac70-8b48dda635ad/Draconian-2027-London-A3-poster.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }

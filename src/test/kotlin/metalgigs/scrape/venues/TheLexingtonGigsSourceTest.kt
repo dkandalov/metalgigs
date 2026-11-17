@@ -27,6 +27,7 @@ class TheLexingtonGigsSourceTest {
                 PosterUrl("https://thelexington.co.uk/uploads/3720.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(theLexington.id, GigUrl("https://thelexington.co.uk/event.php?id=3883")),
@@ -35,6 +36,7 @@ class TheLexingtonGigsSourceTest {
                 PosterUrl("https://thelexington.co.uk/uploads/3883.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }

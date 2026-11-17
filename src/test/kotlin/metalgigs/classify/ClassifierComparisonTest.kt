@@ -25,6 +25,7 @@ class ClassifierComparisonTest {
         PosterUrl("https://example.com/$name.jpg"),
         GigDescription("A gig called $name"),
         Lineup.none,
+        status = null,
     )
 
     // Each stub answers from a table of what it thinks of each gig, which is all the harness asks of

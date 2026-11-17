@@ -31,12 +31,15 @@ private class DicePartnerVenueGigsSource(
                     posterUrlFrom(gigUrl, event.images.firstOrNull()),
                     GigDescription(event.rawDescription),
                     lineupFrom(event.artists),
+                    statusOf(event),
                 )
             }
     }
 
     private fun titleWithCancellation(event: DicePartnerEvent): GigTitle =
-        titleFrom(if (event.status == "cancelled") "${event.name}$cancelledSuffix" else event.name)
+        titleFrom(if (statusOf(event) == GigStatus.Cancelled) "${event.name}$cancelledSuffix" else event.name)
+
+    private fun statusOf(event: DicePartnerEvent): GigStatus? = if (event.status == "cancelled") GigStatus.Cancelled else null
 
     // Why the redirect target is the gig's url: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrlFor(permName: String): GigUrl {

@@ -21,9 +21,9 @@ class GigsViewTest {
 
     @Test
     fun `excludes gigs before today but keeps gigs on today`() {
-        val yesterday = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/yesterday")), GigTitle("Yesterday Gig"), GigDate(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
-        val today = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/today")), GigTitle("Today Gig"), GigDate(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
-        val tomorrow = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/tomorrow")), GigTitle("Tomorrow Gig"), GigDate(2026, 8, 11), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
+        val yesterday = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/yesterday")), GigTitle("Yesterday Gig"), GigDate(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
+        val today = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/today")), GigTitle("Today Gig"), GigDate(2026, 8, 10), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
+        val tomorrow = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/tomorrow")), GigTitle("Tomorrow Gig"), GigDate(2026, 8, 11), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
 
         val gigs = excludeGigsInThePast(listOf(yesterday, today, tomorrow), today = LocalDate.of(2026, 8, 10))
 
@@ -33,7 +33,7 @@ class GigsViewTest {
     @Test
     fun `keeps gigs up to a year ahead and drops the ones past it`() {
         fun gig(date: LocalDate) =
-            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/$date")), GigTitle("Gig"), GigDate(date), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
+            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/$date")), GigTitle("Gig"), GigDate(date), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
 
         val today = LocalDate.of(2026, 8, 10)
         val onTheDay = gig(today)
@@ -49,9 +49,9 @@ class GigsViewTest {
     @Test
     fun `renders gigs grouped by date as html`(approver: Approver) {
         val gigs = listOf(
-            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/late-gig")), GigTitle("Late Gig"), GigDate(2026, 9, 1), PosterUrl("https://example.com/images/late-gig.jpg"), GigDescription(""), Lineup.none),
-            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/early-gig-one")), GigTitle("Early Gig One"), GigDate(2026, 8, 8), PosterUrl("https://example.com/images/early-gig-one.jpg"), GigDescription(""), Lineup.none),
-            Gig(GigId(theGrace.id, GigUrl("https://example.com/gigs/early-gig-two")), GigTitle("Early Gig Two"), GigDate(2026, 8, 8), PosterUrl("https://example.com/images/early-gig-two.jpg"), GigDescription(""), Lineup.none),
+            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/late-gig")), GigTitle("Late Gig"), GigDate(2026, 9, 1), PosterUrl("https://example.com/images/late-gig.jpg"), GigDescription(""), Lineup.none, status = null),
+            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/early-gig-one")), GigTitle("Early Gig One"), GigDate(2026, 8, 8), PosterUrl("https://example.com/images/early-gig-one.jpg"), GigDescription(""), Lineup.none, status = null),
+            Gig(GigId(theGrace.id, GigUrl("https://example.com/gigs/early-gig-two")), GigTitle("Early Gig Two"), GigDate(2026, 8, 8), PosterUrl("https://example.com/images/early-gig-two.jpg"), GigDescription(""), Lineup.none, status = null),
         )
         val renderer = HandlebarsTemplates().CachingClasspath()
 
@@ -62,7 +62,7 @@ class GigsViewTest {
 
     @Test
     fun `a title of names run together can break after each slash`() {
-        val gig = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/man-woman-chainsaw")), GigTitle("Man/Woman/Chainsaw"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
+        val gig = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/man-woman-chainsaw")), GigTitle("Man/Woman/Chainsaw"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
         val renderer = HandlebarsTemplates().CachingClasspath()
 
         val html = renderer(GigsView(groupGigsByDate(listOf(gig))))
@@ -72,7 +72,7 @@ class GigsViewTest {
 
     @Test
     fun `a title whose slashes have a space beside them is left as it is`() {
-        val gig = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/ditz")), GigTitle("Ditz / Enola Gay /Iguana Death Cult"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
+        val gig = Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/ditz")), GigTitle("Ditz / Enola Gay /Iguana Death Cult"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
         val renderer = HandlebarsTemplates().CachingClasspath()
 
         val html = renderer(GigsView(groupGigsByDate(listOf(gig))))
@@ -83,7 +83,7 @@ class GigsViewTest {
     @Test
     fun `sorts gigs alphabetically within a day, ignoring case`() {
         fun gig(title: String) =
-            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/$title")), GigTitle(title), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
+            Gig(GigId(theUnderworld.id, GigUrl("https://example.com/gigs/$title")), GigTitle(title), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
 
         val groups = groupGigsByDate(listOf(gig("zebra"), gig("Apple"), gig("banana"), gig("Cherry")))
 

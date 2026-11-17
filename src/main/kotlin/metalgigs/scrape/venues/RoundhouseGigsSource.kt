@@ -41,6 +41,7 @@ class RoundhouseGigsSource(private val client: HttpHandler) : GigsSource {
                     ),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     Lineup.none,
+                    status = null,
                 )
             }
             pageUrl = nextPageUrl(page)

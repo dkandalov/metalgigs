@@ -31,6 +31,7 @@ class NambuccaGigsSourceTest {
                 poster,
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(nambucca.id, GigUrl("https://nambuccalondon.co.uk/js_events/fallen-rituals-tour/")),
@@ -39,6 +40,7 @@ class NambuccaGigsSourceTest {
                 poster,
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

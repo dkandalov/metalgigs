@@ -158,6 +158,7 @@ class DiceLineupsTest {
         PosterUrl("https://example.com/poster.jpg"),
         GigDescription(""),
         Lineup.none,
+        status = null,
     )
 
     // doors at seven in the evening, so the night Dice stamps in UTC is the night it is in London

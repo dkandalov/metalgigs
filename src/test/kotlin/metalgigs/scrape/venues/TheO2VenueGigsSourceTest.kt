@@ -25,6 +25,7 @@ class TheO2VenueGigsSourceTest {
                 PosterUrl("https://www.theo2.co.uk/assets/img/1080X1080-a8eecfe5d3.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(indigoAtTheO2.id, GigUrl("https://www.theo2.co.uk/events/detail/bat-50th-anniversary-concert")),
@@ -33,6 +34,7 @@ class TheO2VenueGigsSourceTest {
                 PosterUrl("https://www.theo2.co.uk/assets/img/Steve-Steinmans-Fuel-Injected-Magic-50th-square-Post3er-jpg-48832cc6ba.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 
@@ -54,6 +56,7 @@ class TheO2VenueGigsSourceTest {
                 PosterUrl("https://www.theo2.co.uk/assets/img/Static_TM-ArtistImage_2426x1365_ArianaGrande_2026_Photo-copy-square-b4f4051fe8.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(theO2Arena.id, GigUrl("https://www.theo2.co.uk/events/detail/dungeons-dragons-fan-expo-london-2027")),
@@ -62,6 +65,7 @@ class TheO2VenueGigsSourceTest {
                 PosterUrl("https://www.theo2.co.uk/assets/img/DD_1080-x-1080-Press-shot-32a180fd24.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

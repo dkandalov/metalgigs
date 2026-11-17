@@ -45,6 +45,7 @@ class IslingtonAssemblyHallGigsSource(private val client: HttpHandler, private v
                     posterUrlFrom(gigUrl, thumbnailSuffixPattern.replace(thumbnailUrl, "$1")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     billedLineup(eventPage),
+                    status = null,
                 )
             }
             pageUrl = page.select("a.entry__pagination__action[data-js-infinite-next]").attr("abs:href").ifBlank { null }

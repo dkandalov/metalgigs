@@ -49,6 +49,7 @@ internal class AltTicketsVenueGigsSource(
                 posterUrlFrom(gigUrl, posterIn(eventPage)),
                 descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                 billedLineup(eventPage),
+                status = null,
             )
         }
 

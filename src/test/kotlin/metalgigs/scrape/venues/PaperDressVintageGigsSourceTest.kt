@@ -22,6 +22,7 @@ class PaperDressVintageGigsSourceTest {
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/poster-aug-14th-pd1-scaled.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(paperDressVintage.id, GigUrl("https://paperdressvintage.co.uk/?p=18815")),
@@ -30,6 +31,7 @@ class PaperDressVintageGigsSourceTest {
                 PosterUrl("http://paperdressvintage.co.uk/wp-content/uploads/2026/07/Sam-Scherdel.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }

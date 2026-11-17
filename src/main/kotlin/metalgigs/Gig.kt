@@ -10,7 +10,11 @@ data class Gig(
     val posterUrl: PosterUrl,
     val description: GigDescription,
     val lineup: Lineup,
+    val status: GigStatus?,
 )
+
+// Why a status stands beside the title: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
+enum class GigStatus { Cancelled, SoldOut }
 
 data class GigId(val venueId: VenueId, val url: GigUrl)
 

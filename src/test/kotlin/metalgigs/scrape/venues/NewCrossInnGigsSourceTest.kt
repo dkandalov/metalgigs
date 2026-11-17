@@ -27,6 +27,7 @@ class NewCrossInnGigsSourceTest {
                 PosterUrl("https://pit.live/uploads/user/2026/07/07/640x480/5d05ygXA94bMG95I.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(newCrossInn.id, GigUrl("https://pit.live/events/level-up-festival-7")),
@@ -35,6 +36,7 @@ class NewCrossInnGigsSourceTest {
                 PosterUrl("https://pit.live/uploads/user/2026/07/24/640x480/t8YfuAmMlTMW6ilv.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

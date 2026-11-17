@@ -35,6 +35,7 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler, private val joi
                         posterUrlFrom(gigUrl, item.select(".Image-wrap img").first()?.attr("abs:src")?.let { originalSizeImageUrl(it) }),
                         fetchDescription(client, gigUrl, ::eventPageContent),
                         lineupHeadedBy(listedAs, joinedActs, commaLists = true),
+                        status = null,
                     )
                 }
             }

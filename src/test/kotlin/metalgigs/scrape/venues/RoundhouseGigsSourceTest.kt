@@ -25,6 +25,7 @@ class RoundhouseGigsSourceTest {
                 PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/02/Bellaire.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(roundhouse.id, GigUrl("https://www.roundhouse.org.uk/whats-on/angele/")),
@@ -33,6 +34,7 @@ class RoundhouseGigsSourceTest {
                 PosterUrl("https://assets.roundhouse.org.uk/app/uploads/2026/08/Featured-Image-1-2.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }

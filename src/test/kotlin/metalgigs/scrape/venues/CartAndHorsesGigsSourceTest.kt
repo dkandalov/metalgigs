@@ -27,6 +27,7 @@ class CartAndHorsesGigsSourceTest {
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/240726-012017_threebirds-upd.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/")),
@@ -35,6 +36,7 @@ class CartAndHorsesGigsSourceTest {
                 PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

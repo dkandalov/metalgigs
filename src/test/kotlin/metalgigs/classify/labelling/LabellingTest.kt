@@ -48,6 +48,7 @@ class LabellingTest {
             PosterUrl("https://example.com/$name.jpg"),
             GigDescription(description),
             Lineup.none,
+            status = null,
         )
 
     private val doom = gig("doom")

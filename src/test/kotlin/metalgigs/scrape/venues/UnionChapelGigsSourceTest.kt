@@ -23,6 +23,7 @@ class UnionChapelGigsSourceTest {
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/MAVIS%20S.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(unionChapel.id, GigUrl("https://unionchapel.org.uk/whats-on/fairport-convention-60th-anniversary")),
@@ -31,6 +32,7 @@ class UnionChapelGigsSourceTest {
                 PosterUrl("https://s3.eu-west-2.amazonaws.com/cdn.unionchapel.org.uk/files/Fairport%20Convention%2060th%20logo.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

@@ -35,6 +35,7 @@ class ElectricBrixtonGigsSource(private val client: HttpHandler) : GigsSource {
                     posterUrlFrom(gigUrl, item.select(".uabb-post-thumbnail img").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                     Lineup.none,
+                    status = null,
                 )
             }
             pageUrl = page.select("a.next.page-numbers").attr("abs:href").ifBlank { null }

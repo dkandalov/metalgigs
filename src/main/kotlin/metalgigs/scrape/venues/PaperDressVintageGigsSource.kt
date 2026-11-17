@@ -32,6 +32,7 @@ class PaperDressVintageGigsSource(private val client: HttpHandler, private val j
                         posterUrlFrom(gigUrl, thumbnailUrl?.let { thumbnailSuffixPattern.replace(it, "$1") }),
                         fetchDescription(client, gigUrl, ::eventPageContent),
                         lineupHeadedBy(listedAs, joinedActs),
+                        status = null,
                     )
                 }
             }

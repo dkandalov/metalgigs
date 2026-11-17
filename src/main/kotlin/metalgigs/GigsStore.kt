@@ -277,9 +277,10 @@ internal object JGig : JAny<Gig>() {
     private val description by str(JGigDescription) { description }
     // Written only where a gig has one, so a line from before lineups reads back and rewrites as it was.
     private val lineup by array(fun Gig.(): List<String>? = lineup.value.ifEmpty { null })
+    private val status by str(Gig::status)
 
     override fun JsonNodeObject.deserializeOrThrow() =
-        Gig(GigId(+venue, +url), +title, +date, +posterUrl, +description, Lineup(+lineup ?: emptyList()))
+        Gig(GigId(+venue, +url), +title, +date, +posterUrl, +description, Lineup(+lineup ?: emptyList()), +status)
 }
 
 private object JVenueId : JStringRepresentable<VenueId>() {

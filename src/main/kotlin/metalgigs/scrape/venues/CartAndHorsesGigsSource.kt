@@ -33,6 +33,7 @@ class CartAndHorsesGigsSource(private val client: HttpHandler, private val joine
                     posterUrlFrom(gigUrl, item.select(".news-carousel__image").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                     lineupHeadedBy(listedAs, joinedActs),
+                    status = null,
                 )
             }
     }

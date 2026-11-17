@@ -49,6 +49,7 @@ internal class SquarespaceEventsGigsSource(
                             else -> descriptionFrom(eventPage, gigUrl, ::eventPageContent)
                         },
                         Lineup.none,
+                        status = null,
                     )
                 }
             }

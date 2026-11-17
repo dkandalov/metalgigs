@@ -1,6 +1,7 @@
 # 6. A title is tidied as the listing is read, into one spelling per page
 
 Accepted. Recorded 2026-08-25, describing `WithTidiedTitles.kt`, `titleFrom`, and the titles sources compose.
+Amended 2026-11-17: the two sources that read a status off a field also state it on the gig.
 
 ## Context
 
@@ -145,7 +146,14 @@ such a line, most of them bills. It writes them in more ways, each added to the 
 opening on "+", and a slash between acts as Desperate Journalist's "Bloodworm / To The Lighthouse" has it. The
 rest are straplines - "50 YEARS OF DEFIANCE", "Playing 'In The City' in full + a greatest hits set" - and match
 none of them.
-A cancellation is appended as ` - CANCELLED` where a source knows of one, today the Dice `status` field.
+A cancellation is appended as ` - CANCELLED` where a source knows of one: Dice's `status` field, and the status
+slot on a Bush Hall card, which says "Sold out" the same way.
+
+Those two sources also state what the field said on the gig itself, as `GigStatus`, beside the title rather than
+in place of it. The page prints titles and nothing reads the status yet, so taking the marker out of the title
+would take it off the page. Every other source states none: a marker a venue typed into its title is still only
+in the title, and a status is what a listing's own field said, not what a pattern found. It is written to the
+log only where a gig has one, so a line from before it reads back and rewrites as it was.
 
 ## Consequences
 

@@ -37,6 +37,7 @@ class BushHallGigsSource(private val client: HttpHandler) : GigsSource {
                     posterUrlFrom(gigUrl, eventPage.select("meta[property=og:image]").attr("abs:content")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     Lineup.none,
+                    statusOf(card),
                 )
             }
     }
@@ -70,19 +71,26 @@ class BushHallGigsSource(private val client: HttpHandler) : GigsSource {
         }
     }
 
-    // See Tickets says either in the same place, the button's slot, where "Find Tickets" would
-    // otherwise be.
     // Why the marker is written into the title: docs/adr/0006-a-title-is-tidied-as-the-listing-is-read.md
     private fun titleWithStatus(card: Element): GigTitle {
         val title = card.select(".event-title").text()
         return titleFrom(
-            when (card.select(".v2-price-status").text().trim().lowercase()) {
-                "cancelled" -> "$title$cancelledSuffix"
-                "sold out" -> "$title$soldOutSuffix"
-                else -> title
+            when (statusOf(card)) {
+                GigStatus.Cancelled -> "$title$cancelledSuffix"
+                GigStatus.SoldOut -> "$title$soldOutSuffix"
+                null -> title
             }
         )
     }
+
+    // See Tickets says either in the same place, the button's slot, where "Find Tickets" would
+    // otherwise be.
+    private fun statusOf(card: Element): GigStatus? =
+        when (card.select(".v2-price-status").text().trim().lowercase()) {
+            "cancelled" -> GigStatus.Cancelled
+            "sold out" -> GigStatus.SoldOut
+            else -> null
+        }
 
     // Each card prints its date twice, as "Saturday 05 September 2026" and again as "05/09/2026"
     // beside the door time. The first is read: it names its weekday and spells its month out, where

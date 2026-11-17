@@ -9,4 +9,4 @@ internal val someDay = GigDate(2026, 8, 8)
 internal val realText = "Doom night with support from three bands, doors 7pm."
 
 internal fun gig(title: GigTitle, url: String, description: String, poster: PosterUrl = PosterUrl("https://example.com/poster.jpg"), date: GigDate = someDay) =
-    Gig(GigId(someVenue, GigUrl(url)), title = title, date, poster, GigDescription(description), Lineup.none)
+    Gig(GigId(someVenue, GigUrl(url)), title = title, date, poster, GigDescription(description), Lineup.none, status = null)

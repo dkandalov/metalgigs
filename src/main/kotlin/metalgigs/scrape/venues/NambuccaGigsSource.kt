@@ -35,6 +35,7 @@ class NambuccaGigsSource(private val client: HttpHandler, private val joinedActs
                     posterUrlFrom(gigUrl, posterOn(eventPage)),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     lineupHeadedBy(listedAs, joinedActs),
+                    status = null,
                 )
             }
     }

@@ -54,6 +54,7 @@ class DevGigSourceTest {
                 PosterUrl(septemberFlyerImageUrl),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(theDev.id, GigUrl("https://www.facebook.com/thedevnw1#gig-2026-09-29")),
@@ -62,6 +63,7 @@ class DevGigSourceTest {
                 PosterUrl(septemberFlyerImageUrl),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 
@@ -265,6 +267,7 @@ class DevGigSourceTest {
         PosterUrl(poster),
         GigDescription(title),
         Lineup.none,
+        status = null,
     )
 
     @Test

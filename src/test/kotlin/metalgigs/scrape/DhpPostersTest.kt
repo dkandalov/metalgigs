@@ -53,5 +53,6 @@ class DhpPostersTest {
         poster,
         GigDescription(description),
         Lineup.none,
+        status = null,
     )
 }

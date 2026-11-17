@@ -40,6 +40,7 @@ internal class TheO2VenueGigsSource(
                     posterUrlFrom(gigUrl, item.select(".thumb img.square").attr("abs:src")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     billedLineup(eventPage),
+                    status = null,
                 )
             }
         }

@@ -35,6 +35,7 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
                     posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".grid-image").attr("style"))?.groupValues?.get(1)),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                     Lineup.none,
+                    status = null,
                 )
             }
     }

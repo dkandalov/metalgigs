@@ -24,6 +24,7 @@ class ScalaGigsSourceTest {
                 PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/03/Digable-Planets-2026_colour-c-Emilio-Herce-scaled-e1774636627462.jpeg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(scala.id, GigUrl("https://scala.co.uk/events/split-the-dealer-deva-st-john/")),
@@ -32,6 +33,7 @@ class ScalaGigsSourceTest {
                 PosterUrl("https://scala.co.uk/s/wp-content/uploads/2026/05/Scala-poster-Prf2_page-0001-1-e1779370004481.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

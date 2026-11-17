@@ -24,6 +24,7 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
                     posterUrlFrom(gigUrl, imgixUrlWithoutWidth(item.select(".list-image img").attr("abs:src"))),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     lineupOn(eventPage),
+                    status = null,
                 )
             }
 

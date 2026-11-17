@@ -40,6 +40,7 @@ class DingwallsGigsSource(private val client: HttpHandler, private val joinedAct
                     posterUrlFrom(gigUrl, item.select(".elementor-widget-theme-post-featured-image img").attr("abs:src")),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     billedLineup(eventPage, listedAs),
+                    status = null,
                 )
             }
             pageUrl = nextPageUrl(page)

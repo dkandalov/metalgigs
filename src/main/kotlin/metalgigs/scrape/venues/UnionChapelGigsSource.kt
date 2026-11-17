@@ -31,6 +31,7 @@ class UnionChapelGigsSource(private val client: HttpHandler, private val joinedA
                     posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".card-image").attr("style"))?.groupValues?.get(1)),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     billedLineup(eventPage),
+                    status = null,
                 )
             }
 

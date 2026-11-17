@@ -40,6 +40,7 @@ class OvoArenaGigsSource(private val client: HttpHandler, private val joinedActs
                     posterUrlFrom(gigUrl(event, date), event.imageUrl),
                     descriptionFrom(eventPage, GigUrl(event.url), ::eventPageContent),
                     billedLineup(eventPage),
+                    status = null,
                 )
             }
 

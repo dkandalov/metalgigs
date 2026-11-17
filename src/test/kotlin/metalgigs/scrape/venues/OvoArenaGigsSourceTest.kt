@@ -25,6 +25,7 @@ class OvoArenaGigsSourceTest {
                 PosterUrl("https://www.ovoarena.co.uk/assets/img/STONEBWOY-BHIM-FEST-LONDON-1440x810-c5b626371c.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(ovoArena.id, GigUrl("https://www.ovoarena.co.uk/events/detail/tash-sultana#2027-03-13")),
@@ -33,6 +34,7 @@ class OvoArenaGigsSourceTest {
                 PosterUrl("https://www.ovoarena.co.uk/assets/img/Tash_2027_-1440x810-1ccd5e6573.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

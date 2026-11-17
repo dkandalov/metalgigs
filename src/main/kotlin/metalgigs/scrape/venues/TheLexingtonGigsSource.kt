@@ -45,6 +45,7 @@ class TheLexingtonGigsSource(private val client: HttpHandler, private val joined
                     posterUrlFrom(gigUrl, card.select(".image-wrapper img").attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                     lineupHeadedBy(listedAs, joinedActs, commaLists = true),
+                    status = null,
                 )
             }
     }

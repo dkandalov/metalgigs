@@ -31,6 +31,7 @@ class WindmillBrixtonGigsSourceTest {
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-08-14-house-arrest-george-jr-and-the-9-slash-11s-rampressure-skunkworm-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC01LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvMzE1MDZlNzEtNTRiZC00YmQzLTk3Y2YtZmE3ZWIxNTUwYzFm&v=2"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(windmillBrixton.id, GigUrl("https://www.windmillbrixton.co.uk/events/2026-11-19-grommet-the-windmill")),
@@ -39,6 +40,7 @@ class WindmillBrixtonGigsSourceTest {
                 PosterUrl("https://musicglue-images-prod.global.ssl.fastly.net/windmill-brixton/event/2026-11-19-grommet-the-windmill?u=aHR0cHM6Ly9tdXNpY2dsdWUtdXNlci1hcHAtcC00LXAuczMuYW1hem9uYXdzLmNvbS9vcmlnaW5hbHMvYmJmYjAwYzItMDk2Ny00NmM4LWJiZjYtNmEyZDBhZDU3MTY4&v=2"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

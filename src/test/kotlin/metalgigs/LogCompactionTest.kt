@@ -11,8 +11,8 @@ import kotlin.test.Test
 // Why the log is a projection: docs/adr/0001-the-log-is-append-only.md
 class LogCompactionTest {
 
-    private val gigA = Gig(GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/a")), GigTitle("Gig A"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
-    private val gigB = Gig(GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/b")), GigTitle("Gig B"), GigDate(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none)
+    private val gigA = Gig(GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/a")), GigTitle("Gig A"), GigDate(2026, 8, 8), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
+    private val gigB = Gig(GigId(VenueId("Test Venue"), GigUrl("https://example.com/gigs/b")), GigTitle("Gig B"), GigDate(2026, 8, 9), PosterUrl("https://example.com/poster.jpg"), GigDescription(""), Lineup.none, status = null)
 
     private fun at(day: Int) = Instant.parse("2026-08-0${day}T12:00:00Z")
 

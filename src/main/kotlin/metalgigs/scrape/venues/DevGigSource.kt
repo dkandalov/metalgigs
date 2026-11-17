@@ -72,7 +72,7 @@ class DevGigSource(private val client: HttpHandler, private val chat: Chat, priv
             .filterNot { (_, title) -> notABandNight.containsMatchIn(title) }
             .groupBy({ (date, _) -> date }, { (_, title) -> title })
             .map { (date, titles) -> date to titles.joinToString(" + ") }
-            .map { (date, title) -> Gig(GigId(venue.id, gigUrl(date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title), lineupHeadedBy(GigTitle(title), joinedActs)) }
+            .map { (date, title) -> Gig(GigId(venue.id, gigUrl(date)), GigTitle(title), date, PosterUrl(flyer.imageUrl), GigDescription(title), lineupHeadedBy(GigTitle(title), joinedActs), status = null) }
     }
 
     // Every gig on the flyer is a night at The Dev, so a model is only ever asked to read dates and

@@ -41,6 +41,7 @@ private class AmgVenueGigsSource(private val client: HttpHandler, vararg amgVenu
                 PosterUrl(event.image.ifBlank { imageFromEventPage(event) }),
                 event.description(),
                 lineupFrom(event.lineup.map { it.name }),
+                status = null,
             )
         }
     }

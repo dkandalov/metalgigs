@@ -122,5 +122,6 @@ class RunSummaryTest {
         PosterUrl("https://example.com/images/$name.jpg"),
         GigDescription("A gig"),
         Lineup.none,
+        status = null,
     )
 }

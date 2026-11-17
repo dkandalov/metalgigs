@@ -35,6 +35,7 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/v/t/j/f523afb1-3f0a-4c51-ab59-ec93e163d35f.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(o2ForumKentishTown.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0065059E6A1198")),
@@ -43,6 +44,7 @@ class AmgVenueGigsSourceTest {
                 amgDefaultPoster,
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 
@@ -61,6 +63,7 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/o/d/i/b20837de-7ba0-4e7c-8ee5-a5db7dd58ce4.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(o2AcademyBrixton.id, GigUrl("https://www.ticketmaster.co.uk/event/3E006553EDAE6C67")),
@@ -69,6 +72,7 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/p/k/z/08190ac5-e964-4c0e-84a4-81c2930effa2.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 
@@ -89,6 +93,7 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/z/j/n/0fc323e9-ee30-4527-951e-64f5e37eff3e.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(o2AcademyIslington.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064A10A70664C")),
@@ -97,6 +102,7 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/q/r/h/65bd2b44-ffa3-46f8-8db6-e6eaa2c972c0.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 
@@ -115,6 +121,7 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/h/w/u/b814ccbd-42db-41a5-9678-453d1b4b6ab9.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(o2ShepherdsBushEmpire.id, GigUrl("https://www.ticketmaster.co.uk/event/3E0064D0EB10676E")),
@@ -123,6 +130,7 @@ class AmgVenueGigsSourceTest {
                 PosterUrl("https://dynamicmedia.livenationinternational.com/e/o/k/21247638-dba8-45ed-9a31-5943a3bf78a6.png"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

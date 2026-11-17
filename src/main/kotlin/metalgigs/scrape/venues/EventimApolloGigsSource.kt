@@ -28,6 +28,7 @@ class EventimApolloGigsSource(private val client: HttpHandler) : GigsSource {
                     posterUrlFrom(gigUrl, item.select(".card__image img").first()?.attr("abs:src")),
                     fetchDescription(client, gigUrl, ::eventPageContent),
                     Lineup.none,
+                    status = null,
                 )
             }
 

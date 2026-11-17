@@ -29,6 +29,7 @@ class AlexandraPalaceGigsSourceTest {
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/05/pl-udl-approved-media-assets-14-of-17-marked-2048x1536.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(alexandraPalace.id, GigUrl("https://www.alexandrapalace.com/whats-on/kaleidoscope-festival-2/")),
@@ -37,6 +38,7 @@ class AlexandraPalaceGigsSourceTest {
                 PosterUrl("https://www.alexandrapalace.com/wp-content/uploads/2026/07/Kaleidescope-11.07.26-www.harbinson.uk-7159-2048x1366.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }

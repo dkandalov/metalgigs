@@ -12,6 +12,7 @@ internal fun gigsOn(date: GigDate, count: Int) = (1..count).map {
         PosterUrl("https://example.com/poster.jpg"),
         GigDescription("Gig $it"),
         Lineup.none,
+        status = null,
     )
 }
 

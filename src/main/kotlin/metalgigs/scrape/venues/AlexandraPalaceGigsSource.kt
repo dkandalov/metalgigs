@@ -30,6 +30,7 @@ class AlexandraPalaceGigsSource(private val client: HttpHandler, private val joi
                     posterUrlFrom(gigUrl, item.select(".event_img img").widestImageUrl()),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     billedLineup(eventPage),
+                    status = null,
                 )
             }
 

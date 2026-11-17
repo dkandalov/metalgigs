@@ -25,6 +25,7 @@ class DingwallsGigsSourceTest {
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-3-rjwsim2adcy5bibwgefvk12na485ugaltii7914mr0.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(dingwalls.id, GigUrl("https://dingwalls.com/gig/future-of-the-left-curses-20th-anniversary/")),
@@ -33,6 +34,7 @@ class DingwallsGigsSourceTest {
                 PosterUrl("https://dingwalls.com/wp-content/uploads/elementor/thumbs/PP-25-rqj6o5v970jjsk91d02jbo206nscvgcoveod9yotgs.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }

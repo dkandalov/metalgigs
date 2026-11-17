@@ -23,6 +23,7 @@ class ElectricBallroomGigsSourceTest {
                 PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/07/LION-BABE-.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(electricBallroom.id, GigUrl("https://electricballroom.co.uk/indiepalooza-tribute-killers-v-monkeys-v-fender-v-oasis-v-kasabian-v-kaiser/")),
@@ -31,6 +32,7 @@ class ElectricBallroomGigsSourceTest {
                 PosterUrl("https://electricballroom.co.uk/wp-content/uploads/2026/06/Indiepalooza-2027.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
 

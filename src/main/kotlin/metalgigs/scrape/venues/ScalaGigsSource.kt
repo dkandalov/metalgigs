@@ -34,6 +34,7 @@ class ScalaGigsSource(private val client: HttpHandler, private val joinedActs: J
                     posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".tb-event-feature-pic").attr("style"))?.groupValues?.get(1)),
                     descriptionFrom(eventPage, gigUrl, ::eventPageContent),
                     billedLineup(eventPage),
+                    status = null,
                 )
             }
             pageUrl = page.select(".em-pagination a.next").attr("abs:href").ifBlank { null }

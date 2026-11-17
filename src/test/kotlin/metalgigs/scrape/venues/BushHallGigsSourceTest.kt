@@ -27,6 +27,7 @@ class BushHallGigsSourceTest {
                 PosterUrl("https://c.ststat.net/content/entimg/show/9d950176-681f-4816-b0a6-8a945b8a134a.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
             last = Gig(
                 GigId(bushHall.id, GigUrl("https://bushhall.seetickets.com/event/bec-o-malley/bush-hall/3707284")),
@@ -35,6 +36,7 @@ class BushHallGigsSourceTest {
                 PosterUrl("https://c.ststat.net/content/entimg/tour/bec-o-malley-1724965125-300x300.jpg"),
                 GigDescription(""),
                 Lineup.none,
+                status = null,
             ),
         )
     }
@@ -66,6 +68,15 @@ class BushHallGigsSourceTest {
             .isEqualTo(GigTitle("Liam Bailey - SOLD OUT"))
         expectThat(titleWithStatus("""<span class="v2-price-status">Cancelled</span>"""))
             .isEqualTo(GigTitle("Liam Bailey - CANCELLED"))
+    }
+
+    @Test
+    fun `states the status a card's slot gives, and none for a gig on sale`() {
+        fun statusOf(slot: String) = onlyGigFrom(statusMarkup = slot).status
+
+        expectThat(statusOf("")).isEqualTo(null)
+        expectThat(statusOf("""<span class="v2-price-status">Sold out</span>""")).isEqualTo(GigStatus.SoldOut)
+        expectThat(statusOf("""<span class="v2-price-status">Cancelled</span>""")).isEqualTo(GigStatus.Cancelled)
     }
 
     // the numeric date printed beside it reads as a different month for any day under 13
