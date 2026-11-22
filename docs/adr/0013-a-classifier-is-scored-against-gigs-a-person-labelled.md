@@ -38,7 +38,9 @@ specified by the JDK rather than left to an implementation, so this holds across
 page saying only "the southern rockers" is a metal gig if you know the band, and no wording of a prompt
 gets there from that text. `canBeDerivedPurelyFromText` marks those, because a score that counts them as
 failures is measuring the listing's silence rather than the classifier. It is recorded while the judgement
-is fresh - nobody can tell afterwards which rows rested on knowing the band. Where the band is famous
+is fresh - nobody can tell afterwards which rows rested on knowing the band. Such a row is reported as
+inconclusive whichever way a classifier answered it: agreeing with a label the page cannot support is a
+guess that landed, and no more a point scored than disagreeing is one lost. Where the band is famous
 enough that naming it is common knowledge, the title carries it and the row is not marked.
 
 **A gig with nothing to score is excluded rather than labelled**, into a file of its own. It counts against

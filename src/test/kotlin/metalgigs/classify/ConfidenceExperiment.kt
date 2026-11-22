@@ -3,6 +3,7 @@ package metalgigs.classify
 import metalgigs.ClassificationSource
 import metalgigs.Confidence
 import metalgigs.Genre
+import metalgigs.GigClassified
 import metalgigs.GigId
 import metalgigs.GigsLog
 import metalgigs.Ollama
@@ -13,6 +14,7 @@ import metalgigs.classify.labelling.splitOf
 import metalgigs.httpClient
 import metalgigs.llmCallTimeout
 import metalgigs.ollamaCallTimeout
+import metalgigs.venue
 import org.http4k.ai.llm.chat.AnthropicAI
 import org.http4k.ai.llm.chat.Chat
 import org.http4k.ai.model.ApiKey
@@ -48,8 +50,9 @@ class ConfidenceExperiment {
         // The log answers for what runs today rather than the prompt in use being asked again: those
         // verdicts are the ones the page was built from, they cost nothing to read, and a gig the
         // daily run reached through its poster answers here as it did there.
+        val log = GigsLog(File("events.ndjson"))
         val candidates = listOf(
-            "the log" to recordedVerdicts(GigsLog(File("events.ndjson"))),
+            "the log" to recordedVerdicts(log),
         ) + listOfNotNull(
             System.getenv("SCORE_CONFIDENCE_LOCAL")?.let { "scoped, $it here" to local(it) },
             // asking the billed classifier is a call per gig and real money, so it is opt-in
@@ -58,7 +61,7 @@ class ConfidenceExperiment {
 
         val results = candidates.map { (name, classifier) -> name to answersOf(name, classifier, population) }
 
-        val report = report(labelled, onText, results)
+        val report = report(labelled, onText, results, modelVerdictsIn(log))
         File("build/confidence-score.md").apply { parentFile.mkdirs() }.writeText(report)
         println(report)
     }
@@ -91,6 +94,7 @@ private fun report(
     labelled: List<LabelledGig>,
     onText: List<LabelledGig>,
     results: List<Pair<String, Answers>>,
+    modelVerdicts: Map<GigId, GigClassified>,
 ): String {
     val labelFor = onText.associateBy { it.gig.id }
     val offPage = onText.count { !it.canBeDerivedPurelyFromText }
@@ -99,8 +103,9 @@ private fun report(
         "",
         "${labelled.size} labelled gig(s), ${onText.size} of them judged on page text and asked about here. " +
             "$offPage of those carry a label the page itself cannot support (canBeDerivedPurelyFromText = " +
-            "false) and are scored apart: counting them as failures measures the listing's silence rather " +
-            "than the classifier (ADR 13).",
+            "false) and are inconclusive whatever a classifier answered, so they are left out of every count " +
+            "and listed at the end: one called wrong measures the listing's silence, and one called right " +
+            "is a guess that landed (ADR 13).",
         "",
         "**missing** is a gig labelled Metal that the classifier called Other - it never reaches the page, " +
             "and nothing downstream reports that it didn't. **wrongly shown** is one it called Metal that a " +
@@ -141,8 +146,7 @@ private fun report(
 
         val unreachable = scored.filterNot { it.labelled.canBeDerivedPurelyFromText }
         if (unreachable.isNotEmpty()) {
-            lines += "Of ${unreachable.size} gig(s) whose page cannot carry the label, it got " +
-                "${unreachable.count { it.correct }} right - not counted above."
+            lines += "${unreachable.size} gig(s) whose page cannot carry the label are inconclusive - not counted above."
             lines += ""
         }
 
@@ -169,6 +173,8 @@ private fun report(
         }
     }
 
+    lines += inconclusive(labelled.filterNot { it.canBeDerivedPurelyFromText }, modelVerdicts)
+
     results.forEach { (name, answers) ->
         if (answers.failed.isNotEmpty()) {
             lines += "## $name had no answer for ${answers.failed.size} gig(s)"
@@ -179,6 +185,42 @@ private fun report(
     }
     return lines.joinToString("\n")
 }
+
+// Every off-page row rather than only the ones asked about above: a page that said too little went
+// to its poster, and whether the poster was what the model answered from is the question here.
+private fun inconclusive(offPage: List<LabelledGig>, modelVerdicts: Map<GigId, GigClassified>): List<String> {
+    if (offPage.isEmpty()) return emptyList()
+    val verdicts = offPage.map { it to modelVerdicts[it.gig.id] }
+    // a verdict recorded before the log said which evidence it was given says neither
+    fun judgedOn(verdict: GigClassified?) = when (verdict?.useVision) {
+        true -> "poster"
+        false -> "text"
+        null -> if (verdict == null) "-" else "not recorded"
+    }
+    val evidence = verdicts.groupingBy { (_, verdict) -> judgedOn(verdict) }.eachCount()
+    return listOf(
+        "## Inconclusive: ${offPage.size} labelled gig(s) whose page cannot carry the label",
+        "",
+        "What the log's own model answered, and what it was shown: " +
+            "${evidence["poster"] ?: 0} judged on the poster, ${evidence["text"] ?: 0} on the page text, " +
+            "${evidence["not recorded"] ?: 0} from before the log recorded which, and ${evidence["-"] ?: 0} " +
+            "with no verdict of a model's in the log.",
+        "",
+        "| gig | venue | a person says | the model said | judged on | model |",
+        "|---|---|---|---|---|---|",
+    ) + verdicts.map { (labelled, verdict) ->
+        "| ${labelled.gig.title.value.replace("|", "/")} | ${venue(labelled.gig.id.venueId)} | ${labelled.genre} | " +
+            "${verdict?.genre ?: "-"} | ${judgedOn(verdict)} | ${verdict?.llmModel ?: "-"} |"
+    } + ""
+}
+
+// The model's own latest verdict for each gig, whatever a person later overrode it with: the log
+// answers with the override, and the question an off-page row asks is what the model made of it.
+private fun modelVerdictsIn(log: GigsLog): Map<GigId, GigClassified> =
+    log.entries.filterIsInstance<GigClassified>()
+        .filter { it.source == ClassificationSource.LLM }
+        .groupBy { it.id }
+        .mapValues { (_, verdicts) -> verdicts.maxBy { it.seq } }
 
 private data class Scored(
     val labelled: LabelledGig,
