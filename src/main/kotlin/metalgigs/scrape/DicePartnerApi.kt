@@ -48,6 +48,7 @@ private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
 private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
     private val name by str(DicePartnerEvent::name)
     private val perm_name by str(DicePartnerEvent::permName)
+    private val hash by str(DicePartnerEvent::hash)
     private val date by str(DicePartnerEvent::date)
     private val timezone by str(DicePartnerEvent::timezone)
     private val images by array(DicePartnerEvent::images)
@@ -58,6 +59,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
         name = +name,
         permName = +perm_name,
+        hash = +hash,
         +date,
         timezone = +timezone,
         images = +images,
@@ -80,6 +82,7 @@ private data class DicePartnerEventsResponse(val data: List<DicePartnerEvent>, v
 internal data class DicePartnerEvent(
     val name: String,
     val permName: String,
+    val hash: String,
     val date: String,
     val timezone: String,
     val images: List<String>,

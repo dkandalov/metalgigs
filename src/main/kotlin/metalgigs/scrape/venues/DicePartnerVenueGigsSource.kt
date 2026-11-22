@@ -5,6 +5,7 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
+import org.http4k.core.Status.Companion.NOT_FOUND
 
 // shared by every venue listed through Dice.
 // Why the partner API and its public key: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
@@ -23,7 +24,7 @@ private class DicePartnerVenueGigsSource(
         return events
             .filterNot { event -> notAGig?.containsMatchIn(event.name) == true }
             .map { event ->
-                val gigUrl = gigUrlFor(event.permName)
+                val gigUrl = gigUrlFor(event)
                 Gig(
                     GigId(venue.id, gigUrl),
                     titleWithCancellation(event),
@@ -42,9 +43,9 @@ private class DicePartnerVenueGigsSource(
     private fun statusOf(event: DicePartnerEvent): GigStatus? = if (event.status == "cancelled") GigStatus.Cancelled else null
 
     // Why the redirect target is the gig's url: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
-    private fun gigUrlFor(permName: String): GigUrl {
-        val listed = eventUrl + permName
-        val response = client(Request(GET, listed).header("User-Agent", browserUserAgent))
+    private fun gigUrlFor(event: DicePartnerEvent): GigUrl {
+        val listed = eventUrl + event.permName
+        val response = get(listed)
         return when {
             response.status.redirection -> {
                 val location = checkNotNull(response.header("location")) { "dice.fm redirected $listed without saying where to" }
@@ -53,9 +54,21 @@ private class DicePartnerVenueGigsSource(
             }
             // a perm_name dice.fm serves as it stands, unprefixed
             response.status.successful -> GigUrl(listed)
+            // dice.fm sometimes answers a bare perm_name with a 404 where it should be a 308: one of
+            // Strongroom's 23 events on 2026-11-19 and five of them minutes later, all on sale and on
+            // the venue's own widget. The page was still served where those redirects point, under
+            // the event's hash - so that url is asked for, and taken only if dice.fm serves it.
+            response.status == NOT_FOUND -> {
+                val underItsHash = "$eventUrl${event.hash}-${event.permName}"
+                val status = get(underItsHash).status
+                check(status.successful) { "dice.fm answers $listed with a 404 and $underItsHash with $status" }
+                GigUrl(underItsHash)
+            }
             else -> error("Failed to resolve $listed: ${response.status}")
         }
     }
+
+    private fun get(url: String) = client(Request(GET, url).header("User-Agent", browserUserAgent))
 
     private val eventUrl = "https://dice.fm/event/"
 
@@ -107,3 +120,12 @@ val barfly = Venue(VenueId("barfly"), "Barfly")
 
 class BarflyGigsSource(client: HttpHandler) :
     GigsSource by DicePartnerVenueGigsSource(client, venueFilter = "Barfly Camden", venue = barfly)
+
+val strongroom = Venue(VenueId("strongroom"), "Strongroom")
+
+class StrongroomGigsSource(client: HttpHandler) :
+    GigsSource by DicePartnerVenueGigsSource(client, venueFilter = "Strongroom", venue = strongroom, notAGig = strongroomsOtherNights)
+
+// The bar's standing nights that aren't gigs, four of the 23 events it listed on 2026-11-19: Kino's
+// film screening twice, the monthly quiz and Fireworks Comedy's stand-up.
+private val strongroomsOtherNights = Regex("""Short Film Open Screen|Quiz Night|Fireworks Comedy""", RegexOption.IGNORE_CASE)

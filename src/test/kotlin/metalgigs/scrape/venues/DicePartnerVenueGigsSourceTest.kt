@@ -210,4 +210,38 @@ class DicePartnerVenueGigsSourceTest {
             ),
         )
     }
+
+    @Test
+    fun `extracts gig events from Strongroom's listing`() {
+        val gigs = assertScrapesGigs(
+            source = StrongroomGigsSource(cachedClient(followRedirects = false)),
+            size = 19,
+            first = Gig(
+                GigId(strongroom.id, GigUrl("https://dice.fm/event/6do2k8-kasador-19th-nov-strongroom-london-tickets")),
+                GigTitle("Kasador"),
+                GigDate(2026, 11, 19),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-08-11/55e03c87-57ed-4539-a49f-04f3261a05f9.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+            last = Gig(
+                GigId(strongroom.id, GigUrl("https://dice.fm/event/pgoo28-mothermary-9th-feb-strongroom-london-tickets")),
+                GigTitle("Mothermary"),
+                GigDate(2027, 2, 9),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-10-29/83fb8403-c13a-474e-b1a4-d50288c256bd.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+        )
+
+        // dice.fm answered this one's bare perm_name with a 404 rather than a redirect, as it did
+        // four more in this recording, while serving its page under the event's hash like any other
+        expectThat(gigs.single { it.title == GigTitle("Twin Skeletons") }.id.url)
+            .isEqualTo(GigUrl("https://dice.fm/event/ryrxaw-twin-skeletons-28th-nov-strongroom-london-tickets"))
+
+        // the bar lists its film screenings, quiz and stand-up among its gigs, four in this listing
+        expectThat(gigs.none { it.title.value.contains(Regex("Open Screen|Quiz|Comedy")) }).isTrue()
+    }
 }

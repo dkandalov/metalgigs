@@ -379,6 +379,7 @@ private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): Li
         BushHallGigsSource(client),
         TheLexingtonGigsSource(client, joinedActs, LocalDate.now().year),
         NambuccaGigsSource(client, joinedActs, LocalDate.now().year),
+        StrongroomGigsSource(unredirectedClient),
         DevGigSource(client, Chat.Ollama(httpClient(ollamaCallTimeout), SystemPrompt.of(flyerExtractionSystemPrompt)), joinedActs),
     ).map(::WithTidiedTitles)
 }

@@ -28,7 +28,7 @@ own script does, and documented beside the url.
 The credentials these need are the public ones the page ships. Dice's widget config is inline in 229's page,
 naming the partner id and API key; the key is shipped to every browser, and the widget script reads
 `RUNTIME_API_URL`, appends `/api/v2/events` and sends it as `x-api-key`. It is not scoped to 229 - the same
-key answers for any venue in the filter, which is what lets seven venues share it. DHP's guide parameters are
+key answers for any venue in the filter, which is what lets eight venues share it. DHP's guide parameters are
 read off the listing page, which carries them however far the walk has gone.
 
 Instagram is the exception, having closed on 2026-09-02: `api/v1/users/web_profile_info`, which the page's
@@ -113,8 +113,8 @@ API say so: both Dice and AMG check the response held events.
 These are undocumented surfaces that can change or close without notice, and Instagram is the first to have
 done it: a surface that was public in August was gone in September. What that cost was a reading rather than a
 venue - the page was still serving the listing the whole time, to anyone whose request looked like a browser
-opening it. The Dice key is the sharpest version still outstanding: shared across seven venues, so scoping or
-rotating it stops all seven at once. The Dev's new reading is fragile in its own way: it rests on Instagram
+opening it. The Dice key is the sharpest version still outstanding: shared across eight venues, so scoping or
+rotating it stops all eight at once. The Dev's new reading is fragile in its own way: it rests on Instagram
 prefetching the timeline into the page at all, which is an optimisation rather than a promise. Where a source
 reads an API it reads what the site's own front end reads, so a field disappearing breaks the site's page too.
 The stop
