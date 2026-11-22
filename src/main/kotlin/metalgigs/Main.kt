@@ -162,14 +162,16 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     // Costs one request per gig the venue has stopped listing, spent whether or not anything listed
     // that night looks like it, and repeated every run for the gigs it cannot pair.
     val withheldVenues = validation.withheld.map { it.id.venueId }.toSet()
-    val replacements = scrapedByVenue.filterKeys { it !in withheldVenues }
+    val alreadyReplaced = log.replacements()
+    val listings = scrapedByVenue.mapValues { (_, listing) -> withoutReplacedCopies(listing, alreadyReplaced) }
+    val replacements = listings.filterKeys { it !in withheldVenues }
         .flatMap { (venueId, listing) ->
             replacementsIn(listing, currentGigs.filter { it.id.venueId == venueId }, GigDate(LocalDate.now())) {
                 missingGigSays(unredirectedClient, it, sourcesByVenueId.getValue(venueId)::saysNotFound)
             }
         }
         .map { (replaced, by) -> GigReplaced(replaced, by, now) }
-    val gigs = keepingFlyerReadings(keepingDhpPosters(scrapedByVenue.values.flatten(), currentGigs, replacements), currentGigs)
+    val gigs = keepingFlyerReadings(keepingDhpPosters(listings.values.flatten(), currentGigs, replacements), currentGigs)
     val toObserve = log.newOrChangedGigs(gigs)
     replacements.forEach { println("  ${venue(it.replaced.venueId)} relisted ${it.replaced.url} as ${it.by.url}") }
 

@@ -596,6 +596,23 @@ class GigsStoreTest {
         expectThat(log.currentGigs()).isEqualTo(listOf(onTicketmaster))
         expectThat(log.classificationStatus()[onTicketmaster.id]).isEqualTo(ClassificationStatus.Classified(Genre.Metal))
         expectThat(log.firstSeenAt()[onTicketmaster.id]).isEqualTo(Instant.parse("2026-09-01T00:00:00Z"))
+        expectThat(log.replacements()).isEqualTo(mapOf(onGigantic.id to onTicketmaster.id))
+    }
+
+    // what says which of two listings of one night is the later
+    @Test
+    fun `holds its gigs in the order it first saw them, however often one is seen again`() {
+        val earlier = gigAt("https://www.cartandhorses.london/news-offers-events/547967-the-heretic-order-uk/")
+        val later = gigAt("https://www.cartandhorses.london/news-offers-events/602480-the-heretic-order-uk/")
+        val log = gigsLog(
+            listOf(
+                GigObserved(earlier, Instant.parse("2026-10-05T00:00:00Z")),
+                GigObserved(later, Instant.parse("2026-11-17T00:00:00Z")),
+                GigObserved(earlier.copy(status = GigStatus.SoldOut), Instant.parse("2026-11-20T00:00:00Z")),
+            )
+        )
+
+        expectThat(log.currentGigs().map { it.id }).isEqualTo(listOf(earlier.id, later.id))
     }
 
     // A gig moved between rooms is a gig at another venue, and nothing about a replacement says the

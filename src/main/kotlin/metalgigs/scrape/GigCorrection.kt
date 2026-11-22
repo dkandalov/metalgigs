@@ -30,16 +30,37 @@ internal fun replacementsIn(
     missingGigSays: (GigUrl) -> MissingGig,
 ): List<Pair<GigId, GigId>> {
     val listed = scraped.map { it.id }.toSet()
-    val byUrl = scraped.associateBy { it.id.url }
+    val listedTwice = listedTwiceIn(scraped, previous, from)
+    val kept = scraped.filterNot { gig -> listedTwice.any { (replaced, _) -> replaced == gig.id } }
+    val byUrl = kept.associateBy { it.id.url }
 
-    return previous.filter { it.date >= from && it.id !in listed }
+    return listedTwice + previous.filter { it.date >= from && it.id !in listed }
         .mapNotNull { missing ->
             when (val says = missingGigSays(missing.id.url)) {
                 is MissingGig.MovedTo -> byUrl[says.url]
-                MissingGig.Gone -> scraped.filter { it.date == missing.date && it.looksLike(missing) }
+                MissingGig.Gone -> kept.filter { it.date == missing.date && it.looksLike(missing) }
                     .maxByOrNull { titleSimilarity(it, missing) }
-                MissingGig.Live -> scraped.firstOrNull { it.date == missing.date && it.title == missing.title }
+                MissingGig.Live -> kept.firstOrNull { it.date == missing.date && it.title == missing.title }
             }?.let { replacement -> missing.id to replacement.id }
+        }
+}
+
+internal fun withoutReplacedCopies(listing: List<Gig>, replacements: Map<GigId, GigId>): List<Gig> {
+    val listed = listing.map { it.id }.toSet()
+    return listing.filterNot { gig -> generateSequence(replacements[gig.id]) { replacements[it] }.any { it in listed } }
+}
+
+private fun listedTwiceIn(scraped: List<Gig>, previous: List<Gig>, from: GigDate): List<Pair<GigId, GigId>> {
+    // previous comes in the order the log first saw each gig, the only thing saying which copy is the later.
+    val seen = previous.withIndex().associate { (index, gig) -> gig.id to index }
+
+    return scraped.filter { it.date >= from }
+        .distinctBy { it.id }
+        .groupBy { Triple(it.id.venueId, it.date, it.title) }
+        .values.filter { it.size > 1 }
+        .flatMap { copies ->
+            val latest = copies.maxBy { seen[it.id] ?: Int.MAX_VALUE }
+            (copies - latest).map { it.id to latest.id }
         }
 }
 

@@ -4,7 +4,8 @@ Accepted. Recorded 2026-08-25, describing `GigCorrection.kt` and the url each so
 2026-09-17: the url is asked about before a replacement is looked for, the gate having lost real moves. Amended
 2026-09-22: a still-served url is paired with a gig that night under the very same title. Amended 2026-09-22: AMG takes
 Gigantic's ticket over any other. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-22: a
-source can read a page served with a 200 as the venue saying not found.
+source can read a page served with a 200 as the venue saying not found. Amended 2026-11-22: a night a venue lists
+twice under one title is paired while both urls are still listed.
 
 ## Context
 
@@ -84,6 +85,28 @@ is present rather than the event's markup where it is absent, so a theme that re
 at `Live`, as it was, rather than reading every gig Windmill stops listing as deleted. On 2026-11-22 four
 nights stood in the log twice this way, one of them on the page - Hyperdense, Rampressure, Doubt Point, moved
 when Neuro Placid joined the bill - scoring 0.50, 0.50, 0.63 and 0.67 against the gig that replaced each.
+
+### Pairing a night its venue lists twice
+
+Everything above starts from a url the venue has stopped listing. Cart and Horses published two December
+nights again on 2026-11-17 under new event numbers - 547967 again as 602480, 503070 again as 602483 - each
+with a new poster and new copy, and went on listing the old ones. Neither url of a pair was ever missing, so
+nothing was asked and both nights stood on the page twice.
+
+So two gigs a venue lists on one night under the *identical* title are one gig, and `replacementsIn` pairs
+them before it looks at anything missing. Identical for the reason a `Live` answer needs it: similarity would
+pass every pair of sittings (ADR 4), and no two sittings in the log share a title. The copy kept is the one the
+log saw last - one it has never seen over one it holds, and of two it holds the later, which `currentGigs`
+says by handing its gigs over in the order it first saw them. That is the venue's newer statement of the
+night, and it is the direction every other replacement runs in, so the genre and the first sighting carry
+over as they do for a move.
+
+The venue goes on listing the older url for as long as it likes, and to the log that url is no longer a
+current gig - so read again it would look like one never seen, be observed afresh on every run, and on the
+next be taken for the *newer* of the pair. `withoutReplacedCopies` therefore drops, as the listing is read, a
+gig the log holds as replaced by another that listing still carries, directly or through the urls between.
+Only while the replacement is listed: AMG moving a gig back to a url it had left lists that url alone, and
+it has to be read to be paired the other way.
 
 ## Consequences
 

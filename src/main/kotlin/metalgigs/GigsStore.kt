@@ -150,6 +150,10 @@ class GigsLog(private val file: File) {
             .toMap()
     }
 
+    // Where each url a gig has left leads, the direction a listing still carrying that url is read in.
+    fun replacements(): Map<GigId, GigId> =
+        standingReplacements().associate { it.replaced to it.by }
+
     // Which gig each gig that replaced another replaced - the direction both walks above go.
     private fun replacedBy(): Map<GigId, GigId> =
         standingReplacements().associate { it.by to it.replaced }

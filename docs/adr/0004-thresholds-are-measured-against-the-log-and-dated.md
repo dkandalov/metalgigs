@@ -1,6 +1,7 @@
 # 4. Every threshold is measured against the log, dated, and set where a real listing cannot reach
 
 Accepted. Recorded 2026-08-25, describing the constants in `validate/GigValidation.kt` and `scrape/GigCorrection.kt`.
+Amended 2026-11-22: what an identical title finds among gigs still listed.
 
 ## Context
 
@@ -42,7 +43,11 @@ Where a number cannot separate the cases, the answer is a different question rat
 - *Similarity cannot find a relisted gig.* Union Chapel's two sittings of one show (0.60) and The O2 Forum's
   night beside its 4-day ticket (0.80) rank above one real move (0.44) and level with another. What
   separates them is that the sittings are all still listed, so only a gig the venue stopped listing is a
-  candidate (ADR 5); the threshold then only separates what remains.
+  candidate (ADR 5); the threshold then only separates what remains. A night still listed twice is paired
+  only under the identical title, where no number is involved: of 3868 gigs the log held on 2026-11-22, two
+  pairs shared a venue, a night and a title, both of them Cart and Horses' relistings and neither a sitting -
+  every sitting in the log names itself ("(Matinee)", "(Early Show)", ": Evening"). The same 0.4 that pairs a
+  deleted url, asked of gigs still listed, named 13 future pairs, five of them Union Chapel's sittings.
 - *A count cannot find a placeholder poster.* 20 sits deliberately above Live Nation's own
   `defualt-event-image-amg.jpg`, which stands in for 3 gigs at O2 Academy Islington - the same picture doing
   the same job as a residency's artwork, and a venue whose artwork is late is not a broken source.

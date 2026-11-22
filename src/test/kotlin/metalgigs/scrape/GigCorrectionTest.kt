@@ -195,6 +195,83 @@ class GigCorrectionTest {
         expectThat(replacements).isEqualTo(listOf(asListed.id to relisted.id))
     }
 
+    private val hereticOrder = GigTitle("THE HERETIC ORDER (UK) / DAVID HRADILEK BAND (CZ) / HALBERD (UK) / CALL OF FENRIR (UK)")
+    private val asEvent547967 = gig(hereticOrder, "https://www.cartandhorses.london/news-offers-events/547967-the-heretic-order-uk/", realText, PosterUrl("https://example.com/210526.jpg"), GigDate(2026, 12, 4))
+    private val asEvent602480 = gig(hereticOrder, "https://www.cartandhorses.london/news-offers-events/602480-the-heretic-order-uk/", realText, PosterUrl("https://example.com/161126.jpg"), GigDate(2026, 12, 4))
+
+    // Cart and Horses published a December night again under a new event number, with a new poster,
+    // and went on listing the old one - so neither url was ever missing and nothing was asked
+    @Test
+    fun `pairs a night listed twice under one title, keeping the copy the log saw last`() {
+        val asked = mutableListOf<GigUrl>()
+
+        val replacements = replacementsIn(listOf(asEvent602480, asEvent547967), listOf(asEvent547967, asEvent602480), today) {
+            asked += it
+            MissingGig.Live
+        }
+
+        expectThat(replacements).isEqualTo(listOf(asEvent547967.id to asEvent602480.id))
+        expectThat(asked.toList()).isEqualTo(emptyList())
+    }
+
+    @Test
+    fun `keeps the copy the log has never seen over the one it holds`() {
+        val replacements = replacementsIn(listOf(asEvent547967, asEvent602480), listOf(asEvent547967), today) { MissingGig.Live }
+
+        expectThat(replacements).isEqualTo(listOf(asEvent547967.id to asEvent602480.id))
+    }
+
+    @Test
+    fun `leaves two sittings listed under their own titles alone`() {
+        val matinee = gig(GigTitle("Kate Rusby at Christmas: Matinee"), "https://example.com/matinee", realText, date = GigDate(2026, 12, 22))
+        val evening = gig(GigTitle("Kate Rusby at Christmas: Evening"), "https://example.com/evening", realText, date = GigDate(2026, 12, 22))
+
+        val replacements = replacementsIn(listOf(matinee, evening), listOf(matinee, evening), today) { MissingGig.Live }
+
+        expectThat(replacements).isEqualTo(emptyList())
+    }
+
+    // Blondies lists its karaoke once a week under one title and one poster
+    @Test
+    fun `leaves a title listed on several nights alone`() {
+        val thisWeek = gig(GigTitle("Karaoke"), "https://example.com/karaoke-10th", realText, date = GigDate(2026, 9, 10))
+        val nextWeek = gig(GigTitle("Karaoke"), "https://example.com/karaoke-17th", realText, date = GigDate(2026, 9, 17))
+
+        val replacements = replacementsIn(listOf(thisWeek, nextWeek), listOf(thisWeek, nextWeek), today) { MissingGig.Live }
+
+        expectThat(replacements).isEqualTo(emptyList())
+    }
+
+    // the venue lists both urls for as long as it likes, and the log holds the older as replaced -
+    // which makes it look like a gig never seen before on every run that reads it
+    @Test
+    fun `drops a listed gig the log holds as replaced by another still listed`() {
+        val listing = withoutReplacedCopies(listOf(asEvent547967, asEvent602480), mapOf(asEvent547967.id to asEvent602480.id))
+
+        expectThat(listing).isEqualTo(listOf(asEvent602480))
+    }
+
+    @Test
+    fun `drops a listed gig replaced by another that was itself replaced by one still listed`() {
+        val unlisted = GigId(asEvent547967.id.venueId, GigUrl("https://www.cartandhorses.london/news-offers-events/600000-the-heretic-order-uk/"))
+
+        val listing = withoutReplacedCopies(listOf(asEvent547967, asEvent602480), mapOf(asEvent547967.id to unlisted, unlisted to asEvent602480.id))
+
+        expectThat(listing).isEqualTo(listOf(asEvent602480))
+    }
+
+    // AMG lists a Gigantic and a Ticketmaster ticket first in turn, so a url the log holds as
+    // replaced comes back as the only one listed - and has to be read, to be paired the other way
+    @Test
+    fun `keeps a listed gig whose replacement the venue no longer lists`() {
+        val onGigantic = gig(GigTitle("Beast In Black: Resurrection Tour 2026"), "https://www.gigantic.com/beast-in-black-tickets/london-o2-forum-kentish-town/2026-10-26-19-00", realText, date = GigDate(2026, 10, 26))
+        val onTicketmaster = gig(GigTitle("Beast In Black: Resurrection Tour 2026"), "https://www.ticketmaster.co.uk/event/3E00634FC5C65A4D", realText, date = GigDate(2026, 10, 26))
+
+        val listing = withoutReplacedCopies(listOf(onGigantic), mapOf(onGigantic.id to onTicketmaster.id))
+
+        expectThat(listing).isEqualTo(listOf(onGigantic))
+    }
+
     @Test
     fun `takes a served page its source does not read as not found to be live`() {
         val venue: HttpHandler = { Response(OK).body("""<main><h1>Kate Rusby at Christmas: Matinee</h1></main>""") }
