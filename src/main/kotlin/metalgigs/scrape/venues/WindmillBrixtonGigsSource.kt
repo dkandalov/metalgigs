@@ -12,6 +12,9 @@ class WindmillBrixtonGigsSource(private val client: HttpHandler, private val joi
     override val venue = windmillBrixton
     override fun latestGigs(): List<Gig> = gigsListed().withLineupsOnDiceAt("Windmill Brixton", client)
 
+    // Music Glue answers a url it has dropped with a 200 and this block where the event would be.
+    override fun saysNotFound(page: Document) = page.select(".EmptySection.NotFound").isNotEmpty()
+
     private fun gigsListed(): List<Gig> {
         val gigs = mutableListOf<Gig>()
         var pageUrl: String? = url

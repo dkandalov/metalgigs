@@ -5,6 +5,7 @@ import org.http4k.core.HttpHandler
 import org.http4k.core.Request
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.MOVED_PERMANENTLY
+import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import kotlin.test.Test
@@ -174,9 +175,33 @@ class GigCorrectionTest {
         val relisted = gig(GigTitle("LESBIAN BED DEATH + THE BETTER DEAD"), "https://www.cartandhorses.london/news-offers-events/534086-the-better-dead/", realText, date = GigDate(2026, 9, 10))
         val venue = FakeVenue("/news-offers-events/534086-the-better-dead/")
 
-        val replacements = replacementsIn(listOf(relisted), listOf(moved), today) { url -> missingGigSays(venue, url) }
+        val replacements = replacementsIn(listOf(relisted), listOf(moved), today) { url -> missingGigSays(venue, url) { false } }
 
         expectThat(replacements).isEqualTo(listOf(moved.id to relisted.id))
+    }
+
+    // Windmill Brixton added Neuro Placid to a bill, which moved the gig, and went on answering the
+    // url it had left with a 200 - around a page saying "Not Found" where the event had been
+    @Test
+    fun `pairs a url still served, but as a page its source reads as not found`() {
+        val asListed = gig(GigTitle("Hyperdense, Rampressure, Doubt Point"), "https://www.windmillbrixton.co.uk/events/2026-12-23-hyperdense-rampressure-doubt-point-the-windmill", realText, PosterUrl("https://example.com/three-bands.jpg"), GigDate(2026, 12, 23))
+        val relisted = gig(GigTitle("Hyperdense, Rampressure, Neuro Placid, Doubt Point"), "https://www.windmillbrixton.co.uk/events/2026-12-23-hyperdense-rampressure-neuro-placid-doubt-point-the-windmill", realText, PosterUrl("https://example.com/four-bands.jpg"), GigDate(2026, 12, 23))
+        val venue: HttpHandler = { Response(OK).body("""<main><div class="NotFound">Not Found</div></main>""") }
+
+        val replacements = replacementsIn(listOf(relisted), listOf(asListed), today) { url ->
+            missingGigSays(venue, url) { page -> page.select(".NotFound").isNotEmpty() }
+        }
+
+        expectThat(replacements).isEqualTo(listOf(asListed.id to relisted.id))
+    }
+
+    @Test
+    fun `takes a served page its source does not read as not found to be live`() {
+        val venue: HttpHandler = { Response(OK).body("""<main><h1>Kate Rusby at Christmas: Matinee</h1></main>""") }
+
+        val says = missingGigSays(venue, GigUrl("https://example.com/matinee")) { page -> page.select(".NotFound").isNotEmpty() }
+
+        expectThat(says).isEqualTo(MissingGig.Live)
     }
 }
 

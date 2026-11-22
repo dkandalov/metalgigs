@@ -3,7 +3,8 @@
 Accepted. Recorded 2026-08-25, describing `GigCorrection.kt` and the url each source builds. Amended
 2026-09-17: the url is asked about before a replacement is looked for, the gate having lost real moves. Amended
 2026-09-22: a still-served url is paired with a gig that night under the very same title. Amended 2026-09-22: AMG takes
-Gigantic's ticket over any other. Amended 2026-11-04: AltTickets replaced DHP (ADR 14).
+Gigantic's ticket over any other. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-22: a
+source can read a page served with a 200 as the venue saying not found.
 
 ## Context
 
@@ -73,15 +74,28 @@ the gig went, not what is served there - and that `Location` is resolved against
 half are relative: dice.fm answers with the whole url, Cart and Horses with `/news-offers-events/…`. The
 request carries a browser User-Agent, several venues answering without one with a 403.
 
+**A status is not the only way a venue says a page is gone.** Music Glue, which serves Windmill Brixton's
+site, answers a url it has dropped with a 200: the site's nav, mailing-list form and socials around
+`<div class="EmptySection NotFound">` where the event would be. Read by status that is `Live`, and a rewritten
+bill is never the identical title a `Live` answer needs. So a source may say what its venue's not-found page
+looks like (`GigsSource.saysNotFound`, no page by default), and a page served successfully that it reads so is
+`Gone`, which still needs a look-alike on that night before anything is paired. The block is matched where it
+is present rather than the event's markup where it is absent, so a theme that renames either leaves the answer
+at `Live`, as it was, rather than reading every gig Windmill stops listing as deleted. On 2026-11-22 four
+nights stood in the log twice this way, one of them on the page - Hyperdense, Rampressure, Doubt Point, moved
+when Neuro Placid joined the bill - scoring 0.50, 0.50, 0.63 and 0.67 against the gig that replaced each.
+
 ## Consequences
 
 A venue that renames a gig past recognition is paired now, and one that moves it to another night is too if it
-redirects. What is still out of reach is a venue that neither redirects nor deletes: Windmill Brixton stops
-listing a gig and leaves its page up, which reads as `Live`. The Dev had no per-gig page to ask at all, and its
-two nights were settled instead by taking the title out of its url (ADR 11); of the eleven nights the log held
-twice on 2026-09-17, Windmill's five are what no answer about a url can reach. The pairing must happen
-while the listing is read, which is why it is recorded as `GigReplaced` (ADR 1). And a gig's identity depends
-on a redirect Dice serves.
+redirects. What is still out of reach is a venue that neither redirects nor deletes, and whose page for a
+dropped url no source has been taught to read. Windmill Brixton was recorded here as that venue - it stops
+listing a gig and its url goes on answering 200 - and accounted for five of the eleven nights the log held
+twice on 2026-09-17; what those urls were serving was not looked at then, and in November it was a not-found
+page. The Dev had no per-gig page to ask at all, and its two nights were settled instead by taking the title
+out of its url (ADR 11). Whether any other venue answers a dropped url this way has not been checked. The
+pairing must happen while the listing is read, which is why it is recorded as `GigReplaced` (ADR 1). And a
+gig's identity depends on a redirect Dice serves.
 
 ## Alternatives rejected
 

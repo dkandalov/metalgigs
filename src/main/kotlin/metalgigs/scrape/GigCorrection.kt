@@ -11,6 +11,8 @@ import org.http4k.core.Status.Companion.GONE
 import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.core.Uri
 import org.http4k.core.relative
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 // Why a moved gig is paired here: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
 internal sealed interface MissingGig {
@@ -56,12 +58,13 @@ private fun wordsIn(title: String) =
 
 private const val LEAST_SIMILAR_TITLE = 0.4
 
-internal fun missingGigSays(client: HttpHandler, url: GigUrl): MissingGig {
+internal fun missingGigSays(client: HttpHandler, url: GigUrl, saysNotFound: (Document) -> Boolean): MissingGig {
     val response = client(Request(GET, url.value).header("User-Agent", browserUserAgent))
     return when {
         response.status.redirection -> response.header("location")
             ?.let { MissingGig.MovedTo(GigUrl(Uri.of(url.value).relative(it).toString())) } ?: MissingGig.Live
         response.status == NOT_FOUND || response.status == GONE -> MissingGig.Gone
+        response.status.successful && saysNotFound(Jsoup.parse(response.bodyString(), url.value)) -> MissingGig.Gone
         else -> MissingGig.Live
     }
 }

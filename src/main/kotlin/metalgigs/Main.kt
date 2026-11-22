@@ -165,7 +165,7 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     val replacements = scrapedByVenue.filterKeys { it !in withheldVenues }
         .flatMap { (venueId, listing) ->
             replacementsIn(listing, currentGigs.filter { it.id.venueId == venueId }, GigDate(LocalDate.now())) {
-                missingGigSays(unredirectedClient, it)
+                missingGigSays(unredirectedClient, it, sourcesByVenueId.getValue(venueId)::saysNotFound)
             }
         }
         .map { (replaced, by) -> GigReplaced(replaced, by, now) }

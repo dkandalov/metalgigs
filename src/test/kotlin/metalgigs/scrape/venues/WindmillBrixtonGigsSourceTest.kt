@@ -90,6 +90,28 @@ class WindmillBrixtonGigsSourceTest {
         expectThat(pageText.contains("news and offers")).isEqualTo(false)
     }
 
+    // the main block is verbatim from the url a rewritten bill left behind on 2026-11-22, which
+    // answered 200 with the nav, mailing-list form and socials around it
+    @Test
+    fun `reads the page Windmill Brixton serves for a dropped url as not found`() {
+        val source = WindmillBrixtonGigsSource(noHttp, JoinedActs.keptWhole)
+        val dropped = """
+            <nav><a>Listings</a><a>Visitor Info</a></nav>
+            <main class="Main content"> <div class="EmptySection NotFound"> Not Found </div> </main>
+            <div class="Card MailingList"><div class="Card-title">Mailing List</div></div>
+        """.trimIndent()
+        val served = """
+            <nav><a>Listings</a><a>Visitor Info</a></nav>
+            <main class="Main content">
+                <article class="Event EventDetail"><h1 class="EventDetailTitle-title">Doom Night</h1></article>
+            </main>
+            <div class="Card MailingList"><div class="Card-title">Mailing List</div></div>
+        """.trimIndent()
+
+        expectThat(source.saysNotFound(pageOf(dropped))).isEqualTo(true)
+        expectThat(source.saysNotFound(pageOf(served))).isEqualTo(false)
+    }
+
     @Test
     fun `skips a named Windmill Brixton gig whose event page carries no description`() {
         val source = WindmillBrixtonGigsSource(

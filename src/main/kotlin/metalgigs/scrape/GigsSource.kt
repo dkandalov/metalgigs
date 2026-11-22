@@ -16,6 +16,9 @@ import java.util.Locale
 interface GigsSource {
     val venue: Venue
     fun latestGigs(): List<Gig>
+
+    // Why a served page can still say gone: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
+    fun saysNotFound(page: Document): Boolean = false
 }
 
 internal fun fetchPage(client: HttpHandler, url: String, headers: List<Pair<String, String>> = emptyList()): String {
