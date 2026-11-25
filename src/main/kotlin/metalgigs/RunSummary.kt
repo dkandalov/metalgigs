@@ -10,16 +10,17 @@ internal fun venueRunTable(runs: List<VenueRun>): List<String> {
     val rows = runs.sortedWith(listingsFirst).map(::cellsFor)
     val widths = tableColumns.indices.map { column -> (rows + listOf(tableColumns)).maxOf { it[column].length } }
 
-    return (listOf(tableColumns) + rows).map { cells ->
-        cells.mapIndexed { column, cell ->
-            when (column) {
-                0 -> cell.padEnd(widths[column])
-                cells.lastIndex -> cell
-                else -> cell.padStart(widths[column])
-            }
-        }.joinToString("  ").trimEnd()
-    }
+    return (listOf(tableColumns) + rows).map { alignedRow(it, widths) }
 }
+
+internal fun alignedRow(cells: List<String>, widths: List<Int>): String =
+    cells.mapIndexed { column, cell ->
+        when (column) {
+            0 -> cell.padEnd(widths[column])
+            cells.lastIndex -> cell
+            else -> cell.padStart(widths[column])
+        }
+    }.joinToString("  ").trimEnd()
 
 // The counts are what the venue's listing said rather than what was logged from it, so they always
 // add up to what it listed: a venue whose gigs validation withheld still listed them, and the

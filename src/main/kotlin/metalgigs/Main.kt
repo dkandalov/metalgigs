@@ -1,8 +1,6 @@
 package metalgigs
 
 import dev.forkhandles.result4k.failureOrNull
-import dev.forkhandles.result4k.peek
-import dev.forkhandles.result4k.peekFailure
 import dev.forkhandles.result4k.resultFrom
 import dev.forkhandles.result4k.valueOrNull
 import metalgigs.classify.*
@@ -126,7 +124,9 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     val (skipped, toScrape) = sources.partition { source ->
         !force && lastScrapedAt[source.venue.id]?.isAfter(now.minus(scrapeCooldown)) == true
     }
-    skipped.forEach { source -> println("Skipping ${source.venue} - scraped within the last day; pass force to scrape anyway") }
+    val console = System.out
+    val table = ScrapeTable(sources.map { it.venue.id }, toScrape.size, console)
+    table.printHeader()
 
     // A gig whose event page won't read fails its source outright rather than being built without a
     // description, so one dead page costs that venue its whole listing for this run. Caught per
@@ -135,15 +135,20 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     //
     // A venue that failed is left out of what's validated rather than entered against an empty list,
     // so it isn't reported a second time as having listed nothing.
-    val attempts = toScrape.mapIndexed { index, source ->
-        println("Scraping ${source.venue} (${index + 1}/${toScrape.size})...")
-        val startedAt = Instant.now()
-        val gigs = resultFrom { source.latestGigs() }
-        val took = Duration.between(startedAt, Instant.now())
-        gigs.peek { println("  ${it.size} gig(s) listed in ${elapsedText(took)}") }
-            .peekFailure { println("  Could not scrape ${source.venue} after ${elapsedText(took)}, so none of its gigs are logged this run: ${it.message}") }
-        ScrapeAttempt(source.venue.id, gigs, took)
+    System.setOut(table.sourceOutput)
+    val attempts = try {
+        toScrape.mapIndexed { index, source ->
+            table.started(index + 1, source.venue.id)
+            val startedAt = Instant.now()
+            val gigs = resultFrom { source.latestGigs() }
+            ScrapeAttempt(source.venue.id, gigs, Duration.between(startedAt, Instant.now()))
+                .also { table.finished(index + 1, it) }
+        }
+    } finally {
+        System.setOut(console)
     }
+    skipped.forEach { table.skipped(it.venue.id) }
+    if (skipped.isNotEmpty()) println("Skipped venues were scraped within the last day; pass force to scrape anyway")
     val scrapedByVenue = attempts.mapNotNull { attempt -> attempt.gigs.valueOrNull()?.let { attempt.venueId to it } }.toMap()
 
     val currentGigs = log.currentGigs()
