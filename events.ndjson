@@ -12368,3 +12368,4 @@
 {"_type": "classified", "seq": 13496, "venue": "eventim-apollo", "url": "https://www.eventimapollo.com/events/w-nkernomics", "recordedAt": "2026-11-25T12:42:13.187498Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 355, "outputTokens": 4}
 {"_type": "classified", "seq": 13497, "venue": "o2-academy-brixton", "url": "https://www.ticketmaster.co.uk/event/3E00657517E5C6CC", "recordedAt": "2026-11-25T12:42:13.187498Z", "genre": "Other", "source": "LLM", "llmModel": "claude-sonnet-5", "useVision": true, "inputTokens": 1678, "outputTokens": 4}
 {"_type": "rendered", "seq": 13498, "file": "2026-11-25T13-51-14Z.html", "gigCount": 285, "logicalDate": "2026-11-25", "recordedAt": "2026-11-25T13:51:14.129404Z"}
+{"_type": "rendered", "seq": 13499, "file": "2026-11-25T14-06-30Z.html", "gigCount": 285, "logicalDate": "2026-11-25", "recordedAt": "2026-11-25T14:06:30.618530Z"}
