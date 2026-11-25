@@ -28,19 +28,27 @@ class ElectricBallroomGigsSource(private val client: HttpHandler, private val ye
                 if (item.select(".buy-share-event a.button").attr("abs:href").startsWith(bongosBingo)) return@mapNotNull null
 
                 val gigUrl = gigUrlFrom(item.select(".event-name a").attr("abs:href"), "https://electricballroom.co.uk/")
-                Gig(
-                    GigId(venue.id, gigUrl),
-                    GigTitle(item.select(".event-name a").text()),
-                    GigDate(currentYear, month, day.toInt()),
-                    posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".grid-image").attr("style"))?.groupValues?.get(1)),
-                    fetchDescription(client, gigUrl, ::eventPageContent),
-                    Lineup.none,
-                    status = null,
-                )
+                gigOrSkipped(gigUrl, skippableGigs) {
+                    Gig(
+                        GigId(venue.id, gigUrl),
+                        GigTitle(item.select(".event-name a").text()),
+                        GigDate(currentYear, month, day.toInt()),
+                        posterUrlFrom(gigUrl, backgroundImageUrlPattern.find(item.select(".grid-image").attr("style"))?.groupValues?.get(1)),
+                        fetchDescription(client, gigUrl, ::eventPageContent),
+                        Lineup.none,
+                        status = null,
+                    )
+                }
             }
     }
 
     private val url = "https://electricballroom.co.uk/whats-on/"
+
+    private val skippableGigs = setOf(
+        // published with no image: the card's style reads url('') and the event page has none either,
+        // the only one of the 91 cards listed on 2026-11-17
+        GigUrl("https://electricballroom.co.uk/the-chats-6/"),
+    )
 
     // Bongo's Bingo is a touring club night rather than a gig, and its promoter sells the tickets -
     // the only cards linking here, three of the 106 events listed on 2026-08-28
