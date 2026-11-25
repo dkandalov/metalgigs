@@ -196,28 +196,31 @@ class DicePartnerVenueGigsSourceTest {
 
     @Test
     fun `extracts gig events from Barfly's listing`() {
-        assertScrapesGigs(
+        val gigs = assertScrapesGigs(
             source = BarflyGigsSource(cachedClient(followRedirects = false)),
-            size = 27,
+            size = 26,
             first = Gig(
-                GigId(barfly.id, GigUrl("https://dice.fm/event/wwddqr-archangels-live-in-london-21st-aug-barfly-camden-london-tickets")),
-                GigTitle("Archangels live in London"),
-                GigDate(2026, 8, 21),
-                PosterUrl("https://dice-media.imgix.net/attachments/2026-05-01/76f984f2-6a7d-46e9-b753-a25c7183f4cd.jpg"),
+                GigId(barfly.id, GigUrl("https://dice.fm/event/3kqkwp-sleazebox-indie-disco-at-camden-barfly-free-entry-27th-nov-barfly-camden-london-tickets")),
+                GigTitle("SleazeBox indie disco at Camden Barfly (free entry)"),
+                GigDate(2026, 11, 27),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-11-02/036de721-be3c-40f8-affa-240e57a67880.jpg"),
                 GigDescription(""),
                 Lineup.none,
                 status = null,
             ),
             last = Gig(
-                GigId(barfly.id, GigUrl("https://dice.fm/event/k6lw79-forever-never-13th-feb-barfly-camden-london-tickets")),
-                GigTitle("Forever Never"),
-                GigDate(2027, 2, 13),
-                PosterUrl("https://dice-media.imgix.net/attachments/2026-06-16/6f0ca902-24a7-4421-a288-f70e55030959.jpg"),
+                GigId(barfly.id, GigUrl("https://dice.fm/event/2wakgo-lost-alone-20th-anniversary-show-26th-mar-barfly-camden-london-tickets")),
+                GigTitle("LOST ALONE - 20th Anniversary Show"),
+                GigDate(2027, 3, 26),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-09-14/e2b19430-2245-4576-87df-98754bcf2d75.jpg"),
                 GigDescription(""),
                 Lineup.none,
                 status = null,
             ),
         )
+
+        // the api lists a 27th event with no image of any size, which is named as ok to lose
+        expectThat(gigs.none { it.title == GigTitle("Mock Tudors") }).isTrue()
     }
 
     @Test

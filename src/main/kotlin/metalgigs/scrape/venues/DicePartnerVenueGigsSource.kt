@@ -17,6 +17,7 @@ private class DicePartnerVenueGigsSource(
     private val venueFilter: String,
     override val venue: Venue,
     private val notAGig: Regex? = null,
+    private val skippableGigs: Set<GigUrl> = emptySet(),
 ) : GigsSource {
     override fun latestGigs(): List<Gig> {
         val events = DicePartnerApi(client).eventsAt(venueFilter)
@@ -24,17 +25,19 @@ private class DicePartnerVenueGigsSource(
 
         return events
             .filterNot { event -> notAGig?.containsMatchIn(event.name) == true }
-            .map { event ->
+            .mapNotNull { event ->
                 val gigUrl = gigUrlFor(event)
-                Gig(
-                    GigId(venue.id, gigUrl),
-                    titleWithCancellation(event),
-                    event.startsOn,
-                    posterUrlFrom(gigUrl, event.images.firstOrNull()),
-                    descriptionOf(event),
-                    lineupFrom(event.artists),
-                    statusOf(event),
-                )
+                gigOrSkipped(gigUrl, skippableGigs) {
+                    Gig(
+                        GigId(venue.id, gigUrl),
+                        titleWithCancellation(event),
+                        event.startsOn,
+                        posterUrlFrom(gigUrl, event.images.firstOrNull()),
+                        descriptionOf(event),
+                        lineupFrom(event.artists),
+                        statusOf(event),
+                    )
+                }
             }
     }
 
@@ -129,7 +132,16 @@ class HelgisGigsSource(client: HttpHandler) :
 val barfly = Venue(VenueId("barfly"), "Barfly")
 
 class BarflyGigsSource(client: HttpHandler) :
-    GigsSource by DicePartnerVenueGigsSource(client, venueFilter = "Barfly Camden", venue = barfly)
+    GigsSource by DicePartnerVenueGigsSource(
+        client,
+        venueFilter = "Barfly Camden",
+        venue = barfly,
+        skippableGigs = setOf(
+            // published with no image: `images` is empty and every size under `event_images` null, the
+            // only one of the 27 events listed on 2026-11-25
+            GigUrl("https://dice.fm/event/5wo55w-mock-tudors-31st-jan-barfly-camden-london-tickets"),
+        ),
+    )
 
 val strongroom = Venue(VenueId("strongroom"), "Strongroom")
 

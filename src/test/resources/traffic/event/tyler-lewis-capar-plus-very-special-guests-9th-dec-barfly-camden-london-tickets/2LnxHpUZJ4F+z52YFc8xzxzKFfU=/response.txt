@@ -1,0 +1,18 @@
+HTTP/1.1 308 Permanent Redirect
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+cdn-cache-control: private, no-store
+cf-cache-status: BYPASS
+cf-ray: a60435307b2a9515-LHR
+connection: keep-alive
+content-security-policy: frame-ancestors 'none'
+date: Wed, 25 Nov 2026 22:49:38 GMT
+location: https://dice.fm/event/pgo56y-tyler-lewis-capar-plus-very-special-guests-9th-dec-barfly-camden-london-tickets
+refresh: 0;url=https://dice.fm/event/pgo56y-tyler-lewis-capar-plus-very-special-guests-9th-dec-barfly-camden-london-tickets
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains
+transfer-encoding: chunked
+x-frame-options: DENY
+x-powered-by: Express
+x-ssr-cache: MISS
+
+https://dice.fm/event/pgo56y-tyler-lewis-capar-plus-very-special-guests-9th-dec-barfly-camden-london-tickets
