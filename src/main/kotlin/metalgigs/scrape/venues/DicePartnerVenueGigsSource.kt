@@ -6,6 +6,7 @@ import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Request
 import org.http4k.core.Status.Companion.NOT_FOUND
+import org.jsoup.parser.Parser
 
 // shared by every venue listed through Dice.
 // Why the partner API and its public key: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
@@ -30,7 +31,7 @@ private class DicePartnerVenueGigsSource(
                     titleWithCancellation(event),
                     event.startsOn,
                     posterUrlFrom(gigUrl, event.images.firstOrNull()),
-                    GigDescription(event.rawDescription),
+                    descriptionOf(event),
                     lineupFrom(event.artists),
                     statusOf(event),
                 )
@@ -41,6 +42,10 @@ private class DicePartnerVenueGigsSource(
         titleFrom(if (statusOf(event) == GigStatus.Cancelled) "${event.name}$cancelledSuffix" else event.name)
 
     private fun statusOf(event: DicePartnerEvent): GigStatus? = if (event.status == "cancelled") GigStatus.Cancelled else null
+
+    // A promoter's copy can arrive pasted from markup with its entities still in it: "UK &amp; Europe"
+    // on one of Strongroom's 18 gigs on 2026-11-25, the same in the api's `description`.
+    private fun descriptionOf(event: DicePartnerEvent) = GigDescription(Parser.unescapeEntities(event.rawDescription, false))
 
     // Why the redirect target is the gig's url: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrlFor(event: DicePartnerEvent): GigUrl {

@@ -243,5 +243,8 @@ class DicePartnerVenueGigsSourceTest {
 
         // the bar lists its film screenings, quiz and stand-up among its gigs, four in this listing
         expectThat(gigs.none { it.title.value.contains(Regex("Open Screen|Quiz|Comedy")) }).isTrue()
+
+        // the api hands this one's copy over as the promoter pasted it, "UK &amp; Europe"
+        expectThat(gigs.single { it.title == GigTitle("Sunday,June") }.description.value).contains("followed by a UK & Europe tour")
     }
 }
