@@ -1,6 +1,6 @@
 # 7. A description is the gig's own copy, scoped per venue, and cut by wording where markup will not do
 
-Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14).
+Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-25: The Lexington's site was redesigned.
 
 ## Context
 
@@ -38,7 +38,7 @@ the gigs it books without copy.
 | Union Chapel | the article's children up to the first venue heading, plus the sidebar | see below |
 | Scala | the lineup header box plus everything after "About &lt;artist&gt;" | see below |
 | Bush Hall | the event detail column, cut to its narratives section | See Tickets fills the same column with price rows, a low-income ticket FAQ, an accessibility link and the basket; the section's own header ("More information about X tickets") is See Tickets' words rather than the gig's |
-| The Lexington | the paragraphs of `.text-content` | the date and price sit in `.event-meta`, the ticket link in `.links`, and the venue's 18+ line is a bare text node in the same div, belonging to no element that could be named or cut |
+| The Lexington | the stage times and `.event-desc` of `.event-details` | the date and price sit in `.info-rows`, the ticket link in `.btn-row`, the venue's 18+ line in `.id-note`, and every page closes with a rail of its next five nights, other gigs' titles among them. The copy block is taken from the container holding it, the stage times beside it being rendered only where there are some |
 | Nambucca | `[itemprop=description]` | the date, address and ticket button sit in their own blocks beside it, and nothing but the promoter's copy is inside |
 | Dingwalls | `.elementor-location-single` | |
 | Paper Dress Vintage | `.event__content` | |
@@ -69,11 +69,11 @@ Where markup cannot tell the difference, the cut is **by wording**:
   host on the card - the only cards linking there, three of the 106 events listed on 2026-08-28, one with an
   empty copy block. The title will not do it: the venue types Bongo's with U+2019, and each special is
   titled differently.
-- **The Lexington** drops its club nights - White Heat, Age Of Consent, Disorder, Pop Never Dies, a 90s night
-  and the Monday pop quiz, 17 of the 100 cards listed on 2026-09-06 - by the label the venue prints on the card
-  itself, which needs neither a name nor a ticket host to recognise. Its own "Clubs Only" filter is not what
-  does it: that answers 14 of those 17, so three belong to neither filtered listing and only the unfiltered one
-  is complete.
+- **The Lexington** takes only the cards the venue labels "Gig", 74 of the 97 listed on 2026-11-25, which
+  needs neither a name nor a ticket host to recognise. Its club nights - White Heat, Pop Never Dies and the
+  rest, 15 of them - are labelled "Club", and 8 carry no label at all: the Monday pop quiz seven times and a
+  free DJ night. Its own "Gigs" and "Clubs" filters are not what does it: before the redesign of 2026-11 the
+  club filter answered 14 of 17 club nights, so only the unfiltered listing is known to be complete.
 - **The Lexington** reads copy that says only that the act plays live - "live", "play live", "Mary
   Middlefield plays live", 12 of the 83 gigs listed on 2026-09-06 - as no copy at all. It says nothing the
   title does not, and two pairs of unrelated acts carry it word for word, so taken as a description it is one

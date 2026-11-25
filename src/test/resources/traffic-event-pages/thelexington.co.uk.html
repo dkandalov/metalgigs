@@ -2,149 +2,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wild Pink, newhvn at The Lexington London. Live Music, DJs, Beer and Bourbon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles2.css">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu at The Lexington London. Live Music, DJs, Beer and Bourbon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0a0a;
+  --bg-alt: #121211;
+  --bg-raised: #1a1918;
+  --line: #2b2927;
+  --line-soft: #1f1e1c;
+  --text-dark: #f4f2ee;
+  --text-mid: #bdb8b0;
+  --text-light: #85807a;
+  --gold: #c9a84c;
+  --serif: 'Cormorant', Georgia, serif;
+  --sans: 'Montserrat', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text-dark); font-family: var(--sans); font-size: 14px; line-height: 1.7; overflow-x: hidden; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+/* NAV (same as index.php / events.php) */
+header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--line); }
+.nav-top { display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; }
+.nav-logo { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.04em; color: var(--text-dark); text-decoration: none; line-height: 1.1; }
+.nav-logo span { display: block; font-size: 0.58rem; font-family: var(--sans); font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-light); margin-top: 3px; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+.nav-links a { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.current { color: var(--text-dark); }
+.nav-reservations { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg); background: var(--text-dark); padding: 0.65rem 1.5rem; text-decoration: none; transition: background 0.2s; }
+.nav-reservations:hover { background: #d6d2ca; }
+.nav-burger { display: none; flex-direction: column; justify-content: center; align-items: center; width: 34px; height: 34px; gap: 5px; background: none; border: none; cursor: pointer; padding: 0; margin-left: 1rem; flex-shrink: 0; }
+.nav-burger span { display: block; width: 22px; height: 2px; background: var(--text-dark); transition: transform 0.25s ease, opacity 0.2s ease; }
+.nav-burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.active span:nth-child(2) { opacity: 0; }
+.nav-burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-menu { max-height: 0; overflow: hidden; background: var(--bg); border-bottom: 0 solid var(--line); transition: max-height 0.3s ease, border-color 0.3s ease; }
+.nav-mobile-menu.open { max-height: 520px; border-bottom: 1px solid var(--line); }
+.nav-mobile-menu ul { list-style: none; padding: 0.5rem 2.5rem 0; }
+.nav-mobile-menu li { border-bottom: 1px solid var(--line-soft); }
+.nav-mobile-menu li:last-child { border-bottom: none; }
+.nav-mobile-menu a { display: block; padding: 1rem 0; font-family: var(--sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+.nav-mobile-menu a:hover { color: var(--text-dark); }
+.nav-mobile-reservations { display: block; margin: 1.3rem 2.5rem 1.5rem; text-align: center; font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg); background: var(--text-dark); padding: 0.8rem; text-decoration: none; }
 
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+/* BREADCRUMB */
+.crumb { margin-top: 64px; padding: 1.4rem 2.5rem; border-bottom: 1px solid var(--line); }
+.crumb a { font-family: var(--sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); text-decoration: none; transition: color 0.2s; }
+.crumb a:hover { color: var(--text-dark); }
 
-        .column {
-            flex: 1 1 45%;
-            min-width: 300px;
-        }
+/* EVENT PANEL — poster left, details right */
+.event-panel { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.event-poster { background: var(--bg-alt); border-right: 1px solid var(--line); padding: 3rem; display: flex; align-items: flex-start; justify-content: center; }
+.event-poster-inner { position: sticky; top: calc(64px + 3rem); width: 100%; max-width: 640px; }
+.event-poster img { width: 100%; height: auto; display: block; }
+.event-poster.no-img img { display: none; }
+.event-poster.no-img .event-poster-inner { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; background: var(--bg-raised); }
+.event-poster.no-img .event-poster-inner::after { content: 'The Lexington'; font-family: var(--serif); font-style: italic; font-size: 2rem; color: var(--text-light); }
 
-        .column img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+.event-details { padding: 5rem 4.5rem; display: flex; flex-direction: column; justify-content: center; }
+.event-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
+.tag { font-family: var(--sans); font-size: 0.56rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; padding: 0.35rem 0.75rem; border: 1px solid var(--line); color: var(--text-light); }
+.tag.club { color: var(--gold); border-color: rgba(201,168,76,0.45); }
+.tag.gig { color: var(--text-dark); border-color: rgba(255,255,255,0.25); }
+.serif-heading { font-family: var(--serif); font-weight: 300; font-style: italic; line-height: 1.15; color: var(--text-dark); }
+.event-details h1 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); margin-bottom: 1.8rem; overflow-wrap: anywhere; }
 
-        .text-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+.info-rows { border-top: 1px solid var(--line); margin-bottom: 2rem; }
+.info-row { display: flex; justify-content: space-between; gap: 1.5rem; padding: 0.75rem 0; border-bottom: 1px solid var(--line); font-family: var(--sans); font-size: 0.8rem; font-weight: 300; color: var(--text-mid); }
+.info-row .k { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-light); padding-top: 0.2rem; flex-shrink: 0; }
+.info-row .v { text-align: right; color: var(--text-dark); }
 
-        h1 {
-            font-size: 2em;
-            margin-bottom: 0.5em;
-        }
+.hours-label { font-family: var(--sans); font-size: 0.58rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; }
+.stage-times { margin-bottom: 2rem; }
+.stage-row { font-family: var(--sans); font-size: 0.78rem; font-weight: 300; color: var(--text-mid); padding: 0.35rem 0; border-bottom: 1px solid var(--line-soft); }
 
-        h2 {
-            font-size: 1.5em;
-            margin-bottom: 1em;
-        }
+.event-desc { font-family: var(--sans); font-size: 0.84rem; font-weight: 300; line-height: 1.95; color: var(--text-mid); margin-bottom: 2.2rem; overflow-wrap: anywhere; }
+.event-desc a { color: var(--text-dark); text-underline-offset: 3px; }
+.event-desc a:hover { color: var(--gold); }
+.event-desc strong, .event-desc b { font-weight: 500; color: var(--text-dark); }
+.event-desc img, .event-desc iframe { max-width: 100%; }
 
-        p {
-            font-size: 1em;
-            line-height: 1.5;
-        }
+.btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.pill { display: inline-block; text-align: center; font-family: var(--sans); font-size: 0.63rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.8rem 1.7rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+.pill-outline { color: var(--text-dark); border: 1px solid var(--text-dark); }
+.pill-outline:hover { background: var(--text-dark); color: var(--bg); }
+.pill-quiet { color: var(--text-mid); border: 1px solid var(--line); }
+.pill-quiet:hover { color: var(--text-dark); border-color: var(--text-dark); }
+.pill-filled { color: var(--bg); background: var(--text-dark); border: 1px solid var(--text-dark); }
+.pill-filled:hover { background: #d6d2ca; border-color: #d6d2ca; }
 
-        .event-meta {
-            margin: 0.75em 0;
-            font-size: 1em;
-            line-height: 1.8;
-        }
+.id-note { display: inline-flex; align-self: flex-start; align-items: center; gap: 0.5rem; font-family: var(--sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-light); border: 1px solid var(--line); padding: 0.5rem 0.9rem; }
+.id-note::before { content: '★'; color: var(--gold); }
 
-        .links {
-            margin-top: 2em;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+/* COMING UP — same cards as events.php */
+.coming-up { padding: 5rem 2.5rem 6rem; background: var(--bg); }
+.coming-up-hd { text-align: center; margin-bottom: 3rem; }
+.eyebrow { font-family: var(--sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; color: var(--text-light); margin-bottom: 1.2rem; }
+.coming-up-hd .serif-heading { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+.events-grid { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.event-card { display: flex; flex-direction: column; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg); }
+.event-img { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--bg-raised); }
+.event-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+.event-img:hover img { transform: scale(1.04); }
+.event-img.no-img img { display: none; }
+.event-img.no-img::after { content: 'The Lexington'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--text-light); }
+.event-label { position: absolute; top: 0.8rem; left: 0.8rem; z-index: 1; font-family: var(--sans); font-size: 0.54rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; padding: 0.3rem 0.65rem; background: rgba(10,10,10,0.82); color: var(--text-dark); border: 1px solid rgba(255,255,255,0.18); }
+.event-label.club { color: var(--gold); border-color: rgba(201,168,76,0.45); }
+.event-body { flex: 1; display: flex; flex-direction: column; padding: 1.3rem 1.2rem 1.4rem; }
+.event-date { font-family: var(--sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; }
+.event-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; font-style: italic; line-height: 1.2; color: var(--text-dark); overflow-wrap: anywhere; }
+.event-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.event-title a:hover { color: var(--text-mid); }
+.coming-up-more { text-align: center; margin-top: 3rem; }
 
-        .box-link {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+/* FOOTER */
+footer { padding: 2rem 2.5rem; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; background: var(--bg); }
+.footer-copy { font-family: var(--sans); font-size: 0.62rem; color: var(--text-light); }
+.footer-social { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-social a { font-family: var(--sans); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+.footer-social a:hover { color: var(--text-dark); }
+.footer-addr { font-family: var(--sans); font-size: 0.62rem; color: var(--text-light); }
+.footer-addr a { color: inherit; text-decoration: none; }
 
-        .box-link:hover {
-            background-color: #555;
-        }
-
-        @media (max-width: 768px) {
-            .row {
-                flex-direction: column;
-            }
-            .column {
-                flex: 1 1 100%;
-            }
-        }
-    </style>
+/* RESPONSIVE */
+@media (max-width: 1400px) { .events-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .events-grid .event-card:nth-child(5) { display: none; } }
+@media (max-width: 1100px) {
+  .events-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .events-grid .event-card:nth-child(4) { display: none; }
+  .event-details { padding: 4rem 3rem; }
+  .event-poster { padding: 2rem; }
+}
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav-reservations { display: none; }
+  .nav-burger { display: flex; }
+  .nav-top { padding: 0 1.5rem; }
+  .crumb { padding: 1.2rem 1.5rem; }
+  .event-panel { grid-template-columns: 1fr; }
+  .event-poster { border-right: none; border-bottom: 1px solid var(--line); padding: 1.5rem; }
+  .event-poster-inner { position: static; }
+  .event-details { padding: 3rem 1.5rem; }
+  .coming-up { padding: 4rem 1rem; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 760px) {
+  .events-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .events-grid .event-card:nth-child(4) { display: flex; }
+}
+@media (max-width: 520px) {
+  .info-row { flex-direction: column; gap: 0.2rem; }
+  .info-row .v { text-align: left; }
+  .btn-row .pill { flex: 1 1 100%; }
+  .event-title { font-size: 1.1rem; }
+  .event-body { padding: 1rem 0.9rem 1.1rem; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="header_box">
-            <div class="header_text">THE LEXINGTON</div>
-            <div class="gigs_clubs_menu">
-                <a href="./events.php" class="white-link">What's On</a> ~
-                <a href="./bookings.php#about" class="white-link">About</a> ~
-                <a href="./bookings.php#menus" class="white-link">Menu</a> ~
-                <a href="./bookings.php#bookings" class="white-link">Bookings</a>
-            </div>
-        </div>
-    </header>
 
-    <div class="container">
-        <div class="row">
+<header>
+  <div class="nav-top">
+    <a href="./index.php" class="nav-logo">
+      The Lexington
+      <span>Pentonville Road &nbsp;N1</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="./events.php" class="current">What&apos;s On</a></li>
+      <li><a href="./index.php#menus">Food &amp; Drink</a></li>
+      <li><a href="./index.php#venue-hire">Venue Hire</a></li>
+      <li><a href="./index.php#openingtimes">Opening Times</a></li>
+      <li><a href="./index.php#location">Location</a></li>
+	  <li><a href="https://shop.thelexington.co.uk">Shop</a></li>
+    </ul>
+    <a href="./index.php#bookings" class="nav-reservations">Book a Table</a>
+    <button class="nav-burger" id="navBurger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <ul>
+      <li><a href="./events.php">What&apos;s On</a></li>
+      <li><a href="./index.php#menus">Food &amp; Drink</a></li>
+      <li><a href="./index.php#venue-hire">Venue Hire</a></li>
+      <li><a href="./index.php#openingtimes">Opening Times</a></li>
+      <li><a href="./index.php#location">Location</a></li>
+	  <li><a href="https://shop.thelexington.co.uk">Shop</a></li>
+    </ul>
+    <a href="./index.php#bookings" class="nav-mobile-reservations">Book a Table</a>
+  </div>
+</header>
 
-            <div class="column">
-                <img src="../uploads/3786.jpg"
-                     alt="Wild Pink, newhvn">
-            </div>
+<script>
+(function () {
+  var burger = document.getElementById('navBurger');
+  var menu = document.getElementById('navMobileMenu');
+  function closeMenu() { menu.classList.remove('open'); burger.classList.remove('active'); burger.setAttribute('aria-expanded', 'false'); }
+  burger.addEventListener('click', function () {
+    var isOpen = menu.classList.toggle('open');
+    burger.classList.toggle('active', isOpen);
+    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function (l) { l.addEventListener('click', closeMenu); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('header')) closeMenu(); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 960) closeMenu(); });
+})();
+</script>
 
-            <div class="column text-content">
-                <h1>Wild Pink, newhvn</h1>
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="./events.php">&larr; Back to What&apos;s On</a>
+</nav>
 
-                <div class="event-meta">
-                    <strong>Monday, September 07, 19:30</strong><br>
-                                            adv £20.30                                    </div>
+<!-- EVENT -->
+<section class="event-panel">
+  <div class="event-poster" id="eventPoster">
+    <div class="event-poster-inner">
+      <img src="../uploads/3703.jpg" alt="The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu"
+           onerror="document.getElementById('eventPoster').classList.add('no-img');">
+    </div>
+  </div>
 
-                                    <p>8PM NEWHVN<br />
-<br />
-9PM WILD PINK </p>
-                
-                                    <p>Still Coming Down is Wild Pink’s sixth studio album, and their most refined offering to-date. Continuing along the shredded and steely path forged by 2024’s Dulling The Horns — named one of the year’s best albums by Vogue, Consequence, Paste and more — Still Coming Down doubles down on Wild Pink’s “proper Rock” (Stereogum, Best Albums of 2024) and sticks every landing. Dulling The Horns saw Wild Pink reach new levels of critical acclaim and live success, performing alongside the likes of indie torchbearers Dr. Dog, Crumb, and MJ Lenderman (who lends his guitar skills on Still Coming Down). Still Coming Down finishes out the ride of those highs, settling into a life on the road and reflecting these experiences across a warped and encyclopedic vision of America. Led by John Ross, “one of the best lyricists in indie music” (The Guardian), Wild Pink hunkered down in Asheville’s storied Drop of Sun Studios to record Still Coming Down with virtuosic producer Alex Farrar (Bnny, Wednesday, Samia). At once strange and familiar, Wild Pink’s Still Coming Down is a product of modern times that only John Ross could pen.
-</p>
-                
-                <div class="links">
-                                                                <a href="https://link.dice.fm/O8d66906909b"
-                           class="box-link" target="_blank" rel="noopener">Get Tickets</a>
-                    <br>
+  <div class="event-details">
+          <div class="event-tags">
+        <span class="tag gig">Gig</span>
+      </div>
+    
+    <h1 class="serif-heading">The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu</h1>
 
-                </div>
-				<BR><BR>
-	The Lexington is an 18+ venue - make sure to bring ID.
-            </div>
+    <div class="info-rows">
+      <div class="info-row"><span class="k">Date</span><span class="v">Saturday 28th November 2026</span></div>
+      <div class="info-row"><span class="k">Time</span><span class="v">7:30pm</span></div>
+              <div class="info-row"><span class="k">Price</span><span class="v">adv £15.40</span></div>
+          </div>
 
-        </div>
+          <div class="stage-times">
+        <p class="hours-label">Stage Times</p>
+                  <div class="stage-row">7.30-8pm DJ</div>
+                  <div class="stage-row">8-8.45pm Minor Dents</div>
+                  <div class="stage-row">8..45-9pm DJ</div>
+                  <div class="stage-row">9-10pm The Thorn</div>
+                  <div class="stage-row">10pm.10.30pm DJ</div>
+              </div>
+    
+          <div class="event-desc">The Thorn (formerly Large Plants), are a musical group from London, England who play psych-tinged heavy folk-rock with nods to jazz and soul that wouldn't sound out of place on a Numero compilation of lost early 70's fuzz jams. Initially formed in 2021 to play the solo recordings of founder Jack Sharp (Wolf People), the live band has since grown and changed, developing a life of its own. Joined by bassist Paul Milne (Hanging Stars, Green Seagull), and drummer Itamar Rubinger (Uncle Acid and the Deadbeats), they played many shows supporting the likes of Mudhoney, Chris Cohen and Johnny Echols' Love.
+<BR><BR>
+In 2025 they were joined by Cambridge singer songwriter Naomi Randall and were able to explore their love of British folk-rock pioneers like Trees, Pentangle, and Fairport Convention. The new name The Thorn was chosen to mark the change whilst acknowledging a continuation of the spirit of the band. Since their metamorphosis they have released two singles, toured the UK with The Besnard Lakes, supported Unknown Mortal Orchestra and are due to play a string of festival dates throughout the summer. 
+<br>Scottish-born fingerstyle guitarist Sam Grassie has received rave reviews for his latest album 'Where Two Hawks Fly' and has supported the likes of Robert Plant and Pentangle.
+<br><br>
+"An enthralling depiction of his talents as a guitarist, vocalist, and arranger... the work of someone in full command of their musicality" Clash
+<br><br>
+Minor Dents
+<br><br>
+Minor Dents is a propulsive kosmische trio from Brighton, England, that has quickly carved out a niche in the UK's modern psychedelic and experimental electronic scenes. Frequently drawing comparisons to foundational drone-pop and avant-pop pioneers like Broadcast, Stereolab, and Nico, the group synthesises retro-futuristic motorik beats with hauntingly atmospheric melodies.
+<br><br>
+Melanie Xulu (DJ)
+<br><br>
+Xulu is best known as the founder and editor-in-chief of MOOF Magazine, a critically acclaimed print publication dedicated to keeping the underground press "alive and weird". Her deep, archival crate-digging translates into hypnotic DJ sets that seamlessly weave together acid folk, occult soundtracks, spiritual jazz, global psych, and left-field funk.
+
+
+</div>
+    
+    <div class="btn-row">
+              <a href="https://www.seetickets.com/event/the-thorn/the-lexington/3623004" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                  <a href="./events.php" class="pill pill-quiet">All Listings</a>
     </div>
 
-    <script src="script.js"></script>
+    <p class="id-note">The Lexington is an 18+ venue &ndash; make sure to bring ID.</p>
+  </div>
+</section>
+
+<!-- COMING UP -->
+<section class="coming-up">
+  <div class="coming-up-hd">
+    <p class="eyebrow">Also at The Lexington</p>
+    <h2 class="serif-heading">Coming Up</h2>
+  </div>
+  <div class="events-grid">
+        <article class="event-card">
+      <a href="./event.php?id=3825" class="event-img" aria-label="CANCELLED - Milo Korbenski – read more">
+                  <span class="event-label">Gig</span>
+                <img src="../uploads/3825.jpg" alt="CANCELLED - Milo Korbenski" loading="lazy"
+             onerror="this.parentNode.classList.add('no-img');">
+      </a>
+      <div class="event-body">
+        <p class="event-date">Wed 25th November · 7pm</p>
+        <h3 class="event-title"><a href="./event.php?id=3825">CANCELLED - Milo Korbenski</a></h3>
+      </div>
+    </article>
+        <article class="event-card">
+      <a href="./event.php?id=3905" class="event-img" aria-label="False Futures, Chest, Midnight Repost – read more">
+                  <span class="event-label">Gig</span>
+                <img src="../uploads/3905.jpg" alt="False Futures, Chest, Midnight Repost" loading="lazy"
+             onerror="this.parentNode.classList.add('no-img');">
+      </a>
+      <div class="event-body">
+        <p class="event-date">Thu 26th November · 7:30pm</p>
+        <h3 class="event-title"><a href="./event.php?id=3905">False Futures, Chest, Midnight Repost</a></h3>
+      </div>
+    </article>
+        <article class="event-card">
+      <a href="./event.php?id=3889" class="event-img" aria-label="Årabrot, She The Throne – read more">
+                  <span class="event-label">Gig</span>
+                <img src="../uploads/3889.jpg" alt="Årabrot, She The Throne" loading="lazy"
+             onerror="this.parentNode.classList.add('no-img');">
+      </a>
+      <div class="event-body">
+        <p class="event-date">Fri 27th November · 7pm</p>
+        <h3 class="event-title"><a href="./event.php?id=3889">Årabrot, She The Throne</a></h3>
+      </div>
+    </article>
+        <article class="event-card">
+      <a href="./event.php?id=3978" class="event-img" aria-label="White Heat Club – read more">
+                  <span class="event-label club">Club</span>
+                <img src="../uploads/3978.jpg" alt="White Heat Club" loading="lazy"
+             onerror="this.parentNode.classList.add('no-img');">
+      </a>
+      <div class="event-body">
+        <p class="event-date">Fri 27th November · 11pm</p>
+        <h3 class="event-title"><a href="./event.php?id=3978">White Heat Club</a></h3>
+      </div>
+    </article>
+        <article class="event-card">
+      <a href="./event.php?id=3961" class="event-img" aria-label="Pop Never Dies Club – read more">
+                  <span class="event-label club">Club</span>
+                <img src="../uploads/3961.jpg" alt="Pop Never Dies Club" loading="lazy"
+             onerror="this.parentNode.classList.add('no-img');">
+      </a>
+      <div class="event-body">
+        <p class="event-date">Sat 28th November · 11pm</p>
+        <h3 class="event-title"><a href="./event.php?id=3961">Pop Never Dies Club</a></h3>
+      </div>
+    </article>
+      </div>
+  <div class="coming-up-more">
+    <a href="./events.php" class="pill pill-outline">See All Listings</a>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-copy">&copy; 2026 The Lexington, London</p>
+  <div class="footer-social">
+    <a href="./events.php">What&apos;s On</a>
+    <a href="./index.php#bookings">Bookings</a>
+    <a href="https://www.instagram.com/alessios.pizza" target="_blank">Alessio&apos;s Pizza</a>
+  </div>
+  <p class="footer-addr"><a href="mailto:info@thelexington.co.uk">info@thelexington.co.uk</a> &nbsp;&middot;&nbsp; 020 7837 5371</p>
+</footer>
+
 </body>
 </html>

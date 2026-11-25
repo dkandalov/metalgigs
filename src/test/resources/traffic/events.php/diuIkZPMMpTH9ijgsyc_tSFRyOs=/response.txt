@@ -1,1445 +1,1641 @@
 HTTP/1.1 200 OK
 connection: Keep-Alive
 content-type: text/html; charset=UTF-8
-date: Sun, 06 Sep 2026 21:12:01 GMT
+date: Wed, 25 Nov 2026 22:51:41 GMT
 keep-alive: timeout=5, max=100
 server: Apache/2.4.58 (Unix) OpenSSL/3.1.4
 transfer-encoding: chunked
 
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Lexington London. Live Music, DJs, Beer and Bourbon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles2.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's On — The Lexington London. Live Music, DJs, Beer and Bourbon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0a0a;
+  --bg-alt: #121211;
+  --bg-raised: #1a1918;
+  --line: #2b2927;
+  --line-soft: #1f1e1c;
+  --text-dark: #f4f2ee;
+  --text-mid: #bdb8b0;
+  --text-light: #85807a;
+  --gold: #c9a84c;
+  --serif: 'Cormorant', Georgia, serif;
+  --sans: 'Montserrat', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text-dark); font-family: var(--sans); font-size: 14px; line-height: 1.7; overflow-x: hidden; }
+
+/* NAV (same as index.php) */
+header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--line); }
+.nav-top { display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; }
+.nav-logo { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.04em; color: var(--text-dark); text-decoration: none; line-height: 1.1; }
+.nav-logo span { display: block; font-size: 0.58rem; font-family: var(--sans); font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-light); margin-top: 3px; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+.nav-links a { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.current { color: var(--text-dark); }
+.nav-reservations { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg); background: var(--text-dark); padding: 0.65rem 1.5rem; text-decoration: none; transition: background 0.2s; }
+.nav-reservations:hover { background: #d6d2ca; }
+.nav-burger { display: none; flex-direction: column; justify-content: center; align-items: center; width: 34px; height: 34px; gap: 5px; background: none; border: none; cursor: pointer; padding: 0; margin-left: 1rem; flex-shrink: 0; }
+.nav-burger span { display: block; width: 22px; height: 2px; background: var(--text-dark); transition: transform 0.25s ease, opacity 0.2s ease; }
+.nav-burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.active span:nth-child(2) { opacity: 0; }
+.nav-burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-menu { max-height: 0; overflow: hidden; background: var(--bg); border-bottom: 0 solid var(--line); transition: max-height 0.3s ease, border-color 0.3s ease; }
+.nav-mobile-menu.open { max-height: 520px; border-bottom: 1px solid var(--line); }
+.nav-mobile-menu ul { list-style: none; padding: 0.5rem 2.5rem 0; }
+.nav-mobile-menu li { border-bottom: 1px solid var(--line-soft); }
+.nav-mobile-menu li:last-child { border-bottom: none; }
+.nav-mobile-menu a { display: block; padding: 1rem 0; font-family: var(--sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+.nav-mobile-menu a:hover { color: var(--text-dark); }
+.nav-mobile-reservations { display: block; margin: 1.3rem 2.5rem 1.5rem; text-align: center; font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg); background: var(--text-dark); padding: 0.8rem; text-decoration: none; }
+
+/* PAGE HEADING */
+.listings-hd { margin-top: 64px; text-align: center; padding: 5rem 2rem 3rem; }
+.eyebrow { font-family: var(--sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; color: var(--text-light); margin-bottom: 1.4rem; }
+.serif-heading { font-family: var(--serif); font-weight: 300; font-style: italic; line-height: 1.2; color: var(--text-dark); }
+.listings-hd .serif-heading { font-size: clamp(2.4rem, 5vw, 3.6rem); margin-bottom: 2.2rem; }
+
+/* FILTER TABS */
+.filters { display: inline-flex; border: 1px solid var(--line); }
+.filters a { font-family: var(--sans); font-size: 0.63rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; padding: 0.75rem 1.5rem; border-right: 1px solid var(--line); transition: background 0.2s, color 0.2s; }
+.filters a:last-child { border-right: none; }
+.filters a:hover { color: var(--text-dark); background: var(--bg-raised); }
+.filters a.active { background: var(--text-dark); color: var(--bg); }
+.listings-count { margin-top: 1.4rem; font-family: var(--sans); font-size: 0.7rem; font-weight: 300; color: var(--text-light); }
+
+/* GRID — up to 5 across */
+.events-wrap { padding: 0 2.5rem 6rem; }
+.events-grid { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.event-card { display: flex; flex-direction: column; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg); }
+
+.event-img { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--bg-raised); }
+.event-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s; }
+.event-img:hover img { transform: scale(1.04); }
+.event-img.no-img img { display: none; }
+.event-img.no-img::after { content: 'The Lexington'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--text-light); }
+
+.event-label { position: absolute; top: 0.8rem; left: 0.8rem; z-index: 1; font-family: var(--sans); font-size: 0.54rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; padding: 0.3rem 0.65rem; background: rgba(10,10,10,0.82); color: var(--text-dark); border: 1px solid rgba(255,255,255,0.18); }
+.event-label.club { color: var(--gold); border-color: rgba(201,168,76,0.45); }
+
+.event-body { flex: 1; display: flex; flex-direction: column; padding: 1.4rem 1.3rem 1.5rem; }
+.event-date { font-family: var(--sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.6rem; }
+.event-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; font-style: italic; line-height: 1.2; color: var(--text-dark); margin-bottom: 1.3rem; overflow-wrap: anywhere; }
+.event-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.event-title a:hover { color: var(--text-mid); }
+
+.event-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pill { flex: 1 1 auto; text-align: center; font-family: var(--sans); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.7rem 0.9rem; text-decoration: none; white-space: nowrap; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+.pill-outline { color: var(--text-dark); border: 1px solid var(--line); }
+.pill-outline:hover { border-color: var(--text-dark); }
+.pill-filled { color: var(--bg); background: var(--text-dark); border: 1px solid var(--text-dark); }
+.pill-filled:hover { background: #d6d2ca; border-color: #d6d2ca; }
+
+.no-events { grid-column: 1 / -1; text-align: center; padding: 5rem 2rem; font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--text-mid); }
+.no-events a { display: inline-block; margin-top: 1rem; font-family: var(--sans); font-style: normal; font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dark); }
+
+/* FOOTER */
+footer { padding: 2rem 2.5rem; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; background: var(--bg); }
+.footer-copy { font-family: var(--sans); font-size: 0.62rem; color: var(--text-light); }
+.footer-social { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-social a { font-family: var(--sans); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+.footer-social a:hover { color: var(--text-dark); }
+.footer-addr { font-family: var(--sans); font-size: 0.62rem; color: var(--text-light); }
+.footer-addr a { color: inherit; text-decoration: none; }
+
+/* RESPONSIVE: 5 → 4 → 3 → 2 → 1 */
+@media (max-width: 1400px) { .events-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 1100px) { .events-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav-reservations { display: none; }
+  .nav-burger { display: flex; }
+  .nav-top { padding: 0 1.5rem; }
+  .events-wrap { padding: 0 1rem 4rem; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 760px) { .events-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) {
+  .events-grid { grid-template-columns: 1fr; }
+  .listings-hd { padding: 3.5rem 1rem 2.5rem; }
+  .filters a { padding: 0.75rem 1rem; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="header_box">
-            <div class="header_text">THE LEXINGTON</div>
-            <div class="gigs_clubs_menu">
-                <a href="./events.php" class="white-link">What's On</a> ~
-                <a href="./bookings.php#about" class="white-link">About</a> ~
-                <a href="./bookings.php#menus" class="white-link">Menu</a> ~
-                <a href="./bookings.php#bookings" class="white-link">Bookings</a>
-            </div>
-            <div class="gigs_clubs_menu">
-                <a href="?type=all" class="white-link">All Listings</a> //
-                <a href="?type=gigs" class="white-link">Gigs Only</a> //
-                <a href="?type=clubs" class="white-link">Clubs Only</a>
-            </div>
+
+<header>
+  <div class="nav-top">
+    <a href="./index.php" class="nav-logo">
+      The Lexington
+      <span>Pentonville Road &nbsp;N1</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="./events.php" class="current">What&apos;s On</a></li>
+      <li><a href="./index.php#menus">Food &amp; Drink</a></li>
+      <li><a href="./index.php#venue-hire">Venue Hire</a></li>
+      <li><a href="./index.php#openingtimes">Opening Times</a></li>
+      <li><a href="./index.php#location">Location</a></li>
+	  <li><a href="https://shop.thelexington.co.uk">Shop</a></li>
+    </ul>
+    <a href="./index.php#bookings" class="nav-reservations">Book a Table</a>
+    <button class="nav-burger" id="navBurger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <ul>
+      <li><a href="./events.php">What&apos;s On</a></li>
+      <li><a href="./index.php#menus">Food &amp; Drink</a></li>
+      <li><a href="./index.php#venue-hire">Venue Hire</a></li>
+      <li><a href="./index.php#openingtimes">Opening Times</a></li>
+      <li><a href="./index.php#location">Location</a></li>
+	  <li><a href="https://shop.thelexington.co.uk">Shop</a></li>
+    </ul>
+    <a href="./index.php#bookings" class="nav-mobile-reservations">Book a Table</a>
+  </div>
+</header>
+
+<script>
+(function () {
+  var burger = document.getElementById('navBurger');
+  var menu = document.getElementById('navMobileMenu');
+  function closeMenu() { menu.classList.remove('open'); burger.classList.remove('active'); burger.setAttribute('aria-expanded', 'false'); }
+  burger.addEventListener('click', function () {
+    var isOpen = menu.classList.toggle('open');
+    burger.classList.toggle('active', isOpen);
+    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function (l) { l.addEventListener('click', closeMenu); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('header')) closeMenu(); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 960) closeMenu(); });
+})();
+</script>
+
+<!-- PAGE HEADING + FILTERS -->
+<section class="listings-hd">
+  <p class="eyebrow">Live Music &nbsp;&middot;&nbsp; DJs &nbsp;&middot;&nbsp; Club Nights</p>
+  <h1 class="serif-heading">What&apos;s On</h1>
+  <nav class="filters" aria-label="Filter listings">
+          <a href="?type=all" class="active" aria-current="page">All Listings</a>
+          <a href="?type=gigs">Gigs</a>
+          <a href="?type=clubs">Clubs</a>
+      </nav>
+      <p class="listings-count">97 upcoming events</p>
+  </section>
+
+<!-- EVENTS GRID -->
+<section class="events-wrap">
+  <div class="events-grid">
+                <article class="event-card">
+        <a href="./event.php?id=3825" class="event-img" aria-label="CANCELLED - Milo Korbenski – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3825.jpg" alt="CANCELLED - Milo Korbenski" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 25th November · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3825">CANCELLED - Milo Korbenski</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3825" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/x028479c30a5" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
         </div>
-    </header>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3905" class="event-img" aria-label="False Futures, Chest, Midnight Repost – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3905.jpg" alt="False Futures, Chest, Midnight Repost" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 26th November · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3905">False Futures, Chest, Midnight Repost</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3905" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/partner/tickets/event/oe8vey?dice_id=10147106&amp;dice_channel=web&amp;dice_tags=organic&amp;dice_campaign=DICE&amp;dice_feature=mio_marketing&amp;_branch_match_id=1564953387415685354&amp;utm_source=web&amp;utm_campaign=DICE&amp;utm_medium=mio_marketing&amp;_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9ZLyUxO1UvL1c83NU20MEg1Sky1MLavK0pNSy0qysxLj08qyi8vTi2ydc4oys9NBQCdXwEIOwAAAA%3D%3D" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3889" class="event-img" aria-label="Årabrot, She The Throne – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3889.jpg" alt="Årabrot, She The Throne" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 27th November · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3889">Årabrot, She The Throne</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3889" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/pywlrp-rabrot-27th-nov-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3978" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3978.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 27th November · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3978">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3978" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3703" class="event-img" aria-label="The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3703.jpg" alt="The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 28th November · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3703">The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3703" class="pill pill-outline">Read More</a>
+                          <a href="https://www.seetickets.com/event/the-thorn/the-lexington/3623004" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3961" class="event-img" aria-label="Pop Never Dies Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3961.jpg" alt="Pop Never Dies Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 28th November · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3961">Pop Never Dies Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3961" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3916" class="event-img" aria-label="Jetstream Pony, The Leaf Library, Karen - Club Precious 11  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3916.jpg" alt="Jetstream Pony, The Leaf Library, Karen - Club Precious 11 " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 29th November · 5pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3916">Jetstream Pony, The Leaf Library, Karen - Club Precious 11 </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3916" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/26425" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3971" class="event-img" aria-label="Lexington Pop Quiz with Paul Guided Missile  – read more">
+                    <img src="../uploads/3971.jpg" alt="Lexington Pop Quiz with Paul Guided Missile " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 30th November · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3971">Lexington Pop Quiz with Paul Guided Missile </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3971" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3920" class="event-img" aria-label="Beaks – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3920.jpg" alt="Beaks" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 2nd December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3920">Beaks</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3920" class="pill pill-outline">Read More</a>
+                          <a href="https://crosstownconcerts.seetickets.com/event/beaks/the-lexington/3697950" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3990" class="event-img" aria-label="Bathing Suits, 1000 Rabbits, Wyatt - Loud &amp; Quiet presents End Of The Road Christmas Party – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3990.jpg" alt="Bathing Suits, 1000 Rabbits, Wyatt - Loud &amp; Quiet presents End Of The Road Christmas Party" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 3rd December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3990">Bathing Suits, 1000 Rabbits, Wyatt - Loud &amp; Quiet presents End Of The Road Christmas Party</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3990" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/udcb73451e73" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3979" class="event-img" aria-label="Lexmas Lates – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3979.jpg" alt="Lexmas Lates" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 3rd December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3979">Lexmas Lates</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3979" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/A949fdce878b" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3965" class="event-img" aria-label="(p)Art Brut, Laptop – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3965.jpg" alt="(p)Art Brut, Laptop" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 4th December · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3965">(p)Art Brut, Laptop</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3965" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/2wnkwa-part-brut-4th-dec-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3995" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3995.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 4th December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3995">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3995" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3963" class="event-img" aria-label="The Christmas Party - in aid of Crisis – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3963.jpg" alt="The Christmas Party - in aid of Crisis" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 5th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3963">The Christmas Party - in aid of Crisis</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3963" class="pill pill-outline">Read More</a>
+                          <a href="https://www.tickettailor.com/events/thechristmasparty/2406888" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3921" class="event-img" aria-label="The Jetset – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3921.jpg" alt="The Jetset" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 6th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3921">The Jetset</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3921" class="pill pill-outline">Read More</a>
+                          <a href="https://www.heavysoul45s.co.uk/product-page/the-jetset-live-december-6th" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3986" class="event-img" aria-label="Lia Lia, Dolly – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3986.jpg" alt="Lia Lia, Dolly" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 7th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3986">Lia Lia, Dolly</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3986" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/T49c1a81ebf1" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3972" class="event-img" aria-label="Lexington Pop Quiz with Paul Guided Missile  – read more">
+                    <img src="../uploads/3972.jpg" alt="Lexington Pop Quiz with Paul Guided Missile " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 7th December · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3972">Lexington Pop Quiz with Paul Guided Missile </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3972" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3946" class="event-img" aria-label="Green Star, Orazio, Roscoe Roscoe – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3946.jpg" alt="Green Star, Orazio, Roscoe Roscoe" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 9th December · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3946">Green Star, Orazio, Roscoe Roscoe</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3946" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/53ka38-green-star-9th-dec-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3983" class="event-img" aria-label="Lexmas Lates – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3983.jpg" alt="Lexmas Lates" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 9th December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3983">Lexmas Lates</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3983" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/P62066af70ad" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3779" class="event-img" aria-label="OMO, Ian, Why Patterns – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3779.jpg" alt="OMO, Ian, Why Patterns" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 10th December · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3779">OMO, Ian, Why Patterns</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3779" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3981" class="event-img" aria-label="Lexmas Lates – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3981.jpg" alt="Lexmas Lates" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 10th December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3981">Lexmas Lates</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3981" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/A75539907d6a" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3907" class="event-img" aria-label="Skep Wax Festivity #1: Heavenly, Bristish Birds, Committee Of Sleep with DJ Joanny Davar (Paris Popfest) – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3907.jpg" alt="Skep Wax Festivity #1: Heavenly, Bristish Birds, Committee Of Sleep with DJ Joanny Davar (Paris Popfest)" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 11th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3907">Skep Wax Festivity #1: Heavenly, Bristish Birds, Committee Of Sleep with DJ Joanny Davar (Paris Popfest)</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3907" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/25518" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3996" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3996.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 11th December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3996">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3996" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3908" class="event-img" aria-label="Skep Wax Festivity #2: The Cords, Swansea Sound, Wormboys with DJ Robert Winning (Still Hate Thatcher)  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3908.jpg" alt="Skep Wax Festivity #2: The Cords, Swansea Sound, Wormboys with DJ Robert Winning (Still Hate Thatcher) " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 12th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3908">Skep Wax Festivity #2: The Cords, Swansea Sound, Wormboys with DJ Robert Winning (Still Hate Thatcher) </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3908" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/25520" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3781" class="event-img" aria-label="Pig – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3781.jpg" alt="Pig" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 13th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3781">Pig</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3781" class="pill pill-outline">Read More</a>
+                          <a href="https://www.fatsoma.com/e/r25g1soe/pig-london-lexington-plus-supports-tba" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3973" class="event-img" aria-label="Lexington Pop Quiz with Paul Guided Missile  – read more">
+                    <img src="../uploads/3973.jpg" alt="Lexington Pop Quiz with Paul Guided Missile " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 14th December · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3973">Lexington Pop Quiz with Paul Guided Missile </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3973" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3982" class="event-img" aria-label="Lexmas Lates – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3982.jpg" alt="Lexmas Lates" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 17th December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3982">Lexmas Lates</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3982" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/Y5f6e0bacf92" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4027" class="event-img" aria-label="The Wave Pictures – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4027.jpg" alt="The Wave Pictures" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 18th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4027">The Wave Pictures</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4027" class="pill pill-outline">Read More</a>
+                          <a href="https://www.gigantic.com/the-wave-pictures-tickets/london-the-lexington/2026-12-18-19-30" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3997" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3997.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 18th December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3997">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3997" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3674" class="event-img" aria-label="Slady – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3674.jpg" alt="Slady" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 19th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3674">Slady</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3674" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/event/695290" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3716" class="event-img" aria-label="Age Of Consent Club  – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3716.jpg" alt="Age Of Consent Club " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 19th December · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3716">Age Of Consent Club </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3716" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/Tecd008a58ae" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3967" class="event-img" aria-label="Scarecrow People present The Crow Club - ground floor DJs - free entry  – read more">
+                    <img src="../uploads/3967.jpg" alt="Scarecrow People present The Crow Club - ground floor DJs - free entry " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 20th December · 9pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3967">Scarecrow People present The Crow Club - ground floor DJs - free entry </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3967" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4007" class="event-img" aria-label="POSTPONED! - Ye Nuns, Unmarry Me – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4007.jpg" alt="POSTPONED! - Ye Nuns, Unmarry Me" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 28th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4007">POSTPONED! - Ye Nuns, Unmarry Me</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4007" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/31700" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3993" class="event-img" aria-label="The Fallen Women The annual festive Lexington show – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3993.jpg" alt="The Fallen Women The annual festive Lexington show" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Tue 29th December · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3993">The Fallen Women The annual festive Lexington show</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3993" class="pill pill-outline">Read More</a>
+                          <a href="https://share.google/ZudcQlczRGgVoJVsV" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4001" class="event-img" aria-label="White Heat New Year&#039;s Eve Party – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/4001.jpg" alt="White Heat New Year&#039;s Eve Party" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 31st December · 9pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4001">White Heat New Year&#039;s Eve Party</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4001" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/partner/tickets/event/av82rd-white-heat-nye-party-31st-dec-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4010" class="event-img" aria-label="Stratford Rise, Clive, Running Standard - Find Joy Day One – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4010.jpg" alt="Stratford Rise, Clive, Running Standard - Find Joy Day One" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 4th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4010">Stratford Rise, Clive, Running Standard - Find Joy Day One</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4010" class="pill pill-outline">Read More</a>
+                          <a href="https://www.joyconcerts.com/events/stratford-rise-clive-running-standard" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4029" class="event-img" aria-label="Lexington Pop Quiz with Paul Guided Missile  – read more">
+                    <img src="../uploads/4029.jpg" alt="Lexington Pop Quiz with Paul Guided Missile " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 4th January · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4029">Lexington Pop Quiz with Paul Guided Missile </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4029" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4011" class="event-img" aria-label="Defender, Normal Village, Lindow Man - Find Joy Day Two – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4011.jpg" alt="Defender, Normal Village, Lindow Man - Find Joy Day Two" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Tue 5th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4011">Defender, Normal Village, Lindow Man - Find Joy Day Two</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4011" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/C1c57d81a000" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4012" class="event-img" aria-label="Iona Zajac, Jackson Roy, Mr Beale - Find Joy Day Three – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4012.jpg" alt="Iona Zajac, Jackson Roy, Mr Beale - Find Joy Day Three" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 6th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4012">Iona Zajac, Jackson Roy, Mr Beale - Find Joy Day Three</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4012" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/g4ef447b6f74" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4013" class="event-img" aria-label="Kiosk, Lifeloose, Popstar - Find Joy Day Four  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4013.jpg" alt="Kiosk, Lifeloose, Popstar - Find Joy Day Four " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 7th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4013">Kiosk, Lifeloose, Popstar - Find Joy Day Four </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4013" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/vc47eb06a8fe" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4014" class="event-img" aria-label="Tesni, Contrail, Grrace - Find Joy Day Five  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4014.jpg" alt="Tesni, Contrail, Grrace - Find Joy Day Five " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 8th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4014">Tesni, Contrail, Grrace - Find Joy Day Five </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4014" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/b08ba8ea8fa0" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3998" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3998.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 8th January · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3998">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3998" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4015" class="event-img" aria-label="Honest Work, Monks, Bugbear - Find Joy Day Six – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4015.jpg" alt="Honest Work, Monks, Bugbear - Find Joy Day Six" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 9th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4015">Honest Work, Monks, Bugbear - Find Joy Day Six</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4015" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4017" class="event-img" aria-label="Bathing Suits, COMPOST COMPOST COMPOST, lttl mort - Five Day Forecast Day One – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4017.jpg" alt="Bathing Suits, COMPOST COMPOST COMPOST, lttl mort - Five Day Forecast Day One" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 11th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4017">Bathing Suits, COMPOST COMPOST COMPOST, lttl mort - Five Day Forecast Day One</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4017" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/five day forecast" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4030" class="event-img" aria-label="Lexington Pop Quiz with Paul Guided Missile  – read more">
+                    <img src="../uploads/4030.jpg" alt="Lexington Pop Quiz with Paul Guided Missile " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 11th January · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4030">Lexington Pop Quiz with Paul Guided Missile </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4030" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4018" class="event-img" aria-label="Nina Winder-Lind, State Of Grace, Visit Me - Five Day Forecast Day Two – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4018.jpg" alt="Nina Winder-Lind, State Of Grace, Visit Me - Five Day Forecast Day Two" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Tue 12th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4018">Nina Winder-Lind, State Of Grace, Visit Me - Five Day Forecast Day Two</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4018" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/five day forecast" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4019" class="event-img" aria-label="snuggle, Big Red, gianna - Five Day Forecast Day Three – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4019.jpg" alt="snuggle, Big Red, gianna - Five Day Forecast Day Three" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 13th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4019">snuggle, Big Red, gianna - Five Day Forecast Day Three</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4019" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/five day forecast" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4020" class="event-img" aria-label="BROOKI, jo from school, Liam Parsons - Five Day Forecast Day Four – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4020.jpg" alt="BROOKI, jo from school, Liam Parsons - Five Day Forecast Day Four" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 14th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4020">BROOKI, jo from school, Liam Parsons - Five Day Forecast Day Four</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4020" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/five day forecast" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4021" class="event-img" aria-label="Spanish Horses, Ovven, Wyatt, Claire Ozmun - Five Day Forecast Day Five – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4021.jpg" alt="Spanish Horses, Ovven, Wyatt, Claire Ozmun - Five Day Forecast Day Five" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 15th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4021">Spanish Horses, Ovven, Wyatt, Claire Ozmun - Five Day Forecast Day Five</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4021" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/five day forecast" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4000" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/4000.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 15th January · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4000">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4000" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3951" class="event-img" aria-label="The Parkinsons, King Salami &amp; The Cumberland 3, Trash Culture -  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3951.jpg" alt="The Parkinsons, King Salami &amp; The Cumberland 3, Trash Culture - " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 16th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3951">The Parkinsons, King Salami &amp; The Cumberland 3, Trash Culture - </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3951" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/29508" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4031" class="event-img" aria-label="Lexington Pop Quiz with Paul Guided Missile  – read more">
+                    <img src="../uploads/4031.jpg" alt="Lexington Pop Quiz with Paul Guided Missile " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 18th January · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4031">Lexington Pop Quiz with Paul Guided Missile </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4031" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4003" class="event-img" aria-label="Winter Sprinter - Day One - Railcard, tba, Foglights – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4003.jpg" alt="Winter Sprinter - Day One - Railcard, tba, Foglights" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 20th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4003">Winter Sprinter - Day One - Railcard, tba, Foglights</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4003" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/31200" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4004" class="event-img" aria-label="Winter Sprinter - Day Two - Sweet Baboo, Coup Dur, Count Florida – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4004.jpg" alt="Winter Sprinter - Day Two - Sweet Baboo, Coup Dur, Count Florida" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 21st January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4004">Winter Sprinter - Day Two - Sweet Baboo, Coup Dur, Count Florida</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4004" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/31200" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4005" class="event-img" aria-label="Winter Sprinter - Day Three - ME REX, Sekunderna, Happy Accidents – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4005.jpg" alt="Winter Sprinter - Day Three - ME REX, Sekunderna, Happy Accidents" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 22nd January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4005">Winter Sprinter - Day Three - ME REX, Sekunderna, Happy Accidents</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4005" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/31200" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4023" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/4023.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 22nd January · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4023">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4023" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4006" class="event-img" aria-label="Winter Sprinter - Day Four - The Leaf Library, Tulpa, Adam Ross – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4006.jpg" alt="Winter Sprinter - Day Four - The Leaf Library, Tulpa, Adam Ross" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 23rd January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4006">Winter Sprinter - Day Four - The Leaf Library, Tulpa, Adam Ross</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4006" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/31200" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3782" class="event-img" aria-label="David Ramirez  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3782.jpg" alt="David Ramirez " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 24th January · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3782">David Ramirez </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3782" class="pill pill-outline">Read More</a>
+                          <a href="https://www.seetickets.com/event/david-ramirez/the-lexington/3638308" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4032" class="event-img" aria-label="Lexington Pop Quiz with Paul Guided Missile  – read more">
+                    <img src="../uploads/4032.jpg" alt="Lexington Pop Quiz with Paul Guided Missile " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 25th January · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4032">Lexington Pop Quiz with Paul Guided Missile </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4032" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3987" class="event-img" aria-label="Die Twice, The Rolling People, Xanadu – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3987.jpg" alt="Die Twice, The Rolling People, Xanadu" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 27th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3987">Die Twice, The Rolling People, Xanadu</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3987" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3999" class="event-img" aria-label="White Heat Club – read more">
+                      <span class="event-label club">Club</span>
+                    <img src="../uploads/3999.jpg" alt="White Heat Club" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 29th January · 11pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3999">White Heat Club</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3999" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/promoters/white-heat-z693" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3988" class="event-img" aria-label="Garage Flower – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3988.jpg" alt="Garage Flower" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 30th January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3988">Garage Flower</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3988" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3966" class="event-img" aria-label="House Arrest - album launch party w/ Neuroplacid + Omerta  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3966.jpg" alt="House Arrest - album launch party w/ Neuroplacid + Omerta " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 31st January · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3966">House Arrest - album launch party w/ Neuroplacid + Omerta </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3966" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/6dy29q-house-arrest-album-launch-party-31st-jan-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3933" class="event-img" aria-label="Henry Coke – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3933.jpg" alt="Henry Coke" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 3rd February · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3933">Henry Coke</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3933" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3922" class="event-img" aria-label="Flesh For Lulu – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3922.jpg" alt="Flesh For Lulu" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 6th February · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3922">Flesh For Lulu</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3922" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/26882" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3957" class="event-img" aria-label="Flesh For Lulu - second show  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3957.jpg" alt="Flesh For Lulu - second show " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 7th February · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3957">Flesh For Lulu - second show </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3957" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/30068" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3949" class="event-img" aria-label="Six By Seven – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3949.jpg" alt="Six By Seven" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 12th February · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3949">Six By Seven</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3949" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/53k2a8-six-by-seven-12th-feb-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3880" class="event-img" aria-label="Our Man In The Field – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3880.jpg" alt="Our Man In The Field" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 13th February · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3880">Our Man In The Field</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3880" class="pill pill-outline">Read More</a>
+                          <a href="https://www.livenation.co.uk/event/our-man-in-the-field-london-tickets-edp1686790" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4022" class="event-img" aria-label="Marta – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4022.jpg" alt="Marta" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Mon 15th February · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4022">Marta</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4022" class="pill pill-outline">Read More</a>
+                          <a href="https://www.axs.com/uk/events/1698545/marta-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3947" class="event-img" aria-label="USA Nails – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3947.jpg" alt="USA Nails" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Tue 16th February · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3947">USA Nails</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3947" class="pill pill-outline">Read More</a>
+                          <a href="https://link.dice.fm/v5810338ba0d" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3958" class="event-img" aria-label="Quinn Oulton – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3958.jpg" alt="Quinn Oulton" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 17th February · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3958">Quinn Oulton</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3958" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/bbq6gx-quinn-oulton-17th-feb-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3954" class="event-img" aria-label="Slow Fiction – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3954.jpg" alt="Slow Fiction" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 18th February · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3954">Slow Fiction</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3954" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/g5vpk2-slow-fiction-18th-feb-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3883" class="event-img" aria-label="Bis, Liines, Slime City – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3883.jpg" alt="Bis, Liines, Slime City" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 19th February · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3883">Bis, Liines, Slime City</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3883" class="pill pill-outline">Read More</a>
+                          <a href="https://www.alttickets.com/bis-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4002" class="event-img" aria-label="Victor Jones – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4002.jpg" alt="Victor Jones" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 20th February · 8pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4002">Victor Jones</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4002" class="pill pill-outline">Read More</a>
+                          <a href="https://myticket.co.uk/gigs/victor-jones-london-2027-02-20-19-00" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3948" class="event-img" aria-label="Alien Chicks – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3948.jpg" alt="Alien Chicks" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 26th February · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3948">Alien Chicks</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3948" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/g58x72-alien-chicks-26th-feb-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3865" class="event-img" aria-label="Rachel Stamp – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3865.jpg" alt="Rachel Stamp" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 27th February · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3865">Rachel Stamp</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3865" class="pill pill-outline">Read More</a>
+                          <a href="https://www.seetickets.com/event/rachel-stamp/the-lexington/3683908" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4009" class="event-img" aria-label="Victor Jones - second show – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4009.jpg" alt="Victor Jones - second show" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 28th February · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4009">Victor Jones - second show</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4009" class="pill pill-outline">Read More</a>
+                          <a href="https://myticket.co.uk/gigs/victor-jones-london-2027-02-20-19-00" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3991" class="event-img" aria-label="Hex Girlfriend – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3991.jpg" alt="Hex Girlfriend" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Wed 3rd March · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3991">Hex Girlfriend</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3991" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/6dy8w2-hex-girlfriend-3rd-mar-the-lexington-london-tickets?lng=en-US" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3945" class="event-img" aria-label="Seamus Fogarty – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3945.jpg" alt="Seamus Fogarty" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 6th March · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3945">Seamus Fogarty</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3945" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/bbgxmo-seamus-fogarty-6th-mar-the-lexington-london-tickets" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3934" class="event-img" aria-label="Kate Voegele  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3934.jpg" alt="Kate Voegele " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Tue 9th March · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3934">Kate Voegele </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3934" class="pill pill-outline">Read More</a>
+                          <a href="https://buytickets.at/bookable/2375450" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3953" class="event-img" aria-label="The Very Things – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3953.jpg" alt="The Very Things" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 19th March · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3953">The Very Things</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3953" class="pill pill-outline">Read More</a>
+                          <a href="https://www.seetickets.com/event/the-very-things/the-lexington/3732100" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3950" class="event-img" aria-label="Jeffrey Silverstein – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3950.jpg" alt="Jeffrey Silverstein" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 20th March · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3950">Jeffrey Silverstein</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3950" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3956" class="event-img" aria-label="Babydolly Deadbeat, French Toast, Tamak Abra – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3956.jpg" alt="Babydolly Deadbeat, French Toast, Tamak Abra" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 26th March · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3956">Babydolly Deadbeat, French Toast, Tamak Abra</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3956" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/30082" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3974" class="event-img" aria-label="Other Lives – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3974.jpg" alt="Other Lives" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 27th March · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3974">Other Lives</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3974" class="pill pill-outline">Read More</a>
+                          <a href="https://www.gigantic.com/other-lives-tickets/london-the-lexington/2027-03-27-19-00" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4035" class="event-img" aria-label=" Jim Ghedi  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4035.jpg" alt=" Jim Ghedi " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 1st April · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4035"> Jim Ghedi </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4035" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/aabr7q-jim-ghedi-1st-apr-the-lexington-london-tickets?lng=en-US" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3994" class="event-img" aria-label="Daydreamers – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3994.jpg" alt="Daydreamers" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 9th April · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3994">Daydreamers</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3994" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4016" class="event-img" aria-label="Laura Gibson – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4016.jpg" alt="Laura Gibson" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 15th April · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4016">Laura Gibson</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4016" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/8v3wkr-laura-gibson-15th-apr-the-lexington-london-tickets?lng=en-US" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4033" class="event-img" aria-label="Jackson Roy – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4033.jpg" alt="Jackson Roy" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 16th April · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4033">Jackson Roy</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4033" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/yy2682-jackson-roy-16th-apr-the-lexington-london-tickets?lng=en-US" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3985" class="event-img" aria-label="The Confederate Dead, Midnight Rodeo – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3985.jpg" alt="The Confederate Dead, Midnight Rodeo" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 17th April · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3985">The Confederate Dead, Midnight Rodeo</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3985" class="pill pill-outline">Read More</a>
+                          <a href="https://fatso.ma/fllvq" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4026" class="event-img" aria-label="Stick In The Wheel – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4026.jpg" alt="Stick In The Wheel" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 23rd April · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4026">Stick In The Wheel</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4026" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/v35bv6-stick-in-the-wheel-23rd-apr-the-lexington-london-tickets?lng=en-US" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4034" class="event-img" aria-label="Niki &amp; The Dove - Friday Show – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4034.jpg" alt="Niki &amp; The Dove - Friday Show" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Fri 7th May · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4034">Niki &amp; The Dove - Friday Show</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4034" class="pill pill-outline">Read More</a>
+                          <a href="https://crosstownconcerts.seetickets.com/event/niki-the-dove/the-lexington/3762364" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4028" class="event-img" aria-label="Niki &amp; The Dove – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4028.jpg" alt="Niki &amp; The Dove" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 8th May · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4028">Niki &amp; The Dove</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4028" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3992" class="event-img" aria-label="Quivers – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3992.jpg" alt="Quivers" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Thu 13th May · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3992">Quivers</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3992" class="pill pill-outline">Read More</a>
+                          <a href="https://dice.fm/event/532k2w-quivers-13th-may-the-lexington-london-tickets?lng=en-US" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3952" class="event-img" aria-label="Jessie Reid – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3952.jpg" alt="Jessie Reid" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sun 16th May · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3952">Jessie Reid</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3952" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/29390" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3989" class="event-img" aria-label="A Tribute To The Music Of Cathal Coughlan  – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3989.jpg" alt="A Tribute To The Music Of Cathal Coughlan " loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Tue 18th May · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3989">A Tribute To The Music Of Cathal Coughlan </a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3989" class="pill pill-outline">Read More</a>
+                          <a href="https://www.tickettailor.com/events/naproductions/2427669" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=4024" class="event-img" aria-label="The Miki Berenyi Trio – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/4024.jpg" alt="The Miki Berenyi Trio" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 29th May · 7pm</p>
+          <h2 class="event-title"><a href="./event.php?id=4024">The Miki Berenyi Trio</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=4024" class="pill pill-outline">Read More</a>
+                      </div>
+        </div>
+      </article>
+            <article class="event-card">
+        <a href="./event.php?id=3964" class="event-img" aria-label="Razors, Menace, Denizens – read more">
+                      <span class="event-label">Gig</span>
+                    <img src="../uploads/3964.jpg" alt="Razors, Menace, Denizens" loading="lazy"
+               onerror="this.parentNode.classList.add('no-img');">
+        </a>
+        <div class="event-body">
+          <p class="event-date">Sat 19th June · 7:30pm</p>
+          <h2 class="event-title"><a href="./event.php?id=3964">Razors, Menace, Denizens</a></h2>
+          <div class="event-actions">
+            <a href="./event.php?id=3964" class="pill pill-outline">Read More</a>
+                          <a href="https://wegottickets.com/f/30081" class="pill pill-filled" target="_blank" rel="noopener">Get Tickets</a>
+                      </div>
+        </div>
+      </article>
+            </div>
+</section>
 
-    <div class="grid-container">
-                                                    <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3720.jpg"
-                                 alt="Massive Ego ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.stigmata.uk/event/massive-ego-uk-the-symphony-of-flies-tour-london/"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Massive Ego </div>
-                    <div class="event-date">Sun September 06, 19:00</div>
-                    <a href="./event.php?id=3720" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3786.jpg"
-                                 alt="Wild Pink, newhvn">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/O8d66906909b"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Wild Pink, newhvn</div>
-                    <div class="event-date">Mon September 07, 19:30</div>
-                    <a href="./event.php?id=3786" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3875.jpg"
-                                 alt="Lexington Pop Quiz with Paul Guided Missile ">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Lexington Pop Quiz with Paul Guided Missile </div>
-                    <div class="event-date">Mon September 07, 20:00</div>
-                    <a href="./event.php?id=3875" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3798.jpg"
-                                 alt="Holy Wave, A Ghost Column">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/nv66w5-holy-wave-8th-sep-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Holy Wave, A Ghost Column</div>
-                    <div class="event-date">Tue September 08, 19:30</div>
-                    <a href="./event.php?id=3798" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3743.jpg"
-                                 alt="Renny Conti, Symbol Soup, Mabel Clarke">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/Pf37199f81e2"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Renny Conti, Symbol Soup, Mabel Clarke</div>
-                    <div class="event-date">Thu September 10, 19:30</div>
-                    <a href="./event.php?id=3743" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3750.jpg"
-                                 alt="Slime City, The Metatrons, Head Noise">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/q2vkko-slime-city-the-metatrons-head-noise-11th-sep-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Slime City, The Metatrons, Head Noise</div>
-                    <div class="event-date">Fri September 11, 19:00</div>
-                    <a href="./event.php?id=3750" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3834.jpg"
-                                 alt="White Heat Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/promoters/white-heat-z693"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">White Heat Club</div>
-                    <div class="event-date">Fri September 11, 23:00</div>
-                    <a href="./event.php?id=3834" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3757.jpg"
-                                 alt="Milltown Brothers">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/milltown-brothers/the-lexington/3609734"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Milltown Brothers</div>
-                    <div class="event-date">Sat September 12, 19:30</div>
-                    <a href="./event.php?id=3757" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3847.jpg"
-                                 alt="Disorder Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/event/eo63ry-disorder-club-night-12th-sep-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Disorder Club</div>
-                    <div class="event-date">Sat September 12, 23:00</div>
-                    <a href="./event.php?id=3847" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3780.jpg"
-                                 alt="Re Teu">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.fatsoma.com/e/1tpmfn6e/re-teu-london-the-lexington"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Re Teu</div>
-                    <div class="event-date">Sun September 13, 19:30</div>
-                    <a href="./event.php?id=3780" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3895.jpg"
-                                 alt="Lexington Pop Quiz with Paul Guided Missile ">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Lexington Pop Quiz with Paul Guided Missile </div>
-                    <div class="event-date">Mon September 14, 20:00</div>
-                    <a href="./event.php?id=3895" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3773.jpg"
-                                 alt="Family Stereo, Kathi Deakin">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.universe.com/events/family-stereo-tickets-S7KFC9"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Family Stereo, Kathi Deakin</div>
-                    <div class="event-date">Thu September 17, 19:30</div>
-                    <a href="./event.php?id=3773" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3790.jpg"
-                                 alt="Luke Haines, The Lighthouse">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://crosstownconcerts.seetickets.com/event/luke-haines/the-lexington/3654010"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Luke Haines, The Lighthouse</div>
-                    <div class="event-date">Fri September 18, 19:00</div>
-                    <a href="./event.php?id=3790" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3835.jpg"
-                                 alt="White Heat Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/promoters/white-heat-z693"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">White Heat Club</div>
-                    <div class="event-date">Fri September 18, 23:00</div>
-                    <a href="./event.php?id=3835" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3762.jpg"
-                                 alt="The Overproofs, The Estimators">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.wegottickets.com/f/19330"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">The Overproofs, The Estimators</div>
-                    <div class="event-date">Sat September 19, 19:00</div>
-                    <a href="./event.php?id=3762" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3712.jpg"
-                                 alt="Age Of Consent Club ">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://link.dice.fm/y38e0a77cbd6"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Age Of Consent Club </div>
-                    <div class="event-date">Sat September 19, 23:00</div>
-                    <a href="./event.php?id=3712" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3878.jpg"
-                                 alt="Railcard &#039;Two Steps At A Time&#039; Album Launch, Label Market, special guest Gina Birch ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/f/21996"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Railcard &#039;Two Steps At A Time&#039; Album Launch, Label Market, special guest Gina Birch </div>
-                    <div class="event-date">Sun September 20, 16:00</div>
-                    <a href="./event.php?id=3878" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3810.jpg"
-                                 alt="Fuzz Kitchen (a.k.a. Hatfield and the Health) ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.tickettailor.com/events/hatfieldandthehealth/2205913"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Fuzz Kitchen (a.k.a. Hatfield and the Health) </div>
-                    <div class="event-date">Mon September 21, 19:30</div>
-                    <a href="./event.php?id=3810" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3896.jpg"
-                                 alt="Lexington Pop Quiz with Paul Guided Missile ">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Lexington Pop Quiz with Paul Guided Missile </div>
-                    <div class="event-date">Mon September 21, 20:00</div>
-                    <a href="./event.php?id=3896" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3827.jpg"
-                                 alt="Ruthie Foster">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/ruthie-foster/the-lexington/3671434"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Ruthie Foster</div>
-                    <div class="event-date">Wed September 23, 19:00</div>
-                    <a href="./event.php?id=3827" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3719.jpg"
-                                 alt="Gift, Oslo Twins">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/k6g28p-gift-oslo-twins-24th-sep-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Gift, Oslo Twins</div>
-                    <div class="event-date">Thu September 24, 19:30</div>
-                    <a href="./event.php?id=3719" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3628.jpg"
-                                 alt="Voxtrot, The Line of Best Fit – DJ Set ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="http://www.myticket.co.uk/artists/voxtrot"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Voxtrot, The Line of Best Fit – DJ Set </div>
-                    <div class="event-date">Fri September 25, 19:30</div>
-                    <a href="./event.php?id=3628" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3836.jpg"
-                                 alt="White Heat Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/promoters/white-heat-z693"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">White Heat Club</div>
-                    <div class="event-date">Fri September 25, 23:00</div>
-                    <a href="./event.php?id=3836" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3673.jpg"
-                                 alt="Voxtrot, The Line of Best Fit – DJ Set ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/53rxd8-voxtrot-26th-sep-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Voxtrot, The Line of Best Fit – DJ Set </div>
-                    <div class="event-date">Sat September 26, 19:30</div>
-                    <a href="./event.php?id=3673" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3923.jpg"
-                                 alt="Pop Never Dies Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Pop Never Dies Club</div>
-                    <div class="event-date">Sat September 26, 23:00</div>
-                    <a href="./event.php?id=3923" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3885.jpg"
-                                 alt="Closterkeller">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://ticketlab.app/event/39259-Closterkeller-tickets#/"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Closterkeller</div>
-                    <div class="event-date">Sun September 27, 20:00</div>
-                    <a href="./event.php?id=3885" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3877.jpg"
-                                 alt="Sari Schorr ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.tickettailor.com/events/sarischorrlive/2317235"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Sari Schorr </div>
-                    <div class="event-date">Tue September 29, 20:00</div>
-                    <a href="./event.php?id=3877" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3906.jpg"
-                                 alt="SFTC#3: gegenpress, Christian Music, 1000 Legs">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/yod6ox-sftc3-gegenpress-christian-music-1000-legs-30th-sep-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">SFTC#3: gegenpress, Christian Music, 1000 Legs</div>
-                    <div class="event-date">Wed September 30, 19:30</div>
-                    <a href="./event.php?id=3906" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3812.jpg"
-                                 alt="Light Asylum">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/light-asylum-us-/the-lexington/3668341"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Light Asylum</div>
-                    <div class="event-date">Fri October 02, 19:00</div>
-                    <a href="./event.php?id=3812" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3912.jpg"
-                                 alt="White Heat Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/promoters/white-heat-z693"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">White Heat Club</div>
-                    <div class="event-date">Fri October 02, 23:00</div>
-                    <a href="./event.php?id=3912" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3766.jpg"
-                                 alt="R.M.F.C., The Hobknobs">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/ta72c863481e"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">R.M.F.C., The Hobknobs</div>
-                    <div class="event-date">Sat October 03, 19:30</div>
-                    <a href="./event.php?id=3766" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3910.jpg"
-                                 alt="Poppin&#039; Off: A 90s Night">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Poppin&#039; Off: A 90s Night</div>
-                    <div class="event-date">Sat October 03, 23:00</div>
-                    <a href="./event.php?id=3910" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3879.jpg"
-                                 alt="Mary Middlefield,  Beau Bennett">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://crosstownconcerts.seetickets.com/event/mary-middlefield/the-lexington/3698407"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Mary Middlefield,  Beau Bennett</div>
-                    <div class="event-date">Sun October 04, 19:00</div>
-                    <a href="./event.php?id=3879" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3919.jpg"
-                                 alt="?, Drive Your Plow, Redeye">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/2wao2p-the-courtauldian-issue-36-launch-party-5th-oct-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">?, Drive Your Plow, Redeye</div>
-                    <div class="event-date">Mon October 05, 19:30</div>
-                    <a href="./event.php?id=3919" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3771.jpg"
-                                 alt="Theatre">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Theatre</div>
-                    <div class="event-date">Tue October 06, 19:00</div>
-                    <a href="./event.php?id=3771" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3645.jpg"
-                                 alt="Dazzling Killmen, Heckle Chamber">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Dazzling Killmen, Heckle Chamber</div>
-                    <div class="event-date">Wed October 07, 19:00</div>
-                    <a href="./event.php?id=3645" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3924.jpg"
-                                 alt="SFTC#4: Doom Club, Blousey, Alex, Leave!, Blue Amber">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/2waoqo-sftc4-doom-club-blousey-alex-leave-blue-amber-8th-oct-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">SFTC#4: Doom Club, Blousey, Alex, Leave!, Blue Amber</div>
-                    <div class="event-date">Thu October 08, 20:00</div>
-                    <a href="./event.php?id=3924" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3858.jpg"
-                                 alt="The Yummy Fur, Bruno And The Outrageous Methods Of Presentation ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/partner/tickets/event/avr3a2-the-yummy-fur-album-launch-9th-oct-the-lexington-london-tickets?dice_id=9807283&amp;dice_channel=web&amp;dice_tags=organic&amp;dice_campaign=Upset+The+Rhythm&amp;dice_feature=mio_marketing&amp;_branch_match_id=1564953387415685354&amp;utm_source=web&amp;utm_campaign=Upset+The+Rhythm&amp;utm_medium=mio_marketing&amp;_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9ZLyUxO1UvL1XdNMjYxSTE1MDY0TrWvK0pNSy0qysxLj08qyi8vTi2ydc4oys9NBQCQ%2B27cOwAAAA%3D%3D"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">The Yummy Fur, Bruno And The Outrageous Methods Of Presentation </div>
-                    <div class="event-date">Fri October 09, 19:30</div>
-                    <a href="./event.php?id=3858" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3913.jpg"
-                                 alt="White Heat Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/promoters/white-heat-z693"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">White Heat Club</div>
-                    <div class="event-date">Fri October 09, 23:00</div>
-                    <a href="./event.php?id=3913" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3892.jpg"
-                                 alt="Twat Union and Problem Patterns (co headliner)">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/923qx7-twat-union-and-problem-patterns-co-headliner-10th-oct-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Twat Union and Problem Patterns (co headliner)</div>
-                    <div class="event-date">Sat October 10, 19:30</div>
-                    <a href="./event.php?id=3892" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3850.jpg"
-                                 alt="Hannah Wicklund">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.eventim.co.uk/event/hannah-wicklund-the-lexington-21849999/?affiliate=GWK"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Hannah Wicklund</div>
-                    <div class="event-date">Sun October 11, 19:30</div>
-                    <a href="./event.php?id=3850" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3926.jpg"
-                                 alt="Ceol Nua - Delivery Service, Maicin, Monday&#039;s Child">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://comm.tix.to/CEOLNUA"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Ceol Nua - Delivery Service, Maicin, Monday&#039;s Child</div>
-                    <div class="event-date">Mon October 12, 19:00</div>
-                    <a href="./event.php?id=3926" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3818.jpg"
-                                 alt="James Emmanuel">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.ticketmaster.co.uk/james-emmanuel-london-13-10-2026/event/350064D3BD0D1512"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">James Emmanuel</div>
-                    <div class="event-date">Tue October 13, 20:00</div>
-                    <a href="./event.php?id=3818" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3804.jpg"
-                                 alt="ELLiS•D">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/E3229ebe0448"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">ELLiS•D</div>
-                    <div class="event-date">Wed October 14, 19:30</div>
-                    <a href="./event.php?id=3804" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3624.jpg"
-                                 alt="Alice Costelloe">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://birdonthewire.gigantic.com/alice-costelloe-tickets/london-the-lexington/2026-10-15-19-30"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Alice Costelloe</div>
-                    <div class="event-date">Thu October 15, 19:00</div>
-                    <a href="./event.php?id=3624" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3884.jpg"
-                                 alt="Toast Club">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Toast Club</div>
-                    <div class="event-date">Fri October 16, 19:30</div>
-                    <a href="./event.php?id=3884" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3914.jpg"
-                                 alt="White Heat Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/promoters/white-heat-z693"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">White Heat Club</div>
-                    <div class="event-date">Fri October 16, 23:00</div>
-                    <a href="./event.php?id=3914" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3685.jpg"
-                                 alt="999, The Satellites, Damage UK ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.tickettailor.com/events/blackstarpromotionsltd/2122102"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">999, The Satellites, Damage UK </div>
-                    <div class="event-date">Sat October 17, 19:00</div>
-                    <a href="./event.php?id=3685" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3713.jpg"
-                                 alt="Age Of Consent Club ">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://link.dice.fm/I2736a6d1fe0"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Age Of Consent Club </div>
-                    <div class="event-date">Sat October 17, 23:00</div>
-                    <a href="./event.php?id=3713" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3881.jpg"
-                                 alt="Heidi Curtis">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://comm.tix.to/HeidiCurtis"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Heidi Curtis</div>
-                    <div class="event-date">Mon October 19, 19:00</div>
-                    <a href="./event.php?id=3881" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3777.jpg"
-                                 alt="Hollow Hand">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/v3nw37-hollow-hand-guests-20th-oct-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Hollow Hand</div>
-                    <div class="event-date">Tue October 20, 19:00</div>
-                    <a href="./event.php?id=3777" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3788.jpg"
-                                 alt="Bottle Rockets">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/vf644fa7a19a"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Bottle Rockets</div>
-                    <div class="event-date">Wed October 21, 19:30</div>
-                    <a href="./event.php?id=3788" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3860.jpg"
-                                 alt="Really Good Time">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/l8dm5b-really-good-time-22nd-oct-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Really Good Time</div>
-                    <div class="event-date">Thu October 22, 19:30</div>
-                    <a href="./event.php?id=3860" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3690.jpg"
-                                 alt="An Evening with Kristin Hersh - Day One - Friday">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/an-evening-with-kristin-hersh/the-lexington/3620638"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">An Evening with Kristin Hersh - Day One - Friday</div>
-                    <div class="event-date">Fri October 23, 19:30</div>
-                    <a href="./event.php?id=3690" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3915.jpg"
-                                 alt="White Heat Club">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://dice.fm/promoters/white-heat-z693"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">White Heat Club</div>
-                    <div class="event-date">Fri October 23, 23:00</div>
-                    <a href="./event.php?id=3915" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3691.jpg"
-                                 alt="An Evening with Kristin Hersh - Day Two - Saturday">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/an-evening-with-kristin-hersh/the-lexington-london/3620639"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">An Evening with Kristin Hersh - Day Two - Saturday</div>
-                    <div class="event-date">Sat October 24, 19:30</div>
-                    <a href="./event.php?id=3691" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3692.jpg"
-                                 alt="An Evening with Kristin Hersh - Day Three - Sunday">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/an-evening-with-kristin-hersh/the-lexington/3620640"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">An Evening with Kristin Hersh - Day Three - Sunday</div>
-                    <div class="event-date">Sun October 25, 19:30</div>
-                    <a href="./event.php?id=3692" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3890.jpg"
-                                 alt="Tasha">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/yoxrex-tasha-26th-oct-the-lexington-london-tickets?lng=en"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Tasha</div>
-                    <div class="event-date">Mon October 26, 19:30</div>
-                    <a href="./event.php?id=3890" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3886.jpg"
-                                 alt="Heavy Wild">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Heavy Wild</div>
-                    <div class="event-date">Tue October 27, 20:00</div>
-                    <a href="./event.php?id=3886" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3904.jpg"
-                                 alt="Death Valley Girls ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/n7256fa02b4c"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Death Valley Girls </div>
-                    <div class="event-date">Wed October 28, 20:00</div>
-                    <a href="./event.php?id=3904" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3789.jpg"
-                                 alt="Penelope Isles, AtticOmatic">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Penelope Isles, AtticOmatic</div>
-                    <div class="event-date">Fri October 30, 19:30</div>
-                    <a href="./event.php?id=3789" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3749.jpg"
-                                 alt="The Hare And Hoofe, Quatermass III - Halloween Special!">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/bc8faa612b04"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">The Hare And Hoofe, Quatermass III - Halloween Special!</div>
-                    <div class="event-date">Sat October 31, 19:00</div>
-                    <a href="./event.php?id=3749" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3811.jpg"
-                                 alt="Deradoorian, Mason Lindahl">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/pyd678-deradoorian-mason-lindahl-1st-nov-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Deradoorian, Mason Lindahl</div>
-                    <div class="event-date">Sun November 01, 19:30</div>
-                    <a href="./event.php?id=3811" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3887.jpg"
-                                 alt="Hether ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.ticketmaster.co.uk/event/350064E3B9BEFB5C"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Hether </div>
-                    <div class="event-date">Mon November 02, 19:00</div>
-                    <a href="./event.php?id=3887" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3745.jpg"
-                                 alt="Ellie O’Neill ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://birdonthewire.gigantic.com/ellie-o-neill-tickets/london-the-lexington/2026-11-04-19-30"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Ellie O’Neill </div>
-                    <div class="event-date">Wed November 04, 19:30</div>
-                    <a href="./event.php?id=3745" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3787.jpg"
-                                 alt="Foot Foot ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/O0838ba4217a"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Foot Foot </div>
-                    <div class="event-date">Thu November 05, 19:30</div>
-                    <a href="./event.php?id=3787" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3925.jpg"
-                                 alt="Ziyad Al-Samman - Debut Album Launch Party">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://gotobeat.com/gig/ziyad-al-samman-debut-album-launch-party-Ir"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Ziyad Al-Samman - Debut Album Launch Party</div>
-                    <div class="event-date">Sat November 07, 19:30</div>
-                    <a href="./event.php?id=3925" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3799.jpg"
-                                 alt="Proxy Music, Nick Carlisle">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/f/21861"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Proxy Music, Nick Carlisle</div>
-                    <div class="event-date">Sun November 08, 18:00</div>
-                    <a href="./event.php?id=3799" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3809.jpg"
-                                 alt="Rejoicein4k">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.ticketmaster.co.uk/event/350064CBE4E1EAB9"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Rejoicein4k</div>
-                    <div class="event-date">Tue November 10, 20:00</div>
-                    <a href="./event.php?id=3809" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3856.jpg"
-                                 alt="The Briefs, Cyanide Pills">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/7dw6kp-the-briefs-cyanide-pills-11th-nov-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">The Briefs, Cyanide Pills</div>
-                    <div class="event-date">Wed November 11, 19:30</div>
-                    <a href="./event.php?id=3856" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3861.jpg"
-                                 alt="Butch Kassidy ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/g53ena-butch-kassidy-12th-nov-the-lexington-london-tickets?dice_id=lf1843d97d94&amp;_branch_match_id=1564953387415685354&amp;utm_source=dice.fm&amp;utm_campaign=event_share&amp;utm_medium=event_share&amp;_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9ZLyUxO1UvL1c9JM7QwMU6xNE%2BxNLEHCcZnptgiC6rVFaWmpRYVZealxycV5ZcXpxbZOmcU5eemAgBqyz0LUAAAAA%3D%3D"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Butch Kassidy </div>
-                    <div class="event-date">Thu November 12, 19:30</div>
-                    <a href="./event.php?id=3861" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3767.jpg"
-                                 alt="Zoh Amba">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://birdonthewire.gigantic.com/zoh-amba-tickets/london-the-lexington/2026-11-13-19-00"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Zoh Amba</div>
-                    <div class="event-date">Fri November 13, 19:00</div>
-                    <a href="./event.php?id=3767" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3851.jpg"
-                                 alt="Flat Moon, Ignoring Izzy ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/v323qv-flat-moon-guests-ignoring-izzy-14th-nov-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Flat Moon, Ignoring Izzy </div>
-                    <div class="event-date">Sat November 14, 19:30</div>
-                    <a href="./event.php?id=3851" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3888.jpg"
-                                 alt="Resident Punk UK Launch Party - Legs McNeil in conversation with Stewart Lee plus bands">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/q2qeqp-resident-punk-uk-launch-party-15th-nov-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Resident Punk UK Launch Party - Legs McNeil in conversation with Stewart Lee plus bands</div>
-                    <div class="event-date">Sun November 15, 18:30</div>
-                    <a href="./event.php?id=3888" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3917.jpg"
-                                 alt="Bo Ningen, Projector, Border Widow">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/S5025c35d76a"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Bo Ningen, Projector, Border Widow</div>
-                    <div class="event-date">Mon November 16, 19:30</div>
-                    <a href="./event.php?id=3917" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3891.jpg"
-                                 alt="Yndling">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.livenation.co.uk/event/yndling-london-tickets-edp1689478"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Yndling</div>
-                    <div class="event-date">Tue November 17, 19:00</div>
-                    <a href="./event.php?id=3891" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3803.jpg"
-                                 alt="Early James">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/F35aaabdea8d"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Early James</div>
-                    <div class="event-date">Wed November 18, 19:30</div>
-                    <a href="./event.php?id=3803" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3909.jpg"
-                                 alt="Pink Eye Club presents: Emotional Dance Music - Album Launch Party, + Meatraffle, Speedial">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/U08e90219b47"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Pink Eye Club presents: Emotional Dance Music - Album Launch Party, + Meatraffle, Speedial</div>
-                    <div class="event-date">Fri November 20, 19:30</div>
-                    <a href="./event.php?id=3909" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3751.jpg"
-                                 alt="The Would-Be-Goods, Rachel Love, Sassyhiya">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/f/18862"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">The Would-Be-Goods, Rachel Love, Sassyhiya</div>
-                    <div class="event-date">Sat November 21, 19:00</div>
-                    <a href="./event.php?id=3751" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3715.jpg"
-                                 alt="Age Of Consent Club ">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://link.dice.fm/g309a7c915a8"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Age Of Consent Club </div>
-                    <div class="event-date">Sat November 21, 23:00</div>
-                    <a href="./event.php?id=3715" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3893.jpg"
-                                 alt="Cwfen">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.ticketmaster.co.uk/cwfen-london-22-11-2026/event/350064FDAD68653C"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Cwfen</div>
-                    <div class="event-date">Sun November 22, 19:00</div>
-                    <a href="./event.php?id=3893" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3918.jpg"
-                                 alt="James And The Cold Gun">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://myticket.co.uk/artists/james-and-the-cold-gun"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">James And The Cold Gun</div>
-                    <div class="event-date">Mon November 23, 19:00</div>
-                    <a href="./event.php?id=3918" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3864.jpg"
-                                 alt="Requin Chagrin">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://realsounds.com/e0326"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Requin Chagrin</div>
-                    <div class="event-date">Tue November 24, 19:00</div>
-                    <a href="./event.php?id=3864" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3825.jpg"
-                                 alt="Milo Korbenski">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://link.dice.fm/x028479c30a5"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Milo Korbenski</div>
-                    <div class="event-date">Wed November 25, 19:30</div>
-                    <a href="./event.php?id=3825" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3905.jpg"
-                                 alt="False Futures">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/partner/tickets/event/oe8vey?dice_id=10147106&amp;dice_channel=web&amp;dice_tags=organic&amp;dice_campaign=DICE&amp;dice_feature=mio_marketing&amp;_branch_match_id=1564953387415685354&amp;utm_source=web&amp;utm_campaign=DICE&amp;utm_medium=mio_marketing&amp;_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9ZLyUxO1UvL1c83NU20MEg1Sky1MLavK0pNSy0qysxLj08qyi8vTi2ydc4oys9NBQCdXwEIOwAAAA%3D%3D"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">False Futures</div>
-                    <div class="event-date">Thu November 26, 19:00</div>
-                    <a href="./event.php?id=3905" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3889.jpg"
-                                 alt="Årabrot ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://dice.fm/event/pywlrp-rabrot-27th-nov-the-lexington-london-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Årabrot </div>
-                    <div class="event-date">Fri November 27, 19:00</div>
-                    <a href="./event.php?id=3889" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3703.jpg"
-                                 alt="The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/the-thorn/the-lexington/3623004"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">The Thorn, Sam Grassie, Minor Dents, DJ Melanie Xulu</div>
-                    <div class="event-date">Sat November 28, 19:30</div>
-                    <a href="./event.php?id=3703" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3916.jpg"
-                                 alt="Jetstream Pony, The Leaf Library, Karen - Club Precious 11 ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/f/26425"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Jetstream Pony, The Leaf Library, Karen - Club Precious 11 </div>
-                    <div class="event-date">Sun November 29, 17:00</div>
-                    <a href="./event.php?id=3916" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3920.jpg"
-                                 alt="Beaks">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://crosstownconcerts.seetickets.com/event/beaks/the-lexington/3697950"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Beaks</div>
-                    <div class="event-date">Wed December 02, 19:00</div>
-                    <a href="./event.php?id=3920" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3921.jpg"
-                                 alt="The Jetset">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.heavysoul45s.co.uk/product-page/the-jetset-live-december-6th"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">The Jetset</div>
-                    <div class="event-date">Sun December 06, 19:00</div>
-                    <a href="./event.php?id=3921" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3779.jpg"
-                                 alt="OMO">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="#"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">OMO</div>
-                    <div class="event-date">Thu December 10, 19:30</div>
-                    <a href="./event.php?id=3779" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3907.jpg"
-                                 alt="Skep Wax Festivity #1: Heavenly, Bristish Birds, Committee Of Sleep with DJ Joanny Davar (Paris Popfest)">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/f/25518"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Skep Wax Festivity #1: Heavenly, Bristish Birds, Committee Of Sleep with DJ Joanny Davar (Paris Popfest)</div>
-                    <div class="event-date">Fri December 11, 19:00</div>
-                    <a href="./event.php?id=3907" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3908.jpg"
-                                 alt="Skep Wax Festivity #2: The Cords, Swansea Sound, Wormboys with DJ Robert Winning (Still Hate Thatcher) ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/f/25520"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Skep Wax Festivity #2: The Cords, Swansea Sound, Wormboys with DJ Robert Winning (Still Hate Thatcher) </div>
-                    <div class="event-date">Sat December 12, 19:00</div>
-                    <a href="./event.php?id=3908" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3781.jpg"
-                                 alt="Pig">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.fatsoma.com/e/r25g1soe/pig-london-lexington-plus-supports-tba"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Pig</div>
-                    <div class="event-date">Sun December 13, 19:00</div>
-                    <a href="./event.php?id=3781" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3674.jpg"
-                                 alt="Slady">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/event/695290"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Slady</div>
-                    <div class="event-date">Sat December 19, 19:00</div>
-                    <a href="./event.php?id=3674" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item-club">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3716.jpg"
-                                 alt="Age Of Consent Club ">
-                        </div>
-                        <span class="club-label">CLUB</span>
-                        <a href="https://link.dice.fm/Tecd008a58ae"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Age Of Consent Club </div>
-                    <div class="event-date">Sat December 19, 23:00</div>
-                    <a href="./event.php?id=3716" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3782.jpg"
-                                 alt="David Ramirez ">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.seetickets.com/event/david-ramirez/the-lexington/3638308"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">David Ramirez </div>
-                    <div class="event-date">Sun January 24, 19:30</div>
-                    <a href="./event.php?id=3782" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3922.jpg"
-                                 alt="Flesh For Lulu">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://wegottickets.com/f/26882"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Flesh For Lulu</div>
-                    <div class="event-date">Sat February 06, 19:00</div>
-                    <a href="./event.php?id=3922" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3880.jpg"
-                                 alt="Our Man In The Field">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.ticketweb.uk/event/our-man-in-the-field-the-lexington-tickets/14272084?pl=livenationuk&amp;dlac=LNPRE"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Our Man In The Field</div>
-                    <div class="event-date">Sat February 13, 19:30</div>
-                    <a href="./event.php?id=3880" class="link-box">Read More</a>
-                </div>
-                                            <div class="grid-item">
-                    <div class="image-container">
-                        <div class="image-wrapper">
-                            <img src="../uploads/3883.jpg"
-                                 alt="Bis, Liines">
-                        </div>
-                        <span class="gig-label">GIG</span>
-                        <a href="https://www.alttickets.com/bis-tickets"
-                           class="ticket-box">Get Tickets</a>
-                    </div>
-                    <div class="event-title">Bis, Liines</div>
-                    <div class="event-date">Fri February 19, 19:30</div>
-                    <a href="./event.php?id=3883" class="link-box">Read More</a>
-                </div>
-            
-            <div class="grid-item empty"></div><div class="grid-item empty"></div>            </div>
+<footer>
+  <p class="footer-copy">&copy; 2026 The Lexington, London</p>
+  <div class="footer-social">
+    <a href="./events.php">What&apos;s On</a>
+    <a href="./index.php#bookings">Bookings</a>
+    <a href="https://www.instagram.com/alessios.pizza" target="_blank">Alessio&apos;s Pizza</a>
+  </div>
+  <p class="footer-addr"><a href="mailto:info@thelexington.co.uk">info@thelexington.co.uk</a> &nbsp;&middot;&nbsp; 020 7837 5371</p>
+</footer>
 
-    <script src="script.js"></script>
 </body>
 </html>

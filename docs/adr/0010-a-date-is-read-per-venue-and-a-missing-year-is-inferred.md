@@ -39,7 +39,7 @@ Islington Assembly Hall the pages continue that order, so the count carries acro
 restarting - the boundary falls mid-page-4.
 
 The Lexington is the one listing that can check the count it made, and does: its cards print the weekday
-("Sun September 06, 19:00"), which the inferred year either lands on or does not. That closes the gap this
+("Sun 6th September · 7pm"), which the inferred year either lands on or does not. That closes the gap this
 inference otherwise leaves - a listing that stops being in date order dates gigs a year out while looking
 entirely ordinary - for the venue that writes enough down to close it. 16 January is a Saturday in 2027 and a
 Friday in 2026, so a year counted wrong stops matching the card that carries it. The check is made only of the
