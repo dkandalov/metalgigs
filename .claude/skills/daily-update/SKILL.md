@@ -34,6 +34,10 @@ launchctl bootout gui/$(id -u)/london.metalgigs.daily       # unload; bootstrap 
 
 Editing the plist takes effect only after `bootout` then `bootstrap`. Exit 0 with "Skipping - already updated" is the normal result of any fire after the day's first.
 
+Every fire brackets what it appends to the log with `== daily-update started <time> ==` and `== daily-update finished <time>: ok ==` (or `failed with exit code N`), the skipped ones included. A started line with no finished line after it is a run still going or one that was killed. Runs logged before 2026-11-26 carry neither line.
+
+The script holds a `caffeinate -i` assertion for as long as it runs, since a Mac that idle-sleeps part-way through stretches the run across hours - each venue's "Took" then counts the time asleep - and fails whichever requests were in flight. It is not known to keep a Mac awake with its lid closed, so a run started by a closed laptop's brief wake can still be stretched the same way.
+
 Two environment traps, both guarded in the script since launchd supplies almost no environment. The api key is kept out of the plist (world-readable by default) in `~/.metalgigs.env`, recreated from a shell that has it without echoing the value: `umask 077 && printf 'export ANTHROPIC_API_KEY=%s\n' "$ANTHROPIC_API_KEY" > ~/.metalgigs.env`. ImageMagick is off launchd's `PATH`, which the plist therefore sets — treated as fatal rather than reported, because `render` completes despite per-gig conversion failures and would otherwise publish a page of missing images and push it.
 
 The plist, whose paths are absolute and machine-specific:

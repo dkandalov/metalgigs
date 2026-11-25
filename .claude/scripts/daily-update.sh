@@ -7,6 +7,26 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
+# the log this is appended to carries nothing else that says when a run began or whether it ended,
+# and a run that is killed leaves no finished line at all - which is what tells it from one that failed
+now() { date '+%Y-%m-%d %H:%M:%S %Z'; }
+output=""
+finish() {
+    status=$?
+    rm -f "$output"
+    if [ "$status" -eq 0 ]; then
+        echo "== daily-update finished $(now): ok =="
+    else
+        echo "== daily-update finished $(now): failed with exit code $status =="
+    fi
+}
+trap finish EXIT
+echo "== daily-update started $(now) =="
+
+# held until this script exits, so the Mac doesn't idle-sleep part-way through, as it did at 12:32
+# on 2026-11-25 with the run going. Not known to hold a closed lid awake.
+caffeinate -i -w $$ &
+
 # a scheduled run inherits none of the interactive shell's environment, so fall back to a file the
 # launchd agent can rely on. Kept out of the plist deliberately: those are world-readable by default
 if [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -f "$HOME/.metalgigs.env" ]; then
@@ -32,7 +52,6 @@ if ! command -v "${MAGICK_BINARY:-magick}" >/dev/null 2>&1; then
 fi
 
 output=$(mktemp)
-trap 'rm -f "$output"' EXIT
 
 # set -e aborts here if any step fails, so nothing is committed or pushed from a broken run. That
 # includes render refusing to publish while gigs are unclassified: the scrape and classify results
