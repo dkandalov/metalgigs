@@ -1,0 +1,391 @@
+HTTP/1.1 200 
+content-type: text/html; charset=UTF-8
+date: Wed, 25 Nov 2026 12:25:25 GMT
+etag: W/"e8c8f906b3a8913ff5981c3c20d7891b"
+last-modified: Wed, 25 Nov 2026 12:08:40 GMT
+referrer-policy: strict-origin-when-cross-origin
+server: nginx
+strict-transport-security: max-age=31536000; preload
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+
+<!DOCTYPE html>
+<html lang="en-GB" prefix="og: https://ogp.me/ns#">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>British Airways ARC</title>
+    <link rel="icon" type="image/svg+xml" href="https://www.britishairwaysarc.co.uk/app/themes/default/assets/favicon-CBifDpT_.svg">
+    <link rel="icon" type="image/png" href="https://www.britishairwaysarc.co.uk/app/themes/default/assets/favicon-BCu-YZDb.png">
+    <script>!function(){window.semaphore=window.semaphore||[],window.ketch=function(){window.semaphore.push(arguments)};var e=document.createElement("script");e.type="text/javascript",e.src="https://global.ketchcdn.com/web/v3/config/aeg_worldwide/britishairwaysarc_co_uk/block_script.js",e.defer=e.async=!0,document.getElementsByTagName("head")[0].appendChild(e)}();</script>
+    <!-- OneTrust Cookies Consent Notice start for britishairwaysarc.co.uk -->
+    <script type="text/javascript" src="https://cdn.cookielaw.org/consent/01995e84-020e-7d8f-ba0b-eeff66ad745a/OtAutoBlock.js" ></script>
+    <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="01995e84-020e-7d8f-ba0b-eeff66ad745a" ></script>
+    <script type="text/javascript">
+        function OptanonWrapper() { }
+    </script>
+    <!-- OneTrust Cookies Consent Notice end for britishairwaysarc.co.uk -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PVQVYYG93L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-PVQVYYG93L');
+    </script>
+    <!-- ReciteMe: loader must be in <head> -->
+    <script>
+        (function () {
+            var serviceUrl = "https://api.reciteme.com/asset/js?key=";
+            var serviceKey = "8c1e6b49a22400fffd7eb43d40a08bcb0957f2fb";
+            var options = {};
+            var autoLoad = false;
+            var enableFragment = "#reciteEnable";
+            var loaded = [], frag = !1; window.location.hash === enableFragment && (frag = !0); function loadScript(c, b) { var a = document.createElement("script"); a.type = "text/javascript"; a.readyState ? a.onreadystatechange = function () { if ("loaded" == a.readyState || "complete" == a.readyState) a.onreadystatechange = null, void 0 != b && b() } : void 0 != b && (a.onload = function () { b() }); a.src = c; document.getElementsByTagName("head")[0].appendChild(a) } function _rc(c) { c += "="; for (var b = document.cookie.split(";"), a = 0; a < b.length; a++) { for (var d = b[a]; " " == d.charAt(0);)d = d.substring(1, d.length); if (0 == d.indexOf(c)) return d.substring(c.length, d.length) } return null } function loadService(c) { for (var b = serviceUrl + serviceKey, a = 0; a < loaded.length; a++)if (loaded[a] == b) return; loaded.push(b); loadScript(serviceUrl + serviceKey, function () { "function" === typeof _reciteLoaded && _reciteLoaded(); "function" == typeof c && c(); Recite.load(options); Recite.Event.subscribe("Recite:load", function () { Recite.enable() }) }) } "true" == _rc("Recite.Persist") && loadService(); if (autoLoad && "false" != _rc("Recite.Persist") || frag) document.addEventListener ? document.addEventListener("DOMContentLoaded", function (c) { loadService() }) : loadService();
+            // Floating Button:
+            function _reciteLoaded() {
+                if (reciteMeButton && reciteMeButton.parentNode) {
+                    reciteMeButton.parentNode.removeChild(reciteMeButton);
+                }
+            }
+
+            var reciteMeButton;
+            function _createReciteButton() {
+                var buttonParentSelector = 'body';
+                var buttonContainer = document.createElement("div");
+                var buttonImage = document.createElement("img");
+                var buttonAlt = "Recite Me accessibility and Language Support";
+                var buttonTitle = "Launch Recite Me";
+
+                buttonContainer.setAttribute('id', 'reciteme-button');
+                buttonContainer.setAttribute('alt', buttonAlt);
+                buttonContainer.setAttribute('title', buttonTitle);
+                buttonImage.setAttribute('alt', buttonAlt);
+                buttonImage.setAttribute('title', buttonTitle);
+                buttonImage.setAttribute('src', 'https://www.britishairwaysarc.co.uk/app/themes/default/assets/reciteme_button-DL5jEX8P.png');
+                buttonContainer.appendChild(buttonImage);
+                var buttonParent = document.querySelector(buttonParentSelector);
+                buttonParent.appendChild(buttonContainer);
+                buttonContainer.addEventListener("click", function () {
+                    loadService();
+                    return false;
+                });
+                reciteMeButton = buttonContainer;
+            }
+            document.addEventListener('DOMContentLoaded', _createReciteButton);
+        })()
+    </script>
+    
+<!-- Search Engine Optimization by Rank Math PRO - https://rankmath.com/ -->
+<title>THE DAMNED - British Airways ARC</title>
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+<link rel="canonical" href="https://www.britishairwaysarc.co.uk/event/the-damned/" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="THE DAMNED - British Airways ARC" />
+<meta property="og:url" content="https://www.britishairwaysarc.co.uk/event/the-damned/" />
+<meta property="og:site_name" content="British Airways ARC" />
+<meta property="og:updated_time" content="2026-10-20T15:44:36+01:00" />
+<meta property="og:image" content="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/04/Damned-450x450.bbf83b37.png" />
+<meta property="og:image:secure_url" content="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/04/Damned-450x450.bbf83b37.png" />
+<meta property="og:image:width" content="450" />
+<meta property="og:image:height" content="450" />
+<meta property="og:image:alt" content="The Damned - British Airways ARC - 27 November 2026" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="THE DAMNED - British Airways ARC" />
+<meta name="twitter:image" content="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/04/Damned-450x450.bbf83b37.png" />
+<!-- /Rank Math WordPress SEO plugin -->
+
+<link rel='stylesheet' id='app-css' href='https://www.britishairwaysarc.co.uk/app/themes/default/assets/app-B7xMn98A.css' media='all' />
+<style id="rank-math-related-posts-style-inline-css">
+.wp-block-rank-math-related-posts{--rm-related-gap: 1rem;--rm-related-border-radius: 6px;--rm-related-card-padding: 16px;--rm-related-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);--rm-related-transition: 0.2s ease}.wp-block-rank-math-related-posts.rank-math-related-posts{display:block}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-wrap{display:grid;gap:var(--rm-related-gap)}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-vertical .rank-math-related-wrap,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-vertical .rank-math-related-wrap{grid-template-columns:repeat(auto-fill, minmax(220px, 1fr))}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-wrap,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-wrap{grid-template-columns:repeat(auto-fill, minmax(400px, 1fr))}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-item,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-item{display:flex;gap:16px;align-items:flex-start}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-thumb,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-thumb{flex:0 0 140px;overflow:hidden}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-thumb img,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-thumb img{width:140px;height:140px;-o-object-fit:cover;object-fit:cover}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-content,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-content{flex:1;min-width:0;display:flex;flex-direction:column}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-title,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-title{margin-top:0}@media (max-width: 640px){.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-wrap,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-wrap{grid-template-columns:1fr}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-thumb,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-thumb{flex:0 0 100px}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-grid-horizontal .rank-math-related-thumb img,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-grid-horizontal .rank-math-related-thumb img{width:100px;height:100px}}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-vertical .rank-math-related-wrap,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-vertical .rank-math-related-wrap{grid-template-columns:1fr}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-wrap,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-wrap{grid-template-columns:1fr}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-item,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-item{display:flex;gap:20px;align-items:flex-start}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-thumb,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-thumb{flex:0 0 180px;overflow:hidden}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-thumb img,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-thumb img{width:180px;height:180px;-o-object-fit:cover;object-fit:cover}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-content,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-content{flex:1;min-width:0;display:flex;flex-direction:column}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-title,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-title{margin-top:0}@media (max-width: 640px){.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-item,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-item{gap:16px}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-thumb,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-thumb{flex:0 0 120px}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-thumb img,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-thumb img{width:120px;height:120px}}@media (max-width: 480px){.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-item,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-item{flex-direction:column}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-thumb,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-thumb{flex:0 0 auto;width:100%}.wp-block-rank-math-related-posts.rank-math-related-posts.is-style-list-horizontal .rank-math-related-thumb img,.wp-block-rank-math-related-posts.rank-math-related-posts.rank-math-related-list-horizontal .rank-math-related-thumb img{width:100%;height:auto;max-height:200px}}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-item{border-radius:var(--rm-related-border-radius);padding:var(--rm-related-card-padding);background:inherit;transition:transform var(--rm-related-transition),box-shadow var(--rm-related-transition)}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-item:hover{transform:translateY(-2px);box-shadow:var(--rm-related-hover-shadow)}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-title{margin:0.5rem 0;font-size:inherit;line-height:inherit}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-title a{color:inherit;text-decoration:none;transition:color 0.2s ease}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-title a:hover{color:#2563eb;text-decoration:underline}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-title:not(:has(a)){cursor:default}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-thumb{position:relative;overflow:hidden;border-radius:4px;display:block}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-thumb img{display:block;width:100%;height:auto;border-radius:4px;transition:transform 0.3s ease}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-thumb:hover img{transform:scale(1.05)}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-thumb:not(a){cursor:default}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-thumb:not(a):hover img{transform:none}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-date{margin-top:0.25rem;font-size:0.85em;opacity:0.7}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-terms{margin-top:0.5rem}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-chip{display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:999px;padding:0.15rem 0.5rem;margin-right:0.35rem;font-size:0.8em}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-excerpt{margin-top:0.5rem;color:inherit;opacity:0.8;font-size:0.9em;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-more{margin-top:1rem}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-button{display:inline-block;background:#111827;color:#fff;border-radius:6px;padding:0.625rem 1.25rem;text-decoration:none;font-weight:500;transition:background 0.2s ease, transform 0.2s ease}.wp-block-rank-math-related-posts.rank-math-related-posts .rank-math-related-button:hover{background:#1f2937;transform:translateY(-1px)}.wp-block-rank-math-related-posts.has-border-color .rank-math-related-item{border-color:inherit}.wp-block-rank-math-related-posts.has-border-width .rank-math-related-item{border-width:inherit}.wp-block-rank-math-related-posts.has-border-style .rank-math-related-item{border-style:inherit}.wp-block-rank-math-related-posts.has-border-radius .rank-math-related-item{border-radius:inherit}.wp-block-rank-math-related-posts:not(.has-border-color):not(.has-border-width):not(.has-border-style) .rank-math-related-item{border:1px solid #e5e7eb}
+
+/*# sourceURL=https://www.britishairwaysarc.co.uk/app/plugins/seo-by-rank-math-pro/includes/modules/link-genius/blocks/related/assets/css/styles.css */
+</style>
+<script id="app-js-extra">
+var appObj = {"home_url":"https://www.britishairwaysarc.co.uk","filter_events_rest_url":"https://www.britishairwaysarc.co.uk/wp-json/dest/v1/events"};
+//# sourceURL=app-js-extra
+</script>
+<script type="module" src="https://www.britishairwaysarc.co.uk/app/themes/default/assets/app-TVpb1pgz.js" defer></script></head>
+
+<body class="wp-singular event-template-default single single-event postid-1677 wp-theme-default d-flex flex-column min-vh-100" data-bs-no-jquery>
+<header>
+    <nav class="navbar navbar-expand-xl py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">
+                <img class="img-fluid" src="https://www.britishairwaysarc.co.uk/app/themes/default/assets/ba-arc-logo-whitespace-YOYOzR9t.svg" width="250" height="58" alt="British Airways ARC logo and link back to the homepage">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-top h-100 me-xl-4" tabindex="-1" id="navbarOffcanvas" aria-labelledby="navbarOffcanvasLabel">
+                <div class="offcanvas-header">
+                    <a class="navbar-brand" href="https://www.britishairwaysarc.co.uk/">
+                        <img class="img-fluid p-2" src="https://www.britishairwaysarc.co.uk/app/themes/default/assets/ba-arc-logo-whitespace-YOYOzR9t.svg" width="250" height="58" alt="British Airways ARC logo and link back to the homepage">
+                    </a>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body d-flex flex-column">
+                    <div class="navbar-nav utility-nav justify-content-center justify-content-xl-end align-content-center text-center flex-wrap pb-xl-4 gap-5 gap-xl-3 order-2 order-xl-1">
+                        <form role="search" method="get" action="https://www.britishairwaysarc.co.uk/">
+    <div class="search-input input-group flex-nowrap">
+    <button type="submit" class="input-group-text bg-white text-dark border-0" id="addon-wrapping" aria-label="Submit search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" class="bi bi-search" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+      </svg>
+    </button>
+        <input type="search" name="s" class="form-control bg-white text-dark border-0" placeholder="Search" aria-label="Search" value="">
+    </div>
+</form>
+                        
+<ul class="social-links justify-content-center gap-3 ps-1">
+    <li>
+        <a
+            href="https://www.facebook.com/BritishAirwaysARC/"
+            target="_blank"
+            rel="noopener"
+        >
+            <img
+                src="https://www.britishairwaysarc.co.uk/app/themes/default/assets/facebook-CcEC_YCL.svg"
+                width="44"
+                height="44"
+                alt="facebook"
+            >
+        </a>
+    </li>
+    <li>
+        <a
+            href="https://www.instagram.com/britishairwaysarc"
+            target="_blank"
+            rel="noopener"
+        >
+            <img
+                src="https://www.britishairwaysarc.co.uk/app/themes/default/assets/instagram-JD1BvvqW.svg"
+                width="44"
+                height="44"
+                alt="instagram"
+            >
+        </a>
+    </li>
+    <li>
+        <a
+            href="https://www.tiktok.com/@britishairwaysarc"
+            target="_blank"
+            rel="noopener"
+        >
+            <img
+                src="https://www.britishairwaysarc.co.uk/app/themes/default/assets/tiktok-DpQ3Y9ea.svg"
+                width="44"
+                height="44"
+                alt="tiktok"
+            >
+        </a>
+    </li>
+</ul>
+                                                    <button class="btn btn-modal" type="button" data-bs-toggle="modal" data-bs-target="#appModal">Get The App</button>
+                                            </div>
+                    <div class="d-flex flex-wrap flex-column flex-xl-row justify-content-xl-end align-items-center order-1 order-xl-2 gap-5 gap-xl-3 mt-3 mb-5 my-xl-0">
+                        <ul id="menu-header-nav" class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/whats-on/">What’s On</a></li>
+<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="https://www.britishairwaysarc.co.uk/venue/" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Venue Info</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="https://www.britishairwaysarc.co.uk/finding-us/">FINDING US</a></li>
+<li><a class="dropdown-item" href="https://www.britishairwaysarc.co.uk/british-airways-arc-venue-app/">VENUE APP</a></li>
+<li><a class="dropdown-item" href="https://www.britishairwaysarc.co.uk/venue/security-bag-policy/">SECURITY &#038; BAG POLICY</a></li>
+<li><a class="dropdown-item" href="https://www.britishairwaysarc.co.uk/plan-your-visit/faqs/">FAQs</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="https://www.britishairwaysarc.co.uk/accessibility/" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ACCESSIBILITY</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="https://www.britishairwaysarc.co.uk/accessibility/">ACCESSIBILITY</a></li>
+<li><a class="dropdown-item" href="https://www.britishairwaysarc.co.uk/accessibility-booking/">Booking Accessibility Tickets</a></li>
+<li><a class="dropdown-item" href="https://www.britishairwaysarc.co.uk/accessibility/nimbus/">Nimbus Access Card</a></li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/premium-vip/">PREMIUM AT BRITISH AIRWAYS ARC</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/venue/hire-the-venue/">VENUE HIRE</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/newsletter/">NEWSLETTER</a></li>
+</ul>                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</header>
+<main class="flex-fill">
+
+
+    <section class="banner" aria-label="main hero banner">
+        <div class="row g-0 align-items-center">
+            <div class="col-12 col-md-6 order-2 order-md-1">
+                                                                        <p class="card-event-date text-center h5">
+                                                    <time datetime="2026-11-27">27 Nov 2026</time>
+                                            </p>
+                                <h1 class="page-title text-center">THE DAMNED</h1>
+                                    <h2 class="support-title text-center h3">FINAL DAMNATION 50 (WITH SUPPORT FROM: THE SAINTS ’73-’78)</h2>
+                            </div>
+            <div class="col-12 col-md-6 order-1 order-md-2">
+                <div class="image-container">
+                    <picture>
+                        <source srcset="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/04/Damned-1000x562.be532459.jpg" media="(min-width: 768px)">
+                        <source srcset="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/04/Damned-768x432.e61d9254.jpg" media="(min-width: 450px)">
+                                                    <img class="img-fluid" src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/04/Damned-450x253.d504f352.png" width="450" height="450" alt="The Damned - British Airways ARC - 27 November 2026">
+                                            </picture>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center justify-content-md-start my-1">
+                <li class="breadcrumb-item"><a href="https://www.britishairwaysarc.co.uk">Home</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">THE DAMNED</li>
+            </ol>
+        </nav>
+    </div>
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10 col-md-12">
+                                                        <div class="event-details justify-content-md-between py-3 px-4 my-3">
+                        <div class="event-date-container">
+                                                            <h2 class="h4 event-details-date text-center">27 Nov 2026</h2>
+                                                                                        <h3 class="h5 event-details-time">6:30pm</h3>
+                                                    </div>
+
+                        <div class="event-availability-container">
+                            <h4 class="h4 event-details-availability"></h4>
+
+                                                                                                                                                                                                        <a href="https://www.axs.com/uk/events/1414874/the-damned-tickets?skin=baarc" class="btn btn-secondary "  target="_blank">
+                                            Buy Tickets                                        </a>
+                                                                                                                                                                                    <a href="https://www.axs.com/uk/events/1414874/the-damned-tickets/promos/1129502?skin=baarc" class="btn btn-secondary "  target="_blank">
+                                            Premium Seating                                        </a>
+                                                                                                                        </div>
+                    </div>
+                            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+                            <div class="text-center text-md-start col-12">
+                                        <div class="wysiwyg">
+                        <h4 style="text-align: center"><strong>Punk Pioneers The Damned will be bringing Final Damnation 50, their 50th anniversary tour with supporting guests The Saints ’73-’78</strong></h4>
+<hr />
+<p style="text-align: center">Half a century after igniting the fuse of the British punk explosion, The Damned announce a celebratory UK tour.<br />
+Following a triumphant 50th Anniversary show in April and a forthcoming global run that will include the Sydney Opera House and a massive North American return, they step back on British soil in November and December 2026 for ‘Final Damnation 50’.</p>
+<p style="text-align: center">The first UK punk band to ever release a single, an album and tour the US, it is also a chance to catch the legendary line-up of Dave Vanian, Captain Sensible, Rat Scabies, Paul Gray, and Monty Oxymoron.<br />
+<strong>Rat Scabies</strong> &#8211; “Half a century on and who’d have thought we would still be upright and breathing? We never thought we’d make it this far and neither did you! But here we are, a finely tuned engine. The Damned still has the power and finesse to excite, entertain and accelerate into our 50th year.”<br />
+<strong>Captain Sensible</strong> &#8211; “With 50 years of catalogue to choose from, only the best songs from our chequered history will be performed, and with the passion and commitment all good music lovers deserve. You know we won’t disappoint.”</p>
+<p style="text-align: center">The Damned have been revelling in their own and punk&#8217;s 50th anniversary, marking half a century since the great explosion of 1976 and the return of Rat Scabies on drums. At the OVO Arena Wembley gig on April 11th, they treated their faithful to 25 songs over 3 sets, reflecting their definitive influence on punk, goth and psychedelia.<br />
+Earlier this year, they released an acclaimed covers album, Not Like Everybody Else, featuring tracks that the late, great founding member Brian James loved and that helped shape the band.</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="d-flex flex-column flex-md-row g-3 gap-3 m-auto py-3">
+                                            <iframe data-ot-ignore style="border-radius:12px" src="https://open.spotify.com/embed/artist/6VeL8VhaMjHTPc5uovFl3h?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                                                        </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="image-container my-4">
+            <a href="https://www.britishairwaysarc.co.uk/american-express/" target="_blank" rel="noopener">
+                <img class="img-fluid" src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/03/12371106-British-Airways-ARC_Landing-Page-2000x350px.f1cabcd3.jpg" width="2000" height="350" alt="Click here to unlock AMEX presale tickets">
+            </a>
+        </div>
+    </div>
+    <div class="newsletter-signup py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="text-container">
+                                                    <h2 class="text-center text-md-start">Get early ticket access by signing up to our newsletter</h2>
+                                                                            <p class="text-center text-md-start">Sign up for updates, early ticket access, competitions and more...</p>
+                                            </div>
+                </div>
+                <div class="col-md-6">
+                        <div id="prepform"></div>
+    <script src="https://accord.aegeurope.com/api/?sitekey={90C608A3-9604-C9F0-79FF-2A3C017BC69E}"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp/wp-*.php","/wp/wp-admin/*","https://d1un96q5zviggl.cloudfront.net/app/uploads/*","/app/*","/app/plugins/*","/app/themes/default/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+</main>
+<footer class="container py-4">
+        <div class="row">
+        <div class="col">
+            <div class="footer-logo-container py-4">
+                                        <a href="https://www.britishairwaysarc.co.uk/british-airways/" target="_blank">
+                    <img src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/02/british-airways-colour-whitespace.f5d95892.svg" class="footer-logo" width="" height="" alt="British Airways Logo">
+                </a>
+                                                            <a href="https://www.aegpresents.co.uk/about-us/" target="_blank">
+                    <img src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/02/Frame-32.c8b820a6-e1771518953549.png" class="footer-logo" width="" height="" alt="AEG Presents">
+                </a>
+                                                            <a href="https://www.axs.com/uk/venues/134419/british-airways-arc-london-tickets" target="_blank">
+                    <img src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/02/AXS_Official-Ticket-Partner_Primary-logo.ea085a8a-e1772747015703.png" class="footer-logo" width="" height="" alt="AXS Official Partner">
+                </a>
+                                                            <a href="https://www.olympia.co.uk/" target="_blank">
+                    <img src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/02/olympia-footer-logo-Dd7jnWzB-1.ba69e49a.svg" class="footer-logo" width="" height="" alt="Olympia logo">
+                </a>
+                                                            <a href="https://www.britishairwaysarc.co.uk/american-express/" target="_blank">
+                    <img src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2026/03/AXP_Logotype_Stacked_White-2.9b57311c.png" class="footer-logo" width="" height="" alt="American Express Logo">
+                </a>
+                        </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <ul id="menu-footer-nav" class="navbar-nav mr-auto"><li class="nav-item"><a class="nav-link" href="https://aegeurope.earcu.com/jobs/home/">CAREERS</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.aegpresents.co.uk/modern-slavery-statement/">MODERN SLAVERY STATEMENT</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/privacy-policy/">PRIVACY POLICY</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/terms-and-conditions/">TERMS AND CONDITIONS</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/venue/contact-us/">CONTACT US</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.britishairwaysarc.co.uk/partners/">PARTNERS</a></li>
+<li class="nav-item"><a class="nav-link ot-sdk-show-settings" style="cursor:pointer;">Cookie Settings</a></li></ul>        </div>
+    </div>
+    <p class="text-center py-4">© 2026 British Airways ARC</p>
+    
+<div class="modal fade" id="appModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+                                    <h2 class="modal-title fs-5" id="ArcAppModal">Download the British Airways ARC Venue App</h2>
+                                                    <div class="modal-content-wysiwyg wysiwyg py-4">
+                        <p>Access your AXS Mobile ID Tickets and more</p>
+                    </div>
+                
+                                    <div class="modal-images row justify-content-center align-content-center g-2 mt-3">
+                                                    <div class="col-6 col-md-4">
+                                                                    <a href="https://play.google.com/store/apps/details?id=uk.co.britishairwaysarc.app&#038;hl=en_GB&#038;gl=US&#038;pli=1" target="_blank" rel="noopener noreferrer">
+                                        <img class="img-fluid" src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2025/11/dl-and.98e4f335.png" alt=""/>
+                                    </a>
+                                                            </div>
+                                                    <div class="col-6 col-md-4">
+                                                                    <a href="https://apps.apple.com/us/app/british-airways-arc-venue-app/id6761130786" target="_blank" rel="noopener noreferrer">
+                                        <img class="img-fluid" src="https://d1un96q5zviggl.cloudfront.net/app/uploads/2025/11/dl-ios.55c78c26.png" alt="Download on the Apple AppStore"/>
+                                    </a>
+                                                            </div>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+</div>
+    <script id='satisfiScript' src='https://chat.satis.fi/popup/embedder?popupId=20681'></script>
+</footer>
+</body>
+</html>

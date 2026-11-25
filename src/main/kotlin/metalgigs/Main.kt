@@ -378,6 +378,7 @@ private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): Li
         OvoArenaGigsSource(client, joinedActs),
         IndigoAtTheO2GigsSource(client, joinedActs),
         TheO2ArenaGigsSource(client, joinedActs),
+        BritishAirwaysArcGigsSource(client, joinedActs),
         BushHallGigsSource(client),
         TheLexingtonGigsSource(client, joinedActs, LocalDate.now().year),
         NambuccaGigsSource(client, joinedActs, LocalDate.now().year),

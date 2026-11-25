@@ -1,6 +1,6 @@
 # 8. A venue is read from the surface its own page reads from, and paged by the link the page follows
 
-Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source.
+Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added.
 
 ## Context
 
@@ -24,6 +24,7 @@ own script does, and documented beside the url.
 | New Cross Inn | WordPress `admin-ajax.php` | the months dropdown does not navigate - it posts and swaps the listing in place |
 | The Dev | Instagram's profile page itself | the page prefetches its own first screen of posts into a script beside the shell |
 | Bush Hall | `bushhall.seetickets.com/search/all` | the venue's own What's On page is one iframe pointed at that listing and nothing else |
+| British Airways ARC | `/wp-json/dest/v1/events` | the What's On page is an empty `<event-filter-list>` a Vue app fills from the url the page names in `appObj.filter_events_rest_url` |
 
 The credentials these need are the public ones the page ships. Dice's widget config is inline in 229's page,
 naming the partner id and API key; the key is shipped to every browser, and the widget script reads
@@ -96,7 +97,12 @@ already there. **Bush Hall** needs none either and is checked rather than walked
 listing in one page and says so in its own pagination ("1 of 1"), while offering nothing to page with - the
 sort control posts, and `page` and `pageSize` in the query string are ignored, answering the same 56 gigs
 whatever they say. A second page cannot be fetched today to fit a walk to, so the source fails on the day that
-text stops saying one page rather than silently reading the listing short.
+text stops saying one page rather than silently reading the listing short. **British Airways ARC** answers six
+cards a page beside a pager naming the page, the pages and the events in all, so the walk stops on the pager's
+last page and fails where the cards read are not the total it named - nine events over two pages on
+2026-11-25. `per_page` is ignored. The page's own first request sends `initial=1` and every later one
+`initial=0`; `initial=1` with `page=2` answers an empty listing under a pager of twelve a page, where
+`initial=0` answers page 1 just as `initial=1` does, so every request is sent the second way.
 
 Several sites answer without a browser-like User-Agent with a 403 - Alexandra Palace, The Underworld, dice.fm,
 and enough generally that `missingGigSays` sends one too (ADR 5). See Tickets wants more than the one header:
