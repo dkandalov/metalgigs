@@ -55,7 +55,10 @@ private class DicePartnerVenueGigsSource(
             response.status.redirection -> {
                 val location = checkNotNull(response.header("location")) { "dice.fm redirected $listed without saying where to" }
                 check(location.startsWith(eventUrl)) { "dice.fm redirected $listed to $location, which isn't one of its event pages" }
-                GigUrl(location)
+                // Two events can share a perm_name, and dice.fm redirects it to one of them: Blondies
+                // Brewery listed El Altar Del Holocausto twice on 2026-11-25, as g7o5aa and yy26mr.
+                if (location.startsWith("$eventUrl${event.hash}-")) GigUrl(location)
+                else urlUnderItsHash(event)
             }
             // a perm_name dice.fm serves as it stands, unprefixed
             response.status.successful -> GigUrl(listed)
@@ -63,14 +66,16 @@ private class DicePartnerVenueGigsSource(
             // Strongroom's 23 events on 2026-11-19 and five of them minutes later, all on sale and on
             // the venue's own widget. The page was still served where those redirects point, under
             // the event's hash - so that url is asked for, and taken only if dice.fm serves it.
-            response.status == NOT_FOUND -> {
-                val underItsHash = "$eventUrl${event.hash}-${event.permName}"
-                val status = get(underItsHash).status
-                check(status.successful) { "dice.fm answers $listed with a 404 and $underItsHash with $status" }
-                GigUrl(underItsHash)
-            }
+            response.status == NOT_FOUND -> urlUnderItsHash(event)
             else -> error("Failed to resolve $listed: ${response.status}")
         }
+    }
+
+    private fun urlUnderItsHash(event: DicePartnerEvent): GigUrl {
+        val underItsHash = "$eventUrl${event.hash}-${event.permName}"
+        val status = get(underItsHash).status
+        check(status.successful) { "dice.fm serves no page of this event's at $eventUrl${event.permName}, and answers $underItsHash with $status" }
+        return GigUrl(underItsHash)
     }
 
     private fun get(url: String) = client(Request(GET, url).header("User-Agent", browserUserAgent))

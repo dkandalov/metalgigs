@@ -105,21 +105,21 @@ class DicePartnerVenueGigsSourceTest {
     fun `extracts gig events from Blondies Brewery Taproom's listing`() {
         val events = assertScrapesGigs(
             source = BlondiesBreweryTaproomGigsSource(cachedClient(followRedirects = false)),
-            size = 13,
+            size = 17,
             first = Gig(
-                GigId(blondiesBreweryTaproom.id, GigUrl("https://dice.fm/event/avxxrq-karaoke-thursdays-club-grazia-special-guest-host-27th-aug-blondies-brewery-london-tickets")),
-                GigTitle("Karaoke Thursdays / CLUB GRAZIA SPECIAL GUEST HOST"),
-                GigDate(2026, 8, 27),
-                PosterUrl("https://dice-media.imgix.net/attachments/2026-03-02/242a563f-6cbc-42dd-8eb8-cc2cfa1bdb78.jpg"),
+                GigId(blondiesBreweryTaproom.id, GigUrl("https://dice.fm/event/g7o5aa-el-altar-del-holocausto-26th-nov-blondies-brewery-london-tickets")),
+                GigTitle("El Altar del Holocausto - CANCELLED"),
+                GigDate(2026, 11, 26),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-10-31/da25b72c-1ea4-4314-a141-3578091b9e53.jpg"),
                 GigDescription(""),
                 Lineup.none,
-                status = null,
+                GigStatus.Cancelled,
             ),
             last = Gig(
-                GigId(blondiesBreweryTaproom.id, GigUrl("https://dice.fm/event/8eq9dw-forlorn-birdwitch-27th-nov-blondies-brewery-london-tickets")),
-                GigTitle("FORLORN / BIRDWITCH"),
-                GigDate(2026, 11, 27),
-                PosterUrl("https://dice-media.imgix.net/attachments/2026-07-13/d2e1f34c-9f57-4a47-811c-5e6d4efbc40a.jpg"),
+                GigId(blondiesBreweryTaproom.id, GigUrl("https://dice.fm/event/693n7b-savanah-sleeping-mountain-at-blondies-taproom-7th-may-blondies-brewery-london-tickets")),
+                GigTitle("Savanah | Sleeping Mountain at Blondies Taproom"),
+                GigDate(2027, 5, 7),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-11-17/f023961a-ef77-463f-be44-4c94c0d3d2b4.jpg"),
                 GigDescription(""),
                 Lineup.none,
                 status = null,
@@ -128,9 +128,18 @@ class DicePartnerVenueGigsSourceTest {
 
         // a cancelled gig stays on the listing looking like any other - Dice's own event page marks
         // it with a "Cancelled" button where the ticket one goes, and the API with its status
-        expectThat(events.map { it.title }).contains(GigTitle("BLONDIES 11TH BIRTHDAY PARTY - CANCELLED"))
+        expectThat(events.map { it.title }).contains(GigTitle("El Altar del Holocausto - CANCELLED"))
         expectThat(events.filter { it.status == GigStatus.Cancelled }.map { it.title })
             .isEqualTo(events.map { it.title }.filter { it.value.endsWith(" - CANCELLED") })
+
+        // the promoter made that gig twice, two events under one perm_name, and dice.fm redirects the
+        // perm_name to the first of them - so the second is found under its own hash instead
+        expectThat(events.filter { it.status == GigStatus.Cancelled }.map { it.id.url }).isEqualTo(
+            listOf(
+                GigUrl("https://dice.fm/event/g7o5aa-el-altar-del-holocausto-26th-nov-blondies-brewery-london-tickets"),
+                GigUrl("https://dice.fm/event/yy26mr-el-altar-del-holocausto-26th-nov-blondies-brewery-london-tickets"),
+            )
+        )
     }
 
     @Test
