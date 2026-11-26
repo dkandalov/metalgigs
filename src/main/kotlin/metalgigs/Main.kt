@@ -171,12 +171,15 @@ private fun scrapeGigs(venueIds: Set<VenueId> = emptySet(), force: Boolean = fal
     val listings = scrapedByVenue.mapValues { (_, listing) -> withoutReplacedCopies(listing, alreadyReplaced) }
     val replacements = listings.filterKeys { it !in withheldVenues }
         .flatMap { (venueId, listing) ->
-            replacementsIn(listing, currentGigs.filter { it.id.venueId == venueId }, GigDate(LocalDate.now())) {
+            replacementsIn(scraped = listing, previous = currentGigs.filter { it.id.venueId == venueId }, from = GigDate(LocalDate.now())) {
                 missingGigSays(unredirectedClient, it, sourcesByVenueId.getValue(venueId)::saysNotFound)
             }
         }
         .map { (replaced, by) -> GigReplaced(replaced, by, now) }
-    val gigs = keepingFlyerReadings(keepingDhpPosters(listings.values.flatten(), currentGigs, replacements), currentGigs)
+    val gigs = keepingFlyerReadings(
+        scraped = keepingDhpPosters(scraped = listings.values.flatten(), logged = currentGigs, replacements = replacements),
+        logged = currentGigs,
+    )
     val toObserve = log.newOrChangedGigs(gigs)
     replacements.forEach { println("  ${venue(it.replaced.venueId)} relisted ${it.replaced.url} as ${it.by.url}") }
 
@@ -472,7 +475,7 @@ private fun printBreakdown(label: String, gigs: List<Gig>, statusByGig: Map<GigI
 fun fetchPosterForClassifying(client: HttpHandler, imageUrl: PosterUrl): Content.Image {
     val resized = File.createTempFile("classify-poster", ".webp")
     try {
-        convertToWebp(downloadToCache(client, imageUrl, imageCacheDir), resized)
+        convertToWebp(source = downloadToCache(client, imageUrl, imageCacheDir), target = resized)
         return Content.Image(Resource.Binary(Base64Blob.encode(resized.readBytes()), MimeType.IMAGE_WEBP))
     } finally {
         resized.delete()
