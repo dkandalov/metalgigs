@@ -24,8 +24,9 @@ trap finish EXIT
 echo "== daily-update started $(now) =="
 
 # held until this script exits, so the Mac doesn't idle-sleep part-way through, as it did at 12:32
-# on 2026-11-25 with the run going. Not known to hold a closed lid awake.
-caffeinate -i -w $$ &
+# on 2026-11-25 with the run going. -s holds off system sleep too, on AC power only: -i alone let a
+# run started by a sleeping Mac's brief wake be slept through on 2026-11-26. Nothing holds on battery.
+caffeinate -i -s -w $$ &
 
 # a scheduled run inherits none of the interactive shell's environment, so fall back to a file the
 # launchd agent can rely on. Kept out of the plist deliberately: those are world-readable by default
