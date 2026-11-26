@@ -139,7 +139,7 @@ Against Fascism name none of their acts, and Reality Unfolds 2027 lists 23. Both
 `titleWithLineup`, and none of the AMG events listed that day names a lineup its title doesn't contain an act
 of. A misspelt performer keeps the venue's title: Los Fastidios' page lists "Los Fastidos".
 
-**AltTickets** - The Garage and The Grace - writes its bill on a line under each event page's heading, which
+**AltTickets** - The Garage, The Grace and Oslo Hackney - writes its bill on a line under each event page's heading, which
 `titleBilledBy` reads as it does Alexandra Palace's and The O2's: 40 of the 146 gigs listed on 2026-11-08 have
 such a line, most of them bills. It writes them in more ways, each added to the one rule: "Support: X" (also
 "Support : X", and Allt's "Supports : Avralize + Bite Down"), "Opener: X", "PLUS SPECIAL GUESTS - X / Y", a line

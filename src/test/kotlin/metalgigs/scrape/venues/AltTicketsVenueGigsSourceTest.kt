@@ -70,6 +70,32 @@ class AltTicketsVenueGigsSourceTest {
         )
     }
 
+    @Test
+    fun `extracts gig events from Oslo Hackney's AltTickets listing`() {
+        assertScrapesGigs(
+            source = OsloHackneyGigsSource(cachedClient(), JoinedActs.keptWhole),
+            size = 53,
+            first = Gig(
+                GigId(osloHackney.id, GigUrl("https://www.alttickets.com/bshp-tickets/london-oslo/2026-11-27-19-00")),
+                GigTitle("BSHP / Haydn Bardoe"),
+                GigDate(2026, 11, 27),
+                PosterUrl("https://alttickets-9a2.kxcdn.com/static_alt_tickets/images/campaign/400x400/bshp-7879238121.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+            last = Gig(
+                GigId(osloHackney.id, GigUrl("https://www.alttickets.com/rhoda-dakar-tickets/london-oslo/2027-05-29-19-00")),
+                GigTitle("Rhoda Dakar"),
+                GigDate(2027, 5, 29),
+                PosterUrl("https://alttickets-9a2.kxcdn.com/static_alt_tickets/images/campaign/400x400/rhoda_dakar-7901774005.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+        )
+    }
+
     // A sold-out card links to "#" and a not-yet-on-sale one has no link either, so both are read
     // here off the JSON-LD, the only place naming their urls.
     @Test

@@ -3,7 +3,9 @@
 Accepted. Recorded 2026-11-15, describing `Lineup`, `Bill.kt`, `JoinedActsReadByModel.kt` and
 `DiceLineups.kt`. Amended the same day, twice: twelve more venues read a lineup off a heading or a line of
 their copy, and sixteen ask what Dice lists. Amended 2026-11-26: New River Studios added, and "release" with
-it - "Silica ‘Alone in Tow’ record release, plus Mercury, Spike, Kerosene" had read as four acts.
+it - "Silica ‘Alone in Tow’ record release, plus Mercury, Spike, Kerosene" had read as four acts. Amended
+2026-11-26: Oslo Hackney added, a seventeenth venue asked about on Dice and a 0.2MB recording of it; every
+count of sixteen below is of the venues asked on 2026-11-15.
 
 ## Context
 

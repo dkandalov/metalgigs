@@ -27,6 +27,17 @@ class TheGraceGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
         client,
     )
 
+val osloHackney = Venue(VenueId("oslo-hackney"), "Oslo Hackney")
+
+// The venue's own site lists 29 of the 53 gigs AltTickets did on 2026-11-26, and AltTickets calls the
+// room "Oslo" where Dice calls it "Oslo Hackney".
+class OsloHackneyGigsSource(client: HttpHandler, joinedActs: JoinedActs) :
+    GigsSource by WithLineupsOnDiceAt(
+        "Oslo Hackney",
+        AltTicketsVenueGigsSource(client, joinedActs, url = "https://www.alttickets.com/venue/london/oslo", venue = osloHackney),
+        client,
+    )
+
 // Why this reading surface: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 internal class AltTicketsVenueGigsSource(
     private val client: HttpHandler,
