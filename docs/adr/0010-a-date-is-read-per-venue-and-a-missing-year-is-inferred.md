@@ -1,6 +1,6 @@
 # 10. A date is read per venue, only ever the start date, and a year the listing never writes is inferred
 
-Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired. Amended 2026-11-15: Nambucca added. Amended 2026-11-26: Troxy added.
+Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired. Amended 2026-11-15: Nambucca added. Amended 2026-11-26: Troxy added. Amended 2026-11-26: New River Studios added.
 
 ## Context
 
@@ -25,6 +25,9 @@ over what it prints:
   first and the year in two digits - rather than anything machine-shaped. Each gig's own page writes it out as
   `2026-12-13`, and the two agreed on all 32 gigs listed on 2026-11-26; the card's is the one read because the
   card is what lists the gig.
+- **New River Studios** reads the day off its api's `start_date`, "2026-11-27 19:30:00". The site keeps its
+  clock at UTC+0 the year round, an August night's `start_date` and `utc_start_date` both reading 19:30, so
+  the time is the one the venue typed and the day needs no zone applied to it.
 
 Where a source parses text the comment carries a real example: Dingwalls' inconsistent commas ("Wednesday 2nd
 September 2026", "Tuesday, 8th September 2026", "Saturday 26th September, 2026 (Afternoon Show)"), Electric

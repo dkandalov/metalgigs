@@ -2,7 +2,8 @@
 
 Accepted. Recorded 2026-11-15, describing `Lineup`, `Bill.kt`, `JoinedActsReadByModel.kt` and
 `DiceLineups.kt`. Amended the same day, twice: twelve more venues read a lineup off a heading or a line of
-their copy, and sixteen ask what Dice lists.
+their copy, and sixteen ask what Dice lists. Amended 2026-11-26: New River Studios added, and "release" with
+it - "Silica ‘Alone in Tow’ record release, plus Mercury, Spike, Kerosene" had read as four acts.
 
 ## Context
 
@@ -48,7 +49,7 @@ be "NFD - The 25th Anniversary Show!" as readily as a band, and nothing says whi
 | Islington Assembly Hall | 1 | a paragraph of the copy that is a bill and nothing else |
 | The Dome | 1 | the supports its copy's opening formula names |
 | Cart & Horses, Paper Dress Vintage, Nambucca, The Dev | 4 | the heading, where it bills two acts or more |
-| Windmill Brixton, The Lexington | 2 | the same, their headings listing acts with commas |
+| Windmill Brixton, The Lexington, New River Studios | 3 | the same, their headings listing acts with commas |
 | Dingwalls | 1 | the heading where it bills, and otherwise a paragraph of the copy that does |
 
 What a Black Heart bill opens on is left out where it is not an act: a night its acts are billed as featured
@@ -63,7 +64,7 @@ measured.
 ADR 6 tidies it - the promoter and the sold-out marker already gone, "+" already a slash - and it has to come
 apart into two pieces or more. One name on its own may be a band or a night: "Saxon" and "December 10" were
 both listed at Eventim Apollo on 2026-11-15, and nothing in the wording says which. A piece that is more than a
-name - it holds a colon, a spaced dash, "tour", "presents", "showcase", "launch" - leaves the gig with no lineup
+name - it holds a colon, a spaced dash, "tour", "presents", "showcase", "launch", "release" - leaves the gig with no lineup
 rather than a wrong act in it: "Club Orbit: Ro Nova + Vanity Fairy" and "Dayseeker: Creature In The Black Night
 Tour" put the act on opposite sides of the same colon. A note in brackets, a guest's label and a framing emoji
 come off a name; "+ special guests" and "+ TBA" name nobody and are dropped, which can leave a lineup of one.

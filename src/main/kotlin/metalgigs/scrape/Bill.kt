@@ -38,7 +38,7 @@ internal fun lineupHeadedBy(heading: GigTitle, joinedActs: JoinedActs, commaList
 private fun decorates(char: Char) = char.isWhitespace() || char.isSurrogate() || char.category == CharCategory.OTHER_SYMBOL || char == '\uFE0F'
 
 private val trailingNote = Regex("""\s*(?:[(\[][^)\]]*[)\]]|[-–—])\s*$""")
-private val moreThanAName = Regex(""":|\s[-–—|]\s|\b(?:tour|presents?|showcase|launch|residency|vol\.?)\b|#\d""", RegexOption.IGNORE_CASE)
+private val moreThanAName = Regex(""":|\s[-–—|]\s|\b(?:tour|presents?|showcase|launch|release|residency|vol\.?)\b|#\d""", RegexOption.IGNORE_CASE)
 private val guestLabel = Regex("""^(?:(?:very\s+)?special\s+guests?|guests?|support(?:\s+from)?)\s*:?\s+""", RegexOption.IGNORE_CASE)
 private val unnamedAct = Regex("""(?:more(?:\s+tb[ac])?|tb[ac]|(?:very\s+)?(?:special\s+)?guests?|supports?|friends|djs?|dj['’]s)""", RegexOption.IGNORE_CASE)
 

@@ -1,6 +1,6 @@
 # 7. A description is the gig's own copy, scoped per venue, and cut by wording where markup will not do
 
-Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-25: The Lexington's site was redesigned. Amended 2026-11-26: Troxy added. Amended 2026-11-26: EartH added.
+Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-25: The Lexington's site was redesigned. Amended 2026-11-26: Troxy added. Amended 2026-11-26: EartH added. Amended 2026-11-26: New River Studios added.
 
 ## Context
 
@@ -106,7 +106,9 @@ Where a source has a better description than the event page it takes it and save
 `rawDescription`, the venue's own copy, not the sibling `description` that appends Dice's footer ("Presented
 by …", "This is an 18+ event"); **The Fiddler's Elbow** leaves event pages empty and puts everything in the
 listing excerpt, the one description read off a listing, so its failure names that; **AMG** carries copy in
-the listing call. **AMG** also synthesises one where there is none - 32 of the 334 events those venues listed
+the listing call; **New River Studios'** events api carries each event's `description` as the markup the
+promoter typed, read as its text - 47 to 7212 characters across the 47 events of August to November 2026, none
+blank, and nothing of the venue's own repeated across the 11 listed on 2026-11-26. **AMG** also synthesises one where there is none - 32 of the 334 events those venues listed
 as of 2026-08-17 - from acts and genres, which is exactly what a description is for here, acts left in the
 API's headliner-first order. A cancelled show has its copy replaced by AMG's standard notice, word for word
 across venues, so that notice counts as no description: taken as copy it would read as one gig's text on

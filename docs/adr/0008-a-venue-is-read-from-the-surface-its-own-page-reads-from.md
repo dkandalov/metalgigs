@@ -1,6 +1,6 @@
 # 8. A venue is read from the surface its own page reads from, and paged by the link the page follows
 
-Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added. Amended 2026-11-26: The Shacklewell Arms added to Dice's venues. Amended 2026-11-26: Troxy added. Amended 2026-11-26: EartH added to Dice's venues.
+Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added. Amended 2026-11-26: The Shacklewell Arms added to Dice's venues. Amended 2026-11-26: Troxy added. Amended 2026-11-26: EartH added to Dice's venues. Amended 2026-11-26: New River Studios added.
 
 ## Context
 
@@ -26,6 +26,7 @@ own script does, and documented beside the url.
 | Bush Hall | `bushhall.seetickets.com/search/all` | the venue's own What's On page is one iframe pointed at that listing and nothing else |
 | British Airways ARC | `/wp-json/dest/v1/events` | the What's On page is an empty `<event-filter-list>` a Vue app fills from the url the page names in `appObj.filter_events_rest_url` |
 | Cart & Horses | `/news-offers-events/next/events/{offset}/{lastDate}/` | the page renders ten calendar entries above a "More" that fetches the rest, and a carousel of 21 above that - which is what was read until 2026-11-26, of a calendar holding 42 |
+| New River Studios | `/wp-json/tribe/events/v1/events` | the `/events/` page prints ten events and pages the rest; The Events Calendar's own api answers the whole calendar with each event's date in full, its upload and its copy, so no event page is read. Only 5 of the 11 events listed on 2026-11-26 sold through Dice, which rules out Dice's api |
 
 The credentials these need are the public ones the page ships. Dice's widget config is inline in 229's page,
 naming the partner id and API key; the key is shipped to every browser, and the widget script reads
@@ -118,7 +119,13 @@ cards a page beside a pager naming the page, the pages and the events in all, so
 last page and fails where the cards read are not the total it named - nine events over two pages on
 2026-11-25. `per_page` is ignored. The page's own first request sends `initial=1` and every later one
 `initial=0`; `initial=1` with `page=2` answers an empty listing under a pager of twelve a page, where
-`initial=0` answers page 1 just as `initial=1` does, so every request is sent the second way.
+`initial=0` answers page 1 just as `initial=1` does, so every request is sent the second way. **New River
+Studios** is walked by page number to the `total_pages` its api names and fails where the events read are not
+its `total`, as ARC does: 11 events in one page on 2026-11-26. `per_page` is honoured only to 50 - asked for 51
+or 100 it answers 50 and says nothing - which 157 events over four pages showed for June 2025 to July 2026.
+The `next_rest_url` it offers is not followed: it spells out the window's start and end dates, so it reads
+differently each day where a page number does not. That window is the api's own and opens before today: asked on the evening of
+2026-11-26 it began at 03:00 on the 25th, so a night already gone is listed and left to render to leave out.
 
 Several sites answer without a browser-like User-Agent with a 403 - Alexandra Palace, The Underworld, dice.fm,
 and enough generally that `missingGigSays` sends one too (ADR 5). See Tickets wants more than the one header:

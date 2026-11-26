@@ -194,6 +194,8 @@ class BillTest {
         expectThat(lineupHeadedBy(heading, noJoinedActs, commaLists = true)).isEqualTo(Lineup(listOf("Rosendo", "Doubt Point", "House Arrest")))
         expectThat(lineupHeadedBy(heading, noJoinedActs)).isEqualTo(Lineup.none)
         expectThat(lineupHeadedBy(GigTitle("Jetstream Pony, The Leaf Library, Karen - Club Precious 11"), noJoinedActs, commaLists = true)).isEqualTo(Lineup.none)
+        // New River Studios', listed on 2026-11-26
+        expectThat(lineupHeadedBy(GigTitle("Silica ‘Alone in Tow’ record release, plus Mercury, Spike, Kerosene"), noJoinedActs, commaLists = true)).isEqualTo(Lineup.none)
     }
 
     @Test
