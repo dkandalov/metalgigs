@@ -1,6 +1,6 @@
 # 10. A date is read per venue, only ever the start date, and a year the listing never writes is inferred
 
-Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired. Amended 2026-11-15: Nambucca added.
+Accepted. Recorded 2026-08-25, describing the date handling across `scrape/venues`. Amended 2026-11-04: what this says of DHP describes a source ADR 14 retired. Amended 2026-11-15: Nambucca added. Amended 2026-11-26: Troxy added.
 
 ## Context
 
@@ -21,6 +21,10 @@ over what it prints:
   a card printing "Sun, Aug 16" with no year near it.
 - **Paper Dress Vintage** reads the year off the `data-event-month` attribute wrapping each month's cards.
 - **Squarespace venues** read `time.event-date`'s `datetime`.
+- **Troxy** reads each card's `datetime`, which is the printed date with dashes for dots - `13-12-26`, day
+  first and the year in two digits - rather than anything machine-shaped. Each gig's own page writes it out as
+  `2026-12-13`, and the two agreed on all 32 gigs listed on 2026-11-26; the card's is the one read because the
+  card is what lists the gig.
 
 Where a source parses text the comment carries a real example: Dingwalls' inconsistent commas ("Wednesday 2nd
 September 2026", "Tuesday, 8th September 2026", "Saturday 26th September, 2026 (Afternoon Show)"), Electric

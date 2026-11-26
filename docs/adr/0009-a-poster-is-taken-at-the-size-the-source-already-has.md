@@ -2,7 +2,7 @@
 
 Accepted. Recorded 2026-08-25, describing the poster handling across `scrape/venues`. Amended 2026-09-18: a
 Squarespace venue's poster is the image block in the gig's own copy, its card's thumbnail being the venue's
-featured image rather than the night's artwork. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-15: Nambucca added. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added.
+featured image rather than the night's artwork. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-15: Nambucca added. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added. Amended 2026-11-26: Troxy added.
 
 ## Context
 
@@ -27,6 +27,7 @@ The full-size image is recovered from what the listing already carries, with no 
 | The O2 | the square crop, not the 480x281 | the square is at least 564px and survives render's own square crop |
 | Eventim Apollo | nothing | the card's url already asks the CDN for 768 square |
 | Dice | nothing | same imgix CDN, linked with no `w` at all |
+| Troxy | swapping Ticketmaster's crop suffix for `_SOURCE` | the card's `_TABLET_LANDSCAPE_LARGE_16_9.jpg` is 2048x1152; the upload behind it measured 2048x1517, 2048x2248, 2051x2051 and 6000x4000 on four gigs, and answered for all 23 cards showing the crop on 2026-11-26, the other 9 linking `_SOURCE` already |
 
 Where a card holds more than one image, which is the gig's is stated: **Electric Brixton** takes the
 thumbnail from its own container, `.event-image` also holding an empty `img` for the rollover animation;

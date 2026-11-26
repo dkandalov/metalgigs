@@ -1,6 +1,6 @@
 # 7. A description is the gig's own copy, scoped per venue, and cut by wording where markup will not do
 
-Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-25: The Lexington's site was redesigned.
+Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-25: The Lexington's site was redesigned. Amended 2026-11-26: Troxy added.
 
 ## Context
 
@@ -40,6 +40,7 @@ the gigs it books without copy.
 | Bush Hall | the event detail column, cut to its narratives section | See Tickets fills the same column with price rows, a low-income ticket FAQ, an accessibility link and the basket; the section's own header ("More information about X tickets") is See Tickets' words rather than the gig's |
 | The Lexington | the stage times and `.event-desc` of `.event-details` | the date and price sit in `.info-rows`, the ticket link in `.btn-row`, the venue's 18+ line in `.id-note`, and every page closes with a rail of its next five nights, other gigs' titles among them. The copy block is taken from the container holding it, the stage times beside it being rendered only where there are some |
 | Nambucca | `[itemprop=description]` | the date, address and ticket button sit in their own blocks beside it, and nothing but the promoter's copy is inside |
+| Troxy | `#event-description` less its "Please Note:" paragraph and `#read-more` | every page closes its copy on the ticket terms - an age, a per-household limit, sometimes fixed-tier pricing - in 18 wordings across the 32 pages read on 2026-11-26, and on the link that unfolds the copy; one page, Kings Of Gaana's, held the terms alone |
 | Dingwalls | `.elementor-location-single` | |
 | Paper Dress Vintage | `.event__content` | |
 

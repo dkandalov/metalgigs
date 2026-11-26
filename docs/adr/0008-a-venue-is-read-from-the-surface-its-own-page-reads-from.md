@@ -1,6 +1,6 @@
 # 8. A venue is read from the surface its own page reads from, and paged by the link the page follows
 
-Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added. Amended 2026-11-26: The Shacklewell Arms added to Dice's venues.
+Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added. Amended 2026-11-26: The Shacklewell Arms added to Dice's venues. Amended 2026-11-26: Troxy added.
 
 ## Context
 
@@ -105,7 +105,12 @@ already there. **Bush Hall** needs none either and is checked rather than walked
 listing in one page and says so in its own pagination ("1 of 1"), while offering nothing to page with - the
 sort control posts, and `page` and `pageSize` in the query string are ignored, answering the same 56 gigs
 whatever they say. A second page cannot be fetched today to fit a walk to, so the source fails on the day that
-text stops saying one page rather than silently reading the listing short. **British Airways ARC** answers six
+text stops saying one page rather than silently reading the listing short. **Troxy** needs none and has
+nothing on the page to say so: `/whats-on/` rendered 32 cards on 2026-11-26 with no pager, filter or load-more
+under them. The site's WordPress api (`/wp-json/wp/v2/event`) held 43 events that day and the 11 the page left
+out were all past, 30 October to 21 November. The api dates a post by when it was published rather than when
+the gig is, so that was a cross-check made once and not a surface to read, and the test's count is what
+stands against the page being read short. **British Airways ARC** answers six
 cards a page beside a pager naming the page, the pages and the events in all, so the walk stops on the pager's
 last page and fails where the cards read are not the total it named - nine events over two pages on
 2026-11-25. `per_page` is ignored. The page's own first request sends `initial=1` and every later one
