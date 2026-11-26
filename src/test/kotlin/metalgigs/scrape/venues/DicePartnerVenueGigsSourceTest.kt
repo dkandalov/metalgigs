@@ -291,4 +291,44 @@ class DicePartnerVenueGigsSourceTest {
         // "Support act(s): tbc" is all this one's description says, as it is of nine more
         expectThat(gigs.single { it.title == GigTitle("Brama") }.description).isEqualTo(GigDescription(""))
     }
+
+    @Test
+    fun `extracts gig events from EartH's listing`() {
+        val gigs = assertScrapesGigs(
+            source = EarthGigsSource(cachedClient(followRedirects = false)),
+            size = 51,
+            first = Gig(
+                GigId(earth.id, GigUrl("https://dice.fm/event/dkp686-milkweed-26th-nov-earth-london-tickets")),
+                GigTitle("Milkweed"),
+                GigDate(2026, 11, 26),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-05-29/bfef54e1-daa3-4ff2-8cf4-7b564835f05d.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+            last = Gig(
+                GigId(earth.id, GigUrl("https://dice.fm/event/2olrd7-the-mersey-beatles-celebrating-60-years-of-sgt-peppers-lonely-hearts-club-band-23rd-oct-earth-london-tickets")),
+                GigTitle("The Mersey Beatles: Celebrating 60 years of Sgt Pepper’s Lonely Hearts Club Band"),
+                GigDate(2027, 10, 23),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-11-03/9b6d67b4-cf74-46be-b8a9-f89c3977e074.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+        )
+
+        // 13 of the 65 events in this listing are filed as something other than a gig
+        expectThat(gigs.none { it.title.value.contains(Regex("Nicer Tuesdays|Hackney Comedy Experience|All Night Long|Xmas Fair")) }).isTrue()
+
+        // filed as a gig, at "Various Venues: EartH, Shacklewell Arms, The Victoria, Cafe OTO, St Matthias Church"
+        expectThat(gigs.none { it.title.value.contains("Pitchfork Festival") }).isTrue()
+
+        expectThat(gigs.single { it.title == GigTitle("Pain of Truth") }.date).isEqualTo(GigDate(2027, 2, 20))
+
+        // the room, the access FAQ and the studios paragraph the venue wraps every listing in
+        expectThat(gigs.none { it.description.value.contains(Regex("take place in EartH|access at EartH|social enterprise", RegexOption.IGNORE_CASE)) }).isTrue()
+        expectThat(gigs.single { it.title == GigTitle("Pain of Truth") }.description.value.startsWith("Pain Of Truth is Michael Brian Smith")).isTrue()
+        // nothing but the venue's own lines, as with three more
+        expectThat(gigs.single { it.title == GigTitle("Deer Tick") }.description).isEqualTo(GigDescription(""))
+    }
 }

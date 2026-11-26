@@ -1,6 +1,6 @@
 # 7. A description is the gig's own copy, scoped per venue, and cut by wording where markup will not do
 
-Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-25: The Lexington's site was redesigned. Amended 2026-11-26: Troxy added.
+Accepted. Recorded 2026-08-25, describing the `eventPageContent` of every source under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-25: The Lexington's site was redesigned. Amended 2026-11-26: Troxy added. Amended 2026-11-26: EartH added.
 
 ## Context
 
@@ -41,6 +41,7 @@ the gigs it books without copy.
 | The Lexington | the stage times and `.event-desc` of `.event-details` | the date and price sit in `.info-rows`, the ticket link in `.btn-row`, the venue's 18+ line in `.id-note`, and every page closes with a rail of its next five nights, other gigs' titles among them. The copy block is taken from the container holding it, the stage times beside it being rendered only where there are some |
 | Nambucca | `[itemprop=description]` | the date, address and ticket button sit in their own blocks beside it, and nothing but the promoter's copy is inside |
 | Troxy | `#event-description` less its "Please Note:" paragraph and `#read-more` | every page closes its copy on the ticket terms - an age, a per-household limit, sometimes fixed-tier pricing - in 18 wordings across the 32 pages read on 2026-11-26, and on the link that unfolds the copy; one page, Kings Of Gaana's, held the terms alone |
+| EartH | Dice's `raw_description` less the venue's own lines | the venue opens a listing on its room ("This event will take place in EartH Theatre.") and closes it on its access FAQ and a paragraph about its free studios - 48, 46 and 46 of the 51 gigs listed on 2026-11-26, one of them on a restoration levy too - each a line of its own around the promoter's copy; four gigs say nothing else, and with the lines left in `validateGigs` withheld the whole listing as mostly shared text |
 | Dingwalls | `.elementor-location-single` | |
 | Paper Dress Vintage | `.event__content` | |
 

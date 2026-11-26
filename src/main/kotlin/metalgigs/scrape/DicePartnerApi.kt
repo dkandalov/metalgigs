@@ -47,6 +47,7 @@ private object JDicePartnerEventsResponse : JAny<DicePartnerEventsResponse>() {
 
 private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
     private val name by str(DicePartnerEvent::name)
+    private val venue by str(DicePartnerEvent::venue)
     private val perm_name by str(DicePartnerEvent::permName)
     private val hash by str(DicePartnerEvent::hash)
     private val date by str(DicePartnerEvent::date)
@@ -59,6 +60,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
 
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
         name = +name,
+        venue = +venue,
         permName = +perm_name,
         hash = +hash,
         +date,
@@ -83,6 +85,7 @@ private data class DicePartnerEventsResponse(val data: List<DicePartnerEvent>, v
 // an 18+ event"), so it is the wrong one to keep - and having either means no per-gig page fetch.
 internal data class DicePartnerEvent(
     val name: String,
+    val venue: String,
     val permName: String,
     val hash: String,
     val date: String,

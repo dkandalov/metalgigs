@@ -390,6 +390,7 @@ private fun allSources(client: HttpHandler, unredirectedClient: HttpHandler): Li
         StrongroomGigsSource(unredirectedClient),
         ShacklewellArmsGigsSource(unredirectedClient),
         TroxyGigsSource(client),
+        EarthGigsSource(unredirectedClient),
         DevGigSource(client, Chat.Ollama(httpClient(ollamaCallTimeout), SystemPrompt.of(flyerExtractionSystemPrompt)), joinedActs),
     ).map(::WithTidiedTitles)
 }

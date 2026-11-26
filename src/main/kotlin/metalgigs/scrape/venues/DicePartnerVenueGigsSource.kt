@@ -18,6 +18,7 @@ private class DicePartnerVenueGigsSource(
     override val venue: Venue,
     private val notAGig: (DicePartnerEvent) -> Boolean = { false },
     private val placeholderCopy: Regex? = null,
+    private val venuesOwnLines: Regex? = null,
     private val skippableGigs: Set<GigUrl> = emptySet(),
 ) : GigsSource {
     override fun latestGigs(): List<Gig> {
@@ -51,8 +52,16 @@ private class DicePartnerVenueGigsSource(
     // on one of Strongroom's 18 gigs on 2026-11-25, the same in the api's `description`.
     private fun descriptionOf(event: DicePartnerEvent): GigDescription {
         val copy = Parser.unescapeEntities(event.rawDescription, false)
-        return GigDescription(if (placeholderCopy?.matches(copy.trim()) == true) "" else copy)
+        return GigDescription(
+            when {
+                placeholderCopy?.matches(copy.trim()) == true -> ""
+                venuesOwnLines != null -> copy.lines().filterNot { venuesOwnLines.matches(it.trim()) }.joinToString("\n").replace(blankRun, "\n\n").trim()
+                else -> copy
+            }
+        )
     }
+
+    private val blankRun = Regex("""\n{3,}""")
 
     // Why the redirect target is the gig's url: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrlFor(event: DicePartnerEvent): GigUrl {
@@ -172,5 +181,27 @@ class ShacklewellArmsGigsSource(client: HttpHandler) :
 // What the venue writes where a promoter wrote nothing, the whole description of ten of its 45
 // gigs on 2026-11-26 - nine as "Support act(s): tbc" and one as "Support acts(s): tbc".
 private val supportsUnannounced = Regex("""Support acts?\(s\): tbc""", RegexOption.IGNORE_CASE)
+
+val earth = Venue(VenueId("earth"), "EartH")
+
+// Dice's filter also answers with a night shared between venues - Pitchfork's Dalston Takeover, at
+// "Various Venues: EartH, Shacklewell Arms, ..." - and 13 of the 65 events listed on 2026-11-26 were
+// DJ nights, comedy, talks and a record fair.
+class EarthGigsSource(client: HttpHandler) :
+    GigsSource by DicePartnerVenueGigsSource(
+        client,
+        venueFilter = "EartH",
+        venue = earth,
+        notAGig = { event -> !event.isFiledAsAGig || event.venue != "EartH" },
+        venuesOwnLines = earthsOwnLines,
+    )
+
+// The venue opens each listing on its room and closes it on its access FAQ, its studios and
+// sometimes a levy, each a line of its own around the promoter's copy.
+// Why they are cut: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+private val earthsOwnLines = Regex(
+    """This event will take place in EartH \w+\.|For more information on access at EartH.*|EartH is a social enterprise.*|Ticket price includes a £[\d.]+ venue restoration levy\.?""",
+    RegexOption.IGNORE_CASE,
+)
 
 private fun namedLike(pattern: Regex): (DicePartnerEvent) -> Boolean = { event -> pattern.containsMatchIn(event.name) }

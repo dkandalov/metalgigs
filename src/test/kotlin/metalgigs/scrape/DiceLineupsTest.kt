@@ -115,7 +115,7 @@ class DiceLineupsTest {
         val dice: HttpHandler = { request ->
             asked += request
             Response(OK).body(
-                """{"data":[{"name":"DE STAAT","perm_name":"de-staat","hash":"abc123","date":"2026-11-15T19:00:00Z","timezone":"Europe/London","images":[],""" +
+                """{"data":[{"name":"DE STAAT","venue":"Scala","perm_name":"de-staat","hash":"abc123","date":"2026-11-15T19:00:00Z","timezone":"Europe/London","images":[],""" +
                     """"raw_description":"","status":"on-sale","artists":["De Staat","Personal Trainer"],"type_tags":["music:gig"]}],"links":{}}""",
             )
         }
@@ -142,7 +142,7 @@ class DiceLineupsTest {
         }
         val dice: HttpHandler = {
             Response(OK).body(
-                """{"data":[{"name":"Gong","perm_name":"gong","hash":"abc123","date":"2026-11-28T19:00:00Z","timezone":"Europe/London","images":[],""" +
+                """{"data":[{"name":"Gong","venue":"Scala","perm_name":"gong","hash":"abc123","date":"2026-11-28T19:00:00Z","timezone":"Europe/London","images":[],""" +
                     """"raw_description":"","status":"on-sale","artists":["Gong","Ozric Tentacles"],"type_tags":["music:gig"]}],"links":{}}""",
             )
         }
@@ -164,6 +164,7 @@ class DiceLineupsTest {
     // doors at seven in the evening, so the night Dice stamps in UTC is the night it is in London
     private fun event(name: String, date: String, vararg artists: String) = DicePartnerEvent(
         name = name,
+        venue = "The Dome",
         permName = name.lowercase(),
         hash = "abc123",
         date = "${date}T19:00:00Z",

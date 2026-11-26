@@ -48,6 +48,7 @@ val allVenues: List<Venue> = listOf(
     strongroom,
     shacklewellArms,
     troxy,
+    earth,
 )
 
 // Top-level properties are initialised in the order the file declares them, so this can only follow
