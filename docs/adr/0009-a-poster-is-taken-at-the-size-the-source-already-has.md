@@ -2,7 +2,7 @@
 
 Accepted. Recorded 2026-08-25, describing the poster handling across `scrape/venues`. Amended 2026-09-18: a
 Squarespace venue's poster is the image block in the gig's own copy, its card's thumbnail being the venue's
-featured image rather than the night's artwork. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-15: Nambucca added. Amended 2026-11-25: British Airways ARC added.
+featured image rather than the night's artwork. Amended 2026-11-04: AltTickets replaced DHP (ADR 14). Amended 2026-11-15: Nambucca added. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added.
 
 ## Context
 
@@ -86,6 +86,10 @@ Where a listing has no poster, the source asks the next thing that might:
   fetched for the copy anyway, carries the same picture in its banner at 1000x562 and 768x432, measured on The
   Damned's and Interpol's on 2026-11-25, and the first `source` is the wider. A 450x450 square would survive
   render's square crop whole, but it is only an `og:image`, and on one page of the nine listed that day.
+- **Cart & Horses** lists its calendar (ADR 8) as a date and a heading, with no picture. The event page, fetched
+  for the copy anyway, links the upload itself from `a.hb-single`: 768x1024 on Vulgaris's on 2026-11-26, where the
+  banner beside it is a 730x973 resize and the carousel the source read before gave a 368x368 square crop of
+  it. All 42 pages listed that day carried exactly one such link.
 - **OVO Arena** carries `"ImageURL": false` - not a url, null, or an absent field. Kondor reads a missing and
   a null field as absent, but a boolean where a string belongs fails the whole month's parse rather than the
   one event, so it is read as a node: anything but a string is no poster.

@@ -6,34 +6,38 @@ import org.http4k.core.HttpHandler
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import strikt.api.expectThat
+import strikt.api.expectThrows
 import strikt.assertions.containsExactly
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
 
+// Why the calendar and the endpoint behind its More: docs/adr/0008-a-venue-is-read-from-the-surface-its-own-page-reads-from.md
 // Why the copy is scoped this way: docs/adr/0007-a-description-is-the-gigs-own-copy.md
+// Why the poster is the page's: docs/adr/0009-a-poster-is-taken-at-the-size-the-source-already-has.md
 // Why the date is read this way: docs/adr/0010-a-date-is-read-per-venue-and-a-missing-year-is-inferred.md
 class CartAndHorsesGigsSourceTest {
 
+    // 10 entries on the page and two batches of 20 and 12 behind its More, recorded 2026-11-26
     @Test
-    fun `extracts gig events from news page`() {
+    fun `extracts gig events from the calendar and the batches behind its More`() {
         val events = assertScrapesGigs(
             source = CartAndHorsesGigsSource(cachedClient(), JoinedActs.keptWhole, year = 2026),
-            size = 21,
+            size = 42,
             first = Gig(
-                GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/523846-three-birds-whisper-the-positive-rebellion-tour-uk-2026-psychedelic-skies-borderline/")),
-                GigTitle("THREE BIRDS WHISPER - The Positive Rebellion Tour UK 2026 + PSYCHEDELIC SKIES + BORDERLINE"),
-                GigDate(2026, 8, 8),
-                PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/240726-012017_threebirds-upd.jpg"),
+                GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/569712-motorwrecked-alice-in-chains-uk-darkmoore/")),
+                GigTitle("MOTORWRECKED + ALICE IN CHAINS UK + DARKMOORE"),
+                GigDate(2026, 11, 27),
+                PosterUrl("https://www.useyourlocal.com/imgs/pub_events/default/270126-043912_smelllike.jpg"),
                 GigDescription(""),
                 Lineup.none,
                 status = null,
             ),
             last = Gig(
-                GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/517524-jbm-presents-smells-like-nirvana/")),
-                GigTitle("Jbm presents SMELLS LIKE NIRVANA"),
-                GigDate(2026, 10, 10),
-                PosterUrl("https://www.useyourlocal.com/imgs/pub_events/sr@1x/270126-043912_smelllike.jpg"),
+                GigId(cartAndHorses.id, GigUrl("https://www.cartandhorses.london/news-offers-events/601294-legend-of-valley-doom-live-in-london/")),
+                GigTitle("Legend of Valley Doom – Live in London"),
+                GigDate(2027, 10, 16),
+                PosterUrl("https://www.useyourlocal.com/imgs/pub_events/default/270126-043912_smelllike.jpg"),
                 GigDescription(""),
                 Lineup.none,
                 status = null,
@@ -41,75 +45,61 @@ class CartAndHorsesGigsSourceTest {
         )
 
         expectThat(events.take(3).map { it.date })
-            .containsExactly(GigDate(2026, 8, 8), GigDate(2026, 8, 14), GigDate(2026, 8, 15))
+            .containsExactly(GigDate(2026, 11, 27), GigDate(2026, 11, 28), GigDate(2026, 11, 29))
+        expectThat(events.map { it.id }.toSet().size).isEqualTo(42)
 
         val titles = events.map { it.title.value }
-        listOf("RHABSTALLION", "HELLBENT FOREVER", "DEAD WITCHES", "POSTMORTEM", "LESBIAN BED DEATH")
+        listOf("VULGARIS", "MEGADETH UK", "ATOMIC ROOSTER", "HELLBENT FOREVER", "OTTO JUNIOR")
             .forEach { band -> expectThat(titles.any { it.contains(band) }).isTrue() }
     }
 
     @Test
-    fun `rolls over the year when Cart and Horses gigs cross into January`() {
-        val html = """
-            <div class="news-carousel__item">
-                <img class="news-carousel__image" src="https://example.com/poster.jpg">
-                <a class="news-carousel__link" href="/news-offers-events/1-dec-gig/">DEC GIG</a>
-                <div class="news-carousel__date-wrap">
-                    <div class="news-carousel__month">Dec</div>
-                    <div class="news-carousel__day">20</div>
-                </div>
-            </div>
-            <div class="news-carousel__item">
-                <img class="news-carousel__image" src="https://example.com/poster.jpg">
-                <a class="news-carousel__link" href="/news-offers-events/2-jan-gig/">JAN GIG</a>
-                <div class="news-carousel__date-wrap">
-                    <div class="news-carousel__month">Jan</div>
-                    <div class="news-carousel__day">10</div>
-                </div>
-            </div>
-            <div class="news-carousel__item">
-                <img class="news-carousel__image" src="https://example.com/poster.jpg">
-                <a class="news-carousel__link" href="/news-offers-events/3-feb-gig/">FEB GIG</a>
-                <div class="news-carousel__date-wrap">
-                    <div class="news-carousel__month">Feb</div>
-                    <div class="news-carousel__day">01</div>
-                </div>
-            </div>
-            <!-- the same body answers this source's event-page requests, which now have to yield a
-                 description rather than being allowed to come back empty -->
-            <div class="page_content_inner">Doom night, doors 7pm.</div>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
+    fun `follows the calendar's More from the offset it names, rolling the year over into January`() {
+        val asked = mutableListOf<String>()
+        val client = calendarClient(
+            listing = entry("Dec", "20", "/news-offers-events/1-dec-gig/", "DEC GIG") + moreFrom(offset = 1),
+            batches = mapOf(
+                1 to entry("Jan", "10", "/news-offers-events/2-jan-gig/", "JAN GIG") + entry("Feb", "01", "/news-offers-events/3-feb-gig/", "FEB GIG"),
+            ),
+            asked,
+        )
 
-        val events = CartAndHorsesGigsSource(fakeClient, JoinedActs.keptWhole, year = 2026).latestGigs()
+        val events = CartAndHorsesGigsSource(client, JoinedActs.keptWhole, year = 2026).latestGigs()
 
-        expectThat(events.map { it.date.year }).containsExactly(2026, 2027, 2027)
+        expectThat(events.map { it.title }).containsExactly(GigTitle("DEC GIG"), GigTitle("JAN GIG"), GigTitle("FEB GIG"))
+        expectThat(events.map { it.date }).containsExactly(GigDate(2026, 12, 20), GigDate(2027, 1, 10), GigDate(2027, 2, 1))
+        expectThat(asked.filter { "/next/" in it }).containsExactly(
+            "https://www.cartandhorses.london/news-offers-events/next/events/1/122026/?theme_id=7&option_id=1",
+            "https://www.cartandhorses.london/news-offers-events/next/events/3/122026/?theme_id=7&option_id=1",
+        )
+    }
+
+    // British Lion's six nights, listed on 2026-11-26 under 13 December alone
+    @Test
+    fun `dates a run of nights by its first, leaving when it ends out of the title`() {
+        val client = calendarClient(
+            listing = entry("Dec", "13", "/news-offers-events/1-residency/", """RESIDENCY<br /><small class="until">Until 18th December 2026</small>""") + moreFrom(offset = 1),
+        )
+
+        val events = CartAndHorsesGigsSource(client, JoinedActs.keptWhole, year = 2026).latestGigs()
+
+        expectThat(events.map { it.title to it.date }).containsExactly(GigTitle("RESIDENCY") to GigDate(2026, 12, 13))
     }
 
     @Test
-    fun `dates a multi-day Cart and Horses event by its first day`() {
-        val html = """
-            <div class="news-carousel__item">
-                <img class="news-carousel__image" src="https://example.com/poster.jpg">
-                <a class="news-carousel__link" href="/news-offers-events/1-weekender/">WEEKENDER</a>
-                <div class="news-carousel__date-wrap">
-                    <div class="news-carousel__date">
-                        <div class="news-carousel__month">Sep</div>
-                        <div class="news-carousel__day">26</div>
-                    </div>
-                    <div class="news-carousel__date">
-                        <div class="news-carousel__month">Sep</div>
-                        <div class="news-carousel__day">27</div>
-                    </div>
-                </div>
-            </div>
-            <div class="page_content_inner">Two days of doom.</div>
-        """.trimIndent()
-        val fakeClient: HttpHandler = { Response(OK).body(html) }
+    fun `takes a gig's poster from the upload its own page links`() {
+        val client = calendarClient(listing = entry("Dec", "20", "/news-offers-events/1-dec-gig/", "DEC GIG") + moreFrom(offset = 1))
 
-        val events = CartAndHorsesGigsSource(fakeClient, JoinedActs.keptWhole, year = 2026).latestGigs()
+        val events = CartAndHorsesGigsSource(client, JoinedActs.keptWhole, year = 2026).latestGigs()
 
-        expectThat(events.map { it.date }).containsExactly(GigDate(2026, 9, 26))
+        expectThat(events.map { it.posterUrl }).containsExactly(PosterUrl("https://www.useyourlocal.com/imgs/pub_events/default/poster.jpg"))
+    }
+
+    @Test
+    fun `fails on a calendar with no More under it rather than reading the page as the whole of it`() {
+        val client = calendarClient(listing = entry("Dec", "20", "/news-offers-events/1-dec-gig/", "DEC GIG"))
+
+        expectThrows<IllegalStateException> { CartAndHorsesGigsSource(client, JoinedActs.keptWhole, year = 2026).latestGigs() }
     }
 
     @Test
@@ -133,6 +123,42 @@ class CartAndHorsesGigsSourceTest {
     fun `takes a gig's lineup from a heading that bills its acts`() {
         val gigs = CartAndHorsesGigsSource(cachedClient(), JoinedActs.keptWhole, year = 2026).latestGigs()
 
-        expectThat(gigs.first { it.title == GigTitle("DEAD WITCHES + AMNEZIAK + PYROGARIC") }.lineup).isEqualTo(Lineup(listOf("DEAD WITCHES", "AMNEZIAK", "PYROGARIC")))
+        expectThat(gigs.first { it.title == GigTitle("VULGARIS + THE SLAUGHTERING + AHREMAN + DEATHSCRIPPTED") }.lineup)
+            .isEqualTo(Lineup(listOf("VULGARIS", "THE SLAUGHTERING", "AHREMAN", "DEATHSCRIPPTED")))
     }
+
+    // The listing page, the batches its More asks for by offset - an offset with no batch answering
+    // an empty one, as the site does past the calendar's end - and one event page for every gig.
+    private fun calendarClient(listing: String, batches: Map<Int, String> = emptyMap(), asked: MutableList<String> = mutableListOf()): HttpHandler = { request ->
+        asked += request.uri.toString()
+        val path = request.uri.path
+        Response(OK).body(
+            when {
+                "/next/events/" in path -> batchOf(batches[path.substringAfter("/next/events/").substringBefore('/').toInt()].orEmpty())
+                path == "/news-offers-events/" -> """<body data-theme-id="7"><div class="ajax_append_events">$listing</div></body>"""
+                else -> """
+                    <a class="hb-single" href="https://www.useyourlocal.com/imgs/pub_events/default/poster.jpg"><img src="https://www.useyourlocal.com/imgs/pub_events/730w/poster.jpg"></a>
+                    <div class="page_content_inner">Doom night, doors 7pm.</div>
+                """.trimIndent()
+            }
+        )
+    }
+
+    private fun entry(month: String, day: String, href: String, heading: String) = """
+        <article class="calendar-list">
+            <div class="calendar-list__date-wrap"><div class="calendar-list__date">
+                <div class="calendar-list__month">$month</div>
+                <div class="calendar-list__day">$day</div>
+            </div></div>
+            <h1 class="calendar-list__title"><a href="$href" class="calendar-list__title-text">$heading</a></h1>
+        </article>
+    """.trimIndent()
+
+    private fun moreFrom(offset: Int) =
+        """<div role="button" class="more_bar ajax_more_by_month" data-type="events" data-id="$offset" data-last-date="122026">More ></div>"""
+
+    private fun batchOf(entries: String) =
+        """{"ajax_count":{"events":${Regex("<article").findAll(entries).count()}},"view":${jsonString(entries)}}"""
+
+    private fun jsonString(text: String) = "\"" + text.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n") + "\""
 }

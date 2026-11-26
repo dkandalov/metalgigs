@@ -1,6 +1,6 @@
 # 8. A venue is read from the surface its own page reads from, and paged by the link the page follows
 
-Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added.
+Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added.
 
 ## Context
 
@@ -25,6 +25,7 @@ own script does, and documented beside the url.
 | The Dev | Instagram's profile page itself | the page prefetches its own first screen of posts into a script beside the shell |
 | Bush Hall | `bushhall.seetickets.com/search/all` | the venue's own What's On page is one iframe pointed at that listing and nothing else |
 | British Airways ARC | `/wp-json/dest/v1/events` | the What's On page is an empty `<event-filter-list>` a Vue app fills from the url the page names in `appObj.filter_events_rest_url` |
+| Cart & Horses | `/news-offers-events/next/events/{offset}/{lastDate}/` | the page renders ten calendar entries above a "More" that fetches the rest, and a carousel of 21 above that - which is what was read until 2026-11-26, of a calendar holding 42 |
 
 The credentials these need are the public ones the page ships. Dice's widget config is inline in 229's page,
 naming the partner id and API key; the key is shipped to every browser, and the widget script reads
@@ -83,7 +84,14 @@ page 3, which renders no cards at all, so the walk stops on `data-page` reaching
 on that link being absent. It was read short the same way the Roundhouse was, 24 of 38, and found by the same
 audit - a grid that loads on scroll and renders a listing's worth of cards without being one.
 **The O2** stops on an empty batch, `maxBatches = 20` bounding a bug; `per_page` is in the query the site sends
-but the server ignores it, so the path offset is the only way through. **DHP** cannot stop on an empty answer -
+but the server ignores it, so the path offset is the only way through. **Cart & Horses** stops on an empty
+batch as well, `maxBatches = 20` failing rather than stopping: the offset starts at the More control's
+`data-id` and moves on by what each batch held, 10 then 30 then 42 on 2026-11-26, with its `data-last-date`
+and the body's `data-theme-id` sent as the page's script sends them. That script never updates the date, so
+neither does the source. It also hides More once a batch holds fewer entries than the offset it was asked
+from, which is a stop of the page's own and not one the walk takes. A page with no More control fails, the
+ten entries above it being what a truncated listing looks like. Read short the same way the Roundhouse was,
+by a carousel that renders a listing's worth of cards without being one. **DHP** cannot stop on an empty answer -
 past the end of the guide it keeps answering with empty months - so it stops on the range the page declares:
 The Garage's listing ended 28 Oct 2026 where its guide ran to June 2027. **OVO Arena** costs a request per
 month, so the distance is decided rather than followed; counting empty months would stop early, the listing

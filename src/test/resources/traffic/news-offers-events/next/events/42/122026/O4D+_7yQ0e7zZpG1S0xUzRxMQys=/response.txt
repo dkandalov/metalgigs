@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+cache-control: no-cache, private
+connection: keep-alive
+content-type: application/json
+date: Thu, 26 Nov 2026 19:50:10 GMT
+server: openresty
+transfer-encoding: chunked
+vary: Accept-Encoding
+
+{"ajax_count":{"events":0},"view":"\n"}
