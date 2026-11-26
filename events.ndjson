@@ -12441,3 +12441,8 @@
 {"_type": "classified", "seq": 13569, "venue": "the-lexington", "url": "https://thelexington.co.uk/event.php?id=4034", "recordedAt": "2026-11-26T09:38:35.555785Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 347, "outputTokens": 4}
 {"_type": "classified", "seq": 13570, "venue": "the-lexington", "url": "https://thelexington.co.uk/event.php?id=4028", "recordedAt": "2026-11-26T09:38:35.555785Z", "genre": "Other", "source": "LLM", "llmModel": "claude-haiku-4-5-20251001", "useVision": false, "inputTokens": 344, "outputTokens": 4}
 {"_type": "rendered", "seq": 13571, "file": "2026-11-26T09-38-49Z.html", "gigCount": 288, "logicalDate": "2026-11-26", "recordedAt": "2026-11-26T09:38:49.715139Z"}
+{"_type": "classified", "seq": 13572, "venue": "o2-academy-islington", "url": "https://www.ticketmaster.co.uk/event/3E00653DDACA6A38", "recordedAt": "2026-11-26T19:38:23.334239Z", "genre": "Metal", "source": "User"}
+{"_type": "classified", "seq": 13573, "venue": "eventim-apollo", "url": "https://www.eventimapollo.com/events/bruce-dickinson", "recordedAt": "2026-11-26T19:38:24.588599Z", "genre": "Metal", "source": "User"}
+{"_type": "classified", "seq": 13574, "venue": "scala", "url": "https://scala.co.uk/events/as-everything-unfolds/", "recordedAt": "2026-11-26T19:38:25.818959Z", "genre": "Metal", "source": "User"}
+{"_type": "classified", "seq": 13575, "venue": "black-heart", "url": "https://www.ourblackheart.com/events/2026/11/29/kid-bookie", "recordedAt": "2026-11-26T19:38:26.997031Z", "genre": "Metal", "source": "User"}
+{"_type": "rendered", "seq": 13576, "file": "2026-11-26T19-39-07Z.html", "gigCount": 291, "logicalDate": "2026-11-26", "recordedAt": "2026-11-26T19:39:07.457923Z"}
