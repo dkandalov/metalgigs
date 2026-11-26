@@ -1,0 +1,18 @@
+HTTP/1.1 308 Permanent Redirect
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+cdn-cache-control: private, no-store
+cf-cache-status: BYPASS
+cf-ray: a60baab4ff2f37b6-LHR
+connection: keep-alive
+content-security-policy: frame-ancestors 'none'
+date: Thu, 26 Nov 2026 20:33:12 GMT
+location: https://dice.fm/event/v35yk7-the-home-service-single-release-w-tape-dispenser-west-orange-pavilion-7th-dec-the-shacklewell-arms-london-tickets
+refresh: 0;url=https://dice.fm/event/v35yk7-the-home-service-single-release-w-tape-dispenser-west-orange-pavilion-7th-dec-the-shacklewell-arms-london-tickets
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains
+transfer-encoding: chunked
+x-frame-options: DENY
+x-powered-by: Express
+x-ssr-cache: MISS
+
+https://dice.fm/event/v35yk7-the-home-service-single-release-w-tape-dispenser-west-orange-pavilion-7th-dec-the-shacklewell-arms-london-tickets

@@ -16,7 +16,8 @@ private class DicePartnerVenueGigsSource(
     private val client: HttpHandler,
     private val venueFilter: String,
     override val venue: Venue,
-    private val notAGig: Regex? = null,
+    private val notAGig: (DicePartnerEvent) -> Boolean = { false },
+    private val placeholderCopy: Regex? = null,
     private val skippableGigs: Set<GigUrl> = emptySet(),
 ) : GigsSource {
     override fun latestGigs(): List<Gig> {
@@ -24,7 +25,7 @@ private class DicePartnerVenueGigsSource(
         check(events.isNotEmpty()) { "Dice returned no events for $venueFilter" }
 
         return events
-            .filterNot { event -> notAGig?.containsMatchIn(event.name) == true }
+            .filterNot(notAGig)
             .mapNotNull { event ->
                 val gigUrl = gigUrlFor(event)
                 gigOrSkipped(gigUrl, skippableGigs) {
@@ -48,7 +49,10 @@ private class DicePartnerVenueGigsSource(
 
     // A promoter's copy can arrive pasted from markup with its entities still in it: "UK &amp; Europe"
     // on one of Strongroom's 18 gigs on 2026-11-25, the same in the api's `description`.
-    private fun descriptionOf(event: DicePartnerEvent) = GigDescription(Parser.unescapeEntities(event.rawDescription, false))
+    private fun descriptionOf(event: DicePartnerEvent): GigDescription {
+        val copy = Parser.unescapeEntities(event.rawDescription, false)
+        return GigDescription(if (placeholderCopy?.matches(copy.trim()) == true) "" else copy)
+    }
 
     // Why the redirect target is the gig's url: docs/adr/0005-a-gig-is-identified-by-the-url-it-lives-at.md
     private fun gigUrlFor(event: DicePartnerEvent): GigUrl {
@@ -107,7 +111,7 @@ class SignatureBrewHaggerstonGigsSource(client: HttpHandler) :
 
 // Comedy Incorporated runs a stand-up night rather than a gig, seven of the 45 events this venue
 // listed on 2026-08-29 - five under its name alone and two subtitled "Killer 10s".
-private val comedyIncorporated = Regex("""Comedy Incorporated""", RegexOption.IGNORE_CASE)
+private val comedyIncorporated = namedLike(Regex("""Comedy Incorporated""", RegexOption.IGNORE_CASE))
 
 val signatureBrewBlackhorseRoad = Venue(VenueId("signature-brew-blackhorse-road"), "Signature Brew Blackhorse Road")
 
@@ -150,4 +154,23 @@ class StrongroomGigsSource(client: HttpHandler) :
 
 // The bar's standing nights that aren't gigs, four of the 23 events it listed on 2026-11-19: Kino's
 // film screening twice, the monthly quiz and Fireworks Comedy's stand-up.
-private val strongroomsOtherNights = Regex("""Short Film Open Screen|Quiz Night|Fireworks Comedy""", RegexOption.IGNORE_CASE)
+private val strongroomsOtherNights = namedLike(Regex("""Short Film Open Screen|Quiz Night|Fireworks Comedy""", RegexOption.IGNORE_CASE))
+
+val shacklewellArms = Venue(VenueId("shacklewell-arms"), "The Shacklewell Arms")
+
+// DJ nights are more than half of what it lists, 51 of the 96 events on 2026-11-26 under fifteen
+// names, so they are dropped by how Dice files them rather than by name.
+class ShacklewellArmsGigsSource(client: HttpHandler) :
+    GigsSource by DicePartnerVenueGigsSource(
+        client,
+        venueFilter = "The Shacklewell Arms",
+        venue = shacklewellArms,
+        notAGig = { event -> !event.isFiledAsAGig },
+        placeholderCopy = supportsUnannounced,
+    )
+
+// What the venue writes where a promoter wrote nothing, the whole description of ten of its 45
+// gigs on 2026-11-26 - nine as "Support act(s): tbc" and one as "Support acts(s): tbc".
+private val supportsUnannounced = Regex("""Support acts?\(s\): tbc""", RegexOption.IGNORE_CASE)
+
+private fun namedLike(pattern: Regex): (DicePartnerEvent) -> Boolean = { event -> pattern.containsMatchIn(event.name) }

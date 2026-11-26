@@ -116,7 +116,7 @@ class DiceLineupsTest {
             asked += request
             Response(OK).body(
                 """{"data":[{"name":"DE STAAT","perm_name":"de-staat","hash":"abc123","date":"2026-11-15T19:00:00Z","timezone":"Europe/London","images":[],""" +
-                    """"raw_description":"","status":"on-sale","artists":["De Staat","Personal Trainer"]}],"links":{}}""",
+                    """"raw_description":"","status":"on-sale","artists":["De Staat","Personal Trainer"],"type_tags":["music:gig"]}],"links":{}}""",
             )
         }
 
@@ -143,7 +143,7 @@ class DiceLineupsTest {
         val dice: HttpHandler = {
             Response(OK).body(
                 """{"data":[{"name":"Gong","perm_name":"gong","hash":"abc123","date":"2026-11-28T19:00:00Z","timezone":"Europe/London","images":[],""" +
-                    """"raw_description":"","status":"on-sale","artists":["Gong","Ozric Tentacles"]}],"links":{}}""",
+                    """"raw_description":"","status":"on-sale","artists":["Gong","Ozric Tentacles"],"type_tags":["music:gig"]}],"links":{}}""",
             )
         }
 
@@ -172,5 +172,6 @@ class DiceLineupsTest {
         rawDescription = "",
         status = "on-sale",
         artists = artists.toList(),
+        typeTags = listOf("music:gig"),
     )
 }

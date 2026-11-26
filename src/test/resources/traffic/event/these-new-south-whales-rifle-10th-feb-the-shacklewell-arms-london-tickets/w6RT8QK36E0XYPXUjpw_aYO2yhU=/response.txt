@@ -1,0 +1,18 @@
+HTTP/1.1 308 Permanent Redirect
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+cdn-cache-control: private, no-store
+cf-cache-status: BYPASS
+cf-ray: a60baac34d5837b6-LHR
+connection: keep-alive
+content-security-policy: frame-ancestors 'none'
+date: Thu, 26 Nov 2026 20:33:14 GMT
+location: https://dice.fm/event/7d58pp-these-new-south-whales-rifle-10th-feb-the-shacklewell-arms-london-tickets
+refresh: 0;url=https://dice.fm/event/7d58pp-these-new-south-whales-rifle-10th-feb-the-shacklewell-arms-london-tickets
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains
+transfer-encoding: chunked
+x-frame-options: DENY
+x-powered-by: Express
+x-ssr-cache: MISS
+
+https://dice.fm/event/7d58pp-these-new-south-whales-rifle-10th-feb-the-shacklewell-arms-london-tickets

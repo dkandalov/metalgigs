@@ -259,4 +259,36 @@ class DicePartnerVenueGigsSourceTest {
         // the api hands this one's copy over as the promoter pasted it, "UK &amp; Europe"
         expectThat(gigs.single { it.title == GigTitle("Sunday,June") }.description.value).contains("followed by a UK & Europe tour")
     }
+
+    @Test
+    fun `extracts gig events from The Shacklewell Arms' listing`() {
+        val gigs = assertScrapesGigs(
+            source = ShacklewellArmsGigsSource(cachedClient(followRedirects = false)),
+            size = 45,
+            first = Gig(
+                GigId(shacklewellArms.id, GigUrl("https://dice.fm/event/lqavnw-fatberg-ep-launch-rampressure-gegenpress-26th-nov-the-shacklewell-arms-london-tickets")),
+                GigTitle("Fatberg (EP Launch) + Rampressure + Gegenpress"),
+                GigDate(2026, 11, 26),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-11-06/7c0cf318-2e2a-423f-b0b0-6b8ca33a0cde.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+            last = Gig(
+                GigId(shacklewellArms.id, GigUrl("https://dice.fm/event/dkybge-der-assistent-30th-apr-the-shacklewell-arms-london-tickets")),
+                GigTitle("Der Assistent"),
+                GigDate(2027, 4, 30),
+                PosterUrl("https://dice-media.imgix.net/attachments/2026-10-05/13476efd-acb7-4ff6-b3f6-75a5ef76792d.jpg"),
+                GigDescription(""),
+                Lineup.none,
+                status = null,
+            ),
+        )
+
+        // the venue lists more DJ nights than gigs, 51 of the 96 events in this listing
+        expectThat(gigs.none { it.title.value.contains(Regex("Nü Wavved|Algorithm Of The Night|Scared To Dance")) }).isTrue()
+
+        // "Support act(s): tbc" is all this one's description says, as it is of nine more
+        expectThat(gigs.single { it.title == GigTitle("Brama") }.description).isEqualTo(GigDescription(""))
+    }
 }

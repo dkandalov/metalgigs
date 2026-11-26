@@ -1,0 +1,18 @@
+HTTP/1.1 308 Permanent Redirect
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+cdn-cache-control: private, no-store
+cf-cache-status: BYPASS
+cf-ray: a60baaae8c1837b6-LHR
+connection: keep-alive
+content-security-policy: frame-ancestors 'none'
+date: Thu, 26 Nov 2026 20:33:11 GMT
+location: https://dice.fm/event/wwnoeg-bad-vibes-november-all-dayer-my-precious-bunny-lindow-man-scouts-sugar-tax-limes-world-28th-nov-the-shacklewell-arms-london-tickets
+refresh: 0;url=https://dice.fm/event/wwnoeg-bad-vibes-november-all-dayer-my-precious-bunny-lindow-man-scouts-sugar-tax-limes-world-28th-nov-the-shacklewell-arms-london-tickets
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains
+transfer-encoding: chunked
+x-frame-options: DENY
+x-powered-by: Express
+x-ssr-cache: MISS
+
+https://dice.fm/event/wwnoeg-bad-vibes-november-all-dayer-my-precious-bunny-lindow-man-scouts-sugar-tax-limes-world-28th-nov-the-shacklewell-arms-london-tickets

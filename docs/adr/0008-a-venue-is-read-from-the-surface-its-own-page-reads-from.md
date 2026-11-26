@@ -1,6 +1,6 @@
 # 8. A venue is read from the surface its own page reads from, and paged by the link the page follows
 
-Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added.
+Accepted. Recorded 2026-08-25, describing the listing sources under `scrape/venues`. Amended 2026-11-04: AltTickets replaced DHP (ADR 14); what this says of DHP's paging describes the retired source. Amended 2026-11-25: British Airways ARC added. Amended 2026-11-26: Cart & Horses added. Amended 2026-11-26: The Shacklewell Arms added to Dice's venues.
 
 ## Context
 
@@ -30,7 +30,7 @@ own script does, and documented beside the url.
 The credentials these need are the public ones the page ships. Dice's widget config is inline in 229's page,
 naming the partner id and API key; the key is shipped to every browser, and the widget script reads
 `RUNTIME_API_URL`, appends `/api/v2/events` and sends it as `x-api-key`. It is not scoped to 229 - the same
-key answers for any venue in the filter, which is what lets eight venues share it. DHP's guide parameters are
+key answers for any venue in the filter, which is what lets nine venues share it. DHP's guide parameters are
 read off the listing page, which carries them however far the walk has gone.
 
 Instagram is the exception, having closed on 2026-09-02: `api/v1/users/web_profile_info`, which the page's
@@ -98,7 +98,7 @@ month, so the distance is decided rather than followed; counting empty months wo
 read on 2026-08-17 having nothing in January 2027 and three gigs in each of February and March, so eighteen
 covers the year the page can show. **New Cross Inn** follows the site's own list of which months have anything
 rather than counting forward, deduping the opening month before the map so no event page is fetched twice.
-**Dice** already returns every listing in one request at `page[size]=200` - the largest, 229's, is 77 events -
+**Dice** already returns every listing in one request at `page[size]=200` - the largest, The Shacklewell Arms', is 96 events -
 but that is a fact about today's listings, so it still follows `links.next`. **AMG** and **Eventim Apollo**
 need no paging: `PageSize=500` is above what any venue lists, and Eventim Apollo's month bar filters what is
 already there. **Bush Hall** needs none either and is checked rather than walked: See Tickets serves the whole
@@ -127,7 +127,7 @@ API say so: both Dice and AMG check the response held events.
 These are undocumented surfaces that can change or close without notice, and Instagram is the first to have
 done it: a surface that was public in August was gone in September. What that cost was a reading rather than a
 venue - the page was still serving the listing the whole time, to anyone whose request looked like a browser
-opening it. The Dice key is the sharpest version still outstanding: shared across eight venues, so scoping or
+opening it. The Dice key is the sharpest version still outstanding: shared across nine venues, so scoping or
 rotating it stops all eight at once. The Dev's new reading is fragile in its own way: it rests on Instagram
 prefetching the timeline into the page at all, which is an optimisation rather than a promise. Where a source
 reads an API it reads what the site's own front end reads, so a field disappearing breaks the site's page too.

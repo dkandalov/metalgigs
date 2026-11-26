@@ -55,6 +55,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
     private val raw_description by str(DicePartnerEvent::rawDescription)
     private val status by str(DicePartnerEvent::status)
     private val artists by array(DicePartnerEvent::artists)
+    private val type_tags by array(DicePartnerEvent::typeTags)
 
     override fun JsonNodeObject.deserializeOrThrow() = DicePartnerEvent(
         name = +name,
@@ -66,6 +67,7 @@ private object JDicePartnerEvent : JAny<DicePartnerEvent>() {
         rawDescription = +raw_description,
         status = +status,
         artists = +artists,
+        typeTags = +type_tags,
     )
 }
 
@@ -89,7 +91,12 @@ internal data class DicePartnerEvent(
     val rawDescription: String,
     val status: String,
     val artists: List<String>,
+    val typeTags: List<String>,
 ) {
+    // Dice files each event under the kind of night it is: every one of the 96 The Shacklewell Arms
+    // listed on 2026-11-26 carried exactly one of `music:gig`, `music:dj` and `music:party`.
+    val isFiledAsAGig: Boolean get() = "music:gig" in typeTags
+
     // The date is stamped in UTC however late the gig is - "2026-08-18T17:00:00Z" - so a door after
     // midnight in London is a day early until it's read back in the venue's own zone.
     val startsOn: GigDate get() = GigDate(Instant.parse(date).atZone(ZoneId.of(timezone)).toLocalDate())
