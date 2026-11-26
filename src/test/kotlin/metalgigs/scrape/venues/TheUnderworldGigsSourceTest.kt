@@ -3,6 +3,8 @@ package metalgigs.scrape.venues
 import metalgigs.*
 import metalgigs.scrape.*
 import strikt.api.expectThat
+import strikt.assertions.contains
+import strikt.assertions.doesNotContain
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import kotlin.test.Test
@@ -16,7 +18,7 @@ class TheUnderworldGigsSourceTest {
     fun `extracts gig events from The Underworld search-events page`() {
         val events = assertScrapesGigs(
             source = TheUnderworldGigsSource(cachedClient()),
-            size = 74,
+            size = 84,
             first = Gig(
                 GigId(theUnderworld.id, GigUrl("https://www.theunderworldcamden.co.uk/event/the-partisans-8th-aug-the-underworld-london-tickets/")),
                 GigTitle("THE PARTISANS"),
@@ -40,7 +42,12 @@ class TheUnderworldGigsSourceTest {
         // the listing asks imgix for w=200 thumbnails; keeping that would publish 200px images for
         // this venue and nothing downstream could recover the detail, so no image url keeps a width
         expectThat(events.count { it.posterUrl.value.contains("w=") }).isEqualTo(0)
-        expectThat(events.count { it.posterUrl.value.contains("imgix.net") }).isEqualTo(73)
+        expectThat(events.count { it.posterUrl.value.contains("imgix.net") }).isEqualTo(83)
+
+        // the recorded listing files 74 events under Gigs, 23 under Club Nights and 10 under no tab
+        val urls = events.map { it.id.url }
+        expectThat(urls).contains(GigUrl("https://www.theunderworldcamden.co.uk/event/lawnmower-deth-5th-dec-the-underworld-london-tickets/"))
+        expectThat(urls).doesNotContain(GigUrl("https://www.theunderworldcamden.co.uk/event/blackout-club-14th-aug-the-underworld-london-tickets/"))
     }
 
     @Test

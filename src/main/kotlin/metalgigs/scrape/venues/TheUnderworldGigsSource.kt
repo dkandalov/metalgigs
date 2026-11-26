@@ -5,16 +5,22 @@ import metalgigs.scrape.*
 import org.http4k.core.HttpHandler
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 
 val theUnderworld = Venue(VenueId("underworld"), "The Underworld")
 
 class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
     override val venue = theUnderworld
-    override fun latestGigs(): List<Gig> =
-        Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
-            .select("#gigs article.list")
+    override fun latestGigs(): List<Gig> {
+        val listing = Jsoup.parse(fetchPage(client, url, listOf("User-Agent" to browserUserAgent)), url)
+        val filedElsewhere = listing.select("#club-nights article.list, #culture article.list").map { it.eventUrl() }.toSet()
+
+        // The Gigs tab leaves gigs out: 19 of the 79 events All listed on 2026-11-26 were under no
+        // tab, Lawnmower Deth among them. So a gig is anything All lists that no other tab claims.
+        return listing.select("#all article.list")
+            .filterNot { it.eventUrl() in filedElsewhere }
             .map { item ->
-                val gigUrl = gigUrlFrom(item.select(".list-header-title a").attr("abs:href"), "https://www.theunderworldcamden.co.uk/event/")
+                val gigUrl = gigUrlFrom(item.eventUrl(), "https://www.theunderworldcamden.co.uk/event/")
                 val listedAs = GigTitle(item.select(".list-header-title").text())
                 val eventPage = Jsoup.parse(fetchPage(client, gigUrl.value), gigUrl.value)
                 Gig(
@@ -27,6 +33,9 @@ class TheUnderworldGigsSource(private val client: HttpHandler) : GigsSource {
                     status = null,
                 )
             }
+    }
+
+    private fun Element.eventUrl() = select(".list-header-title a").attr("abs:href")
 
     private val url = "https://www.theunderworldcamden.co.uk/search-events/"
 
